@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2014 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name>peppol-practical</display-name>
+  <description>peppol.helger.com</description>
+  
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+  
+  <!-- The welcome file is only required for the initial redirect -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- In case of page not found - goto error page
+       This is relative to the web application context.
+   -->
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error404.jsp</location>
+  </error-page>
+  
+  <!-- common stuff -->
+  
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>com.helger.webbasics.servlet.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <servlet>
+    <servlet-name>SecureApplicationActionServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.action.servlet.SecureApplicationActionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SecureApplicationActionServlet</servlet-name>
+    <url-pattern>/secureaction/*</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>PublicApplicationActionServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.action.servlet.PublicApplicationActionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PublicApplicationActionServlet</servlet-name>
+    <url-pattern>/publicaction/*</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>SecureApplicationAjaxServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.ajax.servlet.SecureApplicationAjaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SecureApplicationAjaxServlet</servlet-name>
+    <url-pattern>/secureajax/*</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>PublicApplicationAjaxServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.ajax.servlet.PublicApplicationAjaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PublicApplicationAjaxServlet</servlet-name>
+    <url-pattern>/publicajax/*</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>StreamServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.servlet.StreamServlet</servlet-class>
+    <init-param>
+      <param-name>allowedExtensions</param-name>
+      <param-value>js,css,png,jpg,jpeg,gif,eot,svg,ttf,woff,map</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StreamServlet</servlet-name>
+    <url-pattern>/stream/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>UserStreamServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.servlet.UserStreamServlet</servlet-class>
+    <init-param>
+      <param-name>allowedExtensions</param-name>
+      <param-value>js,css,png,jpg,jpeg,gif,eot,svg,ttf,woff</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserStreamServlet</servlet-name>
+    <url-pattern>/user/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>UserUploadServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.servlet.UserUploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserUploadServlet</servlet-name>
+    <url-pattern>/userUpload/*</url-pattern>
+  </servlet-mapping>  
+
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.servlet.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Application specific stuff -->  
+
+  <listener>
+    <listener-class>com.helger.peppol.servlet.AppWebAppListener</listener-class>
+  </listener>
+  
+  <filter>
+    <filter-name>SecureLoginFilter</filter-name>
+    <filter-class>com.helger.peppol.servlet.SecureLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SecureLoginFilter</filter-name>
+    <url-pattern>/secure/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SecureLoginFilter</filter-name>
+    <url-pattern>/secureajax/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SecureLoginFilter</filter-name>
+    <url-pattern>/secureaction/*</url-pattern>
+  </filter-mapping>
+  
+  <servlet>
+    <servlet-name>SecureApplicationServlet</servlet-name>
+    <servlet-class>com.helger.peppol.servlet.SecureApplicationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SecureApplicationServlet</servlet-name>
+    <url-pattern>/secure/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PublicApplicationServlet</servlet-name>
+    <servlet-class>com.helger.peppol.servlet.PublicApplicationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PublicApplicationServlet</servlet-name>
+    <url-pattern>/public/*</url-pattern>
+  </servlet-mapping>
+</web-app>
