@@ -27,7 +27,7 @@ import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 /**
- * Ajax executor to get the update content the config application's menu.
+ * Ajax executor to get the update content the secure application's menu.
  *
  * @author Philip Helger
  */

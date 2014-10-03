@@ -27,7 +27,7 @@ import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 /**
- * Ajax executor to get the update content the view application's menu.
+ * Ajax executor to get the update content the public application's menu.
  *
  * @author Philip Helger
  */

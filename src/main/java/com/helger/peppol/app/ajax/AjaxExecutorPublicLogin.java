@@ -40,7 +40,7 @@ import com.helger.webbasics.login.CLogin;
 import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 /**
- * Ajax executor to login a user from view application.
+ * Ajax executor to login a user from public application.
  *
  * @author Philip Helger
  */
@@ -77,6 +77,7 @@ public final class AjaxExecutorPublicLogin extends AbstractAjaxExecutor
     // Set as result property
     return AjaxDefaultResponse.createSuccess (aRequestScope,
                                               new JsonObject ().add (JSON_LOGGEDIN, false)
-                                                               .add (JSON_HTML, HCSettings.getAsHTMLString (aRoot)));
+                                                               .add (JSON_HTML,
+                                                                     HCSettings.getAsHTMLStringWithoutNamespaces (aRoot)));
   }
 }

@@ -22,9 +22,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.appbasics.app.menu.IMenuTree;
 import com.helger.appbasics.app.menu.filter.MenuItemFilterNotLoggedIn;
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.peppol.page.AppPageViewExternal;
 import com.helger.peppol.page.pub.PagePublicLogin;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webpages.PageViewExternal;
 
 @Immutable
 public final class MenuPublic
@@ -35,14 +34,17 @@ public final class MenuPublic
   public static void init (@Nonnull final IMenuTree aMenuTree)
   {
     // Common stuff
-    aMenuTree.createRootItem (new PageViewExternal <WebPageExecutionContext> (CMenuPublic.MENU_INDEX,
-                                                                              "Index",
-                                                                              new ClassPathResource ("viewpages/en/index.xml")));
+    aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_INDEX,
+                                                       "Index",
+                                                       new ClassPathResource ("viewpages/en/index.xml")));
 
-    // Not logged in
-    aMenuTree.createRootSeparator ().setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
-    aMenuTree.createRootItem (new PagePublicLogin (CMenuPublic.MENU_LOGIN))
-             .setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
+    if (false)
+    {
+      // Not logged in
+      aMenuTree.createRootSeparator ().setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
+      aMenuTree.createRootItem (new PagePublicLogin (CMenuPublic.MENU_LOGIN))
+               .setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
+    }
 
     // Set default
     aMenuTree.setDefaultMenuItemID (CMenuPublic.MENU_INDEX);

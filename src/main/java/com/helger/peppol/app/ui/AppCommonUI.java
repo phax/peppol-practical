@@ -31,6 +31,7 @@ import com.helger.bootstrap3.styler.BootstrapWebPageStyler;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.idfactory.GlobalIDFactory;
 import com.helger.css.property.CCSSProperties;
+import com.helger.html.EHTMLVersion;
 import com.helger.html.hc.IHCTable;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
@@ -41,6 +42,7 @@ import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.peppol.app.action.CActionPublic;
 import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.webbasics.EWebBasicsText;
+import com.helger.webbasics.app.html.WebHTMLCreator;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.page.IWebPageExecutionContext;
 import com.helger.webbasics.login.CLogin;
@@ -84,6 +86,8 @@ public final class AppCommonUI
         return ret;
       }
     });
+
+    WebHTMLCreator.setHTMLVersion (EHTMLVersion.HTML5);
   }
 
   @Nonnull
