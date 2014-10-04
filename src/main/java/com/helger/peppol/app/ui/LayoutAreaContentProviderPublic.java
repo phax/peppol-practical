@@ -73,6 +73,7 @@ import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.page.IWebPage;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.servlet.LogoutServlet;
+import com.helger.webctrls.google.HCUniversalAnalytics;
 import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 /**
@@ -224,6 +225,10 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     aPageContainer.addChild (aWPEC.getNodeList ());
     // Add all meta elements
     aHead.getMetaElementList ().addMetaElements (aDisplayPage.getMetaElements ());
+
+    // Add Google Analytics
+    aPageContainer.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false));
+
     return aPageContainer;
   }
 
