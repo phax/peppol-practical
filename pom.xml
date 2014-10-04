@@ -310,7 +310,6 @@
         <artifactId>jaxws-maven-plugin</artifactId>
         <version>2.3</version>
         <executions>
-          <!-- Use one execution per WSDL file, as the wsdlLocation can specify only one file at a time. The wsdlLocation is the location how the WSDL file will be referenced in the code (using class.getResource). Also important: use a different stale file for each WSDL file! Also important: path must be "/WEB-INF/wsdl" because this is how the deployment descriptor needs it. It must be absolute because class.getResource is used and we therefore need an asbolute path! -->
           <execution>
             <id>wsimport1</id>
             <goals>
@@ -319,18 +318,15 @@
             <configuration>
               <packageName>com.helger.peppol.wsclient</packageName>
               <wsdlUrls>
-                <wsdlUrl>http://localhost:8080/wsdocumentvalidation?wsdl</wsdlUrl>  
+                <wsdlUrl>http://peppol.helger.com/wsdocumentvalidation?wsdl</wsdlUrl>  
               </wsdlUrls>
             </configuration>
           </execution>
         </executions>
         <configuration>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
-          <!-- We need to use the same output directory as the JAXB call, because both wsimport and JAXB are creating code for the Identifiers-x.y.xsd file! -->
-          <sourceDestDir>target/generated-sources/xjc</sourceDestDir>
           <xjcArgs>
             <xjcArg>-no-header</xjcArg>
-            <!-- <xjcArg>-extension</xjcArg> <xjcArg>-episode</xjcArg> -->
             <xjcArg>-Xph-default-locale</xjcArg>
             <xjcArg>en_US</xjcArg>
             <xjcArg>-Xph-annotate</xjcArg>
