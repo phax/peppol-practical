@@ -177,4 +177,18 @@
     <servlet-name>PublicApplicationServlet</servlet-name>
     <url-pattern>/public/*</url-pattern>
   </servlet-mapping>
+
+  <!-- Web Service stuff -->
+  <listener>
+    <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>WSServlet</servlet-name>
+    <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WSServlet</servlet-name>
+    <url-pattern>/wsdocumentvalidation</url-pattern>
+  </servlet-mapping>
 </web-app>
