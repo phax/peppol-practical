@@ -19,23 +19,45 @@ package com.helger.peppol.page;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
 import com.helger.commons.io.IReadableResource;
+import com.helger.commons.microdom.IMicroComment;
 import com.helger.commons.microdom.IMicroContainer;
+import com.helger.commons.microdom.IMicroNode;
+import com.helger.commons.microdom.utils.MicroWalker;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webpages.PageViewExternal;
 
 public class AppPageViewExternal extends PageViewExternal <WebPageExecutionContext>
 {
+  private static final class StripComments extends DefaultHierarchyWalkerCallback <IMicroNode>
+  {
+    @Override
+    public void onItemBeforeChildren (final IMicroNode aItem)
+    {
+      if (aItem instanceof IMicroComment)
+      {
+        final IMicroComment e = (IMicroComment) aItem;
+        e.getParent ().removeChild (e);
+      }
+    }
+  }
+
   public AppPageViewExternal (@Nonnull @Nonempty final String sID,
                               @Nonnull final String sName,
                               @Nonnull final IReadableResource aResource)
   {
     super (sID, sName, aResource);
+    // Do additional cleansing since the overloaded method is not called in the
+    // ctor!
+    MicroWalker.walkNode (m_aParsedContent, new StripComments ());
   }
 
   @Override
   protected void afterPageRead (@Nonnull final IMicroContainer aCont)
   {
     super.afterPageRead (aCont);
+    // Do additional cleansing
+    MicroWalker.walkNode (aCont, new StripComments ());
   }
 }
