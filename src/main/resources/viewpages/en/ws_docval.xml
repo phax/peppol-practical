@@ -1,0 +1,225 @@
+<!--
+
+    Copyright (C) 2014 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<p>
+This site offers a WebService to automatically validate your PEPPOL documents.
+</p>
+<p>
+The WSDL file can be found at <a class="external_href" href="http://peppol.helger.com/wsdocumentvalidation?wsdl">http://peppol.helger.com/wsdocumentvalidation?wsdl</a>
+</p>
+
+<!--
+<p>
+A very small Java WS client is available for 
+<a class="file_href" href="File/Validation/peppol-ws-test-client.zip">download</a>. 
+<a class="external_href" target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0.html">Licensed under the Apache Software License 2.0</a>
+</p>
+-->
+
+<h2>Usage</h2>
+<p>This service is currently provided free of charge. If you want to setup your own service for production usage don't hesitate to contact me at philip[at]helger[dot]com for support.</p>
+
+<h2>Input parameters</h2>
+<p>It offers one method called "executeValidationPyramid" that takes the following arguments:</p>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Usage</th>
+      <th>Notes</th>
+    </tr>
+    <tr>
+      <td>SyntaxBindung</td>
+      <td>enumeration</td>
+      <td>required</td>
+      <td>Only "UBL" is supported</td>
+    </tr>
+    <tr>
+      <td>DocumentType</td>
+      <td>enumeration</td>
+      <td>required</td>
+      <td>
+        <p>Should be one of "CATALOGUE", "ORDER", "ORDERRESPONSE", "CREDITNOTE" or "INVOICE".</p>
+        <p>At the moment no rules for "TENDERING_CATALOGUE" are present.</p>
+      </td>
+    </tr>
+    <tr>
+      <td>Transaction</td>
+      <td>enumeration</td>
+      <td>required</td>
+      <td>Depending on the DocumentType parameter, different values are allowed:<br />
+        <ul>
+          <li>For "CATALOGUE" use "T19"</li>
+          <li>For "ORDER" use "T01"</li>
+          <li>For "ORDERRESPONSE" use "T02" or "T03"</li>
+          <li>For "CREDITNOTE" use "T14"</li>
+          <li>For "INVOICE" use "T10", "T15" or "T17"</li>
+        </ul>
+        <p>The available enumeration of transactions is based on the overall transaction list of the CEN/BII workshop. The other available transactions are currently not in scope of PEPPOL or no validation rules are present.</p>
+      </td>
+    </tr>
+    <tr>
+      <td>Country</td>
+      <td>string</td>
+      <td>optional</td>
+      <td>
+        <p>This specifies the country who's national rules should be applied. It must be stated in the format ISO-3166 ALPHA 2.</p>
+        <p>At the moment national rules are available for the following countries:</p>
+        <ul>
+          <li>"AT" - Austria</li>
+          <li>"DK" - Denmark</li>
+          <li>"IT" - Italy</li>
+          <li>"NO" - Norway</li>
+        </ul>
+        <p>Passing in any other valid country code will do no harm but has no additional effect.</p>
+        <p>Not passing a country code has the effect, that</p>
+      </td>
+    </tr>
+    <tr>
+      <td>IndustrySpecificRules</td>
+      <td>boolean</td>
+      <td>required</td>
+      <td>
+        <p>Indicates whether the industry specific validation rules should be applied or not. Industry specific rules can also be rules that are specific for a government.</p>
+        <p>Industry specific rules are only available if national rules are available. Passing "true" but no country code means, that no industry specific rules are applied.</p>
+      </td>
+    </tr>
+    <tr>
+      <td>Document</td>
+      <td>string</td>
+      <td>required</td>
+      <td>This is the main XML document to be validated. For simplicity it must be provided as an inline string.</td>
+    </tr>
+    <tr>
+      <td>DisplayLocale</td>
+      <td>string</td>
+      <td>optional</td>
+      <td>
+        <p>This parameter determines the language in which error codes are returned. The following languages are supported:</p>
+        <ul>
+          <li>"de" - German</li>
+          <li>"en" - English</li>
+        </ul>
+        <p>If this parameter is not provided "en" is used as the default value.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return value</h2>
+<p>The response of calling this service is a complex structure with the following items:</p>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Usage</th>
+      <th>Notes</th>
+    </tr>
+    <tr>
+      <td>ReturnCode</td>
+      <td>string</td>
+      <td>required</td>
+      <td>Determines the overall return code. Only if the value is "NO_ERROR" that the remaining parts of the result are defined. Any value different from "NO_ERROR" indicates an error in the input parameters!</td>
+    </tr>
+    <tr>
+      <td>ValidationInterrupted</td>
+      <td>boolean</td>
+      <td>optional</td>
+      <td>
+        <p>In case the passed UBL document does not match the UBL XML schema, validation is "interrupted" and the remaining Schematron checks are not performed.</p>
+        <p>If this field is "true" than the Schematron checks where not executed!</p>
+      </td>
+    </tr>
+    <tr>
+      <td>MostSevereErrorLevel</td>
+      <td>enumeration</td>
+      <td>optional</td>
+      <td>This field indicates the most severe error that occurred in validation. This field has the sole purpose to easily identify whether a document was totally valid (value "SUCCESS"), whether some warnings but no errors occurred (value "WARN") or whether at least one error occurred (value "ERROR" or "FATAL_ERROR").</td>
+    </tr>
+    <tr>
+      <td>Items</td>
+      <td>list</td>
+      <td>optional</td>
+      <td>
+        <p>This field is a container for the detailed validation issues. For each warning or error a separate item is created. The order of the list is the order in which validation took place.</p>
+        <p>If the list may be empty if the MostSevereErrorLevel is "SUCCESS".</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each Item in the "Items" list has the following semantics:</p>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Usage</th>
+      <th>Notes</th>
+    </tr>
+    <tr>
+      <td>ValidationLevel</td>
+      <td>enumeration</td>
+      <td>required</td>
+      <td>The validation level in which this error occurred.</td>
+    </tr>
+    <tr>
+      <td>ValidationType</td>
+      <td>enumeration</td>
+      <td>required</td>
+      <td>
+        <p>The type of validation applied. Currently supported types are:</p>
+        <ul>
+          <li>"XSD" - XML Schema validation</li>
+          <li>"SCHEMATRON" - <a class="external_href" target="_blank" href="http://www.schematron.com/">Schematron</a> validation</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>ErrorLevel</td>
+      <td>enumeration</td>
+      <td>required</td>
+      <td>The error level of this item. See description on "MostSevereErrorLevel" above</td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>string</td>
+      <td>required</td>
+      <td>Provides a pseudo location where the error occurred. The layout depends on the "ValidationType" parameter.</td>
+    </tr>
+    <tr>
+      <td>SVRLTest</td>
+      <td>string</td>
+      <td>optional</td>
+      <td>In case the ValidationType parameter is "SCHEMATRON" this parameter contains the value of the SVRL "test" attribute showing what was tested.</td>
+    </tr>
+    <tr>
+      <td>ErrorText</td>
+      <td>string</td>
+      <td>required</td>
+      <td>The human readable error text. If possible the text is in the display locale provided by the respective input parameter.</td>
+    </tr>
+    <tr>
+      <td>ExceptionMessage</td>
+      <td>string</td>
+      <td>optional</td>
+      <td>In case an unexpected error occurred in validation, this field contains the respective message. This field is only present for error tracing and should not be presented to the user.</td>
+    </tr>
+  </tbody>
+</table>

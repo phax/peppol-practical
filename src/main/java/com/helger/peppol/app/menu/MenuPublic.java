@@ -37,6 +37,9 @@ public final class MenuPublic
     aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_INDEX,
                                                        "Index",
                                                        new ClassPathResource ("viewpages/en/index.xml")));
+    aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS,
+                                                       "PEPPOL document validation WebService",
+                                                       new ClassPathResource ("viewpages/en/ws_docval.xml")));
 
     if (false)
     {

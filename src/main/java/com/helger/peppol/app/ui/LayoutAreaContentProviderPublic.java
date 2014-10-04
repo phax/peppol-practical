@@ -118,16 +118,20 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     }
     else
     {
-      final BootstrapNav aNav = new BootstrapNav ();
-      final BootstrapDropdownMenu aDropDown = aNav.addDropdownMenu ("Login");
+      // Don't show login in Navbar
+      if (false)
       {
-        // 300px would lead to a messy layout - so 250px is fine
-        final HCDiv aDiv = new HCDiv ().addStyle (CCSSProperties.PADDING.newValue ("10px"))
-                                       .addStyle (CCSSProperties.WIDTH.newValue ("250px"));
-        aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false).addClass (CBootstrapCSS.NAVBAR_FORM));
-        aDropDown.addItem (aDiv);
+        final BootstrapNav aNav = new BootstrapNav ();
+        final BootstrapDropdownMenu aDropDown = aNav.addDropdownMenu ("Login");
+        {
+          // 300px would lead to a messy layout - so 250px is fine
+          final HCDiv aDiv = new HCDiv ().addStyle (CCSSProperties.PADDING.newValue ("10px"))
+                                         .addStyle (CCSSProperties.WIDTH.newValue ("250px"));
+          aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false).addClass (CBootstrapCSS.NAVBAR_FORM));
+          aDropDown.addItem (aDiv);
+        }
+        aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_LEFT, aNav);
       }
-      aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_LEFT, aNav);
     }
   }
 
@@ -260,7 +264,11 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     {
       final HCDiv aDiv = new HCDiv ().addClass (CBootstrapCSS.CONTAINER).setID (CLayout.LAYOUT_AREAID_FOOTER);
 
-      aDiv.addChild (new HCP ().addChild ("PEPPOL practical - created by Philip Helger - Twitter: @philiphelger"));
+      aDiv.addChild (new HCP ().addChild ("PEPPOL practical - created by Philip Helger")
+                               .addChild (" - GitHub: ")
+                               .addChild (new HCA ("https://github.com/phax").addChild ("phax"))
+                               .addChild (" - Twitter: ")
+                               .addChild (new HCA ("https://twitter.com/philiphelger").addChild ("@philiphelger")));
 
       final BootstrapMenuItemRendererHorz aRenderer = new BootstrapMenuItemRendererHorz (aDisplayLocale);
       final HCUL aUL = aDiv.addAndReturnChild (new HCUL ().addClass (CSS_CLASS_FOOTER_LINKS));
