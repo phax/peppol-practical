@@ -129,6 +129,11 @@
       <version>1.6.0</version>
     </dependency>
     <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-tinymce4</artifactId>
+      <version>0.3.3</version>
+    </dependency>
+    <dependency>
       <groupId>eu.europa.ec.cipa</groupId>
       <artifactId>cipa-validation-rules</artifactId>
       <version>2.2.0</version>
