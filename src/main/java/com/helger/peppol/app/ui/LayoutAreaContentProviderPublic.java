@@ -46,7 +46,6 @@ import com.helger.bootstrap3.navbar.BootstrapNavbar;
 import com.helger.bootstrap3.navbar.EBootstrapNavbarPosition;
 import com.helger.bootstrap3.navbar.EBootstrapNavbarType;
 import com.helger.bootstrap3.pageheader.BootstrapPageHeader;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.css.property.CCSSProperties;
@@ -90,13 +89,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
   public LayoutAreaContentProviderPublic ()
   {
     m_aFooterObjects = new ArrayList <IMenuObject> ();
-    ApplicationMenuTree.getTree ().iterateAllMenuObjects (new INonThrowingRunnableWithParameter <IMenuObject> ()
-    {
-      public void run (@Nonnull final IMenuObject aCurrentObject)
-      {
-        if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER))
-          m_aFooterObjects.add (aCurrentObject);
-      }
+    ApplicationMenuTree.getTree ().iterateAllMenuObjects ( (aCurrentObject) -> {
+      if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER))
+        m_aFooterObjects.add (aCurrentObject);
     });
   }
 
