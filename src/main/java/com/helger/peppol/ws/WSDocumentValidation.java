@@ -38,7 +38,7 @@ import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.impl.TextProvider;
 import com.helger.commons.xml.serialize.DOMReader;
-import com.helger.peppol.model.ValidationPyramidHelper;
+import com.helger.peppol.validation.domain.ValidationPyramidHelper;
 import com.helger.peppol.ws.types.EValidationServiceReturnCode;
 import com.helger.peppol.ws.types.ValidationServiceResult;
 import com.helger.peppol.ws.types.ValidationServiceResultItem;
