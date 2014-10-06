@@ -1,0 +1,17 @@
+package com.helger.peppol.app.config;
+
+import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
+import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
+import com.helger.peppol.crm.CRMGroup;
+import com.helger.peppol.crm.CRMGroupMicroTypeConverter;
+
+@IsSPIImplementation
+public final class AppMicroTypeConverterRegistarSPI implements IMicroTypeConverterRegistrarSPI
+{
+  public void registerMicroTypeConverter (final IMicroTypeConverterRegistry aRegistry)
+  {
+    // CRM stuff
+    aRegistry.registerMicroElementTypeConverter (CRMGroup.class, new CRMGroupMicroTypeConverter ());
+  }
+}
