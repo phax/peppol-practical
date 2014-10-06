@@ -24,7 +24,7 @@ import com.helger.scopes.singleton.GlobalSingleton;
 
 /**
  * Central manager for all sub managers
- * 
+ *
  * @author Philip Helger
  */
 public final class MetaManager extends GlobalSingleton
@@ -62,7 +62,7 @@ public final class MetaManager extends GlobalSingleton
   }
 
   @Nonnull
-  public static CRMGroupManager getCRMGroupMgrMgr ()
+  public static CRMGroupManager getCRMGroupMgr ()
   {
     return getInstance ().m_aCRMGroupMgr;
   }

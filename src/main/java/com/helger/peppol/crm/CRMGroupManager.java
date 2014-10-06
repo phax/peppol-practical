@@ -1,14 +1,3 @@
-/**
- * Copyright (C) 2012-2014 WineNet - www.winenet.at
- * All Rights Reserved
- *
- * This file is part of the WineNet software.
- *
- * Proprietary and confidential.
- *
- * Unauthorized copying of this file, via any medium is
- * strictly prohibited.
- */
 package com.helger.peppol.crm;
 
 import java.util.Collection;
