@@ -46,6 +46,7 @@ import com.helger.webbasics.app.html.WebHTMLCreator;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.page.IWebPageExecutionContext;
 import com.helger.webbasics.login.CLogin;
+import com.helger.webctrls.autonumeric.HCAutoNumeric;
 import com.helger.webctrls.datatables.DataTablesLengthMenuList;
 import com.helger.webctrls.datatables.EDataTablesFilterType;
 import com.helger.webctrls.datatables.ajax.ActionExecutorDataTablesI18N;
@@ -66,6 +67,8 @@ public final class AppCommonUI
 
   public static void init ()
   {
+    WebHTMLCreator.setHTMLVersion (EHTMLVersion.HTML5);
+
     WebPageStylerManager.getInstance ().setStyler (new BootstrapWebPageStyler ()
     {
       @Override
@@ -87,7 +90,8 @@ public final class AppCommonUI
       }
     });
 
-    WebHTMLCreator.setHTMLVersion (EHTMLVersion.HTML5);
+    // Never show a thousand separator
+    HCAutoNumeric.setDefaultThousandSeparator ("");
   }
 
   @Nonnull
