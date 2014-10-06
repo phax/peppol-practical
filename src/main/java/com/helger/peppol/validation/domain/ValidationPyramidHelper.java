@@ -26,6 +26,7 @@ import javax.xml.transform.dom.DOMSource;
 import org.joda.time.DateTime;
 import org.w3c.dom.Node;
 
+import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.lang.StackTraceHelper;
@@ -89,6 +90,14 @@ public final class ValidationPyramidHelper
     final ValidationPyramidResult aResult = aPyramid.applyValidation (new DOMSource (aXMLNode));
     final long nMillis = aSW.stopAndGetMillis ();
     s_aStatsDuration.addTime (nMillis);
+    AuditUtils.onAuditExecuteSuccess ("validation-pyramid",
+                                      eSyntaxBinding.getID (),
+                                      eDocType.getID (),
+                                      eTransaction.getID (),
+                                      aCountry,
+                                      Boolean.valueOf (bIndustrySpecificRules),
+                                      Integer.valueOf (aResult.getAggregatedResults ().getFailureCount ()),
+                                      Integer.valueOf (aResult.getAggregatedResults ().getErrorCount ()));
     return aResult;
   }
 
