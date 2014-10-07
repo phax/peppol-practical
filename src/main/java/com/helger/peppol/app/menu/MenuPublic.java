@@ -24,6 +24,7 @@ import com.helger.appbasics.app.menu.filter.MenuItemFilterNotLoggedIn;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.peppol.page.AppPageViewExternal;
 import com.helger.peppol.page.pub.PagePublicLogin;
+import com.helger.peppol.page.pub.PagePublicNewsletterSubscribe;
 
 @Immutable
 public final class MenuPublic
@@ -40,6 +41,7 @@ public final class MenuPublic
     aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS,
                                                        "PEPPOL document validation WebService",
                                                        new ClassPathResource ("viewpages/en/ws_docval.xml")));
+    aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
 
     if (false)
     {

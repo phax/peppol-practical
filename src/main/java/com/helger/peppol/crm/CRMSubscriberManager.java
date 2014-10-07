@@ -195,6 +195,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
     if (StringHelper.hasNoText (sEmailAddress))
       return null;
 
+    // Unify before checking
     final String sRealEmailAddress = ICRMSubscriber.getUnifiedEmailAddress (sEmailAddress);
     m_aRWLock.readLock ().lock ();
     try

@@ -42,6 +42,7 @@ import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
+import com.helger.html.hc.htmlext.HCUtils;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.app.menu.CMenuSecure;
@@ -59,14 +60,14 @@ import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.datatables.DataTables;
 import com.helger.webctrls.masterdata.HCSalutationSelect;
 
-public final class PageCRMSubscriber extends AbstractAppFormPage <ICRMSubscriber>
+public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubscriber>
 {
   private static final String FIELD_SALUTATION = "salutation";
   private static final String FIELD_NAME = "name";
   private static final String FIELD_EMAIL_ADDRESS = "emailaddress";
   private static final String FIELD_GROUP = "group";
 
-  public PageCRMSubscriber (@Nonnull @Nonempty final String sID)
+  public PageSecureCRMSubscriber (@Nonnull @Nonempty final String sID)
   {
     super (sID, "CRM subscribers");
   }
@@ -142,6 +143,16 @@ public final class PageCRMSubscriber extends AbstractAppFormPage <ICRMSubscriber
     else
       if (!EmailAddressUtils.isValid (sEmailAddress))
         aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "The provided email address is invalid!");
+      else
+      {
+        final ICRMSubscriber aSameEmailAddresSubscriber = aCRMSubscriberMgr.getCRMSubscriberOfEmailAddress (sEmailAddress);
+        if (aSameEmailAddresSubscriber != null)
+        {
+          if (!bEdit || aSameEmailAddresSubscriber != aSelectedObject)
+            aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS,
+                                       "A subscription for the provided email address is already present!");
+        }
+      }
 
     if (aAllCRMGroupIDs != null)
       for (final String sCRMGroupID : aAllCRMGroupIDs)
@@ -190,7 +201,8 @@ public final class PageCRMSubscriber extends AbstractAppFormPage <ICRMSubscriber
     aTable.createItemRow ()
           .setLabel ("Salutation")
           .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
-                                                              aSelectedObject == null ? null
+                                                              aSelectedObject == null
+                                                                                     ? null
                                                                                      : aSelectedObject.getSalutationID ()),
                                             aDisplayLocale))
           .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION));
@@ -249,10 +261,10 @@ public final class PageCRMSubscriber extends AbstractAppFormPage <ICRMSubscriber
                                                                                         " ",
                                                                                         aCurObject.getName ())));
       aRow.addCell (aCurObject.getEmailAddress ());
-      aRow.addCell (aCurObject.getAllAssignedGroups ()
-                              .stream ()
-                              .map ( (g) -> g.getDisplayName ())
-                              .collect (Collectors.joining ("\n")));
+      aRow.addCell (HCUtils.nl2divList (aCurObject.getAllAssignedGroups ()
+                                                  .stream ()
+                                                  .map ( (g) -> g.getDisplayName ())
+                                                  .collect (Collectors.joining ("\n"))));
       aRow.addCell (createEditLink (aWPEC, aCurObject), createCopyLink (aWPEC, aCurObject));
     }
     aNodeList.addChild (aTable);

@@ -39,12 +39,12 @@ import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.datatables.DataTables;
 
-public final class PageCRMGroup extends AbstractAppFormPage <ICRMGroup>
+public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
 {
   private static final String FIELD_NAME = "name";
   private static final String FIELD_SENDER_EMAIL_ADDRESS = "senderemailaddress";
 
-  public PageCRMGroup (@Nonnull @Nonempty final String sID)
+  public PageSecureCRMGroup (@Nonnull @Nonempty final String sID)
   {
     super (sID, "CRM groups");
   }

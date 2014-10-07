@@ -25,8 +25,8 @@ import com.helger.appbasics.app.menu.IMenuTree;
 import com.helger.appbasics.app.menu.filter.AbstractMenuObjectFilter;
 import com.helger.appbasics.app.menu.filter.MenuItemFilterUserAssignedToUserGroup;
 import com.helger.peppol.app.CApp;
-import com.helger.peppol.page.secure.PageCRMGroup;
-import com.helger.peppol.page.secure.PageCRMSubscriber;
+import com.helger.peppol.page.secure.PageSecureCRMGroup;
+import com.helger.peppol.page.secure.PageSecureCRMSubscriber;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
 import com.helger.webbasics.form.FormStateManager;
@@ -50,8 +50,8 @@ public final class MenuSecure
       final IMenuItemPage aCRM = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_CRM,
                                                                                                            "CRM",
                                                                                                            aMenuTree));
-      aMenuTree.createItem (aCRM, new PageCRMGroup (CMenuSecure.MENU_CRM_GROUPS));
-      aMenuTree.createItem (aCRM, new PageCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS));
+      aMenuTree.createItem (aCRM, new PageSecureCRMGroup (CMenuSecure.MENU_CRM_GROUPS));
+      aMenuTree.createItem (aCRM, new PageSecureCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS));
     }
 
     // Administrator
