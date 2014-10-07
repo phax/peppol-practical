@@ -36,12 +36,17 @@ import com.helger.webctrls.js.JSFormHelper;
 import com.helger.webpages.AbstractWebPageForm;
 import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
-public abstract class AbstractAppFormPage <DATATYPE extends IHasID <String>> extends
-                                                                             AbstractWebPageForm <DATATYPE, WebPageExecutionContext>
+public abstract class AbstractAppFormPage <DATATYPE extends IHasID <String>> extends AbstractWebPageForm <DATATYPE, WebPageExecutionContext>
 {
   public AbstractAppFormPage (@Nonnull @Nonempty final String sID, @Nonnull final String sName)
   {
     super (sID, sName);
+  }
+
+  @Override
+  protected boolean isObjectLockingEnabled ()
+  {
+    return true;
   }
 
   @Override
@@ -58,26 +63,29 @@ public abstract class AbstractAppFormPage <DATATYPE extends IHasID <String>> ext
   protected void modifyCreateToolbar (@Nonnull final WebPageExecutionContext aWPEC,
                                       @Nonnull final IButtonToolbar <?> aToolbar)
   {
-    final IRequestWebScopeWithoutResponse aRequestScope = aWPEC.getRequestScope ();
-    final JSArray aSuccessUpdates = new JSArray ();
-    // Update menu via Ajax
-    aSuccessUpdates.add (JSFormHelper.createUpdateParam (aRequestScope,
-                                                         CLayout.LAYOUT_AREAID_MENU,
-                                                         CAjaxSecure.UPDATE_MENU_VIEW));
+    if (false)
+    {
+      final IRequestWebScopeWithoutResponse aRequestScope = aWPEC.getRequestScope ();
+      final JSArray aSuccessUpdates = new JSArray ();
+      // Update menu via Ajax
+      aSuccessUpdates.add (JSFormHelper.createUpdateParam (aRequestScope,
+                                                           CLayout.LAYOUT_AREAID_MENU,
+                                                           CAjaxSecure.UPDATE_MENU_VIEW));
 
-    // Update special area directly with code
-    IHCNode aSpecialNode = BootstrapInfoBox.create ("Data was successfully saved!");
-    aSuccessUpdates.add (JSFormHelper.createUpdateParam (CLayout.LAYOUT_AREAID_SPECIAL, aSpecialNode));
-    final JSArray aFailureUpdates = new JSArray ();
-    // Update special area directly with code
-    aSpecialNode = BootstrapErrorBox.create ("Error saving the data!");
-    aFailureUpdates.add (JSFormHelper.createUpdateParam (CLayout.LAYOUT_AREAID_SPECIAL, aSpecialNode));
-    aToolbar.addButton ("Remember", JSFormHelper.saveFormData (aRequestScope,
-                                                               INPUT_FORM_ID,
-                                                               AjaxExecutorSaveFormState.PREFIX_FIELD,
-                                                               getID (),
-                                                               CAjaxSecure.SAVE_FORM_STATE,
-                                                               aSuccessUpdates,
-                                                               aFailureUpdates), EDefaultIcon.SAVE);
+      // Update special area directly with code
+      IHCNode aSpecialNode = BootstrapInfoBox.create ("Data was successfully saved!");
+      aSuccessUpdates.add (JSFormHelper.createUpdateParam (CLayout.LAYOUT_AREAID_SPECIAL, aSpecialNode));
+      final JSArray aFailureUpdates = new JSArray ();
+      // Update special area directly with code
+      aSpecialNode = BootstrapErrorBox.create ("Error saving the data!");
+      aFailureUpdates.add (JSFormHelper.createUpdateParam (CLayout.LAYOUT_AREAID_SPECIAL, aSpecialNode));
+      aToolbar.addButton ("Remember", JSFormHelper.saveFormData (aRequestScope,
+                                                                 INPUT_FORM_ID,
+                                                                 AjaxExecutorSaveFormState.PREFIX_FIELD,
+                                                                 getID (),
+                                                                 CAjaxSecure.SAVE_FORM_STATE,
+                                                                 aSuccessUpdates,
+                                                                 aFailureUpdates), EDefaultIcon.SAVE);
+    }
   }
 }

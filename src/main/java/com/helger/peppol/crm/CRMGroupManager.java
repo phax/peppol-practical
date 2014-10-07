@@ -169,4 +169,17 @@ public final class CRMGroupManager extends AbstractSimpleDAO
       m_aRWLock.readLock ().unlock ();
     }
   }
+
+  public boolean isEmpty ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aMap.isEmpty ();
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
 }

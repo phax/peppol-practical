@@ -1,5 +1,6 @@
 package com.helger.peppol.crm;
 
+import java.util.Locale;
 import java.util.Set;
 
 import javax.annotation.Nonnegative;
@@ -14,6 +15,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
 import com.helger.masterdata.person.ESalutation;
@@ -64,6 +66,12 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   public String getSalutationID ()
   {
     return m_eSalutation == null ? null : m_eSalutation.getID ();
+  }
+
+  @Nullable
+  public String getSalutationDisplayName (@Nonnull final Locale aContentLocale)
+  {
+    return m_eSalutation == null ? null : m_eSalutation.getDisplayText (aContentLocale);
   }
 
   @Nonnull
@@ -138,6 +146,14 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
       return EChange.UNCHANGED;
     m_aAssignedGroups = aRealAssignedGroups;
     return EChange.CHANGED;
+  }
+
+  @Nullable
+  public String getDisplayText (@Nonnull Locale aContentLocale)
+  {
+    return StringHelper.getConcatenatedOnDemand (getSalutationDisplayName (aContentLocale),
+                                                 " ",
+                                                m_sName);
   }
 
   @Override

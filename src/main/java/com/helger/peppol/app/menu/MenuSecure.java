@@ -26,6 +26,7 @@ import com.helger.appbasics.app.menu.filter.AbstractMenuObjectFilter;
 import com.helger.appbasics.app.menu.filter.MenuItemFilterUserAssignedToUserGroup;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.page.secure.PageCRMGroup;
+import com.helger.peppol.page.secure.PageCRMSubscriber;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
 import com.helger.webbasics.form.FormStateManager;
@@ -50,6 +51,7 @@ public final class MenuSecure
                                                                                                            "CRM",
                                                                                                            aMenuTree));
       aMenuTree.createItem (aCRM, new PageCRMGroup (CMenuSecure.MENU_CRM_GROUPS));
+      aMenuTree.createItem (aCRM, new PageCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS));
     }
 
     // Administrator

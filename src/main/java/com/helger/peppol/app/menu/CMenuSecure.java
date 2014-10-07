@@ -24,6 +24,7 @@ public final class CMenuSecure
   // Menu item IDs
   public static final String MENU_CRM = "crm";
   public static final String MENU_CRM_GROUPS = "crm-groups";
+  public static final String MENU_CRM_SUBSCRIBERS = "crm-subscribers";
 
   public static final String MENU_ADMIN = "admin";
   public static final String MENU_SAVED_STATES = "saved_states";

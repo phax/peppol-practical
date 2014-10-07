@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 import com.helger.appbasics.object.IObject;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.name.IHasDisplayText;
 import com.helger.masterdata.person.ESalutation;
 
 /**
@@ -18,7 +19,7 @@ import com.helger.masterdata.person.ESalutation;
  *
  * @author Philip Helger
  */
-public interface ICRMSubscriber extends IObject
+public interface ICRMSubscriber extends IObject, IHasDisplayText
 {
   /**
    * Create a unified, all lowercase email address for easy comparison
@@ -38,6 +39,9 @@ public interface ICRMSubscriber extends IObject
 
   @Nullable
   String getSalutationID ();
+
+  @Nullable
+  String getSalutationDisplayName (@Nonnull Locale aContentLocale);
 
   @Nonnull
   @Nonempty
