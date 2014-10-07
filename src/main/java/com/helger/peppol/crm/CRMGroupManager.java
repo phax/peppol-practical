@@ -26,13 +26,13 @@ import com.helger.commons.string.StringHelper;
  * Manager for {@link CRMGroup} instances.
  *
  * @author Philip Helger
- * @see com.helger.peppol.app.MetaManager
+ * @see com.helger.peppol.mgr.MetaManager
  */
 @ThreadSafe
 public final class CRMGroupManager extends AbstractSimpleDAO
 {
-  private static final String ELEMENT_CRMGROUPS = "crmgroups";
-  private static final String ELEMENT_CRMGROUP = "crmgroup";
+  private static final String ELEMENT_ROOT = "crmgroups";
+  private static final String ELEMENT_ITEM = "crmgroup";
 
   private final Map <String, CRMGroup> m_aMap = new HashMap <String, CRMGroup> ();
 
@@ -46,7 +46,7 @@ public final class CRMGroupManager extends AbstractSimpleDAO
   @Nonnull
   protected EChange onRead (@Nonnull final IMicroDocument aDoc)
   {
-    for (final IMicroElement eCRMGroup : aDoc.getDocumentElement ().getAllChildElements (ELEMENT_CRMGROUP))
+    for (final IMicroElement eCRMGroup : aDoc.getDocumentElement ().getAllChildElements (ELEMENT_ITEM))
       _addCRMGroup (MicroTypeConverter.convertToNative (eCRMGroup, CRMGroup.class));
     return EChange.UNCHANGED;
   }
@@ -56,9 +56,9 @@ public final class CRMGroupManager extends AbstractSimpleDAO
   protected IMicroDocument createWriteData ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_CRMGROUPS);
+    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
     for (final CRMGroup aCRMGroup : ContainerHelper.getSortedByKey (m_aMap).values ())
-      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aCRMGroup, ELEMENT_CRMGROUP));
+      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aCRMGroup, ELEMENT_ITEM));
     return aDoc;
   }
 
@@ -108,7 +108,7 @@ public final class CRMGroupManager extends AbstractSimpleDAO
       }
 
       EChange eChange = EChange.UNCHANGED;
-      // client ID cannot be changed!
+      // ID cannot be changed!
       eChange = eChange.or (aCRMGroup.setDisplayName (sDisplayName));
       eChange = eChange.or (aCRMGroup.setSenderEmailAddress (sSenderEmailAddress));
       if (eChange.isUnchanged ())
