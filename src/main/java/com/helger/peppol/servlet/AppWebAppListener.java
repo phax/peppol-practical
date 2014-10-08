@@ -26,6 +26,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.helger.bootstrap3.servlet.WebAppListenerMultiAppBootstrap;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.vendor.VendorInfo;
 import com.helger.peppol.app.AppSettings;
 import com.helger.peppol.app.init.AppSecurity;
 import com.helger.peppol.app.init.InitializerPublic;
@@ -93,6 +94,10 @@ public final class AppWebAppListener extends WebAppListenerMultiAppBootstrap <La
     // JUL to SLF4J
     SLF4JBridgeHandler.removeHandlersForRootLogger ();
     SLF4JBridgeHandler.install ();
+
+    VendorInfo.setVendorName ("Philip Helger");
+    VendorInfo.setVendorURL ("http://www.helger.com");
+    VendorInfo.setVendorEmail ("philip@helger.com");
 
     super.initGlobals ();
 
