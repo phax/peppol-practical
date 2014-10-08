@@ -162,6 +162,39 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
   }
 
   @Nonnull
+  public EChange updateCRMSubscriberGroupAssignments (@Nullable final String sCRMSubscriberID,
+                                                      @Nullable final Set <ICRMGroup> aAssignedGroups)
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      final CRMSubscriber aCRMSubscriber = m_aMap.get (sCRMSubscriberID);
+      if (aCRMSubscriber == null)
+      {
+        AuditUtils.onAuditModifyFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "no-such-id");
+        return EChange.UNCHANGED;
+      }
+
+      EChange eChange = EChange.UNCHANGED;
+      eChange = eChange.or (aCRMSubscriber.setAssignedGroups (aAssignedGroups));
+      if (eChange.isUnchanged ())
+        return EChange.UNCHANGED;
+
+      aCRMSubscriber.setLastModificationNow ();
+      markAsChanged ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+    AuditUtils.onAuditModifySuccess (CRMSubscriber.OT_CRM_SUBSCRIBER,
+                                     "assigned-groups",
+                                     sCRMSubscriberID,
+                                     aAssignedGroups);
+    return EChange.CHANGED;
+  }
+
+  @Nonnull
   @ReturnsMutableCopy
   public Collection <? extends ICRMSubscriber> getAllCRMSubscribers ()
   {

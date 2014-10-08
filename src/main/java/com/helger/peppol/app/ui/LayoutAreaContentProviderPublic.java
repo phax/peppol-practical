@@ -271,7 +271,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                .addChild (new HCA ("https://twitter.com/philiphelger").addChild ("@philiphelger")));
 
       final BootstrapMenuItemRendererHorz aRenderer = new BootstrapMenuItemRendererHorz (aDisplayLocale);
-      final HCUL aUL = aDiv.addAndReturnChild (new HCUL ().addClass (CSS_CLASS_FOOTER_LINKS));
+      final HCUL aUL = new HCUL ().addClass (CSS_CLASS_FOOTER_LINKS);
       for (final IMenuObject aMenuObj : m_aFooterObjects)
       {
         if (aMenuObj instanceof IMenuSeparator)
@@ -283,8 +283,11 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
             if (aMenuObj instanceof IMenuItemExternal)
               aUL.addItem (aRenderer.renderMenuItemExternal (aLEC, (IMenuItemExternal) aMenuObj, false, false, false));
             else
-              throw new IllegalStateException ("Unsupported menu object type!");
+              throw new IllegalStateException ("Unsupported menu object type: " + aMenuObj);
       }
+      if (aUL.hasChildren ())
+        aDiv.addChild (aUL);
+
       aOuterContainer.addChild (aDiv);
     }
 

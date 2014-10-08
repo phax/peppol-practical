@@ -63,7 +63,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
 
   public PagePublicNewsletterSubscribe (@Nonnull @Nonempty final String sID)
   {
-    super (sID, "Newsletter subscription");
+    super (sID, "Subscribe to newsletter");
   }
 
   @Override

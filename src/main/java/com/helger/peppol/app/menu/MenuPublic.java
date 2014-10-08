@@ -25,6 +25,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.peppol.page.AppPageViewExternal;
 import com.helger.peppol.page.pub.PagePublicLogin;
 import com.helger.peppol.page.pub.PagePublicNewsletterSubscribe;
+import com.helger.peppol.page.pub.PagePublicNewsletterUnsubscribe;
 
 @Immutable
 public final class MenuPublic
@@ -42,6 +43,8 @@ public final class MenuPublic
                                                        "PEPPOL document validation WebService",
                                                        new ClassPathResource ("viewpages/en/ws_docval.xml")));
     aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
+    aMenuTree.createRootItem (new PagePublicNewsletterUnsubscribe (CMenuPublic.MENU_NEWSLETTER_UNSUBSCRIBE))
+             .setAttribute (CMenuPublic.FLAG_FOOTER, true);
 
     if (false)
     {
