@@ -40,8 +40,13 @@ td {
 	text-align: center;
 }
 
-.footer-links li {
-	display: inline;
+table.footer-links {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table.footer-links td {
+	padding: 4px 10px;
 }
 
 #menu .nav>li>a {

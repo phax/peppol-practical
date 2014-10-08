@@ -69,6 +69,7 @@ public final class RunInJettyPEPPOL
     aWebAppCtx.setParentLoaderPriority (true);
     aWebAppCtx.setThrowUnavailableOnStartupException (true);
     aWebAppCtx.setCopyWebInf (true);
+    aWebAppCtx.setCopyWebDir (true);
     aServer.setHandler (aWebAppCtx);
     final ServletContextHandler aCtx = aWebAppCtx;
 

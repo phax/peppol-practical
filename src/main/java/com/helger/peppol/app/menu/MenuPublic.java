@@ -44,7 +44,7 @@ public final class MenuPublic
                                                        new ClassPathResource ("viewpages/en/ws_docval.xml")));
     aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
     aMenuTree.createRootItem (new PagePublicNewsletterUnsubscribe (CMenuPublic.MENU_NEWSLETTER_UNSUBSCRIBE))
-             .setAttribute (CMenuPublic.FLAG_FOOTER, true);
+             .setAttribute (CMenuPublic.FLAG_FOOTER_COL1, true);
 
     if (false)
     {

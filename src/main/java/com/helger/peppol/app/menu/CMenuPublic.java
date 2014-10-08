@@ -29,7 +29,9 @@ public final class CMenuPublic
   public static final String MENU_NEWSLETTER_UNSUBSCRIBE = "newsletter_unsubscribe";
 
   // flags
-  public static final String FLAG_FOOTER = "footer";
+  public static final String FLAG_FOOTER_COL1 = "footercol1";
+  public static final String FLAG_FOOTER_COL2 = "footercol2";
+  public static final String FLAG_FOOTER_COL3 = "footercol3";
 
   private CMenuPublic ()
   {}

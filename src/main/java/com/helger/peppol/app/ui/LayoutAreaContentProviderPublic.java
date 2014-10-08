@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.appbasics.app.menu.ApplicationMenuTree;
 import com.helger.appbasics.app.menu.IMenuItemExternal;
@@ -46,6 +47,8 @@ import com.helger.bootstrap3.navbar.BootstrapNavbar;
 import com.helger.bootstrap3.navbar.EBootstrapNavbarPosition;
 import com.helger.bootstrap3.navbar.EBootstrapNavbarType;
 import com.helger.bootstrap3.pageheader.BootstrapPageHeader;
+import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.css.property.CCSSProperties;
@@ -54,13 +57,15 @@ import com.helger.html.css.ICSSClassProvider;
 import com.helger.html.hc.IHCElement;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.HCA;
+import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCH1;
 import com.helger.html.hc.html.HCHead;
 import com.helger.html.hc.html.HCP;
+import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.html.HCStrong;
-import com.helger.html.hc.html.HCUL;
+import com.helger.html.hc.html.HCTable;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.menu.CMenuPublic;
@@ -68,6 +73,7 @@ import com.helger.webbasics.EWebBasicsText;
 import com.helger.webbasics.app.LinkUtils;
 import com.helger.webbasics.app.layout.CLayout;
 import com.helger.webbasics.app.layout.ILayoutAreaContentProvider;
+import com.helger.webbasics.app.layout.ILayoutExecutionContext;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.page.IWebPage;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
@@ -84,15 +90,24 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
 {
   private static final ICSSClassProvider CSS_CLASS_FOOTER_LINKS = DefaultCSSClassProvider.create ("footer-links");
 
-  private final List <IMenuObject> m_aFooterObjects;
+  private final List <IMenuObject> m_aFooterObjectsCol1 = new ArrayList <IMenuObject> ();
+  private final List <IMenuObject> m_aFooterObjectsCol2 = new ArrayList <IMenuObject> ();
+  private final List <IMenuObject> m_aFooterObjectsCol3 = new ArrayList <IMenuObject> ();
+  private final int m_nFooterRowCount;
 
   public LayoutAreaContentProviderPublic ()
   {
-    m_aFooterObjects = new ArrayList <IMenuObject> ();
     ApplicationMenuTree.getTree ().iterateAllMenuObjects ( (aCurrentObject) -> {
-      if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER))
-        m_aFooterObjects.add (aCurrentObject);
+      if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER_COL1))
+        m_aFooterObjectsCol1.add (aCurrentObject);
+      if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER_COL2))
+        m_aFooterObjectsCol2.add (aCurrentObject);
+      if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER_COL3))
+        m_aFooterObjectsCol3.add (aCurrentObject);
     });
+    m_nFooterRowCount = MathHelper.getMaxInt (m_aFooterObjectsCol1.size (),
+                                              m_aFooterObjectsCol2.size (),
+                                              m_aFooterObjectsCol3.size ());
   }
 
   private static void _addNavbarLoginLogout (@Nonnull final LayoutExecutionContext aLEC,
@@ -157,7 +172,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       protected boolean isMenuItemValidToBeDisplayed (@Nonnull final IMenuObject aMenuObj)
       {
         // Don't show items that belong to the footer
-        if (aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER))
+        if (aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER_COL1))
           return false;
 
         // Use default code
@@ -227,6 +242,26 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     return aPageContainer;
   }
 
+  @Nullable
+  private static IHCNode _getRenderedFooterMenuObj (@Nonnull final ILayoutExecutionContext aLEC,
+                                                    @Nonnull final BootstrapMenuItemRendererHorz aRenderer,
+                                                    @Nullable final IMenuObject aMenuObj)
+  {
+    if (aMenuObj == null)
+      return null;
+
+    if (aMenuObj instanceof IMenuSeparator)
+      return aRenderer.renderSeparator (aLEC, (IMenuSeparator) aMenuObj);
+
+    if (aMenuObj instanceof IMenuItemPage)
+      return aRenderer.renderMenuItemPage (aLEC, (IMenuItemPage) aMenuObj, false, false, false);
+
+    if (aMenuObj instanceof IMenuItemExternal)
+      return aRenderer.renderMenuItemExternal (aLEC, (IMenuItemExternal) aMenuObj, false, false, false);
+
+    throw new IllegalStateException ("Unsupported menu object type: " + aMenuObj);
+  }
+
   @Nonnull
   public IHCNode getContent (@Nonnull final LayoutExecutionContext aLEC, @Nonnull final HCHead aHead)
   {
@@ -270,23 +305,20 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                .addChild (" - Twitter: ")
                                .addChild (new HCA ("https://twitter.com/philiphelger").addChild ("@philiphelger")));
 
-      final BootstrapMenuItemRendererHorz aRenderer = new BootstrapMenuItemRendererHorz (aDisplayLocale);
-      final HCUL aUL = new HCUL ().addClass (CSS_CLASS_FOOTER_LINKS);
-      for (final IMenuObject aMenuObj : m_aFooterObjects)
+      if (m_nFooterRowCount > 0)
       {
-        if (aMenuObj instanceof IMenuSeparator)
-          aUL.addItem (aRenderer.renderSeparator (aLEC, (IMenuSeparator) aMenuObj));
-        else
-          if (aMenuObj instanceof IMenuItemPage)
-            aUL.addItem (aRenderer.renderMenuItemPage (aLEC, (IMenuItemPage) aMenuObj, false, false, false));
-          else
-            if (aMenuObj instanceof IMenuItemExternal)
-              aUL.addItem (aRenderer.renderMenuItemExternal (aLEC, (IMenuItemExternal) aMenuObj, false, false, false));
-            else
-              throw new IllegalStateException ("Unsupported menu object type: " + aMenuObj);
+        final BootstrapMenuItemRendererHorz aRenderer = new BootstrapMenuItemRendererHorz (aDisplayLocale);
+        final HCTable aTable = new HCTable (HCCol.star (), HCCol.star (), HCCol.star ());
+        aTable.addClass (CSS_CLASS_FOOTER_LINKS);
+        for (int i = 0; i < m_nFooterRowCount; ++i)
+        {
+          final HCRow aRow = aTable.addBodyRow ();
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, ContainerHelper.getSafe (m_aFooterObjectsCol1, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, ContainerHelper.getSafe (m_aFooterObjectsCol2, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, ContainerHelper.getSafe (m_aFooterObjectsCol3, i)));
+        }
+        aDiv.addChild (aTable);
       }
-      if (aUL.hasChildren ())
-        aDiv.addChild (aUL);
 
       aOuterContainer.addChild (aDiv);
     }
