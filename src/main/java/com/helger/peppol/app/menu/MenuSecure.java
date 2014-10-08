@@ -23,6 +23,7 @@ import com.helger.appbasics.app.menu.IMenuItemPage;
 import com.helger.appbasics.app.menu.IMenuTree;
 import com.helger.appbasics.app.menu.filter.MenuItemFilterUserAssignedToUserGroup;
 import com.helger.peppol.app.CApp;
+import com.helger.peppol.page.secure.PageSecureAdminAddons;
 import com.helger.peppol.page.secure.PageSecureCRMGroup;
 import com.helger.peppol.page.secure.PageSecureCRMSubscriber;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
@@ -56,7 +57,7 @@ public final class MenuSecure
                                                                                                              "Administration",
                                                                                                              aMenuTree))
                                             .setDisplayFilter (aFilterAdministrators);
-
+      aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS));
       DefaultMenuConfigurator.addSecurityItems (aMenuTree, aAdmin, aFilterAdministrators, CApp.DEFAULT_LOCALE);
       DefaultMenuConfigurator.addMonitoringItems (aMenuTree, aAdmin, aFilterAdministrators);
       DefaultMenuConfigurator.addSysInfoItems (aMenuTree, aAdmin, aFilterAdministrators);

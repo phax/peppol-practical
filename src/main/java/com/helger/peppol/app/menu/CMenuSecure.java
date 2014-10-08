@@ -32,6 +32,7 @@ public final class CMenuSecure
   public static final String MENU_CRM_SUBSCRIBERS = "crm-subscribers";
 
   public static final String MENU_ADMIN = "admin";
+  public static final String MENU_ADMIN_ADDONS = "admin-addons";
 
   private CMenuSecure ()
   {}
