@@ -18,9 +18,11 @@
 -->
 <p>
 This site offers a WebService to automatically validate your PEPPOL documents.
+The validation service requires UBL files and cannot handle StandardBusinessDocuments yet.
 </p>
 <p>
-The WSDL file can be found at <a class="external_href" href="http://peppol.helger.com/wsdocumentvalidation?wsdl">http://peppol.helger.com/wsdocumentvalidation?wsdl</a>
+The WSDL file can be found at <a class="external_href" href="http://peppol.helger.com/wsdocumentvalidation?wsdl">http://peppol.helger.com/wsdocumentvalidation?wsdl</a>.
+The endpoint URL for this WebService is <code>http://peppol.helger.com/wsdocumentvalidation</code>. 
 </p>
 
 <!--

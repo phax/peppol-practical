@@ -19,6 +19,7 @@ package com.helger.peppol.app.menu;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.appbasics.app.menu.IMenuItemPage;
 import com.helger.appbasics.app.menu.IMenuTree;
 import com.helger.appbasics.app.menu.filter.MenuItemFilterNotLoggedIn;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -26,6 +27,8 @@ import com.helger.peppol.page.AppPageViewExternal;
 import com.helger.peppol.page.pub.PagePublicLogin;
 import com.helger.peppol.page.pub.PagePublicNewsletterSubscribe;
 import com.helger.peppol.page.pub.PagePublicNewsletterUnsubscribe;
+import com.helger.webbasics.app.page.WebPageExecutionContext;
+import com.helger.webbasics.app.page.system.PageShowChildren;
 
 @Immutable
 public final class MenuPublic
@@ -39,9 +42,16 @@ public final class MenuPublic
     aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_INDEX,
                                                        "Index",
                                                        new ClassPathResource ("viewpages/en/index.xml")));
-    aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS,
-                                                       "PEPPOL document validation WebService",
-                                                       new ClassPathResource ("viewpages/en/ws_docval.xml")));
+
+    // Validation stuff
+    final IMenuItemPage aValidation = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
+                                                                                                                "Validation",
+                                                                                                                aMenuTree));
+    aMenuTree.createItem (aValidation, new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS,
+                                                                "PEPPOL document validation WebService",
+                                                                new ClassPathResource ("viewpages/en/ws_docval.xml")));
+
+    // Newsletter stuff
     aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
     aMenuTree.createRootItem (new PagePublicNewsletterUnsubscribe (CMenuPublic.MENU_NEWSLETTER_UNSUBSCRIBE))
              .setAttribute (CMenuPublic.FLAG_FOOTER_COL1, true);

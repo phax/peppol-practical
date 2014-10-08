@@ -20,18 +20,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.appbasics.app.menu.IMenuItemPage;
-import com.helger.appbasics.app.menu.IMenuObject;
 import com.helger.appbasics.app.menu.IMenuTree;
-import com.helger.appbasics.app.menu.filter.AbstractMenuObjectFilter;
 import com.helger.appbasics.app.menu.filter.MenuItemFilterUserAssignedToUserGroup;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.page.secure.PageSecureCRMGroup;
 import com.helger.peppol.page.secure.PageSecureCRMSubscriber;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
-import com.helger.webbasics.form.FormStateManager;
 import com.helger.webpages.DefaultMenuConfigurator;
-import com.helger.webpages.form.BasePageSavedStates;
 
 @Immutable
 public final class MenuSecure
@@ -67,20 +63,6 @@ public final class MenuSecure
       DefaultMenuConfigurator.addDataItems (aMenuTree, aAdmin, aFilterAdministrators);
       DefaultMenuConfigurator.addSettingsItems (aMenuTree, aAdmin, aFilterAdministrators);
     }
-
-    // Saved states
-    final AbstractMenuObjectFilter aFilterSavedStates = new AbstractMenuObjectFilter ()
-    {
-      public boolean matchesFilter (final IMenuObject aValue)
-      {
-        // Show always after a form state was once stored
-        return FormStateManager.getInstance ().containedOnceAFormState ();
-      }
-    };
-    aMenuTree.createRootSeparator ().setDisplayFilter (aFilterSavedStates);
-    aMenuTree.createRootItem (new BasePageSavedStates <WebPageExecutionContext> (CMenuSecure.MENU_SAVED_STATES,
-                                                                                 "Saved objects"))
-             .setDisplayFilter (aFilterSavedStates);
 
     // Default menu item
     aMenuTree.setDefaultMenuItemID (CMenuSecure.MENU_ADMIN);

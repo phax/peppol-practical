@@ -31,6 +31,7 @@ import com.helger.peppol.app.init.AppSecurity;
 import com.helger.peppol.app.init.InitializerPublic;
 import com.helger.peppol.app.init.InitializerSecure;
 import com.helger.peppol.app.ui.AppCommonUI;
+import com.helger.peppol.mgr.MetaManager;
 import com.helger.webbasics.app.CApplication;
 import com.helger.webbasics.app.init.IApplicationInitializer;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
@@ -100,5 +101,8 @@ public final class AppWebAppListener extends WebAppListenerMultiAppBootstrap <La
 
     // Set all security related stuff
     AppSecurity.init ();
+
+    // Load managers
+    MetaManager.getInstance ();
   }
 }

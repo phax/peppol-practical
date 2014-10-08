@@ -18,6 +18,11 @@ package com.helger.peppol.app.menu;
 
 import javax.annotation.concurrent.Immutable;
 
+/**
+ * Menu items for the secure application
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class CMenuSecure
 {
@@ -27,7 +32,6 @@ public final class CMenuSecure
   public static final String MENU_CRM_SUBSCRIBERS = "crm-subscribers";
 
   public static final String MENU_ADMIN = "admin";
-  public static final String MENU_SAVED_STATES = "saved_states";
 
   private CMenuSecure ()
   {}

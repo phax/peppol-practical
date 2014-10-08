@@ -18,12 +18,18 @@ package com.helger.peppol.app.menu;
 
 import javax.annotation.concurrent.Immutable;
 
+/**
+ * Menu items for the public application
+ * 
+ * @author Philip Helger
+ */
 @Immutable
 public final class CMenuPublic
 {
   public static final String MENU_LOGIN = "login";
 
   public static final String MENU_INDEX = "index";
+  public static final String MENU_VALIDATION = "validation";
   public static final String MENU_VALIDATION_WS = "validation_ws";
   public static final String MENU_NEWSLETTER_SUBSCRIBE = "newsletter_subscribe";
   public static final String MENU_NEWSLETTER_UNSUBSCRIBE = "newsletter_unsubscribe";
