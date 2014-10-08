@@ -163,11 +163,12 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
       final Collection <? extends ICRMGroup> aAllCRMGroups = aCRMGroupMgr.getAllCRMGroups ();
       if (aAllCRMGroups.size () == 1)
       {
-        // No need for selection
+        // No need for selection - use hidden field
         aForm.addChild (new HCHiddenField (FIELD_GROUP, ContainerHelper.getFirstElement (aAllCRMGroups).getID ()));
       }
       else
       {
+        // Show selection
         final HCNodeList aGroups = new HCNodeList ();
         for (final ICRMGroup aCRMGroup : ContainerHelper.getSorted (aAllCRMGroups,
                                                                     new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
@@ -183,6 +184,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
       }
     }
 
+    // Toolbar
     final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
     aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_SAVE);
     aToolbar.addSubmitButton ("Subscribe", EDefaultIcon.YES);
