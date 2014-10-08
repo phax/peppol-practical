@@ -17,29 +17,40 @@
 package com.helger.peppol.page.pub;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import com.helger.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.bootstrap3.form.BootstrapCheckBox;
 import com.helger.bootstrap3.form.BootstrapForm;
 import com.helger.bootstrap3.form.BootstrapFormGroup;
 import com.helger.bootstrap3.form.EBootstrapFormType;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.name.ComparatorHasDisplayName;
-import com.helger.html.hc.html.HCCheckBox;
+import com.helger.commons.string.StringHelper;
+import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCHiddenField;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
+import com.helger.peppol.crm.ICRMSubscriber;
 import com.helger.peppol.mgr.MetaManager;
 import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webbasics.form.RequestFieldBoolean;
+import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.masterdata.HCSalutationSelect;
 import com.helger.webpages.AbstractWebPageExt;
 
@@ -63,9 +74,81 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
     final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
     final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
     final FormErrors aFormErrors = new FormErrors ();
+    List <String> aSelectedCRMGroupIDs = null;
+
+    if (aWPEC.hasAction (ACTION_SAVE))
+    {
+      final String sSalutationID = aWPEC.getAttributeAsString (FIELD_SALUTATION);
+      final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
+      final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
+      final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
+      aSelectedCRMGroupIDs = aWPEC.getAttributeValues (FIELD_GROUP);
+      final Set <ICRMGroup> aSelectedCRMGroups = new HashSet <ICRMGroup> ();
+      ICRMSubscriber aSameEmailAddressSubscriber = null;
+
+      if (StringHelper.hasNoText (sName))
+        aFormErrors.addFieldError (FIELD_NAME, "You must provide your name!");
+
+      if (StringHelper.hasNoText (sEmailAddress))
+        aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "You must provide your email address!");
+      else
+        if (!EmailAddressUtils.isValid (sEmailAddress))
+          aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "The provided email address is invalid!");
+        else
+        {
+          // Check if the email address is already in use
+          aSameEmailAddressSubscriber = aCRMSubscriberMgr.getCRMSubscriberOfEmailAddress (sEmailAddress);
+        }
+
+      if (aSelectedCRMGroupIDs != null)
+        for (final String sCRMGroupID : aSelectedCRMGroupIDs)
+        {
+          final ICRMGroup aGroup = aCRMGroupMgr.getCRMGroupOfID (sCRMGroupID);
+          if (aGroup == null)
+            aFormErrors.addFieldError (FIELD_GROUP, "The selected mailing list is not existing!");
+          else
+            aSelectedCRMGroups.add (aGroup);
+        }
+      if (aSelectedCRMGroups.isEmpty ())
+        aFormErrors.addFieldError (FIELD_GROUP, "At least one mailing list must be selected!");
+      else
+      {
+        if (aSameEmailAddressSubscriber != null)
+        {
+          // Merge with existing subscriber
+          aSelectedCRMGroups.addAll (aSameEmailAddressSubscriber.getAllAssignedGroups ());
+        }
+      }
+
+      if (aFormErrors.isEmpty ())
+      {
+        // Save
+        if (aSameEmailAddressSubscriber == null)
+        {
+          // Create a new one
+          aCRMSubscriberMgr.createCRMSubscriber (eSalutation, sName, sEmailAddress, aSelectedCRMGroups);
+        }
+        else
+        {
+          // Update an existing one
+          aCRMSubscriberMgr.updateCRMSubscriber (aSameEmailAddressSubscriber.getID (),
+                                                 eSalutation,
+                                                 sName,
+                                                 sEmailAddress,
+                                                 aSelectedCRMGroups);
+        }
+        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully subscribed '" +
+                                                                 sEmailAddress +
+                                                                 "' to mailing lists"));
+      }
+      else
+      {
+        aNodeList.addChild (getStyler ().createIncorrectInputBox (aWPEC));
+      }
+    }
 
     final BootstrapForm aForm = new BootstrapForm (aWPEC.getSelfHref (), EBootstrapFormType.HORIZONTAL);
-    aForm.setLeft (3);
+    aForm.setLeft (4);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Your salutation")
                                                  .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION),
                                                                                    aDisplayLocale))
@@ -78,26 +161,34 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL_ADDRESS)));
     {
       final Collection <? extends ICRMGroup> aAllCRMGroups = aCRMGroupMgr.getAllCRMGroups ();
-      if (false && aAllCRMGroups.size () == 1)
+      if (aAllCRMGroups.size () == 1)
       {
         // No need for selection
         aForm.addChild (new HCHiddenField (FIELD_GROUP, ContainerHelper.getFirstElement (aAllCRMGroups).getID ()));
       }
       else
       {
-        final HCNodeList aGroupCtrl = new HCNodeList ();
+        final HCNodeList aGroups = new HCNodeList ();
         for (final ICRMGroup aCRMGroup : ContainerHelper.getSorted (aAllCRMGroups,
                                                                     new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         {
-          final RequestFieldBoolean aRFB = new RequestFieldBoolean (FIELD_GROUP, false);
-          aGroupCtrl.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB).setValue (aCRMGroup.getID ()))
-                                           .addChild (" " + aCRMGroup.getDisplayName ()));
+          final String sCRMGroupID = aCRMGroup.getID ();
+          final RequestFieldBoolean aRFB = new RequestFieldBoolean (FIELD_GROUP,
+                                                                    aSelectedCRMGroupIDs != null &&
+                                                                        aSelectedCRMGroupIDs.contains (sCRMGroupID));
+          aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true).setValue (sCRMGroupID))
+                                        .addChild (" " + aCRMGroup.getDisplayName ()));
         }
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("The groups you want to subscribe to")
-                                                     .setCtrl (aGroupCtrl)
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Mailing lists to subscribe to")
+                                                     .setCtrl (aGroups)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_GROUP)));
       }
     }
+
+    final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
+    aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_SAVE);
+    aToolbar.addSubmitButton ("Subscribe", EDefaultIcon.YES);
+
     aNodeList.addChild (aForm);
   }
 }

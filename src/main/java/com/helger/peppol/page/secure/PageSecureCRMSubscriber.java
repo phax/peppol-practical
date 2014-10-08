@@ -132,8 +132,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
     final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
     final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
-    final Set <ICRMGroup> aGroups = new HashSet <ICRMGroup> ();
-    final List <String> aAllCRMGroupIDs = aWPEC.getAttributeValues (FIELD_GROUP);
+    final List <String> aSelectedCRMGroupIDs = aWPEC.getAttributeValues (FIELD_GROUP);
+    final Set <ICRMGroup> aSelectedCRMGroups = new HashSet <ICRMGroup> ();
 
     if (StringHelper.hasNoText (sName))
       aFormErrors.addFieldError (FIELD_NAME, "A name for the CRM subscriber must be provided!");
@@ -154,16 +154,16 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
         }
       }
 
-    if (aAllCRMGroupIDs != null)
-      for (final String sCRMGroupID : aAllCRMGroupIDs)
+    if (aSelectedCRMGroupIDs != null)
+      for (final String sCRMGroupID : aSelectedCRMGroupIDs)
       {
         final ICRMGroup aGroup = aCRMGroupMgr.getCRMGroupOfID (sCRMGroupID);
         if (aGroup == null)
           aFormErrors.addFieldError (FIELD_GROUP, "The selected group is not existing!");
         else
-          aGroups.add (aGroup);
+          aSelectedCRMGroups.add (aGroup);
       }
-    if (aGroups.isEmpty ())
+    if (aSelectedCRMGroups.isEmpty ())
       aFormErrors.addFieldError (FIELD_GROUP, "At least one group must be selected!");
 
     if (aFormErrors.isEmpty ())
@@ -172,13 +172,17 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
       if (bEdit)
       {
         // We're editing an existing object
-        aCRMSubscriberMgr.updateCRMSubscriber (aSelectedObject.getID (), eSalutation, sName, sEmailAddress, aGroups);
+        aCRMSubscriberMgr.updateCRMSubscriber (aSelectedObject.getID (),
+                                               eSalutation,
+                                               sName,
+                                               sEmailAddress,
+                                               aSelectedCRMGroups);
         aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The CRM subscriber was successfully edited!"));
       }
       else
       {
         // We're creating a new object
-        aCRMSubscriberMgr.createCRMSubscriber (eSalutation, sName, sEmailAddress, aGroups);
+        aCRMSubscriberMgr.createCRMSubscriber (eSalutation, sName, sEmailAddress, aSelectedCRMGroups);
         aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The new CRM subscriber was successfully created!"));
       }
     }
@@ -201,8 +205,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     aTable.createItemRow ()
           .setLabel ("Salutation")
           .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
-                                                              aSelectedObject == null
-                                                                                     ? null
+                                                              aSelectedObject == null ? null
                                                                                      : aSelectedObject.getSalutationID ()),
                                             aDisplayLocale))
           .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION));
