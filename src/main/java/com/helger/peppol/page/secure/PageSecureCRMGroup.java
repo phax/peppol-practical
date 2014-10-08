@@ -31,6 +31,7 @@ import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.crm.CRMGroupManager;
+import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.mgr.MetaManager;
 import com.helger.peppol.page.AbstractAppFormPage;
@@ -61,10 +62,15 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
   protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, final ICRMGroup aSelectedObject)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+
     final BootstrapTableFormView aTable = aNodeList.addAndReturnChild (new BootstrapTableFormView (new HCCol (170),
                                                                                                    HCCol.star ()));
     aTable.createItemRow ().setLabel ("Name").setCtrl (aSelectedObject.getDisplayName ());
     aTable.createItemRow ().setLabel ("Sender email address").setCtrl (aSelectedObject.getSenderEmailAddress ());
+    aTable.createItemRow ()
+          .setLabel ("Assigned participants")
+          .setCtrl (Integer.toString (aCRMSubscriberMgr.getCRMSubscriberCountOfGroup (aSelectedObject)));
   }
 
   @Override

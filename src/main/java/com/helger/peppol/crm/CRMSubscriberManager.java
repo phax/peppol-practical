@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
@@ -209,5 +210,25 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
     {
       m_aRWLock.readLock ().unlock ();
     }
+  }
+
+  @Nonnegative
+  public int getCRMSubscriberCountOfGroup (@Nonnull final ICRMGroup aGroup)
+  {
+    ValueEnforcer.notNull (aGroup, "Group");
+
+    int ret = 0;
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      for (final CRMSubscriber aSubscriber : m_aMap.values ())
+        if (aSubscriber.isAssignedToGroup (aGroup))
+          ++ret;
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+    return ret;
   }
 }

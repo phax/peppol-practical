@@ -49,7 +49,7 @@ import com.helger.peppol.mgr.MetaManager;
 import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
-import com.helger.webbasics.form.RequestFieldBoolean;
+import com.helger.webbasics.form.RequestFieldBooleanMultiValue;
 import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.masterdata.HCSalutationSelect;
 import com.helger.webpages.AbstractWebPageExt;
@@ -173,10 +173,8 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
                                                                     new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         {
           final String sCRMGroupID = aCRMGroup.getID ();
-          final RequestFieldBoolean aRFB = new RequestFieldBoolean (FIELD_GROUP,
-                                                                    aSelectedCRMGroupIDs != null &&
-                                                                        aSelectedCRMGroupIDs.contains (sCRMGroupID));
-          aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true).setValue (sCRMGroupID))
+          final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP, sCRMGroupID, false);
+          aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true))
                                         .addChild (" " + aCRMGroup.getDisplayName ()));
         }
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Mailing lists to subscribe to")

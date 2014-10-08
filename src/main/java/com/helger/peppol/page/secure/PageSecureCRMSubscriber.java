@@ -24,6 +24,7 @@ import com.helger.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.bootstrap3.alert.BootstrapWarnBox;
 import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.bootstrap3.form.BootstrapCheckBox;
 import com.helger.bootstrap3.table.BootstrapTable;
 import com.helger.bootstrap3.table.BootstrapTableForm;
 import com.helger.bootstrap3.table.BootstrapTableFormView;
@@ -37,7 +38,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCCheckBox;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
@@ -55,7 +55,7 @@ import com.helger.peppol.page.AbstractAppFormPage;
 import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
-import com.helger.webbasics.form.RequestFieldBoolean;
+import com.helger.webbasics.form.RequestFieldBooleanMultiValue;
 import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.datatables.DataTables;
 import com.helger.webctrls.masterdata.HCSalutationSelect;
@@ -227,10 +227,12 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
       for (final ICRMGroup aCRMGroup : ContainerHelper.getSorted (aCRMGroupMgr.getAllCRMGroups (),
                                                                   new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
       {
-        final RequestFieldBoolean aRFB = new RequestFieldBoolean (FIELD_GROUP,
-                                                                  aSelectedObject != null &&
-                                                                      aSelectedObject.isAssignedToGroup (aCRMGroup));
-        aGroups.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB).setValue (aCRMGroup.getID ()))
+        final String sCRMGroupID = aCRMGroup.getID ();
+        final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
+                                                                                      sCRMGroupID,
+                                                                                      aSelectedObject != null &&
+                                                                                          aSelectedObject.isAssignedToGroup (aCRMGroup));
+        aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true).setValue (sCRMGroupID))
                                       .addChild (" " + aCRMGroup.getDisplayName ()));
       }
       aTable.createItemRow ()
