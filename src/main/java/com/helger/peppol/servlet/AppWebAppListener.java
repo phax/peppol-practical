@@ -27,6 +27,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 import com.helger.bootstrap3.servlet.WebAppListenerMultiAppBootstrap;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.vendor.VendorInfo;
+import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSettings;
 import com.helger.peppol.app.init.AppSecurity;
 import com.helger.peppol.app.init.InitializerPublic;
@@ -98,6 +99,8 @@ public final class AppWebAppListener extends WebAppListenerMultiAppBootstrap <La
     VendorInfo.setVendorName ("Philip Helger");
     VendorInfo.setVendorURL ("http://www.helger.com");
     VendorInfo.setVendorEmail ("philip@helger.com");
+    VendorInfo.setVendorLocation ("Vienna, Austria");
+    VendorInfo.setInceptionYear (2014);
 
     super.initGlobals ();
 
@@ -109,5 +112,8 @@ public final class AppWebAppListener extends WebAppListenerMultiAppBootstrap <La
 
     // Load managers
     MetaManager.getInstance ();
+
+    // Setup error handler
+    AppInternalErrorHandler.doSetup ();
   }
 }
