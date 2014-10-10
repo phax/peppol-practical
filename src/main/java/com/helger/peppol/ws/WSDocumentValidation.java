@@ -92,7 +92,8 @@ public class WSDocumentValidation implements IDocumentValidation
       final ValidationServiceResult ret = new ValidationServiceResult ();
 
       // Interprete parameters
-      final Locale aCountry = StringHelper.hasText (sCountry) ? CountryCache.getCountry (sCountry) : null;
+      final Locale aCountry = StringHelper.hasText (sCountry) ? CountryCache.getInstance ().getCountry (sCountry)
+                                                             : null;
       final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getLocale (sDisplayLocale)
                                                                          : TextProvider.EN;
       Document aXMLDoc = null;

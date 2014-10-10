@@ -26,6 +26,7 @@ import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
+import com.helger.scopes.IScope;
 import com.helger.scopes.singleton.GlobalSingleton;
 
 /**
@@ -49,7 +50,7 @@ public final class MetaManager extends GlobalSingleton
   {}
 
   @Override
-  protected void onAfterInstantiation ()
+  protected void onAfterInstantiation (@Nonnull final IScope aScope)
   {
     try
     {
