@@ -36,6 +36,7 @@ import com.helger.appbasics.security.util.SecurityUtils;
 import com.helger.bootstrap3.CBootstrapCSS;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.base.BootstrapContainer;
+import com.helger.bootstrap3.base.BootstrapContainerFluid;
 import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
 import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
 import com.helger.bootstrap3.dropdown.BootstrapDropdownMenu;
@@ -283,8 +284,8 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     // Content
     {
       final BootstrapRow aRow = aOuterContainer.addAndReturnChild (new BootstrapRow ());
-      final HCDiv aCol1 = aRow.createColumn (3);
-      final HCDiv aCol2 = aRow.createColumn (9);
+      final HCDiv aCol1 = aRow.createColumn (12, 4, 4, 3);
+      final HCDiv aCol2 = aRow.createColumn (12, 8, 8, 9);
 
       // left
       // We need a wrapper span for easy AJAX content replacement
@@ -297,7 +298,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
 
     // Footer
     {
-      final HCDiv aDiv = new HCDiv ().addClass (CBootstrapCSS.CONTAINER).setID (CLayout.LAYOUT_AREAID_FOOTER);
+      final BootstrapContainerFluid aDiv = new BootstrapContainerFluid ().setID (CLayout.LAYOUT_AREAID_FOOTER);
 
       aDiv.addChild (new HCP ().addChild ("PEPPOL practical - created by Philip Helger")
                                .addChild (" - GitHub: ")
@@ -320,7 +321,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
         aDiv.addChild (aTable);
       }
 
-      aOuterContainer.addChild (aDiv);
+      ret.addChild (aDiv);
     }
 
     return ret;

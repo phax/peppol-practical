@@ -113,8 +113,8 @@ public final class LayoutAreaContentProviderSecure implements ILayoutAreaContent
     // Content
     {
       final BootstrapRow aRow = aOuterContainer.addAndReturnChild (new BootstrapRow ());
-      final HCDiv aCol1 = aRow.createColumn (3);
-      final HCDiv aCol2 = aRow.createColumn (9);
+      final HCDiv aCol1 = aRow.createColumn (12, 4, 4, 3);
+      final HCDiv aCol2 = aRow.createColumn (12, 8, 8, 9);
 
       // left
       // We need a wrapper span for easy AJAX content replacement
