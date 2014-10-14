@@ -43,18 +43,32 @@ public final class MenuPublic
                                                        "Index",
                                                        new ClassPathResource ("viewpages/en/index.xml")));
 
+    // Setup stuff
+    {
+      final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_SETUP,
+                                                                                                             "Setup",
+                                                                                                             aMenuTree));
+      aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_SETUP_SMP,
+                                                             "Setup PEPPOL SMP",
+                                                             new ClassPathResource ("viewpages/en/setup_smp.xml")));
+    }
+
     // Validation stuff
-    final IMenuItemPage aValidation = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
-                                                                                                                "Validation",
-                                                                                                                aMenuTree));
-    aMenuTree.createItem (aValidation, new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS,
-                                                                "PEPPOL document validation WebService",
-                                                                new ClassPathResource ("viewpages/en/ws_docval.xml")));
+    {
+      final IMenuItemPage aValidation = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
+                                                                                                                  "Validation",
+                                                                                                                  aMenuTree));
+      aMenuTree.createItem (aValidation, new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS,
+                                                                  "PEPPOL document validation WebService",
+                                                                  new ClassPathResource ("viewpages/en/ws_docval.xml")));
+    }
 
     // Newsletter stuff
-    aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
-    aMenuTree.createRootItem (new PagePublicNewsletterUnsubscribe (CMenuPublic.MENU_NEWSLETTER_UNSUBSCRIBE))
-             .setAttribute (CMenuPublic.FLAG_FOOTER_COL1, true);
+    {
+      aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
+      aMenuTree.createRootItem (new PagePublicNewsletterUnsubscribe (CMenuPublic.MENU_NEWSLETTER_UNSUBSCRIBE))
+               .setAttribute (CMenuPublic.FLAG_FOOTER_COL1, true);
+    }
 
     if (false)
     {
