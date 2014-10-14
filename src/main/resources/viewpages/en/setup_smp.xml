@@ -36,7 +36,35 @@ The information within the SMP is structured by participant ID, document type ID
   <li>Afterwards you need to apply for an <em>SMP certificate</em> at OpenPEPPOL. 
       This certificate is required to run the SMP.</li>
   <li>You should have a look at the 
-      <a href="https://joinup.ec.europa.eu/svn/peppol/PEPPOL_EIA/1-ICT_Architecture/1-ICT-Transport_Infrastructure/13-ICT-Models">official SMP specifications</a></li>
+      <a href="https://joinup.ec.europa.eu/svn/peppol/PEPPOL_EIA/1-ICT_Architecture/1-ICT-Transport_Infrastructure/13-ICT-Models">official SMP specifications</a>.
+      It is important to understand that the specifications only specify the reading access
+      to an SMP but not the writing access. Nevertheless the implementation discussed here
+      also contains the possibility to write new entries.</li>
   <li>You should be familiar with Java 1.6+</li>
-  <li>Basic knowledge of a relational database (e.g. MySQL) is required</li>    
+  <li>Basic knowledge of a relational database (e.g. MySQL) is required</li>
+  <li>Basic knowledge about Apache Tomcat (and optionally a web server) should be present</li>    
 </ol>
+
+<h2>Technical resources</h2>
+<p>
+  The SMP software to be used can be obtained from the 
+  <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
+  project maintained by the European Commission (and me) an hosted on
+  <a href="https://joinup.ec.europa.eu/">joinup</a>.
+  The <strong>sources</strong> reside in a publicly accessible 
+  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/">Subversion repository</a>
+  whereas the <strong>binary resources</strong> can be obtained from a
+  <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/">Nexus instance</a>.
+  (Note: as per 2014-10-14 the internal linkage of the Nexus does not work so you have to type
+  in the path directly to the URL - e.g. <code>https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/</code>)
+</p>
+
+<p>
+  The technical SMP resources are divided into the following elements: 
+</p>
+
+<ul>
+  <li><code>smp-webapp</code> - The SMP server that offers the query service. This server exists in two versions: one that supports only reading and one that supports reading and writing.</li>
+  <li><code>smp-client-library</code> - An SMP client library to be used to access any SMP server.</li>
+  <li><code>smp-client-console</code> - An SMP console client for querying the SMP from the commandline.</li>
+</ul>
