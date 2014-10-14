@@ -27,6 +27,7 @@ import com.helger.peppol.page.AppPageViewExternal;
 import com.helger.peppol.page.pub.PagePublicLogin;
 import com.helger.peppol.page.pub.PagePublicNewsletterSubscribe;
 import com.helger.peppol.page.pub.PagePublicNewsletterUnsubscribe;
+import com.helger.peppol.page.pub.PagePublicParticipantInformation;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
 
@@ -51,6 +52,14 @@ public final class MenuPublic
       aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_SETUP_SMP,
                                                              "Setup PEPPOL SMP",
                                                              new ClassPathResource ("viewpages/en/setup_smp.xml")));
+    }
+
+    // Tools stuff
+    {
+      final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_TOOLS,
+                                                                                                             "Tools",
+                                                                                                             aMenuTree));
+      aMenuTree.createItem (aSetup, new PagePublicParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT));
     }
 
     // Validation stuff

@@ -31,6 +31,8 @@ public final class CMenuPublic
   public static final String MENU_INDEX = "index";
   public static final String MENU_SETUP = "setup";
   public static final String MENU_SETUP_SMP = "setup_smp";
+  public static final String MENU_TOOLS = "tools";
+  public static final String MENU_TOOLS_PARTICIPANT = "tools-participant";
   public static final String MENU_VALIDATION = "validation";
   public static final String MENU_VALIDATION_WS = "validation-ws";
   public static final String MENU_NEWSLETTER_SUBSCRIBE = "newsletter-subscribe";
