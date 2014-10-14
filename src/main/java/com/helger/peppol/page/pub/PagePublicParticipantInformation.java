@@ -18,11 +18,14 @@ package com.helger.peppol.page.pub;
 
 import java.net.InetAddress;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
 import org.busdox.servicemetadata.publishing._1.ServiceGroupType;
+import org.busdox.servicemetadata.publishing._1.ServiceMetadataReferenceType;
 
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
@@ -35,6 +38,7 @@ import com.helger.html.hc.html.HCCode;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
+import com.helger.html.hc.html.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.page.IdentifierIssuingAgencySelect;
 import com.helger.validation.error.FormErrors;
@@ -43,9 +47,11 @@ import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webpages.AbstractWebPageExt;
 
+import eu.europa.ec.cipa.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import eu.europa.ec.cipa.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 import eu.europa.ec.cipa.peppol.identifier.participant.SimpleParticipantIdentifier;
 import eu.europa.ec.cipa.peppol.sml.ESML;
+import eu.europa.ec.cipa.peppol.uri.BusdoxURLUtils;
 import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
 
 public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
@@ -109,7 +115,42 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
                                           .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ())));
           aNodeList.addChild (new HCDiv ().addChild ("IP address ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
-          final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+
+          final List <SimpleDocumentTypeIdentifier> aDocTypes = new ArrayList <> ();
+          {
+            final String sCommonPrefix = aSMPHost.toExternalForm () +
+                                         "/" +
+                                         aParticipantID.getURIEncoded () +
+                                         "/services/";
+
+            final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+            aNodeList.addChild (new HCDiv ().addChild ("ServiceGroup contents:"));
+            final HCUL aUL = new HCUL ();
+            for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                              .getServiceMetadataReference ())
+            {
+              final String sHref = BusdoxURLUtils.createPercentDecodedURL (aSMR.getHref ());
+              aUL.addItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
+              if (sHref.startsWith (sCommonPrefix))
+              {
+                final String sDocType = sHref.substring (sCommonPrefix.length ());
+                try
+                {
+                  final SimpleDocumentTypeIdentifier aDocType = SimpleDocumentTypeIdentifier.createFromURIPart (sDocType);
+                  aDocTypes.add (aDocType);
+                }
+                catch (final IllegalArgumentException ex)
+                {
+                  aUL.addItem (new BootstrapErrorBox ().addChild ("The document type ")
+                                                       .addChild (new HCCode ().addChild (sDocType))
+                                                       .addChild (" could not be interpreted as a PEPPOL document type!"));
+                }
+              }
+              else
+                aUL.addItem (new BootstrapErrorBox ().addChild ("Contained href does not match the rules!"));
+            }
+            aNodeList.addChild (aUL);
+          }
         }
         catch (final Exception ex)
         {
