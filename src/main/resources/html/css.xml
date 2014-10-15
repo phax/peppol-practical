@@ -25,5 +25,6 @@
   <css path="/stream/famfam/013/famfam.css"/>
   <css path="/stream/css/webctrls.css"/>
   <css path="/css/default.css"/>
+  <css path="/css/print.css" media="print"/>
   <css path="/stream/placeholder/placeholder-fix.css" condcomment="if lt IE 10"/>
 </items>

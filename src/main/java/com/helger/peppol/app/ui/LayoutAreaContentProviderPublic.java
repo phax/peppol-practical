@@ -289,7 +289,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
 
       // left
       // We need a wrapper span for easy AJAX content replacement
-      aCol1.addChild (new HCSpan ().setID (CLayout.LAYOUT_AREAID_MENU).addChild (getMenuContent (aLEC)));
+      aCol1.addChild (new HCSpan ().setID (CLayout.LAYOUT_AREAID_MENU)
+                                   .addClass (CBootstrapCSS.HIDDEN_PRINT)
+                                   .addChild (getMenuContent (aLEC)));
       aCol1.addChild (new HCDiv ().setID (CLayout.LAYOUT_AREAID_SPECIAL));
 
       // content
