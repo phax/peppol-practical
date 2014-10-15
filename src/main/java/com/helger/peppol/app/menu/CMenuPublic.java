@@ -30,6 +30,7 @@ public final class CMenuPublic
 
   public static final String MENU_INDEX = "index";
   public static final String MENU_SETUP = "setup";
+  public static final String MENU_SETUP_AP = "setup_ap";
   public static final String MENU_SETUP_SMP = "setup_smp";
   public static final String MENU_TOOLS = "tools";
   public static final String MENU_TOOLS_PARTICIPANT = "tools-participant";

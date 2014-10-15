@@ -18,10 +18,40 @@
 -->
 <p>
 This page is supposed to contain technical information for PEPPOL implementers.
-It is currently work in progress...
+This page is brought to you by Philip Helger.
+I'm working for the Austrian Government and being the technical lead for 
+<a href="http://www.e-rechnung.gv.at">E-RECHNUNG.GV.AT</a> the eInvoicing
+solution of the Austrian government. I was a member of PEPPOL from the beginning
+and still involved in OpenPEPPOL. I did huge parts of the 
+<a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
+PEPPOL reference implementation (which is based on my PEPPOL Silicone). 
 </p>
+
+<p>
+  This page is currently divided into the following sections:
+</p>
+<ul>
+  <li>Setup guides for PEPPOL software components:
+    <ul>
+      <li><a href="?menuitem=setup_ap">AP</a></li>
+      <li><a href="?menuitem=setup_smp">SMP</a></li> 
+    </ul>
+  </li>  
+  <li>
+    Several small <a href="?menuitem=tools">"tools" and "utilities"</a> in the context of PEPPOL.
+  </li>   
+  <li>Clarification and tools in the area of document validation:
+    <ul>
+      <li><a href="?menuitem=validation-ws">Webservice for document validation</a></li> 
+    </ul>
+  </li>  
+</ul>
 
 <p>
 Note: the complete source code of this web site can be found on 
 <a href="https://github.com/phax/peppol-practical">GitHub</a>.
 </p>
+
+<div class="alert alert-info">
+  Note: This page is work in progress!
+</div>

@@ -47,8 +47,11 @@ public final class MenuPublic
     // Setup stuff
     {
       final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_SETUP,
-                                                                                                             "Setup",
+                                                                                                             "Setup guides",
                                                                                                              aMenuTree));
+      aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_SETUP_AP,
+                                                             "Setup PEPPOL AP",
+                                                             new ClassPathResource ("viewpages/en/setup_ap.xml")));
       aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_SETUP_SMP,
                                                              "Setup PEPPOL SMP",
                                                              new ClassPathResource ("viewpages/en/setup_smp.xml")));
