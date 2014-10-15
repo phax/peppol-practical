@@ -19,25 +19,38 @@ package com.helger.peppol.page.pub;
 import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.busdox.servicemetadata.publishing._1.EndpointType;
+import org.busdox.servicemetadata.publishing._1.ProcessType;
 import org.busdox.servicemetadata.publishing._1.ServiceGroupType;
 import org.busdox.servicemetadata.publishing._1.ServiceMetadataReferenceType;
+import org.busdox.servicemetadata.publishing._1.ServiceMetadataType;
+import org.busdox.servicemetadata.publishing._1.SignedServiceMetadataType;
+import org.joda.time.LocalDate;
 
+import com.helger.bootstrap3.EBootstrapIcon;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.bootstrap3.table.BootstrapTableForm;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringHelper;
+import com.helger.datetime.PDTFactory;
+import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCCode;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
+import com.helger.html.hc.html.HCH3;
+import com.helger.html.hc.html.HCLI;
+import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.html.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.page.IdentifierIssuingAgencySelect;
@@ -47,11 +60,14 @@ import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webpages.AbstractWebPageExt;
 
+import eu.europa.ec.cipa.peppol.identifier.IdentifierUtils;
 import eu.europa.ec.cipa.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import eu.europa.ec.cipa.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 import eu.europa.ec.cipa.peppol.identifier.participant.SimpleParticipantIdentifier;
 import eu.europa.ec.cipa.peppol.sml.ESML;
 import eu.europa.ec.cipa.peppol.uri.BusdoxURLUtils;
+import eu.europa.ec.cipa.peppol.wsaddr.W3CEndpointReferenceUtils;
+import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
 
 public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
@@ -113,43 +129,135 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
                                           .addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
           aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
                                           .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ())));
-          aNodeList.addChild (new HCDiv ().addChild ("IP address ")
+          aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
-          final List <SimpleDocumentTypeIdentifier> aDocTypes = new ArrayList <> ();
+          final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList <> ();
           {
+            aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
             final String sCommonPrefix = aSMPHost.toExternalForm () +
                                          "/" +
                                          aParticipantID.getURIEncoded () +
                                          "/services/";
 
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
-            aNodeList.addChild (new HCDiv ().addChild ("ServiceGroup contents:"));
             final HCUL aUL = new HCUL ();
             for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                               .getServiceMetadataReference ())
             {
               final String sHref = BusdoxURLUtils.createPercentDecodedURL (aSMR.getHref ());
-              aUL.addItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
+              final HCLI aLI = aUL.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
               if (sHref.startsWith (sCommonPrefix))
               {
                 final String sDocType = sHref.substring (sCommonPrefix.length ());
                 try
                 {
                   final SimpleDocumentTypeIdentifier aDocType = SimpleDocumentTypeIdentifier.createFromURIPart (sDocType);
-                  aDocTypes.add (aDocType);
+                  aDocTypeIDs.add (aDocType);
+                  aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
+                                            .addChild (" " + aDocType.getURIEncoded ()));
                 }
                 catch (final IllegalArgumentException ex)
                 {
-                  aUL.addItem (new BootstrapErrorBox ().addChild ("The document type ")
-                                                       .addChild (new HCCode ().addChild (sDocType))
-                                                       .addChild (" could not be interpreted as a PEPPOL document type!"));
+                  aLI.addChild (new BootstrapErrorBox ().addChild ("The document type ")
+                                                        .addChild (new HCCode ().addChild (sDocType))
+                                                        .addChild (" could not be interpreted as a PEPPOL document type!"));
                 }
               }
               else
-                aUL.addItem (new BootstrapErrorBox ().addChild ("Contained href does not match the rules!"));
+                aLI.addChild (new BootstrapErrorBox ().addChild ("Contained href does not match the rules!"));
             }
             aNodeList.addChild (aUL);
+          }
+
+          // List document type details
+          if (!aDocTypeIDs.isEmpty ())
+          {
+            final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
+            final Set <String> aAllUsedCertifiactes = new LinkedHashSet <String> ();
+
+            aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
+            final HCUL aULDocTypeIDs = new HCUL ();
+            for (final SimpleDocumentTypeIdentifier aDocTypeID : aDocTypeIDs)
+            {
+              final HCLI aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (aDocTypeID.getURIEncoded ())));
+              final SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
+                                                                                              aDocTypeID);
+              if (aSSM != null)
+              {
+                final ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                if (aSM.getRedirect () != null)
+                  aLIDocTypeID.addChild (new HCDiv ().addChild ("Redirect to " + aSM.getRedirect ().getHref ()));
+                else
+                {
+                  // For all processes
+                  final HCUL aULProcessID = new HCUL ();
+                  for (final ProcessType aProcess : aSM.getServiceInformation ().getProcessList ().getProcess ())
+                  {
+                    final HCLI aLIProcessID = aULProcessID.addAndReturnItem (new HCDiv ().addChild ("Process ID: ")
+                                                                                         .addChild (new HCCode ().addChild (IdentifierUtils.getIdentifierURIEncoded (aProcess.getProcessIdentifier ()))));
+                    final HCUL aULEndpoint = new HCUL ();
+                    // For all endpoints of the process
+                    for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
+                    {
+                      // Endpoint URL
+                      final HCLI aLIEndpoint = aULEndpoint.addAndReturnItem (new HCDiv ().addChild ("Endpoint URL: ")
+                                                                                         .addChild (new HCCode ().addChild (W3CEndpointReferenceUtils.getAddress (aEndpoint.getEndpointReference ()))));
+
+                      // Valid from
+                      if (aEndpoint.getServiceActivationDate () != null)
+                      {
+                        final LocalDate aValidFrom = PDTFactory.createLocalDate (aEndpoint.getServiceActivationDate ());
+                        aLIEndpoint.addChild (new HCDiv ().addChild ("Valid from: " +
+                                                                     PDTToString.getAsString (aValidFrom,
+                                                                                              aDisplayLocale)));
+                        if (aValidFrom.isAfter (aNowDate))
+                          aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is not yet valid!"));
+                      }
+
+                      // Valid to
+                      if (aEndpoint.getServiceExpirationDate () != null)
+                      {
+                        final LocalDate aValidTo = PDTFactory.createLocalDate (aEndpoint.getServiceExpirationDate ());
+                        aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " +
+                                                                     PDTToString.getAsString (aValidTo, aDisplayLocale)));
+                        if (aValidTo.isBefore (aNowDate))
+                          aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is no longer valid!"));
+                      }
+
+                      // Transport profile
+                      final String sTransportProfile = aEndpoint.getTransportProfile ();
+                      final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
+                      String sShortName = "unknown";
+                      if (eTransportProfile == ESMPTransportProfile.TRANSPORT_PROFILE_START)
+                        sShortName = "START";
+                      else
+                        if (eTransportProfile == ESMPTransportProfile.TRANSPORT_PROFILE_AS2)
+                          sShortName = "AS2";
+                      aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: " + sTransportProfile + " (")
+                                                        .addChild (new HCStrong ().addChild (sShortName))
+                                                        .addChild (")"));
+
+                      // Technical infos
+                      aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: " +
+                                                                   StringHelper.getImploded (" / ",
+                                                                                             aEndpoint.getTechnicalInformationUrl (),
+                                                                                             aEndpoint.getTechnicalContactUrl ())));
+
+                      // Certificate
+                      aAllUsedCertifiactes.add (aEndpoint.getCertificate ());
+                    }
+                    aLIProcessID.addChild (aULEndpoint);
+                  }
+                  aLIDocTypeID.addChild (aULProcessID);
+                }
+              }
+              else
+              {
+                aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to get service registration"));
+              }
+            }
+            aNodeList.addChild (aULDocTypeIDs);
           }
         }
         catch (final Exception ex)
