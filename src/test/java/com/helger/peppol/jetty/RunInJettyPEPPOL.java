@@ -30,6 +30,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.SystemProperties;
 
+import eu.europa.ec.cipa.peppol.utils.ConfigFile;
+
 /**
  * Run ebiz4all as a standalone web application in Jetty on port 8080.<br>
  * http://localhost:8080/kb
@@ -51,6 +53,15 @@ public final class RunInJettyPEPPOL
   {
     if (System.getSecurityManager () != null)
       throw new IllegalStateException ("Security Manager is set but not supported - aborting!");
+
+    // Proxy configuration is simply applied by setting system properties
+    final ConfigFile aCF = new ConfigFile ("private-configProxy.properties", "configProxy.properties");
+    for (final String sKey : aCF.getAllKeys ())
+    {
+      final String sValue = aCF.getString (sKey);
+      System.setProperty (sKey, sValue);
+      s_aLogger.info ("Setting Proxy property " + sKey + "=" + sValue);
+    }
 
     // Create main server
     final Server aServer = new Server ();

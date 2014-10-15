@@ -18,6 +18,7 @@ package com.helger.peppol.page.pub;
 
 import java.net.InetAddress;
 import java.net.URL;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -40,6 +41,8 @@ import com.helger.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.bootstrap3.table.BootstrapTableForm;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringHelper;
+import com.helger.css.property.CCSSProperties;
+import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.datetime.PDTFactory;
 import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.CHCParam;
@@ -51,6 +54,7 @@ import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCH3;
 import com.helger.html.hc.html.HCLI;
 import com.helger.html.hc.html.HCStrong;
+import com.helger.html.hc.html.HCTextArea;
 import com.helger.html.hc.html.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.page.IdentifierIssuingAgencySelect;
@@ -66,6 +70,7 @@ import eu.europa.ec.cipa.peppol.identifier.issuingagency.EPredefinedIdentifierIs
 import eu.europa.ec.cipa.peppol.identifier.participant.SimpleParticipantIdentifier;
 import eu.europa.ec.cipa.peppol.sml.ESML;
 import eu.europa.ec.cipa.peppol.uri.BusdoxURLUtils;
+import eu.europa.ec.cipa.peppol.utils.CertificateUtils;
 import eu.europa.ec.cipa.peppol.wsaddr.W3CEndpointReferenceUtils;
 import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
@@ -239,10 +244,11 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
                                                         .addChild (")"));
 
                       // Technical infos
-                      aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: " +
-                                                                   StringHelper.getImploded (" / ",
-                                                                                             aEndpoint.getTechnicalInformationUrl (),
-                                                                                             aEndpoint.getTechnicalContactUrl ())));
+                      final String sTecInfo = StringHelper.getImplodedNonEmpty (" / ",
+                                                                                aEndpoint.getTechnicalInformationUrl (),
+                                                                                aEndpoint.getTechnicalContactUrl ());
+                      if (StringHelper.hasText (sTecInfo))
+                        aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: " + sTecInfo));
 
                       // Certificate
                       aAllUsedCertifiactes.add (aEndpoint.getCertificate ());
@@ -258,6 +264,36 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
               }
             }
             aNodeList.addChild (aULDocTypeIDs);
+
+            aNodeList.addChild (new HCH3 ().addChild ("Certificate details"));
+            final HCUL aULCerts = new HCUL ();
+            for (final String sCertificate : aAllUsedCertifiactes)
+            {
+              final HCLI aLICert = aULCerts.addItem ();
+              final X509Certificate aCert = CertificateUtils.convertStringToCertficate (sCertificate);
+              if (aCert != null)
+              {
+                aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
+                aLICert.addChild (new HCDiv ().addChild ("Subject: " + aCert.getSubjectDN ().toString ()));
+                final LocalDate aNotBefore = PDTFactory.createLocalDate (aCert.getNotBefore ());
+                aLICert.addChild (new HCDiv ().addChild ("Not before: " +
+                                                         PDTToString.getAsString (aNotBefore, aDisplayLocale)));
+                if (aNotBefore.isAfter (aNowDate))
+                  aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is not yet valid!"));
+                final LocalDate aNotAfter = PDTFactory.createLocalDate (aCert.getNotAfter ());
+                aLICert.addChild (new HCDiv ().addChild ("Not after: " +
+                                                         PDTToString.getAsString (aNotAfter, aDisplayLocale)));
+                if (aNotAfter.isBefore (aNowDate))
+                  aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is no longer valid!"));
+              }
+              else
+                aLICert.addChild (new BootstrapErrorBox ().addChild ("Failed to interpret the data as a X509 certificate"));
+              aLICert.addChild (new HCDiv ().addChild (new HCTextArea ().setReadonly (true)
+                                                                        .setRows (3)
+                                                                        .setValue (sCertificate)
+                                                                        .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE))));
+            }
+            aNodeList.addChild (aULCerts);
           }
         }
         catch (final Exception ex)
