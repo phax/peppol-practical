@@ -120,11 +120,11 @@ The information within the SMP is structured by participant ID, document type ID
   for the service to work since it makes use of the SML management client.
 </p>
 
-<p>  
+<div class="alert alert-info">  
   Note that the SMP service MUST be deployed as the <code>ROOT</code> web application (at path "/") on 
   the application server, since this is a prerequisite in the DNS lookup scheme. 
   Furthermore it MUST be deployed on port 80 (standard http port) and may not use SSL to secure the transport.
-</p>
+</div>
 
 <h4>Configuring the service</h4>
 <p>
@@ -287,3 +287,53 @@ jdbc.password = smp
 target-database = MySQL
 jdbc.read-connections.max = 10</pre>
 </p>
+
+<div class="alert alert-info">
+  Note: since the default Java properties file handling is used to read the configuration 
+  file recall that trailing whitespaces of a property name and leading white spaces of a 
+  property value are automatically skipped. Trailing whitespaces of a property value are not skipped!
+</div>
+
+<h4>Implementation overview</h4>
+<p>
+  The service is implemented as a REST interface using the <a href="http://jersey.java.net/">Jersey framework</a>.
+  See the SMP specification for details on the intention of the REST URL paths.
+</p>
+
+<!--
+4.3.1 Public REST API
+The implementation contains four main REST classes, one for each path for which one can make queries:
+  /{ServiceGroupId} is implemented in the at.peppol.smp.server.ServiceGroupInterface class.
+  /{ServiceGroupId}/services/{DocumentTypeId} is implemented in the at.peppol.smp.server.ServiceMetadataInterface class.
+  /list/{UserId} is implemented in the at.peppol.smp.server.ListInterface class.
+  /complete/{ServiceGroupId} is implemented in the at.peppol.smp.server.CompleteServiceGroupInterface class.
+The list interface is not part of the SMP specification and is used for getting a list of registered service groups for a given user. The complete interface is also not part of the specification and is used for getting the service group as well as all the service metadata for that group in a single call. Further the PUT and DELETE operations has also been implemented for ServiceGroupInterface and ServiceMetadataInterface.
+These four interfaces make use of the at.peppol.smp.server.data.IDataManager interface to access the SMP data. The implementation currently contains one implementation of this interface which has a database as the underlying data source. The database version of the interface is implemented in the class at.peppol.smp.server.data.dbms.DBMSDataManager and makes use of JPA2 (EclipseLink) for the main database access.
+4.3.2 Modifying REST API
+Some REST APIs are used to modify data within the SMP. Those APIs are not standardized by the PEPPOL SMP specifications and therefore are described here. All modifying REST APIs are either using HTTP PUT or HTTP DELETE for creating/updating or for deleting elements. As the SMP itself running without transport security these modifying methods require an HTTP BasicAuth header.
+Note: to send an HTTP Basic Auth header you must provide an HTTP header called Authorization with a value like created by the following pseudo code:
+"Basic " + Base64.encode (userName + ":" + password)
+Please see chapter 4.4 on security considerations how to handle BasicAuth proper and secure.
+  ServiceGroupInterface
+  PUT /{ServiceGroupId}
+Expected body: A ServiceGroupType object as specified by the SMP XSD
+Description: create a new service group
+  DELETE /{ServiceGroupId}
+Expected body: none
+Description: Delete the whole service group with the specified service group ID. Implicitly deletes all related elements as well
+  ServiceMetadataInterface
+  PUT /{ServiceGroupId}/services/{DocumentTypeId}
+Expected body: A ServiceMetadataType object as specified by the SMP XSD
+Description: Define the AP endpoint URL etc. for a certain participant and a certain document type
+  DELETE /{ServiceGroupId}/services/{DocumentTypeId}
+Expected body: none
+Description: Delete all participant information for the specified document type
+4.3.3 Web application specifics
+A Java EE Filter is used for reverting changes to the SML, if the change to the SMP fails. If a HTTP status code different from 200 (OK) is returned from the REST interface, then the corresponding change made to the SML is reverted. This functionality is implemented in the class at.peppol.smp.server.hook.PostRegistrationFilter.
+A Jersey Filter has been added for generating the XML-DSIG element which is part of the response from a GET on Service Metadata interface. This is implemented in the class at.peppol.smp.server.util.SignatureFilter.
+4.4 Security considerations
+As the SMP is publically available on HTTP port 80 and does not require a client certificate or anything the like it especially the modifying actions (HTTP PUT and DELETE) must be handled with special care to avoid man in the middle attacks. Even though HTTP BasicAuth is used this is not really added security, as the username and password are only Base64 encoded - which is easily decodable - and are therefore vulnerable to Man in the Middle attacks.
+The recommended scenario is to additionally configure the SMP to run on HTTPS (port 443), and do the modifying actions only via HTTPS. BasicAuth is required anyway but the data is not readable by third-partys because of the underlying transport security. This is something that is currently technically not available but should be used as a convention when running an SMP with this implementation.
+For a future release it may be of value when the modifying actions are presented with a separate path prefix (e.g. /secure) which can than easily be used to forward all HTTP request on /secure/* to HTTPS automatically.
+
+ -->
