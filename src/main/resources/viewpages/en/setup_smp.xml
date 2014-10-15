@@ -68,3 +68,222 @@ The information within the SMP is structured by participant ID, document type ID
   <li><code>smp-client-library</code> - An SMP client library to be used to access any SMP server.</li>
   <li><code>smp-client-console</code> - An SMP console client for querying the SMP from the commandline.</li>
 </ul>
+
+<p>
+  All of the components are available as ready-to-use Eclipse projects.
+  The easiest way to build the projects is therefore to import the projects into Eclipse.
+</p>
+<p>  
+  Hint when using Eclipse: it is best to close the project in Eclipse when a commandline 
+  build is performed because otherwise Eclipse might want to refresh while the console 
+  build is in progress. After the build finished you may re-open the project in Eclipse
+  and clean it there again, because the Eclipse compiler and the Oracle console compiler 
+  produce incompatible byte code for enum classes!
+</p>
+
+<h3>smp-webapp</h3>
+<p>
+  This is the main SMP server application. It is provided as a Java web application that can be deployed
+  in an application server like Apache Tomcat or Jetty.
+  This section assumes that you are using the complete SMP with read and write API.
+  The respective CIPA project is called <code>cipa-smp-full-webapp</code>.
+  The latest version 2.2.2 can be found in the Joinup Subversion repository at
+  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2/cipa-smp-full-webapp"><code>https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2/cipa-smp-full-webapp</code></a>. 
+</p>
+
+<p>
+  The SMP service has been implemented as a REST interface with a database backend.
+  It is possible to change the backend, but the following description is based on a database backend.
+  A copy of the MySQL database initialization script can be found in the 
+  <code>/src/etc/database_backups/</code> folder of the source project.
+</p>
+
+<p>
+  The service can be deployed in two ways:
+</p>
+
+<ul>
+  <li>
+    Compiling the project on the command line using <kbd>mvn clean install</kbd>. 
+    The result is a WAR file in the <code>target</code> folder and additionally an exploded 
+    version of the WAR file in the <code>target/cipa-smp-full-webapp-x.y.z</code> directory
+    (where x.y.z denotes the version number).
+  </li>
+  <li>
+    Start the application <code>src/test/java/at/peppol/smp/server/jetty/RunInJettySMP</code> from within Eclipse.
+    Than the application will be running on localhost port 80 and can be accessed with a browser or an SMP client.
+  </li>
+</ul>
+
+<p>
+  <a href="https://metro.java.net/2.2.1-1/">Metro 2.2.1-1</a> must be installed on the application server 
+  for the service to work since it makes use of the SML management client.
+</p>
+
+<p>  
+  Note that the SMP service MUST be deployed as the <code>ROOT</code> web application (at path "/") on 
+  the application server, since this is a prerequisite in the DNS lookup scheme. 
+  Furthermore it MUST be deployed on port 80 (standard http port) and may not use SSL to secure the transport.
+</p>
+
+<h4>Configuring the service</h4>
+<p>
+  The service is configured using a single configuration file 
+  <code>src/main/resources/config.properties</code>. 
+  The following list describes all the possible configuration items:
+</p>
+<ul>
+  <li>
+    <strong><code>dataManager.class</code></strong>:
+    The data manager implementation to use. 
+    The data manager is for retrieving the data to use in the REST service. 
+    The default class is <code>eu.europa.ec.cipa.smp.server.data.dbms.DBMSDataManager</code>.
+  </li>
+  <li>
+    <strong><code>registrationHook.class</code></strong>:
+    The type of registration hook to use. 
+    The hook is used for notifying the SML of the creation or deletion of business identifiers. 
+    For testing purposes you may use the class <code>eu.europa.ec.cipa.smp.server.hook.DoNothingRegistrationHook</code>
+    which does not communicate with the SML. 
+    For production use the class <code>eu.europa.ec.cipa.smp.server.hook.RegistrationServiceRegistrationHook</code>
+    must be used, as it communicates with the SML and adds, updates or deletes participant DNS entries.
+  </li>
+  <li>
+    <strong><code>regServiceRegistrationHook.id</code></strong>:
+    The SMP ID to use when using the SML interface.<br /> 
+    Note: it must be the same ID that was used for the initial registration of the SMP to the SML.<br />
+    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
+  </li>
+  <li>
+    <strong><code>regServiceRegistrationHook.regLocatorUrl</code></strong>:
+    The URL of the SML manage business identifier service. 
+    For production purposes (SML) use <code>https://sml.peppolcentral.org/manageparticipantidentifier</code>. 
+    For the test-SML (SMK) use the URL <code>https://smk.peppolcentral.org/manageparticipantidentifier</code>.<br />
+    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
+  </li>
+  <li>
+    <strong><code>regServiceRegistrationHook.keystore.classpath</code></strong>: 
+    The classpath - relative to the project - where the Java key store (of type JKS) with the SMP 
+    certificate is located. 
+    An empty directory <code>src/main/resources/keystore</code> is present which could contain the key store. 
+    In this case the properties entry should start with <code>keystore/</code>.<br />
+    Note: The key store should contain exactly one certificate entry with an arbitrary name and the certificate must have the same password as the whole key store!<br />
+    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
+  </li>
+  <li>
+    <strong><code>regServiceRegistrationHook.keystore.password</code></strong>:
+    The password used to access the key store.<br />
+    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
+  </li>
+  <li>
+    <strong><code>xmldsig.keystore.classpath</code></strong>:
+    Has the same semantics as <code>regServiceRegistrationHook.keystore.classpath</code> and should 
+    therefore have the same value.
+  </li>
+  <li>
+    <strong><code>xmldsig.keystore.password</code></strong>:
+    Has the same semantics as <code>regServiceRegistrationHook.keystore.password</code> and should 
+    therefore have the same value.
+  </li>
+  <li>
+    <strong><code>xmldsig.keystore.key.alias</code></strong>:
+    The alias of the key within the key store. Is case sensitive and may not be empty.
+  </li>
+  <li>
+    <strong><code>xmldsig.keystore.key.password</code></strong>:
+    The password of the certificate with the above specified alias.
+    Should be the same as the password of the whole key store (see <code>xmldsig.keystore.password</code>).
+  </li>
+  <li>
+    <strong><code>jdbc.driver</code></strong>:
+    The JDBC driver class to be used by JPA. For MySQL use com.mysql.jdbc.Driver
+  </li>
+  <li>
+    <strong><code>jdbc.url</code></strong>:
+    The JDBC URL of the database to connect to. 
+    For a local MySQL database called "smp" the string would look like this: 
+    <code>jdbc:mysql://localhost/smp?autoReconnect=true</code><br />
+    Note: the URL depends on the JDBC driver used!
+  </li>
+  <li>
+    <strong><code>jdbc.user</code></strong>:
+    The database user to be used when connecting to the database.
+  </li>
+  <li>
+    <strong><code>jdbc.password</code></strong>:
+    The password of the JDBC user to be used when connecting to the DB
+  </li>
+  <li>
+    <strong><code>target-database</code></strong>:
+    The JPA target database type to be used. For MySQL this value should be <code>MySQL</code><br />
+    Note: Please see the documentation of EclipseLink for other target database systems!
+  </li>
+  <li>
+    <strong><code>jdbc.read-connections.max</code></strong>:
+    The maximum number of JDBC connections to be used for reading.
+    Usually 10 should be suitable for most use cases.
+  </li>
+</ul>
+
+<p>
+  Example of a development <code>config.properties</code> file using a local MySQL database 
+  called <code>smp</code> without an SML connector (for easy testing):
+</p>
+
+<p>
+  <pre>
+## DBMS handler
+dataManager.class=eu.europa.ec.cipa.smp.server.data.dbms.DBMSDataManager
+
+## Registration callback (SML client caller)
+registrationHook.class=eu.europa.ec.cipa.smp.server.hook.DoNothingRegistrationHook
+
+## XMLDSIG response signing:
+xmldsig.keystore.classpath    = keystore/keystore.jks
+xmldsig.keystore.password     = peppol
+xmldsig.keystore.key.alias    = smp keypair
+xmldsig.keystore.key.password = peppol
+
+## JDBC configuration for DB
+jdbc.driver = com.mysql.jdbc.Driver
+jdbc.url = jdbc:mysql://localhost:3306/smp
+jdbc.user = smp
+jdbc.password = smp
+target-database = MySQL
+jdbc.read-connections.max = 10</pre>
+</p>
+
+<p>
+  Example of a development <code>config.properties</code> file using a local MySQL database 
+  called <code>smp</code> with the SML connector (for close to production):
+</p>
+
+<p>
+  <pre>
+## DBMS handler
+dataManager.class=eu.europa.ec.cipa.smp.server.data.dbms.DBMSDataManager
+
+## Registration callback (SML client caller)
+registrationHook.class=eu.europa.ec.cipa.smp.server.hook.RegistrationServiceRegistrationHook
+
+# SMP ID
+regServiceRegistrationHook.id=TEST-SMP-ID1
+# SML URL (incl. the service name)
+regServiceRegistrationHook.regLocatorUrl=https://sml.peppolcentral.org/manageparticipantidentifier
+regServiceRegistrationHook.keystore.classpath = keystore/keystore.jks
+regServiceRegistrationHook.keystore.password  = peppol
+
+## XMLDSIG response signing:
+xmldsig.keystore.classpath    = keystore/keystore.jks
+xmldsig.keystore.password     = peppol
+xmldsig.keystore.key.alias    = smp keypair
+xmldsig.keystore.key.password = peppol
+
+## JDBC configuration for DB
+jdbc.driver = com.mysql.jdbc.Driver
+jdbc.url = jdbc:mysql://localhost:3306/smp
+jdbc.user = smp
+jdbc.password = smp
+target-database = MySQL
+jdbc.read-connections.max = 10</pre>
+</p>
