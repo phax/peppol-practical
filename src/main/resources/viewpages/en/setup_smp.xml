@@ -81,7 +81,7 @@ The information within the SMP is structured by participant ID, document type ID
   produce incompatible byte code for enum classes!
 </p>
 
-<h3>smp-webapp</h3>
+<h2>smp-webapp</h2>
 <p>
   This is the main SMP server application. It is provided as a Java web application that can be deployed
   in an application server like Apache Tomcat or Jetty.
@@ -126,7 +126,7 @@ The information within the SMP is structured by participant ID, document type ID
   Furthermore it MUST be deployed on port 80 (standard http port) and may not use SSL to secure the transport.
 </div>
 
-<h4>Configuring the service</h4>
+<h3>Configuring the service</h3>
 <p>
   The service is configured using a single configuration file 
   <code>src/main/resources/config.properties</code>. 
@@ -294,13 +294,11 @@ jdbc.read-connections.max = 10</pre>
   property value are automatically skipped. Trailing whitespaces of a property value are not skipped!
 </div>
 
-<h4>Implementation overview</h4>
+<h3>Public REST API</h3>
 <p>
   The service is implemented as a REST interface using the <a href="http://jersey.java.net/">Jersey framework</a>.
   See the SMP specification for details on the intention of the REST URL paths.
 </p>
-
-<h5>Public REST API</h5>
 <p>
   The implementation contains four main REST classes, one for each path for which one can make queries:
 </p>
@@ -338,7 +336,7 @@ jdbc.read-connections.max = 10</pre>
   and makes use of JPA (EclipseLink) for the main database access.
 </p>
 
-<h5>Modifying REST API</h5>
+<h3>Modifying REST API</h3>
 <p>
   Some REST APIs are used to modify data within the SMP.
   Those APIs are not standardized by the PEPPOL SMP specifications and therefore are described here.
@@ -354,29 +352,55 @@ jdbc.read-connections.max = 10</pre>
 <p>
   Please see chapter on <a href="#security">security considerations</a> how to handle BasicAuth proper and secure.
 </p>
-<!--
-4.3.2 
-  ServiceGroupInterface
-  PUT /{ServiceGroupId}
-Expected body: A ServiceGroupType object as specified by the SMP XSD
-Description: create a new service group
-  DELETE /{ServiceGroupId}
-Expected body: none
-Description: Delete the whole service group with the specified service group ID. Implicitly deletes all related elements as well
-  ServiceMetadataInterface
-  PUT /{ServiceGroupId}/services/{DocumentTypeId}
-Expected body: A ServiceMetadataType object as specified by the SMP XSD
-Description: Define the AP endpoint URL etc. for a certain participant and a certain document type
-  DELETE /{ServiceGroupId}/services/{DocumentTypeId}
-Expected body: none
-Description: Delete all participant information for the specified document type
-4.3.3 Web application specifics
-A Java EE Filter is used for reverting changes to the SML, if the change to the SMP fails. If a HTTP status code different from 200 (OK) is returned from the REST interface, then the corresponding change made to the SML is reverted. This functionality is implemented in the class at.peppol.smp.server.hook.PostRegistrationFilter.
-A Jersey Filter has been added for generating the XML-DSIG element which is part of the response from a GET on Service Metadata interface. This is implemented in the class at.peppol.smp.server.util.SignatureFilter.
 
- -->
+<p>
+  A Java EE Filter is used for reverting changes to the SML, if the change to the SMP fails. 
+  If a HTTP status code different from 200 (OK) is returned from the REST interface, 
+  then the corresponding change made to the SML is reverted. This functionality is 
+  implemented in the class <code>eu.europa.ec.cipa.smp.server.hook.PostRegistrationFilter</code>.
+</p>
+<p>  
+  A Jersey Filter has been added for generating the XML-DSIG element which is part of the 
+  response from a GET on Service Metadata interface. 
+  This is implemented in the class <code>eu.europa.ec.cipa.smp.server.util.SignatureFilter</code>.
+</p>
+
+<ul>
+  <li>
+    <code>ServiceGroupInterface</code>
+    <ul>
+      <li>
+        <code>PUT /{ServiceGroupId}</code><br />
+        Expected body: A <code>ServiceGroupType</code> object as specified by the SMP XSD<br />
+        Description: create a new service group
+      </li>
+      <li>
+        <code>DELETE /{ServiceGroupId}</code><br />
+        Expected body: none<br />
+        Description: Delete the whole service group with the specified service group ID. 
+        Implicitly deletes all related elements as well
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code>ServiceMetadataInterface</code>
+    <ul>
+      <li>
+        <code>PUT /{ServiceGroupId}/services/{DocumentTypeId}</code><br />
+        Expected body: A <code>ServiceMetadataType</code> object as specified by the SMP XSD<br />
+        Description: Define the AP endpoint URL etc. for a certain participant and a certain document type
+      </li>
+      <li>
+        <code>DELETE /{ServiceGroupId}/services/{DocumentTypeId}</code><br />
+        Expected body: none<br />
+        Description: Delete all participant information for the specified document type
+      </li>
+    </ul>
+  </li>
+</ul>
+
 <a name="security"></a>
-<h4>Security considerations</h4>
+<h3>Security considerations</h3>
 <p>
   As the SMP is publically available on HTTP port 80 and does not require a client certificate 
   or anything the like it especially the modifying actions (HTTP <code>PUT</code> and <code>DELETE</code>)
