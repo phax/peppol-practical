@@ -1,0 +1,23 @@
+[12:25:32] Carmen Ciciriello [PEPPOL]: Hi Philip
+[12:25:38] Carmen Ciciriello [PEPPOL]: I was looking at your website
+[12:25:38] Philip Helger: Hi Carmen
+[12:25:41] Philip Helger: ok
+[12:25:46] Carmen Ciciriello [PEPPOL]: it's great
+[12:25:53] Carmen Ciciriello [PEPPOL]: one thing regarding the links
+[12:25:55] Philip Helger: It's at least a starting point
+[12:25:57] Carmen Ciciriello [PEPPOL]: http://www.peppol.eu/ressource-library/technical-specifications/post-award/mandatory
+[12:26:13] Carmen Ciciriello [PEPPOL]: that link should be included here
+[12:26:16] Carmen Ciciriello [PEPPOL]: http://peppol.helger.com/public/?menuitem=setup_ap
+[12:26:27] Philip Helger: OK - will do!
+[12:26:29] Carmen Ciciriello [PEPPOL]: "official AS/2 ...
+[12:26:34] Carmen Ciciriello [PEPPOL]: sorry
+[12:26:41] Carmen Ciciriello [PEPPOL]: no no
+[12:26:45] Carmen Ciciriello [PEPPOL]: my mistake
+[12:26:45] Philip Helger: No prob - any input is welcome!
+[12:27:00] Carmen Ciciriello [PEPPOL]: but will check the links to make sure they are up to date
+[12:27:42] Carmen Ciciriello [PEPPOL]: we do not use the EIA
+[12:27:44] Philip Helger: Okidoki. If you have anything additional to be linked, just let me know!
+[12:27:53] Carmen Ciciriello [PEPPOL]: the technical specs are here
+[12:28:19] Carmen Ciciriello [PEPPOL]: Transport Infrastructure: http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources
+[12:28:39] Carmen Ciciriello [PEPPOL]: Post-award (BIS v2): http://www.peppol.eu/ressource-library/technical-specifications/post-award/mandatory
+[12:29:47] Philip Helger: Excellent - will do it this week!
