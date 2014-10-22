@@ -29,13 +29,14 @@ public final class CMenuPublic
   public static final String MENU_LOGIN = "login";
 
   public static final String MENU_INDEX = "index";
-  public static final String MENU_SETUP = "setup";
-  public static final String MENU_SETUP_AP = "setup_ap";
-  public static final String MENU_SETUP_SMP = "setup_smp";
+  public static final String MENU_DOCS = "docs";
+  public static final String MENU_DOCS_SETUP_AP = "docs-setup-ap";
+  public static final String MENU_DOCS_SETUP_SMP = "docs-setup-smp";
+  public static final String MENU_DOCS_SML_MIGRATION = "docs-sml-migration";
   public static final String MENU_TOOLS = "tools";
   public static final String MENU_TOOLS_PARTICIPANT = "tools-participant";
   public static final String MENU_VALIDATION = "validation";
-  public static final String MENU_VALIDATION_WS = "validation-ws";
+  public static final String MENU_VALIDATION_WS1 = "validation-ws1";
   public static final String MENU_NEWSLETTER_SUBSCRIBE = "newsletter-subscribe";
 
   // footer

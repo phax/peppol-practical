@@ -46,15 +46,19 @@ public final class MenuPublic
 
     // Setup stuff
     {
-      final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_SETUP,
-                                                                                                             "Setup guides",
+      final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_DOCS,
+                                                                                                             "Technical documentation",
                                                                                                              aMenuTree));
-      aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_SETUP_AP,
+      aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_AP,
                                                              "Setup PEPPOL AP",
-                                                             new ClassPathResource ("viewpages/en/setup_ap.xml")));
-      aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_SETUP_SMP,
+                                                             new ClassPathResource ("viewpages/en/docs_setup_ap.xml")));
+      aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP,
                                                              "Setup PEPPOL SMP",
-                                                             new ClassPathResource ("viewpages/en/setup_smp.xml")));
+                                                             new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_MIGRATION,
+                                                     "SML migration information",
+                                                     new ClassPathResource ("viewpages/en/docs_sml_migration.xml")));
     }
 
     // Tools stuff
@@ -70,9 +74,10 @@ public final class MenuPublic
       final IMenuItemPage aValidation = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
                                                                                                                   "Validation",
                                                                                                                   aMenuTree));
-      aMenuTree.createItem (aValidation, new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS,
-                                                                  "PEPPOL document validation WebService",
-                                                                  new ClassPathResource ("viewpages/en/ws_docval.xml")));
+      aMenuTree.createItem (aValidation,
+                            new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS1,
+                                                     "PEPPOL document validation WebService",
+                                                     new ClassPathResource ("viewpages/en/validation_ws1.xml")));
     }
 
     // Newsletter stuff

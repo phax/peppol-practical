@@ -1,0 +1,39 @@
+<p>
+  This page explains what needs to be done to migrate the SML from the old 
+  BRZ operated domain to the new DG DIGIT operated domain.
+  This document tries to explain the requirements in a general manner but will focus on the 
+  <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
+  implementation for the technical details. 
+</p>
+
+<div class="alert alert-info">
+  Note: inside this document the term <em>SML</em> represents the production SML and the term
+  <em>SMK</em> represents the publically available test version of the SML which should not be
+  used in production.
+</div>
+
+<h2>Changed domain names</h2>
+
+<p>The following table shows all changed domain names at a glance.</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>SML domain name</th>
+      <th>SMK domain name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BRZ (old)</td>
+      <td><code>sml.peppolcentral.org</code></td>
+      <td><code>smk.peppolcentral.org</code></td>
+    </tr>
+    <tr>
+      <td>DG DIGIT (new)</td>
+      <td><code>edelivery.tech.ec.europa.eu</code></td>
+      <td><code>acc.edelivery.tech.ec.europa.eu</code></td>
+    </tr>
+  </tbody>
+</table>

@@ -35,6 +35,7 @@ import org.busdox.servicemetadata.publishing._1.ServiceMetadataType;
 import org.busdox.servicemetadata.publishing._1.SignedServiceMetadataType;
 import org.joda.time.LocalDate;
 
+import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.bootstrap3.EBootstrapIcon;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
@@ -129,7 +130,9 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
           final URL aSMPHost = aSMPClient.getSMPHost ().toURL ();
           final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
           final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
-          aNodeList.addChild (new HCDiv ().addChild ("Querying the following SMP:"));
+          aNodeList.addChild (new HCDiv ().addChild ("Querying the following SMP for ")
+                                          .addChild (new HCCode ().addChild (aParticipantID.getURIEncoded ()))
+                                          .addChild (":"));
           aNodeList.addChild (new HCDiv ().addChild ("PEPPOL name: ")
                                           .addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
           aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
@@ -295,12 +298,20 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
             }
             aNodeList.addChild (aULCerts);
           }
+
+          // Audit success
+          AuditUtils.onAuditExecuteSuccess ("participate-information", aParticipantID.getURIEncoded ());
         }
         catch (final Exception ex)
         {
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Error querying SMP."))
                                                       .addChild (new HCDiv ().addChild ("Technical details: " +
                                                                                         ex.getMessage ())));
+
+          // Audit failure
+          AuditUtils.onAuditExecuteFailure ("participate-information",
+                                            aParticipantID.getURIEncoded (),
+                                            ex.getMessage ());
         }
       }
     }
