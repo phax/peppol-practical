@@ -19,6 +19,10 @@ package com.helger.peppol.app.config;
 import com.helger.commons.annotations.IsSPIImplementation;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
+import com.helger.peppol.comment.domain.Comment;
+import com.helger.peppol.comment.domain.CommentMicroTypeConverter;
+import com.helger.peppol.comment.domain.CommentThread;
+import com.helger.peppol.comment.domain.CommentThreadMicroTypeConverter;
 import com.helger.peppol.crm.CRMGroup;
 import com.helger.peppol.crm.CRMGroupMicroTypeConverter;
 import com.helger.peppol.crm.CRMSubscriber;
@@ -32,5 +36,8 @@ public final class AppMicroTypeConverterRegistarSPI implements IMicroTypeConvert
     // CRM stuff
     aRegistry.registerMicroElementTypeConverter (CRMGroup.class, new CRMGroupMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (CRMSubscriber.class, new CRMSubscriberMicroTypeConverter ());
+    // Comment stuff
+    aRegistry.registerMicroElementTypeConverter (Comment.class, new CommentMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (CommentThread.class, new CommentThreadMicroTypeConverter ());
   }
 }
