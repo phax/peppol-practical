@@ -126,6 +126,7 @@ The information within the SMP is structured by participant ID, document type ID
   Furthermore it MUST be deployed on port 80 (standard http port) and may not use SSL to secure the transport.
 </div>
 
+<a name="configuring"></a>
 <h3>Configuring the service</h3>
 <p>
   The service is configured using a single configuration file 

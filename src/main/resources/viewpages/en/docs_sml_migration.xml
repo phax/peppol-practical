@@ -21,18 +21,23 @@
   BRZ operated domain to the new DG DIGIT operated domain.
   This document tries to explain the requirements in a general manner but will focus on the 
   <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
-  implementation for the technical details. 
+  implementation for the technical details.
 </p>
+
+<div class="alert alert-warning">
+  There is <strong>no fixed date</strong> for the transition yet.
+  Everything you read here does not apply yet for production and is mainly ment for preparation.
+</div>
 
 <p>
  The changes in the SML affect the following components:
 </p>
 
 <ul>
-  <li>SMP server - the server/backend component of the SMP</li>
-  <li>SMP client - the client/requesting component of the SMP</li>
-  <li>AP server - the receiving component of the Access Point (because SMP client usage)</li>
-  <li>AP client - the sending component of the Access Point (because SMP client usage)</li>
+  <li><a href="#smpserver">SMP server</a> - the server/backend component of the SMP</li>
+  <li><a href="#smpclient">SMP client</a> - the client/requesting component of the SMP</li>
+  <li><a href="#startserver">START AP server</a> - the receiving component of the Access Point (because of SMP client usage)</li>
+  <li><a href="#startclient">START AP client</a> - the sending component of the Access Point (because of SMP client usage)</li>
 </ul>
 
 <div class="alert alert-info">
@@ -76,6 +81,7 @@
   or in <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/">binary form</a>.
 </p>
 
+<a name="smpserver"></a>
 <h3>cipa-smp-full-webapp &amp; cipa-smp-readonly-webapp</h3>
 
 <p>
@@ -87,8 +93,96 @@
   This differentiation exists because the SMP specification only specifies the reading access. 
 </p>
 
+<p>
+  The following locations must be changed:
+</p>
+
+<ul>
+  <li><a href="?menuitem=docs-setup-smp#configuring">Configuration file</a> <code>config.properties</code>:
+    <ul>
+      <li>The property <code>regServiceRegistrationHook.regLocatorUrl</code> must be adopted to the new URL</li>
+    </ul>
+  </li>
+</ul>
+
+<a name="smpclient"></a>
 <h3>cipa-smp-client-library</h3>
 
+<p>
+  This is the Java library that provides structured access to any SMP.
+</p>
+
+<p>
+  The following locations must be changed:
+</p>
+
+<ul>
+  <li>When instantiating <code>SMPServiceCaller</code> or <code>SMPServiceCallerReadonly</code> 
+    you have to make sure that the correct <code>eu.europa.ec.cipa.peppol.sml.ISMLInfo</code> 
+    object is passed in.<br />
+    <strong>Note:</strong> currently no entry in the <code>eu.europa.ec.cipa.peppol.sml.ESML</code>
+    enumeration contains the new entries. Instead you have to instantiate class
+    <code>eu.europa.ec.cipa.peppol.sml.SimpleSMLInfo</code> manually.<br/>
+    To create a <code>SimpleSMLInfo</code> for the <strong>new SML</strong>, use the following code:<br />
+    <code>new SimpleSMLInfo ("edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu", "https://edelivery.tech.ec.europa.eu", true)</code><br />
+    To create a <code>SimpleSMLInfo</code> for the <strong>new SMK</strong>, use the following code:<br />
+    <code>new SimpleSMLInfo ("acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu", "https://acc.edelivery.tech.ec.europa.eu", true)</code>
+  </li>
+</ul>
+
+<div class="alert alert-info">
+  Technical hint: as <code>SimpleSMLInfo</code> objects are immutable you can simply create a constant
+  once and refer to it later on. 
+</div>
+
+<a name="startserver"></a>
 <h3>cipa-start-server</h3>
 
+<p>
+  This is the web application that supports receiving business documents via START.
+  Even though START is no longer mandatory, explicitly setting the new SML via the configuration
+  file is supported since CIPA version 2.2.0.
+</p>
+
+<p>
+  The following locations must be changed:
+</p>
+
+<ul>
+  <li>Configuration file <code>configServer.properties</code>:
+    <ul>
+      <li>The property <code>server.sml.mode</code> must be disabled (e.g. by commenting)</li>
+      <li>The property <code>server.sml.dnszone</code> must be set.<br />
+        For the new SML enter: <code>edelivery.tech.ec.europa.eu.</code><br />
+        For the new SMK enter: <code>acc.edelivery.tech.ec.europa.eu.</code>
+      </li>
+      <li>The property <code>server.sml.hostname</code> must be set.<br />
+        For the new SML enter: <code>https://edelivery.tech.ec.europa.eu</code><br />
+        For the new SMK enter: <code>https://acc.edelivery.tech.ec.europa.eu</code>
+      </li>
+      <li>The property <code>server.sml.serviceurl</code> must be set.<br />
+        For the new SML enter: <code>https://edelivery.tech.ec.europa.eu</code><br />
+        For the new SMK enter: <code>https://acc.edelivery.tech.ec.europa.eu</code>
+      </li>
+      <li>The property <code>server.sml.requires-client-certificate</code> must be set to <code>true</code></li>
+    </ul>
+  </li>
+</ul>
+
+<a name="startclient"></a>
 <h3>cipa-start-client</h3>
+
+<p>
+  This is the Java library that is responsible for sending documents via START.
+</p>
+
+<p>
+  The following locations must be changed:
+</p>
+
+<ul>
+  <li>All locations where <code>AccessPointClient.send</code> is invoked. 
+      Previously a call to the SMP client for endpoint address resolution is required
+      and exactly that call must be adopted as stated for 
+      <a href="#smpclient">cipa-smp-client-library</a>.</li>
+</ul>

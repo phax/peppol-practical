@@ -31,10 +31,11 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
   This page is currently divided into the following sections:
 </p>
 <ul>
-  <li>Setup guides for PEPPOL software components:
+  <li>Technical documentation for PEPPOL software components:
     <ul>
-      <li><a href="?menuitem=setup_ap">AP</a></li>
-      <li><a href="?menuitem=setup_smp">SMP</a></li> 
+      <li><a href="?menuitem=docs-setup-ap">AP setup guide</a> (work in progress)</li>
+      <li><a href="?menuitem=docs-setup-smp">SMP setup guide</a></li> 
+      <li><a href="?menuitem=docs-sml-migration">SML migration guide</a></li> 
     </ul>
   </li>  
   <li>
