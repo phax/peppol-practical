@@ -23,7 +23,7 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webpages.AbstractWebPageForm;
+import com.helger.webctrls.page.AbstractWebPageForm;
 
 /**
  * Abstract implementation of {@link AbstractWebPageForm} for this program.

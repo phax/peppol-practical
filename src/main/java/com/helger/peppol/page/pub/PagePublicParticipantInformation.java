@@ -63,7 +63,7 @@ import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
-import com.helger.webpages.AbstractWebPageExt;
+import com.helger.webctrls.page.AbstractWebPageExt;
 
 import eu.europa.ec.cipa.peppol.identifier.IdentifierUtils;
 import eu.europa.ec.cipa.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;

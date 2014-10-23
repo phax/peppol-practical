@@ -23,7 +23,7 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.ui.AppCommonUI;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webpages.AbstractWebPageExt;
+import com.helger.webctrls.page.AbstractWebPageExt;
 
 public final class PagePublicLogin extends AbstractWebPageExt <WebPageExecutionContext>
 {

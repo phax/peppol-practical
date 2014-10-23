@@ -28,7 +28,7 @@ import com.helger.peppol.page.secure.PageSecureCRMGroup;
 import com.helger.peppol.page.secure.PageSecureCRMSubscriber;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
-import com.helger.webpages.DefaultMenuConfigurator;
+import com.helger.webctrls.page.DefaultMenuConfigurator;
 
 @Immutable
 public final class MenuSecure

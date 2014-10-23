@@ -52,7 +52,7 @@ import com.helger.webbasics.form.RequestField;
 import com.helger.webbasics.form.RequestFieldBooleanMultiValue;
 import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.masterdata.HCSalutationSelect;
-import com.helger.webpages.AbstractWebPageExt;
+import com.helger.webctrls.page.AbstractWebPageExt;
 
 public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <WebPageExecutionContext>
 {

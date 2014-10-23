@@ -26,7 +26,7 @@ import com.helger.commons.microdom.IMicroContainer;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.utils.MicroWalker;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webpages.PageViewExternal;
+import com.helger.webctrls.page.PageViewExternal;
 
 public class AppPageViewExternal extends PageViewExternal <WebPageExecutionContext>
 {
