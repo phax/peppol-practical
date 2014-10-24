@@ -38,8 +38,10 @@ import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.js.builder.JSAssocArray;
 import com.helger.html.js.builder.JSPackage;
 import com.helger.html.js.builder.jquery.JQuery;
+import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.action.CActionPublic;
 import com.helger.peppol.app.ajax.CAjaxPublic;
+import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.webbasics.EWebBasicsText;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.page.IWebPageExecutionContext;
@@ -88,6 +90,9 @@ public final class AppCommonUI
 
     // Never show a thousand separator
     HCAutoNumeric.setDefaultThousandSeparator ("");
+
+    // Register comment handlers
+    CommentThreadManager.getInstance ().registerObjectType (CApp.OT_PAGE);
   }
 
   @Nonnull

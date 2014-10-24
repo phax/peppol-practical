@@ -1,0 +1,58 @@
+/**
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.peppol.comment.ui;
+
+import java.util.Locale;
+
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotations.Translatable;
+import com.helger.commons.name.IHasDisplayText;
+import com.helger.commons.text.impl.TextProvider;
+import com.helger.commons.text.resolve.DefaultTextResolver;
+
+@Translatable
+public enum ECommentText implements IHasDisplayText
+{
+  MSG_EDITED ("Bearbeitet!", "Edited!"),
+  MSG_CREATE_COMMENT ("Neuen Kommentar erstellen", "Create new comment"),
+
+  MSG_FIELD_AUTHOR ("Ihr Name", "Your name"),
+  DESC_FIELD_AUTHOR ("Geben Sie Ihren Namen an. Ohne den Namen kann der Kommentar nicht gespeichert werden", "Provide your name here. The comment cannot be saved without a name"),
+  MSG_FIELD_TITLE ("Titel", "Title"),
+  DESC_FIELD_TITLE ("Geben Sie den Titel des Kommentars an. Dieser kann auch leer bleiben", "Provide the title of your comment. The title is optional and you're not required to insert any text here"),
+  MSG_FIELD_TEXT ("Ihr Kommentar", "Your comment"),
+  DESC_FIELD_TEXT ("Geben Sie Ihren Kommentar in diesem Feld an. Sie können mehrer Zeilen verwenden, HTML Code wird jedoch nicht interpretiert", "Provide your comment here. It can have multiple lines but HTML code is not interpreted!"),
+
+  MSG_COMMENT_SAVE_SUCCESS ("Ihr Kommentar wurde erfolgreich gespeichert!", "Your comment was successfully saved!"),
+  MSG_COMMENT_SAVE_FAILURE ("Ihr Kommentar konnte nicht gespeichert werden!", "Your comment could not be saved!"),
+  MSG_EXISTING_COMMENTS ("Kommentare zu diesem Objekt", "Comments on this object"),
+  MSG_ERR_COMMENT_NO_TEXT ("Der Text darf nicht leer sein. Geben Sie einen Text an!", "The text may not be empty. Provide a text!"),
+  MSG_ERR_COMMENT_NO_AUTHOR ("Ihr Name darf nicht leer sein. Geben Sie Ihre Namen an!", "Your name may not be empty. Provide your name!");
+
+  private final TextProvider m_aTP;
+
+  private ECommentText (@Nonnull final String sDE, @Nonnull final String sEN)
+  {
+    m_aTP = TextProvider.create_DE_EN (sDE, sEN);
+  }
+
+  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  {
+    return DefaultTextResolver.getText (this, m_aTP, aContentLocale);
+  }
+}

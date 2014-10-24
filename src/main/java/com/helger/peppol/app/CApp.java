@@ -27,6 +27,7 @@ import com.helger.appbasics.security.CSecurity;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.type.ObjectType;
 
 /**
  * Contains application wide constants.
@@ -66,6 +67,8 @@ public final class CApp
   public static final String USER_ADMINISTRATOR_LASTNAME = CSecurity.USER_ADMINISTRATOR_NAME;
   public static final Locale USER_ADMINISTRATOR_LOCALE = CApp.DEFAULT_LOCALE;
   public static final Map <String, ?> USER_ADMINISTRATOR_CUSTOMATTRS = null;
+
+  public static final ObjectType OT_PAGE = new ObjectType ("webpage");
 
   private CApp ()
   {}

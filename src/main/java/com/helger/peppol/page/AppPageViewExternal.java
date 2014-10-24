@@ -25,6 +25,10 @@ import com.helger.commons.microdom.IMicroComment;
 import com.helger.commons.microdom.IMicroContainer;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.utils.MicroWalker;
+import com.helger.commons.type.TypedObject;
+import com.helger.html.hc.impl.HCNodeList;
+import com.helger.peppol.app.CApp;
+import com.helger.peppol.comment.ui.HCCommentShow;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webctrls.page.PageViewExternal;
 
@@ -59,5 +63,15 @@ public class AppPageViewExternal extends PageViewExternal <WebPageExecutionConte
     super.afterPageRead (aCont);
     // Do additional cleansing
     MicroWalker.walkNode (aCont, new StripComments ());
+  }
+
+  @Override
+  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  {
+    super.fillContent (aWPEC);
+
+    final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final TypedObject <String> aTO = TypedObject.create (CApp.OT_PAGE, getID ());
+    aNodeList.addChild (new HCCommentShow (aWPEC, aTO));
   }
 }
