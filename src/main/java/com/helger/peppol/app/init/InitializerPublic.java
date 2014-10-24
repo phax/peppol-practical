@@ -42,7 +42,8 @@ public final class InitializerPublic extends DefaultApplicationInitializer <Layo
   @Override
   public void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
   {
-    aLocaleMgr.registerLocale (CApp.DEFAULT_LOCALE);
+    aLocaleMgr.registerLocale (CApp.LOCALE_DE);
+    aLocaleMgr.registerLocale (CApp.LOCALE_EN);
     aLocaleMgr.setDefaultLocale (CApp.DEFAULT_LOCALE);
   }
 

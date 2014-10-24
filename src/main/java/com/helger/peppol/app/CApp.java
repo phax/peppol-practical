@@ -37,7 +37,9 @@ import com.helger.commons.type.ObjectType;
 @Immutable
 public final class CApp
 {
-  public static final Locale DEFAULT_LOCALE = LocaleCache.getLocale ("en", "US");
+  public static final Locale LOCALE_DE = LocaleCache.getLocale ("de", "DE");
+  public static final Locale LOCALE_EN = LocaleCache.getLocale ("en", "US");
+  public static final Locale DEFAULT_LOCALE = LOCALE_EN;
 
   private static final String APPLICATION_TITLE = "PEPPOL practical";
 

@@ -43,7 +43,7 @@ public final class CommentTest
   @Test
   public void testBasic ()
   {
-    final Comment aComment = new Comment (ECommentState.APPROVED, "userid", "creatorname", "title", "text");
+    final Comment aComment = new Comment ("unittest", ECommentState.APPROVED, "userid", "creatorname", "title", "text");
     assertNotNull (aComment.getCreationDateTime ());
     assertNull (aComment.getLastModificationDateTime ());
     assertEquals ("userid", aComment.getUserID ());

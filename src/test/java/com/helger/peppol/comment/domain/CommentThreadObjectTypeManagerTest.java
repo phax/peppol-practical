@@ -45,7 +45,7 @@ public final class CommentThreadObjectTypeManagerTest
   {
     final CommentThreadObjectTypeManager aMgr = new CommentThreadObjectTypeManager (new ObjectType ("mock"));
 
-    final Comment aComment = new Comment (ECommentState.APPROVED, "userid", "creatorname", "title", "text");
+    final Comment aComment = new Comment ("unittest", ECommentState.APPROVED, "userid", "creatorname", "title", "text");
     assertNotNull (aComment.getCreationDateTime ());
     assertNull (aComment.getLastModificationDateTime ());
     assertEquals ("userid", aComment.getUserID ());
@@ -66,7 +66,8 @@ public final class CommentThreadObjectTypeManagerTest
       assertEquals (1, aMgr.getAllCommentThreadsOfObject (sOwningObjectID).size ());
 
       // Add another comments into the thread
-      aMgr.addCommentToThread (sOwningObjectID, sThreadID, sThreadID, new Comment (ECommentState.APPROVED,
+      aMgr.addCommentToThread (sOwningObjectID, sThreadID, sThreadID, new Comment ("unittest",
+                                                                                   ECommentState.APPROVED,
                                                                                    "userid",
                                                                                    "creatorname",
                                                                                    "title2",
@@ -84,7 +85,8 @@ public final class CommentThreadObjectTypeManagerTest
       {}
 
       // Create a second thread
-      aMgr.createNewThread (sOwningObjectID, new Comment (ECommentState.APPROVED,
+      aMgr.createNewThread (sOwningObjectID, new Comment ("unittest",
+                                                          ECommentState.APPROVED,
                                                           "userid2",
                                                           "creatorname2",
                                                           "title4",

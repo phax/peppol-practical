@@ -103,7 +103,8 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
           // Go ahead and save
           final ICommentThread aNewThread = CommentThreadManager.getInstance ()
                                                                 .createNewThread (aOwner,
-                                                                                  new Comment (ECommentState.APPROVED,
+                                                                                  new Comment (aRequestScope.getRemoteHost (),
+                                                                                               ECommentState.APPROVED,
                                                                                                sCurrentUserID,
                                                                                                sAuthor,
                                                                                                sTitle,

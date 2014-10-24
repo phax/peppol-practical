@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.type.ITypedObject;
 import com.helger.datetime.IHasCreationDateTime;
 import com.helger.datetime.IHasLastModificationDateTime;
@@ -35,6 +36,36 @@ import com.helger.datetime.IHasLastModificationDateTime;
  */
 public interface IComment extends ITypedObject <String>, IHasCreationDateTime, IHasLastModificationDateTime, Serializable
 {
+  // status vars
+
+  /**
+   * @return The IP address or host from which the comment was triggered. This
+   *         is used to identify spammers and block IP addresses.
+   */
+  @Nonnull
+  @Nonempty
+  String getHost ();
+
+  /**
+   * @return The state of this comment.
+   */
+  @Nonnull
+  ECommentState getState ();
+
+  /**
+   * @return <code>true</code> if this comment was deleted
+   */
+  boolean isDeleted ();
+
+  /**
+   * @return How often was this commented edited. This is 0 if the comment was
+   *         just created and never edited.
+   */
+  @Nonnegative
+  int getEditCount ();
+
+  // content vars
+
   /**
    * @return The user who created the comment. May be <code>null</code> for
    *         public comments. One of userID or creator name must be present.
@@ -51,11 +82,6 @@ public interface IComment extends ITypedObject <String>, IHasCreationDateTime, I
   String getCreatorName ();
 
   /**
-   * @return <code>true</code> if this comment was deleted
-   */
-  boolean isDeleted ();
-
-  /**
    * @return The comment title. May be <code>null</code>.
    */
   @Nullable
@@ -66,17 +92,4 @@ public interface IComment extends ITypedObject <String>, IHasCreationDateTime, I
    */
   @Nonnull
   String getText ();
-
-  /**
-   * @return The state of this comment.
-   */
-  @Nonnull
-  ECommentState getState ();
-
-  /**
-   * @return How often was this commented edited. This is 0 if the comment was
-   *         just created and never edited.
-   */
-  @Nonnegative
-  int getEditCount ();
 }

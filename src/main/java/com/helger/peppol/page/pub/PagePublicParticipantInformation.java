@@ -18,6 +18,7 @@ package com.helger.peppol.page.pub;
 
 import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -101,7 +102,7 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final FormErrors aFormErrors = new FormErrors ();
-    boolean bShowInput = true;
+    final boolean bShowInput = true;
 
     if (aWPEC.hasAction (ACTION_SAVE))
     {
@@ -121,8 +122,6 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
 
       if (!aFormErrors.hasErrorsOrWarnings ())
       {
-        bShowInput = false;
-
         final SimpleParticipantIdentifier aParticipantID = eAgency.createParticipantIdentifier (sIDValue);
         final SMPServiceCallerReadonly aSMPClient = new SMPServiceCallerReadonly (aParticipantID, ESML.PRODUCTION);
         try
@@ -302,6 +301,18 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
           // Audit success
           AuditUtils.onAuditExecuteSuccess ("participate-information", aParticipantID.getURIEncoded ());
         }
+        catch (final UnknownHostException ex)
+        {
+          aNodeList.addChild (new BootstrapErrorBox ().addChild ("Seems like the participant ID " +
+                                                                 aParticipantID.getURIEncoded () +
+                                                                 " is not registered to the PEPPOL network."));
+
+          // Audit failure
+          AuditUtils.onAuditExecuteFailure ("participate-information",
+                                            aParticipantID.getURIEncoded (),
+                                            "unknown-host",
+                                            ex.getMessage ());
+        }
         catch (final Exception ex)
         {
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Error querying SMP."))
@@ -311,6 +322,7 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
           // Audit failure
           AuditUtils.onAuditExecuteFailure ("participate-information",
                                             aParticipantID.getURIEncoded (),
+                                            ex.getClass (),
                                             ex.getMessage ());
         }
       }
@@ -320,6 +332,7 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
     {
       final AbstractHCForm <?> aForm = aNodeList.addAndReturnChild (createFormSelf (aWPEC));
       final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (170), HCCol.star ()));
+      aTable.addSpanningHeaderContent ("Show all processes, document types and endpoints of a participant");
       aTable.createItemRow ()
             .setLabelMandatory ("Identifier type")
             .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_IDTYPE), aDisplayLocale))

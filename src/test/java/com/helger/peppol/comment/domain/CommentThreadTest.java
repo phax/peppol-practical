@@ -44,7 +44,12 @@ public final class CommentThreadTest
   @Test
   public void testBasic ()
   {
-    final IComment aInitialComment = new Comment (ECommentState.APPROVED, "userid", "creatorname", "title", "text");
+    final IComment aInitialComment = new Comment ("unittest",
+                                                  ECommentState.APPROVED,
+                                                  "userid",
+                                                  "creatorname",
+                                                  "title",
+                                                  "text");
     assertNotNull (aInitialComment.getCreationDateTime ());
     assertNull (aInitialComment.getLastModificationDateTime ());
     assertEquals ("userid", aInitialComment.getUserID ());
@@ -58,7 +63,8 @@ public final class CommentThreadTest
     assertEquals (1, aCommentThread.getTotalCommentCount ());
 
     // Add another comments into the thread
-    aCommentThread.addComment (aInitialComment, new Comment (ECommentState.APPROVED,
+    aCommentThread.addComment (aInitialComment, new Comment ("unittest",
+                                                             ECommentState.APPROVED,
                                                              "userid",
                                                              "creatorname",
                                                              "title2",
@@ -66,7 +72,8 @@ public final class CommentThreadTest
     assertEquals (2, aCommentThread.getTotalCommentCount ());
 
     // Add another comments into the thread
-    final IComment aComment3 = aCommentThread.addComment (aInitialComment, new Comment (ECommentState.APPROVED,
+    final IComment aComment3 = aCommentThread.addComment (aInitialComment, new Comment ("unittest",
+                                                                                        ECommentState.APPROVED,
                                                                                         "userid",
                                                                                         "creatorname",
                                                                                         "title3",

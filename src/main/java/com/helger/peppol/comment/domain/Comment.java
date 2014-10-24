@@ -49,6 +49,7 @@ public final class Comment implements IComment
   private DateTime m_aLastModDT;
   private ECommentState m_eState;
   private int m_nEditCount;
+  private final String m_sHost;
 
   private final String m_sUserID;
   private final String m_sCreatorName;
@@ -57,6 +58,9 @@ public final class Comment implements IComment
 
   /**
    * Create a new comment
+   *
+   * @param sHost
+   *        The IP address or host from which the comment was triggered.
    * @param eState
    *        The state of the comment. Must be suitable for creation and cannot
    *        be <code>null</code>.
@@ -71,7 +75,8 @@ public final class Comment implements IComment
    * @param sText
    *        Comment text. May neither be <code>null</code> nor empty.
    */
-  public Comment (@Nonnull final ECommentState eState,
+  public Comment (@Nonnull @Nonempty final String sHost,
+                  @Nonnull final ECommentState eState,
                   @Nullable final String sUserID,
                   @Nullable final String sCreatorName,
                   @Nullable final String sTitle,
@@ -80,6 +85,7 @@ public final class Comment implements IComment
     this (GlobalIDFactory.getNewPersistentStringID (),
           PDTFactory.getCurrentDateTime (),
           (DateTime) null,
+          sHost,
           eState,
           0,
           sUserID,
@@ -99,6 +105,8 @@ public final class Comment implements IComment
    *        creation date time
    * @param aLastModDT
    *        last modification date time
+   * @param sHost
+   *        The IP address or host from which the comment was triggered.
    * @param eState
    *        The state of the comment. Must be suitable for creation and cannot
    *        be <code>null</code>.
@@ -116,6 +124,7 @@ public final class Comment implements IComment
   Comment (@Nonnull @Nonempty final String sID,
            @Nonnull final DateTime aCreationDT,
            @Nullable final DateTime aLastModDT,
+           @Nonnull @Nonempty final String sHost,
            @Nonnull final ECommentState eState,
            @Nonnegative final int nEditCount,
            @Nullable final String sUserID,
@@ -125,18 +134,20 @@ public final class Comment implements IComment
   {
     ValueEnforcer.notEmpty (sID, "ID");
     ValueEnforcer.notNull (aCreationDT, "CreationDT");
+    ValueEnforcer.notEmpty (sHost, "Host");
     if (StringHelper.hasNoText (sUserID) && StringHelper.hasNoText (sCreatorName))
       throw new IllegalArgumentException ("Either userID or creator name must be present!");
     ValueEnforcer.notEmpty (sText, "Text");
     m_sID = sID;
     m_aCreationDT = aCreationDT;
     m_aLastModDT = aLastModDT;
+    m_sHost = sHost;
+    setState (eState);
+    m_nEditCount = nEditCount;
     m_sUserID = sUserID;
     m_sCreatorName = sCreatorName;
     m_sTitle = sTitle;
     m_sText = sText;
-    setState (eState);
-    m_nEditCount = nEditCount;
   }
 
   @Nonnull
@@ -165,6 +176,13 @@ public final class Comment implements IComment
   }
 
   @Nonnull
+  @Nonempty
+  public String getHost ()
+  {
+    return m_sHost;
+  }
+
+  @Nonnull
   public ECommentState getState ()
   {
     return m_eState;
@@ -178,6 +196,11 @@ public final class Comment implements IComment
       return EChange.UNCHANGED;
     m_eState = eState;
     return EChange.CHANGED;
+  }
+
+  public boolean isDeleted ()
+  {
+    return m_eState.isDeleted ();
   }
 
   @Nonnegative
@@ -202,11 +225,6 @@ public final class Comment implements IComment
   public String getCreatorName ()
   {
     return m_sCreatorName;
-  }
-
-  public boolean isDeleted ()
-  {
-    return m_eState.isDeleted ();
   }
 
   @Nullable
@@ -240,14 +258,15 @@ public final class Comment implements IComment
   }
 
   @Nonnull
-  public static IComment createForCurrentUser (@Nullable final String sTitle,
-                                               @Nonnull @Nonempty final String sText,
-                                               @Nonnull final ECommentState eState)
+  public static IComment createForCurrentUser (@Nonnull @Nonempty final String sHost,
+                                               @Nonnull final ECommentState eState,
+                                               @Nullable final String sTitle,
+                                               @Nonnull @Nonempty final String sText)
   {
     final IUser aCurrentUser = LoggedInUserManager.getInstance ().getCurrentUser ();
     if (aCurrentUser == null)
       throw new IllegalStateException ("No user present!");
 
-    return new Comment (eState, aCurrentUser.getID (), aCurrentUser.getDisplayName (), sTitle, sText);
+    return new Comment (sHost, eState, aCurrentUser.getID (), aCurrentUser.getDisplayName (), sTitle, sText);
   }
 }

@@ -33,6 +33,7 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_ID = "id";
   private static final String ATTR_CREATIONDT = "creationdt";
   private static final String ATTR_LASTMODDT = "lastmoddt";
+  private static final String ATTR_HOST = "host";
   private static final String ATTR_STATE = "state";
   private static final String ATTR_EDITCOUNT = "editcount";
   private static final String ATTR_USERID = "userid";
@@ -50,6 +51,7 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
     eComment.setAttribute (ATTR_ID, aComment.getID ());
     eComment.setAttributeWithConversion (ATTR_CREATIONDT, aComment.getCreationDateTime ());
     eComment.setAttributeWithConversion (ATTR_LASTMODDT, aComment.getLastModificationDateTime ());
+    eComment.setAttribute (ATTR_HOST, aComment.getHost ());
     eComment.setAttribute (ATTR_STATE, aComment.getState ().getID ());
     eComment.setAttribute (ATTR_EDITCOUNT, aComment.getEditCount ());
     eComment.setAttribute (ATTR_USERID, aComment.getUserID ());
@@ -66,6 +68,8 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
     final DateTime aCreationDT = eComment.getAttributeWithConversion (ATTR_CREATIONDT, DateTime.class);
     final DateTime aLastModDT = eComment.getAttributeWithConversion (ATTR_LASTMODDT, DateTime.class);
 
+    final String sHost = eComment.getAttribute (ATTR_HOST);
+
     final String sState = eComment.getAttribute (ATTR_STATE);
     final ECommentState eState = ECommentState.getFromIDOrNull (sState);
 
@@ -81,6 +85,15 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
     final String sText = eComment.getTextContentTrimmed ();
 
     // Create comment
-    return new Comment (sCommentID, aCreationDT, aLastModDT, eState, nEditCount, sUserID, sCreatorName, sTitle, sText);
+    return new Comment (sCommentID,
+                        aCreationDT,
+                        aLastModDT,
+                        sHost,
+                        eState,
+                        nEditCount,
+                        sUserID,
+                        sCreatorName,
+                        sTitle,
+                        sText);
   }
 }
