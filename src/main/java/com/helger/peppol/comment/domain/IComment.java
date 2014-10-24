@@ -18,6 +18,7 @@ package com.helger.peppol.comment.domain;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -65,4 +66,17 @@ public interface IComment extends ITypedObject <String>, IHasCreationDateTime, I
    */
   @Nonnull
   String getText ();
+
+  /**
+   * @return The state of this comment.
+   */
+  @Nonnull
+  ECommentState getState ();
+
+  /**
+   * @return How often was this commented edited. This is 0 if the comment was
+   *         just created and never edited.
+   */
+  @Nonnegative
+  int getEditCount ();
 }

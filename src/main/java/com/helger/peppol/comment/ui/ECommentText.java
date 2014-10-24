@@ -19,28 +19,30 @@ package com.helger.peppol.comment.ui;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Translatable;
 import com.helger.commons.name.IHasDisplayText;
+import com.helger.commons.name.IHasDisplayTextWithArgs;
 import com.helger.commons.text.impl.TextProvider;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 
 @Translatable
-public enum ECommentText implements IHasDisplayText
+public enum ECommentText implements IHasDisplayText, IHasDisplayTextWithArgs
 {
-  MSG_EDITED ("Bearbeitet!", "Edited!"),
+  MSG_BY (" von ", " by "),
+  MSG_LAST_MODIFICATION ("{0} mal bearbeitet. Zuletzt: {1}", "Edited {0} times. Last modification: {1}"),
   MSG_CREATE_COMMENT ("Neuen Kommentar erstellen", "Create new comment"),
 
   MSG_FIELD_AUTHOR ("Ihr Name", "Your name"),
   DESC_FIELD_AUTHOR ("Geben Sie Ihren Namen an. Ohne den Namen kann der Kommentar nicht gespeichert werden", "Provide your name here. The comment cannot be saved without a name"),
   MSG_FIELD_TITLE ("Titel", "Title"),
-  DESC_FIELD_TITLE ("Geben Sie den Titel des Kommentars an. Dieser kann auch leer bleiben", "Provide the title of your comment. The title is optional and you're not required to insert any text here"),
+  DESC_FIELD_TITLE ("Geben Sie den Titel des Kommentars an. Dieser kann auch leer bleiben", "Provide the title/subject of your comment. The title is optional and you're not required to insert any text here"),
   MSG_FIELD_TEXT ("Ihr Kommentar", "Your comment"),
-  DESC_FIELD_TEXT ("Geben Sie Ihren Kommentar in diesem Feld an. Sie können mehrer Zeilen verwenden, HTML Code wird jedoch nicht interpretiert", "Provide your comment here. It can have multiple lines but HTML code is not interpreted!"),
+  DESC_FIELD_TEXT ("Geben Sie Ihren Kommentar in diesem Feld an. Es können mehrere Zeilen verwendet werden, HTML Code wird jedoch nicht interpretiert", "Provide your comment here. It can have multiple lines but HTML code is not interpreted at all!"),
 
   MSG_COMMENT_SAVE_SUCCESS ("Ihr Kommentar wurde erfolgreich gespeichert!", "Your comment was successfully saved!"),
   MSG_COMMENT_SAVE_FAILURE ("Ihr Kommentar konnte nicht gespeichert werden!", "Your comment could not be saved!"),
-  MSG_EXISTING_COMMENTS ("Kommentare zu diesem Objekt", "Comments on this object"),
   MSG_ERR_COMMENT_NO_TEXT ("Der Text darf nicht leer sein. Geben Sie einen Text an!", "The text may not be empty. Provide a text!"),
   MSG_ERR_COMMENT_NO_AUTHOR ("Ihr Name darf nicht leer sein. Geben Sie Ihre Namen an!", "Your name may not be empty. Provide your name!");
 
@@ -51,8 +53,15 @@ public enum ECommentText implements IHasDisplayText
     m_aTP = TextProvider.create_DE_EN (sDE, sEN);
   }
 
+  @Nullable
   public String getDisplayText (@Nonnull final Locale aContentLocale)
   {
     return DefaultTextResolver.getText (this, m_aTP, aContentLocale);
+  }
+
+  @Nullable
+  public String getDisplayTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
+  {
+    return DefaultTextResolver.getTextWithArgs (this, m_aTP, aContentLocale, aArgs);
   }
 }

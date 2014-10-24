@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.comment.domain;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -45,16 +46,20 @@ public final class Comment implements IComment
 
   private final String m_sID;
   private final DateTime m_aCreationDT;
-  private final DateTime m_aLastModDT;
+  private DateTime m_aLastModDT;
+  private ECommentState m_eState;
+  private int m_nEditCount;
+
   private final String m_sUserID;
   private final String m_sCreatorName;
-  private boolean m_bDeleted;
   private final String m_sTitle;
   private final String m_sText;
 
   /**
    * Create a new comment
-   *
+   * @param eState
+   *        The state of the comment. Must be suitable for creation and cannot
+   *        be <code>null</code>.
    * @param sUserID
    *        User ID. May be <code>null</code> if creator name is not
    *        <code>null</code>.
@@ -66,7 +71,8 @@ public final class Comment implements IComment
    * @param sText
    *        Comment text. May neither be <code>null</code> nor empty.
    */
-  public Comment (@Nullable final String sUserID,
+  public Comment (@Nonnull final ECommentState eState,
+                  @Nullable final String sUserID,
                   @Nullable final String sCreatorName,
                   @Nullable final String sTitle,
                   @Nonnull @Nonempty final String sText)
@@ -74,11 +80,14 @@ public final class Comment implements IComment
     this (GlobalIDFactory.getNewPersistentStringID (),
           PDTFactory.getCurrentDateTime (),
           (DateTime) null,
+          eState,
+          0,
           sUserID,
           sCreatorName,
-          false,
           sTitle,
           sText);
+    if (!eState.isSuitableForCreation ())
+      throw new IllegalArgumentException ("Invalid state used: " + eState);
   }
 
   /**
@@ -90,12 +99,15 @@ public final class Comment implements IComment
    *        creation date time
    * @param aLastModDT
    *        last modification date time
+   * @param eState
+   *        The state of the comment. Must be suitable for creation and cannot
+   *        be <code>null</code>.
+   * @param nEditCount
+   *        How often was the comment edited?
    * @param sUserID
    *        user ID
    * @param sCreatorName
    *        name of the comment creator
-   * @param bDeleted
-   *        <code>true</code> indicates a deleted comment
    * @param sTitle
    *        comment title
    * @param sText
@@ -104,9 +116,10 @@ public final class Comment implements IComment
   Comment (@Nonnull @Nonempty final String sID,
            @Nonnull final DateTime aCreationDT,
            @Nullable final DateTime aLastModDT,
+           @Nonnull final ECommentState eState,
+           @Nonnegative final int nEditCount,
            @Nullable final String sUserID,
            @Nullable final String sCreatorName,
-           final boolean bDeleted,
            @Nullable final String sTitle,
            @Nonnull @Nonempty final String sText)
   {
@@ -120,9 +133,10 @@ public final class Comment implements IComment
     m_aLastModDT = aLastModDT;
     m_sUserID = sUserID;
     m_sCreatorName = sCreatorName;
-    setDeleted (bDeleted);
     m_sTitle = sTitle;
     m_sText = sText;
+    setState (eState);
+    m_nEditCount = nEditCount;
   }
 
   @Nonnull
@@ -150,6 +164,34 @@ public final class Comment implements IComment
     return m_aLastModDT;
   }
 
+  @Nonnull
+  public ECommentState getState ()
+  {
+    return m_eState;
+  }
+
+  @Nonnull
+  public EChange setState (@Nonnull final ECommentState eState)
+  {
+    ValueEnforcer.notNull (eState, "State");
+    if (eState.equals (m_eState))
+      return EChange.UNCHANGED;
+    m_eState = eState;
+    return EChange.CHANGED;
+  }
+
+  @Nonnegative
+  public int getEditCount ()
+  {
+    return m_nEditCount;
+  }
+
+  public void onEdit ()
+  {
+    m_nEditCount++;
+    m_aLastModDT = PDTFactory.getCurrentDateTime ();
+  }
+
   @Nullable
   public String getUserID ()
   {
@@ -164,16 +206,7 @@ public final class Comment implements IComment
 
   public boolean isDeleted ()
   {
-    return m_bDeleted;
-  }
-
-  @Nonnull
-  public EChange setDeleted (final boolean bDeleted)
-  {
-    if (bDeleted == m_bDeleted)
-      return EChange.UNCHANGED;
-    m_bDeleted = bDeleted;
-    return EChange.CHANGED;
+    return m_eState.isDeleted ();
   }
 
   @Nullable
@@ -207,12 +240,14 @@ public final class Comment implements IComment
   }
 
   @Nonnull
-  public static IComment createForCurrentUser (@Nullable final String sTitle, @Nonnull @Nonempty final String sText)
+  public static IComment createForCurrentUser (@Nullable final String sTitle,
+                                               @Nonnull @Nonempty final String sText,
+                                               @Nonnull final ECommentState eState)
   {
     final IUser aCurrentUser = LoggedInUserManager.getInstance ().getCurrentUser ();
     if (aCurrentUser == null)
       throw new IllegalStateException ("No user present!");
 
-    return new Comment (aCurrentUser.getID (), aCurrentUser.getDisplayName (), sTitle, sText);
+    return new Comment (eState, aCurrentUser.getID (), aCurrentUser.getDisplayName (), sTitle, sText);
   }
 }

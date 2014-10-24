@@ -26,19 +26,16 @@ import com.helger.appbasics.security.AccessManager;
 import com.helger.appbasics.security.user.IUser;
 import com.helger.appbasics.security.user.IUserManager;
 import com.helger.bootstrap3.button.BootstrapButton;
+import com.helger.bootstrap3.panel.BootstrapPanel;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.idfactory.GlobalIDFactory;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
-import com.helger.css.ECSSUnit;
-import com.helger.css.property.CCSSProperties;
 import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.html.AbstractHCDiv;
-import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCRow;
-import com.helger.html.hc.html.HCTable;
+import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.htmlext.HCUtils;
 import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.peppol.comment.domain.CommentThreadManager;
@@ -50,21 +47,6 @@ import com.helger.webbasics.app.layout.ILayoutExecutionContext;
 
 public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
 {
-  /**
-   * @param aCommentThread
-   *        Parent thread
-   * @param aComment
-   *        Comment
-   * @param aContainer
-   *        HC node to be filled
-   */
-  private static void _fillPerCommentToolbar (final ICommentThread aCommentThread,
-                                              final IComment aComment,
-                                              final HCDiv aContainer)
-  {
-    // TODO
-  }
-
   public HCCommentShow (@Nonnull final ILayoutExecutionContext aLEC, @Nonnull final ITypedObject <String> aObject)
   {
     this (aLEC, aObject, null);
@@ -74,6 +56,7 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
                         @Nonnull final ITypedObject <String> aObject,
                         @Nullable final CommentCreationFields aCreationFieldValues)
   {
+    ValueEnforcer.notNull (aLEC, "LEC");
     ValueEnforcer.notNull (aObject, "Object");
 
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
@@ -85,17 +68,12 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
     if (ContainerHelper.isNotEmpty (aComments))
     {
       final IUserManager aUserMgr = AccessManager.getInstance ();
-      final HCTable aTable = new HCTable (HCCol.star ());
-      aTable.addBodyRow ()
-            .addAndReturnCell (ECommentText.MSG_EXISTING_COMMENTS.getDisplayText (aDisplayLocale))
-            .setColspan (aTable.getColumnCount ());
-      aTable.addClass (CCommentCSS.CSS_CLASS_COMMENT_VIEW);
+      final HCDiv aAllComments = new HCDiv ().addClass (CCommentCSS.CSS_CLASS_COMMENT_CONTAINER);
       for (final ICommentThread aCommentThread : ContainerHelper.getSorted (aComments,
                                                                             new ComparatorCommentThreadCreationDateTime ()))
       {
-        final HCRow aRow = aTable.addBodyRow ();
-        final HCDiv aThreadDiv = aRow.addCell ().addAndReturnChild (new HCDiv ());
-        aThreadDiv.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
+        final BootstrapPanel aPanel = aAllComments.addAndReturnChild (new BootstrapPanel ());
+        aPanel.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
 
         aCommentThread.iterateAllComments (new ICommentIterationCallback ()
         {
@@ -103,46 +81,60 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
                                  @Nullable final IComment aParentComment,
                                  @Nonnull final IComment aComment)
           {
-            // Get author name and determine if it is a registered user
-            boolean bRegisteredUser = false;
-            String sAuthor = null;
-            if (StringHelper.hasText (aComment.getUserID ()))
+            // Show only approved comments
+            if (aComment.getState ().isApproved ())
             {
-              final IUser aUser = aUserMgr.getUserOfID (aComment.getUserID ());
-              if (aUser != null)
+              // Get author name and determine if it is a registered user
+              boolean bRegisteredUser = false;
+              String sAuthor = null;
+              if (StringHelper.hasText (aComment.getUserID ()))
               {
-                sAuthor = aUser.getDisplayName ();
-                bRegisteredUser = true;
+                final IUser aUser = aUserMgr.getUserOfID (aComment.getUserID ());
+                if (aUser != null)
+                {
+                  sAuthor = aUser.getDisplayName ();
+                  bRegisteredUser = true;
+                }
               }
+              if (sAuthor == null)
+                sAuthor = aComment.getCreatorName ();
+
+              // Fill panel header
+              final HCDiv aHeader = aPanel.getOrCreateHeader ();
+
+              aHeader.addChild (new HCSpan ().addChild (PDTToString.getAsString (aComment.getCreationDateTime (),
+                                                                                 aDisplayLocale))
+                                             .addClass (CCommentCSS.CSS_CLASS_COMMENT_CREATIONDT));
+              aHeader.addChild (ECommentText.MSG_BY.getDisplayText (aDisplayLocale));
+
+              final HCSpan aAuthor = new HCSpan ().addChild (sAuthor).addClass (CCommentCSS.CSS_CLASS_COMMENT_AUTHOR);
+              if (bRegisteredUser)
+                aAuthor.addClass (CCommentCSS.CSS_CLASS_COMMENT_REGISTERED_USER);
+              aHeader.addChild (aAuthor);
+
+              if (StringHelper.hasText (aComment.getTitle ()))
+                aHeader.addChild (new HCSpan ().addChild (aComment.getTitle ())
+                                               .addClass (CCommentCSS.CSS_CLASS_COMMENT_TITLE));
+
+              final HCSpan aToolbarDiv = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
+              aHeader.addChild (aToolbarDiv);
+
+              if (aComment.getLastModificationDateTime () != null)
+                aHeader.addChild (new HCDiv ().addChild (ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
+                                                                                                                    Integer.valueOf (aComment.getEditCount ()),
+                                                                                                                    PDTToString.getAsString (aComment.getLastModificationDateTime (),
+                                                                                                                                             aDisplayLocale)))
+                                              .addClass (CCommentCSS.CSS_CLASS_COMMENT_LAST_MODIFICATION));
+
+              // Show the main comment
+              aPanel.getBody ().addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
+              aPanel.getBody ().addChild (new HCDiv ().addChildren (HCUtils.nl2brList (aComment.getText ()))
+                                                      .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
             }
-            if (sAuthor == null)
-              sAuthor = aComment.getCreatorName ();
-
-            // Build toolbar
-            final HCDiv aToolbarDiv = new HCDiv ().addClass (CCommentCSS.CSS_CLASS_TOOLBAR);
-            _fillPerCommentToolbar (aCommentThread, aComment, aToolbarDiv);
-
-            // Show the main comment
-            final HCDiv aCommentDiv = aThreadDiv.addAndReturnChild (new HCDiv ().addClass (CCommentCSS.CSS_CLASS_COMMENT));
-            if (bRegisteredUser)
-              aCommentDiv.addClass (CCommentCSS.CSS_CLASS_REGISTERED_USER);
-            aCommentDiv.addStyle (CCSSProperties.MARGIN_LEFT.newValue (ECSSUnit.em (nLevel)));
-            aCommentDiv.addChild (aToolbarDiv);
-            aCommentDiv.addChild (new HCDiv ().addChild (sAuthor).addClass (CCommentCSS.CSS_CLASS_AUTHOR));
-            aCommentDiv.addChild (new HCDiv ().addChild (PDTToString.getAsString (aComment.getCreationDateTime (),
-                                                                                  aDisplayLocale))
-                                              .addClass (CCommentCSS.CSS_CLASS_CREATIONDT));
-            if (aComment.getLastModificationDateTime () != null)
-              aCommentDiv.addChild (new HCDiv ().addChild (ECommentText.MSG_EDITED.getDisplayText (aDisplayLocale))
-                                                .addClass (CCommentCSS.CSS_CLASS_EDITED));
-            if (StringHelper.hasText (aComment.getTitle ()))
-              aCommentDiv.addChild (new HCDiv ().addChild (aComment.getTitle ()).addClass (CCommentCSS.CSS_CLASS_TITLE));
-            aCommentDiv.addChild (new HCDiv ().addChildren (HCUtils.nl2brList (aComment.getText ()))
-                                              .addClass (CCommentCSS.CSS_CLASS_TEXT));
           }
         });
       }
-      addChild (aTable);
+      addChild (aAllComments);
     }
 
     // Add "create comment" button

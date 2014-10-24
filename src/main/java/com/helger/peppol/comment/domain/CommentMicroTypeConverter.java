@@ -33,9 +33,10 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_ID = "id";
   private static final String ATTR_CREATIONDT = "creationdt";
   private static final String ATTR_LASTMODDT = "lastmoddt";
+  private static final String ATTR_STATE = "state";
+  private static final String ATTR_EDITCOUNT = "editcount";
   private static final String ATTR_USERID = "userid";
   private static final String ATTR_CREATORNAME = "creatorname";
-  private static final String ATTR_DELETED = "deleted";
   private static final String ATTR_TITLE = "title";
 
   @Nonnull
@@ -49,9 +50,10 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
     eComment.setAttribute (ATTR_ID, aComment.getID ());
     eComment.setAttributeWithConversion (ATTR_CREATIONDT, aComment.getCreationDateTime ());
     eComment.setAttributeWithConversion (ATTR_LASTMODDT, aComment.getLastModificationDateTime ());
+    eComment.setAttribute (ATTR_STATE, aComment.getState ().getID ());
+    eComment.setAttribute (ATTR_EDITCOUNT, aComment.getEditCount ());
     eComment.setAttribute (ATTR_USERID, aComment.getUserID ());
     eComment.setAttribute (ATTR_CREATORNAME, aComment.getCreatorName ());
-    eComment.setAttribute (ATTR_DELETED, Boolean.toString (aComment.isDeleted ()));
     eComment.setAttribute (ATTR_TITLE, aComment.getTitle ());
     eComment.appendText (aComment.getText ());
     return eComment;
@@ -64,18 +66,21 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
     final DateTime aCreationDT = eComment.getAttributeWithConversion (ATTR_CREATIONDT, DateTime.class);
     final DateTime aLastModDT = eComment.getAttributeWithConversion (ATTR_LASTMODDT, DateTime.class);
 
+    final String sState = eComment.getAttribute (ATTR_STATE);
+    final ECommentState eState = ECommentState.getFromIDOrNull (sState);
+
+    final String sEditCount = eComment.getAttribute (ATTR_EDITCOUNT);
+    final int nEditCount = StringParser.parseInt (sEditCount, -1);
+
     final String sUserID = eComment.getAttribute (ATTR_USERID);
 
     final String sCreatorName = eComment.getAttribute (ATTR_CREATORNAME);
 
-    final String sDeleted = eComment.getAttribute (ATTR_DELETED);
-    final boolean bDeleted = StringParser.parseBool (sDeleted);
-
     final String sTitle = eComment.getAttribute (ATTR_TITLE);
 
-    final String sText = eComment.getTextContent ();
+    final String sText = eComment.getTextContentTrimmed ();
 
-    // Main add
-    return new Comment (sCommentID, aCreationDT, aLastModDT, sUserID, sCreatorName, bDeleted, sTitle, sText);
+    // Create comment
+    return new Comment (sCommentID, aCreationDT, aLastModDT, eState, nEditCount, sUserID, sCreatorName, sTitle, sText);
   }
 }

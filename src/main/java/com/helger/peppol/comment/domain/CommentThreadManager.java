@@ -19,6 +19,7 @@ package com.helger.peppol.comment.domain;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -30,7 +31,9 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.appbasics.app.dao.impl.DAOException;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsImmutableObject;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.UsedViaReflection;
+import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.stats.IStatisticsHandlerCounter;
 import com.helger.commons.stats.StatisticsManager;
@@ -89,8 +92,23 @@ public final class CommentThreadManager extends GlobalSingleton
     }
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public Set <ObjectType> getAllRegisteredObjectTypes ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return ContainerHelper.newSet (m_aMap.keySet ());
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
+
   @Nullable
-  public CommentThreadObjectTypeManager getManagerOfType (@Nullable final ObjectType aObjectType)
+  public CommentThreadObjectTypeManager getManagerOfObjectType (@Nullable final ObjectType aObjectType)
   {
     if (aObjectType == null)
       return null;
@@ -112,7 +130,7 @@ public final class CommentThreadManager extends GlobalSingleton
     ValueEnforcer.notNull (aOwner, "Owner");
 
     // Get/create the object type comment manager
-    final CommentThreadObjectTypeManager aMgr = getManagerOfType (aOwner.getTypeID ());
+    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getTypeID ());
     if (aMgr == null)
       return null;
 
@@ -130,7 +148,7 @@ public final class CommentThreadManager extends GlobalSingleton
                                       @Nonnull final IComment aComment)
   {
     // Get/create the object type comment manager
-    final CommentThreadObjectTypeManager aMgr = getManagerOfType (aOwner.getTypeID ());
+    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getTypeID ());
     if (aMgr == null)
       return ESuccess.FAILURE;
 
@@ -155,7 +173,7 @@ public final class CommentThreadManager extends GlobalSingleton
     if (aObject != null)
     {
       // Resolve appropriate manager
-      final CommentThreadObjectTypeManager aMgr = getManagerOfType (aObject.getTypeID ());
+      final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aObject.getTypeID ());
       if (aMgr != null)
         return aMgr.getAllCommentThreadsOfObject (aObject.getID ());
     }
@@ -179,7 +197,7 @@ public final class CommentThreadManager extends GlobalSingleton
 
     if (StringHelper.hasText (sCommentThreadID))
     {
-      final CommentThreadObjectTypeManager aMgr = getManagerOfType (aObjectType);
+      final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aObjectType);
       if (aMgr != null)
         return aMgr.getCommentThreadOfID (sCommentThreadID);
     }

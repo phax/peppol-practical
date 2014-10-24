@@ -34,6 +34,7 @@ import com.helger.commons.type.TypedObject;
 import com.helger.html.hc.IHCNode;
 import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
+import com.helger.peppol.comment.domain.ECommentState;
 import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.peppol.comment.ui.CommentCreationFields;
 import com.helger.peppol.comment.ui.ECommentText;
@@ -102,7 +103,8 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
           // Go ahead and save
           final ICommentThread aNewThread = CommentThreadManager.getInstance ()
                                                                 .createNewThread (aOwner,
-                                                                                  new Comment (sCurrentUserID,
+                                                                                  new Comment (ECommentState.APPROVED,
+                                                                                               sCurrentUserID,
                                                                                                sAuthor,
                                                                                                sTitle,
                                                                                                sText));

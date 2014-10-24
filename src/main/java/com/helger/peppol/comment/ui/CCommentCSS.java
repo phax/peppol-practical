@@ -23,26 +23,26 @@ import com.helger.html.css.ICSSClassProvider;
 
 /**
  * CSS classes for comments
- * 
- * @author philip
+ *
+ * @author Philip Helger
  */
 @Immutable
 public final class CCommentCSS
 {
   // Viewing
-  public static final ICSSClassProvider CSS_CLASS_COMMENT_VIEW = DefaultCSSClassProvider.create ("comment_view");
-  public static final ICSSClassProvider CSS_CLASS_COMMENT_THREAD = DefaultCSSClassProvider.create ("commentthread");
-  public static final ICSSClassProvider CSS_CLASS_COMMENT = DefaultCSSClassProvider.create ("comment");
-  public static final ICSSClassProvider CSS_CLASS_REGISTERED_USER = DefaultCSSClassProvider.create ("registereduser");
-  public static final ICSSClassProvider CSS_CLASS_TOOLBAR = DefaultCSSClassProvider.create ("toolbar");
-  public static final ICSSClassProvider CSS_CLASS_TITLE = DefaultCSSClassProvider.create ("title");
-  public static final ICSSClassProvider CSS_CLASS_TEXT = DefaultCSSClassProvider.create ("text");
-  public static final ICSSClassProvider CSS_CLASS_AUTHOR = DefaultCSSClassProvider.create ("author");
-  public static final ICSSClassProvider CSS_CLASS_CREATIONDT = DefaultCSSClassProvider.create ("creationdt");
-  public static final ICSSClassProvider CSS_CLASS_EDITED = DefaultCSSClassProvider.create ("edited");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_CONTAINER = DefaultCSSClassProvider.create ("comment-container");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_THREAD = DefaultCSSClassProvider.create ("comment-thread");
+  public static final ICSSClassProvider CSS_CLASS_SINGLE_COMMENT = DefaultCSSClassProvider.create ("comment-single-comment");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_REGISTERED_USER = DefaultCSSClassProvider.create ("comment-registered-user");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_TOOLBAR = DefaultCSSClassProvider.create ("comment-toolbar");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_TITLE = DefaultCSSClassProvider.create ("comment-title");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_TEXT = DefaultCSSClassProvider.create ("comment-text");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_AUTHOR = DefaultCSSClassProvider.create ("comment-author");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_CREATIONDT = DefaultCSSClassProvider.create ("comment-creation-datetime");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_LAST_MODIFICATION = DefaultCSSClassProvider.create ("comment-last-modification");
 
   // Creation
-  public static final ICSSClassProvider CSS_CLASS_COMMENT_CREATE = DefaultCSSClassProvider.create ("comment_create");
+  public static final ICSSClassProvider CSS_CLASS_COMMENT_CREATE = DefaultCSSClassProvider.create ("comment-create");
 
   private CCommentCSS ()
   {}
