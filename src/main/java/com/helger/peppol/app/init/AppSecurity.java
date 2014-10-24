@@ -82,6 +82,5 @@ public final class AppSecurity
     if (!aAM.containsUserGroupWithID (CApp.USERGROUP_VIEW_ID))
       aAM.createPredefinedUserGroup (CApp.USERGROUP_VIEW_ID, CApp.USERGROUP_VIEW_NAME);
     aAM.assignRoleToUserGroup (CApp.USERGROUP_VIEW_ID, CApp.ROLE_VIEW_ID);
-    aAM.assignRoleToUserGroup (CApp.USERGROUP_VIEW_ID, CApp.ROLE_COMMENT_MODERATOR_ID);
   }
 }
