@@ -48,6 +48,8 @@ public final class CApp
   public static final String ROLE_CONFIG_NAME = "Config user";
   public static final String ROLE_VIEW_ID = "view";
   public static final String ROLE_VIEW_NAME = "View user";
+  public static final String ROLE_COMMENT_MODERATOR_ID = "commentmod";
+  public static final String ROLE_COMMENT_MODERATOR_NAME = "Comment moderator";
 
   public static final List <String> REQUIRED_ROLE_IDS_CONFIG = ContainerHelper.newUnmodifiableList (ROLE_CONFIG_ID);
   public static final List <String> REQUIRED_ROLE_IDS_VIEW = ContainerHelper.newUnmodifiableList (ROLE_VIEW_ID);

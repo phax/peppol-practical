@@ -88,4 +88,9 @@ public class AppSettings extends GlobalSingleton
   {
     return s_aSettings.getBooleanValue ("webapp.testversion", GlobalDebug.isDebugMode ());
   }
+
+  public static boolean isWebPageCommentingEnabled ()
+  {
+    return s_aSettings.getBooleanValue ("webapp.pagecomments.enabled", false);
+  }
 }

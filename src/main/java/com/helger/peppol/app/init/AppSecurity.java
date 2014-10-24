@@ -59,6 +59,8 @@ public final class AppSecurity
       aAM.createPredefinedRole (CApp.ROLE_CONFIG_ID, CApp.ROLE_CONFIG_NAME);
     if (!aAM.containsRoleWithID (CApp.ROLE_VIEW_ID))
       aAM.createPredefinedRole (CApp.ROLE_VIEW_ID, CApp.ROLE_VIEW_NAME);
+    if (!aAM.containsRoleWithID (CApp.ROLE_COMMENT_MODERATOR_ID))
+      aAM.createPredefinedRole (CApp.ROLE_COMMENT_MODERATOR_ID, CApp.ROLE_COMMENT_MODERATOR_NAME);
 
     // User group Administrators
     if (!aAM.containsUserGroupWithID (CApp.USERGROUP_ADMINISTRATORS_ID))
@@ -69,6 +71,7 @@ public final class AppSecurity
     }
     aAM.assignRoleToUserGroup (CApp.USERGROUP_ADMINISTRATORS_ID, CApp.ROLE_CONFIG_ID);
     aAM.assignRoleToUserGroup (CApp.USERGROUP_ADMINISTRATORS_ID, CApp.ROLE_VIEW_ID);
+    aAM.assignRoleToUserGroup (CApp.USERGROUP_ADMINISTRATORS_ID, CApp.ROLE_COMMENT_MODERATOR_ID);
 
     // User group for Config users
     if (!aAM.containsUserGroupWithID (CApp.USERGROUP_CONFIG_ID))
@@ -79,5 +82,6 @@ public final class AppSecurity
     if (!aAM.containsUserGroupWithID (CApp.USERGROUP_VIEW_ID))
       aAM.createPredefinedUserGroup (CApp.USERGROUP_VIEW_ID, CApp.USERGROUP_VIEW_NAME);
     aAM.assignRoleToUserGroup (CApp.USERGROUP_VIEW_ID, CApp.ROLE_VIEW_ID);
+    aAM.assignRoleToUserGroup (CApp.USERGROUP_VIEW_ID, CApp.ROLE_COMMENT_MODERATOR_ID);
   }
 }

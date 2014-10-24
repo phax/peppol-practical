@@ -25,8 +25,10 @@ import javax.annotation.Nullable;
 import com.helger.appbasics.security.AccessManager;
 import com.helger.appbasics.security.user.IUser;
 import com.helger.appbasics.security.user.IUserManager;
+import com.helger.appbasics.security.util.SecurityUtils;
 import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.bootstrap3.panel.BootstrapPanel;
+import com.helger.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.idfactory.GlobalIDFactory;
@@ -38,6 +40,7 @@ import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.htmlext.HCUtils;
 import com.helger.html.js.builder.jquery.JQuery;
+import com.helger.peppol.app.CApp;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
 import com.helger.peppol.comment.domain.IComment;
@@ -75,6 +78,7 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
         final BootstrapPanel aPanel = aAllComments.addAndReturnChild (new BootstrapPanel ());
         aPanel.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
 
+        final boolean bIsCommentModerator = SecurityUtils.hasCurrentUserRole (CApp.ROLE_COMMENT_MODERATOR_ID);
         aCommentThread.iterateAllComments (new ICommentIterationCallback ()
         {
           public void onComment (final int nLevel,
@@ -102,24 +106,31 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
               // Fill panel header
               final HCDiv aHeader = aPanel.getOrCreateHeader ();
 
+              // Creation date
               aHeader.addChild (new HCSpan ().addChild (PDTToString.getAsString (aComment.getCreationDateTime (),
                                                                                  aDisplayLocale))
                                              .addClass (CCommentCSS.CSS_CLASS_COMMENT_CREATIONDT));
-              aHeader.addChild (ECommentText.MSG_BY.getDisplayText (aDisplayLocale));
 
+              // Author
+              aHeader.addChild (ECommentText.MSG_BY.getDisplayText (aDisplayLocale));
               final HCSpan aAuthor = new HCSpan ().addChild (sAuthor).addClass (CCommentCSS.CSS_CLASS_COMMENT_AUTHOR);
               if (bRegisteredUser)
                 aAuthor.addClass (CCommentCSS.CSS_CLASS_COMMENT_REGISTERED_USER);
               aHeader.addChild (aAuthor);
 
+              // Title
               if (StringHelper.hasText (aComment.getTitle ()))
                 aHeader.addChild (new HCSpan ().addChild (aComment.getTitle ())
                                                .addClass (CCommentCSS.CSS_CLASS_COMMENT_TITLE));
 
+              // Toolbar
               final HCSpan aToolbarDiv = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
+              if (bIsCommentModerator)
+                aToolbarDiv.addChild (BootstrapTooltip.createSimpleTooltip ("Original host: " + aComment.getHost ()));
               if (aToolbarDiv.hasChildren ())
                 aHeader.addChild (aToolbarDiv);
 
+              // Last modification
               if (aComment.getLastModificationDateTime () != null)
                 aHeader.addChild (new HCDiv ().addChild (ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
                                                                                                                     Integer.valueOf (aComment.getEditCount ()),

@@ -78,3 +78,10 @@ table.footer-links td {
 .comment-title {
   font-weight: bold;
 }
+
+.comment-toolbar {
+  float: right !important;
+}
+.comment-last-modification {
+  font-size: small;
+}
