@@ -1,0 +1,27 @@
+<p>
+  This page tries to collect the technology relevant things happening in PEPPOL.
+</p>
+
+<h3>2014-10-20 - SSL 3.0 vulnerability - POODLE</h3>
+
+<p>
+  Because of the SSL 3.0 vulnerability called POODLE 
+  (see <a href="http://en.wikipedia.org/wiki/POODLE">http://en.wikipedia.org/wiki/POODLE</a>) 
+  certain PEPPOL APs may disable SSL 3.0 on their systems.
+</p>
+<p>
+  For the Oracle Java Runtime the code of the <code>AccessPointClient</code> is fine. 
+  So when you are using the Oracle JDK no further actions need to be taken.
+  But when using the <strong>IBM Java Runtime</strong> please make sure that you 
+  set the constant <code>SSL_PROTOCOL</code> in class <code>AccessPointClient</code> 
+  from <code>SSL</code> to <code>TLS</code>.
+</p>
+
+<p>
+  A new release of the <code>cipa-start-client</code> was build, which fixes this problem for IBM JDKs. 
+  The version number of the fix release is <strong>2.2.2-1</strong> and it can be found in the 
+  Joinup Nexus (binary format - 
+  <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/cipa-start-client/2.2.2-1/">https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/cipa-start-client/2.2.2-1/</a>) 
+  and in the CIPA SVN (sources - 
+  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2-1">https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2-1</a>).
+</p>

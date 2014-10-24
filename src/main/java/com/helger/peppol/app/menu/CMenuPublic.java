@@ -33,6 +33,7 @@ public final class CMenuPublic
   public static final String MENU_DOCS_SETUP_AP = "docs-setup-ap";
   public static final String MENU_DOCS_SETUP_SMP = "docs-setup-smp";
   public static final String MENU_DOCS_SML_MIGRATION = "docs-sml-migration";
+  public static final String MENU_NEWS = "news";
   public static final String MENU_TOOLS = "tools";
   public static final String MENU_TOOLS_PARTICIPANT = "tools-participant";
   public static final String MENU_VALIDATION = "validation";

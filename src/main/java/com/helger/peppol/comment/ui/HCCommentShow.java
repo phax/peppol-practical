@@ -117,7 +117,8 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
                                                .addClass (CCommentCSS.CSS_CLASS_COMMENT_TITLE));
 
               final HCSpan aToolbarDiv = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
-              aHeader.addChild (aToolbarDiv);
+              if (aToolbarDiv.hasChildren ())
+                aHeader.addChild (aToolbarDiv);
 
               if (aComment.getLastModificationDateTime () != null)
                 aHeader.addChild (new HCDiv ().addChild (ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,

@@ -40,12 +40,15 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
   </li>  
   <li>
     Several small <a href="?menuitem=tools">"tools" and "utilities"</a> in the context of PEPPOL.
+  </li>
+  <li>
+    A <a href="?menuitem=news">news section</a> which tries to collect PEPPOL technology relevant stuff.
   </li>   
   <li>Clarification and tools in the area of document validation:
     <ul>
       <li><a href="?menuitem=validation-ws">Webservice for document validation</a></li> 
     </ul>
-  </li>  
+  </li>
 </ul>
 
 <p>

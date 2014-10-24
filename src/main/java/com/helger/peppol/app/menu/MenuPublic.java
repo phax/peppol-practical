@@ -61,6 +61,13 @@ public final class MenuPublic
                                                      new ClassPathResource ("viewpages/en/docs_sml_migration.xml")));
     }
 
+    // News stuff
+    {
+      aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_NEWS,
+                                                         "News",
+                                                         new ClassPathResource ("viewpages/en/news.xml")));
+    }
+
     // Tools stuff
     {
       final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_TOOLS,
