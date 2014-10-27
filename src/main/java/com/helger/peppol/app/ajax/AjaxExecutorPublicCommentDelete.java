@@ -80,14 +80,14 @@ public final class AjaxExecutorPublicCommentDelete extends AbstractAjaxExecutor
                                                                        sCommentThreadID,
                                                                        sCommentID,
                                                                        ECommentState.DELETED_BY_MODERATOR);
-      IHCNode aStatusNode;
+      IHCNode aMessageBox;
       if (eChange.isChanged ())
-        aStatusNode = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_DELETE_SUCCESS.getDisplayText (aDisplayLocale));
+        aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_DELETE_SUCCESS.getDisplayText (aDisplayLocale));
       else
-        aStatusNode = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_DELETE_FAILURE.getDisplayText (aDisplayLocale));
+        aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_DELETE_FAILURE.getDisplayText (aDisplayLocale));
 
       // Message box + list of exiting comments
-      return AjaxDefaultResponse.createSuccess (aRequestScope, aStatusNode);
+      return AjaxDefaultResponse.createSuccess (aRequestScope, aMessageBox);
     }
 
     // Somebody played around with the API

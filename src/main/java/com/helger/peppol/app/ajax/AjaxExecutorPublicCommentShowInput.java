@@ -84,6 +84,7 @@ public final class AjaxExecutorPublicCommentShowInput extends AbstractAjaxExecut
                                                             aOwner,
                                                             aCommentThread,
                                                             aParentComment,
+                                                            null,
                                                             null);
           return AjaxDefaultResponse.createSuccess (aRequestScope, aNode);
         }

@@ -36,10 +36,10 @@ import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ECommentState;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.peppol.comment.ui.CommentFormErrors;
 import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentText;
-import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.ajax.executor.AbstractAjaxExecutor;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
 import com.helger.webbasics.ajax.response.IAjaxResponse;
@@ -85,7 +85,7 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      final FormErrors aFormErrors = new FormErrors ();
+      final CommentFormErrors aFormErrors = CommentFormErrors.createForNewThread ();
       if (StringHelper.hasNoText (sAuthor))
       {
         // No author provided
@@ -97,7 +97,7 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
         aFormErrors.addFieldError (PARAM_TEXT, ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
       }
 
-      IHCNode aStatusNode = null;
+      IHCNode aMessageBox = null;
       if (aFormErrors.isEmpty ())
       {
         // Go ahead and save
@@ -110,15 +110,14 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
                                                                                              sTitle,
                                                                                              sText));
         if (aNewThread != null)
-          aStatusNode = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
+          aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
         else
-          aStatusNode = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
+          aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
       }
 
       // List of exiting comments + message box
       return AjaxDefaultResponse.createSuccess (aRequestScope,
-                                                CommentUI.getCommentList (aLEC, aOwner, aFormErrors),
-                                                aStatusNode);
+                                                CommentUI.getCommentList (aLEC, aOwner, aFormErrors, aMessageBox));
     }
 
     // Somebody played around with the API

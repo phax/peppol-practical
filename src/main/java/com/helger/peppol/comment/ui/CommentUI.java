@@ -68,7 +68,6 @@ import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
 import com.helger.peppol.comment.domain.ICommentThread;
-import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
 import com.helger.webbasics.app.layout.ILayoutExecutionContext;
 import com.helger.webbasics.form.RequestField;
@@ -90,7 +89,8 @@ public final class CommentUI
   @Nonnull
   public static IHCNode getCommentList (@Nonnull final ILayoutExecutionContext aLEC,
                                         @Nonnull final ITypedObject <String> aObject,
-                                        @Nullable final FormErrors aFormErrors)
+                                        @Nullable final CommentFormErrors aFormErrors,
+                                        @Nullable final IHCNode aMessageBox)
   {
     ValueEnforcer.notNull (aLEC, "LEC");
     ValueEnforcer.notNull (aObject, "Object");
@@ -176,35 +176,52 @@ public final class CommentUI
               // Toolbar
               final HCSpan aCommentToolbar = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
               HCDiv aCommentResponseContainer = null;
-              if (bUserCanCreateComments)
+              if (bUserCanCreateComments && !aComment.isDeleted ())
               {
                 aCommentResponseContainer = new HCDiv ();
                 final BootstrapButton aResponseButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.ADD);
                 aCommentToolbar.addChild (aResponseButton);
                 aCommentToolbar.addChild (new BootstrapTooltip (aResponseButton).setTitle (ECommentText.TOOLTIP_RESPONSE.getDisplayText (aDisplayLocale)));
 
-                final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
-                final JSVar aJSData = aOnSuccess.param ("data");
-                aOnSuccess.body ().add (JQuery.idRef (aCommentResponseContainer)
-                                              .empty ()
-                                              .append (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
-                final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().cache (false)
-                                                                                 .url (CAjaxPublic.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
-                                                                                 .data (new JSAssocArray ().add (AjaxExecutorPublicCommentShowInput.PARAM_OBJECT_TYPE,
-                                                                                                                 aObject.getTypeID ()
-                                                                                                                        .getObjectTypeName ())
-                                                                                                           .add (AjaxExecutorPublicCommentShowInput.PARAM_OBJECT_ID,
-                                                                                                                 aObject.getID ())
-                                                                                                           .add (AjaxExecutorPublicCommentShowInput.PARAM_COMMENT_THREAD_ID,
-                                                                                                                 aCommentThread.getID ())
-                                                                                                           .add (AjaxExecutorPublicCommentShowInput.PARAM_COMMENT_ID,
-                                                                                                                 aComment.getID ())
-                                                                                                           .add (AjaxExecutorPublicCommentShowInput.PARAM_RESULT_DIV_ID,
-                                                                                                                 sResultDivID))
-                                                                                 .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
-                                                                                                                                   false))
-                                                                                 .build ();
-                aResponseButton.setOnClick (aResponseAction);
+                if (aFormErrors != null && aFormErrors.isReplyTo (aCommentThread, aComment))
+                {
+                  // Upon adding a response
+                  if (aMessageBox == null || !aFormErrors.isEmpty ())
+                    aCommentResponseContainer.addChild (getCreateComment (aLEC,
+                                                                          sResultDivID,
+                                                                          aObject,
+                                                                          aCommentThread,
+                                                                          aComment,
+                                                                          aFormErrors,
+                                                                          aMessageBox));
+                  else
+                    aCommentPanel.getBody ().addChild (aMessageBox);
+                }
+                else
+                {
+                  final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
+                  final JSVar aJSData = aOnSuccess.param ("data");
+                  aOnSuccess.body ().add (JQuery.idRef (aCommentResponseContainer)
+                                                .empty ()
+                                                .append (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
+                  final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().cache (false)
+                                                                                   .url (CAjaxPublic.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
+                                                                                   .data (new JSAssocArray ().add (AjaxExecutorPublicCommentShowInput.PARAM_OBJECT_TYPE,
+                                                                                                                   aObject.getTypeID ()
+                                                                                                                          .getObjectTypeName ())
+                                                                                                             .add (AjaxExecutorPublicCommentShowInput.PARAM_OBJECT_ID,
+                                                                                                                   aObject.getID ())
+                                                                                                             .add (AjaxExecutorPublicCommentShowInput.PARAM_COMMENT_THREAD_ID,
+                                                                                                                   aCommentThread.getID ())
+                                                                                                             .add (AjaxExecutorPublicCommentShowInput.PARAM_COMMENT_ID,
+                                                                                                                   aComment.getID ())
+                                                                                                             .add (AjaxExecutorPublicCommentShowInput.PARAM_RESULT_DIV_ID,
+                                                                                                                   sResultDivID))
+                                                                                   .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
+                                                                                                                                     false))
+                                                                                   .build ();
+                  aResponseButton.setOnClick (aResponseAction);
+                }
               }
               if (bIsCommentModerator)
               {
@@ -294,7 +311,13 @@ public final class CommentUI
     if (bUserCanCreateComments)
     {
       // Add "create comment" button
-      ret.addChild (getCreateComment (aLEC, sResultDivID, aObject, null, null, aFormErrors));
+      ret.addChild (getCreateComment (aLEC,
+                                      sResultDivID,
+                                      aObject,
+                                      null,
+                                      null,
+                                      aFormErrors != null && aFormErrors.isForNewThread () ? aFormErrors : null,
+                                      aFormErrors != null && aFormErrors.isForNewThread () ? aMessageBox : null));
     }
     else
       ret.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild (ECommentText.MSG_LOGIN_TO_COMMENT.getDisplayText (aDisplayLocale)));
@@ -308,7 +331,8 @@ public final class CommentUI
                                           @Nonnull final ITypedObject <String> aObject,
                                           @Nullable final ICommentThread aCommentThread,
                                           @Nullable final IComment aParentComment,
-                                          @Nullable final FormErrors aFormErrors)
+                                          @Nullable final CommentFormErrors aFormErrors,
+                                          @Nullable final IHCNode aMessageBox)
   {
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
@@ -444,6 +468,7 @@ public final class CommentUI
     final HCNodeList ret = new HCNodeList ();
     ret.addChild (aButtonCreate);
     ret.addChild (aFormContainer);
+    ret.addChild (aMessageBox);
     return ret;
   }
 }

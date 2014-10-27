@@ -76,7 +76,7 @@ public class AppPageViewExternal extends PageViewExternal <WebPageExecutionConte
       // Show comments and "add comment"
       final HCNodeList aNodeList = aWPEC.getNodeList ();
       final TypedObject <String> aTO = TypedObject.create (CApp.OT_PAGE, getID ());
-      aNodeList.addChild (CommentUI.getCommentList (aWPEC, aTO, null));
+      aNodeList.addChild (CommentUI.getCommentList (aWPEC, aTO, null, null));
     }
   }
 }

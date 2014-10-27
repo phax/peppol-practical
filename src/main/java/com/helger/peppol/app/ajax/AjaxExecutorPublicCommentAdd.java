@@ -36,10 +36,12 @@ import com.helger.html.hc.IHCNode;
 import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ECommentState;
+import com.helger.peppol.comment.domain.IComment;
+import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.peppol.comment.ui.CommentFormErrors;
 import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentText;
-import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.ajax.executor.AbstractAjaxExecutor;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
 import com.helger.webbasics.ajax.response.IAjaxResponse;
@@ -91,42 +93,51 @@ public final class AjaxExecutorPublicCommentAdd extends AbstractAjaxExecutor
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      final FormErrors aFormErrors = new FormErrors ();
-      if (StringHelper.hasNoText (sAuthor))
+      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner,
+                                                                                                      sCommentThreadID);
+      if (aCommentThread != null)
       {
-        // No author provided
-        aFormErrors.addFieldError (PARAM_AUTHOR, ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
-      }
-      if (StringHelper.hasNoText (sText))
-      {
-        // No text provided
-        aFormErrors.addFieldError (PARAM_TEXT, ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
-      }
+        final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);
+        if (aParentComment != null)
+        {
+          final CommentFormErrors aFormErrors = CommentFormErrors.createForReply (aCommentThread, aParentComment);
+          if (StringHelper.hasNoText (sAuthor))
+          {
+            // No author provided
+            aFormErrors.addFieldError (PARAM_AUTHOR,
+                                       ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
+          }
+          if (StringHelper.hasNoText (sText))
+          {
+            // No text provided
+            aFormErrors.addFieldError (PARAM_TEXT, ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
+          }
 
-      IHCNode aStatusNode = null;
-      if (aFormErrors.isEmpty ())
-      {
-        // Go ahead and save
-        final ESuccess eSuccess = CommentThreadManager.getInstance ()
-                                                      .addCommentToThread (aOwner,
-                                                                           sCommentThreadID,
-                                                                           sCommentID,
-                                                                           new Comment (aRequestScope.getRemoteHost (),
-                                                                                        ECommentState.APPROVED,
-                                                                                        sCurrentUserID,
-                                                                                        sAuthor,
-                                                                                        sTitle,
-                                                                                        sText));
-        if (eSuccess.isSuccess ())
-          aStatusNode = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
-        else
-          aStatusNode = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
-      }
+          IHCNode aMessageBox = null;
+          if (aFormErrors.isEmpty ())
+          {
+            // Go ahead and save
+            final ESuccess eSuccess = CommentThreadManager.getInstance ()
+                                                          .addCommentToThread (aOwner,
+                                                                               sCommentThreadID,
+                                                                               sCommentID,
+                                                                               new Comment (aRequestScope.getRemoteHost (),
+                                                                                            ECommentState.APPROVED,
+                                                                                            sCurrentUserID,
+                                                                                            sAuthor,
+                                                                                            sTitle,
+                                                                                            sText));
+            if (eSuccess.isSuccess ())
+              aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
+            else
+              aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
+          }
 
-      // List of exiting comments + message box
-      return AjaxDefaultResponse.createSuccess (aRequestScope,
-                                                CommentUI.getCommentList (aLEC, aOwner, aFormErrors),
-                                                aStatusNode);
+          // List of exiting comments + message box
+          return AjaxDefaultResponse.createSuccess (aRequestScope,
+                                                    CommentUI.getCommentList (aLEC, aOwner, aFormErrors, aMessageBox));
+        }
+      }
     }
 
     // Somebody played around with the API

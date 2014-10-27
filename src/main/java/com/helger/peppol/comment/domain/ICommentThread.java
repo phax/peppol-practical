@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
 import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
@@ -33,6 +34,7 @@ import com.helger.commons.type.ITypedObject;
  *
  * @author Philip Helger
  */
+@MustImplementEqualsAndHashcode
 public interface ICommentThread extends ITypedObject <String>
 {
   @Nonnull
