@@ -35,16 +35,19 @@ public final class CommentCreationFields
     m_sText = sText;
   }
 
+  @Nullable
   public String getAuthor ()
   {
     return m_sAuthor;
   }
 
+  @Nullable
   public String getTitle ()
   {
     return m_sTitle;
   }
 
+  @Nullable
   public String getText ()
   {
     return m_sText;

@@ -30,10 +30,15 @@ import com.helger.commons.text.resolve.DefaultTextResolver;
 @Translatable
 public enum ECommentText implements IHasDisplayText, IHasDisplayTextWithArgs
 {
+  MSG_IS_DELETED ("[gelöscht] ", "[deleted] "),
   MSG_BY (" von ", " by "),
+  MSG_SEPARATOR_AUTHOR_TITLE (" - ", " - "),
+  TOOLTIP_DELETE ("Diesen Kommentar löschen", "Delete this comment"),
+  TOOLTIP_HOST ("Quell-Host: {0}", "Original host: {0}"),
   MSG_LAST_MODIFICATION ("Letzte Änderung: {0}", "Last modification: {0}"),
   MSG_EDITED_AND_LAST_MODIFICATION ("{0} mal bearbeitet. Zuletzt: {1}", "Edited {0} times. Last modification: {1}"),
   MSG_CREATE_COMMENT ("Neuen Kommentar erstellen", "Create new comment"),
+  MSG_LOGIN_TO_COMMENT ("Sie müssen angemeldet sein, um einen Kommentar zu verfassen!", "You must be logged in to post a comment!"),
 
   MSG_FIELD_AUTHOR ("Ihr Name", "Your name"),
   DESC_FIELD_AUTHOR ("Geben Sie Ihren Namen an. Ohne den Namen kann der Kommentar nicht gespeichert werden", "Provide your name here. The comment cannot be saved without a name"),

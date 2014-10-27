@@ -36,8 +36,8 @@ import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ECommentState;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentText;
-import com.helger.peppol.comment.ui.HCCommentShow;
 import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.ajax.executor.AbstractAjaxExecutor;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
@@ -46,8 +46,7 @@ import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 /**
- * AJAX handler for creating a new thread<br>
- * Parameters: object type, object id, author name, title, text
+ * AJAX handler for creating a new comment thread.
  *
  * @author Philip Helger
  */
@@ -113,9 +112,9 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
           aStatusNode = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
       }
 
-      // Message box + list of exiting comments
+      // List of exiting comments + message box
       return AjaxDefaultResponse.createSuccess (aRequestScope,
-                                                HCCommentShow.createCommentList (aLEC, aOwner, aFormErrors),
+                                                CommentUI.getCommentList (aLEC, aOwner, aFormErrors),
                                                 aStatusNode);
     }
 
