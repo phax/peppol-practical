@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.state.EChange;
 import com.helger.commons.type.ITypedObject;
 import com.helger.datetime.IHasCreationDateTime;
 import com.helger.datetime.IHasLastModificationDateTime;
@@ -53,6 +54,16 @@ public interface IComment extends ITypedObject <String>, IHasCreationDateTime, I
   ECommentState getState ();
 
   /**
+   * Change the state of the comment.
+   *
+   * @param eState
+   *        The new state. May not be <code>null</code>.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  EChange setState (@Nonnull ECommentState eState);
+
+  /**
    * @return <code>true</code> if this comment was deleted
    */
   boolean isDeleted ();
@@ -63,6 +74,11 @@ public interface IComment extends ITypedObject <String>, IHasCreationDateTime, I
    */
   @Nonnegative
   int getEditCount ();
+
+  /**
+   * Increment the edit count and set the last modification date time to now.
+   */
+  void updateLastModification ();
 
   // content vars
 

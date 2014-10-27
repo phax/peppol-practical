@@ -252,6 +252,40 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
   }
 
   @Nonnull
+  public EChange updateCommentState (@Nullable final String sOwningObjectID,
+                                     @Nullable final String sCommentThreadID,
+                                     @Nullable final String sCommentID,
+                                     @Nonnull final ECommentState eNewState)
+  {
+    if (StringHelper.hasNoText (sOwningObjectID))
+      return EChange.UNCHANGED;
+    if (StringHelper.hasNoText (sCommentThreadID))
+      return EChange.UNCHANGED;
+    if (StringHelper.hasNoText (sCommentID))
+      return EChange.UNCHANGED;
+
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      final ICommentThread aCommentThread = m_aAllCommentThreads.get (sCommentThreadID);
+      if (aCommentThread == null)
+        return EChange.UNCHANGED;
+
+      if (aCommentThread.updateCommentState (sCommentID, eNewState).isUnchanged ())
+        return EChange.UNCHANGED;
+
+      markAsChanged ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+
+    AuditUtils.onAuditModifySuccess (Comment.TYPE_COMMENT, "state", sOwningObjectID, sCommentThreadID, sCommentID);
+    return EChange.CHANGED;
+  }
+
+  @Nonnull
   public EChange removeAllCommentThreadsOfObject (@Nullable final String sOwningObjectID)
   {
     if (StringHelper.hasNoText (sOwningObjectID))

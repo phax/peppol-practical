@@ -36,7 +36,7 @@ public final class PagePublicLogin extends AbstractWebPageExt <WebPageExecutionC
   @Nullable
   public String getHeaderText (@Nonnull final WebPageExecutionContext aWPEC)
   {
-    return null;
+    return super.getHeaderText (aWPEC);
   }
 
   @Override

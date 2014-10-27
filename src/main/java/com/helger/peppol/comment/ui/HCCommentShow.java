@@ -32,6 +32,7 @@ import com.helger.bootstrap3.button.EBootstrapButtonSize;
 import com.helger.bootstrap3.label.BootstrapLabel;
 import com.helger.bootstrap3.label.EBootstrapLabelType;
 import com.helger.bootstrap3.panel.BootstrapPanel;
+import com.helger.bootstrap3.panel.EBootstrapPanelType;
 import com.helger.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.ContainerHelper;
@@ -42,15 +43,26 @@ import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.htmlext.HCUtils;
+import com.helger.html.js.builder.JSAnonymousFunction;
+import com.helger.html.js.builder.JSAssocArray;
+import com.helger.html.js.builder.JSVar;
+import com.helger.html.js.builder.jquery.JQuery;
+import com.helger.html.js.builder.jquery.JQueryAjaxBuilder;
+import com.helger.html.js.builder.jquery.JQueryInvocation;
 import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.ajax.AjaxExecutorPublicCommentDelete;
+import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
 import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.validation.error.FormErrors;
+import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
 import com.helger.webbasics.app.layout.ILayoutExecutionContext;
 import com.helger.webctrls.custom.EDefaultIcon;
+import com.helger.webctrls.js.JSJQueryUtils;
+import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 public final class HCCommentShow
 {
@@ -66,6 +78,7 @@ public final class HCCommentShow
     ValueEnforcer.notNull (aObject, "Object");
 
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
+    final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
     final HCDiv ret = new HCDiv ();
 
     // Get all existing comments
@@ -77,8 +90,8 @@ public final class HCCommentShow
       for (final ICommentThread aCommentThread : ContainerHelper.getSorted (aComments,
                                                                             new ComparatorCommentThreadCreationDateTime ()))
       {
-        final BootstrapPanel aPanel = aAllComments.addAndReturnChild (new BootstrapPanel ());
-        aPanel.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
+        final HCDiv aThreadContainer = new HCDiv ();
+        aThreadContainer.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
 
         final boolean bIsCommentModerator = SecurityUtils.hasCurrentUserRole (CApp.ROLE_COMMENT_MODERATOR_ID);
         aCommentThread.iterateAllComments (new ICommentIterationCallback ()
@@ -88,7 +101,8 @@ public final class HCCommentShow
                                       @Nonnull final IComment aComment)
           {
             // Show only approved comments
-            if (aComment.getState ().isApproved ())
+            final boolean bIsApproved = aComment.getState ().isApproved ();
+            if (bIsApproved || bIsCommentModerator)
             {
               // Get author name and determine if it is a registered user
               boolean bRegisteredUser = false;
@@ -106,7 +120,12 @@ public final class HCCommentShow
                 sAuthor = aComment.getCreatorName ();
 
               // Fill panel header
-              final HCDiv aHeader = aPanel.getOrCreateHeader ();
+              final BootstrapPanel aCommentPanel = new BootstrapPanel (bIsApproved ? EBootstrapPanelType.DEFAULT
+                                                                                  : EBootstrapPanelType.DANGER);
+              final HCDiv aHeader = aCommentPanel.getOrCreateHeader ();
+
+              if (aComment.isDeleted ())
+                aHeader.addChild ("[deleted] ");
 
               // Creation date
               aHeader.addChild (new HCSpan ().addChild (PDTToString.getAsString (aComment.getCreationDateTime (),
@@ -132,9 +151,34 @@ public final class HCCommentShow
               final HCSpan aCommentToolbar = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
               if (bIsCommentModerator)
               {
-                final BootstrapButton aDeleteButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.DELETE);
-                aCommentToolbar.addChild (aDeleteButton);
-                aCommentToolbar.addChild (new BootstrapTooltip (aDeleteButton).setTitle ("Delete this comment"));
+                if (!aComment.isDeleted ())
+                {
+                  final BootstrapButton aDeleteButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.DELETE);
+                  aCommentToolbar.addChild (aDeleteButton);
+                  aCommentToolbar.addChild (new BootstrapTooltip (aDeleteButton).setTitle ("Delete this comment"));
+
+                  final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
+                  final JSVar aJSData = aOnSuccess.param ("data");
+                  aOnSuccess.body ().add (JQuery.idRef (aDeleteButton).disable ());
+                  aOnSuccess.body ().add (JQuery.idRef (aCommentPanel.getBody ())
+                                                .append (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
+                  final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().cache (false)
+                                                                                 .url (CAjaxPublic.COMMENT_DELETE.getInvocationURL (aRequestScope))
+                                                                                 .data (new JSAssocArray ().add (AjaxExecutorPublicCommentDelete.PARAM_OBJECT_TYPE,
+                                                                                                                 aObject.getTypeID ()
+                                                                                                                        .getObjectTypeName ())
+                                                                                                           .add (AjaxExecutorPublicCommentDelete.PARAM_OBJECT_ID,
+                                                                                                                 aObject.getID ())
+                                                                                                           .add (AjaxExecutorPublicCommentDelete.PARAM_COMMENT_THREAD_ID,
+                                                                                                                 aCommentThread.getID ())
+                                                                                                           .add (AjaxExecutorPublicCommentDelete.PARAM_COMMENT_ID,
+                                                                                                                 aComment.getID ()))
+                                                                                 .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
+                                                                                                                                   false))
+                                                                                 .build ();
+                  aDeleteButton.setOnClick (aDeleteAction);
+                }
+
                 aCommentToolbar.addChild (BootstrapTooltip.createSimpleTooltip ("Original host: " + aComment.getHost ()));
               }
               if (aCommentToolbar.hasChildren ())
@@ -142,19 +186,31 @@ public final class HCCommentShow
 
               // Last modification
               if (aComment.getLastModificationDateTime () != null)
-                aHeader.addChild (new HCDiv ().addChild (ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
-                                                                                                                    Integer.valueOf (aComment.getEditCount ()),
-                                                                                                                    PDTToString.getAsString (aComment.getLastModificationDateTime (),
-                                                                                                                                             aDisplayLocale)))
+              {
+                final String sLastModDT = PDTToString.getAsString (aComment.getLastModificationDateTime (),
+                                                                   aDisplayLocale);
+                final String sLastModText = aComment.getEditCount () > 0 ? ECommentText.MSG_EDITED_AND_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
+                                                                                                                                                 Integer.valueOf (aComment.getEditCount ()),
+                                                                                                                                                 sLastModDT)
+                                                                        : ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
+                                                                                                                                     sLastModDT);
+                aHeader.addChild (new HCDiv ().addChild (sLastModText)
                                               .addClass (CCommentCSS.CSS_CLASS_COMMENT_LAST_MODIFICATION));
+              }
 
               // Show the main comment
-              aPanel.getBody ().addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
-              aPanel.getBody ().addChild (new HCDiv ().addChildren (HCUtils.nl2brList (aComment.getText ()))
-                                                      .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
+              aCommentPanel.getBody ().addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
+              aCommentPanel.getBody ().addChild (new HCDiv ().addChildren (HCUtils.nl2brList (aComment.getText ()))
+                                                             .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
+
+              aThreadContainer.addChild (aCommentPanel);
             }
           }
         });
+
+        // Show only thread panels which contain at least one comment
+        if (aThreadContainer.hasChildren ())
+          aAllComments.addChild (aThreadContainer);
       }
       ret.addChild (aAllComments);
     }

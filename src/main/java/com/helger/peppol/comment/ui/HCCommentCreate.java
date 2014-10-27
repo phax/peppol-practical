@@ -62,6 +62,7 @@ public final class HCCommentCreate
   private HCCommentCreate ()
   {}
 
+  @Nonnull
   public static IHCNode showCreateComment (@Nonnull final ILayoutExecutionContext aLEC,
                                            @Nonnull final String sResultDivID,
                                            @Nonnull final ITypedObject <String> aObject,
@@ -140,10 +141,17 @@ public final class HCCommentCreate
       aToolbar.addButtonSave (aDisplayLocale, aSaveAction);
     }
 
+    // The create button
+    final BootstrapButton aButtonCreate = new BootstrapButton ().addChild (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
+    aButtonCreate.setOnClick (new JSStatementList (JQuery.idRef (aFormContainer).show (), JQuery.jQueryThis ()
+                                                                                                .disable ()));
+
     // What to do on cancel?
     {
       final JSStatementList aCancelAction = new JSStatementList (JQuery.idRefMultiple (aEditTitle, aTextAreaContent)
-                                                                       .val (""), JQuery.idRef (aFormContainer).hide ());
+                                                                       .val (""),
+                                                                 JQuery.idRef (aFormContainer).hide (),
+                                                                 JQuery.idRef (aButtonCreate).enable ());
       if (aEditAuthor != null)
         aCancelAction.add (JQuery.idRef (aEditAuthor).val (""));
       aToolbar.addButtonCancel (aDisplayLocale, aCancelAction);
@@ -152,8 +160,6 @@ public final class HCCommentCreate
 
     // Show create comment button
     final HCNodeList ret = new HCNodeList ();
-    final BootstrapButton aButtonCreate = new BootstrapButton ().addChild (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
-    aButtonCreate.setOnClick (JQuery.idRef (aFormContainer).toggle ());
     ret.addChild (aButtonCreate);
     ret.addChild (aFormContainer);
     return ret;

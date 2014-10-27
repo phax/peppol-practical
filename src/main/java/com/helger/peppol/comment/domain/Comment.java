@@ -195,6 +195,7 @@ public final class Comment implements IComment
     if (eState.equals (m_eState))
       return EChange.UNCHANGED;
     m_eState = eState;
+    m_aLastModDT = PDTFactory.getCurrentDateTime ();
     return EChange.CHANGED;
   }
 
@@ -209,7 +210,7 @@ public final class Comment implements IComment
     return m_nEditCount;
   }
 
-  public void onEdit ()
+  public void updateLastModification ()
   {
     m_nEditCount++;
     m_aLastModDT = PDTFactory.getCurrentDateTime ();

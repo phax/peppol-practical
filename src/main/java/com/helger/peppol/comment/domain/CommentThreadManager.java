@@ -34,6 +34,7 @@ import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.stats.IStatisticsHandlerCounter;
 import com.helger.commons.stats.StatisticsManager;
@@ -50,10 +51,12 @@ import com.helger.scopes.singleton.GlobalSingleton;
 @ThreadSafe
 public final class CommentThreadManager extends GlobalSingleton
 {
-  private static final IStatisticsHandlerCounter s_aStatsCounterThreads = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
-                                                                                                               "$threads");
-  private static final IStatisticsHandlerCounter s_aStatsCounterComments = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
-                                                                                                                "$comments");
+  private static final IStatisticsHandlerCounter s_aStatsCounterThreadAdd = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+                                                                                                                 "$threadAdd");
+  private static final IStatisticsHandlerCounter s_aStatsCounterCommentAdd = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+                                                                                                                  "$commentAdd");
+  private static final IStatisticsHandlerCounter s_aStatsCounterCommentRemove = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+                                                                                                                     "$commentRemove");
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("m_aRWLock")
@@ -136,8 +139,8 @@ public final class CommentThreadManager extends GlobalSingleton
 
     // Add to respective manager
     final ICommentThread ret = aMgr.createNewThread (aOwner.getID (), aComment);
-    s_aStatsCounterThreads.increment ();
-    s_aStatsCounterComments.increment ();
+    s_aStatsCounterThreadAdd.increment ();
+    s_aStatsCounterCommentAdd.increment ();
     return ret;
   }
 
@@ -155,8 +158,26 @@ public final class CommentThreadManager extends GlobalSingleton
     // Add to respective manager
     final ESuccess ret = aMgr.addCommentToThread (aOwner.getID (), sCommentThreadID, sParentCommentID, aComment);
     if (ret.isSuccess ())
-      s_aStatsCounterComments.increment ();
+      s_aStatsCounterCommentAdd.increment ();
     return ret;
+  }
+
+  @Nonnull
+  public EChange updateCommentState (@Nonnull final ITypedObject <String> aOwner,
+                                     @Nullable final String sCommentThreadID,
+                                     @Nullable final String sCommentID,
+                                     @Nonnull final ECommentState eNewState)
+  {
+    // Get/create the object type comment manager
+    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getTypeID ());
+    if (aMgr == null)
+      return EChange.UNCHANGED;
+
+    // Remove from respective manager
+    final EChange eChange = aMgr.updateCommentState (aOwner.getID (), sCommentThreadID, sCommentID, eNewState);
+    if (eChange.isChanged ())
+      s_aStatsCounterCommentRemove.increment ();
+    return eChange;
   }
 
   /**

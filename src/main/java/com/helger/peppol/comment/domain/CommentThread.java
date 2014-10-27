@@ -22,6 +22,7 @@ import java.util.List;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
@@ -29,6 +30,7 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
+import com.helger.commons.state.EChange;
 import com.helger.commons.tree.utils.walk.TreeWalker;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
@@ -39,6 +41,7 @@ import com.helger.commons.type.ObjectType;
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public final class CommentThread implements ICommentThread
 {
   public static final ObjectType TYPE_COMMENT_THREAD = new ObjectType ("comment-thread");
@@ -104,6 +107,16 @@ public final class CommentThread implements ICommentThread
 
     aTreeItem.createChildItem (aNewComment.getID (), aNewComment);
     return aNewComment;
+  }
+
+  @Nonnull
+  public EChange updateCommentState (@Nullable final String sCommentID, @Nonnull final ECommentState eNewState)
+  {
+    final IComment aComment = m_aTree.getItemDataWithID (sCommentID);
+    if (aComment == null)
+      return EChange.UNCHANGED;
+
+    return aComment.setState (eNewState);
   }
 
   @Nonnegative

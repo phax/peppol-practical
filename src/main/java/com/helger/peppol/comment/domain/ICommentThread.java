@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.state.EChange;
 import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.commons.type.ITypedObject;
 
@@ -54,6 +55,18 @@ public interface ICommentThread extends ITypedObject <String>
    */
   @Nonnull
   IComment addComment (@Nonnull IComment aParentComment, @Nonnull IComment aNewComment);
+
+  /**
+   * Delete a comment FROM this thread.
+   *
+   * @param sCommentID
+   *        The ID of the comment to be removed. May be <code>null</code>.
+   * @param eNewState
+   *        The new state to be set. May not be <code>null</code>.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  EChange updateCommentState (@Nullable String sCommentID, @Nonnull ECommentState eNewState);
 
   /**
    * @return The total comment count. Always &ge; 0.

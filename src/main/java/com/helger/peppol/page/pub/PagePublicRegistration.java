@@ -163,6 +163,8 @@ public final class PagePublicRegistration extends AbstractAppWebPageExt
   @Override
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
+    final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final FormErrors aFormErrors = new FormErrors ();
     boolean bShowForm = true;
 
@@ -176,21 +178,19 @@ public final class PagePublicRegistration extends AbstractAppWebPageExt
         bShowForm = false;
       }
       else
-        aWPEC.getNodeList ().addChild (getStyler ().createIncorrectInputBox (aWPEC));
+        aNodeList.addChild (getStyler ().createIncorrectInputBox (aWPEC));
     }
 
     if (bShowForm)
     {
-      final AbstractHCForm <?> aForm = aWPEC.getNodeList ().addAndReturnChild (createFormSelf (aWPEC));
-      showInputForm (aWPEC.getDisplayLocale (), aForm, aFormErrors);
+      final AbstractHCForm <?> aForm = aNodeList.addAndReturnChild (createFormSelf (aWPEC));
+      showInputForm (aDisplayLocale, aForm, aFormErrors);
 
       final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aWPEC);
       aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_CREATE);
       aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, ACTION_SAVE);
       // Save button
-      aToolbar.addSubmitButtonSave (aWPEC.getDisplayLocale ());
-      // Cancel button
-      aToolbar.addButtonCancel (aWPEC.getDisplayLocale ());
+      aToolbar.addSubmitButtonSave (aDisplayLocale);
       aForm.addChild (aToolbar);
     }
   }
