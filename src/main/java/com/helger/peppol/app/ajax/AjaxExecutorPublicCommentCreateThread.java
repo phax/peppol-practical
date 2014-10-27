@@ -36,9 +36,9 @@ import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ECommentState;
 import com.helger.peppol.comment.domain.ICommentThread;
-import com.helger.peppol.comment.ui.CommentCreationFields;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.peppol.comment.ui.HCCommentShow;
+import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.ajax.executor.AbstractAjaxExecutor;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
 import com.helger.webbasics.ajax.response.IAjaxResponse;
@@ -83,50 +83,43 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      IHCNode aFirstNode;
-      boolean bShowCreateCommentFields = false;
+      final FormErrors aFormErrors = new FormErrors ();
+      if (StringHelper.hasNoText (sAuthor))
+      {
+        // No author provided
+        aFormErrors.addFieldError (PARAM_AUTHOR, ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
+      }
       if (StringHelper.hasNoText (sText))
       {
         // No text provided
-        aFirstNode = new BootstrapErrorBox ().addChild (ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
-        bShowCreateCommentFields = true;
+        aFormErrors.addFieldError (PARAM_TEXT, ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
       }
-      else
-        if (StringHelper.hasNoText (sAuthor))
-        {
-          // No author provided
-          aFirstNode = new BootstrapErrorBox ().addChild (ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
-          bShowCreateCommentFields = true;
-        }
+
+      IHCNode aStatusNode = null;
+      if (aFormErrors.isEmpty ())
+      {
+        // Go ahead and save
+        final ICommentThread aNewThread = CommentThreadManager.getInstance ()
+                                                              .createNewThread (aOwner,
+                                                                                new Comment (aRequestScope.getRemoteHost (),
+                                                                                             ECommentState.APPROVED,
+                                                                                             sCurrentUserID,
+                                                                                             sAuthor,
+                                                                                             sTitle,
+                                                                                             sText));
+        if (aNewThread != null)
+          aStatusNode = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
         else
-        {
-          // Go ahead and save
-          final ICommentThread aNewThread = CommentThreadManager.getInstance ()
-                                                                .createNewThread (aOwner,
-                                                                                  new Comment (aRequestScope.getRemoteHost (),
-                                                                                               ECommentState.APPROVED,
-                                                                                               sCurrentUserID,
-                                                                                               sAuthor,
-                                                                                               sTitle,
-                                                                                               sText));
-          if (aNewThread != null)
-            aFirstNode = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
-          else
-            aFirstNode = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
-        }
+          aStatusNode = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
+      }
 
       // Message box + list of exiting comments
       return AjaxDefaultResponse.createSuccess (aRequestScope,
-                                                aFirstNode,
-                                                new HCCommentShow (aLEC,
-                                                                   aOwner,
-                                                                   bShowCreateCommentFields ? new CommentCreationFields (sAuthor,
-                                                                                                                         sTitle,
-                                                                                                                         sText)
-                                                                                           : null));
+                                                HCCommentShow.createCommentList (aLEC, aOwner, aFormErrors),
+                                                aStatusNode);
     }
 
-    // Somebody played around with the API?
+    // Somebody played around with the API
     s_aLogger.warn ("Failed to resolve comment object type '" + sObjectType + "' and/or object ID '" + sObjectID + "'");
     return AjaxDefaultResponse.createError ();
   }

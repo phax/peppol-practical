@@ -145,7 +145,13 @@ public final class CommentThread implements ICommentThread
                               @Override
                               public void onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
                               {
-                                aCallback.onComment (getLevel (), aItem.getParent ().getData (), aItem.getData ());
+                                aCallback.onCommentStart (getLevel (), aItem.getParent ().getData (), aItem.getData ());
+                              }
+
+                              @Override
+                              public void onItemAfterChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+                              {
+                                aCallback.onCommentEnd (getLevel (), aItem.getParent ().getData (), aItem.getData ());
                               }
                             });
   }

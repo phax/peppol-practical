@@ -28,46 +28,45 @@ import com.helger.appbasics.security.user.IUser;
 import com.helger.appbasics.security.user.IUserManager;
 import com.helger.appbasics.security.util.SecurityUtils;
 import com.helger.bootstrap3.button.BootstrapButton;
+import com.helger.bootstrap3.button.EBootstrapButtonSize;
 import com.helger.bootstrap3.label.BootstrapLabel;
 import com.helger.bootstrap3.label.EBootstrapLabelType;
 import com.helger.bootstrap3.panel.BootstrapPanel;
 import com.helger.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.ContainerHelper;
-import com.helger.commons.idfactory.GlobalIDFactory;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.datetime.format.PDTToString;
-import com.helger.html.hc.html.AbstractHCDiv;
+import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.htmlext.HCUtils;
-import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.app.layout.ILayoutExecutionContext;
+import com.helger.webctrls.custom.EDefaultIcon;
 
-public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
+public final class HCCommentShow
 {
-  public HCCommentShow (@Nonnull final ILayoutExecutionContext aLEC, @Nonnull final ITypedObject <String> aObject)
-  {
-    this (aLEC, aObject, null);
-  }
+  private HCCommentShow ()
+  {}
 
-  public HCCommentShow (@Nonnull final ILayoutExecutionContext aLEC,
-                        @Nonnull final ITypedObject <String> aObject,
-                        @Nullable final CommentCreationFields aCreationFieldValues)
+  @Nonnull
+  public static IHCNode createCommentList (@Nonnull final ILayoutExecutionContext aLEC,
+                                           @Nonnull final ITypedObject <String> aObject,
+                                           @Nullable final FormErrors aFormErrors)
   {
     ValueEnforcer.notNull (aLEC, "LEC");
     ValueEnforcer.notNull (aObject, "Object");
 
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
-    final String sContainerID = GlobalIDFactory.getNewStringID ();
-    setID (sContainerID);
+    final HCDiv ret = new HCDiv ();
 
     // Get all existing comments
     final List <ICommentThread> aComments = CommentThreadManager.getInstance ().getCommentThreadsOfObject (aObject);
@@ -84,9 +83,9 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
         final boolean bIsCommentModerator = SecurityUtils.hasCurrentUserRole (CApp.ROLE_COMMENT_MODERATOR_ID);
         aCommentThread.iterateAllComments (new ICommentIterationCallback ()
         {
-          public void onComment (final int nLevel,
-                                 @Nullable final IComment aParentComment,
-                                 @Nonnull final IComment aComment)
+          public void onCommentStart (final int nLevel,
+                                      @Nullable final IComment aParentComment,
+                                      @Nonnull final IComment aComment)
           {
             // Show only approved comments
             if (aComment.getState ().isApproved ())
@@ -130,11 +129,16 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
               }
 
               // Toolbar
-              final HCSpan aToolbarDiv = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
+              final HCSpan aCommentToolbar = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
               if (bIsCommentModerator)
-                aToolbarDiv.addChild (BootstrapTooltip.createSimpleTooltip ("Original host: " + aComment.getHost ()));
-              if (aToolbarDiv.hasChildren ())
-                aHeader.addChild (aToolbarDiv);
+              {
+                final BootstrapButton aDeleteButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.DELETE);
+                aCommentToolbar.addChild (aDeleteButton);
+                aCommentToolbar.addChild (new BootstrapTooltip (aDeleteButton).setTitle ("Delete this comment"));
+                aCommentToolbar.addChild (BootstrapTooltip.createSimpleTooltip ("Original host: " + aComment.getHost ()));
+              }
+              if (aCommentToolbar.hasChildren ())
+                aHeader.addChild (aCommentToolbar);
 
               // Last modification
               if (aComment.getLastModificationDateTime () != null)
@@ -152,20 +156,18 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
           }
         });
       }
-      addChild (aAllComments);
+      ret.addChild (aAllComments);
     }
 
     // Create comment only for logged in users
     if (LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ())
     {
       // Add "create comment" button
-      final BootstrapButton aButtonCreate = new BootstrapButton ().addChild (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
-      final HCCommentCreate aCommentCreate = new HCCommentCreate (aLEC, sContainerID, aObject, aCreationFieldValues);
-      aButtonCreate.setOnClick (JQuery.idRef (aCommentCreate).toggle ());
-      addChild (aButtonCreate);
-      addChild (aCommentCreate);
+      ret.addChild (HCCommentCreate.showCreateComment (aLEC, ret.ensureID ().getID (), aObject, aFormErrors));
     }
     else
-      addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("You must be logged in to comment!"));
+      ret.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("You must be logged in to comment!"));
+
+    return ret;
   }
 }

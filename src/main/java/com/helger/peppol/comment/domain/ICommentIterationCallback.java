@@ -37,5 +37,23 @@ public interface ICommentIterationCallback
    * @param aComment
    *        The current comment
    */
-  void onComment (@Nonnegative int nLevel, @Nullable IComment aParentComment, @Nonnull IComment aComment);
+  default void onCommentStart (@Nonnegative final int nLevel,
+                               @Nullable final IComment aParentComment,
+                               @Nonnull final IComment aComment)
+  {}
+
+  /**
+   * Called for each comment within a comment thread
+   *
+   * @param nLevel
+   *        Current nesting level
+   * @param aParentComment
+   *        The parent comment - is <code>null</code> for the top-level entry
+   * @param aComment
+   *        The current comment
+   */
+  default void onCommentEnd (@Nonnegative final int nLevel,
+                             @Nullable final IComment aParentComment,
+                             @Nonnull final IComment aComment)
+  {}
 }
