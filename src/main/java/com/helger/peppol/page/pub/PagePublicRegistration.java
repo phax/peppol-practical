@@ -117,7 +117,7 @@ public final class PagePublicRegistration extends AbstractAppWebPageExt
                                                           sEmailAddress +
                                                           "' and the selected password."));
           // Show login form
-          aNodeList.addChild (AppCommonUI.createViewLoginForm (aWPEC, sEmailAddress, true));
+          aNodeList.addChild (AppCommonUI.createViewLoginForm (aWPEC, sEmailAddress, true, false));
         }
       }
     }
@@ -127,7 +127,9 @@ public final class PagePublicRegistration extends AbstractAppWebPageExt
                                 final AbstractHCForm <?> aForm,
                                 final FormErrors aFormErrors)
   {
-    final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (200), HCCol.star ()));
+    final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (230),
+                                                                                       HCCol.star (),
+                                                                                       new HCCol (30)));
 
     // User data
     aTable.createItemRow ()
@@ -138,10 +140,6 @@ public final class PagePublicRegistration extends AbstractAppWebPageExt
           .setLabelMandatory ("Last name")
           .setCtrl (new HCEdit (new RequestField (FIELD_LASTNAME)))
           .setErrorList (aFormErrors.getListOfField (FIELD_LASTNAME));
-    aTable.createItemRow ()
-          .setLabelMandatory ("Email address")
-          .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL1)))
-          .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL1));
     aTable.createItemRow ()
           .setLabelMandatory ("Email address")
           .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL1)))

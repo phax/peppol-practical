@@ -123,8 +123,11 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
 
               // Title
               if (StringHelper.hasText (aComment.getTitle ()))
+              {
+                aHeader.addChild (" - ");
                 aHeader.addChild (new HCSpan ().addChild (aComment.getTitle ())
                                                .addClass (CCommentCSS.CSS_CLASS_COMMENT_TITLE));
+              }
 
               // Toolbar
               final HCSpan aToolbarDiv = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);

@@ -39,6 +39,7 @@ import com.helger.bootstrap3.base.BootstrapContainer;
 import com.helger.bootstrap3.base.BootstrapContainerFluid;
 import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
 import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
+import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.bootstrap3.dropdown.BootstrapDropdownMenu;
 import com.helger.bootstrap3.ext.BootstrapMenuItemRenderer;
 import com.helger.bootstrap3.ext.BootstrapMenuItemRendererHorz;
@@ -60,6 +61,7 @@ import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
+import com.helger.html.hc.html.HCForm;
 import com.helger.html.hc.html.HCH1;
 import com.helger.html.hc.html.HCHead;
 import com.helger.html.hc.html.HCP;
@@ -125,13 +127,19 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     if (aUser != null)
     {
       final Locale aDisplayLocale = aLEC.getDisplayLocale ();
+      // aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
+
       final BootstrapNav aNav = new BootstrapNav ();
       aNav.addItem (new HCSpan ().addClass (CBootstrapCSS.NAVBAR_TEXT)
                                  .addChild ("Logged in as ")
                                  .addChild (new HCStrong ().addChild (SecurityUtils.getUserDisplayName (aUser,
                                                                                                         aDisplayLocale))));
-
-      aNav.addItem (new HCA (LinkUtils.getURLWithContext (aRequestScope, LogoutServlet.SERVLET_DEFAULT_PATH)).addChild (EWebBasicsText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
+      final HCForm aForm = new HCForm ();
+      aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (aRequestScope,
+                                                                                      LogoutServlet.SERVLET_DEFAULT_PATH))
+                                            .addChild (EWebBasicsText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
+      aForm.addClass (CBootstrapCSS.NAVBAR_FORM);
+      aNav.addItem (aForm);
       aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
     }
     else
@@ -143,7 +151,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
         // 300px would lead to a messy layout - so 250px is fine
         final HCDiv aDiv = new HCDiv ().addStyle (CCSSProperties.PADDING.newValue ("10px"))
                                        .addStyle (CCSSProperties.WIDTH.newValue ("250px"));
-        aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false).addClass (CBootstrapCSS.NAVBAR_FORM));
+        aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false, true).addClass (CBootstrapCSS.NAVBAR_FORM));
         aDropDown.addItem (aDiv);
       }
       aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_LEFT, aNav);
@@ -227,9 +235,8 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                                                   " (" +
                                                                   sHttpStatusMessage +
                                                                   ")" +
-                                                                  (StringHelper.hasText (sHttpRequestURI)
-                                                                                                         ? " for request URI " +
-                                                                                                           sHttpRequestURI
+                                                                  (StringHelper.hasText (sHttpRequestURI) ? " for request URI " +
+                                                                                                            sHttpRequestURI
                                                                                                          : "")));
     }
 

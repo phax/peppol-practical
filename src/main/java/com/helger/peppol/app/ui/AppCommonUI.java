@@ -41,6 +41,7 @@ import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.action.CActionPublic;
 import com.helger.peppol.app.ajax.CAjaxPublic;
+import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.webbasics.EWebBasicsText;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
@@ -98,7 +99,8 @@ public final class AppCommonUI
   @Nonnull
   public static BootstrapForm createViewLoginForm (@Nonnull final LayoutExecutionContext aLEC,
                                                    @Nullable final String sPreselectedUserName,
-                                                   final boolean bFullUI)
+                                                   final boolean bFullUI,
+                                                   final boolean bShowRegistration)
   {
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
@@ -113,16 +115,18 @@ public final class AppCommonUI
                                                                                : EBootstrapFormType.DEFAULT);
     aForm.setLeft (3);
 
-    // User name field
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel (EWebBasicsText.EMAIL_ADDRESS.getDisplayText (aDisplayLocale))
-                                                 .setCtrl (new HCEdit (CLogin.REQUEST_ATTR_USERID, sPreselectedUserName).setID (sIDUserName)));
-
-    // Password field
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel (EWebBasicsText.LOGIN_FIELD_PASSWORD.getDisplayText (aDisplayLocale))
-                                                 .setCtrl (new HCEditPassword (CLogin.REQUEST_ATTR_PASSWORD).setID (sIDPassword)));
-
     // Placeholder for error message
     aForm.addChild (new HCDiv ().setID (sIDErrorField).addStyle (CCSSProperties.MARGIN.newValue ("4px 0")));
+
+    // User name field
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (EWebBasicsText.EMAIL_ADDRESS.getDisplayText (aDisplayLocale))
+                                                 .setCtrl (new HCEdit (CLogin.REQUEST_ATTR_USERID, sPreselectedUserName).setPlaceholder (EWebBasicsText.EMAIL_ADDRESS.getDisplayText (aDisplayLocale))
+                                                                                                                        .setID (sIDUserName)));
+
+    // Password field
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (EWebBasicsText.LOGIN_FIELD_PASSWORD.getDisplayText (aDisplayLocale))
+                                                 .setCtrl (new HCEditPassword (CLogin.REQUEST_ATTR_PASSWORD).setPlaceholder (EWebBasicsText.LOGIN_FIELD_PASSWORD.getDisplayText (aDisplayLocale))
+                                                                                                            .setID (sIDPassword)));
 
     // Login button
     final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aLEC));
@@ -134,6 +138,11 @@ public final class AppCommonUI
                         .arg (sIDErrorField));
     aOnClick._return (false);
     aToolbar.addSubmitButton (EWebBasicsText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale), aOnClick);
+    if (bShowRegistration)
+    {
+      aToolbar.addButton (EWebBasicsText.MSG_BUTTON_REGISTER.getDisplayText (aDisplayLocale),
+                          aLEC.getLinkToMenuItem (CMenuPublic.MENU_REGISTER));
+    }
     return aForm;
   }
 }

@@ -44,6 +44,6 @@ public final class PagePublicLogin extends AbstractWebPageExt <WebPageExecutionC
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
-    aNodeList.addChild (AppCommonUI.createViewLoginForm (aWPEC, null, true));
+    aNodeList.addChild (AppCommonUI.createViewLoginForm (aWPEC, null, true, true));
   }
 }
