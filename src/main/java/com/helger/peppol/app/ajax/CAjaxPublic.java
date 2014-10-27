@@ -30,6 +30,8 @@ import com.helger.webctrls.datatables.ajax.AjaxExecutorDataTables;
 @Immutable
 public final class CAjaxPublic
 {
+  public static final IAjaxFunctionDeclaration COMMENT_ADD = new PublicApplicationAjaxFunctionDeclaration ("commentAdd",
+                                                                                                           AjaxExecutorPublicCommentAdd.class);
   public static final IAjaxFunctionDeclaration COMMENT_CREATE_THREAD = new PublicApplicationAjaxFunctionDeclaration ("commentCreateThread",
                                                                                                                      AjaxExecutorPublicCommentCreateThread.class);
   public static final IAjaxFunctionDeclaration COMMENT_DELETE = new PublicApplicationAjaxFunctionDeclaration ("commentDelete",
