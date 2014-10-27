@@ -26,7 +26,6 @@ import com.helger.appbasics.security.AccessManager;
 import com.helger.appbasics.security.login.LoggedInUserManager;
 import com.helger.appbasics.security.user.IUser;
 import com.helger.appbasics.security.user.IUserManager;
-import com.helger.appbasics.security.util.SecurityUtils;
 import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.bootstrap3.button.EBootstrapButtonSize;
@@ -38,6 +37,7 @@ import com.helger.bootstrap3.table.BootstrapTableForm;
 import com.helger.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.NonBlockingStack;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.css.property.CCSSProperties;
@@ -58,9 +58,10 @@ import com.helger.html.js.builder.JSVar;
 import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.html.js.builder.jquery.JQueryAjaxBuilder;
 import com.helger.html.js.builder.jquery.JQueryInvocation;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.ajax.AjaxExecutorPublicCommentAdd;
 import com.helger.peppol.app.ajax.AjaxExecutorPublicCommentCreateThread;
 import com.helger.peppol.app.ajax.AjaxExecutorPublicCommentDelete;
+import com.helger.peppol.app.ajax.AjaxExecutorPublicCommentShowInput;
 import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
@@ -97,14 +98,15 @@ public final class CommentUI
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
     final HCDiv ret = new HCDiv ();
-    final boolean bUserCanCreateComments = LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
+    final String sResultDivID = ret.ensureID ().getID ();
+    final boolean bUserCanCreateComments = CommentSecurity.canCurrentUserPostComments ();
 
     // Get all existing comments
     final List <ICommentThread> aComments = CommentThreadManager.getInstance ().getCommentThreadsOfObject (aObject);
     if (ContainerHelper.isNotEmpty (aComments))
     {
       final IUserManager aUserMgr = AccessManager.getInstance ();
-      final boolean bIsCommentModerator = SecurityUtils.hasCurrentUserRole (CApp.ROLE_COMMENT_MODERATOR_ID);
+      final boolean bIsCommentModerator = CommentSecurity.isCurrentUserCommentModerator ();
 
       // Container for all threads
       final HCDiv aAllThreadsContainer = new HCDiv ().addClass (CCommentCSS.CSS_CLASS_COMMENT_CONTAINER);
@@ -114,6 +116,8 @@ public final class CommentUI
         // Container for this thread
         final HCDiv aThreadContainer = new HCDiv ();
         aThreadContainer.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
+        final NonBlockingStack <HCDiv> aStack = new NonBlockingStack <> ();
+        aStack.push (aThreadContainer);
 
         aCommentThread.iterateAllComments (new ICommentIterationCallback ()
         {
@@ -171,6 +175,37 @@ public final class CommentUI
 
               // Toolbar
               final HCSpan aCommentToolbar = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
+              HCDiv aCommentResponseContainer = null;
+              if (bUserCanCreateComments)
+              {
+                aCommentResponseContainer = new HCDiv ();
+                final BootstrapButton aResponseButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.ADD);
+                aCommentToolbar.addChild (aResponseButton);
+                aCommentToolbar.addChild (new BootstrapTooltip (aResponseButton).setTitle (ECommentText.TOOLTIP_RESPONSE.getDisplayText (aDisplayLocale)));
+
+                final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
+                final JSVar aJSData = aOnSuccess.param ("data");
+                aOnSuccess.body ().add (JQuery.idRef (aCommentResponseContainer)
+                                              .empty ()
+                                              .append (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
+                final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().cache (false)
+                                                                                 .url (CAjaxPublic.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
+                                                                                 .data (new JSAssocArray ().add (AjaxExecutorPublicCommentShowInput.PARAM_OBJECT_TYPE,
+                                                                                                                 aObject.getTypeID ()
+                                                                                                                        .getObjectTypeName ())
+                                                                                                           .add (AjaxExecutorPublicCommentShowInput.PARAM_OBJECT_ID,
+                                                                                                                 aObject.getID ())
+                                                                                                           .add (AjaxExecutorPublicCommentShowInput.PARAM_COMMENT_THREAD_ID,
+                                                                                                                 aCommentThread.getID ())
+                                                                                                           .add (AjaxExecutorPublicCommentShowInput.PARAM_COMMENT_ID,
+                                                                                                                 aComment.getID ())
+                                                                                                           .add (AjaxExecutorPublicCommentShowInput.PARAM_RESULT_DIV_ID,
+                                                                                                                 sResultDivID))
+                                                                                 .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
+                                                                                                                                   false))
+                                                                                 .build ();
+                aResponseButton.setOnClick (aResponseAction);
+              }
               if (bIsCommentModerator)
               {
                 if (!aComment.isDeleted ())
@@ -213,22 +248,38 @@ public final class CommentUI
               {
                 final String sLastModDT = PDTToString.getAsString (aComment.getLastModificationDateTime (),
                                                                    aDisplayLocale);
-                final String sLastModText = aComment.getEditCount () > 0 ? ECommentText.MSG_EDITED_AND_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
-                                                                                                                                                 Integer.valueOf (aComment.getEditCount ()),
-                                                                                                                                                 sLastModDT)
+                final String sLastModText = aComment.getEditCount () > 0
+                                                                        ? ECommentText.MSG_EDITED_AND_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
+                                                                                                                                                Integer.valueOf (aComment.getEditCount ()),
+                                                                                                                                                sLastModDT)
                                                                         : ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
                                                                                                                                      sLastModDT);
                 aHeader.addChild (new HCDiv ().addChild (sLastModText)
                                               .addClass (CCommentCSS.CSS_CLASS_COMMENT_LAST_MODIFICATION));
               }
 
-              // Show the main comment
+              // Show the main comment text
               aCommentPanel.getBody ().addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
               aCommentPanel.getBody ().addChild (new HCDiv ().addChildren (HCUtils.nl2brList (aComment.getText ()))
                                                              .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
+              // the dummy container for new comment form
+              aCommentPanel.getBody ().addChild (aCommentResponseContainer);
 
-              aThreadContainer.addChild (aCommentPanel);
+              aStack.peek ().addChild (aCommentPanel);
+              aStack.push (aCommentPanel.getBody ());
             }
+            else
+            {
+              // Don't display - push the previous item
+              aStack.push (aStack.peek ());
+            }
+          }
+
+          public void onCommentEnd (final int nLevel,
+                                    @Nullable final IComment aParentComment,
+                                    @Nonnull final IComment aComment)
+          {
+            aStack.pop ();
           }
         });
 
@@ -243,7 +294,7 @@ public final class CommentUI
     if (bUserCanCreateComments)
     {
       // Add "create comment" button
-      ret.addChild (getCreateComment (aLEC, ret.ensureID ().getID (), aObject, aFormErrors));
+      ret.addChild (getCreateComment (aLEC, sResultDivID, aObject, null, null, aFormErrors));
     }
     else
       ret.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild (ECommentText.MSG_LOGIN_TO_COMMENT.getDisplayText (aDisplayLocale)));
@@ -255,15 +306,19 @@ public final class CommentUI
   public static IHCNode getCreateComment (@Nonnull final ILayoutExecutionContext aLEC,
                                           @Nonnull final String sResultDivID,
                                           @Nonnull final ITypedObject <String> aObject,
+                                          @Nullable final ICommentThread aCommentThread,
+                                          @Nullable final IComment aParentComment,
                                           @Nullable final FormErrors aFormErrors)
   {
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
     final IUser aLoggedInUser = LoggedInUserManager.getInstance ().getCurrentUser ();
+    final boolean bIsCreateNewThread = aCommentThread == null || aParentComment == null;
 
     final HCDiv aFormContainer = new HCDiv ();
-    if (aFormErrors == null || aFormErrors.isEmpty ())
-      aFormContainer.addStyle (CCSSProperties.DISPLAY_NONE);
+    if (bIsCreateNewThread)
+      if (aFormErrors == null || aFormErrors.isEmpty ())
+        aFormContainer.addStyle (CCSSProperties.DISPLAY_NONE);
     aFormContainer.addClass (CCommentCSS.CSS_CLASS_COMMENT_CREATE);
 
     if (aFormErrors != null && !aFormErrors.isEmpty ())
@@ -312,41 +367,73 @@ public final class CommentUI
       final JSVar aJSData = aOnSuccess.param ("data");
       aOnSuccess.body ()
                 .add (JQuery.idRef (sResultDivID).replaceWith (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
-      final JQueryInvocation aSaveAction = new JQueryAjaxBuilder ().cache (false)
-                                                                   .url (CAjaxPublic.COMMENT_CREATE_THREAD.getInvocationURL (aRequestScope))
-                                                                   .data (new JSAssocArray ().add (AjaxExecutorPublicCommentCreateThread.PARAM_OBJECT_TYPE,
-                                                                                                   aObject.getTypeID ()
-                                                                                                          .getObjectTypeName ())
-                                                                                             .add (AjaxExecutorPublicCommentCreateThread.PARAM_OBJECT_ID,
-                                                                                                   aObject.getID ())
-                                                                                             .add (AjaxExecutorPublicCommentCreateThread.PARAM_AUTHOR,
-                                                                                                   aLoggedInUser != null ? JSExpr.lit ("")
-                                                                                                                        : JQuery.idRef (aEditAuthor)
-                                                                                                                                .val ())
-                                                                                             .add (AjaxExecutorPublicCommentCreateThread.PARAM_TITLE,
-                                                                                                   JQuery.idRef (aEditTitle)
-                                                                                                         .val ())
-                                                                                             .add (AjaxExecutorPublicCommentCreateThread.PARAM_TEXT,
-                                                                                                   JQuery.idRef (aTextAreaContent)
-                                                                                                         .val ()))
-                                                                   .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
-                                                                                                                     false))
-                                                                   .build ();
-
+      JQueryInvocation aSaveAction;
+      if (bIsCreateNewThread)
+      {
+        // Create a new thread
+        aSaveAction = new JQueryAjaxBuilder ().cache (false)
+                                              .url (CAjaxPublic.COMMENT_CREATE_THREAD.getInvocationURL (aRequestScope))
+                                              .data (new JSAssocArray ().add (AjaxExecutorPublicCommentCreateThread.PARAM_OBJECT_TYPE,
+                                                                              aObject.getTypeID ().getObjectTypeName ())
+                                                                        .add (AjaxExecutorPublicCommentCreateThread.PARAM_OBJECT_ID,
+                                                                              aObject.getID ())
+                                                                        .add (AjaxExecutorPublicCommentCreateThread.PARAM_AUTHOR,
+                                                                              aLoggedInUser != null
+                                                                                                   ? JSExpr.lit ("")
+                                                                                                   : JQuery.idRef (aEditAuthor)
+                                                                                                           .val ())
+                                                                        .add (AjaxExecutorPublicCommentCreateThread.PARAM_TITLE,
+                                                                              JQuery.idRef (aEditTitle).val ())
+                                                                        .add (AjaxExecutorPublicCommentCreateThread.PARAM_TEXT,
+                                                                              JQuery.idRef (aTextAreaContent).val ()))
+                                              .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess, false))
+                                              .build ();
+      }
+      else
+      {
+        // Reply to a previous comment
+        aSaveAction = new JQueryAjaxBuilder ().cache (false)
+                                              .url (CAjaxPublic.COMMENT_ADD.getInvocationURL (aRequestScope))
+                                              .data (new JSAssocArray ().add (AjaxExecutorPublicCommentAdd.PARAM_OBJECT_TYPE,
+                                                                              aObject.getTypeID ().getObjectTypeName ())
+                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_OBJECT_ID,
+                                                                              aObject.getID ())
+                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_COMMENT_THREAD_ID,
+                                                                              aCommentThread.getID ())
+                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_COMMENT_ID,
+                                                                              aParentComment.getID ())
+                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_OBJECT_ID,
+                                                                              aObject.getID ())
+                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_AUTHOR,
+                                                                              aLoggedInUser != null
+                                                                                                   ? JSExpr.lit ("")
+                                                                                                   : JQuery.idRef (aEditAuthor)
+                                                                                                           .val ())
+                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_TITLE,
+                                                                              JQuery.idRef (aEditTitle).val ())
+                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_TEXT,
+                                                                              JQuery.idRef (aTextAreaContent).val ()))
+                                              .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess, false))
+                                              .build ();
+      }
       aToolbar.addButtonSave (aDisplayLocale, aSaveAction);
     }
 
-    // The create button
-    final BootstrapButton aButtonCreate = new BootstrapButton ().addChild (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
-    aButtonCreate.setOnClick (new JSStatementList (JQuery.idRef (aFormContainer).show (), JQuery.jQueryThis ()
-                                                                                                .disable ()));
+    BootstrapButton aButtonCreate = null;
+    if (bIsCreateNewThread)
+    {
+      // The create button
+      aButtonCreate = new BootstrapButton ().addChild (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
+      aButtonCreate.setOnClick (new JSStatementList (JQuery.idRef (aFormContainer).show (), JQuery.jQueryThis ()
+                                                                                                  .disable ()));
+    }
 
     // What to do on cancel?
     {
       final JSStatementList aCancelAction = new JSStatementList (JQuery.idRefMultiple (aEditTitle, aTextAreaContent)
-                                                                       .val (""),
-                                                                 JQuery.idRef (aFormContainer).hide (),
-                                                                 JQuery.idRef (aButtonCreate).enable ());
+                                                                       .val (""), JQuery.idRef (aFormContainer).hide ());
+      if (aButtonCreate != null)
+        aCancelAction.add (JQuery.idRef (aButtonCreate).enable ());
       if (aEditAuthor != null)
         aCancelAction.add (JQuery.idRef (aEditAuthor).val (""));
       aToolbar.addButtonCancel (aDisplayLocale, aCancelAction);

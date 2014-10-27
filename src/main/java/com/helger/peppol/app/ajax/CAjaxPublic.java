@@ -36,6 +36,8 @@ public final class CAjaxPublic
                                                                                                                      AjaxExecutorPublicCommentCreateThread.class);
   public static final IAjaxFunctionDeclaration COMMENT_DELETE = new PublicApplicationAjaxFunctionDeclaration ("commentDelete",
                                                                                                               AjaxExecutorPublicCommentDelete.class);
+  public static final IAjaxFunctionDeclaration COMMENT_SHOW_INPUT = new PublicApplicationAjaxFunctionDeclaration ("commentShowInput",
+                                                                                                                  AjaxExecutorPublicCommentShowInput.class);
   public static final IAjaxFunctionDeclaration DATATABLES = new PublicApplicationAjaxFunctionDeclaration ("dataTables",
                                                                                                           AjaxExecutorDataTables.class);
   public static final IAjaxFunctionDeclaration LOGIN = new PublicApplicationAjaxFunctionDeclaration ("login",

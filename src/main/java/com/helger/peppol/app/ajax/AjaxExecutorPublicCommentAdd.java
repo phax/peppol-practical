@@ -36,6 +36,7 @@ import com.helger.html.hc.IHCNode;
 import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ECommentState;
+import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.validation.error.FormErrors;
@@ -84,7 +85,8 @@ public final class AjaxExecutorPublicCommentAdd extends AbstractAjaxExecutor
     if (StringHelper.hasText (sObjectType) &&
         StringHelper.hasText (sObjectID) &&
         StringHelper.hasText (sCommentThreadID) &&
-        StringHelper.hasText (sCommentID))
+        StringHelper.hasText (sCommentID) &&
+        CommentSecurity.canCurrentUserPostComments ())
     {
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);

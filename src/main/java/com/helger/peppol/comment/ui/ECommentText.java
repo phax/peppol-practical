@@ -33,6 +33,7 @@ public enum ECommentText implements IHasDisplayText, IHasDisplayTextWithArgs
   MSG_IS_DELETED ("[gelöscht] ", "[deleted] "),
   MSG_BY (" von ", " by "),
   MSG_SEPARATOR_AUTHOR_TITLE (" - ", " - "),
+  TOOLTIP_RESPONSE ("Auf diesen Kommentar antworten", "Reply to this comment"),
   TOOLTIP_DELETE ("Diesen Kommentar löschen", "Delete this comment"),
   TOOLTIP_HOST ("Quell-Host: {0}", "Original host: {0}"),
   MSG_LAST_MODIFICATION ("Letzte Änderung: {0}", "Last modification: {0}"),

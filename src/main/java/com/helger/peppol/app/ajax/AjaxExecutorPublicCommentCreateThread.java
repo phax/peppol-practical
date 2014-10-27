@@ -36,6 +36,7 @@ import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ECommentState;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.validation.error.FormErrors;
@@ -77,7 +78,9 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
     if (aCurrentUser != null)
       sAuthor = aCurrentUser.getDisplayName ();
 
-    if (StringHelper.hasText (sObjectType) && StringHelper.hasText (sObjectID))
+    if (StringHelper.hasText (sObjectType) &&
+        StringHelper.hasText (sObjectID) &&
+        CommentSecurity.canCurrentUserPostComments ())
     {
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
