@@ -26,8 +26,6 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public final class CMenuPublic
 {
-  public static final String MENU_LOGIN = "login";
-
   public static final String MENU_INDEX = "index";
   public static final String MENU_DOCS = "docs";
   public static final String MENU_DOCS_SETUP_AP = "docs-setup-ap";
@@ -38,7 +36,8 @@ public final class CMenuPublic
   public static final String MENU_TOOLS_PARTICIPANT = "tools-participant";
   public static final String MENU_VALIDATION = "validation";
   public static final String MENU_VALIDATION_WS1 = "validation-ws1";
-  public static final String MENU_REGISTER = "register";
+  public static final String MENU_LOGIN = "login";
+  public static final String MENU_SIGN_UP = "signup";
   public static final String MENU_NEWSLETTER_SUBSCRIBE = "newsletter-subscribe";
 
   // footer

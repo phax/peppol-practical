@@ -30,8 +30,9 @@ import com.helger.peppol.page.AbstractAppWebPageExt;
 import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
+import com.helger.webctrls.custom.EDefaultIcon;
 
-public final class PagePublicRegistration extends AbstractAppWebPageExt
+public final class PagePublicSignUp extends AbstractAppWebPageExt
 {
   private static final String FIELD_FIRSTNAME = "firstname";
   private static final String FIELD_LASTNAME = "lastname";
@@ -40,9 +41,9 @@ public final class PagePublicRegistration extends AbstractAppWebPageExt
   private static final String FIELD_PASSWORD = "password";
   private static final String FIELD_PASSWORD_CONFIRM = "passwordconfirm";
 
-  public PagePublicRegistration (@Nonnull @Nonempty final String sID)
+  public PagePublicSignUp (@Nonnull @Nonempty final String sID)
   {
-    super (sID, "Registration");
+    super (sID, "Sign up");
   }
 
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
@@ -190,7 +191,7 @@ public final class PagePublicRegistration extends AbstractAppWebPageExt
       aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_CREATE);
       aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, ACTION_SAVE);
       // Save button
-      aToolbar.addSubmitButtonSave (aDisplayLocale);
+      aToolbar.addSubmitButton ("Sign up now", EDefaultIcon.YES);
       aForm.addChild (aToolbar);
     }
   }

@@ -22,7 +22,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.bootstrap3.button.EBootstrapButtonType;
 import com.helger.bootstrap3.ext.BootstrapDataTables;
 import com.helger.bootstrap3.form.BootstrapForm;
 import com.helger.bootstrap3.form.BootstrapFormGroup;
@@ -140,8 +142,8 @@ public final class AppCommonUI
     aToolbar.addSubmitButton (EWebBasicsText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale), aOnClick);
     if (bShowRegistration)
     {
-      aToolbar.addButton (EWebBasicsText.MSG_BUTTON_REGISTER.getDisplayText (aDisplayLocale),
-                          aLEC.getLinkToMenuItem (CMenuPublic.MENU_REGISTER));
+      aToolbar.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EWebBasicsText.MSG_BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))
+                                                                           .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_SIGN_UP)));
     }
     return aForm;
   }

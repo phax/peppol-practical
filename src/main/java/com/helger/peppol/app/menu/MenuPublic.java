@@ -28,7 +28,7 @@ import com.helger.peppol.page.pub.PagePublicLogin;
 import com.helger.peppol.page.pub.PagePublicNewsletterSubscribe;
 import com.helger.peppol.page.pub.PagePublicNewsletterUnsubscribe;
 import com.helger.peppol.page.pub.PagePublicParticipantInformation;
-import com.helger.peppol.page.pub.PagePublicRegistration;
+import com.helger.peppol.page.pub.PagePublicSignUp;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
 
@@ -100,7 +100,7 @@ public final class MenuPublic
       aMenuTree.createRootSeparator ().setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
       aMenuTree.createRootItem (new PagePublicLogin (CMenuPublic.MENU_LOGIN))
                .setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
-      aMenuTree.createRootItem (new PagePublicRegistration (CMenuPublic.MENU_REGISTER))
+      aMenuTree.createRootItem (new PagePublicSignUp (CMenuPublic.MENU_SIGN_UP))
                .setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
     }
 

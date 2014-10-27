@@ -134,11 +134,10 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                  .addChild ("Logged in as ")
                                  .addChild (new HCStrong ().addChild (SecurityUtils.getUserDisplayName (aUser,
                                                                                                         aDisplayLocale))));
-      final HCForm aForm = new HCForm ();
+      final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
       aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (aRequestScope,
                                                                                       LogoutServlet.SERVLET_DEFAULT_PATH))
                                             .addChild (EWebBasicsText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
-      aForm.addClass (CBootstrapCSS.NAVBAR_FORM);
       aNav.addItem (aForm);
       aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
     }
@@ -151,7 +150,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
         // 300px would lead to a messy layout - so 250px is fine
         final HCDiv aDiv = new HCDiv ().addStyle (CCSSProperties.PADDING.newValue ("10px"))
                                        .addStyle (CCSSProperties.WIDTH.newValue ("250px"));
-        aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false, true).addClass (CBootstrapCSS.NAVBAR_FORM));
+        aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false, false).addClass (CBootstrapCSS.NAVBAR_FORM));
         aDropDown.addItem (aDiv);
       }
       aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_LEFT, aNav);
