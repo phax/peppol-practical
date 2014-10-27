@@ -259,7 +259,7 @@ public final class CommentUI
   {
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
-    final boolean bLoggedInUser = LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
+    final IUser aLoggedInUser = LoggedInUserManager.getInstance ().getCurrentUser ();
 
     final HCDiv aFormContainer = new HCDiv ();
     if (aFormErrors == null || aFormErrors.isEmpty ())
@@ -275,7 +275,13 @@ public final class CommentUI
     aTable.setTitle (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
 
     HCEdit aEditAuthor = null;
-    if (!bLoggedInUser)
+    if (aLoggedInUser != null)
+    {
+      aTable.createItemRow ()
+            .setLabelMandatory (ECommentText.MSG_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
+            .setCtrl (aLoggedInUser.getDisplayName ());
+    }
+    else
     {
       aEditAuthor = new HCEdit (new RequestField (FIELD_COMMENT_AUTHOR));
       aTable.createItemRow ()
@@ -314,9 +320,9 @@ public final class CommentUI
                                                                                              .add (AjaxExecutorPublicCommentCreateThread.PARAM_OBJECT_ID,
                                                                                                    aObject.getID ())
                                                                                              .add (AjaxExecutorPublicCommentCreateThread.PARAM_AUTHOR,
-                                                                                                   bLoggedInUser ? JSExpr.lit ("")
-                                                                                                                : JQuery.idRef (aEditAuthor)
-                                                                                                                        .val ())
+                                                                                                   aLoggedInUser != null ? JSExpr.lit ("")
+                                                                                                                        : JQuery.idRef (aEditAuthor)
+                                                                                                                                .val ())
                                                                                              .add (AjaxExecutorPublicCommentCreateThread.PARAM_TITLE,
                                                                                                    JQuery.idRef (aEditTitle)
                                                                                                          .val ())
