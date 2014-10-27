@@ -40,6 +40,7 @@ import com.helger.bootstrap3.base.BootstrapContainerFluid;
 import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
 import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
 import com.helger.bootstrap3.button.BootstrapButton;
+import com.helger.bootstrap3.button.EBootstrapButtonType;
 import com.helger.bootstrap3.dropdown.BootstrapDropdownMenu;
 import com.helger.bootstrap3.ext.BootstrapMenuItemRenderer;
 import com.helger.bootstrap3.ext.BootstrapMenuItemRendererHorz;
@@ -122,11 +123,12 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
   private static void _addNavbarLoginLogout (@Nonnull final LayoutExecutionContext aLEC,
                                              @Nonnull final BootstrapNavbar aNavbar)
   {
+    final Locale aDisplayLocale = aLEC.getDisplayLocale ();
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
     final IUser aUser = LoggedInUserManager.getInstance ().getCurrentUser ();
+
     if (aUser != null)
     {
-      final Locale aDisplayLocale = aLEC.getDisplayLocale ();
       // aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
 
       final BootstrapNav aNav = new BootstrapNav ();
@@ -145,6 +147,12 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     {
       // show login in Navbar
       final BootstrapNav aNav = new BootstrapNav ();
+
+      final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
+      aForm.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EWebBasicsText.MSG_BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))
+                                                                        .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_SIGN_UP)));
+      aNav.addItem (aForm);
+
       final BootstrapDropdownMenu aDropDown = aNav.addDropdownMenu ("Login");
       {
         // 300px would lead to a messy layout - so 250px is fine
@@ -153,7 +161,8 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
         aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false, false).addClass (CBootstrapCSS.NAVBAR_FORM));
         aDropDown.addItem (aDiv);
       }
-      aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_LEFT, aNav);
+
+      aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
     }
   }
 
