@@ -49,6 +49,7 @@ public final class Comment implements IComment
   private DateTime m_aLastModDT;
   private ECommentState m_eState;
   private int m_nEditCount;
+  private int m_nSpamReportCount;
   private final String m_sHost;
 
   private final String m_sUserID;
@@ -88,6 +89,7 @@ public final class Comment implements IComment
           sHost,
           eState,
           0,
+          0,
           sUserID,
           sCreatorName,
           sTitle,
@@ -112,6 +114,8 @@ public final class Comment implements IComment
    *        be <code>null</code>.
    * @param nEditCount
    *        How often was the comment edited?
+   * @param nSpamReportCount
+   *        How often was the comment reported as spam.
    * @param sUserID
    *        user ID
    * @param sCreatorName
@@ -127,6 +131,7 @@ public final class Comment implements IComment
            @Nonnull @Nonempty final String sHost,
            @Nonnull final ECommentState eState,
            @Nonnegative final int nEditCount,
+           @Nonnegative final int nSpamReportCount,
            @Nullable final String sUserID,
            @Nullable final String sCreatorName,
            @Nullable final String sTitle,
@@ -145,6 +150,7 @@ public final class Comment implements IComment
     m_sHost = sHost;
     m_eState = eState;
     m_nEditCount = nEditCount;
+    m_nSpamReportCount = nSpamReportCount;
     m_sUserID = sUserID;
     m_sCreatorName = sCreatorName;
     m_sTitle = sTitle;
@@ -211,10 +217,21 @@ public final class Comment implements IComment
     return m_nEditCount;
   }
 
-  public void updateLastModification ()
+  public void onCommentEdited ()
   {
     m_nEditCount++;
     m_aLastModDT = PDTFactory.getCurrentDateTime ();
+  }
+
+  @Nonnegative
+  public int getSpamReportCount ()
+  {
+    return m_nSpamReportCount;
+  }
+
+  public void onCommentSpamReport ()
+  {
+    m_nSpamReportCount++;
   }
 
   @Nullable

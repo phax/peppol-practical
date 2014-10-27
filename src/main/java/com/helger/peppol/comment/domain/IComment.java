@@ -84,7 +84,18 @@ public interface IComment extends
   /**
    * Increment the edit count and set the last modification date time to now.
    */
-  void updateLastModification ();
+  void onCommentEdited ();
+
+  /**
+   * @return How often was the entry reported as spam. Always &ge; 0.
+   */
+  @Nonnegative
+  int getSpamReportCount ();
+
+  /**
+   * Increment the spam report count.
+   */
+  void onCommentSpamReport ();
 
   // content vars
 

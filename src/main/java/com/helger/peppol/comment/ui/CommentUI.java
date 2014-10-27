@@ -89,6 +89,7 @@ public final class CommentUI
   @Nonnull
   public static IHCNode getCommentList (@Nonnull final ILayoutExecutionContext aLEC,
                                         @Nonnull final ITypedObject <String> aObject,
+                                        @Nonnull final CommentAction aCommentAction,
                                         @Nullable final CommentFormErrors aFormErrors,
                                         @Nullable final IHCNode aMessageBox)
   {
@@ -176,17 +177,22 @@ public final class CommentUI
               // Toolbar
               final HCSpan aCommentToolbar = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
               HCDiv aCommentResponseContainer = null;
-              if (bUserCanCreateComments && !aComment.isDeleted ())
+              // Respond to a comment - at maximum 6 levels
+              if (bUserCanCreateComments && !aComment.isDeleted () && nLevel < 6)
               {
                 aCommentResponseContainer = new HCDiv ();
                 final BootstrapButton aResponseButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.ADD);
                 aCommentToolbar.addChild (aResponseButton);
                 aCommentToolbar.addChild (new BootstrapTooltip (aResponseButton).setTitle (ECommentText.TOOLTIP_RESPONSE.getDisplayText (aDisplayLocale)));
 
-                if (aFormErrors != null && aFormErrors.isReplyTo (aCommentThread, aComment))
+                if (aCommentAction.isMatching (ECommentAction.ADD_COMMENT, aCommentThread, aComment) &&
+                    aFormErrors != null &&
+                    aFormErrors.isReplyTo (aCommentThread, aComment))
                 {
                   // Upon adding a response
                   if (aMessageBox == null || !aFormErrors.isEmpty ())
+                  {
+                    // Show the input form again
                     aCommentResponseContainer.addChild (getCreateComment (aLEC,
                                                                           sResultDivID,
                                                                           aObject,
@@ -194,11 +200,16 @@ public final class CommentUI
                                                                           aComment,
                                                                           aFormErrors,
                                                                           aMessageBox));
+                  }
                   else
+                  {
+                    // Show the success or error message
                     aCommentPanel.getBody ().addChild (aMessageBox);
+                  }
                 }
                 else
                 {
+                  // Add the JS to show the input form
                   final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
                   final JSVar aJSData = aOnSuccess.param ("data");
                   aOnSuccess.body ().add (JQuery.idRef (aCommentResponseContainer)
@@ -223,8 +234,13 @@ public final class CommentUI
                   aResponseButton.setOnClick (aResponseAction);
                 }
               }
+
               if (bIsCommentModerator)
               {
+                if (aCommentAction.isMatching (ECommentAction.DELETE_COMMENT, aCommentThread, aComment))
+                  aCommentPanel.getBody ().addChild (aMessageBox);
+
+                // Can the comment be deleted?
                 if (!aComment.isDeleted ())
                 {
                   final BootstrapButton aDeleteButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.DELETE);
@@ -233,9 +249,8 @@ public final class CommentUI
 
                   final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
                   final JSVar aJSData = aOnSuccess.param ("data");
-                  aOnSuccess.body ().add (JQuery.idRef (aDeleteButton).disable ());
-                  aOnSuccess.body ().add (JQuery.idRef (aCommentPanel.getBody ())
-                                                .append (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
+                  aOnSuccess.body ().add (JQuery.idRef (sResultDivID)
+                                                .replaceWith (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
                   final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().cache (false)
                                                                                  .url (CAjaxPublic.COMMENT_DELETE.getInvocationURL (aRequestScope))
                                                                                  .data (new JSAssocArray ().add (AjaxExecutorPublicCommentDelete.PARAM_OBJECT_TYPE,
@@ -253,7 +268,7 @@ public final class CommentUI
                   aDeleteButton.setOnClick (aDeleteAction);
                 }
 
-                // Show source host
+                // Show source host and further info
                 aCommentToolbar.addChild (BootstrapTooltip.createSimpleTooltip (ECommentText.TOOLTIP_HOST.getDisplayTextWithArgs (aDisplayLocale,
                                                                                                                                   aComment.getHost ())));
               }
@@ -277,7 +292,10 @@ public final class CommentUI
 
               // Show the main comment text
               aCommentPanel.getBody ().addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
-              aCommentPanel.getBody ().addChild (new HCDiv ().addChildren (HCUtils.nl2brList (aComment.getText ()))
+
+              // Always put the text as the first part of the body
+              aCommentPanel.getBody ().addChild (0,
+                                                 new HCDiv ().addChildren (HCUtils.nl2brList (aComment.getText ()))
                                                              .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
               // the dummy container for new comment form
               aCommentPanel.getBody ().addChild (aCommentResponseContainer);
@@ -311,13 +329,14 @@ public final class CommentUI
     if (bUserCanCreateComments)
     {
       // Add "create comment" button
+      final boolean bIsForCreateThread = aCommentAction.isMatching (ECommentAction.CREATE_THREAD);
       ret.addChild (getCreateComment (aLEC,
                                       sResultDivID,
                                       aObject,
                                       null,
                                       null,
-                                      aFormErrors != null && aFormErrors.isForNewThread () ? aFormErrors : null,
-                                      aFormErrors != null && aFormErrors.isForNewThread () ? aMessageBox : null));
+                                      bIsForCreateThread ? aFormErrors : null,
+                                      bIsForCreateThread ? aMessageBox : null));
     }
     else
       ret.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild (ECommentText.MSG_LOGIN_TO_COMMENT.getDisplayText (aDisplayLocale)));

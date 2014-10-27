@@ -33,7 +33,12 @@ import com.helger.commons.type.TypedObject;
 import com.helger.html.hc.IHCNode;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ECommentState;
+import com.helger.peppol.comment.domain.IComment;
+import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentSecurity;
+import com.helger.peppol.comment.ui.CommentUI;
+import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.webbasics.ajax.executor.AbstractAjaxExecutor;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
@@ -74,20 +79,36 @@ public final class AjaxExecutorPublicCommentDelete extends AbstractAjaxExecutor
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      // Go ahead and delete
-      final EChange eChange = CommentThreadManager.getInstance ()
-                                                  .updateCommentState (aOwner,
-                                                                       sCommentThreadID,
-                                                                       sCommentID,
-                                                                       ECommentState.DELETED_BY_MODERATOR);
-      IHCNode aMessageBox;
-      if (eChange.isChanged ())
-        aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_DELETE_SUCCESS.getDisplayText (aDisplayLocale));
-      else
-        aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_DELETE_FAILURE.getDisplayText (aDisplayLocale));
+      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner,
+                                                                                                      sCommentThreadID);
+      if (aCommentThread != null)
+      {
+        final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);
+        if (aParentComment != null)
+        {
+          // Go ahead and delete
+          final EChange eChange = CommentThreadManager.getInstance ()
+                                                      .updateCommentState (aOwner,
+                                                                           sCommentThreadID,
+                                                                           sCommentID,
+                                                                           ECommentState.DELETED_BY_MODERATOR);
+          IHCNode aMessageBox;
+          if (eChange.isChanged ())
+            aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_DELETE_SUCCESS.getDisplayText (aDisplayLocale));
+          else
+            aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_DELETE_FAILURE.getDisplayText (aDisplayLocale));
 
-      // Message box + list of exiting comments
-      return AjaxDefaultResponse.createSuccess (aRequestScope, aMessageBox);
+          // Message box + list of exiting comments
+          return AjaxDefaultResponse.createSuccess (aRequestScope,
+                                                    CommentUI.getCommentList (aLEC,
+                                                                              aOwner,
+                                                                              CommentAction.createForComment (ECommentAction.DELETE_COMMENT,
+                                                                                                              aCommentThread,
+                                                                                                              aParentComment),
+                                                                              null,
+                                                                              aMessageBox));
+        }
+      }
     }
 
     // Somebody played around with the API

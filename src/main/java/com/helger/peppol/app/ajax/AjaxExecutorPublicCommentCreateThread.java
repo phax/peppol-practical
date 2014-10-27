@@ -36,9 +36,11 @@ import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ECommentState;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentFormErrors;
 import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
+import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.webbasics.ajax.executor.AbstractAjaxExecutor;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
@@ -117,7 +119,11 @@ public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExe
 
       // List of exiting comments + message box
       return AjaxDefaultResponse.createSuccess (aRequestScope,
-                                                CommentUI.getCommentList (aLEC, aOwner, aFormErrors, aMessageBox));
+                                                CommentUI.getCommentList (aLEC,
+                                                                          aOwner,
+                                                                          CommentAction.createGeneric (ECommentAction.CREATE_THREAD),
+                                                                          aFormErrors,
+                                                                          aMessageBox));
     }
 
     // Somebody played around with the API

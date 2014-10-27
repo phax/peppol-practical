@@ -36,6 +36,7 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_HOST = "host";
   private static final String ATTR_STATE = "state";
   private static final String ATTR_EDITCOUNT = "editcount";
+  private static final String ATTR_SPAMREPORTCOUNT = "spamreportcount";
   private static final String ATTR_USERID = "userid";
   private static final String ATTR_CREATORNAME = "creatorname";
   private static final String ATTR_TITLE = "title";
@@ -54,6 +55,7 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
     eComment.setAttribute (ATTR_HOST, aComment.getHost ());
     eComment.setAttribute (ATTR_STATE, aComment.getState ().getID ());
     eComment.setAttribute (ATTR_EDITCOUNT, aComment.getEditCount ());
+    eComment.setAttribute (ATTR_SPAMREPORTCOUNT, aComment.getSpamReportCount ());
     eComment.setAttribute (ATTR_USERID, aComment.getUserID ());
     eComment.setAttribute (ATTR_CREATORNAME, aComment.getCreatorName ());
     eComment.setAttribute (ATTR_TITLE, aComment.getTitle ());
@@ -76,6 +78,9 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
     final String sEditCount = eComment.getAttribute (ATTR_EDITCOUNT);
     final int nEditCount = StringParser.parseInt (sEditCount, -1);
 
+    final String sSpamReportCount = eComment.getAttribute (ATTR_SPAMREPORTCOUNT);
+    final int nSpamReportCount = StringParser.parseInt (sSpamReportCount, 0);
+
     final String sUserID = eComment.getAttribute (ATTR_USERID);
 
     final String sCreatorName = eComment.getAttribute (ATTR_CREATORNAME);
@@ -91,6 +96,7 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
                         sHost,
                         eState,
                         nEditCount,
+                        nSpamReportCount,
                         sUserID,
                         sCreatorName,
                         sTitle,
