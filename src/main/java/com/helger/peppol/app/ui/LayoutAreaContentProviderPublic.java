@@ -89,6 +89,12 @@ import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
  */
 public final class LayoutAreaContentProviderPublic implements ILayoutAreaContentProvider <LayoutExecutionContext>
 {
+  private static final String PARAM_HTTP_ERROR = "httpError";
+  private static final String VALUE_HTTP_ERROR = "true";
+  private static final String PARAM_HTTP_STATUS_CODE = "httpStatusCode";
+  private static final String PARAM_HTTP_STATUS_MESSAGE = "httpStatusMessage";
+  private static final String PARAM_HTTP_REQUEST_URI = "httpRequestUri";
+
   private static final ICSSClassProvider CSS_CLASS_FOOTER_LINKS = DefaultCSSClassProvider.create ("footer-links");
 
   private final List <IMenuObject> m_aFooterObjectsCol1 = new ArrayList <IMenuObject> ();
@@ -130,20 +136,17 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     }
     else
     {
-      // Don't show login in Navbar
-      if (false)
+      // show login in Navbar
+      final BootstrapNav aNav = new BootstrapNav ();
+      final BootstrapDropdownMenu aDropDown = aNav.addDropdownMenu ("Login");
       {
-        final BootstrapNav aNav = new BootstrapNav ();
-        final BootstrapDropdownMenu aDropDown = aNav.addDropdownMenu ("Login");
-        {
-          // 300px would lead to a messy layout - so 250px is fine
-          final HCDiv aDiv = new HCDiv ().addStyle (CCSSProperties.PADDING.newValue ("10px"))
-                                         .addStyle (CCSSProperties.WIDTH.newValue ("250px"));
-          aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false).addClass (CBootstrapCSS.NAVBAR_FORM));
-          aDropDown.addItem (aDiv);
-        }
-        aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_LEFT, aNav);
+        // 300px would lead to a messy layout - so 250px is fine
+        final HCDiv aDiv = new HCDiv ().addStyle (CCSSProperties.PADDING.newValue ("10px"))
+                                       .addStyle (CCSSProperties.WIDTH.newValue ("250px"));
+        aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false).addClass (CBootstrapCSS.NAVBAR_FORM));
+        aDropDown.addItem (aDiv);
       }
+      aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_LEFT, aNav);
     }
   }
 
@@ -173,7 +176,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       protected boolean isMenuItemValidToBeDisplayed (@Nonnull final IMenuObject aMenuObj)
       {
         // Don't show items that belong to the footer
-        if (aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER_COL1))
+        if (aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER_COL1) ||
+            aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER_COL2) ||
+            aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER_COL3))
           return false;
 
         // Use default code
@@ -212,18 +217,19 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     final HCNodeList aPageContainer = new HCNodeList ();
 
     // Handle 404 case here (see error404.jsp)
-    if ("true".equals (aRequestScope.getAttributeAsString ("httpError")))
+    if (VALUE_HTTP_ERROR.equals (aRequestScope.getAttributeAsString (PARAM_HTTP_ERROR)))
     {
-      final String sHttpStatusCode = aRequestScope.getAttributeAsString ("httpStatusCode");
-      final String sHttpStatusMessage = aRequestScope.getAttributeAsString ("httpStatusMessage");
-      final String sHttpRequestURI = aRequestScope.getAttributeAsString ("httpRequestUri");
+      final String sHttpStatusCode = aRequestScope.getAttributeAsString (PARAM_HTTP_STATUS_CODE);
+      final String sHttpStatusMessage = aRequestScope.getAttributeAsString (PARAM_HTTP_STATUS_MESSAGE);
+      final String sHttpRequestURI = aRequestScope.getAttributeAsString (PARAM_HTTP_REQUEST_URI);
       aPageContainer.addChild (new BootstrapErrorBox ().addChild ("HTTP error " +
                                                                   sHttpStatusCode +
                                                                   " (" +
                                                                   sHttpStatusMessage +
                                                                   ")" +
-                                                                  (StringHelper.hasText (sHttpRequestURI) ? " for request URI " +
-                                                                                                            sHttpRequestURI
+                                                                  (StringHelper.hasText (sHttpRequestURI)
+                                                                                                         ? " for request URI " +
+                                                                                                           sHttpRequestURI
                                                                                                          : "")));
     }
 

@@ -23,10 +23,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.appbasics.security.AccessManager;
+import com.helger.appbasics.security.login.LoggedInUserManager;
 import com.helger.appbasics.security.user.IUser;
 import com.helger.appbasics.security.user.IUserManager;
 import com.helger.appbasics.security.util.SecurityUtils;
 import com.helger.bootstrap3.button.BootstrapButton;
+import com.helger.bootstrap3.label.BootstrapLabel;
+import com.helger.bootstrap3.label.EBootstrapLabelType;
 import com.helger.bootstrap3.panel.BootstrapPanel;
 import com.helger.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.commons.ValueEnforcer;
@@ -149,11 +152,17 @@ public class HCCommentShow extends AbstractHCDiv <HCCommentShow>
       addChild (aAllComments);
     }
 
-    // Add "create comment" button
-    final BootstrapButton aButtonCreate = new BootstrapButton ().addChild (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
-    final HCCommentCreate aCommentCreate = new HCCommentCreate (aLEC, sContainerID, aObject, aCreationFieldValues);
-    aButtonCreate.setOnClick (JQuery.idRef (aCommentCreate).toggle ());
-    addChild (aButtonCreate);
-    addChild (aCommentCreate);
+    // Create comment only for logged in users
+    if (LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ())
+    {
+      // Add "create comment" button
+      final BootstrapButton aButtonCreate = new BootstrapButton ().addChild (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
+      final HCCommentCreate aCommentCreate = new HCCommentCreate (aLEC, sContainerID, aObject, aCreationFieldValues);
+      aButtonCreate.setOnClick (JQuery.idRef (aCommentCreate).toggle ());
+      addChild (aButtonCreate);
+      addChild (aCommentCreate);
+    }
+    else
+      addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("You must be logged in to comment!"));
   }
 }
