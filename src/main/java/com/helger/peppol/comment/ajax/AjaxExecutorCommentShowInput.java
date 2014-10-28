@@ -42,14 +42,14 @@ import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorPublicCommentShowInput extends AbstractAjaxExecutor
+public final class AjaxExecutorCommentShowInput extends AbstractAjaxExecutor
 {
   public static final String PARAM_OBJECT_TYPE = "objectType";
   public static final String PARAM_OBJECT_ID = "objectID";
   public static final String PARAM_COMMENT_THREAD_ID = "commentThreadID";
   public static final String PARAM_COMMENT_ID = "commentID";
   public static final String PARAM_RESULT_DIV_ID = "resultDivID";
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorPublicCommentShowInput.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorCommentShowInput.class);
 
   @Override
   @Nonnull

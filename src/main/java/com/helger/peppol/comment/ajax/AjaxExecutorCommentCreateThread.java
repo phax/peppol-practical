@@ -53,14 +53,14 @@ import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorPublicCommentCreateThread extends AbstractAjaxExecutor
+public final class AjaxExecutorCommentCreateThread extends AbstractAjaxExecutor
 {
   public static final String PARAM_OBJECT_TYPE = "objectType";
   public static final String PARAM_OBJECT_ID = "objectID";
   public static final String PARAM_AUTHOR = "author";
   public static final String PARAM_TITLE = "title";
   public static final String PARAM_TEXT = "text";
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorPublicCommentCreateThread.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorCommentCreateThread.class);
 
   @Override
   @Nonnull

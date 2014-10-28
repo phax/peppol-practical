@@ -58,10 +58,10 @@ import com.helger.html.js.builder.JSVar;
 import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.html.js.builder.jquery.JQueryAjaxBuilder;
 import com.helger.html.js.builder.jquery.JQueryInvocation;
-import com.helger.peppol.comment.ajax.AjaxExecutorPublicCommentAdd;
-import com.helger.peppol.comment.ajax.AjaxExecutorPublicCommentCreateThread;
-import com.helger.peppol.comment.ajax.AjaxExecutorPublicCommentDelete;
-import com.helger.peppol.comment.ajax.AjaxExecutorPublicCommentShowInput;
+import com.helger.peppol.comment.ajax.AjaxExecutorCommentAdd;
+import com.helger.peppol.comment.ajax.AjaxExecutorCommentCreateThread;
+import com.helger.peppol.comment.ajax.AjaxExecutorCommentDelete;
+import com.helger.peppol.comment.ajax.AjaxExecutorCommentShowInput;
 import com.helger.peppol.comment.ajax.CAjaxComment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
@@ -79,9 +79,9 @@ import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 public final class CommentUI
 {
-  private static final String FIELD_COMMENT_AUTHOR = AjaxExecutorPublicCommentCreateThread.PARAM_AUTHOR;
-  private static final String FIELD_COMMENT_TITLE = AjaxExecutorPublicCommentCreateThread.PARAM_TITLE;
-  private static final String FIELD_COMMENT_TEXT = AjaxExecutorPublicCommentCreateThread.PARAM_TEXT;
+  private static final String FIELD_COMMENT_AUTHOR = AjaxExecutorCommentCreateThread.PARAM_AUTHOR;
+  private static final String FIELD_COMMENT_TITLE = AjaxExecutorCommentCreateThread.PARAM_TITLE;
+  private static final String FIELD_COMMENT_TEXT = AjaxExecutorCommentCreateThread.PARAM_TEXT;
 
   private CommentUI ()
   {}
@@ -217,16 +217,16 @@ public final class CommentUI
                                                 .append (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
                   final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().cache (false)
                                                                                    .url (CAjaxComment.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
-                                                                                   .data (new JSAssocArray ().add (AjaxExecutorPublicCommentShowInput.PARAM_OBJECT_TYPE,
+                                                                                   .data (new JSAssocArray ().add (AjaxExecutorCommentShowInput.PARAM_OBJECT_TYPE,
                                                                                                                    aObject.getTypeID ()
                                                                                                                           .getObjectTypeName ())
-                                                                                                             .add (AjaxExecutorPublicCommentShowInput.PARAM_OBJECT_ID,
+                                                                                                             .add (AjaxExecutorCommentShowInput.PARAM_OBJECT_ID,
                                                                                                                    aObject.getID ())
-                                                                                                             .add (AjaxExecutorPublicCommentShowInput.PARAM_COMMENT_THREAD_ID,
+                                                                                                             .add (AjaxExecutorCommentShowInput.PARAM_COMMENT_THREAD_ID,
                                                                                                                    aCommentThread.getID ())
-                                                                                                             .add (AjaxExecutorPublicCommentShowInput.PARAM_COMMENT_ID,
+                                                                                                             .add (AjaxExecutorCommentShowInput.PARAM_COMMENT_ID,
                                                                                                                    aComment.getID ())
-                                                                                                             .add (AjaxExecutorPublicCommentShowInput.PARAM_RESULT_DIV_ID,
+                                                                                                             .add (AjaxExecutorCommentShowInput.PARAM_RESULT_DIV_ID,
                                                                                                                    sResultDivID))
                                                                                    .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
                                                                                                                                      false))
@@ -253,14 +253,14 @@ public final class CommentUI
                                                 .replaceWith (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
                   final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().cache (false)
                                                                                  .url (CAjaxComment.COMMENT_DELETE.getInvocationURL (aRequestScope))
-                                                                                 .data (new JSAssocArray ().add (AjaxExecutorPublicCommentDelete.PARAM_OBJECT_TYPE,
+                                                                                 .data (new JSAssocArray ().add (AjaxExecutorCommentDelete.PARAM_OBJECT_TYPE,
                                                                                                                  aObject.getTypeID ()
                                                                                                                         .getObjectTypeName ())
-                                                                                                           .add (AjaxExecutorPublicCommentDelete.PARAM_OBJECT_ID,
+                                                                                                           .add (AjaxExecutorCommentDelete.PARAM_OBJECT_ID,
                                                                                                                  aObject.getID ())
-                                                                                                           .add (AjaxExecutorPublicCommentDelete.PARAM_COMMENT_THREAD_ID,
+                                                                                                           .add (AjaxExecutorCommentDelete.PARAM_COMMENT_THREAD_ID,
                                                                                                                  aCommentThread.getID ())
-                                                                                                           .add (AjaxExecutorPublicCommentDelete.PARAM_COMMENT_ID,
+                                                                                                           .add (AjaxExecutorCommentDelete.PARAM_COMMENT_ID,
                                                                                                                  aComment.getID ()))
                                                                                  .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
                                                                                                                                    false))
@@ -416,18 +416,18 @@ public final class CommentUI
         // Create a new thread
         aSaveAction = new JQueryAjaxBuilder ().cache (false)
                                               .url (CAjaxComment.COMMENT_CREATE_THREAD.getInvocationURL (aRequestScope))
-                                              .data (new JSAssocArray ().add (AjaxExecutorPublicCommentCreateThread.PARAM_OBJECT_TYPE,
+                                              .data (new JSAssocArray ().add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_TYPE,
                                                                               aObject.getTypeID ().getObjectTypeName ())
-                                                                        .add (AjaxExecutorPublicCommentCreateThread.PARAM_OBJECT_ID,
+                                                                        .add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_ID,
                                                                               aObject.getID ())
-                                                                        .add (AjaxExecutorPublicCommentCreateThread.PARAM_AUTHOR,
+                                                                        .add (AjaxExecutorCommentCreateThread.PARAM_AUTHOR,
                                                                               aLoggedInUser != null
                                                                                                    ? JSExpr.lit ("")
                                                                                                    : JQuery.idRef (aEditAuthor)
                                                                                                            .val ())
-                                                                        .add (AjaxExecutorPublicCommentCreateThread.PARAM_TITLE,
+                                                                        .add (AjaxExecutorCommentCreateThread.PARAM_TITLE,
                                                                               JQuery.idRef (aEditTitle).val ())
-                                                                        .add (AjaxExecutorPublicCommentCreateThread.PARAM_TEXT,
+                                                                        .add (AjaxExecutorCommentCreateThread.PARAM_TEXT,
                                                                               JQuery.idRef (aTextAreaContent).val ()))
                                               .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess, false))
                                               .build ();
@@ -437,24 +437,24 @@ public final class CommentUI
         // Reply to a previous comment
         aSaveAction = new JQueryAjaxBuilder ().cache (false)
                                               .url (CAjaxComment.COMMENT_ADD.getInvocationURL (aRequestScope))
-                                              .data (new JSAssocArray ().add (AjaxExecutorPublicCommentAdd.PARAM_OBJECT_TYPE,
+                                              .data (new JSAssocArray ().add (AjaxExecutorCommentAdd.PARAM_OBJECT_TYPE,
                                                                               aObject.getTypeID ().getObjectTypeName ())
-                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_OBJECT_ID,
+                                                                        .add (AjaxExecutorCommentAdd.PARAM_OBJECT_ID,
                                                                               aObject.getID ())
-                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_COMMENT_THREAD_ID,
+                                                                        .add (AjaxExecutorCommentAdd.PARAM_COMMENT_THREAD_ID,
                                                                               aCommentThread.getID ())
-                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_COMMENT_ID,
+                                                                        .add (AjaxExecutorCommentAdd.PARAM_COMMENT_ID,
                                                                               aParentComment.getID ())
-                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_OBJECT_ID,
+                                                                        .add (AjaxExecutorCommentAdd.PARAM_OBJECT_ID,
                                                                               aObject.getID ())
-                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_AUTHOR,
+                                                                        .add (AjaxExecutorCommentAdd.PARAM_AUTHOR,
                                                                               aLoggedInUser != null
                                                                                                    ? JSExpr.lit ("")
                                                                                                    : JQuery.idRef (aEditAuthor)
                                                                                                            .val ())
-                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_TITLE,
+                                                                        .add (AjaxExecutorCommentAdd.PARAM_TITLE,
                                                                               JQuery.idRef (aEditTitle).val ())
-                                                                        .add (AjaxExecutorPublicCommentAdd.PARAM_TEXT,
+                                                                        .add (AjaxExecutorCommentAdd.PARAM_TEXT,
                                                                               JQuery.idRef (aTextAreaContent).val ()))
                                               .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess, false))
                                               .build ();

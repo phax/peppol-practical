@@ -29,13 +29,13 @@ import com.helger.webbasics.ajax.IAjaxFunctionDeclaration;
 public final class CAjaxComment
 {
   public static final IAjaxFunctionDeclaration COMMENT_ADD = new CommentAjaxFunctionDeclaration ("addComment",
-                                                                                                 AjaxExecutorPublicCommentAdd.class);
+                                                                                                 AjaxExecutorCommentAdd.class);
   public static final IAjaxFunctionDeclaration COMMENT_CREATE_THREAD = new CommentAjaxFunctionDeclaration ("createThread",
-                                                                                                           AjaxExecutorPublicCommentCreateThread.class);
+                                                                                                           AjaxExecutorCommentCreateThread.class);
   public static final IAjaxFunctionDeclaration COMMENT_DELETE = new CommentAjaxFunctionDeclaration ("deleteComment",
-                                                                                                    AjaxExecutorPublicCommentDelete.class);
+                                                                                                    AjaxExecutorCommentDelete.class);
   public static final IAjaxFunctionDeclaration COMMENT_SHOW_INPUT = new CommentAjaxFunctionDeclaration ("showInputForm",
-                                                                                                        AjaxExecutorPublicCommentShowInput.class);
+                                                                                                        AjaxExecutorCommentShowInput.class);
 
   private CAjaxComment ()
   {}
