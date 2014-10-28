@@ -30,7 +30,6 @@ import com.helger.commons.annotations.Translatable;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.name.IHasDisplayText;
-import com.helger.commons.name.IHasDisplayTextWithArgs;
 import com.helger.commons.text.impl.TextProvider;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.type.ObjectType;
@@ -56,9 +55,13 @@ import com.helger.webctrls.datatables.comparator.ComparatorDTInteger;
 public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
 {
   @Translatable
-  protected static enum EText implements IHasDisplayText, IHasDisplayTextWithArgs
+  protected static enum EText implements IHasDisplayText
   {
-    BUTTON_REFRESH ("Aktualisieren", "Refresh");
+    BUTTON_REFRESH ("Aktualisieren", "Refresh"),
+    HEADER_OBJECT_ID ("Objekt-ID", "Object ID"),
+    HEADER_THREADS ("Themen", "Threads"),
+    HEADER_COMMENTS ("Einträge", "Comments"),
+    HEADER_LAST_CHANGE ("Letzte Änderung", "Last change");
 
     private final TextProvider m_aTP;
 
@@ -71,12 +74,6 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
     public String getDisplayText (@Nonnull final Locale aContentLocale)
     {
       return DefaultTextResolver.getText (this, m_aTP, aContentLocale);
-    }
-
-    @Nullable
-    public String getDisplayTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
-    {
-      return DefaultTextResolver.getTextWithArgs (this, m_aTP, aContentLocale, aArgs);
     }
   }
 
@@ -106,7 +103,10 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
 
       final HCTable aTable = new HCTable (HCCol.star (), HCCol.star (), HCCol.star (), HCCol.star ()).setID (getID () +
                                                                                                              aOT.getObjectTypeName ());
-      aTable.addHeaderRow ().addCells ("Object ID", "Comment threads", "Comments", "Last change");
+      aTable.addHeaderRow ().addCells (EText.HEADER_OBJECT_ID.getDisplayText (aDisplayLocale),
+                                       EText.HEADER_THREADS.getDisplayText (aDisplayLocale),
+                                       EText.HEADER_COMMENTS.getDisplayText (aDisplayLocale),
+                                       EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale));
       final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
       for (final Map.Entry <String, List <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
       {
