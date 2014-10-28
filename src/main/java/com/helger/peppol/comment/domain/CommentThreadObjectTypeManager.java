@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -191,6 +192,36 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
 
   @Nonnull
   @ReturnsMutableCopy
+  public Set <String> getAllOwningObjectIDs ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return ContainerHelper.newSet (m_aObjectToCommentThreads.keySet ());
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public IMultiMapListBased <String, ICommentThread> getAllCommentThreads ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return new MultiHashMapArrayListBased <String, ICommentThread> (m_aObjectToCommentThreads);
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public List <ICommentThread> getAllCommentThreadsOfObject (@Nullable final String sOwningObjectID)
   {
     if (StringHelper.hasText (sOwningObjectID))
@@ -269,7 +300,27 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     {
       final ICommentThread aCommentThread = m_aAllCommentThreads.get (sCommentThreadID);
       if (aCommentThread == null)
+      {
+        AuditUtils.onAuditModifyFailure (Comment.TYPE_COMMENT,
+                                         "state",
+                                         "no-such-id",
+                                         sOwningObjectID,
+                                         sCommentThreadID,
+                                         sCommentID);
         return EChange.UNCHANGED;
+      }
+
+      final List <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
+      if (ret == null || !ret.contains (aCommentThread))
+      {
+        AuditUtils.onAuditModifyFailure (Comment.TYPE_COMMENT,
+                                         "state",
+                                         "invalid-owner",
+                                         sOwningObjectID,
+                                         sCommentThreadID,
+                                         sCommentID);
+        return EChange.UNCHANGED;
+      }
 
       if (aCommentThread.updateCommentState (sCommentID, eNewState).isUnchanged ())
         return EChange.UNCHANGED;
@@ -297,7 +348,10 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     {
       aRemovedCommentThreads = m_aObjectToCommentThreads.remove (sOwningObjectID);
       if (aRemovedCommentThreads == null)
+      {
+        AuditUtils.onAuditDeleteFailure (CommentThread.TYPE_COMMENT_THREAD, "no-such-id", sOwningObjectID);
         return EChange.UNCHANGED;
+      }
 
       for (final ICommentThread aCommentThread : aRemovedCommentThreads)
         if (m_aAllCommentThreads.remove (aCommentThread.getID ()) != aCommentThread)

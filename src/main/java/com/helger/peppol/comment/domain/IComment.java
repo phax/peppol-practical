@@ -22,6 +22,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.joda.time.DateTime;
+
 import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.state.EChange;
@@ -37,11 +39,7 @@ import com.helger.datetime.IHasLastModificationDateTime;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IComment extends
-                         ITypedObject <String>,
-                         IHasCreationDateTime,
-                         IHasLastModificationDateTime,
-                         Serializable
+public interface IComment extends ITypedObject <String>, IHasCreationDateTime, IHasLastModificationDateTime, Serializable
 {
   // status vars
 
@@ -98,6 +96,13 @@ public interface IComment extends
   void onCommentSpamReport ();
 
   // content vars
+
+  /**
+   * @return The last modification date time or if not present the creation date
+   *         time.
+   */
+  @Nonnull
+  DateTime getLastChangeDateTime ();
 
   /**
    * @return The user who created the comment. May be <code>null</code> for

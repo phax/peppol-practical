@@ -48,6 +48,7 @@ import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.datetime.PDTFactory;
 import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.CHCParam;
+import com.helger.html.hc.api.EHCFormMethod;
 import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCCode;
 import com.helger.html.hc.html.HCCol;
@@ -104,7 +105,7 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
     final FormErrors aFormErrors = new FormErrors ();
     final boolean bShowInput = true;
 
-    if (aWPEC.hasAction (ACTION_SAVE))
+    if (aWPEC.hasAction (ACTION_PERFORM))
     {
       // Validate fields
       final String sIDType = aWPEC.getAttributeAsString (FIELD_IDTYPE);
@@ -330,7 +331,7 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
 
     if (bShowInput)
     {
-      final AbstractHCForm <?> aForm = aNodeList.addAndReturnChild (createFormSelf (aWPEC));
+      final AbstractHCForm <?> aForm = aNodeList.addAndReturnChild (createFormSelf (aWPEC).setMethod (EHCFormMethod.GET));
       final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (170), HCCol.star ()));
       aTable.addSpanningHeaderContent ("Show all processes, document types and endpoints of a participant");
       aTable.createItemRow ()
@@ -343,7 +344,7 @@ public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPag
             .setErrorList (aFormErrors.getListOfField (FIELD_IDVALUE));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
-      aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_SAVE);
+      aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
       aToolbar.addSubmitButton ("Show details");
     }
   }

@@ -183,6 +183,14 @@ public final class Comment implements IComment
   }
 
   @Nonnull
+  public DateTime getLastChangeDateTime ()
+  {
+    if (m_aLastModDT != null)
+      return m_aLastModDT;
+    return m_aCreationDT;
+  }
+
+  @Nonnull
   @Nonempty
   public String getHost ()
   {

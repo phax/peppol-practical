@@ -57,6 +57,7 @@ public final class CommentAjaxManager extends GlobalWebSingleton implements IAja
   @UsedViaReflection
   public CommentAjaxManager ()
   {
+    // Register all functions centrally here
     m_aInvoker.registerFunction (CAjaxComment.COMMENT_ADD);
     m_aInvoker.registerFunction (CAjaxComment.COMMENT_CREATE_THREAD);
     m_aInvoker.registerFunction (CAjaxComment.COMMENT_DELETE);

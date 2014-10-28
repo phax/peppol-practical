@@ -16,8 +16,7 @@
  */
 package com.helger.peppol.comment.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -128,19 +127,9 @@ public final class CommentThread implements ICommentThread
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IComment> getAllComments ()
+  public Collection <IComment> getAllComments ()
   {
-    final List <IComment> ret = new ArrayList <IComment> ();
-    TreeWalker.walkSubTree (m_aTree.getRootItem (),
-                            new DefaultHierarchyWalkerCallback <DefaultTreeItemWithID <String, IComment>> ()
-                            {
-                              @Override
-                              public void onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
-                              {
-                                ret.add (aItem.getData ());
-                              }
-                            });
-    return ret;
+    return m_aTree.getAllItemDatas ();
   }
 
   @Nullable

@@ -26,6 +26,7 @@ import com.helger.peppol.app.CApp;
 import com.helger.peppol.page.secure.PageSecureAdminAddons;
 import com.helger.peppol.page.secure.PageSecureCRMGroup;
 import com.helger.peppol.page.secure.PageSecureCRMSubscriber;
+import com.helger.peppol.page.secure.PageSecureCommentAdmin;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
 import com.helger.webctrls.page.DefaultMenuConfigurator;
@@ -51,6 +52,11 @@ public final class MenuSecure
       aMenuTree.createItem (aCRM, new PageSecureCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS));
     }
 
+    // Comments
+    {
+      aMenuTree.createRootItem (new PageSecureCommentAdmin (CMenuSecure.MENU_COMMENTS));
+    }
+
     // Administrator
     {
       final IMenuItemPage aAdmin = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_ADMIN,
@@ -66,6 +72,6 @@ public final class MenuSecure
     }
 
     // Default menu item
-    aMenuTree.setDefaultMenuItemID (CMenuSecure.MENU_ADMIN);
+    aMenuTree.setDefaultMenuItemID (CMenuSecure.MENU_COMMENTS);
   }
 }

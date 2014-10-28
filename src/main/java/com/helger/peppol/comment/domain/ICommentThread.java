@@ -16,7 +16,7 @@
  */
 package com.helger.peppol.comment.domain;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -81,7 +81,7 @@ public interface ICommentThread extends ITypedObject <String>
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <IComment> getAllComments ();
+  Collection <IComment> getAllComments ();
 
   /**
    * Get the comment with the passed ID within this thread
