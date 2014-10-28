@@ -14,23 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.app.ajax;
+package com.helger.peppol.comment.ajax;
+
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.ObjectType;
 import com.helger.commons.type.TypedObject;
 import com.helger.html.hc.IHCNode;
 import com.helger.peppol.comment.domain.CommentThreadManager;
+import com.helger.peppol.comment.domain.ECommentState;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
+import com.helger.peppol.comment.ui.ECommentAction;
+import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.webbasics.ajax.executor.AbstractAjaxExecutor;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
 import com.helger.webbasics.ajax.response.IAjaxResponse;
@@ -42,31 +51,30 @@ import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorPublicCommentShowInput extends AbstractAjaxExecutor
+public final class AjaxExecutorPublicCommentDelete extends AbstractAjaxExecutor
 {
   public static final String PARAM_OBJECT_TYPE = "objectType";
   public static final String PARAM_OBJECT_ID = "objectID";
   public static final String PARAM_COMMENT_THREAD_ID = "commentThreadID";
   public static final String PARAM_COMMENT_ID = "commentID";
-  public static final String PARAM_RESULT_DIV_ID = "resultDivID";
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorPublicCommentShowInput.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorPublicCommentDelete.class);
 
   @Override
   @Nonnull
   protected IAjaxResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
+    final Locale aDisplayLocale = aLEC.getDisplayLocale ();
     final String sObjectType = aRequestScope.getAttributeAsString (PARAM_OBJECT_TYPE);
     final String sObjectID = aRequestScope.getAttributeAsString (PARAM_OBJECT_ID);
     final String sCommentThreadID = aRequestScope.getAttributeAsString (PARAM_COMMENT_THREAD_ID);
     final String sCommentID = aRequestScope.getAttributeAsString (PARAM_COMMENT_ID);
-    final String sResultDivID = aRequestScope.getAttributeAsString (PARAM_RESULT_DIV_ID);
 
     if (StringHelper.hasText (sObjectType) &&
         StringHelper.hasText (sObjectID) &&
         StringHelper.hasText (sCommentThreadID) &&
         StringHelper.hasText (sCommentID) &&
-        CommentSecurity.canCurrentUserPostComments ())
+        CommentSecurity.isCurrentUserCommentModerator ())
     {
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
@@ -78,15 +86,27 @@ public final class AjaxExecutorPublicCommentShowInput extends AbstractAjaxExecut
         final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);
         if (aParentComment != null)
         {
-          // response
-          final IHCNode aNode = CommentUI.getCreateComment (aLEC,
-                                                            sResultDivID,
-                                                            aOwner,
-                                                            aCommentThread,
-                                                            aParentComment,
-                                                            null,
-                                                            null);
-          return AjaxDefaultResponse.createSuccess (aRequestScope, aNode);
+          // Go ahead and delete
+          final EChange eChange = CommentThreadManager.getInstance ()
+                                                      .updateCommentState (aOwner,
+                                                                           sCommentThreadID,
+                                                                           sCommentID,
+                                                                           ECommentState.DELETED_BY_MODERATOR);
+          IHCNode aMessageBox;
+          if (eChange.isChanged ())
+            aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_DELETE_SUCCESS.getDisplayText (aDisplayLocale));
+          else
+            aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_DELETE_FAILURE.getDisplayText (aDisplayLocale));
+
+          // Message box + list of exiting comments
+          return AjaxDefaultResponse.createSuccess (aRequestScope,
+                                                    CommentUI.getCommentList (aLEC,
+                                                                              aOwner,
+                                                                              CommentAction.createForComment (ECommentAction.DELETE_COMMENT,
+                                                                                                              aCommentThread,
+                                                                                                              aParentComment),
+                                                                              null,
+                                                                              aMessageBox));
         }
       }
     }
@@ -96,7 +116,7 @@ public final class AjaxExecutorPublicCommentShowInput extends AbstractAjaxExecut
                     sObjectType +
                     "' and/or object ID '" +
                     sObjectID +
-                    "' for showing input of comment '" +
+                    "' for deletion of comment '" +
                     sCommentID +
                     "' in thread '" +
                     sCommentThreadID +

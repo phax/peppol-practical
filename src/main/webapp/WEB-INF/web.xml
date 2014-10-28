@@ -177,6 +177,15 @@
     <servlet-name>PublicApplicationServlet</servlet-name>
     <url-pattern>/public/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CommentAjaxServlet</servlet-name>
+    <servlet-class>com.helger.peppol.comment.ajax.CommentAjaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentAjaxServlet</servlet-name>
+    <url-pattern>/comment/*</url-pattern>
+  </servlet-mapping>
 
   <!-- Web Service stuff -->
   <listener>

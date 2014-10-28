@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.app.ajax;
+package com.helger.peppol.comment.ajax;
 
 import java.util.Locale;
 

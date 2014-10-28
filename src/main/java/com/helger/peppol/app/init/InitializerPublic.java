@@ -63,10 +63,6 @@ public final class InitializerPublic extends DefaultApplicationInitializer <Layo
   @Override
   public void initAjax (@Nonnull final IAjaxInvoker aAjaxInvoker)
   {
-    aAjaxInvoker.registerFunction (CAjaxPublic.COMMENT_ADD);
-    aAjaxInvoker.registerFunction (CAjaxPublic.COMMENT_CREATE_THREAD);
-    aAjaxInvoker.registerFunction (CAjaxPublic.COMMENT_DELETE);
-    aAjaxInvoker.registerFunction (CAjaxPublic.COMMENT_SHOW_INPUT);
     aAjaxInvoker.registerFunction (CAjaxPublic.DATATABLES);
     aAjaxInvoker.registerFunction (CAjaxPublic.LOGIN);
     aAjaxInvoker.registerFunction (CAjaxPublic.UPDATE_MENU_VIEW);
