@@ -75,6 +75,11 @@ table.footer-links td {
 	padding-left: 25px;
 }
 
+.paypal input {
+  height: auto !important;
+  width: auto !important;
+}
+
 .comment-title {
   font-weight: bold;
 }
