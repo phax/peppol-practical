@@ -135,12 +135,12 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-html</artifactId>
-      <version>4.4.3</version>
+      <version>4.5.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webbasics</artifactId>
-      <version>3.4.2-SNAPSHOT</version>
+      <version>3.5.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -150,7 +150,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-bootstrap3</artifactId>
-      <version>1.6.2-SNAPSHOT</version>
+      <version>1.7.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>eu.europa.ec.cipa</groupId>

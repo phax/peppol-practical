@@ -61,7 +61,6 @@ import com.helger.html.hc.IHCElement;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.api.EHCInputType;
 import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCA_Target;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCForm;
@@ -75,6 +74,7 @@ import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.html.HCTable;
+import com.helger.html.hc.html.HC_Target;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.menu.CMenuPublic;
@@ -212,7 +212,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     // Add PayPal
     HCForm aPayPal;
     {
-      aPayPal = new HCForm ("https://www.paypal.com/cgi-bin/webscr").setTarget (HCA_Target.TOP)
+      aPayPal = new HCForm ("https://www.paypal.com/cgi-bin/webscr").setTarget (HC_Target.TOP)
                                                                     .addClass (CSS_CLASS_PAYPAL);
       aPayPal.addChild (new HCHiddenField ("cmd", "_s-xclick"));
       aPayPal.addChild (new HCHiddenField ("encrypted",
@@ -222,7 +222,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                                       "https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif")
                                       .setCustomAttr ("border", "0")
                                       .setName ("submit")
-                                      .setCustomAttr ("alt", "PayPal - The safer, easier way to pay online!"));
+                                      .setAlt ("PayPal - The safer, easier way to pay online!"));
       aPayPal.addChild (new HCImg ().setAlt ("")
                                     .setSrc ("https://www.paypalobjects.com/de_DE/i/scr/pixel.gif")
                                     .setExtent (1, 1));
