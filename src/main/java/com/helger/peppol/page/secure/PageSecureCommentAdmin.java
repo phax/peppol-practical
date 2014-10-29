@@ -30,10 +30,15 @@ import com.helger.commons.annotations.Translatable;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.name.IHasDisplayText;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.impl.TextProvider;
 import com.helger.commons.text.resolve.DefaultTextResolver;
 import com.helger.commons.type.ObjectType;
+import com.helger.commons.type.TypedObject;
+import com.helger.commons.url.ISimpleURL;
 import com.helger.datetime.format.PDTToString;
+import com.helger.html.hc.CHCParam;
+import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.html.HCTable;
@@ -77,6 +82,8 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
     }
   }
 
+  private static final String PARAM_TYPE = "type";
+
   public PageSecureCommentAdmin (@Nonnull @Nonempty final String sID)
   {
     super (sID, "Comment administration");
@@ -87,59 +94,80 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-
-    // Refresh button
-    final IButtonToolbar <?> aToolbar = getStyler ().createToolbar (aWPEC);
-    aToolbar.addButton (EText.BUTTON_REFRESH.getDisplayText (aDisplayLocale),
-                        aWPEC.getSelfHref (),
-                        EDefaultIcon.REFRESH);
-    aNodeList.addChild (aToolbar);
-
-    final ITabBox <?> aTabBox = getStyler ().createTabBox (aWPEC);
     final CommentThreadManager aCommentThreadMgr = CommentThreadManager.getInstance ();
-    for (final ObjectType aOT : ContainerHelper.getSorted (aCommentThreadMgr.getAllRegisteredObjectTypes ()))
+    boolean bShowList = true;
+    final String sSelectedObjectType = aWPEC.getAttributeAsString (PARAM_TYPE);
+    final String sSelectedOwningObjectID = aWPEC.getAttributeAsString (CHCParam.PARAM_OBJECT);
+
+    if (aWPEC.hasAction (ACTION_VIEW) &&
+        StringHelper.hasText (sSelectedObjectType) &&
+        StringHelper.hasText (sSelectedOwningObjectID))
     {
-      final HCNodeList aTab = new HCNodeList ();
-
-      final HCTable aTable = new HCTable (HCCol.star (), HCCol.star (), HCCol.star (), HCCol.star ()).setID (getID () +
-                                                                                                             aOT.getObjectTypeName ());
-      aTable.addHeaderRow ().addCells (EText.HEADER_OBJECT_ID.getDisplayText (aDisplayLocale),
-                                       EText.HEADER_THREADS.getDisplayText (aDisplayLocale),
-                                       EText.HEADER_COMMENTS.getDisplayText (aDisplayLocale),
-                                       EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale));
-      final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
-      for (final Map.Entry <String, List <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
+      final TypedObject <String> aTO = TypedObject.create (new ObjectType (sSelectedObjectType),
+                                                           sSelectedOwningObjectID);
+      final List <ICommentThread> aCommentThreads = aCommentThreadMgr.getCommentThreadsOfObject (aTO);
+      if (!aCommentThreads.isEmpty ())
       {
-        final String sOwningObjectID = aEntry.getKey ();
-
-        final HCRow aRow = aTable.addBodyRow ();
-        aRow.addCell (sOwningObjectID);
-        aRow.addCell (Integer.toString (aEntry.getValue ().size ()));
-
-        final List <IComment> aAllComments = new ArrayList <IComment> ();
-        for (final ICommentThread aCommentThread : aEntry.getValue ())
-          aAllComments.addAll (aCommentThread.getAllComments ());
-        Collections.sort (aAllComments, new ComparatorCommentLastChange (ESortOrder.DESCENDING));
-
-        aRow.addCell (Integer.toString (aAllComments.size ()));
-
-        if (aAllComments.isEmpty ())
-          aRow.addCell ();
-        else
-          aRow.addCell (PDTToString.getAsString (aAllComments.get (0).getLastChangeDateTime (), aDisplayLocale));
+        // TODO
+        bShowList = false;
       }
-      aTab.addChild (aTable);
-
-      final DataTables aDataTables = getStyler ().createDefaultDataTables (aWPEC, aTable);
-      aDataTables.getOrCreateColumnOfTarget (1).setComparator (new ComparatorDTInteger (aDisplayLocale));
-      aDataTables.getOrCreateColumnOfTarget (2).setComparator (new ComparatorDTInteger (aDisplayLocale));
-      aDataTables.getOrCreateColumnOfTarget (3).setComparator (new ComparatorDTDateTime (aDisplayLocale));
-      aDataTables.setInitialSorting (3, ESortOrder.DESCENDING);
-      aTab.addChild (aDataTables);
-
-      aTabBox.addTab (aOT.getObjectTypeName (), aTab);
     }
 
-    aNodeList.addChild (aTabBox);
+    if (bShowList)
+    {
+      // Refresh button
+      final IButtonToolbar <?> aToolbar = getStyler ().createToolbar (aWPEC);
+      aToolbar.addButton (EText.BUTTON_REFRESH.getDisplayText (aDisplayLocale),
+                          aWPEC.getSelfHref (),
+                          EDefaultIcon.REFRESH);
+      aNodeList.addChild (aToolbar);
+
+      final ITabBox <?> aTabBox = getStyler ().createTabBox (aWPEC);
+      for (final ObjectType aOT : ContainerHelper.getSorted (aCommentThreadMgr.getAllRegisteredObjectTypes ()))
+      {
+        final HCNodeList aTab = new HCNodeList ();
+
+        final HCTable aTable = new HCTable (HCCol.star (), HCCol.star (), HCCol.star (), HCCol.star ()).setID (getID () +
+                                                                                                               aOT.getObjectTypeName ());
+        aTable.addHeaderRow ().addCells (EText.HEADER_OBJECT_ID.getDisplayText (aDisplayLocale),
+                                         EText.HEADER_THREADS.getDisplayText (aDisplayLocale),
+                                         EText.HEADER_COMMENTS.getDisplayText (aDisplayLocale),
+                                         EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale));
+        final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
+        for (final Map.Entry <String, List <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
+        {
+          final String sOwningObjectID = aEntry.getKey ();
+          final ISimpleURL aViewURL = createViewURL (aWPEC, sOwningObjectID).add (PARAM_TYPE, aOT.getObjectTypeName ());
+
+          final HCRow aRow = aTable.addBodyRow ();
+          aRow.addCell (new HCA (aViewURL).addChild (sOwningObjectID));
+          aRow.addCell (Integer.toString (aEntry.getValue ().size ()));
+
+          final List <IComment> aAllComments = new ArrayList <IComment> ();
+          for (final ICommentThread aCommentThread : aEntry.getValue ())
+            aAllComments.addAll (aCommentThread.getAllComments ());
+          Collections.sort (aAllComments, new ComparatorCommentLastChange (ESortOrder.DESCENDING));
+
+          aRow.addCell (Integer.toString (aAllComments.size ()));
+
+          if (aAllComments.isEmpty ())
+            aRow.addCell ();
+          else
+            aRow.addCell (PDTToString.getAsString (aAllComments.get (0).getLastChangeDateTime (), aDisplayLocale));
+        }
+        aTab.addChild (aTable);
+
+        final DataTables aDataTables = getStyler ().createDefaultDataTables (aWPEC, aTable);
+        aDataTables.getOrCreateColumnOfTarget (1).setComparator (new ComparatorDTInteger (aDisplayLocale));
+        aDataTables.getOrCreateColumnOfTarget (2).setComparator (new ComparatorDTInteger (aDisplayLocale));
+        aDataTables.getOrCreateColumnOfTarget (3).setComparator (new ComparatorDTDateTime (aDisplayLocale));
+        aDataTables.setInitialSorting (3, ESortOrder.DESCENDING);
+        aTab.addChild (aDataTables);
+
+        aTabBox.addTab (aOT.getObjectTypeName (), aTab, aOT.getObjectTypeName ().equals (sSelectedObjectType));
+      }
+
+      aNodeList.addChild (aTabBox);
+    }
   }
 }
