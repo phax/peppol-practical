@@ -123,7 +123,8 @@ public final class AjaxExecutorCommentCreateThread extends AbstractAjaxExecutor
                                                                           aOwner,
                                                                           CommentAction.createGeneric (ECommentAction.CREATE_THREAD),
                                                                           aFormErrors,
-                                                                          aMessageBox));
+                                                                          aMessageBox,
+                                                                          true));
     }
 
     // Somebody played around with the API

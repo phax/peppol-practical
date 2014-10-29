@@ -82,7 +82,8 @@ public class AppPageViewExternal extends PageViewExternal <WebPageExecutionConte
                                                     aTO,
                                                     CommentAction.createGeneric (ECommentAction.NONE),
                                                     null,
-                                                    null));
+                                                    null,
+                                                    true));
     }
   }
 }

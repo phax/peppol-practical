@@ -106,7 +106,8 @@ public final class AjaxExecutorCommentDelete extends AbstractAjaxExecutor
                                                                                                               aCommentThread,
                                                                                                               aParentComment),
                                                                               null,
-                                                                              aMessageBox));
+                                                                              aMessageBox,
+                                                                              true));
         }
       }
     }

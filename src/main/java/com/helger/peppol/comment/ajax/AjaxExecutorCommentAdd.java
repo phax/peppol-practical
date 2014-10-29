@@ -143,7 +143,8 @@ public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
                                                                                                               aCommentThread,
                                                                                                               aParentComment),
                                                                               aFormErrors,
-                                                                              aMessageBox));
+                                                                              aMessageBox,
+                                                                              true));
         }
       }
     }

@@ -91,7 +91,8 @@ public final class CommentUI
                                         @Nonnull final ITypedObject <String> aObject,
                                         @Nonnull final CommentAction aCommentAction,
                                         @Nullable final CommentFormErrors aFormErrors,
-                                        @Nullable final IHCNode aMessageBox)
+                                        @Nullable final IHCNode aMessageBox,
+                                        final boolean bShowCreateComments)
   {
     ValueEnforcer.notNull (aLEC, "LEC");
     ValueEnforcer.notNull (aObject, "Object");
@@ -178,7 +179,7 @@ public final class CommentUI
               final HCSpan aCommentToolbar = new HCSpan ().addClass (CCommentCSS.CSS_CLASS_COMMENT_TOOLBAR);
               HCDiv aCommentResponseContainer = null;
               // Respond to a comment - at maximum 6 levels
-              if (bUserCanCreateComments && !aComment.isDeleted () && nLevel < 6)
+              if (bShowCreateComments && bUserCanCreateComments && !aComment.isDeleted () && nLevel < 6)
               {
                 aCommentResponseContainer = new HCDiv ();
                 final BootstrapButton aResponseButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.ADD);
@@ -280,10 +281,9 @@ public final class CommentUI
               {
                 final String sLastModDT = PDTToString.getAsString (aComment.getLastModificationDateTime (),
                                                                    aDisplayLocale);
-                final String sLastModText = aComment.getEditCount () > 0
-                                                                        ? ECommentText.MSG_EDITED_AND_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
-                                                                                                                                                Integer.valueOf (aComment.getEditCount ()),
-                                                                                                                                                sLastModDT)
+                final String sLastModText = aComment.getEditCount () > 0 ? ECommentText.MSG_EDITED_AND_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
+                                                                                                                                                 Integer.valueOf (aComment.getEditCount ()),
+                                                                                                                                                 sLastModDT)
                                                                         : ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
                                                                                                                                      sLastModDT);
                 aHeader.addChild (new HCDiv ().addChild (sLastModText)
@@ -325,21 +325,24 @@ public final class CommentUI
       ret.addChild (aAllThreadsContainer);
     }
 
-    // Create comment only for logged in users
-    if (bUserCanCreateComments)
+    if (bShowCreateComments)
     {
-      // Add "create comment" button
-      final boolean bIsForCreateThread = aCommentAction.isMatching (ECommentAction.CREATE_THREAD);
-      ret.addChild (getCreateComment (aLEC,
-                                      sResultDivID,
-                                      aObject,
-                                      null,
-                                      null,
-                                      bIsForCreateThread ? aFormErrors : null,
-                                      bIsForCreateThread ? aMessageBox : null));
+      // Create comment only for logged in users
+      if (bUserCanCreateComments)
+      {
+        // Add "create comment" button
+        final boolean bIsForCreateThread = aCommentAction.isMatching (ECommentAction.CREATE_THREAD);
+        ret.addChild (getCreateComment (aLEC,
+                                        sResultDivID,
+                                        aObject,
+                                        null,
+                                        null,
+                                        bIsForCreateThread ? aFormErrors : null,
+                                        bIsForCreateThread ? aMessageBox : null));
+      }
+      else
+        ret.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild (ECommentText.MSG_LOGIN_TO_COMMENT.getDisplayText (aDisplayLocale)));
     }
-    else
-      ret.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild (ECommentText.MSG_LOGIN_TO_COMMENT.getDisplayText (aDisplayLocale)));
 
     return ret;
   }
@@ -421,8 +424,7 @@ public final class CommentUI
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_ID,
                                                                               aObject.getID ())
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_AUTHOR,
-                                                                              aLoggedInUser != null
-                                                                                                   ? JSExpr.lit ("")
+                                                                              aLoggedInUser != null ? JSExpr.lit ("")
                                                                                                    : JQuery.idRef (aEditAuthor)
                                                                                                            .val ())
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_TITLE,
@@ -448,8 +450,7 @@ public final class CommentUI
                                                                         .add (AjaxExecutorCommentAdd.PARAM_OBJECT_ID,
                                                                               aObject.getID ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_AUTHOR,
-                                                                              aLoggedInUser != null
-                                                                                                   ? JSExpr.lit ("")
+                                                                              aLoggedInUser != null ? JSExpr.lit ("")
                                                                                                    : JQuery.idRef (aEditAuthor)
                                                                                                            .val ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_TITLE,

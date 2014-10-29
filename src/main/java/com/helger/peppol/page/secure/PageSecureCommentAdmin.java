@@ -48,7 +48,11 @@ import com.helger.peppol.comment.domain.CommentThreadObjectTypeManager;
 import com.helger.peppol.comment.domain.ComparatorCommentLastChange;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.peppol.comment.ui.CommentAction;
+import com.helger.peppol.comment.ui.CommentUI;
+import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.webbasics.EWebBasicsText;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.custom.tabbox.ITabBox;
@@ -62,7 +66,6 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
   @Translatable
   protected static enum EText implements IHasDisplayText
   {
-    BUTTON_REFRESH ("Aktualisieren", "Refresh"),
     HEADER_OBJECT_ID ("Objekt-ID", "Object ID"),
     HEADER_THREADS ("Themen", "Threads"),
     HEADER_COMMENTS ("Einträge", "Comments"),
@@ -108,7 +111,20 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
       final List <ICommentThread> aCommentThreads = aCommentThreadMgr.getCommentThreadsOfObject (aTO);
       if (!aCommentThreads.isEmpty ())
       {
-        // TODO
+        // Don't allow comment creation
+        aNodeList.addChild (CommentUI.getCommentList (aWPEC,
+                                                      aTO,
+                                                      CommentAction.createGeneric (ECommentAction.NONE),
+                                                      null,
+                                                      null,
+                                                      false));
+        // Toolbar
+        final IButtonToolbar <?> aToolbar = getStyler ().createToolbar (aWPEC);
+        aToolbar.addButton (EWebBasicsText.MSG_BACK_TO_OVERVIEW.getDisplayText (aDisplayLocale),
+                            aWPEC.getSelfHref (),
+                            EDefaultIcon.BACK_TO_LIST);
+        aNodeList.addChild (aToolbar);
+
         bShowList = false;
       }
     }
@@ -117,7 +133,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
     {
       // Refresh button
       final IButtonToolbar <?> aToolbar = getStyler ().createToolbar (aWPEC);
-      aToolbar.addButton (EText.BUTTON_REFRESH.getDisplayText (aDisplayLocale),
+      aToolbar.addButton (EWebBasicsText.MSG_BUTTON_REFRESH.getDisplayText (aDisplayLocale),
                           aWPEC.getSelfHref (),
                           EDefaultIcon.REFRESH);
       aNodeList.addChild (aToolbar);
