@@ -48,6 +48,7 @@ import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.webbasics.EWebBasicsText;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.page.IWebPageExecutionContext;
+import com.helger.webbasics.form.RequestField;
 import com.helger.webbasics.login.CLogin;
 import com.helger.webctrls.autonumeric.HCAutoNumeric;
 import com.helger.webctrls.datatables.DataTablesLengthMenuList;
@@ -122,8 +123,9 @@ public final class AppCommonUI
 
     // User name field
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (EWebBasicsText.EMAIL_ADDRESS.getDisplayText (aDisplayLocale))
-                                                 .setCtrl (new HCEdit (CLogin.REQUEST_ATTR_USERID, sPreselectedUserName).setPlaceholder (EWebBasicsText.EMAIL_ADDRESS.getDisplayText (aDisplayLocale))
-                                                                                                                        .setID (sIDUserName)));
+                                                 .setCtrl (new HCEdit (new RequestField (CLogin.REQUEST_ATTR_USERID,
+                                                                                         sPreselectedUserName)).setPlaceholder (EWebBasicsText.EMAIL_ADDRESS.getDisplayText (aDisplayLocale))
+                                                                                                               .setID (sIDUserName)));
 
     // Password field
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (EWebBasicsText.LOGIN_FIELD_PASSWORD.getDisplayText (aDisplayLocale))
