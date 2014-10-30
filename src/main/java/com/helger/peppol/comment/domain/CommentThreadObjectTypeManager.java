@@ -81,7 +81,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     final IMicroElement eRoot = aDoc.getDocumentElement ();
     for (final IMicroElement eItem : eRoot.getAllChildElements (ELEMENT_ITEM))
     {
-      final String sOwningObjectID = eItem.getAttribute (ATTR_ID);
+      final String sOwningObjectID = eItem.getAttributeValue (ATTR_ID);
       for (final IMicroElement eCommentThread : eItem.getAllChildElements (ELEMENT_COMMENTTHREAD))
       {
         final ICommentThread aCommentThread = MicroTypeConverter.convertToNative (eCommentThread, CommentThread.class);

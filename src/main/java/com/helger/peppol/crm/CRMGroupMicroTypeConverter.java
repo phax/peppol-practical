@@ -44,8 +44,8 @@ public class CRMGroupMicroTypeConverter extends AbstractObjectMicroTypeConverter
   @Nullable
   public CRMGroup convertToNative (@Nonnull final IMicroElement aElement)
   {
-    final String sDisplayName = aElement.getAttribute (ATTR_DISPLAY_NAME);
-    final String sSenderEmailAddress = aElement.getAttribute (ATTR_SENDER_EMAIL_ADDRESS);
+    final String sDisplayName = aElement.getAttributeValue (ATTR_DISPLAY_NAME);
+    final String sSenderEmailAddress = aElement.getAttributeValue (ATTR_SENDER_EMAIL_ADDRESS);
     return new CRMGroup (getStubObject (aElement), sDisplayName, sSenderEmailAddress);
   }
 }

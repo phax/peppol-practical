@@ -66,26 +66,26 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   @Nonnull
   public Comment convertToNative (@Nonnull final IMicroElement eComment)
   {
-    final String sCommentID = eComment.getAttribute (ATTR_ID);
+    final String sCommentID = eComment.getAttributeValue (ATTR_ID);
     final DateTime aCreationDT = eComment.getAttributeWithConversion (ATTR_CREATIONDT, DateTime.class);
     final DateTime aLastModDT = eComment.getAttributeWithConversion (ATTR_LASTMODDT, DateTime.class);
 
-    final String sHost = eComment.getAttribute (ATTR_HOST);
+    final String sHost = eComment.getAttributeValue (ATTR_HOST);
 
-    final String sState = eComment.getAttribute (ATTR_STATE);
+    final String sState = eComment.getAttributeValue (ATTR_STATE);
     final ECommentState eState = ECommentState.getFromIDOrNull (sState);
 
-    final String sEditCount = eComment.getAttribute (ATTR_EDITCOUNT);
+    final String sEditCount = eComment.getAttributeValue (ATTR_EDITCOUNT);
     final int nEditCount = StringParser.parseInt (sEditCount, -1);
 
-    final String sSpamReportCount = eComment.getAttribute (ATTR_SPAMREPORTCOUNT);
+    final String sSpamReportCount = eComment.getAttributeValue (ATTR_SPAMREPORTCOUNT);
     final int nSpamReportCount = StringParser.parseInt (sSpamReportCount, 0);
 
-    final String sUserID = eComment.getAttribute (ATTR_USERID);
+    final String sUserID = eComment.getAttributeValue (ATTR_USERID);
 
-    final String sCreatorName = eComment.getAttribute (ATTR_CREATORNAME);
+    final String sCreatorName = eComment.getAttributeValue (ATTR_CREATORNAME);
 
-    final String sTitle = eComment.getAttribute (ATTR_TITLE);
+    final String sTitle = eComment.getAttributeValue (ATTR_TITLE);
 
     final String sText = eComment.getTextContentTrimmed ();
 

@@ -61,18 +61,18 @@ public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConv
   {
     final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
 
-    final String sSalutationID = aElement.getAttribute (ATTR_SALUTATION);
+    final String sSalutationID = aElement.getAttributeValue (ATTR_SALUTATION);
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
     if (eSalutation == null && StringHelper.hasText (sSalutationID))
       throw new IllegalStateException ("Failed to resolve salutation ID '" + sSalutationID + "'");
 
-    final String sName = aElement.getAttribute (ATTR_NAME);
-    final String sEmailAddress = aElement.getAttribute (ATTR_EMAIL_ADDRESS);
+    final String sName = aElement.getAttributeValue (ATTR_NAME);
+    final String sEmailAddress = aElement.getAttributeValue (ATTR_EMAIL_ADDRESS);
 
     final Set <ICRMGroup> aGroups = new HashSet <ICRMGroup> ();
     for (final IMicroElement eGroup : aElement.getAllChildElements (ELEMENT_ASSIGNED_GROUP))
     {
-      final String sCRMGroupID = eGroup.getAttribute (ATTR_ID);
+      final String sCRMGroupID = eGroup.getAttributeValue (ATTR_ID);
       final ICRMGroup aCRMGroup = aCRMGroupMgr.getCRMGroupOfID (sCRMGroupID);
       if (aCRMGroup == null)
         throw new IllegalStateException ("Failed to resolve CRM group with ID '" + sCRMGroupID + "'");
