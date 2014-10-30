@@ -121,8 +121,7 @@ public final class CommentThread implements ICommentThread
   @Nonnegative
   public int getTotalCommentCount ()
   {
-    // FIXME replace with getItemCount in ph-commons > 5.1.0
-    return m_aTree.getAllItems ().size ();
+    return m_aTree.getItemCount ();
   }
 
   @Nonnull
