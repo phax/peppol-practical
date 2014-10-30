@@ -85,32 +85,32 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
-      <version>5.1.0</version>
+      <version>5.2.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-datetime</artifactId>
-      <version>3.2.0</version>
+      <version>3.2.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-settings</artifactId>
-      <version>1.1.0</version>
+      <version>1.1.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-scopes</artifactId>
-      <version>6.5.0</version>
+      <version>6.6.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
-      <version>6.0.1</version>
+      <version>6.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webscopes</artifactId>
-      <version>6.6.0</version>
+      <version>6.6.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -120,7 +120,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-css</artifactId>
-      <version>3.8.1</version>
+      <version>3.8.2</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -130,12 +130,12 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-schedule</artifactId>
-      <version>1.6.2</version>
+      <version>1.6.3</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-html</artifactId>
-      <version>4.5.0-SNAPSHOT</version>
+      <version>4.5.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
