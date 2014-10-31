@@ -26,6 +26,30 @@ documents to.
 The information within the SMP is structured by participant ID, document type ID and process ID.  
 </p>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Table of contents</h3>
+  </div>
+  <div class="panel-body">
+    <ol>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#technical">Technical resources</a></li>
+      <li><a href="#smpwebapp">smp-webapp</a> - SMP server application
+        <ol>
+          <li><a href="#configuring">Configuring the service</a></li>
+          <li><a href="#publicapi">Public REST API</a></li>
+          <li><a href="#modifyingapi">Modifying REST API</a></li>
+          <li><a href="#security">Security considerations</a></li>
+          <li><a href="#initialization">Initialization</a></li>
+        </ol>
+      </li>
+      <li><a href="#smpclientlibrary">smp-client-library</a></li>
+      <li><a href="#smpclientconsole">smp-client-console</a></li>
+    </ol>
+  </div>
+</div>
+
+<a name="prerequisites"></a>
 <h2>Prerequisites</h2>
 <p>
   Before you can start you need to have the following information in place:
@@ -45,6 +69,7 @@ The information within the SMP is structured by participant ID, document type ID
   <li>Basic knowledge about Apache Tomcat (and optionally a web server) should be present</li>    
 </ol>
 
+<a name="technical"></a>
 <h2>Technical resources</h2>
 <p>
   The SMP software to be used can be obtained from the 
@@ -81,6 +106,7 @@ The information within the SMP is structured by participant ID, document type ID
   produce incompatible byte code for enum classes!
 </p>
 
+<a name="smpwebapp"></a>
 <h2>smp-webapp</h2>
 <p>
   This is the main SMP server application. It is provided as a Java web application that can be deployed
@@ -95,7 +121,8 @@ The information within the SMP is structured by participant ID, document type ID
   The SMP service has been implemented as a REST interface with a database backend.
   It is possible to change the backend, but the following description is based on a database backend.
   A copy of the MySQL database initialization script can be found in the 
-  <code>/src/etc/database_backups/</code> folder of the source project.
+  <code>/src/etc/database_backups/</code> folder of the <code>cipa-smp-server-library</code> project.
+  By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
 </p>
 
 <p>
@@ -295,6 +322,7 @@ jdbc.read-connections.max = 10</pre>
   property value are automatically skipped. Trailing whitespaces of a property value are not skipped!
 </div>
 
+<a name="publicapi"></a>
 <h3>Public REST API</h3>
 <p>
   The service is implemented as a REST interface using the <a href="http://jersey.java.net/">Jersey framework</a>.
@@ -337,6 +365,7 @@ jdbc.read-connections.max = 10</pre>
   and makes use of JPA (EclipseLink) for the main database access.
 </p>
 
+<a name="modifyingapi"></a>
 <h3>Modifying REST API</h3>
 <p>
   Some REST APIs are used to modify data within the SMP.
@@ -420,4 +449,48 @@ jdbc.read-connections.max = 10</pre>
   path prefix (e.g. <code>/secure</code>) which can than easily be used to forward all HTTP request 
   on <code>/secure/*</code> to HTTPS automatically.
 </p>
+ 
+ <a name="initialization"></a>
+ <h3>Initialization</h3>
+ 
+ <p>
+  Now that your new SMP server is up and running, you should perform some setup tasks.
+ </p>
+ 
+ <ul>
+   <li>
+     Change the default user <code>peppol_user</code> with the default password <code>Test1234</code> 
+     to something more complex! This can be easily achieved by altering the content of the database
+     table <code>smp_user</code> manually. After this change, simply provide the new credentials for
+     writing operations.
+   </li>
+   <li>
+     The SMP must be registered at the SML.
+     For this purpose a tool will be integrated into this page very soon.
+   </li>
+ </ul>
+ 
+ <a name="smpclientlibrary"></a>
+ <h2>smp-client-library</h2>
+ 
+ <p>
+   This is the default Java library to query any SMP server (that is compliant to the specifications)
+   for participant information.
+ </p>
+ 
+ <p>
+   TODO
+ </p>
+ 
+ <a name="smpclientconsole"></a>
+ <h2>smp-client-console</h2>
+ 
+ <p>
+   This is a Java application that uses the <a href="#smpclientlibrary">smp-client-library</a> to
+   allow for SMP querying from the commandline.
+ </p>
+ 
+ <p>
+   TODO
+ </p>
  

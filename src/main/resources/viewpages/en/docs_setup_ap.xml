@@ -17,11 +17,24 @@
 
 -->
 <p>
-This page explains how to setup an OpenPEPPOL AP from scratch.
-AP is the abbreviation for <em>Access Point</em> which is the technical endpoint for
-sending and receiving business documents.
+  This page explains how to setup an OpenPEPPOL AS2 AccessPoint from scratch.
+  AP is the abbreviation for <em>Access Point</em> which is the technical endpoint for
+  sending and receiving business documents.
 </p>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Table of contents</h3>
+  </div>
+  <div class="panel-body">
+    <ol>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#technical">Technical resources</a></li>
+    </ol>
+  </div>
+</div>
+
+<a name="prerequisites"></a>
 <h2>Prerequisites</h2>
 <p>
   Before you can start you need to have the following information in place:
@@ -43,6 +56,7 @@ sending and receiving business documents.
   <li>TODO</li>
 </ol>
 
+<a name="technical"></a>
 <h2>Technical resources</h2>
 <p>
   TODO
