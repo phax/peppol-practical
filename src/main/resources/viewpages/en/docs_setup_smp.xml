@@ -36,7 +36,7 @@ The information within the SMP is structured by participant ID, document type ID
   <li>Afterwards you need to apply for an <em>SMP certificate</em> at OpenPEPPOL. 
       This certificate is required to run the SMP.</li>
   <li>You should have a look at the 
-      <a href="https://joinup.ec.europa.eu/svn/peppol/PEPPOL_EIA/1-ICT_Architecture/1-ICT-Transport_Infrastructure/13-ICT-Models">official SMP specifications</a>.
+      <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">official SMP specifications</a>.
       It is important to understand that the specifications only specify the reading access
       to an SMP but not the writing access. Nevertheless the implementation discussed here
       also contains the possibility to write new entries.</li>

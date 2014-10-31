@@ -37,7 +37,7 @@ sending and receiving business documents.
       is available on the PEPPOL website.  
   </li>
   <li>You should have a look at the 
-      <a href="https://joinup.ec.europa.eu/svn/peppol/PEPPOL_EIA/1-ICT_Architecture/1-ICT-Transport_Infrastructure/13-ICT-Models">official PEPPOL AS2 specifications</a>.
+      <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">official PEPPOL AS2 specifications</a>.
   </li>
   <li>You should be familiar with Java 1.6+</li>
   <li>TODO</li>
