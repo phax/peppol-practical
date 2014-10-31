@@ -31,6 +31,11 @@ sending and receiving business documents.
       <a href="http://www.peppol.eu/about_peppol/copy_of_how-to-join">OpenPEPPOL AISBL</a></li>
   <li>Afterwards you need to apply for an <em>AP certificate</em> at OpenPEPPOL. 
       This certificate is required to run the AP.</li>
+  <li>At least one of the default PEPPOL BIS v2 (processes) must be implemented (according to the TIAs).
+      A list of
+      <a href="http://www.peppol.eu/ressource-library/technical-specifications/post-award/mandatory">all available BISs</a>
+      is available on the PEPPOL website.  
+  </li>
   <li>You should have a look at the 
       <a href="https://joinup.ec.europa.eu/svn/peppol/PEPPOL_EIA/1-ICT_Architecture/1-ICT-Transport_Infrastructure/13-ICT-Models">official PEPPOL AS2 specifications</a>.
   </li>

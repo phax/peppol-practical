@@ -52,6 +52,18 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
 </ul>
 
 <p>
+  The following general purpose PEPPOL links may also be of interest for you:
+</p>
+<ul>
+  <li>
+    <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">PEPPOL Transport Infrastructure specifications</a>
+  </li>
+  <li>
+    <a href="http://www.peppol.eu/ressource-library/technical-specifications/post-award/mandatory">PEPPOL BIS v2</a> (process specifications)
+  </li>
+</ul>
+
+<p>
 Note: the complete source code of this web site can be found on 
 <a href="https://github.com/phax/peppol-practical">GitHub</a>.
 </p>
