@@ -22,6 +22,10 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.busdox.servicemetadata.manageservicemetadataservice._1.BadRequestFault;
+import org.busdox.servicemetadata.manageservicemetadataservice._1.InternalErrorFault;
+import org.busdox.servicemetadata.manageservicemetadataservice._1.UnauthorizedFault;
+
 import com.helger.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.bootstrap3.form.BootstrapForm;
@@ -44,6 +48,7 @@ import com.helger.webctrls.page.AbstractWebPageExt;
 
 import eu.europa.ec.cipa.peppol.sml.ESML;
 import eu.europa.ec.cipa.peppol.sml.ISMLInfo;
+import eu.europa.ec.cipa.sml.client.ManageServiceMetadataServiceCaller;
 
 public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionContext>
 {
@@ -132,6 +137,23 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                          "The provided logical address may not contain a path (" +
                                              aURL.getPath () +
                                              ") because according to the SMP specifications it must run in the root (/) path!");
+          }
+        }
+
+        if (aFormErrors.isEmpty ())
+        {
+          // test before
+          if (false)
+          {
+            final ManageServiceMetadataServiceCaller aCaller = new ManageServiceMetadataServiceCaller (aSML.getManageServiceMetaDataEndpointAddress ());
+            try
+            {
+              aCaller.create (sSMPID, sPhysicalAddress, sLogicalAddress);
+            }
+            catch (BadRequestFault | InternalErrorFault | UnauthorizedFault ex)
+            {
+              // TODO
+            }
           }
         }
       }

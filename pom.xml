@@ -162,6 +162,11 @@
       <artifactId>cipa-smp-client-library</artifactId>
       <version>${cipa.version}</version>
     </dependency>
+    <dependency>
+      <groupId>eu.europa.ec.cipa</groupId>
+      <artifactId>cipa-sml-client-library</artifactId>
+      <version>${cipa.version}</version>
+    </dependency>
     
     <dependency>
       <groupId>org.slf4j</groupId>
