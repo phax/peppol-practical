@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.busdox.servicemetadata.publishing._1.EndpointType;
 import org.busdox.servicemetadata.publishing._1.ProcessType;
@@ -60,7 +61,7 @@ import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.html.HCTextArea;
 import com.helger.html.hc.html.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.page.IdentifierIssuingAgencySelect;
+import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
@@ -78,21 +79,22 @@ import eu.europa.ec.cipa.peppol.wsaddr.W3CEndpointReferenceUtils;
 import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
 
-public class PagePublicParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
+public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
 {
   private static final String FIELD_IDTYPE = "idtype";
   private static final String FIELD_IDVALUE = "idvalue";
 
-  public PagePublicParticipantInformation (@Nonnull @Nonempty final String sID)
+  public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
     super (sID, "Participant information");
   }
 
-  private static EPredefinedIdentifierIssuingAgency _getIIA (final String s)
+  @Nullable
+  private static EPredefinedIdentifierIssuingAgency _getIIA (@Nullable final String sSchemeID)
   {
-    if (StringHelper.hasText (s))
+    if (StringHelper.hasText (sSchemeID))
       for (final EPredefinedIdentifierIssuingAgency eAgency : EPredefinedIdentifierIssuingAgency.values ())
-        if (eAgency.getSchemeID ().equals (s))
+        if (eAgency.getSchemeID ().equals (sSchemeID))
           return eAgency;
     return null;
   }
