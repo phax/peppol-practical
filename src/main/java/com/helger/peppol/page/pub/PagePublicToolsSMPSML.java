@@ -16,7 +16,9 @@
  */
 package com.helger.peppol.page.pub;
 
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -36,6 +38,7 @@ import com.helger.bootstrap3.nav.BootstrapTabBox;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.StringParser;
 import com.helger.commons.url.URLUtils;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.HCEdit;
@@ -111,14 +114,34 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
           if (!RegExHelper.stringMatchesPattern (PATTERN_IPV4, sPhysicalAddress))
             aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                        "The provided physical address does not seem to be an IPv4 address!");
+          else
+          {
+            final String [] aParts = StringHelper.getExplodedArray ('.', sPhysicalAddress, 4);
+            final byte [] aBytes = new byte [] { (byte) StringParser.parseInt (aParts[0], -1),
+                                                (byte) StringParser.parseInt (aParts[1], -1),
+                                                (byte) StringParser.parseInt (aParts[2], -1),
+                                                (byte) StringParser.parseInt (aParts[3], -1) };
+            try
+            {
+              InetAddress.getByAddress (aBytes);
+            }
+            catch (final UnknownHostException ex)
+            {
+              aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
+                                         "The provided IP address does not resolve to a valid host. Technical details: " +
+                                             ex.getMessage ());
+            }
+          }
 
         if (StringHelper.hasNoText (sLogicalAddress))
-          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS, "A logical address must be provided!");
+          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
+                                     "A logical address must be provided in the form 'http://smp.example.org'!");
         else
         {
           final URL aURL = URLUtils.getAsURL (sLogicalAddress);
           if (aURL == null)
-            aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS, "The provided logical address seems not be a URL!");
+            aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
+                                       "The provided logical address seems not be a URL! Please use the form 'http://smp.example.org'");
           else
           {
             if (!"http".equals (aURL.getProtocol ()))
@@ -175,10 +198,12 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                              new BootstrapHelpBlock ().addChild ("This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Physical address")
-                                                   .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"))
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"),
+                                                             new BootstrapHelpBlock ().addChild ("This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_PHYSICAL_ADDRESS)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Logical address")
-                                                   .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"))
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"),
+                                                             new BootstrapHelpBlock ().addChild ("This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
