@@ -450,47 +450,150 @@ jdbc.read-connections.max = 10</pre>
   on <code>/secure/*</code> to HTTPS automatically.
 </p>
  
- <a name="initialization"></a>
- <h3>Initialization</h3>
+<a name="initialization"></a>
+<h3>Initialization</h3>
  
- <p>
-  Now that your new SMP server is up and running, you should perform some setup tasks.
- </p>
+<p>
+ Now that your new SMP server is up and running, you should perform some setup tasks.
+</p>
  
- <ul>
-   <li>
-     Change the default user <code>peppol_user</code> with the default password <code>Test1234</code> 
-     to something more complex! This can be easily achieved by altering the content of the database
-     table <code>smp_user</code> manually. After this change, simply provide the new credentials for
-     writing operations.
-   </li>
-   <li>
-     The SMP must be registered at the SML.
-     For this purpose a tool will be integrated into this page very soon.
-   </li>
- </ul>
+<ul>
+  <li>
+    Change the default user <code>peppol_user</code> with the default password <code>Test1234</code> 
+    to something more complex! This can be easily achieved by altering the content of the database
+    table <code>smp_user</code> manually. After this change, simply provide the new credentials for
+    writing operations.
+  </li>
+  <li>
+    The SMP must be registered at the SML.
+    For this purpose a tool will be integrated into this page very soon.
+  </li>
+</ul>
+
+<a name="smpclientlibrary"></a>
+<h2>smp-client-library</h2>
+
+<p>
+  This is the default Java library to query any SMP server (that is compliant to the specifications)
+  for participant information. The client library has the sole purpose to provide reusable functionality. 
+  It does not offer executable functionality itself.
+</p>
  
- <a name="smpclientlibrary"></a>
- <h2>smp-client-library</h2>
+<p>
+  The <code>eu.europa.ec.cipa.smp.client.SMPServiceCaller</code> is the main class when using the library.
+  The class contains methods for reading, saving and deleting both service groups and service metadata, 
+  as well as listing the service groups of a given user. 
+  The writing methods of this class can only be used in conjunction with the CIPA SMP server as for 
+  different implementation the write access may have been implemented in a different way.
+  Alternatively the class <code>eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly</code> can be used
+  to access any SMP that complies to the SMP specifications.
+  The library contains both static and non-static methods for performing all of these actions. 
+  The class is documented using JavaDoc.
+</p>
+<p>
+  The following is an example code of getting a service metadata object of a service group (participant) 
+  for a certain document type:
+</p>
+<p>
+  <pre>
+// ServiceGroup = participant identifier; GLN = 0088
+final ParticipantIdentifierType aServiceGroupID = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("5798000000001");
+// Document type identifier from enumeration
+final DocumentIdentifierType aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20.getAsDocumentTypeIdentifier ();
+// Main call to the SMP client with the correct SML to use
+final SignedServiceMetadataType aMetadata = new SMPServiceCallerReadonly (aServiceGroupID, ESMP.PRODUCTION).getServiceRegistrationOrNull (aServiceGroupID, aDocumentTypeID);
+if (aMetadata == null)
+{
+  // No such metadata
+}
+else
+{
+  // Evaluate metadata
+}
+  </pre>
+</p>
  
- <p>
-   This is the default Java library to query any SMP server (that is compliant to the specifications)
-   for participant information.
- </p>
+<a name="smpclientconsole"></a>
+<h2>smp-client-console</h2>
  
- <p>
-   TODO
- </p>
- 
- <a name="smpclientconsole"></a>
- <h2>smp-client-console</h2>
- 
- <p>
-   This is a Java application that uses the <a href="#smpclientlibrary">smp-client-library</a> to
-   allow for SMP querying from the commandline.
- </p>
- 
- <p>
-   TODO
- </p>
- 
+<p>
+  This is a Java application that uses the <a href="#smpclientlibrary">smp-client-library</a> to
+  allow for SMP querying from the commandline.
+  It can be executed on its own and also serves as an example on how to use the SMP client API.
+</p>
+
+<p>
+  It provides the following command line parameter:
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-c COMMAND</td>
+      <td>The command to execute. Must be one of the following (case insensitive):
+        <ul>
+          <li>addgroup: create a new service group</li>
+          <li>delgroup: delete a service group</li>
+          <li>add: create a new service registration</li>
+          <li>del: delete a service registration</li>
+          <li>list: list all registrations for the given user name</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>-h HOST</td>
+      <td>URL of the SMP host to work on</td>
+    </tr>
+    <tr>
+      <td>-u USERNAME</td>
+      <td>The username for the SMP</td>
+    </tr>
+    <tr>
+      <td>-p PASSWORD</td>
+      <td>The password for the SMP</td>
+    </tr>
+    <tr>
+      <td>-b BUSINESSID</td>
+      <td>
+        The participant ID of the business to handle. 
+        Must be in the PEPPOL specific format, without the common prefix. 
+        For example <code>0088:123456</code> would be a valid identifier.<br />
+        Only required for the following commands: addgroup, delgroup, add, del
+      </td>
+    </tr>
+    <tr>
+      <td>-a APURL</td>
+      <td>
+        The URL of the AccessPoint to register.<br />
+        Only required for the following commands: add
+      </td>
+    </tr>
+    <tr>
+      <td>-e PEMFILE</td>
+      <td>
+        File containing the Base64 encoded, DER encoded AP certificate (public key only).<br />
+        Only required for the following commands: add
+      </td>
+    </tr>
+    <tr>
+      <td>-r PROCESSID</td>
+      <td>
+        Process ID to perform operation on.<br />
+        Only required for the following commands: add
+      </td>
+    </tr>
+    <tr>
+      <td>-d DOCUMENTTYPEID</td>
+      <td>
+        Document type ID to perform operation on.<br />
+        Only required for the following commands: add, del
+      </td>
+    </tr>
+  </tbody>
+</table> 
