@@ -60,6 +60,7 @@ import com.helger.commons.url.URLUtils;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCEditFile;
+import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.validation.error.FormErrors;
@@ -81,6 +82,13 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   private static final String FIELD_LOGICAL_ADDRESS = "logicaladdr";
   private static final String FIELD_KEYSTORE = "keystore";
   private static final String FIELD_KEYSTORE_PW = "keystorepw";
+
+  private static final String HELPTEXT_SMP_ID = "This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!";
+  private static final String HELPTEXT_PHYSICAL_ADDRESS = "This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!";
+  private static final String HELPTEXT_LOGICAL_ADDRESS = "This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!";
+  private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your PEPPOL SMP certificate is required to perform the action! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
+  private static final String HELPTEXT_KEYSTORE_PW = "The password of the JKS key store is required to access the content of the key store!";
+
   private static final String SUBACTION_SMP_REGISTER = "smpregister";
   private static final String SUBACTION_SMP_UPDATE = "smpupdate";
   private static final String SUBACTION_SMP_DELETE = "smpdelete";
@@ -411,6 +419,60 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
     }
   }
 
+  private void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrors aFormErrors)
+  {
+    final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
+    final ISMLInfo aSML = _getSML (sSML);
+    final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
+    final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
+    final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
+
+    if (aSML == null)
+      aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
+
+    if (StringHelper.hasNoText (sSMPID))
+      aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
+    else
+      if (!RegExHelper.stringMatchesPattern (PATTERN_SMP_ID, sSMPID))
+        aFormErrors.addFieldError (FIELD_SMP_ID,
+                                   "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
+                                       PATTERN_SMP_ID);
+
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (aKeyStoreFile,
+                                                                                    sKeyStorePassword,
+                                                                                    aFormErrors);
+
+    if (aFormErrors.isEmpty ())
+    {
+      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (aSML, aSocketFactory);
+      try
+      {
+        aCaller.delete (sSMPID);
+        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully deleted SMP '" +
+                                                                 sSMPID +
+                                                                 "' from the SML '" +
+                                                                 aSML.getManagementHostName () +
+                                                                 "'."));
+        AuditUtils.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSML.getManagementHostName ());
+      }
+      catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
+      {
+        aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error deleting SMP '" +
+                                                               sSMPID +
+                                                               "' from the SML '" +
+                                                               aSML.getManagementHostName () +
+                                                               "'. Technical details: " +
+                                                               ex.getMessage ()));
+        AuditUtils.onAuditExecuteFailure ("smp-sml-delete",
+                                          sSMPID,
+                                          aSML.getManagementHostName (),
+                                          ex.getClass (),
+                                          ex.getMessage ());
+      }
+    }
+  }
+
   @Override
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
@@ -425,6 +487,9 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
       else
         if (aWPEC.hasSubAction (SUBACTION_SMP_UPDATE))
           _updateSMPatSML (aWPEC, aFormErrors);
+        else
+          if (aWPEC.hasSubAction (SUBACTION_SMP_DELETE))
+            _deleteSMPfromSML (aWPEC, aFormErrors);
     }
 
     if (bShowInput)
@@ -441,23 +506,23 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
-                                                               new BootstrapHelpBlock ().addChild ("This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!"))
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_SMP_ID))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Physical address")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"),
-                                                               new BootstrapHelpBlock ().addChild ("This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!"))
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_PHYSICAL_ADDRESS))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PHYSICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Logical address")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"),
-                                                               new BootstrapHelpBlock ().addChild ("This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!"))
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_LOGICAL_ADDRESS))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
                                                      .setCtrl (new HCEditFile (FIELD_KEYSTORE),
-                                                               new BootstrapHelpBlock ().addChild ("A Java key store of type JKS with only your PEPPOL SMP certificate is required to perform the action! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!"))
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_KEYSTORE_PW)).setPlaceholder ("The password for the SMP keystore. May be empty."),
-                                                               new BootstrapHelpBlock ().addChild ("The password of the JKS key store is required to access the content of the key store!"))
+                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."),
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE_PW))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
@@ -478,23 +543,23 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
-                                                               new BootstrapHelpBlock ().addChild ("This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!"))
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_SMP_ID))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Physical address")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"),
-                                                               new BootstrapHelpBlock ().addChild ("This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!"))
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_PHYSICAL_ADDRESS))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PHYSICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Logical address")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"),
-                                                               new BootstrapHelpBlock ().addChild ("This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!"))
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_LOGICAL_ADDRESS))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
                                                      .setCtrl (new HCEditFile (FIELD_KEYSTORE),
-                                                               new BootstrapHelpBlock ().addChild ("A Java key store of type JKS with only your PEPPOL SMP certificate is required to perform the action! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!"))
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_KEYSTORE_PW)).setPlaceholder ("The password for the SMP keystore. May be empty."),
-                                                               new BootstrapHelpBlock ().addChild ("The password of the JKS key store is required to access the content of the key store!"))
+                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."),
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE_PW))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
@@ -503,6 +568,35 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
         aToolbar.addSubmitButton ("Update SMP at SML");
 
         aTabBox.addTab ("Update SMP at SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_UPDATE));
+      }
+
+      // Delete SMP from SML
+      {
+        final BootstrapForm aForm = new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ());
+        aForm.setEncTypeFileUpload ().setLeft (3);
+        aForm.addChild (new BootstrapInfoBox ().addChild ("Delete an existing SMP from the SML."));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_SMP_ID))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
+                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE),
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
+                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."),
+                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE_PW))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
+
+        final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
+        aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
+        aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, SUBACTION_SMP_DELETE);
+        aToolbar.addSubmitButton ("Delete SMP from SML");
+
+        aTabBox.addTab ("Delete SMP from SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_DELETE));
       }
 
       aNodeList.addChild (aTabBox);
