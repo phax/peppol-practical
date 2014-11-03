@@ -37,6 +37,7 @@ import javax.net.ssl.TrustManager;
 
 import org.busdox.servicemetadata.manageservicemetadataservice._1.BadRequestFault;
 import org.busdox.servicemetadata.manageservicemetadataservice._1.InternalErrorFault;
+import org.busdox.servicemetadata.manageservicemetadataservice._1.NotFoundFault;
 import org.busdox.servicemetadata.manageservicemetadataservice._1.UnauthorizedFault;
 
 import com.helger.appbasics.security.audit.AuditUtils;
@@ -81,14 +82,11 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   private static final String FIELD_KEYSTORE = "keystore";
   private static final String FIELD_KEYSTORE_PW = "keystorepw";
   private static final String SUBACTION_SMP_REGISTER = "smpregister";
+  private static final String SUBACTION_SMP_UPDATE = "smpupdate";
+  private static final String SUBACTION_SMP_DELETE = "smpdelete";
 
   private static final String PATTERN_SMP_ID = "[a-zA-Z0-9-]+";
   private static final String PATTERN_IPV4 = "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b";
-
-  private static enum EAction
-  {
-    REGISTER_SMP;
-  }
 
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
   {
@@ -165,7 +163,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
     return aSocketFactory;
   }
 
-  private void _registerSMPAtSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrors aFormErrors)
+  private void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrors aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
@@ -289,21 +287,144 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
     }
   }
 
+  private void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrors aFormErrors)
+  {
+    final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
+    final ISMLInfo aSML = _getSML (sSML);
+    final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
+    final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
+    final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
+    final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
+    final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
+
+    if (aSML == null)
+      aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
+
+    if (StringHelper.hasNoText (sSMPID))
+      aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
+    else
+      if (!RegExHelper.stringMatchesPattern (PATTERN_SMP_ID, sSMPID))
+        aFormErrors.addFieldError (FIELD_SMP_ID,
+                                   "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
+                                       PATTERN_SMP_ID);
+
+    if (StringHelper.hasNoText (sPhysicalAddress))
+      aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
+    else
+      if (!RegExHelper.stringMatchesPattern (PATTERN_IPV4, sPhysicalAddress))
+        aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
+                                   "The provided physical address does not seem to be an IPv4 address!");
+      else
+      {
+        final String [] aParts = StringHelper.getExplodedArray ('.', sPhysicalAddress, 4);
+        final byte [] aBytes = new byte [] { (byte) StringParser.parseInt (aParts[0], -1),
+                                            (byte) StringParser.parseInt (aParts[1], -1),
+                                            (byte) StringParser.parseInt (aParts[2], -1),
+                                            (byte) StringParser.parseInt (aParts[3], -1) };
+        try
+        {
+          InetAddress.getByAddress (aBytes);
+        }
+        catch (final UnknownHostException ex)
+        {
+          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
+                                     "The provided IP address does not resolve to a valid host. Technical details: " +
+                                         ex.getMessage ());
+        }
+      }
+
+    if (StringHelper.hasNoText (sLogicalAddress))
+      aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
+                                 "A logical address must be provided in the form 'http://smp.example.org'!");
+    else
+    {
+      final URL aURL = URLUtils.getAsURL (sLogicalAddress);
+      if (aURL == null)
+        aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
+                                   "The provided logical address seems not be a URL! Please use the form 'http://smp.example.org'");
+      else
+      {
+        if (!"http".equals (aURL.getProtocol ()))
+          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
+                                     "The provided logical address must use the 'http' protocol and may not use the '" +
+                                         aURL.getProtocol () +
+                                         "' protocol. According to the SMP specification, no other protocols than 'http' are allowed!");
+        // -1 means default port
+        if (aURL.getPort () != 80 && aURL.getPort () != -1)
+          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
+                                     "The provided logical address must use the default http port 80 and not port " +
+                                         aURL.getPort () +
+                                         ". According to the SMP specification, no other ports are allowed!");
+        if (StringHelper.hasText (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
+          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS, "The provided logical address may not contain a path (" +
+                                                            aURL.getPath () +
+                                                            ") because according to the SMP specifications it must run in the root (/) path!");
+      }
+    }
+
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (aKeyStoreFile,
+                                                                                    sKeyStorePassword,
+                                                                                    aFormErrors);
+
+    if (aFormErrors.isEmpty ())
+    {
+      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (aSML, aSocketFactory);
+      try
+      {
+        aCaller.update (sSMPID, sPhysicalAddress, sLogicalAddress);
+        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully updated SMP '" +
+                                                                 sSMPID +
+                                                                 "' with physical address '" +
+                                                                 sPhysicalAddress +
+                                                                 "' and logical address '" +
+                                                                 sLogicalAddress +
+                                                                 "' at the SML '" +
+                                                                 aSML.getManagementHostName () +
+                                                                 "'."));
+        AuditUtils.onAuditExecuteSuccess ("smp-sml-update",
+                                          sSMPID,
+                                          sPhysicalAddress,
+                                          sLogicalAddress,
+                                          aSML.getManagementHostName ());
+      }
+      catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
+      {
+        aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error updating SMP '" +
+                                                               sSMPID +
+                                                               "' with physical address '" +
+                                                               sPhysicalAddress +
+                                                               "' and logical address '" +
+                                                               sLogicalAddress +
+                                                               "' to the SML '" +
+                                                               aSML.getManagementHostName () +
+                                                               "'. Technical details: " +
+                                                               ex.getMessage ()));
+        AuditUtils.onAuditExecuteFailure ("smp-sml-update",
+                                          sSMPID,
+                                          sPhysicalAddress,
+                                          sLogicalAddress,
+                                          aSML.getManagementHostName (),
+                                          ex.getClass (),
+                                          ex.getMessage ());
+      }
+    }
+  }
+
   @Override
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final FormErrors aFormErrors = new FormErrors ();
     final boolean bShowInput = true;
-    EAction eSMLAction = null;
 
     if (aWPEC.hasAction (ACTION_PERFORM))
     {
       if (aWPEC.hasSubAction (SUBACTION_SMP_REGISTER))
-      {
-        eSMLAction = EAction.REGISTER_SMP;
-        _registerSMPAtSML (aWPEC, aFormErrors);
-      }
+        _registerSMPtoSML (aWPEC, aFormErrors);
+      else
+        if (aWPEC.hasSubAction (SUBACTION_SMP_UPDATE))
+          _updateSMPatSML (aWPEC, aFormErrors);
     }
 
     if (bShowInput)
@@ -333,7 +454,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
                                                      .setCtrl (new HCEditFile (FIELD_KEYSTORE),
                                                                new BootstrapHelpBlock ().addChild ("A Java key store of type JKS with only your PEPPOL SMP certificate is required to perform the action! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!"))
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_KEYSTORE_PW)).setPlaceholder ("The password for the SMP keystore. May be empty."),
                                                                new BootstrapHelpBlock ().addChild ("The password of the JKS key store is required to access the content of the key store!"))
@@ -344,7 +465,44 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
         aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, SUBACTION_SMP_REGISTER);
         aToolbar.addSubmitButton ("Register SMP at SML");
 
-        aTabBox.addTab ("Register SMP", aForm, EAction.REGISTER_SMP.equals (eSMLAction));
+        aTabBox.addTab ("Register SMP to SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_REGISTER));
+      }
+
+      // Update SMP at SML
+      {
+        final BootstrapForm aForm = new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ());
+        aForm.setEncTypeFileUpload ().setLeft (3);
+        aForm.addChild (new BootstrapInfoBox ().addChild ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
+                                                               new BootstrapHelpBlock ().addChild ("This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!"))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Physical address")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"),
+                                                               new BootstrapHelpBlock ().addChild ("This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!"))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PHYSICAL_ADDRESS)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Logical address")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"),
+                                                               new BootstrapHelpBlock ().addChild ("This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!"))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
+                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE),
+                                                               new BootstrapHelpBlock ().addChild ("A Java key store of type JKS with only your PEPPOL SMP certificate is required to perform the action! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!"))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_KEYSTORE_PW)).setPlaceholder ("The password for the SMP keystore. May be empty."),
+                                                               new BootstrapHelpBlock ().addChild ("The password of the JKS key store is required to access the content of the key store!"))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
+
+        final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
+        aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
+        aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, SUBACTION_SMP_UPDATE);
+        aToolbar.addSubmitButton ("Update SMP at SML");
+
+        aTabBox.addTab ("Update SMP at SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_UPDATE));
       }
 
       aNodeList.addChild (aTabBox);
