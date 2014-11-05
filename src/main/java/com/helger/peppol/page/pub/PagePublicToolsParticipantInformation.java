@@ -145,6 +145,7 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
           final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList <> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
+            // Check with lowercase host name as well (e.g. 9908:983974724)!
             final String sCommonPrefix = aSMPHost.toExternalForm () +
                                          "/" +
                                          aParticipantID.getURIEncoded () +
