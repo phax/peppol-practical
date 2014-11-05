@@ -146,6 +146,8 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
             // Check with lowercase host name as well (e.g. 9908:983974724)!
+            // The generated hostname contains "B-" whereas the returned
+            // hostname contains "b-"
             final String sCommonPrefix = aSMPHost.toExternalForm ().toLowerCase (Locale.US) +
                                          "/" +
                                          aParticipantID.getURIEncoded () +

@@ -26,6 +26,7 @@ import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
+import com.helger.peppol.testep.domain.TestEndpointManager;
 import com.helger.scopes.IScope;
 import com.helger.scopes.singleton.GlobalSingleton;
 
@@ -38,11 +39,13 @@ public final class MetaManager extends GlobalSingleton
 {
   public static final String CRMGROUP_XML = "crm/group.xml";
   public static final String CRMSUBSCRIBER_XML = "crm/subscriber.xml";
+  public static final String TEST_ENDPOINT_XML = "test-endpoint.xml";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (MetaManager.class);
 
   private CRMGroupManager m_aCRMGroupMgr;
   private CRMSubscriberManager m_aCRMSubscriberMgr;
+  private TestEndpointManager m_aTestEndpointMgr;
 
   @Deprecated
   @UsedViaReflection
@@ -56,6 +59,7 @@ public final class MetaManager extends GlobalSingleton
     {
       m_aCRMGroupMgr = new CRMGroupManager (CRMGROUP_XML);
       m_aCRMSubscriberMgr = new CRMSubscriberManager (CRMSUBSCRIBER_XML);
+      m_aTestEndpointMgr = new TestEndpointManager (TEST_ENDPOINT_XML);
 
       s_aLogger.info ("MetaManager was initialized");
     }
@@ -81,5 +85,11 @@ public final class MetaManager extends GlobalSingleton
   public static CRMSubscriberManager getCRMSubscriberMgr ()
   {
     return getInstance ().m_aCRMSubscriberMgr;
+  }
+
+  @Nonnull
+  public static TestEndpointManager getTestEndpointMgr ()
+  {
+    return getInstance ().m_aTestEndpointMgr;
   }
 }
