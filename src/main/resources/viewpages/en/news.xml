@@ -20,6 +20,20 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2014-11-05 - CIPA 2.2.3 released</h3>
+
+<p>
+  CIPA 2.2.3 is a minor update that basically extends the SMP client and the SML
+  client library functionality. Additionally the class <code>ConfiguredDNSMapper</code>
+  got deprecated because I assume it is of no further need as the original author (BRZ)
+  no longer needs it (for quite some time now).
+</p>
+
+<ul>
+  <li>Binary release: <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/">https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/</a></li>
+  <li>Source release: <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3">https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3</a></li>
+</ul>
+
 <h3>2014-10-20 - SSL 3.0 vulnerability - POODLE</h3>
 
 <p>

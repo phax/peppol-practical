@@ -76,8 +76,8 @@
 
 <p>
   This section outlines the necessary changes to be performed in the different CIPA components.
-  Please make sure that you are using the latest CIPA <strong>version 2.2.2</strong> which can be obtained
-  either as the <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2/">source code</a>
+  Please make sure that you are using the latest CIPA <strong>version 2.2.3</strong> which can be obtained
+  either as the <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3/">source code</a>
   or in <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/">binary form</a>.
 </p>
 

@@ -113,8 +113,8 @@ The information within the SMP is structured by participant ID, document type ID
   in an application server like Apache Tomcat or Jetty.
   This section assumes that you are using the complete SMP with read and write API.
   The respective CIPA project is called <code>cipa-smp-full-webapp</code>.
-  The latest version 2.2.2 can be found in the Joinup Subversion repository at
-  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2/cipa-smp-full-webapp"><code>https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2/cipa-smp-full-webapp</code></a>. 
+  The latest version 2.2.3 can be found in the Joinup Subversion repository at
+  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3/cipa-smp-full-webapp"><code>https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3/cipa-smp-full-webapp</code></a>. 
 </p>
 
 <p>
