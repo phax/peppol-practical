@@ -11,6 +11,12 @@ import com.helger.commons.ValueEnforcer;
 import eu.europa.ec.cipa.peppol.sml.ISMLInfo;
 import eu.europa.ec.cipa.sml.client.ManageServiceMetadataServiceCaller;
 
+/**
+ * A special {@link ManageServiceMetadataServiceCaller} subclass that sets the
+ * socket factory on a per web service client call basis.
+ * 
+ * @author Philip Helger
+ */
 public class SecuredSMPSMLClient extends ManageServiceMetadataServiceCaller
 {
   private final SSLSocketFactory m_aSocketFactory;
