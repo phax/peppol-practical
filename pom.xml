@@ -155,7 +155,7 @@
     <dependency>
       <groupId>eu.europa.ec.cipa</groupId>
       <artifactId>cipa-validation-rules</artifactId>
-      <version>${cipa.version}-SNAPSHOT</version>
+      <version>${cipa.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europa.ec.cipa</groupId>
