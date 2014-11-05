@@ -78,7 +78,7 @@
     <m2e.jaxrs.activation>false</m2e.jaxrs.activation>
     <m2e.jpa.activation>false</m2e.jpa.activation>
     <m2e.jsf.activation>false</m2e.jsf.activation>
-    <cipa.version>2.2.3-SNAPSHOT</cipa.version>
+    <cipa.version>2.2.3</cipa.version>
   </properties>
 
   <dependencies>
@@ -155,7 +155,7 @@
     <dependency>
       <groupId>eu.europa.ec.cipa</groupId>
       <artifactId>cipa-validation-rules</artifactId>
-      <version>${cipa.version}</version>
+      <version>${cipa.version}-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>eu.europa.ec.cipa</groupId>
