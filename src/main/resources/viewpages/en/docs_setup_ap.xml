@@ -22,6 +22,20 @@
   sending and receiving business documents.
 </p>
 
+<p>
+  There are three known possibilities (I'm aware of) on how to build an AS2 AccessPoint.
+  The first one is using the <em>cipa-dispatcher</em> project which is part of the
+  <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
+  project maintained by the European Commission. It is a Mendelsson frontend and therefore
+  requires Mendelsson to be setup besides CIPA.
+  The second possibility is to use <a href="https://github.com/difi/oxalis">Oxalis</a> as the
+  software of choice. And the third solution - the one described in this document - is the
+  usage of my <a href="https://github.com/phax/as2-lib">as2-lib</a> as the AS2 communication
+  channel and <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a>
+  for receiving AS2 messages within a standard Java servlet. By default no external AS2 software
+  is required for this solution, so I'm presenting a fully self-contained solution. 
+</p>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Table of contents</h3>
@@ -29,7 +43,11 @@
   <div class="panel-body">
     <ol>
       <li><a href="#prerequisites">Prerequisites</a></li>
-      <li><a href="#technical">Technical resources</a></li>
+      <li><a href="#messagestructure">AS2 Message structure</a>
+        <ol>
+          <li><a href="#msimplementation">Implementation</a></li>
+        </ol>
+      </li>
     </ol>
   </div>
 </div>
@@ -50,14 +68,98 @@
       is available on the PEPPOL website.  
   </li>
   <li>You should have a look at the 
-      <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">official PEPPOL AS2 specifications</a>.
+      <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">official PEPPOL AS2 specification</a>.
+  </li>
+  <li>You should have a look at the 
+      <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">official PEPPOL Envelope specification</a>
+      (SBDH).
   </li>
   <li>You should be familiar with Java 1.6+</li>
-  <li>TODO</li>
+  <li>Basic knowledge about Apache Tomcat (and optionally a web server) should be present</li>
 </ol>
 
-<a name="technical"></a>
-<h2>Technical resources</h2>
+<a name="messagestructure"></a>
+<h2>AS2 Message structure</h2>
 <p>
-  TODO
+  An AccessPoint is a technical adapter for sending and receiving PEPPOL documents.
+  The following images shows the overall structure of a transmitted AS2 message in a very
+  simplified way:
 </p>
+<p>
+  <img src="../imgs/ap-message-structure.png" alt="PEPPOL AS2 message structure" />
+</p>
+<p>
+  The outermost container is an <a href="http://en.wikipedia.org/wiki/S/MIME">S/MIME</a> 
+  (Secure / Multipurpose Internet Mail Extensions) message.
+  It is a basic MIME message including signature data.
+  One MIME part of the message is the so called
+  <a href="http://www.uncefactforum.org/ATG/atg_news_download.htm">Standard Business Document Header</a>
+  (SBDH).
+  It is a UN/CEFACT standard for merging XML documents with relevant metadata into a single XML document.
+  PEPPOL maintains its own 
+  <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">Envelope specification</a>
+  that is based on SBDH.
+  Finally inside the SBDH the main UBL business document is contained.
+  The complete <a href="http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.zip">UBL 2.1</a> specifications
+  can be downloaded from the <a href="https://www.oasis-open.org/committees/ubl/">OASIS UBL</a> web site. 
+</p>
+
+<a name="msimplementation"></a>
+<h3>Implementation</h3>
+<p>
+  This section points to projects that help in implementing the different layers of an AS2 message.
+</p>
+
+<ul>
+  <li>
+    <stong>S/MIME</stong>: to read and write S/MIME messages 
+    <a href="http://bouncycastle.org/">The Legion of the Bouncy Castle</a> 
+    provides tools for it.
+    It is <a href="http://bouncycastle.org/licence.html">licensed under an MIT-like license</a>.
+    The latest version 1.51 is used within <em>as2-lib</em> for S/MIME handling.
+    The relevant Maven artefacts are:
+    <pre>
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.bouncycastle&lt;/groupId&gt;
+      &lt;artifactId&gt;bcmail-jdk15on&lt;/artifactId&gt;
+      &lt;version&gt;1.51&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
+      &lt;artifactId&gt;javax.mail&lt;/artifactId&gt;
+      &lt;version&gt;1.5.2&lt;/version&gt;
+      &lt;exclusions&gt;
+        &lt;exclusion&gt;
+          &lt;groupId&gt;javax.activation&lt;/groupId&gt;
+          &lt;artifactId&gt;activation&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+      &lt;/exclusions&gt;
+    &lt;/dependency&gt;</pre>
+    Note: the <code>actication</code> artefact is excluded from <code>javax.mail</code> because
+    when using JDK 6 the activation package is already contained in the Java runtime.
+  </li>
+  <li>
+    <strong>SBDH</strong>: to read an write SBDH messages I created a Java library called
+    <a href="https://github.com/phax/ph-sbdh">ph-sbdh</a> which uses JAXB generated objects.
+    This library is licensed under the Apache 2.0 license.
+    The relevant Maven artefacts are:
+    <pre>
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.helger&lt;/groupId&gt;
+      &lt;artifactId&gt;ph-sbdh&lt;/artifactId&gt;
+      &lt;version&gt;1.1.0&lt;/version&gt;
+    &lt;/dependency&gt;</pre>
+  </li>
+  <li>
+    <strong>UBL</strong>: to read an write UBL messages I created a Java library called
+    <a href="https://github.com/phax/ph-ubl">ph-ubl</a> which uses JAXB generated objects.
+    This library is licensed under the Apache 2.0 license.
+    The relevant Maven artefacts are:
+    <pre>
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.helger&lt;/groupId&gt;
+      &lt;artifactId&gt;ph-sbdh&lt;/artifactId&gt;
+      &lt;version&gt;1.1.0&lt;/version&gt;
+    &lt;/dependency&gt;</pre>
+  </li>
+</ul>
