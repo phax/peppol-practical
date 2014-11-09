@@ -48,6 +48,8 @@
           <li><a href="#msimplementation">Implementation</a></li>
         </ol>
       </li>
+      <li><a href="#as2receiver">AS2 AccessPoint receiver</a></li>
+      <li><a href="#as2sender">AS2 AccessPoint sender</a></li>
     </ol>
   </div>
 </div>
@@ -81,7 +83,7 @@
 <a name="messagestructure"></a>
 <h2>AS2 Message structure</h2>
 <p>
-  An AccessPoint is a technical adapter for sending and receiving PEPPOL documents.
+  An AccessPoint is a technical adapter for sending and receiving PEPPOL UBL documents.
   The following images shows the overall structure of a transmitted AS2 message in a very
   simplified way:
 </p>
@@ -108,11 +110,12 @@
 <h3>Implementation</h3>
 <p>
   This section points to projects that help in implementing the different layers of an AS2 message.
+  If you are already familiar with these concepts you may simply skip this section.
 </p>
 
 <ul>
   <li>
-    <stong>S/MIME</stong>: to read and write S/MIME messages 
+    <strong>S/MIME</strong>: to read and write S/MIME messages 
     <a href="http://bouncycastle.org/">The Legion of the Bouncy Castle</a> 
     provides tools for it.
     It is <a href="http://bouncycastle.org/licence.html">licensed under an MIT-like license</a>.
@@ -135,7 +138,7 @@
         &lt;/exclusion&gt;
       &lt;/exclusions&gt;
     &lt;/dependency&gt;</pre>
-    Note: the <code>actication</code> artefact is excluded from <code>javax.mail</code> because
+    Note: the <code>activation</code> artefact is excluded from <code>javax.mail</code> because
     when using JDK 6 the activation package is already contained in the Java runtime.
   </li>
   <li>
@@ -151,15 +154,37 @@
     &lt;/dependency&gt;</pre>
   </li>
   <li>
-    <strong>UBL</strong>: to read an write UBL messages I created a Java library called
+    <strong>UBL 2.1</strong>: to read an write UBL messages I created a Java library called
     <a href="https://github.com/phax/ph-ubl">ph-ubl</a> which uses JAXB generated objects.
     This library is licensed under the Apache 2.0 license.
     The relevant Maven artefacts are:
     <pre>
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
-      &lt;artifactId&gt;ph-sbdh&lt;/artifactId&gt;
-      &lt;version&gt;1.1.0&lt;/version&gt;
+      &lt;artifactId&gt;ph-ubl&lt;/artifactId&gt;
+      &lt;version&gt;3.3.0&lt;/version&gt;
+      &lt;exclusions&gt;
+        &lt;exclusion&gt;
+          &lt;groupId&gt;com.helger&lt;/groupId&gt;
+          &lt;artifactId&gt;ph-ubl20&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+        &lt;exclusion&gt;
+          &lt;groupId&gt;com.helger&lt;/groupId&gt;
+          &lt;artifactId&gt;ph-ubl20-codelists&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+      &lt;/exclusions&gt;
     &lt;/dependency&gt;</pre>
+    Note: the <code>ph-ubl20</code> and <code>ph-ubl20-codelists</code> artefacts 
+    can be excluded from <code>ph-ubl</code> because OpenPEPPOL only deals with
+    UBL 2.1 artefacts. If you also want to deal with UBL 2.0 files, remove everything
+    from <code>&lt;exclusions&gt;</code> until <code>&lt;/exclusions&gt;</code>.
   </li>
 </ul>
+
+<a name="as2receiver"></a>
+<h2>AS2 AccessPoint receiver</h2>
+<p>TODO</p>
+
+<a name="as2sender"></a>
+<h2>AS2 AccessPoint sender</h2>
+<p>TODO</p>
