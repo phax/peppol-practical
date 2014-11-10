@@ -23,6 +23,8 @@ final String sTarget = request.getContextPath () + "/public/?httpError=true"
                        +"&httpStatusMessage="
                        +String.valueOf(request.getAttribute ("javax.servlet.error.message"))
                        +"&httpRequestUri="
-                       +String.valueOf(request.getAttribute ("javax.servlet.error.request_uri"));
+                       +String.valueOf(request.getAttribute ("javax.servlet.error.request_uri"))
+                       +"&httpReferrer="
+                       +request.getHeader ("Referer");
 response.sendRedirect (sTarget);
 %>
