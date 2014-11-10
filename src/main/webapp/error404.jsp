@@ -17,7 +17,7 @@
 
 --%><%
 // In Jetty, the request attributes are already URL encoded!
-final String sTarget = "public/?httpError=true"
+final String sTarget = request.getContextPath () + "/public/?httpError=true"
                        +"&httpStatusCode="
                        +String.valueOf(request.getAttribute ("javax.servlet.error.status_code"))
                        +"&httpStatusMessage="
