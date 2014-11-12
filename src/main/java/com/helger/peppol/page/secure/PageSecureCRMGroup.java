@@ -35,6 +35,7 @@ import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
@@ -161,7 +162,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
       final HCRow aRow = aTable.addBodyRow ();
       aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
       aRow.addCell (aCurObject.getSenderEmailAddress ());
-      aRow.addCell (createEditLink (aWPEC, aCurObject), createCopyLink (aWPEC, aCurObject));
+      aRow.addCell (createEditLink (aWPEC, aCurObject), new HCTextNode (" "), createCopyLink (aWPEC, aCurObject));
     }
     aNodeList.addChild (aTable);
 

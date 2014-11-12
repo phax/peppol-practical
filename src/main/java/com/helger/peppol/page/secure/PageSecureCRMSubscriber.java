@@ -49,6 +49,7 @@ import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.htmlext.HCUtils;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.html.hc.impl.HCTextNode;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.app.menu.CMenuSecure;
 import com.helger.peppol.crm.CRMGroupManager;
@@ -210,7 +211,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     aTable.createItemRow ()
           .setLabel ("Salutation")
           .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
-                                                              aSelectedObject == null ? null
+                                                              aSelectedObject == null
+                                                                                     ? null
                                                                                      : aSelectedObject.getSalutationID ()),
                                             aDisplayLocale))
           .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION));
@@ -275,7 +277,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
                                                   .stream ()
                                                   .map ( (g) -> g.getDisplayName ())
                                                   .collect (Collectors.joining ("\n"))));
-      aRow.addCell (createEditLink (aWPEC, aCurObject), createCopyLink (aWPEC, aCurObject));
+      aRow.addCell (createEditLink (aWPEC, aCurObject), new HCTextNode (" "), createCopyLink (aWPEC, aCurObject));
     }
     aNodeList.addChild (aTable);
 
