@@ -144,13 +144,20 @@
   <li>
     <strong>SBDH</strong>: to read an write SBDH messages I created a Java library called
     <a href="https://github.com/phax/ph-sbdh">ph-sbdh</a> which uses JAXB generated objects.
-    This library is licensed under the Apache 2.0 license.
+    Additionally the Java library <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a>
+    can be used on top of <em>ph-sbdh</em> as it adds the PEPPOL specific requirements. 
+    Both libraries are licensed under the Apache 2.0 license.
     The relevant Maven artefacts are:
     <pre>
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;ph-sbdh&lt;/artifactId&gt;
       &lt;version&gt;1.1.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.helger&lt;/groupId&gt;
+      &lt;artifactId&gt;peppol-sbdh&lt;/artifactId&gt;
+      &lt;version&gt;1.0.0&lt;/version&gt;
     &lt;/dependency&gt;</pre>
   </li>
   <li>
@@ -187,4 +194,92 @@
 
 <a name="as2sender"></a>
 <h2>AS2 AccessPoint sender</h2>
-<p>TODO</p>
+<p>
+  An example project that shows how to send PEPPOL documents via AS2 can be send can be found 
+  in the <a href="https://github.com/phax/as2-peppol-client">as2-peppol-client</a> project.
+  It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
+  <a href="https://github.com/phax/ph-unl">ph-ubl</a> and
+  <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> to send messages to arbitrary
+  PEPPOL AS2 receivers.
+  <em>as2-peppol-client</em> is a Java 1.6+ project and licensed under Apache 2.0 license.
+</p>
+
+<p>
+  The steps to send a document are outlined as follows:
+</p>
+
+<ol>
+  <li>As a prerequisite, you need to know the following things:
+    <ol>
+      <li>The <strong>UBL document</strong> to be send. How you create your UBL file is out of scope!</li>
+      <li>
+        The <strong>PEPPOL participant ID of the receiver</strong> (e.g. <code>0088:test</code>). 
+        The determination of the recipient ID is not in scope for PEPPOL!
+      </li>
+      <li>
+        Your <strong>PEPPOL sender participant ID</strong>. There is no fixed way how to determine this.
+        If you are registered as a PEPPOL recipient, than please use your recipient ID as your
+        sender ID. If you are not registered as a sender have a look at the 
+        <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">PEPPOL policy for use of identifiers</a>
+        beneath <em>POLICY 8</em> and search the VAT scheme suitable for your country (at the end of the list).
+        Assuming you are from San Marino and your VAT number is <em>123456</em> than use the following 
+        sender ID: <code>9951:123456</code>.   
+      </li>
+      <li>
+        You need to know the <strong>PEPPOL document type identifier</strong> and 
+        <strong>PEPPOL process identifier</strong> in which you want to send the document.
+        If you are unsure what document type and process the receiver supports you can use the
+        <a href="/public/?menuitem=tools-participant">Participant information tool</a>
+        contained in this page to determine the details.         
+      </li>
+      <li>
+        You need to have a valid <strong>PEPPOL AP certificate</strong> for sending documents to 
+        the PEPPOL network.
+      </li>
+    </ol>
+  </li>
+  <li>
+    Perform an SMP lookup on the recipient ID and the document type ID to retrieve a list
+    of all endpoints and extract the one using the <em>transportProfile</em>
+    <code>busdox-transport-as2-ver1p0</code>.
+    From this endpoint use <em>EndpointReference</em> as the destination URL and
+    also remember the certificate of the recipient. It is later needed to extract the
+    'as2-to' ID.
+  </li>
+  <li>
+    Next thing to do is to create an SBDH document. Using the <em>peppol-sbdh</em> library this can be
+    performed in very few steps:
+    <ol>
+      <li>
+        Create an instance of <code>com.helger.peppol.sbdh.DocumentData</code> which is filled with
+        the UBL document, the sender participant ID, the receiver participant ID, the document type
+        ID and the process ID (all stated in the prerequisites above).
+      </li>
+      <li>
+        Convert the <code>DocumentData</code> to a <code>StandardBusinessDocument</code> using
+        the <code>DocumentDataWriter</code> utility class.
+      </li>
+    </ol>
+  </li>
+  <li>
+    For setting up the AS2 client request some additional input is needed:
+    <ol>
+      <li>
+        A PKCS12 keystore containing your PEPPOL AP certificate.
+        If you only have a JKS keystore, you can easily convert it to a PKCS12 keystore
+        using the great <a href="http://portecle.sourceforge.net/">Portecle</a> tool
+        by <em>exporting</em> the certificate and the public key. Than you need to enter
+        a password for the newly created keystore. 
+      </li>
+      <li>The password to access the PKCS12 keystore.</li>
+      <li>
+        Your AS2 ID ('as2-from'), which must be the common name of your PEPPOL AP certificate subject
+        (e.g. <code>APP_1000000001</code>).
+      </li>
+      <li>
+        The alias of the certificate in the PKCS12 keystore to be used. 
+        Ideally it is equal to your AS2 ID for easy matching but this is just an idea.
+      </li>
+    </ol>
+  </li>
+</ol>
