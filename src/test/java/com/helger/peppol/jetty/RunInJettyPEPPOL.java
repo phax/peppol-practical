@@ -33,8 +33,8 @@ import com.helger.commons.SystemProperties;
 import eu.europa.ec.cipa.peppol.utils.ConfigFile;
 
 /**
- * Run ebiz4all as a standalone web application in Jetty on port 8080.<br>
- * http://localhost:8080/kb
+ * Run peppol-practical as a standalone web application in Jetty on port 8080.<br>
+ * http://localhost:8080/
  *
  * @author Philip Helger
  */

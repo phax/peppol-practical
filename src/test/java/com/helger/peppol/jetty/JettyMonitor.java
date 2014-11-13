@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotations.DevelopersNote;
+import com.helger.commons.io.streams.StreamUtils;
 
 public final class JettyMonitor extends Thread
 {
@@ -90,13 +91,7 @@ public final class JettyMonitor extends Thread
       }
       finally
       {
-        if (aSocket != null)
-          try
-          {
-            aSocket.close ();
-          }
-          catch (final IOException e)
-          {}
+        StreamUtils.close (aSocket);
         aSocket = null;
       }
     }
