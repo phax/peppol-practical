@@ -282,7 +282,7 @@ jdbc.read-connections.max = 10</pre>
 </p>
 
 <p>
-  Example of a development <code>config.properties</code> file using a local MySQL database 
+  Example of a production-like <code>config.properties</code> file using a local MySQL database 
   called <code>smp</code> with the SML connector (for close to production):
 </p>
 
