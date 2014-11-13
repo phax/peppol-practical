@@ -268,10 +268,12 @@
         A PKCS12 keystore containing your PEPPOL AP certificate.
         If you only have a JKS keystore, you can easily convert it to a PKCS12 keystore
         using the great <a href="http://portecle.sourceforge.net/">Portecle</a> tool
-        by <em>exporting</em> the certificate and the public key. Than you need to enter
-        a password for the newly created keystore. 
+        by <em>exporting</em> the certificate and the public key. You need to enter
+        a password for the newly created keystore upon export. 
       </li>
-      <li>The password to access the PKCS12 keystore.</li>
+      <li>
+        The password to access the PKCS12 keystore.
+      </li>
       <li>
         Your AS2 ID ('as2-from'), which must be the common name of your PEPPOL AP certificate subject
         (e.g. <code>APP_1000000001</code>).
@@ -280,6 +282,17 @@
         The alias of the certificate in the PKCS12 keystore to be used. 
         Ideally it is equal to your AS2 ID for easy matching but this is just an idea.
       </li>
+      <li>
+        The AS2 ID of the receiver ('as2-to'), which must be the common name of the recipients PEPPOL AP 
+        certificate subject (e.g. <code>APP_1000000002</code>) received via the previous SMP lookup.
+      </li>
+      <li>
+        The public key of the receiver as an X.509 certificate.
+        This is exactly the certificate received from the previous SMP lookup. 
+      </li>
     </ol>
+  </li>
+  <li>
+    Finally the AS2 message can be send synchronously and the MDN can be received synchronously.
   </li>
 </ol>
