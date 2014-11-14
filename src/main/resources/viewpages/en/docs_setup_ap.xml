@@ -33,7 +33,7 @@
   usage of my <a href="https://github.com/phax/as2-lib">as2-lib</a> as the AS2 communication
   channel and <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a>
   for receiving AS2 messages within a standard Java servlet. By default no external AS2 software
-  is required for this solution, so I'm presenting a fully self-contained solution. 
+  is required for this solution, so I'm presenting a fully self-contained Open Source solution. 
 </p>
 
 <div class="panel panel-default">
@@ -254,10 +254,11 @@
     <code>busdox-transport-as2-ver1p0</code>.
     From this endpoint use <em>EndpointReference</em> as the destination URL and
     also remember the certificate of the recipient. It is later needed to extract the
-    'as2-to' ID.
+    <em>as2-to</em> ID.
   </li>
   <li>
-    Next thing to do is to create an SBDH document. Using the <em>peppol-sbdh</em> library this can be
+    Next thing to do is to create an SBDH document. Using the 
+    <a href="https://github.com/phax/ph-sbdh">ph-sbdh</a> library this can be
     performed in very few steps:
     <ol>
       <li>
@@ -285,7 +286,7 @@
         The password to access the PKCS12 keystore.
       </li>
       <li>
-        Your AS2 ID ('as2-from'), which must be the common name of your PEPPOL AP certificate subject
+        Your AS2 ID (<em>as2-from</em>), which must be the common name of your PEPPOL AP certificate subject
         (e.g. <code>APP_1000000001</code>).
       </li>
       <li>
@@ -293,7 +294,7 @@
         Ideally it is equal to your AS2 ID for easy matching but this is just an idea.
       </li>
       <li>
-        The AS2 ID of the receiver ('as2-to'), which must be the common name of the recipients PEPPOL AP 
+        The AS2 ID of the receiver (<em>as2-to</em>), which must be the common name of the recipients PEPPOL AP 
         certificate subject (e.g. <code>APP_1000000002</code>) received via the previous SMP lookup.
       </li>
       <li>

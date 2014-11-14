@@ -29,16 +29,25 @@
   Everything you read here does not apply yet for production and is mainly ment for preparation.
 </div>
 
-<p>
- The changes in the SML affect the following components:
-</p>
-
-<ul>
-  <li><a href="#smpserver">SMP server</a> - the server/backend component of the SMP</li>
-  <li><a href="#smpclient">SMP client</a> - the client/requesting component of the SMP</li>
-  <li><a href="#startserver">START AP server</a> - the receiving component of the Access Point (because of SMP client usage)</li>
-  <li><a href="#startclient">START AP client</a> - the sending component of the Access Point (because of SMP client usage)</li>
-</ul>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Table of contents</h3>
+  </div>
+  <div class="panel-body">
+    <ol>
+      <li><a href="#newnames">Changed domain names</a></li>
+      <li><a href="#cipa">Changes for CIPA e-Delivery</a>
+        <ol>
+          <li><a href="#smpserver">cipa-smp-full-webapp &amp; cipa-smp-readonly-webapp</a> - the server/backend component of the SMP</li>
+          <li><a href="#smpclient">cipa-smp-client-library</a> - the client/requesting component of the SMP</li>
+          <li><a href="#startserver">cipa-start-server</a> - the receiving component of the Access Point (because of SMP client usage)</li>
+          <li><a href="#startclient">cipa-start-client</a> - the sending component of the Access Point (because of SMP client usage)</li>
+        </ol>
+      </li>
+      <li><a href="#oxalis">Changes for Oxalis</a></li>
+    </ol>
+  </div>
+</div>
 
 <div class="alert alert-info">
   Note: inside this document the term <em>SML</em> represents the production SML and the term
@@ -46,6 +55,7 @@
   used in production.
 </div>
 
+<a name="newnames"></a>
 <h2>Changed domain names</h2>
 
 <p>The following table shows all changed domain names at a glance.</p>
@@ -72,6 +82,7 @@
   </tbody>
 </table>
 
+<a name="cipa"></a>
 <h2>Changes for CIPA e-Delivery</h2>
 
 <p>
@@ -186,3 +197,15 @@
       and exactly that call must be adopted as stated for 
       <a href="#smpclient">cipa-smp-client-library</a>.</li>
 </ul>
+
+<a name="oxalis"></a>
+<h2>Changes for Oxalis</h2>
+<p>
+  Open <code>oxalis-global.properties</code> and add the following line:
+</p>
+<p>
+  <pre>oxalis.sml.hostname=edelivery.tech.ec.europa.eu</pre>
+</p>
+<p>
+  Afterwards Oxalis must be restarted.
+</p>

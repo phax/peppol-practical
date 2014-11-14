@@ -509,8 +509,7 @@ if (aMetadata == null)
 else
 {
   // Evaluate metadata
-}
-  </pre>
+}</pre>
 </p>
  
 <a name="smpclientconsole"></a>
@@ -538,11 +537,11 @@ else
       <td>-c COMMAND</td>
       <td>The command to execute. Must be one of the following (case insensitive):
         <ul>
-          <li>addgroup: create a new service group</li>
-          <li>delgroup: delete a service group</li>
-          <li>add: create a new service registration</li>
-          <li>del: delete a service registration</li>
-          <li>list: list all registrations for the given user name</li>
+          <li><code>addgroup</code> - create a new service group</li>
+          <li><code>delgroup</code> - delete a service group</li>
+          <li><code>add</code> - create a new service registration</li>
+          <li><code>del</code> - delete a service registration</li>
+          <li><code>list</code> - list all registrations for the given user name</li>
         </ul>
       </td>
     </tr>
