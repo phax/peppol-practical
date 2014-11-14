@@ -26,8 +26,8 @@
   There are three known possibilities (I'm aware of) on how to build an AS2 AccessPoint.
   The first one is using the <em>cipa-dispatcher</em> project which is part of the
   <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
-  project maintained by the European Commission. It is a Mendelsson frontend and therefore
-  requires Mendelsson to be setup besides CIPA.
+  project maintained by the European Commission. It is a Mendelson frontend and therefore
+  requires Mendelson to be setup besides CIPA.
   The second possibility is to use <a href="https://github.com/difi/oxalis">Oxalis</a> as the
   software of choice. And the third solution - the one described in this document - is the
   usage of my <a href="https://github.com/phax/as2-lib">as2-lib</a> as the AS2 communication
@@ -190,15 +190,25 @@
 
 <a name="as2receiver"></a>
 <h2>AS2 AccessPoint receiver</h2>
-<p>TODO</p>
+<p>
+  An example project that shows how to receive PEPPOL documents via AS2 can be found 
+  in the <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong> project.
+  It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
+  <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
+  <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> to receive messages from arbitrary
+  PEPPOL AS2 receivers. It requires no external AS2 handler and no mandatory database setup. 
+  <em>as2-peppol-server</em> is a Java 1.6+ project and licensed under Apache 2.0 license.
+</p>
+
+<p>More description to follow</p>
 
 <a name="as2sender"></a>
 <h2>AS2 AccessPoint sender</h2>
 <p>
-  An example project that shows how to send PEPPOL documents via AS2 can be send can be found 
-  in the <a href="https://github.com/phax/as2-peppol-client">as2-peppol-client</a> project.
+  An example project that shows how to send PEPPOL documents via AS2 can be found 
+  in the <strong><a href="https://github.com/phax/as2-peppol-client">as2-peppol-client</a></strong> project.
   It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
-  <a href="https://github.com/phax/ph-unl">ph-ubl</a> and
+  <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
   <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> to send messages to arbitrary
   PEPPOL AS2 receivers.
   <em>as2-peppol-client</em> is a Java 1.6+ project and licensed under Apache 2.0 license.

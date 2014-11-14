@@ -20,6 +20,18 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2014-11-13 - <em>as2-peppol-server</em> released</h3>
+
+<p>
+  Based on my previous projects <a href="https://github.com/phax/as2-lib">as2-lib</a>, 
+  <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a> and
+  <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
+  <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> I created a minimal
+  PEPPOL AS2 server for receiving PEPPOL AS2 messages. The project 
+  <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong>
+  is located on GitHub and available as OSS under the Apache 2.0 license.
+</p>
+
 <h3>2014-11-05 - CIPA 2.2.3 released</h3>
 
 <p>
