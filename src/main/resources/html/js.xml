@@ -19,7 +19,7 @@
 -->
 <items>
   <js path="/stream/jquery/jquery-1.11.1.js" />
-  <js path="/stream/bootstrap/3.3.0/js/bootstrap.js" />
+  <js path="/stream/bootstrap/3.3.1/js/bootstrap.js" />
   <js path="/stream/bootstrap/bootstrap3-ph.js" />
   <js path="/stream/js/jquery-utils.js" />
   <js path="/stream/js/form.js" />

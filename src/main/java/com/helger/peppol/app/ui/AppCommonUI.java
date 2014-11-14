@@ -87,7 +87,8 @@ public final class AppCommonUI
            .setServerParams (ContainerHelper.newMap (AjaxExecutorDataTables.OBJECT_ID, aTable.getID ()))
            .setServerFilterType (EDataTablesFilterType.ALL_TERMS_PER_ROW)
            .setTextLoadingURL (CActionPublic.DATATABLES_I18N.getInvocationURL (aRequestScope),
-                               ActionExecutorDataTablesI18N.LANGUAGE_ID);
+                               ActionExecutorDataTablesI18N.LANGUAGE_ID)
+           .setUseSearchHighlight (true);
         return ret;
       }
     });
