@@ -26,6 +26,7 @@ import com.helger.appbasics.app.menu.ApplicationMenuTree;
 import com.helger.appbasics.app.menu.IMenuItemPage;
 import com.helger.appbasics.app.menu.IMenuObject;
 import com.helger.appbasics.app.menu.IMenuTree;
+import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.commons.annotations.Nonempty;
@@ -85,10 +86,13 @@ public final class PageSecureAdminAddons extends AbstractWebPage <WebPageExecuti
         }
       });
       final String sMsg = aCounterUpdated.intValue () +
-                          " pages were reloaded. On " +
-                          aCounterNoNeed.intValue () +
-                          " pages no action was necessary because they are set to reload every time.";
+                          " pages were reloaded." +
+                          (aCounterNoNeed.isGreater0 () ? " On " +
+                                                          aCounterNoNeed.intValue () +
+                                                          " pages no action was necessary because they are set to reload every time."
+                                                       : "");
       s_aLogger.info (sMsg);
+      AuditUtils.onAuditExecuteSuccess ("page-reload", aCounterUpdated.getAsInteger (), aCounterNoNeed.getAsInteger ());
       return new BootstrapSuccessBox ().addChild (sMsg);
     }
 
