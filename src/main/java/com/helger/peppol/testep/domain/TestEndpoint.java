@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.testep.domain;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -26,13 +28,12 @@ import com.helger.appbasics.datetime.IHasCreationInfo;
 import com.helger.appbasics.security.login.LoggedInUserManager;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.idfactory.GlobalIDFactory;
 import com.helger.commons.type.ObjectType;
 import com.helger.datetime.PDTFactory;
-
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 /**
  * Represents a single test endpoint.
@@ -49,7 +50,7 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
   private final String m_sCreationUserID;
   private final String m_sCompanyName;
   private final String m_sParticipantIDValue;
-  private final ESMPTransportProfile m_eTransportProfile;
+  private final List <TestEndpointData> m_aDatas;
   private final String m_sContactPerson;
 
   /**
@@ -59,14 +60,14 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
    *        User provided company name.
    * @param sParticipantIDValue
    *        User provided participant ID value.
-   * @param eTransportProfile
-   *        Transport profile.
+   * @param aDatas
+   *        Endpoint data.
    * @param sContactPerson
    *        Optional contact person.
    */
   public TestEndpoint (@Nonnull @Nonempty final String sCompanyName,
                        @Nonnull @Nonempty final String sParticipantIDValue,
-                       @Nonnull final ESMPTransportProfile eTransportProfile,
+                       @Nonnull final List <TestEndpointData> aDatas,
                        @Nullable final String sContactPerson)
   {
     this (GlobalIDFactory.getNewPersistentStringID (),
@@ -74,7 +75,7 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
           LoggedInUserManager.getInstance ().getCurrentUserID (),
           sCompanyName,
           sParticipantIDValue,
-          eTransportProfile,
+          aDatas,
           sContactPerson);
   }
 
@@ -91,8 +92,8 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
    *        User provided company name.
    * @param sParticipantIDValue
    *        User provided participant ID value.
-   * @param eTransportProfile
-   *        Transport profile.
+   * @param aDatas
+   *        Endpoint data.
    * @param sContactPerson
    *        Optional contact person.
    */
@@ -101,7 +102,7 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
                 @Nonnull @Nonempty final String sCreationUserID,
                 @Nonnull @Nonempty final String sCompanyName,
                 @Nonnull @Nonempty final String sParticipantIDValue,
-                @Nonnull final ESMPTransportProfile eTransportProfile,
+                @Nonnull final List <TestEndpointData> aDatas,
                 @Nullable final String sContactPerson)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
@@ -109,7 +110,7 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
     m_sCreationUserID = ValueEnforcer.notEmpty (sCreationUserID, "CreationUserID");
     m_sCompanyName = ValueEnforcer.notEmpty (sCompanyName, "CompanyName");
     m_sParticipantIDValue = ValueEnforcer.notEmpty (sParticipantIDValue, "ParticipantIDValue");
-    m_eTransportProfile = ValueEnforcer.notNull (eTransportProfile, "TransportProfile");
+    m_aDatas = ValueEnforcer.notNull (aDatas, "Data");
     m_sContactPerson = sContactPerson;
   }
 
@@ -148,9 +149,9 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
   }
 
   @Nonnull
-  public ESMPTransportProfile getTransportProfile ()
+  public List <TestEndpointData> getAllData ()
   {
-    return m_eTransportProfile;
+    return ContainerHelper.newList (m_aDatas);
   }
 
   @Nullable
@@ -159,10 +160,9 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
     return m_sContactPerson;
   }
 
-  public boolean hasSameIdentifier (@Nullable final String sParticipantIDValue,
-                                    @Nullable final ESMPTransportProfile eTransportProfile)
+  public boolean hasSameIdentifier (@Nullable final String sParticipantIDValue, @Nullable final TestEndpointData aData)
   {
-    return m_sParticipantIDValue.equals (sParticipantIDValue) && m_eTransportProfile == eTransportProfile;
+    return m_sParticipantIDValue.equals (sParticipantIDValue) && m_aDatas.contains (aData);
   }
 
   @Override
