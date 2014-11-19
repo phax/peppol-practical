@@ -20,21 +20,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import org.joda.time.DateTime;
-
-import com.helger.appbasics.datetime.IHasCreationInfo;
-import com.helger.appbasics.security.login.LoggedInUserManager;
+import com.helger.appbasics.object.AbstractBaseObject;
+import com.helger.appbasics.object.StubObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.idfactory.GlobalIDFactory;
+import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.name.IHasDisplayName;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
-import com.helger.datetime.PDTFactory;
 
-import eu.europa.ec.cipa.peppol.identifier.participant.IPeppolReadonlyParticipantIdentifier;
-import eu.europa.ec.cipa.peppol.identifier.participant.SimpleParticipantIdentifier;
 import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 /**
@@ -43,20 +38,15 @@ import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
  * @author Philip Helger
  */
 @Immutable
-public class TestEndpoint implements IHasID <String>, IHasCreationInfo
+public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
 {
   public static final ObjectType TYPE_TEST_ENDPOINT = new ObjectType ("test-endpoint");
 
-  private final String m_sID;
-  private final DateTime m_aCreationDT;
-  private final String m_sCreationUserID;
-  private final String m_sCompanyName;
-  private final String m_sContactPerson;
-  private final String m_sParticipantIDScheme;
-  private final String m_sParticipantIDValue;
-  private final ESMPTransportProfile m_eTransportProfile;
-  // status
-  private final SimpleParticipantIdentifier m_aParticipantID;
+  private String m_sCompanyName;
+  private String m_sContactPerson;
+  private String m_sParticipantIDScheme;
+  private String m_sParticipantIDValue;
+  private ESMPTransportProfile m_eTransportProfile;
 
   /**
    * Constructor.
@@ -78,9 +68,7 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
                        @Nonnull @Nonempty final String sParticipantIDValue,
                        @Nonnull final ESMPTransportProfile eTransportProfile)
   {
-    this (GlobalIDFactory.getNewPersistentStringID (),
-          PDTFactory.getCurrentDateTime (),
-          LoggedInUserManager.getInstance ().getCurrentUserID (),
+    this (StubObject.createForCurrentUser (),
           sCompanyName,
           sContactPerson,
           sParticipantIDScheme,
@@ -91,12 +79,8 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
   /**
    * Constructor.
    *
-   * @param sID
-   *        Object ID
-   * @param aCreationDT
-   *        The creation date time.
-   * @param sCreationUserID
-   *        The user ID who created this test endpoint.
+   * @param aObject
+   *        Object with default info
    * @param sCompanyName
    *        User provided company name.
    * @param sContactPerson
@@ -108,46 +92,25 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
    * @param eTransportProfile
    *        Transport profile.
    */
-  TestEndpoint (@Nonnull @Nonempty final String sID,
-                @Nonnull final DateTime aCreationDT,
-                @Nonnull @Nonempty final String sCreationUserID,
+  TestEndpoint (@Nonnull final StubObject aObject,
                 @Nonnull @Nonempty final String sCompanyName,
                 @Nullable final String sContactPerson,
                 @Nonnull @Nonempty final String sParticipantIDScheme,
                 @Nonnull @Nonempty final String sParticipantIDValue,
                 @Nonnull final ESMPTransportProfile eTransportProfile)
   {
-    m_sID = ValueEnforcer.notEmpty (sID, "ID");
-    m_aCreationDT = ValueEnforcer.notNull (aCreationDT, "CreationDT");
-    m_sCreationUserID = ValueEnforcer.notEmpty (sCreationUserID, "CreationUserID");
-    m_sCompanyName = ValueEnforcer.notEmpty (sCompanyName, "CompanyName");
-    m_sContactPerson = sContactPerson;
-    m_sParticipantIDScheme = ValueEnforcer.notEmpty (sParticipantIDScheme, "ParticipantIDScheme");
-    m_sParticipantIDValue = ValueEnforcer.notEmpty (sParticipantIDValue, "ParticipantIDValue");
-    m_eTransportProfile = ValueEnforcer.notNull (eTransportProfile, "TransportProfile");
-    m_aParticipantID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantIDScheme +
-                                                                            ":" +
-                                                                            sParticipantIDValue);
+    super (aObject);
+    setCompanyName (sCompanyName);
+    setContactPerson (sContactPerson);
+    setParticipantIDScheme (sParticipantIDScheme);
+    setParticipantIDValue (sParticipantIDValue);
+    setTransportProfile (eTransportProfile);
   }
 
   @Nonnull
-  @Nonempty
-  public String getID ()
+  public ObjectType getTypeID ()
   {
-    return m_sID;
-  }
-
-  @Nonnull
-  public DateTime getCreationDateTime ()
-  {
-    return m_aCreationDT;
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getCreationUserID ()
-  {
-    return m_sCreationUserID;
+    return TYPE_TEST_ENDPOINT;
   }
 
   @Nonnull
@@ -157,10 +120,31 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
     return m_sCompanyName;
   }
 
+  @Nonnull
+  public EChange setCompanyName (@Nonnull @Nonempty final String sCompanyName)
+  {
+    ValueEnforcer.notEmpty (sCompanyName, "CompanyName");
+    if (sCompanyName.equals (m_sCompanyName))
+      return EChange.UNCHANGED;
+
+    m_sCompanyName = sCompanyName;
+    return EChange.CHANGED;
+  }
+
   @Nullable
   public String getContactPerson ()
   {
     return m_sContactPerson;
+  }
+
+  @Nonnull
+  public EChange setContactPerson (@Nullable final String sContactPerson)
+  {
+    if (EqualsUtils.equals (sContactPerson, m_sContactPerson))
+      return EChange.UNCHANGED;
+
+    m_sContactPerson = sContactPerson;
+    return EChange.CHANGED;
   }
 
   /**
@@ -173,6 +157,17 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
     return m_sParticipantIDScheme;
   }
 
+  @Nonnull
+  public EChange setParticipantIDScheme (@Nonnull @Nonempty final String sParticipantIDScheme)
+  {
+    ValueEnforcer.notEmpty (sParticipantIDScheme, "ParticipantIDScheme");
+    if (sParticipantIDScheme.equals (m_sParticipantIDScheme))
+      return EChange.UNCHANGED;
+
+    m_sParticipantIDScheme = sParticipantIDScheme;
+    return EChange.CHANGED;
+  }
+
   /**
    * @return The test endpoint participant ID value (e.g. 9915)
    */
@@ -183,19 +178,32 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
     return m_sParticipantIDValue;
   }
 
-  /**
-   * @return The complete participant identifier. Never <code>null</code>.
-   */
   @Nonnull
-  public IPeppolReadonlyParticipantIdentifier getParticipantIdentifier ()
+  public EChange setParticipantIDValue (@Nonnull @Nonempty final String sParticipantIDValue)
   {
-    return m_aParticipantID;
+    ValueEnforcer.notEmpty (sParticipantIDValue, "ParticipantIDValue");
+    if (sParticipantIDValue.equals (m_sParticipantIDValue))
+      return EChange.UNCHANGED;
+
+    m_sParticipantIDValue = sParticipantIDValue;
+    return EChange.CHANGED;
   }
 
   @Nonnull
   public ESMPTransportProfile getTransportProfile ()
   {
     return m_eTransportProfile;
+  }
+
+  @Nonnull
+  public EChange setTransportProfile (@Nonnull final ESMPTransportProfile eTransportProfile)
+  {
+    ValueEnforcer.notNull (eTransportProfile, "ParticipantIDValue");
+    if (eTransportProfile.equals (m_eTransportProfile))
+      return EChange.UNCHANGED;
+
+    m_eTransportProfile = eTransportProfile;
+    return EChange.CHANGED;
   }
 
   public boolean hasSameIdentifier (@Nullable final String sParticipantIDScheme,
@@ -209,34 +217,22 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
            m_eTransportProfile.equals (eTransportProfile);
   }
 
-  @Override
-  public boolean equals (final Object o)
+  @Nonnull
+  @Nonempty
+  public String getDisplayName ()
   {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    final TestEndpoint rhs = (TestEndpoint) o;
-    return m_sID.equals (rhs.m_sID);
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).append (m_sID).getHashCode ();
+    return m_sParticipantIDScheme + ":" + m_sParticipantIDValue;
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("ID", m_sID)
-                                       .append ("CreationDT", m_aCreationDT)
-                                       .append ("CreationUserID", m_sCreationUserID)
-                                       .append ("CompanyName", m_sCompanyName)
-                                       .append ("ContactPerson", m_sContactPerson)
-                                       .append ("ParticipantIDScheme", m_sParticipantIDScheme)
-                                       .append ("ParticipantIDValue", m_sParticipantIDValue)
-                                       .append ("TransportProfile", m_eTransportProfile)
-                                       .toString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("CompanyName", m_sCompanyName)
+                            .appendIfNotNull ("ContactPerson", m_sContactPerson)
+                            .append ("ParticipantIDScheme", m_sParticipantIDScheme)
+                            .append ("ParticipantIDValue", m_sParticipantIDValue)
+                            .append ("TransportProfile", m_eTransportProfile)
+                            .toString ();
   }
 }

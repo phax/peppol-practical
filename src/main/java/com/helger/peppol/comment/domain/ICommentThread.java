@@ -84,6 +84,19 @@ public interface ICommentThread extends ITypedObject <String>
   Collection <IComment> getAllComments ();
 
   /**
+   * @return The total active (not deleted) comment count. Always &ge; 0.
+   */
+  @Nonnegative
+  int getTotalActiveCommentCount ();
+
+  /**
+   * @return A list of all active (not deleted) comments in this thread
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  Collection <IComment> getAllActiveComments ();
+
+  /**
    * Get the comment with the passed ID within this thread
    *
    * @param sCommentID

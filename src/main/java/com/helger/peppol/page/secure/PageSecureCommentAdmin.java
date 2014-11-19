@@ -69,6 +69,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
     HEADER_OBJECT_ID ("Objekt-ID", "Object ID"),
     HEADER_THREADS ("Themen", "Threads"),
     HEADER_COMMENTS ("Einträge", "Comments"),
+    HEADER_ACTIVE_COMMENTS ("Aktive Einträge", "Active comments"),
     HEADER_LAST_CHANGE ("Letzte Änderung", "Last change");
 
     private final TextProvider m_aTP;
@@ -143,11 +144,12 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
       {
         final HCNodeList aTab = new HCNodeList ();
 
-        final HCTable aTable = new HCTable (HCCol.star (), HCCol.star (), HCCol.star (), HCCol.star ()).setID (getID () +
-                                                                                                               aOT.getObjectTypeName ());
+        final HCTable aTable = new HCTable (HCCol.star (), HCCol.star (), HCCol.star (), HCCol.star (), HCCol.star ()).setID (getID () +
+                                                                                                                              aOT.getObjectTypeName ());
         aTable.addHeaderRow ().addCells (EText.HEADER_OBJECT_ID.getDisplayText (aDisplayLocale),
                                          EText.HEADER_THREADS.getDisplayText (aDisplayLocale),
                                          EText.HEADER_COMMENTS.getDisplayText (aDisplayLocale),
+                                         EText.HEADER_ACTIVE_COMMENTS.getDisplayText (aDisplayLocale),
                                          EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale));
         final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
         for (final Map.Entry <String, List <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
@@ -159,12 +161,17 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
           aRow.addCell (new HCA (aViewURL).addChild (sOwningObjectID));
           aRow.addCell (Integer.toString (aEntry.getValue ().size ()));
 
+          int nActiveComments = 0;
           final List <IComment> aAllComments = new ArrayList <IComment> ();
           for (final ICommentThread aCommentThread : aEntry.getValue ())
+          {
             aAllComments.addAll (aCommentThread.getAllComments ());
+            nActiveComments += aCommentThread.getTotalActiveCommentCount ();
+          }
           Collections.sort (aAllComments, new ComparatorCommentLastChange (ESortOrder.DESCENDING));
 
           aRow.addCell (Integer.toString (aAllComments.size ()));
+          aRow.addCell (Integer.toString (nActiveComments));
 
           if (aAllComments.isEmpty ())
             aRow.addCell ();
@@ -174,10 +181,19 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
         aTab.addChild (aTable);
 
         final DataTables aDataTables = getStyler ().createDefaultDataTables (aWPEC, aTable);
-        aDataTables.getOrCreateColumnOfTarget (1).setComparator (new ComparatorDTInteger (aDisplayLocale));
-        aDataTables.getOrCreateColumnOfTarget (2).setComparator (new ComparatorDTInteger (aDisplayLocale));
-        aDataTables.getOrCreateColumnOfTarget (3).setComparator (new ComparatorDTDateTime (aDisplayLocale));
-        aDataTables.setInitialSorting (3, ESortOrder.DESCENDING);
+        aDataTables.getOrCreateColumnOfTarget (1)
+                   .addClass (CSS_CLASS_RIGHT)
+                   .setComparator (new ComparatorDTInteger (aDisplayLocale));
+        aDataTables.getOrCreateColumnOfTarget (2)
+                   .addClass (CSS_CLASS_RIGHT)
+                   .setComparator (new ComparatorDTInteger (aDisplayLocale));
+        aDataTables.getOrCreateColumnOfTarget (3)
+                   .addClass (CSS_CLASS_RIGHT)
+                   .setComparator (new ComparatorDTInteger (aDisplayLocale));
+        aDataTables.getOrCreateColumnOfTarget (4)
+                   .addClass (CSS_CLASS_RIGHT)
+                   .setComparator (new ComparatorDTDateTime (aDisplayLocale));
+        aDataTables.setInitialSorting (4, ESortOrder.DESCENDING);
         aTab.addChild (aDataTables);
 
         aTabBox.addTab (aOT.getObjectTypeName (), aTab, aOT.getObjectTypeName ().equals (sSelectedObjectType));

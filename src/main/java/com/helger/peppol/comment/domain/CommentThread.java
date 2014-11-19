@@ -16,7 +16,9 @@
  */
 package com.helger.peppol.comment.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -129,6 +131,30 @@ public final class CommentThread implements ICommentThread
   public Collection <IComment> getAllComments ()
   {
     return m_aTree.getAllItemDatas ();
+  }
+
+  @Nonnegative
+  public int getTotalActiveCommentCount ()
+  {
+    int ret = 0;
+    for (final IComment aComment : m_aTree.getAllItemDatas ())
+      if (!aComment.isDeleted ())
+        ++ret;
+    return ret;
+  }
+
+  /**
+   * @return A list of all active (not deleted) comments in this thread
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public Collection <IComment> getAllActiveComments ()
+  {
+    final List <IComment> ret = new ArrayList <IComment> ();
+    for (final IComment aComment : m_aTree.getAllItemDatas ())
+      if (!aComment.isDeleted ())
+        ret.add (aComment);
+    return ret;
   }
 
   @Nullable

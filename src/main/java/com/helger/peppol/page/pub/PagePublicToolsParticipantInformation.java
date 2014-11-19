@@ -81,7 +81,7 @@ import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
 
 public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
 {
-  public static final String FIELD_ID_SCHEME = "idscheme";
+  public static final String FIELD_ID_ISO6523 = "idscheme";
   public static final String FIELD_ID_VALUE = "idvalue";
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
@@ -94,7 +94,7 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
   {
     if (StringHelper.hasText (sSchemeID))
       for (final EPredefinedIdentifierIssuingAgency eAgency : EPredefinedIdentifierIssuingAgency.values ())
-        if (eAgency.getSchemeID ().equals (sSchemeID))
+        if (eAgency.getSchemeID ().equals (sSchemeID) || eAgency.getISO6523Code ().equals (sSchemeID))
           return eAgency;
     return null;
   }
@@ -110,22 +110,22 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
     if (aWPEC.hasAction (ACTION_PERFORM))
     {
       // Validate fields
-      final String sIDType = aWPEC.getAttributeAsString (FIELD_ID_SCHEME);
-      final EPredefinedIdentifierIssuingAgency eAgency = _getIIA (sIDType);
-      final String sIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
+      final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_ID_ISO6523);
+      final EPredefinedIdentifierIssuingAgency eAgency = _getIIA (sParticipantIDISO6523);
+      final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
 
-      if (StringHelper.hasNoText (sIDType))
-        aFormErrors.addFieldError (FIELD_ID_SCHEME, "Please select an identifier scheme");
+      if (StringHelper.hasNoText (sParticipantIDISO6523))
+        aFormErrors.addFieldError (FIELD_ID_ISO6523, "Please select an identifier scheme");
       else
         if (eAgency == null)
-          aFormErrors.addFieldError (FIELD_ID_SCHEME, "Please select a valid identifier type");
+          aFormErrors.addFieldError (FIELD_ID_ISO6523, "Please select a valid identifier scheme");
 
-      if (StringHelper.hasNoText (sIDValue))
+      if (StringHelper.hasNoText (sParticipantIDValue))
         aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
 
       if (!aFormErrors.hasErrorsOrWarnings ())
       {
-        final SimpleParticipantIdentifier aParticipantID = eAgency.createParticipantIdentifier (sIDValue);
+        final SimpleParticipantIdentifier aParticipantID = eAgency.createParticipantIdentifier (sParticipantIDValue);
         final SMPServiceCallerReadonly aSMPClient = new SMPServiceCallerReadonly (aParticipantID, ESML.PRODUCTION);
         try
         {
@@ -342,9 +342,9 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       aForm.addChild (new HCDiv ().addChild ("Show all processes, document types and endpoints of a participant."));
       aForm.addChild (new HCDiv ().addChild ("You may want to try 9915:test as an example."));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
-                                                   .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_SCHEME),
+                                                   .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523),
                                                                                                 aDisplayLocale))
-                                                   .setErrorList (aFormErrors.getListOfField (FIELD_ID_SCHEME)));
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_ID_ISO6523)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));

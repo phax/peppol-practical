@@ -109,9 +109,55 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                      aTestEndpoint.getID (),
                                      sCompanyName,
                                      sContactPerson,
+                                     sParticipantIDScheme,
                                      sParticipantIDValue,
                                      eTransportProfile);
     return aTestEndpoint;
+  }
+
+  @Nonnull
+  public EChange updateTestEndpoint (@Nullable final String sTestEndpointID,
+                                     @Nonnull @Nonempty final String sCompanyName,
+                                     @Nullable final String sContactPerson,
+                                     @Nonnull @Nonempty final String sParticipantIDScheme,
+                                     @Nonnull @Nonempty final String sParticipantIDValue,
+                                     @Nonnull final ESMPTransportProfile eTransportProfile)
+  {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      final TestEndpoint aTestEndpoint = m_aMap.get (sTestEndpointID);
+      if (aTestEndpoint == null)
+      {
+        AuditUtils.onAuditModifyFailure (TestEndpoint.TYPE_TEST_ENDPOINT, sTestEndpointID, "no-such-id");
+        return EChange.UNCHANGED;
+      }
+
+      EChange eChange = EChange.UNCHANGED;
+      // client ID cannot be changed!
+      eChange = eChange.or (aTestEndpoint.setCompanyName (sCompanyName));
+      eChange = eChange.or (aTestEndpoint.setContactPerson (sContactPerson));
+      eChange = eChange.or (aTestEndpoint.setParticipantIDScheme (sParticipantIDScheme));
+      eChange = eChange.or (aTestEndpoint.setParticipantIDValue (sParticipantIDValue));
+      eChange = eChange.or (aTestEndpoint.setTransportProfile (eTransportProfile));
+      if (eChange.isUnchanged ())
+        return EChange.UNCHANGED;
+
+      aTestEndpoint.setLastModificationNow ();
+      markAsChanged ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+    AuditUtils.onAuditModifySuccess (TestEndpoint.TYPE_TEST_ENDPOINT,
+                                     sTestEndpointID,
+                                     sCompanyName,
+                                     sContactPerson,
+                                     sParticipantIDScheme,
+                                     sParticipantIDValue,
+                                     eTransportProfile);
+    return EChange.CHANGED;
   }
 
   @Nonnull

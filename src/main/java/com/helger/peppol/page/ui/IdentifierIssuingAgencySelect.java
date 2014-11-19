@@ -33,6 +33,6 @@ public class IdentifierIssuingAgencySelect extends HCExtSelect
     addOptionPleaseSelect (aDisplayLocale);
     for (final EPredefinedIdentifierIssuingAgency eIIA : EPredefinedIdentifierIssuingAgency.values ())
       if (!eIIA.isDeprecated ())
-        addOption (eIIA.getSchemeID (), eIIA.getISO6523Code () + " - " + eIIA.getSchemeID ());
+        addOption (eIIA.getISO6523Code (), eIIA.getISO6523Code () + " - " + eIIA.getSchemeID ());
   }
 }

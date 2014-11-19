@@ -19,6 +19,7 @@ package com.helger.peppol.page.ui;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.custom.HCExtSelect;
@@ -27,13 +28,25 @@ import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 public class SMPTransportProfileSelect extends HCExtSelect
 {
+  @Nullable
+  public static String getShortName (@Nonnull final ESMPTransportProfile eTransportProfile)
+  {
+    if (eTransportProfile != null)
+      switch (eTransportProfile)
+      {
+        case TRANSPORT_PROFILE_AS2:
+          return "AS2";
+        case TRANSPORT_PROFILE_START:
+          return "START";
+      }
+    return null;
+  }
+
   public SMPTransportProfileSelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
     addOptionPleaseSelect (aDisplayLocale);
-    addOption (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID (),
-               "AS2 (" + ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID () + ")");
-    addOption (ESMPTransportProfile.TRANSPORT_PROFILE_START.getID (),
-               "START (" + ESMPTransportProfile.TRANSPORT_PROFILE_START.getID () + ")");
+    for (final ESMPTransportProfile e : ESMPTransportProfile.values ())
+      addOption (e.getID (), getShortName (e) + " (" + e.getID () + ")");
   }
 }
