@@ -21,6 +21,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.appbasics.app.menu.IMenuItemPage;
 import com.helger.appbasics.app.menu.IMenuTree;
+import com.helger.appbasics.app.menu.filter.MenuItemFilterLoggedIn;
 import com.helger.appbasics.app.menu.filter.MenuItemFilterNotLoggedIn;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.peppol.page.AppPageViewExternal;
@@ -33,6 +34,7 @@ import com.helger.peppol.page.pub.PagePublicToolsSMPSML;
 import com.helger.peppol.page.pub.PagePublicToolsTestEndpoints;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
+import com.helger.webctrls.page.security.BasePageChangePassword;
 
 @Immutable
 public final class MenuPublic
@@ -99,13 +101,20 @@ public final class MenuPublic
                .setAttribute (CMenuPublic.FLAG_FOOTER_COL1, true);
     }
 
+    aMenuTree.createRootSeparator ();
+
     // Register/Login stuff
     {
-      aMenuTree.createRootSeparator ().setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
       aMenuTree.createRootItem (new PagePublicLogin (CMenuPublic.MENU_LOGIN))
                .setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
       aMenuTree.createRootItem (new PagePublicSignUp (CMenuPublic.MENU_SIGN_UP))
                .setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
+    }
+
+    // Logged in user stuff
+    {
+      aMenuTree.createRootItem (new BasePageChangePassword <WebPageExecutionContext> (CMenuPublic.MENU_CHANGE_PASSWORD))
+               .setDisplayFilter (MenuItemFilterLoggedIn.getInstance ());
     }
 
     // Set default

@@ -24,6 +24,8 @@ import javax.annotation.Nullable;
 import com.helger.appbasics.security.login.LoggedInUserManager;
 import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.bootstrap3.form.BootstrapForm;
+import com.helger.bootstrap3.form.BootstrapFormGroup;
 import com.helger.bootstrap3.label.BootstrapLabel;
 import com.helger.bootstrap3.label.EBootstrapLabelType;
 import com.helger.bootstrap3.table.BootstrapTable;
@@ -38,6 +40,7 @@ import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCol;
+import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.menu.CMenuPublic;
@@ -47,14 +50,18 @@ import com.helger.peppol.testep.domain.TestEndpoint;
 import com.helger.peppol.testep.domain.TestEndpointManager;
 import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
+import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.custom.toolbar.IButtonToolbar;
 import com.helger.webctrls.datatables.DataTables;
 
 public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpoint>
 {
-  private static final String FIELD_IDTYPE = "idtype";
-  private static final String FIELD_IDVALUE = "idvalue";
+  private static final String FIELD_COMPANY_NAME = "companyname";
+  private static final String FIELD_CONTACT_PERSON = "contactperson";
+  private static final String FIELD_PARTICIPANT_ID_SCHEME = "participantidscheme";
+  private static final String FIELD_PARTICIPANT_ID_VALUE = "participantidvalue";
+  private static final String FIELD_TRANSPORT_PROFILE = "transportprofile";
 
   public PagePublicToolsTestEndpoints (@Nonnull @Nonempty final String sID)
   {
@@ -67,8 +74,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
   {
     return aWPEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO)
                 .add (CHCParam.PARAM_ACTION, ACTION_PERFORM)
-                .add (PagePublicToolsParticipantInformation.FIELD_IDSCHEME, aTestEndpoint.getParticipantIDScheme ())
-                .add (PagePublicToolsParticipantInformation.FIELD_IDVALUE, aTestEndpoint.getParticipantIDValue ());
+                .add (PagePublicToolsParticipantInformation.FIELD_ID_SCHEME, aTestEndpoint.getParticipantIDScheme ())
+                .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantIDValue ());
   }
 
   @Override
@@ -123,7 +130,16 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                                 final boolean bEdit,
                                 final boolean bCopy,
                                 @Nonnull final FormErrors aFormErrors)
-  {}
+  {
+    final BootstrapForm aRealForm = (BootstrapForm) aForm;
+
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelAlternative ("Company name")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
+                                                                                             aSelectedObject == null ? null
+                                                                                                                    : aSelectedObject.getCompanyName ())))
+                                                     .setHelpText ("The name of the company operating the test AccessPoint")
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_COMPANY_NAME)));
+  }
 
   @Override
   protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)

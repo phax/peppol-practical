@@ -40,6 +40,7 @@ public final class CMenuPublic
   public static final String MENU_VALIDATION_WS1 = "validation-ws1";
   public static final String MENU_LOGIN = "login";
   public static final String MENU_SIGN_UP = "signup";
+  public static final String MENU_CHANGE_PASSWORD = "changepassword";
   public static final String MENU_NEWSLETTER_SUBSCRIBE = "newsletter-subscribe";
 
   // footer

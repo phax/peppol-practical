@@ -82,8 +82,8 @@ import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
 
 public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
 {
-  public static final String FIELD_IDSCHEME = "idscheme";
-  public static final String FIELD_IDVALUE = "idvalue";
+  public static final String FIELD_ID_SCHEME = "idscheme";
+  public static final String FIELD_ID_VALUE = "idvalue";
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
@@ -111,18 +111,18 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
     if (aWPEC.hasAction (ACTION_PERFORM))
     {
       // Validate fields
-      final String sIDType = aWPEC.getAttributeAsString (FIELD_IDSCHEME);
+      final String sIDType = aWPEC.getAttributeAsString (FIELD_ID_SCHEME);
       final EPredefinedIdentifierIssuingAgency eAgency = _getIIA (sIDType);
-      final String sIDValue = aWPEC.getAttributeAsString (FIELD_IDVALUE);
+      final String sIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
 
       if (StringHelper.hasNoText (sIDType))
-        aFormErrors.addFieldError (FIELD_IDSCHEME, "Please select an identifier scheme");
+        aFormErrors.addFieldError (FIELD_ID_SCHEME, "Please select an identifier scheme");
       else
         if (eAgency == null)
-          aFormErrors.addFieldError (FIELD_IDSCHEME, "Please select a valid identifier type");
+          aFormErrors.addFieldError (FIELD_ID_SCHEME, "Please select a valid identifier type");
 
       if (StringHelper.hasNoText (sIDValue))
-        aFormErrors.addFieldError (FIELD_IDVALUE, "Please provide an identifier value");
+        aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
 
       if (!aFormErrors.hasErrorsOrWarnings ())
       {
@@ -342,12 +342,12 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       aTable.addSpanningHeaderContent ("Show all processes, document types and endpoints of a participant");
       aTable.createItemRow ()
             .setLabelMandatory ("Identifier scheme")
-            .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_IDSCHEME), aDisplayLocale))
-            .setErrorList (aFormErrors.getListOfField (FIELD_IDSCHEME));
+            .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_SCHEME), aDisplayLocale))
+            .setErrorList (aFormErrors.getListOfField (FIELD_ID_SCHEME));
       aTable.createItemRow ()
             .setLabelMandatory ("Identifier value")
-            .setCtrl (new HCEdit (new RequestField (FIELD_IDVALUE)))
-            .setErrorList (aFormErrors.getListOfField (FIELD_IDVALUE));
+            .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)))
+            .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE));
 
       aForm.addChild (new BootstrapHelpBlock ().addChild ("You may want to try 9915:test as an example."));
 
