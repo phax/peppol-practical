@@ -28,6 +28,8 @@ import com.helger.peppol.crm.CRMGroupMicroTypeConverter;
 import com.helger.peppol.crm.CRMSubscriber;
 import com.helger.peppol.crm.CRMSubscriberMicroTypeConverter;
 import com.helger.peppol.testep.domain.TestEndpoint;
+import com.helger.peppol.testep.domain.TestEndpointData;
+import com.helger.peppol.testep.domain.TestEndpointDataMicroTypeConverter;
 import com.helger.peppol.testep.domain.TestEndpointMicroTypeConverter;
 
 @IsSPIImplementation
@@ -42,6 +44,7 @@ public final class AppMicroTypeConverterRegistarSPI implements IMicroTypeConvert
     aRegistry.registerMicroElementTypeConverter (Comment.class, new CommentMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (CommentThread.class, new CommentThreadMicroTypeConverter ());
     // Test Endpoint
+    aRegistry.registerMicroElementTypeConverter (TestEndpointData.class, new TestEndpointDataMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (TestEndpoint.class, new TestEndpointMicroTypeConverter ());
   }
 }

@@ -149,7 +149,7 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
   }
 
   @Nonnull
-  public List <TestEndpointData> getAllData ()
+  public List <TestEndpointData> getAllDatas ()
   {
     return ContainerHelper.newList (m_aDatas);
   }
@@ -162,6 +162,8 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
 
   public boolean hasSameIdentifier (@Nullable final String sParticipantIDValue, @Nullable final TestEndpointData aData)
   {
+    if (sParticipantIDValue == null || aData == null)
+      return false;
     return m_sParticipantIDValue.equals (sParticipantIDValue) && m_aDatas.contains (aData);
   }
 

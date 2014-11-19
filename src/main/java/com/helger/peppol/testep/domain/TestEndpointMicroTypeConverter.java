@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.testep.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -24,9 +27,8 @@ import org.joda.time.DateTime;
 
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
+import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.impl.MicroElement;
-
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 @Immutable
 public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
@@ -36,7 +38,7 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_USER_ID = "userid";
   private static final String ATTR_COMPANY_NAME = "companyname";
   private static final String ATTR_PARTICIPANT_ID = "participantid";
-  private static final String ATTR_TRANSPORT_PROFILE = "transportprofile";
+  private static final String ELEMENT_DATA = "data";
   private static final String ATTR_CONTACT_PERSON = "contactperson";
 
   @Nonnull
@@ -44,31 +46,35 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final TestEndpoint aComment = (TestEndpoint) aObject;
+    final TestEndpoint aValue = (TestEndpoint) aObject;
 
     final IMicroElement eComment = new MicroElement (sNamespaceURI, sTagName);
-    eComment.setAttribute (ATTR_ID, aComment.getID ());
-    eComment.setAttributeWithConversion (ATTR_CREATIONDT, aComment.getCreationDateTime ());
-    eComment.setAttribute (ATTR_USER_ID, aComment.getCreationUserID ());
-    eComment.setAttribute (ATTR_COMPANY_NAME, aComment.getCompanyName ());
-    eComment.setAttribute (ATTR_PARTICIPANT_ID, aComment.getParticipantIDValue ());
-    eComment.setAttribute (ATTR_TRANSPORT_PROFILE, aComment.getTransportProfile ().getID ());
-    eComment.setAttribute (ATTR_CONTACT_PERSON, aComment.getContactPerson ());
+    eComment.setAttribute (ATTR_ID, aValue.getID ());
+    eComment.setAttributeWithConversion (ATTR_CREATIONDT, aValue.getCreationDateTime ());
+    eComment.setAttribute (ATTR_USER_ID, aValue.getCreationUserID ());
+    eComment.setAttribute (ATTR_COMPANY_NAME, aValue.getCompanyName ());
+    eComment.setAttribute (ATTR_PARTICIPANT_ID, aValue.getParticipantIDValue ());
+    for (final TestEndpointData aData : aValue.getAllDatas ())
+      eComment.appendChild (MicroTypeConverter.convertToMicroElement (aData, sNamespaceURI, ELEMENT_DATA));
+    eComment.setAttribute (ATTR_CONTACT_PERSON, aValue.getContactPerson ());
     return eComment;
   }
 
   @Nonnull
-  public TestEndpoint convertToNative (@Nonnull final IMicroElement eComment)
+  public TestEndpoint convertToNative (@Nonnull final IMicroElement eValue)
   {
-    final String sCommentID = eComment.getAttributeValue (ATTR_ID);
-    final DateTime aCreationDT = eComment.getAttributeWithConversion (ATTR_CREATIONDT, DateTime.class);
-    final String sCreationUserID = eComment.getAttributeValue (ATTR_USER_ID);
+    final String sCommentID = eValue.getAttributeValue (ATTR_ID);
+    final DateTime aCreationDT = eValue.getAttributeWithConversion (ATTR_CREATIONDT, DateTime.class);
+    final String sCreationUserID = eValue.getAttributeValue (ATTR_USER_ID);
 
-    final String sCompanyName = eComment.getAttributeValue (ATTR_COMPANY_NAME);
-    final String sParticipantIDValue = eComment.getAttributeValue (ATTR_PARTICIPANT_ID);
-    final String sTransportProfile = eComment.getAttributeValue (ATTR_TRANSPORT_PROFILE);
-    final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-    final String sContactPerson = eComment.getAttributeValue (ATTR_CONTACT_PERSON);
+    final String sCompanyName = eValue.getAttributeValue (ATTR_COMPANY_NAME);
+    final String sParticipantIDValue = eValue.getAttributeValue (ATTR_PARTICIPANT_ID);
+
+    final List <TestEndpointData> aDatas = new ArrayList <> ();
+    for (final IMicroElement eData : eValue.getAllChildElements (ELEMENT_DATA))
+      aDatas.add (MicroTypeConverter.convertToNative (eData, TestEndpointData.class));
+
+    final String sContactPerson = eValue.getAttributeValue (ATTR_CONTACT_PERSON);
 
     // Create object
     return new TestEndpoint (sCommentID,
@@ -76,7 +82,7 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
                              sCreationUserID,
                              sCompanyName,
                              sParticipantIDValue,
-                             eTransportProfile,
+                             aDatas,
                              sContactPerson);
   }
 }

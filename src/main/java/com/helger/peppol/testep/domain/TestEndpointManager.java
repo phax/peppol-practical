@@ -18,6 +18,7 @@ package com.helger.peppol.testep.domain;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -36,8 +37,6 @@ import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.impl.MicroDocument;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
-
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 public final class TestEndpointManager extends AbstractSimpleDAO
 {
@@ -85,13 +84,10 @@ public final class TestEndpointManager extends AbstractSimpleDAO
   @Nonnull
   public TestEndpoint createTestEndpoint (@Nonnull @Nonempty final String sCompanyName,
                                           @Nonnull @Nonempty final String sParticipantIDValue,
-                                          @Nonnull final ESMPTransportProfile eTransportProfile,
+                                          @Nonnull final List <TestEndpointData> aDatas,
                                           @Nullable final String sContactPerson)
   {
-    final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName,
-                                                         sParticipantIDValue,
-                                                         eTransportProfile,
-                                                         sContactPerson);
+    final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName, sParticipantIDValue, aDatas, sContactPerson);
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -107,7 +103,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                      aTestEndpoint.getID (),
                                      sCompanyName,
                                      sParticipantIDValue,
-                                     eTransportProfile,
+                                     aDatas,
                                      sContactPerson);
     return aTestEndpoint;
   }
@@ -158,15 +154,15 @@ public final class TestEndpointManager extends AbstractSimpleDAO
   }
 
   public boolean containsTestEndpoint (@Nonnull @Nonempty final String sParticipantIDValue,
-                                       @Nonnull final ESMPTransportProfile eTransportProfile)
+                                       @Nullable final TestEndpointData aData)
   {
-    if (StringHelper.hasText (sParticipantIDValue) && eTransportProfile != null)
+    if (StringHelper.hasText (sParticipantIDValue) && aData != null)
     {
       m_aRWLock.readLock ().lock ();
       try
       {
         for (final TestEndpoint aTestEndpoint : m_aMap.values ())
-          if (aTestEndpoint.hasSameIdentifier (sParticipantIDValue, eTransportProfile))
+          if (aTestEndpoint.hasSameIdentifier (sParticipantIDValue, aData))
             return true;
       }
       finally
