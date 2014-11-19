@@ -40,11 +40,11 @@ public final class TestEndpointDataMicroTypeConverter implements IMicroTypeConve
   {
     final TestEndpointData aValue = (TestEndpointData) aObject;
 
-    final IMicroElement eComment = new MicroElement (sNamespaceURI, sTagName);
-    eComment.setAttribute (ATTR_DOCUMENT_TYPE_ID, aValue.getDocumentTypeID ());
-    eComment.setAttribute (ATTR_PROCESS_ID, aValue.getProcessID ());
-    eComment.setAttribute (ATTR_TRANSPORT_PROFILE, aValue.getTransportProfile ().getID ());
-    return eComment;
+    final IMicroElement eValue = new MicroElement (sNamespaceURI, sTagName);
+    eValue.setAttribute (ATTR_DOCUMENT_TYPE_ID, aValue.getDocumentTypeID ());
+    eValue.setAttribute (ATTR_PROCESS_ID, aValue.getProcessID ());
+    eValue.setAttribute (ATTR_TRANSPORT_PROFILE, aValue.getTransportProfile ().getID ());
+    return eValue;
   }
 
   @Nonnull

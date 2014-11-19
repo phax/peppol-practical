@@ -37,9 +37,9 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_CREATIONDT = "creationdt";
   private static final String ATTR_USER_ID = "userid";
   private static final String ATTR_COMPANY_NAME = "companyname";
+  private static final String ATTR_CONTACT_PERSON = "contactperson";
   private static final String ATTR_PARTICIPANT_ID = "participantid";
   private static final String ELEMENT_DATA = "data";
-  private static final String ATTR_CONTACT_PERSON = "contactperson";
 
   @Nonnull
   public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
@@ -48,41 +48,41 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
   {
     final TestEndpoint aValue = (TestEndpoint) aObject;
 
-    final IMicroElement eComment = new MicroElement (sNamespaceURI, sTagName);
-    eComment.setAttribute (ATTR_ID, aValue.getID ());
-    eComment.setAttributeWithConversion (ATTR_CREATIONDT, aValue.getCreationDateTime ());
-    eComment.setAttribute (ATTR_USER_ID, aValue.getCreationUserID ());
-    eComment.setAttribute (ATTR_COMPANY_NAME, aValue.getCompanyName ());
-    eComment.setAttribute (ATTR_PARTICIPANT_ID, aValue.getParticipantIDValue ());
+    final IMicroElement eValue = new MicroElement (sNamespaceURI, sTagName);
+    eValue.setAttribute (ATTR_ID, aValue.getID ());
+    eValue.setAttributeWithConversion (ATTR_CREATIONDT, aValue.getCreationDateTime ());
+    eValue.setAttribute (ATTR_USER_ID, aValue.getCreationUserID ());
+    eValue.setAttribute (ATTR_COMPANY_NAME, aValue.getCompanyName ());
+    eValue.setAttribute (ATTR_CONTACT_PERSON, aValue.getContactPerson ());
+    eValue.setAttribute (ATTR_PARTICIPANT_ID, aValue.getParticipantIDValue ());
     for (final TestEndpointData aData : aValue.getAllDatas ())
-      eComment.appendChild (MicroTypeConverter.convertToMicroElement (aData, sNamespaceURI, ELEMENT_DATA));
-    eComment.setAttribute (ATTR_CONTACT_PERSON, aValue.getContactPerson ());
-    return eComment;
+      eValue.appendChild (MicroTypeConverter.convertToMicroElement (aData, sNamespaceURI, ELEMENT_DATA));
+
+    return eValue;
   }
 
   @Nonnull
   public TestEndpoint convertToNative (@Nonnull final IMicroElement eValue)
   {
-    final String sCommentID = eValue.getAttributeValue (ATTR_ID);
+    final String sID = eValue.getAttributeValue (ATTR_ID);
     final DateTime aCreationDT = eValue.getAttributeWithConversion (ATTR_CREATIONDT, DateTime.class);
     final String sCreationUserID = eValue.getAttributeValue (ATTR_USER_ID);
 
     final String sCompanyName = eValue.getAttributeValue (ATTR_COMPANY_NAME);
+    final String sContactPerson = eValue.getAttributeValue (ATTR_CONTACT_PERSON);
     final String sParticipantIDValue = eValue.getAttributeValue (ATTR_PARTICIPANT_ID);
 
     final List <TestEndpointData> aDatas = new ArrayList <> ();
     for (final IMicroElement eData : eValue.getAllChildElements (ELEMENT_DATA))
       aDatas.add (MicroTypeConverter.convertToNative (eData, TestEndpointData.class));
 
-    final String sContactPerson = eValue.getAttributeValue (ATTR_CONTACT_PERSON);
-
     // Create object
-    return new TestEndpoint (sCommentID,
+    return new TestEndpoint (sID,
                              aCreationDT,
                              sCreationUserID,
                              sCompanyName,
+                             sContactPerson,
                              sParticipantIDValue,
-                             aDatas,
-                             sContactPerson);
+                             aDatas);
   }
 }

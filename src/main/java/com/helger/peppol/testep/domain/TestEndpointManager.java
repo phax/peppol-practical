@@ -87,7 +87,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                           @Nonnull final List <TestEndpointData> aDatas,
                                           @Nullable final String sContactPerson)
   {
-    final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName, sParticipantIDValue, aDatas, sContactPerson);
+    final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName, sContactPerson, sParticipantIDValue, aDatas);
 
     m_aRWLock.writeLock ().lock ();
     try
