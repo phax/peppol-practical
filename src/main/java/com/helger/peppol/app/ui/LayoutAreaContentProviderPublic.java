@@ -30,6 +30,7 @@ import com.helger.appbasics.app.menu.IMenuObject;
 import com.helger.appbasics.app.menu.IMenuSeparator;
 import com.helger.appbasics.app.menu.IMenuTree;
 import com.helger.appbasics.app.menu.MenuItemDeterminatorCallback;
+import com.helger.appbasics.security.AccessManager;
 import com.helger.appbasics.security.login.LoggedInUserManager;
 import com.helger.appbasics.security.user.IUser;
 import com.helger.appbasics.security.util.SecurityUtils;
@@ -86,6 +87,7 @@ import com.helger.webbasics.app.layout.ILayoutExecutionContext;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.page.IWebPage;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
+import com.helger.webbasics.servlet.AbstractSecureApplicationServlet;
 import com.helger.webbasics.servlet.LogoutServlet;
 import com.helger.webctrls.google.HCUniversalAnalytics;
 import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
@@ -142,11 +144,20 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                  .addChild ("Logged in as ")
                                  .addChild (new HCStrong ().addChild (SecurityUtils.getUserDisplayName (aUser,
                                                                                                         aDisplayLocale))));
-      final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-      aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (aRequestScope,
-                                                                                      LogoutServlet.SERVLET_DEFAULT_PATH))
-                                            .addChild (EWebBasicsText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
-      aNav.addItem (aForm);
+      if (AccessManager.getInstance ().hasUserRole (aUser.getID (), CApp.ROLE_CONFIG_ID))
+      {
+        final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
+        aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH))
+                                              .addChild ("Administration"));
+        aNav.addItem (aForm);
+      }
+      {
+        final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
+        aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (aRequestScope,
+                                                                                        LogoutServlet.SERVLET_DEFAULT_PATH))
+                                              .addChild (EWebBasicsText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
+        aNav.addItem (aForm);
+      }
       aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
     }
     else

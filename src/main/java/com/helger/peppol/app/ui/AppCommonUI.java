@@ -46,11 +46,13 @@ import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.webbasics.EWebBasicsText;
+import com.helger.webbasics.app.layout.ILayoutExecutionContext;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.page.IWebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webbasics.login.CLogin;
 import com.helger.webctrls.autonumeric.HCAutoNumeric;
+import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.datatables.DataTablesLengthMenuList;
 import com.helger.webctrls.datatables.EDataTablesFilterType;
 import com.helger.webctrls.datatables.ajax.ActionExecutorDataTablesI18N;
@@ -73,6 +75,13 @@ public final class AppCommonUI
   {
     WebPageStylerManager.getInstance ().setStyler (new BootstrapWebPageStyler ()
     {
+      @Override
+      @Nonnull
+      public BootstrapForm createForm (@Nonnull final ILayoutExecutionContext aLEC)
+      {
+        return new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aLEC.getSelfHref ());
+      }
+
       @Override
       @Nonnull
       public BootstrapDataTables createDefaultDataTables (@Nonnull final IWebPageExecutionContext aWPEC,
@@ -142,7 +151,9 @@ public final class AppCommonUI
                                                  .add (CLogin.REQUEST_ATTR_PASSWORD, JQuery.idRef (sIDPassword).val ()))
                         .arg (sIDErrorField));
     aOnClick._return (false);
-    aToolbar.addSubmitButton (EWebBasicsText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale), aOnClick);
+    aToolbar.addSubmitButton (EWebBasicsText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale),
+                              aOnClick,
+                              EDefaultIcon.YES.getIcon ());
     if (bShowRegistration)
     {
       aToolbar.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EWebBasicsText.MSG_BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))

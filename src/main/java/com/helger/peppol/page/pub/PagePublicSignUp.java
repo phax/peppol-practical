@@ -27,18 +27,19 @@ import com.helger.appbasics.security.user.IUser;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.ext.BootstrapSecurityUI;
-import com.helger.bootstrap3.table.BootstrapTableForm;
+import com.helger.bootstrap3.form.BootstrapForm;
+import com.helger.bootstrap3.form.BootstrapFormGroup;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SMap;
 import com.helger.html.hc.CHCParam;
+import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.AbstractHCForm;
-import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCEditPassword;
+import com.helger.html.hc.htmlext.HCUtils;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.ui.AppCommonUI;
@@ -67,6 +68,7 @@ public final class PagePublicSignUp extends AbstractAppWebPageExt
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final AccessManager aAccessMgr = AccessManager.getInstance ();
 
     final String sFirstName = aWPEC.getAttributeAsString (FIELD_FIRSTNAME);
     final String sLastName = aWPEC.getAttributeAsString (FIELD_LASTNAME);
@@ -93,9 +95,9 @@ public final class PagePublicSignUp extends AbstractAppWebPageExt
         }
         else
         {
-          IUser aUser = AccessManager.getInstance ().getUserOfLoginName (sEmailAddress);
+          IUser aUser = aAccessMgr.getUserOfLoginName (sEmailAddress);
           if (aUser == null)
-            aUser = AccessManager.getInstance ().getUserOfEmailAddress (sEmailAddress);
+            aUser = aAccessMgr.getUserOfEmailAddress (sEmailAddress);
           if (aUser != null)
             aFormErrors.addFieldError (FIELD_EMAIL1, "Another user with the same email address is already registered!");
         }
@@ -104,29 +106,28 @@ public final class PagePublicSignUp extends AbstractAppWebPageExt
                                                                 .getInvalidPasswordDescriptions (sPlainTextPassword,
                                                                                                  aDisplayLocale);
     for (final String sPasswordError : aPasswordErrors)
-      aFormErrors.addFieldError (FIELD_PASSWORD, sPasswordError);
-    if (!EqualsUtils.equals (sPlainTextPassword, sPlainTextPasswordConfirm))
+      aFormErrors.addFieldError (FIELD_PASSWORD, "Error: " + sPasswordError);
+    if (!aFormErrors.hasEntryForField (FIELD_PASSWORD) &&
+        !EqualsUtils.equals (sPlainTextPassword, sPlainTextPasswordConfirm))
       aFormErrors.addFieldError (FIELD_PASSWORD_CONFIRM, "The two provided passwords don't match!");
 
     if (aFormErrors.isEmpty ())
     {
       // Create new user
-      final IUser aCreatedUser = AccessManager.getInstance ().createNewUser (sEmailAddress,
-                                                                             sEmailAddress,
-                                                                             sPlainTextPassword,
-                                                                             sFirstName,
-                                                                             sLastName,
-                                                                             aDisplayLocale,
-                                                                             new SMap (),
-                                                                             false);
+      final IUser aCreatedUser = aAccessMgr.createNewUser (sEmailAddress,
+                                                           sEmailAddress,
+                                                           sPlainTextPassword,
+                                                           sFirstName,
+                                                           sLastName,
+                                                           aDisplayLocale,
+                                                           new SMap (),
+                                                           false);
       if (aCreatedUser == null)
         aNodeList.addChild (BootstrapErrorBox.create ("Error creating the new user!"));
       else
       {
         // Assign new user to user group
-        if (AccessManager.getInstance ()
-                         .assignUserToUserGroup (CApp.USERGROUP_VIEW_ID, aCreatedUser.getID ())
-                         .isUnchanged ())
+        if (aAccessMgr.assignUserToUserGroup (CApp.USERGROUP_VIEW_ID, aCreatedUser.getID ()).isUnchanged ())
           aNodeList.addChild (BootstrapErrorBox.create ("Error assigning the user to the user group!"));
         else
         {
@@ -140,41 +141,35 @@ public final class PagePublicSignUp extends AbstractAppWebPageExt
     }
   }
 
-  protected void showInputForm (final Locale aDisplayLocale,
-                                final AbstractHCForm <?> aForm,
-                                final FormErrors aFormErrors)
+  protected void showInputForm (@Nonnull final Locale aDisplayLocale,
+                                @Nonnull final AbstractHCForm <?> aForm,
+                                @Nonnull final FormErrors aFormErrors)
   {
-    final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (230),
-                                                                                       HCCol.star (),
-                                                                                       new HCCol (30)));
+    final List <IHCNode> aPasswordHelpText = HCUtils.list2divList (GlobalPasswordSettings.getPasswordConstraintList ()
+                                                                                         .getAllPasswordConstraintDescriptions (aDisplayLocale));
 
-    // User data
-    aTable.createItemRow ()
-          .setLabelMandatory ("First name")
-          .setCtrl (new HCEdit (new RequestField (FIELD_FIRSTNAME)))
-          .setErrorList (aFormErrors.getListOfField (FIELD_FIRSTNAME));
-    aTable.createItemRow ()
-          .setLabelMandatory ("Last name")
-          .setCtrl (new HCEdit (new RequestField (FIELD_LASTNAME)))
-          .setErrorList (aFormErrors.getListOfField (FIELD_LASTNAME));
-    aTable.createItemRow ()
-          .setLabelMandatory ("Email address")
-          .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL1)))
-          .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL1));
-    aTable.createItemRow ()
-          .setLabelMandatory ("Email address (confirmation)")
-          .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL2)))
-          .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL2));
-    aTable.createItemRow ()
-          .setLabelMandatory ("Password")
-          .setCtrl (new HCEditPassword (FIELD_PASSWORD))
-          .setNote (BootstrapSecurityUI.createPasswordConstraintTip (aDisplayLocale))
-          .setErrorList (aFormErrors.getListOfField (FIELD_PASSWORD));
-    aTable.createItemRow ()
-          .setLabelMandatory ("Password (confirmation)")
-          .setCtrl (new HCEditPassword (FIELD_PASSWORD_CONFIRM))
-          .setNote (BootstrapSecurityUI.createPasswordConstraintTip (aDisplayLocale))
-          .setErrorList (aFormErrors.getListOfField (FIELD_PASSWORD_CONFIRM));
+    final BootstrapForm aRealForm = (BootstrapForm) aForm;
+    aRealForm.setLeft (3);
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("First name")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_FIRSTNAME)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_FIRSTNAME)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Last name")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_LASTNAME)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_LASTNAME)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Email address")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL1)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL1)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Email address (confirmation)")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL2)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL2)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Password")
+                                                     .setCtrl (new HCEditPassword (FIELD_PASSWORD))
+                                                     .setHelpText (aPasswordHelpText)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PASSWORD)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Password (confirmation)")
+                                                     .setCtrl (new HCEditPassword (FIELD_PASSWORD_CONFIRM))
+                                                     .setHelpText (aPasswordHelpText)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PASSWORD_CONFIRM)));
   }
 
   @Override
