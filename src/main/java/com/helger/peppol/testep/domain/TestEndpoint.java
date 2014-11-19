@@ -33,6 +33,8 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
 import com.helger.datetime.PDTFactory;
 
+import eu.europa.ec.cipa.peppol.identifier.participant.IPeppolReadonlyParticipantIdentifier;
+import eu.europa.ec.cipa.peppol.identifier.participant.SimpleParticipantIdentifier;
 import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 /**
@@ -50,8 +52,11 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
   private final String m_sCreationUserID;
   private final String m_sCompanyName;
   private final String m_sContactPerson;
-  private final String m_sParticipantID;
+  private final String m_sParticipantIDScheme;
+  private final String m_sParticipantIDValue;
   private final ESMPTransportProfile m_eTransportProfile;
+  // status
+  private final SimpleParticipantIdentifier m_aParticipantID;
 
   /**
    * Constructor.
@@ -60,14 +65,17 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
    *        User provided company name.
    * @param sContactPerson
    *        Optional contact person.
-   * @param sParticipantID
-   *        User provided participant ID value.
+   * @param sParticipantIDScheme
+   *        Test endpoint participant ID scheme (e.g. 9915).
+   * @param sParticipantIDValue
+   *        Test endpoint participant ID value (e.g. 123456).
    * @param eTransportProfile
-   *        Transport profile.
+   *        Transport profile. May not be <code>null</code>.
    */
   public TestEndpoint (@Nonnull @Nonempty final String sCompanyName,
                        @Nullable final String sContactPerson,
-                       @Nonnull @Nonempty final String sParticipantID,
+                       @Nonnull @Nonempty final String sParticipantIDScheme,
+                       @Nonnull @Nonempty final String sParticipantIDValue,
                        @Nonnull final ESMPTransportProfile eTransportProfile)
   {
     this (GlobalIDFactory.getNewPersistentStringID (),
@@ -75,7 +83,8 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
           LoggedInUserManager.getInstance ().getCurrentUserID (),
           sCompanyName,
           sContactPerson,
-          sParticipantID,
+          sParticipantIDScheme,
+          sParticipantIDValue,
           eTransportProfile);
   }
 
@@ -92,8 +101,10 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
    *        User provided company name.
    * @param sContactPerson
    *        Optional contact person.
-   * @param sParticipantID
-   *        User provided participant ID value (no iso6523-actorid-upis).
+   * @param sParticipantIDScheme
+   *        Test endpoint participant ID scheme (e.g. 9915).
+   * @param sParticipantIDValue
+   *        Test endpoint participant ID value (e.g. 123456).
    * @param eTransportProfile
    *        Transport profile.
    */
@@ -102,7 +113,8 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
                 @Nonnull @Nonempty final String sCreationUserID,
                 @Nonnull @Nonempty final String sCompanyName,
                 @Nullable final String sContactPerson,
-                @Nonnull @Nonempty final String sParticipantID,
+                @Nonnull @Nonempty final String sParticipantIDScheme,
+                @Nonnull @Nonempty final String sParticipantIDValue,
                 @Nonnull final ESMPTransportProfile eTransportProfile)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
@@ -110,8 +122,12 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
     m_sCreationUserID = ValueEnforcer.notEmpty (sCreationUserID, "CreationUserID");
     m_sCompanyName = ValueEnforcer.notEmpty (sCompanyName, "CompanyName");
     m_sContactPerson = sContactPerson;
-    m_sParticipantID = ValueEnforcer.notEmpty (sParticipantID, "ParticipantID");
+    m_sParticipantIDScheme = ValueEnforcer.notEmpty (sParticipantIDScheme, "ParticipantIDScheme");
+    m_sParticipantIDValue = ValueEnforcer.notEmpty (sParticipantIDValue, "ParticipantIDValue");
     m_eTransportProfile = ValueEnforcer.notNull (eTransportProfile, "TransportProfile");
+    m_aParticipantID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantIDScheme +
+                                                                            ":" +
+                                                                            sParticipantIDValue);
   }
 
   @Nonnull
@@ -147,11 +163,33 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
     return m_sContactPerson;
   }
 
+  /**
+   * @return The test endpoint participant ID scheme (e.g. 9915)
+   */
+  @Nonnull
+  @Nonempty
+  public String getParticipantIDScheme ()
+  {
+    return m_sParticipantIDScheme;
+  }
+
+  /**
+   * @return The test endpoint participant ID value (e.g. 9915)
+   */
   @Nonnull
   @Nonempty
   public String getParticipantIDValue ()
   {
-    return m_sParticipantID;
+    return m_sParticipantIDValue;
+  }
+
+  /**
+   * @return The complete participant identifier. Never <code>null</code>.
+   */
+  @Nonnull
+  public IPeppolReadonlyParticipantIdentifier getParticipantIdentifier ()
+  {
+    return m_aParticipantID;
   }
 
   @Nonnull
@@ -160,12 +198,15 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
     return m_eTransportProfile;
   }
 
-  public boolean hasSameIdentifier (@Nullable final String sParticipantIDValue,
+  public boolean hasSameIdentifier (@Nullable final String sParticipantIDScheme,
+                                    @Nullable final String sParticipantIDValue,
                                     @Nullable final ESMPTransportProfile eTransportProfile)
   {
-    if (sParticipantIDValue == null || eTransportProfile == null)
+    if (sParticipantIDScheme == null || sParticipantIDValue == null || eTransportProfile == null)
       return false;
-    return m_sParticipantID.equals (sParticipantIDValue) && m_eTransportProfile.equals (eTransportProfile);
+    return m_sParticipantIDScheme.equals (sParticipantIDScheme) &&
+           m_sParticipantIDValue.equals (sParticipantIDValue) &&
+           m_eTransportProfile.equals (eTransportProfile);
   }
 
   @Override
@@ -193,7 +234,8 @@ public class TestEndpoint implements IHasID <String>, IHasCreationInfo
                                        .append ("CreationUserID", m_sCreationUserID)
                                        .append ("CompanyName", m_sCompanyName)
                                        .append ("ContactPerson", m_sContactPerson)
-                                       .append ("ParticipantID", m_sParticipantID)
+                                       .append ("ParticipantIDScheme", m_sParticipantIDScheme)
+                                       .append ("ParticipantIDValue", m_sParticipantIDValue)
                                        .append ("TransportProfile", m_eTransportProfile)
                                        .toString ();
   }

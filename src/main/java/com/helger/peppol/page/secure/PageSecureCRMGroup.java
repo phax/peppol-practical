@@ -145,7 +145,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
   protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMGroupManager aMgr = MetaManager.getCRMGroupMgr ();
+    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
 
     // Toolbar on top
     final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
@@ -155,7 +155,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     final BootstrapTable aTable = new BootstrapTable (HCCol.star (), HCCol.star (), createActionCol (2)).setID (getID ());
     aTable.addHeaderRow ().addCells ("Name", "Sender email address", "Actions");
 
-    for (final ICRMGroup aCurObject : aMgr.getAllCRMGroups ())
+    for (final ICRMGroup aCurObject : aCRMGroupMgr.getAllCRMGroups ())
     {
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 

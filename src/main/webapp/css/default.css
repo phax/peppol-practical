@@ -29,7 +29,7 @@ td {
 }
 
 /* Margin for button bar */
-.btn-toolbar { margin: 4px 0; }
+.btn-toolbar { margin: 1em 0; }
 
 /* no bottom margin */
 .panel ul,

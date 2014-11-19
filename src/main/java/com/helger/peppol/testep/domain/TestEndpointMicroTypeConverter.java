@@ -36,7 +36,8 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_USER_ID = "userid";
   private static final String ATTR_COMPANY_NAME = "companyname";
   private static final String ATTR_CONTACT_PERSON = "contactperson";
-  private static final String ATTR_PARTICIPANT_ID = "participantid";
+  private static final String ATTR_PARTICIPANT_ID_SCHEME = "participantidscheme";
+  private static final String ATTR_PARTICIPANT_ID_VALUE = "participantidvalue";
   private static final String ATTR_TRANSPORT_PROFILE = "transportprofile";
 
   @Nonnull
@@ -52,7 +53,8 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
     eValue.setAttribute (ATTR_USER_ID, aValue.getCreationUserID ());
     eValue.setAttribute (ATTR_COMPANY_NAME, aValue.getCompanyName ());
     eValue.setAttribute (ATTR_CONTACT_PERSON, aValue.getContactPerson ());
-    eValue.setAttribute (ATTR_PARTICIPANT_ID, aValue.getParticipantIDValue ());
+    eValue.setAttribute (ATTR_PARTICIPANT_ID_SCHEME, aValue.getParticipantIDScheme ());
+    eValue.setAttribute (ATTR_PARTICIPANT_ID_VALUE, aValue.getParticipantIDValue ());
     eValue.setAttribute (ATTR_TRANSPORT_PROFILE, aValue.getTransportProfile ().getID ());
 
     return eValue;
@@ -67,7 +69,8 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
 
     final String sCompanyName = eValue.getAttributeValue (ATTR_COMPANY_NAME);
     final String sContactPerson = eValue.getAttributeValue (ATTR_CONTACT_PERSON);
-    final String sParticipantIDValue = eValue.getAttributeValue (ATTR_PARTICIPANT_ID);
+    final String sParticipantIDScheme = eValue.getAttributeValue (ATTR_PARTICIPANT_ID_SCHEME);
+    final String sParticipantIDValue = eValue.getAttributeValue (ATTR_PARTICIPANT_ID_VALUE);
 
     final String sTransportProfile = eValue.getAttributeValue (ATTR_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
@@ -78,6 +81,7 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
                              sCreationUserID,
                              sCompanyName,
                              sContactPerson,
+                             sParticipantIDScheme,
                              sParticipantIDValue,
                              eTransportProfile);
   }

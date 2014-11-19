@@ -254,7 +254,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMSubscriberManager aMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
 
     // Toolbar on top
     final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
@@ -264,7 +264,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final BootstrapTable aTable = new BootstrapTable (HCCol.star (), HCCol.star (), HCCol.star (), createActionCol (2)).setID (getID ());
     aTable.addHeaderRow ().addCells ("Name", "Email address", "Groups", "Actions");
 
-    for (final ICRMSubscriber aCurObject : aMgr.getAllCRMSubscribers ())
+    for (final ICRMSubscriber aCurObject : aCRMSubscriberMgr.getAllCRMSubscribers ())
     {
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 

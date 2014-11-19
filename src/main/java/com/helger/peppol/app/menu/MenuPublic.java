@@ -30,6 +30,7 @@ import com.helger.peppol.page.pub.PagePublicNewsletterUnsubscribe;
 import com.helger.peppol.page.pub.PagePublicSignUp;
 import com.helger.peppol.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppol.page.pub.PagePublicToolsSMPSML;
+import com.helger.peppol.page.pub.PagePublicToolsTestEndpoints;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
 
@@ -75,8 +76,9 @@ public final class MenuPublic
       final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_TOOLS,
                                                                                                              "Tools",
                                                                                                              aMenuTree));
-      aMenuTree.createItem (aSetup, new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT));
+      aMenuTree.createItem (aSetup, new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsSMPSML (CMenuPublic.MENU_TOOLS_SMP_SML));
+      aMenuTree.createItem (aSetup, new PagePublicToolsTestEndpoints (CMenuPublic.MENU_TOOLS_TEST_ENDPOINTS));
     }
 
     // Validation stuff

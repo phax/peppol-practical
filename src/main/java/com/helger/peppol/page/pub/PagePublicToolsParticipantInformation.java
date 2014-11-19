@@ -82,8 +82,8 @@ import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
 
 public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
 {
-  private static final String FIELD_IDTYPE = "idtype";
-  private static final String FIELD_IDVALUE = "idvalue";
+  public static final String FIELD_IDSCHEME = "idscheme";
+  public static final String FIELD_IDVALUE = "idvalue";
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
@@ -111,15 +111,15 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
     if (aWPEC.hasAction (ACTION_PERFORM))
     {
       // Validate fields
-      final String sIDType = aWPEC.getAttributeAsString (FIELD_IDTYPE);
+      final String sIDType = aWPEC.getAttributeAsString (FIELD_IDSCHEME);
       final EPredefinedIdentifierIssuingAgency eAgency = _getIIA (sIDType);
       final String sIDValue = aWPEC.getAttributeAsString (FIELD_IDVALUE);
 
       if (StringHelper.hasNoText (sIDType))
-        aFormErrors.addFieldError (FIELD_IDTYPE, "Please select an identifier type");
+        aFormErrors.addFieldError (FIELD_IDSCHEME, "Please select an identifier scheme");
       else
         if (eAgency == null)
-          aFormErrors.addFieldError (FIELD_IDTYPE, "Please select a valid identifier type");
+          aFormErrors.addFieldError (FIELD_IDSCHEME, "Please select a valid identifier type");
 
       if (StringHelper.hasNoText (sIDValue))
         aFormErrors.addFieldError (FIELD_IDVALUE, "Please provide an identifier value");
@@ -341,9 +341,9 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (170), HCCol.star ()));
       aTable.addSpanningHeaderContent ("Show all processes, document types and endpoints of a participant");
       aTable.createItemRow ()
-            .setLabelMandatory ("Identifier type")
-            .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_IDTYPE), aDisplayLocale))
-            .setErrorList (aFormErrors.getListOfField (FIELD_IDTYPE));
+            .setLabelMandatory ("Identifier scheme")
+            .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_IDSCHEME), aDisplayLocale))
+            .setErrorList (aFormErrors.getListOfField (FIELD_IDSCHEME));
       aTable.createItemRow ()
             .setLabelMandatory ("Identifier value")
             .setCtrl (new HCEdit (new RequestField (FIELD_IDVALUE)))

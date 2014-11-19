@@ -85,11 +85,13 @@ public final class TestEndpointManager extends AbstractSimpleDAO
   @Nonnull
   public TestEndpoint createTestEndpoint (@Nonnull @Nonempty final String sCompanyName,
                                           @Nullable final String sContactPerson,
+                                          @Nonnull @Nonempty final String sParticipantIDScheme,
                                           @Nonnull @Nonempty final String sParticipantIDValue,
                                           @Nonnull final ESMPTransportProfile eTransportProfile)
   {
     final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName,
                                                          sContactPerson,
+                                                         sParticipantIDScheme,
                                                          sParticipantIDValue,
                                                          eTransportProfile);
 
@@ -157,7 +159,8 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     }
   }
 
-  public boolean containsTestEndpoint (@Nonnull @Nonempty final String sParticipantIDValue,
+  public boolean containsTestEndpoint (@Nullable final String sParticipantIDScheme,
+                                       @Nullable final String sParticipantIDValue,
                                        @Nullable final ESMPTransportProfile eTransportProfile)
   {
     if (StringHelper.hasText (sParticipantIDValue) && eTransportProfile != null)
@@ -166,7 +169,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       try
       {
         for (final TestEndpoint aTestEndpoint : m_aMap.values ())
-          if (aTestEndpoint.hasSameIdentifier (sParticipantIDValue, eTransportProfile))
+          if (aTestEndpoint.hasSameIdentifier (sParticipantIDScheme, sParticipantIDValue, eTransportProfile))
             return true;
       }
       finally
