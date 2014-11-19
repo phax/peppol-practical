@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.page.ui;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 
 import com.helger.webbasics.form.RequestField;
@@ -25,9 +27,10 @@ import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 public class SMPTransportProfileSelect extends HCExtSelect
 {
-  public SMPTransportProfileSelect (@Nonnull final RequestField aRF)
+  public SMPTransportProfileSelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
+    addOptionPleaseSelect (aDisplayLocale);
     addOption (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID (),
                "AS2 (" + ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID () + ")");
     addOption (ESMPTransportProfile.TRANSPORT_PROFILE_START.getID (),

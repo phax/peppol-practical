@@ -135,7 +135,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final BootstrapForm aRealForm = (BootstrapForm) aForm;
-
+    aRealForm.setLeft (3);
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
                                                                                              aSelectedObject == null ? null
@@ -156,7 +156,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
-                                                     .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE)))
+                                                     .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE),
+                                                                                              aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
   }
 
