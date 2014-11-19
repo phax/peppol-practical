@@ -16,9 +16,6 @@
  */
 package com.helger.peppol.testep.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -27,8 +24,9 @@ import org.joda.time.DateTime;
 
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
-import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.impl.MicroElement;
+
+import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 @Immutable
 public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
@@ -39,7 +37,7 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_COMPANY_NAME = "companyname";
   private static final String ATTR_CONTACT_PERSON = "contactperson";
   private static final String ATTR_PARTICIPANT_ID = "participantid";
-  private static final String ELEMENT_DATA = "data";
+  private static final String ATTR_TRANSPORT_PROFILE = "transportprofile";
 
   @Nonnull
   public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
@@ -55,8 +53,7 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
     eValue.setAttribute (ATTR_COMPANY_NAME, aValue.getCompanyName ());
     eValue.setAttribute (ATTR_CONTACT_PERSON, aValue.getContactPerson ());
     eValue.setAttribute (ATTR_PARTICIPANT_ID, aValue.getParticipantIDValue ());
-    for (final TestEndpointData aData : aValue.getAllDatas ())
-      eValue.appendChild (MicroTypeConverter.convertToMicroElement (aData, sNamespaceURI, ELEMENT_DATA));
+    eValue.setAttribute (ATTR_TRANSPORT_PROFILE, aValue.getTransportProfile ().getID ());
 
     return eValue;
   }
@@ -72,9 +69,8 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
     final String sContactPerson = eValue.getAttributeValue (ATTR_CONTACT_PERSON);
     final String sParticipantIDValue = eValue.getAttributeValue (ATTR_PARTICIPANT_ID);
 
-    final List <TestEndpointData> aDatas = new ArrayList <> ();
-    for (final IMicroElement eData : eValue.getAllChildElements (ELEMENT_DATA))
-      aDatas.add (MicroTypeConverter.convertToNative (eData, TestEndpointData.class));
+    final String sTransportProfile = eValue.getAttributeValue (ATTR_TRANSPORT_PROFILE);
+    final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
 
     // Create object
     return new TestEndpoint (sID,
@@ -83,6 +79,6 @@ public final class TestEndpointMicroTypeConverter implements IMicroTypeConverter
                              sCompanyName,
                              sContactPerson,
                              sParticipantIDValue,
-                             aDatas);
+                             eTransportProfile);
   }
 }
