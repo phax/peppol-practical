@@ -269,8 +269,11 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     if (aFormErrors.isEmpty ())
     {
       // Check if participant ID and transport profile are already registered
-      if (aTestEndpointMgr.containsTestEndpoint (sParticipantIDISO6523, sParticipantIDValue, eTransportProfile))
-        aFormErrors.addFieldError (FIELD_TRANSPORT_PROFILE, "A test endpoint for " +
+      final TestEndpoint aSameIDTestEndpoint = aTestEndpointMgr.getTestEndpoint (sParticipantIDISO6523,
+                                                                                 sParticipantIDValue,
+                                                                                 eTransportProfile);
+      if (aSameIDTestEndpoint != null && !aSameIDTestEndpoint.equals (aSelectedObject))
+        aFormErrors.addFieldError (FIELD_TRANSPORT_PROFILE, "Another test endpoint for " +
                                                             sParticipantIDISO6523 +
                                                             ":" +
                                                             sParticipantIDValue +

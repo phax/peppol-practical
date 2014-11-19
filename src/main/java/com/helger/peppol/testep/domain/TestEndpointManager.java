@@ -205,24 +205,34 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     }
   }
 
-  public boolean containsTestEndpoint (@Nullable final String sParticipantIDScheme,
+  @Nullable
+  public TestEndpoint getTestEndpoint (@Nullable final String sParticipantIDScheme,
                                        @Nullable final String sParticipantIDValue,
                                        @Nullable final ESMPTransportProfile eTransportProfile)
   {
-    if (StringHelper.hasText (sParticipantIDValue) && eTransportProfile != null)
+    if (StringHelper.hasText (sParticipantIDScheme) &&
+        StringHelper.hasText (sParticipantIDValue) &&
+        eTransportProfile != null)
     {
       m_aRWLock.readLock ().lock ();
       try
       {
         for (final TestEndpoint aTestEndpoint : m_aMap.values ())
           if (aTestEndpoint.hasSameIdentifier (sParticipantIDScheme, sParticipantIDValue, eTransportProfile))
-            return true;
+            return aTestEndpoint;
       }
       finally
       {
         m_aRWLock.readLock ().unlock ();
       }
     }
-    return false;
+    return null;
+  }
+
+  public boolean containsTestEndpoint (@Nullable final String sParticipantIDScheme,
+                                       @Nullable final String sParticipantIDValue,
+                                       @Nullable final ESMPTransportProfile eTransportProfile)
+  {
+    return getTestEndpoint (sParticipantIDScheme, sParticipantIDValue, eTransportProfile) != null;
   }
 }
