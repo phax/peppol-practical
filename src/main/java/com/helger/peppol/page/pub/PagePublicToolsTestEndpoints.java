@@ -46,6 +46,8 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.mgr.MetaManager;
 import com.helger.peppol.page.AbstractAppFormPage;
+import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
+import com.helger.peppol.page.ui.SMPTransportProfileSelect;
 import com.helger.peppol.testep.domain.TestEndpoint;
 import com.helger.peppol.testep.domain.TestEndpointManager;
 import com.helger.validation.error.FormErrors;
@@ -131,14 +133,31 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                                 final boolean bCopy,
                                 @Nonnull final FormErrors aFormErrors)
   {
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final BootstrapForm aRealForm = (BootstrapForm) aForm;
 
-    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelAlternative ("Company name")
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
                                                                                              aSelectedObject == null ? null
                                                                                                                     : aSelectedObject.getCompanyName ())))
                                                      .setHelpText ("The name of the company operating the test AccessPoint")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_COMPANY_NAME)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_CONTACT_PERSON,
+                                                                                             aSelectedObject == null ? null
+                                                                                                                    : aSelectedObject.getContactPerson ())))
+                                                     .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
+                                                     .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_PARTICIPANT_ID_SCHEME),
+                                                                                                  aDisplayLocale))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_SCHEME)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
+                                                     .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
   }
 
   @Override

@@ -41,8 +41,9 @@ import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.bootstrap3.EBootstrapIcon;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.form.BootstrapHelpBlock;
-import com.helger.bootstrap3.table.BootstrapTableForm;
+import com.helger.bootstrap3.form.BootstrapForm;
+import com.helger.bootstrap3.form.BootstrapFormGroup;
+import com.helger.bootstrap3.form.EBootstrapFormType;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.property.CCSSProperties;
@@ -51,9 +52,7 @@ import com.helger.datetime.PDTFactory;
 import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.api.EHCFormMethod;
-import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCCode;
-import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCH3;
@@ -337,19 +336,18 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
 
     if (bShowInput)
     {
-      final AbstractHCForm <?> aForm = aNodeList.addAndReturnChild (createFormSelf (aWPEC).setMethod (EHCFormMethod.GET));
-      final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (170), HCCol.star ()));
-      aTable.addSpanningHeaderContent ("Show all processes, document types and endpoints of a participant");
-      aTable.createItemRow ()
-            .setLabelMandatory ("Identifier scheme")
-            .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_SCHEME), aDisplayLocale))
-            .setErrorList (aFormErrors.getListOfField (FIELD_ID_SCHEME));
-      aTable.createItemRow ()
-            .setLabelMandatory ("Identifier value")
-            .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)))
-            .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE));
-
-      aForm.addChild (new BootstrapHelpBlock ().addChild ("You may want to try 9915:test as an example."));
+      final BootstrapForm aForm = aNodeList.addAndReturnChild (new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ())
+                                                                                                                .setMethod (EHCFormMethod.GET)
+                                                                                                                .setLeft (3));
+      aForm.addChild (new HCDiv ().addChild ("Show all processes, document types and endpoints of a participant."));
+      aForm.addChild (new HCDiv ().addChild ("You may want to try 9915:test as an example."));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
+                                                   .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_SCHEME),
+                                                                                                aDisplayLocale))
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_ID_SCHEME)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)))
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
