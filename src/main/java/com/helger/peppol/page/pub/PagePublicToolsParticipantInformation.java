@@ -41,6 +41,7 @@ import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.bootstrap3.EBootstrapIcon;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.bootstrap3.form.BootstrapHelpBlock;
 import com.helger.bootstrap3.table.BootstrapTableForm;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringHelper;
@@ -347,6 +348,8 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
             .setLabelMandatory ("Identifier value")
             .setCtrl (new HCEdit (new RequestField (FIELD_IDVALUE)))
             .setErrorList (aFormErrors.getListOfField (FIELD_IDVALUE));
+
+      aForm.addChild (new BootstrapHelpBlock ().addChild ("You may want to try 9915:test as an example."));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
