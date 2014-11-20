@@ -46,6 +46,7 @@ import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
+import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.app.ui.AppCommonUI;
 import com.helger.peppol.mgr.MetaManager;
@@ -144,7 +145,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
           .setCtrl (aSelectedObject.getParticipantIDScheme () + ":" + aSelectedObject.getParticipantIDValue ());
     aTable.createItemRow ()
           .setLabel ("Transport profile")
-          .setCtrl (SMPTransportProfileSelect.getShortName (aSelectedObject.getTransportProfile ()) +
+          .setCtrl (AppUtils.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
                     " (" +
                     aSelectedObject.getTransportProfile ().getID () +
                     ")");
@@ -223,16 +224,6 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
   }
 
-  @Nullable
-  private static EPredefinedIdentifierIssuingAgency _getIIA (@Nullable final String sSchemeID)
-  {
-    if (StringHelper.hasText (sSchemeID))
-      for (final EPredefinedIdentifierIssuingAgency eAgency : EPredefinedIdentifierIssuingAgency.values ())
-        if (eAgency.getISO6523Code ().equals (sSchemeID) || eAgency.getSchemeID ().equals (sSchemeID))
-          return eAgency;
-    return null;
-  }
-
   @Override
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
                                                  @Nullable final TestEndpoint aSelectedObject,
@@ -245,11 +236,11 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     final String sCompanyName = aWPEC.getAttributeAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.getAttributeAsString (FIELD_CONTACT_PERSON);
     final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_ISO6523);
-    final EPredefinedIdentifierIssuingAgency eAgency = _getIIA (sParticipantIDISO6523);
+    final EPredefinedIdentifierIssuingAgency eAgency = AppUtils.getIdentifierIssuingAgencyOfID (sParticipantIDISO6523);
     final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_VALUE);
     final String sTransportProfile = aWPEC.getAttributeAsString (FIELD_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-    final String sTransportProfileName = SMPTransportProfileSelect.getShortName (eTransportProfile);
+    final String sTransportProfileName = AppUtils.getSMPTransportProfileShortName (eTransportProfile);
 
     if (StringHelper.hasNoText (sCompanyName))
       aFormErrors.addFieldError (FIELD_COMPANY_NAME, "Please provide the company name");
@@ -342,7 +333,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
         final HCRow aRow = aTable.addBodyRow ();
         aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
         aRow.addCell (aCurObject.getCompanyName ());
-        aRow.addCell (SMPTransportProfileSelect.getShortName (aCurObject.getTransportProfile ()));
+        aRow.addCell (AppUtils.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
 
         final IHCCell <?> aActionCell = aRow.addCell ();
         if (isEditAllowed (aWPEC, aCurObject))

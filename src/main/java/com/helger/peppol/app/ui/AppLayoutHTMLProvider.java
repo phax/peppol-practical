@@ -22,7 +22,7 @@ import com.helger.appbasics.app.request.IRequestManager;
 import com.helger.commons.GlobalDebug;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.html.hc.html.HCHtml;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.AppUtils;
 import com.helger.webbasics.app.ISimpleWebExecutionContext;
 import com.helger.webbasics.app.html.StreamURIToURLConverter;
 import com.helger.webbasics.app.layout.ApplicationLayoutManager;
@@ -64,6 +64,6 @@ public class AppLayoutHTMLProvider extends LayoutHTMLProvider <LayoutExecutionCo
                            aHtml.getHead (),
                            GlobalDebug.isDebugMode (),
                            StreamURIToURLConverter.getInstance ());
-    aHtml.getHead ().setPageTitle (CApp.getApplicationTitle ());
+    aHtml.getHead ().setPageTitle (AppUtils.getApplicationTitle ());
   }
 }

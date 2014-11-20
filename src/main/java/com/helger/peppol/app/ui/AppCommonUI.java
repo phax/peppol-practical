@@ -182,7 +182,7 @@ public final class AppCommonUI
     return aForm;
   }
 
-  @Nonnull
+  @Nullable
   public static IHCNode getDTAndUser (@Nonnull final IWebPageExecutionContext aWPEC,
                                       @Nullable final DateTime aDateTime,
                                       @Nullable final String sUserID)

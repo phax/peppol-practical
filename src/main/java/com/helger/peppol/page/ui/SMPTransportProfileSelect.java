@@ -19,34 +19,25 @@ package com.helger.peppol.page.ui;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
+import com.helger.peppol.app.AppUtils;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.custom.HCExtSelect;
 
 import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
+/**
+ * UI select for SMP transport profiles
+ * 
+ * @author Philip Helger
+ */
 public class SMPTransportProfileSelect extends HCExtSelect
 {
-  @Nullable
-  public static String getShortName (@Nonnull final ESMPTransportProfile eTransportProfile)
-  {
-    if (eTransportProfile != null)
-      switch (eTransportProfile)
-      {
-        case TRANSPORT_PROFILE_AS2:
-          return "AS2";
-        case TRANSPORT_PROFILE_START:
-          return "START";
-      }
-    return null;
-  }
-
   public SMPTransportProfileSelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
     addOptionPleaseSelect (aDisplayLocale);
     for (final ESMPTransportProfile e : ESMPTransportProfile.values ())
-      addOption (e.getID (), getShortName (e) + " (" + e.getID () + ")");
+      addOption (e.getID (), AppUtils.getSMPTransportProfileShortName (e) + " (" + e.getID () + ")");
   }
 }

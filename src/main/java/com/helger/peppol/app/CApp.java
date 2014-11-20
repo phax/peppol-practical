@@ -20,11 +20,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.appbasics.security.CSecurity;
-import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.type.ObjectType;
@@ -40,8 +38,6 @@ public final class CApp
   public static final Locale LOCALE_DE = LocaleCache.getLocale ("de", "DE");
   public static final Locale LOCALE_EN = LocaleCache.getLocale ("en", "US");
   public static final Locale DEFAULT_LOCALE = LOCALE_EN;
-
-  private static final String APPLICATION_TITLE = "PEPPOL practical";
 
   // Security roles
   public static final String ROLE_CONFIG_ID = "config";
@@ -76,11 +72,4 @@ public final class CApp
 
   private CApp ()
   {}
-
-  @Nonnull
-  @Nonempty
-  public static String getApplicationTitle ()
-  {
-    return APPLICATION_TITLE + (AppSettings.isTestVersion () ? " [TEST]" : "");
-  }
 }

@@ -62,6 +62,7 @@ import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCEditFile;
 import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.fileupload.IFileItem;
@@ -71,7 +72,6 @@ import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.page.AbstractWebPageExt;
 
 import eu.europa.ec.cipa.peppol.security.KeyStoreUtils;
-import eu.europa.ec.cipa.peppol.sml.ESML;
 import eu.europa.ec.cipa.peppol.sml.ISMLInfo;
 
 public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionContext>
@@ -99,16 +99,6 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
   {
     super (sID, "SMP - SML tools");
-  }
-
-  @Nullable
-  private static ISMLInfo _getSML (@Nonnull final String sSML)
-  {
-    if (StringHelper.hasText (sSML))
-      for (final ESML eSML : ESML.values ())
-        if (eSML.name ().equals (sSML))
-          return eSML;
-    return null;
   }
 
   @Nullable
@@ -175,7 +165,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-    final ISMLInfo aSML = _getSML (sSML);
+    final ISMLInfo aSML = AppUtils.getSMLOfID (sSML);
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
@@ -299,7 +289,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-    final ISMLInfo aSML = _getSML (sSML);
+    final ISMLInfo aSML = AppUtils.getSMLOfID (sSML);
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
@@ -423,7 +413,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-    final ISMLInfo aSML = _getSML (sSML);
+    final ISMLInfo aSML = AppUtils.getSMLOfID (sSML);
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
     final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);

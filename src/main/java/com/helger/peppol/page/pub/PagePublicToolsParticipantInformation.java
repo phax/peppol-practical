@@ -27,7 +27,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.busdox.servicemetadata.publishing._1.EndpointType;
 import org.busdox.servicemetadata.publishing._1.ProcessType;
@@ -61,6 +60,7 @@ import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.html.HCTextArea;
 import com.helger.html.hc.html.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
@@ -89,16 +89,6 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
     super (sID, "Participant information");
   }
 
-  @Nullable
-  private static EPredefinedIdentifierIssuingAgency _getIIA (@Nullable final String sSchemeID)
-  {
-    if (StringHelper.hasText (sSchemeID))
-      for (final EPredefinedIdentifierIssuingAgency eAgency : EPredefinedIdentifierIssuingAgency.values ())
-        if (eAgency.getSchemeID ().equals (sSchemeID) || eAgency.getISO6523Code ().equals (sSchemeID))
-          return eAgency;
-    return null;
-  }
-
   @Override
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
@@ -111,7 +101,7 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
     {
       // Validate fields
       final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_ID_ISO6523);
-      final EPredefinedIdentifierIssuingAgency eAgency = _getIIA (sParticipantIDISO6523);
+      final EPredefinedIdentifierIssuingAgency eAgency = AppUtils.getIdentifierIssuingAgencyOfID (sParticipantIDISO6523);
       final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
 
       if (StringHelper.hasNoText (sParticipantIDISO6523))
