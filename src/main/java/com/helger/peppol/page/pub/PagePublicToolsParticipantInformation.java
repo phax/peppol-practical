@@ -39,6 +39,7 @@ import org.joda.time.LocalDate;
 import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.bootstrap3.EBootstrapIcon;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.bootstrap3.form.BootstrapForm;
 import com.helger.bootstrap3.form.BootstrapFormGroup;
@@ -51,6 +52,7 @@ import com.helger.datetime.PDTFactory;
 import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.api.EHCFormMethod;
+import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCode;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
@@ -138,10 +140,7 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
             // Check with lowercase host name as well (e.g. 9908:983974724)!
             // The generated hostname contains "B-" whereas the returned
             // hostname contains "b-"
-            final String sCommonPrefix = aSMPHost.toExternalForm ().toLowerCase (Locale.US) +
-                                         "/" +
-                                         aParticipantID.getURIEncoded () +
-                                         "/services/";
+            final String sCommonPrefix = (aSMPHost.toExternalForm () + "/" + aParticipantID.getURIEncoded () + "/services/").toLowerCase (Locale.US);
 
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             final HCUL aUL = new HCUL ();
@@ -159,6 +158,9 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
                   aDocTypeIDs.add (aDocType);
                   aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" " + aDocType.getURIEncoded ()));
+                  aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
+                                            .addChild (new HCA (aSMR.getHref ()).addChild ("Open in browser")
+                                                                                .setTargetBlank ()));
                 }
                 catch (final IllegalArgumentException ex)
                 {
@@ -168,7 +170,11 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
                 }
               }
               else
-                aLI.addChild (new BootstrapErrorBox ().addChild ("Contained href does not match the rules!"));
+                aLI.addChild (new BootstrapErrorBox ().addChildren (new HCDiv ().addChild ("Contained href does not match the rules!"),
+                                                                    new HCDiv ().addChild ("Found href: ")
+                                                                                .addChild (new HCCode ().addChild (sHref)),
+                                                                    new HCDiv ().addChild ("Expected prefix: ")
+                                                                                .addChild (new HCCode ().addChild (sCommonPrefix))));
             }
             aNodeList.addChild (aUL);
           }
@@ -329,14 +335,18 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       final BootstrapForm aForm = aNodeList.addAndReturnChild (new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ())
                                                                                                                 .setMethod (EHCFormMethod.GET)
                                                                                                                 .setLeft (3));
-      aForm.addChild (new HCDiv ().addChild ("Show all processes, document types and endpoints of a participant."));
-      aForm.addChild (new HCDiv ().addChild ("You may want to try 9915:test as an example."));
+      aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Show all processes, document types and endpoints of a participant."),
+                                                           new HCDiv ().addChild ("You may want to try scheme ")
+                                                                       .addChild (new HCCode ().addChild ("9915"))
+                                                                       .addChild ("and value ")
+                                                                       .addChild (new HCCode ().addChild ("test"))
+                                                                       .addChild (" as an example.")));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
                                                    .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523),
                                                                                                 aDisplayLocale))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_ISO6523)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
-                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)))
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setPlaceholder ("Identifier value"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));

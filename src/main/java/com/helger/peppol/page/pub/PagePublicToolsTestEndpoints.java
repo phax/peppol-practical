@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.appbasics.security.login.LoggedInUserManager;
+import com.helger.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
@@ -194,30 +195,35 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     aRealForm.setLeft (3);
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
-                                                                                             aSelectedObject == null ? null
+                                                                                             aSelectedObject == null
+                                                                                                                    ? null
                                                                                                                     : aSelectedObject.getCompanyName ())))
                                                      .setHelpText ("The name of the company operating the test AccessPoint")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_COMPANY_NAME)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_CONTACT_PERSON,
-                                                                                             aSelectedObject == null ? null
+                                                                                             aSelectedObject == null
+                                                                                                                    ? null
                                                                                                                     : aSelectedObject.getContactPerson ())))
                                                      .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
                                                      .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_PARTICIPANT_ID_ISO6523,
-                                                                                                                    aSelectedObject == null ? null
+                                                                                                                    aSelectedObject == null
+                                                                                                                                           ? null
                                                                                                                                            : aSelectedObject.getParticipantIDScheme ()),
                                                                                                   aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISO6523)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE,
-                                                                                             aSelectedObject == null ? null
+                                                                                             aSelectedObject == null
+                                                                                                                    ? null
                                                                                                                     : aSelectedObject.getParticipantIDValue ())))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
                                                      .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE,
-                                                                                                                aSelectedObject == null ? null
+                                                                                                                aSelectedObject == null
+                                                                                                                                       ? null
                                                                                                                                        : aSelectedObject.getTransportProfile ()
                                                                                                                                                         .getID ()),
                                                                                               aDisplayLocale))
@@ -320,6 +326,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
       aToolbar.addButtonNew ("Create new test endpoint", createCreateURL (aWPEC));
     else
       aToolbar.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("You need to be logged in to create test endpoints."));
+
+    aNodeList.addChild (new BootstrapInfoBox ().addChild ("Test endpoints are special PEPPOL participant identifiers whose sole purpose is the usage for testing. So if you are an PEPPOL AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients."));
 
     // List existing
     final BootstrapTable aTable = new BootstrapTable (HCCol.star (), HCCol.star (), HCCol.star (), createActionCol (2)).setID (getID ());
