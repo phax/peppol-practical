@@ -137,7 +137,7 @@
     To create a <code>SimpleSMLInfo</code> for the <strong>new SML</strong>, use the following code:<br />
     <code>new SimpleSMLInfo ("edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu", "https://edelivery.tech.ec.europa.eu", true)</code><br />
     To create a <code>SimpleSMLInfo</code> for the <strong>new SMK</strong>, use the following code:<br />
-    <code>new SimpleSMLInfo ("acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu", "https://acc.edelivery.tech.ec.europa.eu", true)</code>
+    <code>new SimpleSMLInfo ("acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true)</code>
   </li>
 </ul>
 
