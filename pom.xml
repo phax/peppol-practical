@@ -105,7 +105,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
-      <version>6.0.2</version>
+      <version>6.0.3</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -130,7 +130,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-html</artifactId>
-      <version>4.5.0</version>
+      <version>4.5.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
