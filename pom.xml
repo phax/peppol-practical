@@ -120,7 +120,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-css</artifactId>
-      <version>3.8.2</version>
+      <version>3.9.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
