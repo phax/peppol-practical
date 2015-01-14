@@ -239,7 +239,7 @@
         You need to know the <strong>PEPPOL document type identifier</strong> and 
         <strong>PEPPOL process identifier</strong> in which you want to send the document.
         If you are unsure what document type and process the receiver supports you can use the
-        <a href="/public/?menuitem=tools-participant">Participant information tool</a>
+        <a href="/public/menuitem-tools-participant">Participant information tool</a>
         contained in this page to determine the details.         
       </li>
       <li>

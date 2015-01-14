@@ -279,8 +279,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                                                   " (" +
                                                                   sHttpStatusMessage +
                                                                   ")" +
-                                                                  (StringHelper.hasText (sHttpRequestURI) ? " for request URI " +
-                                                                                                            sHttpRequestURI
+                                                                  (StringHelper.hasText (sHttpRequestURI)
+                                                                                                         ? " for request URI " +
+                                                                                                           sHttpRequestURI
                                                                                                          : "")));
     }
 
@@ -295,7 +296,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     aHead.getMetaElementList ().addMetaElements (aDisplayPage.getMetaElements ());
 
     // Add Google Analytics
-    aPageContainer.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false));
+    aPageContainer.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false, true));
 
     return aPageContainer;
   }

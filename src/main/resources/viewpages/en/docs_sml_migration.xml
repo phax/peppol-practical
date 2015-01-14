@@ -109,7 +109,7 @@
 </p>
 
 <ul>
-  <li><a href="?menuitem=docs-setup-smp#configuring">Configuration file</a> <code>config.properties</code>:
+  <li><a href="/public/menuitem-docs-setup-smp#configuring">Configuration file</a> <code>config.properties</code>:
     <ul>
       <li>The property <code>regServiceRegistrationHook.regLocatorUrl</code> must be adopted to the new URL</li>
     </ul>

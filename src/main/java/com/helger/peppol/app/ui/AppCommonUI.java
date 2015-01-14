@@ -25,6 +25,7 @@ import javax.annotation.concurrent.Immutable;
 import org.joda.time.DateTime;
 
 import com.helger.appbasics.app.menu.IMenuObject;
+import com.helger.appbasics.app.request.ApplicationRequestManager;
 import com.helger.appbasics.security.AccessManager;
 import com.helger.appbasics.security.role.IRole;
 import com.helger.appbasics.security.user.IUser;
@@ -93,6 +94,8 @@ public final class AppCommonUI
 
   public static void init ()
   {
+    ApplicationRequestManager.getInstance ().setUsePaths (true);
+
     WebPageStylerManager.getInstance ().setStyler (new BootstrapWebPageStyler ()
     {
       @Override
@@ -275,7 +278,8 @@ public final class AppCommonUI
     if (aObject instanceof IUser)
     {
       final IUser aTypedObj = (IUser) aObject;
-      final String sRealDisplayName = sDisplayName != null ? sDisplayName
+      final String sRealDisplayName = sDisplayName != null
+                                                          ? sDisplayName
                                                           : SecurityUtils.getUserDisplayName (aTypedObj, aDisplayLocale);
       final String sMenuItemID = DefaultMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);

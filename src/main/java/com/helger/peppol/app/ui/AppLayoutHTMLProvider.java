@@ -19,12 +19,10 @@ package com.helger.peppol.app.ui;
 import javax.annotation.Nonnull;
 
 import com.helger.appbasics.app.request.IRequestManager;
-import com.helger.commons.GlobalDebug;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.html.hc.html.HCHtml;
 import com.helger.peppol.app.AppUtils;
 import com.helger.webbasics.app.ISimpleWebExecutionContext;
-import com.helger.webbasics.app.html.StreamURIToURLConverter;
 import com.helger.webbasics.app.layout.ApplicationLayoutManager;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.app.layout.LayoutHTMLProvider;
@@ -60,10 +58,6 @@ public class AppLayoutHTMLProvider extends LayoutHTMLProvider <LayoutExecutionCo
   protected void fillHead (@Nonnull final ISimpleWebExecutionContext aSWEC, @Nonnull final HCHtml aHtml)
   {
     super.fillHead (aSWEC, aHtml);
-    addPerRequestCSSAndJS (aSWEC.getRequestScope (),
-                           aHtml.getHead (),
-                           GlobalDebug.isDebugMode (),
-                           StreamURIToURLConverter.getInstance ());
     aHtml.getHead ().setPageTitle (AppUtils.getApplicationTitle ());
   }
 }
