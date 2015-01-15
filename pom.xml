@@ -209,7 +209,7 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
-      <version>8.1.15.v20140411</version>
+      <version>8.1.16.v20140903</version>
       <scope>test</scope>
     </dependency>
     <dependency>
