@@ -105,7 +105,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
-      <version>6.0.3</version>
+      <version>6.0.4</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
