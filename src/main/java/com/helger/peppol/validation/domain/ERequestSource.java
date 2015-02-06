@@ -25,7 +25,7 @@ import com.helger.commons.lang.EnumHelper;
 
 /**
  * Informations on the source of a request.
- * 
+ *
  * @author philip
  */
 public enum ERequestSource implements IHasID <String>
