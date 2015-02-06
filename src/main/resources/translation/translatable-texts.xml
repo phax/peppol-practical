@@ -17,7 +17,7 @@
     limitations under the License.
 
 -->
-<translationitems count="31" hashcode="e8740b03">
+<translationitems count="32" hashcode="059786a8">
   <item id="com.helger.peppol.comment.domain.ECommentStateText.APPROVED">
     <de>freigegeben</de>
     <en>approved</en>
@@ -125,6 +125,10 @@
   <item id="com.helger.peppol.comment.ui.ECommentText.TOOLTIP_RESPONSE">
     <de>Auf diesen Kommentar antworten</de>
     <en>Reply to this comment</en>
+  </item>
+  <item id="com.helger.peppol.page.secure.PageSecureCommentAdmin$EText.HEADER_ACTIVE_COMMENTS">
+    <de>Aktive Einträge</de>
+    <en>Active comments</en>
   </item>
   <item id="com.helger.peppol.page.secure.PageSecureCommentAdmin$EText.HEADER_COMMENTS">
     <de>Einträge</de>
