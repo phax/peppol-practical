@@ -29,8 +29,8 @@ import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.ui.AppLoginManager;
 import com.helger.web.servlet.response.UnifiedResponse;
 import com.helger.webbasics.app.CApplication;
+import com.helger.webbasics.servlet.AbstractUnifiedResponseFilter;
 import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.webscopes.servlets.filter.AbstractUnifiedResponseFilter;
 
 /**
  * A special servlet filter that checks that a user can only access the config

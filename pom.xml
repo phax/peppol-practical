@@ -113,7 +113,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webscopes</artifactId>
-      <version>6.6.3</version>
+      <version>6.8.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -138,12 +138,12 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webbasics</artifactId>
-      <version>3.6.0</version>
+      <version>3.7.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webctrls</artifactId>
-      <version>2.6.0</version>
+      <version>2.6.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
