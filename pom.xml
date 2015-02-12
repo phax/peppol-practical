@@ -108,12 +108,12 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
-      <version>6.0.5</version>
+      <version>6.1.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webscopes</artifactId>
-      <version>6.8.0</version>
+      <version>6.8.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
