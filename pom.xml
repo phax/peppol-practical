@@ -88,12 +88,12 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
-      <version>5.3.0</version>
+      <version>5.5.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-datetime</artifactId>
-      <version>3.2.2</version>
+      <version>3.3.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -102,18 +102,8 @@
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>ph-scopes</artifactId>
-      <version>6.6.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
-      <version>6.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-webscopes</artifactId>
-      <version>6.8.1</version>
+      <version>6.2.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -128,7 +118,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-schedule</artifactId>
-      <version>1.6.3</version>
+      <version>1.7.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -138,22 +128,22 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webbasics</artifactId>
-      <version>3.7.0</version>
+      <version>3.8.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webctrls</artifactId>
-      <version>2.6.1</version>
+      <version>2.7.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-bootstrap3</artifactId>
-      <version>1.8.0</version>
+      <version>1.9.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-tinymce4</artifactId>
-      <version>0.3.3</version>
+      <version>0.3.4</version>
     </dependency>
     <dependency>
       <groupId>eu.europa.ec.cipa</groupId>
@@ -193,7 +183,7 @@
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
-      <version>2.1.6</version>
+      <version>2.1.7</version>
     </dependency>
 
     <dependency>

@@ -29,7 +29,7 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.email.EmailAddress;
 import com.helger.schedule.job.AbstractJob;
 import com.helger.schedule.job.IJobExceptionCallback;
-import com.helger.web.smtp.ISMTPSettings;
+import com.helger.smtp.ISMTPSettings;
 import com.helger.webbasics.action.servlet.AbstractActionServlet;
 import com.helger.webbasics.ajax.servlet.AbstractAjaxServlet;
 import com.helger.webbasics.app.error.AbstractErrorCallback;

@@ -34,6 +34,7 @@ import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.scopes.singleton.GlobalSingleton;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.stats.IStatisticsHandlerCounter;
@@ -41,7 +42,6 @@ import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.ObjectType;
-import com.helger.scopes.singleton.GlobalSingleton;
 
 /**
  * Main manager class for comments
