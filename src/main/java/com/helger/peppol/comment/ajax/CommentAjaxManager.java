@@ -28,6 +28,8 @@ import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.factory.IFactory;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
+import com.helger.web.scopes.singleton.GlobalWebSingleton;
 import com.helger.webbasics.ajax.AjaxInvoker;
 import com.helger.webbasics.ajax.IAjaxAfterExecutionCallback;
 import com.helger.webbasics.ajax.IAjaxBeforeExecutionCallback;
@@ -37,8 +39,6 @@ import com.helger.webbasics.ajax.IAjaxFunctionDeclaration;
 import com.helger.webbasics.ajax.IAjaxInvoker;
 import com.helger.webbasics.ajax.IAjaxLongRunningExecutionCallback;
 import com.helger.webbasics.ajax.response.IAjaxResponse;
-import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.webscopes.singleton.GlobalWebSingleton;
 
 /**
  * The comment AJAX manager.

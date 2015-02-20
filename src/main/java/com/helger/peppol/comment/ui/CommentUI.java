@@ -68,6 +68,7 @@ import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
 import com.helger.webbasics.app.layout.ILayoutExecutionContext;
 import com.helger.webbasics.form.RequestField;
@@ -75,7 +76,6 @@ import com.helger.webctrls.autosize.HCTextAreaAutosize;
 import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.js.JSJQueryUtils;
 import com.helger.webctrls.styler.WebPageStylerManager;
-import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 public final class CommentUI
 {

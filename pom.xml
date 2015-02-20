@@ -103,7 +103,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
-      <version>6.2.0</version>
+      <version>6.3.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -118,7 +118,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-schedule</artifactId>
-      <version>1.7.0</version>
+      <version>1.7.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -128,17 +128,17 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webbasics</artifactId>
-      <version>3.8.0</version>
+      <version>3.8.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webctrls</artifactId>
-      <version>2.7.0</version>
+      <version>2.7.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-bootstrap3</artifactId>
-      <version>1.9.0</version>
+      <version>1.9.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>

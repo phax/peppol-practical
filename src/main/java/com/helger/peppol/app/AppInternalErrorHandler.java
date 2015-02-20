@@ -30,6 +30,7 @@ import com.helger.commons.email.EmailAddress;
 import com.helger.schedule.job.AbstractJob;
 import com.helger.schedule.job.IJobExceptionCallback;
 import com.helger.smtp.ISMTPSettings;
+import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.webbasics.action.servlet.AbstractActionServlet;
 import com.helger.webbasics.ajax.servlet.AbstractAjaxServlet;
 import com.helger.webbasics.app.error.AbstractErrorCallback;
@@ -38,7 +39,6 @@ import com.helger.webbasics.app.error.InternalErrorHandler;
 import com.helger.webbasics.mgr.MetaSystemManager;
 import com.helger.webbasics.smtp.CNamedSMTPSettings;
 import com.helger.webbasics.smtp.NamedSMTPSettings;
-import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 public final class AppInternalErrorHandler extends AbstractErrorCallback implements IJobExceptionCallback
 {

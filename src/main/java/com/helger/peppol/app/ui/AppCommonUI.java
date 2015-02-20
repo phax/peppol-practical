@@ -64,6 +64,7 @@ import com.helger.peppol.app.action.CActionPublic;
 import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.comment.domain.CommentThreadManager;
+import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.webbasics.EWebBasicsText;
 import com.helger.webbasics.app.layout.ILayoutExecutionContext;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
@@ -79,7 +80,6 @@ import com.helger.webctrls.datatables.ajax.AjaxExecutorDataTables;
 import com.helger.webctrls.page.AbstractWebPageExt;
 import com.helger.webctrls.page.DefaultMenuConfigurator;
 import com.helger.webctrls.styler.WebPageStylerManager;
-import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 @Immutable
 public final class AppCommonUI

@@ -19,10 +19,10 @@ package com.helger.peppol.comment.ajax;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.webbasics.ajax.IAjaxInvoker;
 import com.helger.webbasics.ajax.servlet.AbstractAjaxServlet;
 import com.helger.webbasics.app.CApplication;
-import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 /**
  * Servlet that handles comment AJAX calls

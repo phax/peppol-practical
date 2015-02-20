@@ -80,6 +80,7 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.menu.CMenuPublic;
+import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.webbasics.EWebBasicsText;
 import com.helger.webbasics.app.LinkUtils;
 import com.helger.webbasics.app.layout.CLayout;
@@ -91,7 +92,6 @@ import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.servlet.AbstractSecureApplicationServlet;
 import com.helger.webbasics.servlet.LogoutServlet;
 import com.helger.webctrls.google.HCUniversalAnalytics;
-import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 /**
  * The viewport renderer (menu + content area)

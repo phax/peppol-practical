@@ -44,6 +44,7 @@ import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppUtils;
+import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.webbasics.EWebBasicsText;
 import com.helger.webbasics.app.LinkUtils;
 import com.helger.webbasics.app.layout.CLayout;
@@ -51,7 +52,6 @@ import com.helger.webbasics.app.layout.ILayoutAreaContentProvider;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
 import com.helger.webbasics.servlet.AbstractPublicApplicationServlet;
 import com.helger.webbasics.servlet.LogoutServlet;
-import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 /**
  * The viewport renderer (menu + content area)

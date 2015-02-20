@@ -19,9 +19,9 @@ package com.helger.peppol.servlet;
 import javax.annotation.Nonnull;
 
 import com.helger.peppol.app.ui.AppLayoutHTMLProvider;
+import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.webbasics.app.html.IHTMLProvider;
 import com.helger.webbasics.servlet.AbstractPublicApplicationServlet;
-import com.helger.webscopes.domain.IRequestWebScopeWithoutResponse;
 
 public class PublicApplicationServlet extends AbstractPublicApplicationServlet
 {
