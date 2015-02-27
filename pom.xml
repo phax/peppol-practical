@@ -278,6 +278,9 @@
         <configuration>
           <excludes>
             <exclude>src/main/webapp/*.jsp</exclude>
+            <!-- Minified CSS/JS files - usually generated -->
+            <exclude>**/*.min.css</exclude>
+            <exclude>**/*.min.js</exclude>
           </excludes>
         </configuration>
       </plugin>
