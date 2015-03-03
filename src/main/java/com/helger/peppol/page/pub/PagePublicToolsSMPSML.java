@@ -70,6 +70,7 @@ import com.helger.web.https.DoNothingTrustManager;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.page.AbstractWebPageExt;
+import com.sun.xml.ws.client.ClientTransportException;
 
 import eu.europa.ec.cipa.peppol.security.KeyStoreUtils;
 import eu.europa.ec.cipa.peppol.sml.ISMLInfo;
@@ -262,7 +263,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                           sLogicalAddress,
                                           aSML.getManagementHostName ());
       }
-      catch (BadRequestFault | InternalErrorFault | UnauthorizedFault ex)
+      catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | ClientTransportException ex)
       {
         aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error registering SMP '" +
                                                                sSMPID +
