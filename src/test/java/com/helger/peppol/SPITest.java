@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import com.helger.commons.mock.PHTestUtils;
 
-public class SPITest
+public final class SPITest
 {
   @Test
   public void testBasic () throws Exception
