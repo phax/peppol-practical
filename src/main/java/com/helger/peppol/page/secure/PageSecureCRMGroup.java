@@ -45,6 +45,7 @@ import com.helger.validation.error.FormErrors;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.datatables.DataTables;
+import com.helger.webctrls.page.EWebPageFormAction;
 
 public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
 {
@@ -83,7 +84,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
                                                  @Nullable final ICRMGroup aSelectedObject,
                                                  @Nonnull final FormErrors aFormErrors,
-                                                 final boolean bEdit)
+                                                 @Nonnull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
@@ -103,7 +104,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     if (aFormErrors.isEmpty ())
     {
       // All fields are valid -> save
-      if (bEdit)
+      if (eFormAction.isEdit ())
       {
         // We're editing an existing object
         aCRMGroupMgr.updateCRMGroup (aSelectedObject.getID (), sName, sSenderEmailAddress);
@@ -122,12 +123,11 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final ICRMGroup aSelectedObject,
                                 @Nonnull final AbstractHCForm <?> aForm,
-                                final boolean bEdit,
-                                final boolean bCopy,
+                                @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {
     final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (170), HCCol.star ()));
-    aTable.setSpanningHeaderContent (bEdit ? "Edit CRM group" : "Create new CRM group");
+    aTable.setSpanningHeaderContent (eFormAction.isEdit () ? "Edit CRM group" : "Create new CRM group");
     aTable.createItemRow ()
           .setLabelMandatory ("Name")
           .setCtrl (new HCEdit (new RequestField (FIELD_NAME,

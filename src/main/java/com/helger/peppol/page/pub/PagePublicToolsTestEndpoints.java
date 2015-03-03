@@ -34,7 +34,6 @@ import com.helger.bootstrap3.table.BootstrapTable;
 import com.helger.bootstrap3.table.BootstrapTableFormView;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.SimpleURL;
@@ -154,40 +153,25 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
 
   @Override
   @Nonnull
-  protected EContinue beforeProcessing (@Nonnull final WebPageExecutionContext aWPEC,
-                                        @Nullable final TestEndpoint aSelectedObject,
-                                        @Nullable final EWebPageFormAction eFormAction)
+  protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
+                                     @Nonnull final EWebPageFormAction eFormAction,
+                                     @Nullable final TestEndpoint aSelectedObject)
   {
+    if (eFormAction.isReadonly ())
+      return true;
+
+    if (eFormAction.isEdit ())
+      return aSelectedObject.getCreationUserID ().equals (LoggedInUserManager.getInstance ().getCurrentUserID ());
+
     // Only logged in users can modify something
-    // TODO use !eFormAction.isReadOnly() in ph-webctrls > 2.5.1
-    if (eFormAction != null &&
-        !eFormAction.equals (EWebPageFormAction.VIEW) &&
-        !LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ())
-      return EContinue.BREAK;
-
-    return super.beforeProcessing (aWPEC, aSelectedObject, eFormAction);
-  }
-
-  @Override
-  protected boolean isEditAllowed (@Nonnull final WebPageExecutionContext aWPEC,
-                                   @Nullable final TestEndpoint aSelectedObject)
-  {
-    if (aSelectedObject == null)
-      return false;
-
-    // Only owner can edit his object
-    if (!aSelectedObject.getCreationUserID ().equals (LoggedInUserManager.getInstance ().getCurrentUserID ()))
-      return false;
-
-    return super.isEditAllowed (aWPEC, aSelectedObject);
+    return LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
   }
 
   @Override
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final TestEndpoint aSelectedObject,
                                 @Nonnull final AbstractHCForm <?> aForm,
-                                final boolean bEdit,
-                                final boolean bCopy,
+                                @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -234,7 +218,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
                                                  @Nullable final TestEndpoint aSelectedObject,
                                                  @Nonnull final FormErrors aFormErrors,
-                                                 final boolean bEdit)
+                                                 @Nonnull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
@@ -281,7 +265,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
 
     if (aFormErrors.isEmpty ())
     {
-      if (bEdit)
+      if (eFormAction.isEdit ())
       {
         aTestEndpointMgr.updateTestEndpoint (aSelectedObject.getID (),
                                              sCompanyName,
@@ -344,18 +328,21 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
         aRow.addCell (AppUtils.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
 
         final IHCCell <?> aActionCell = aRow.addCell ();
-        if (isEditAllowed (aWPEC, aCurObject))
-          aActionCell.addChildren (createEditLink (aWPEC, aCurObject), new HCTextNode (" "));
+        if (isActionAllowed (aWPEC, EWebPageFormAction.EDIT, aCurObject))
+          aActionCell.addChild (createEditLink (aWPEC, aCurObject));
         else
-          aActionCell.addChildren (createEmptyAction (), new HCTextNode (" "));
+          aActionCell.addChild (createEmptyAction ());
+        aActionCell.addChild (new HCTextNode (" "));
+
         if (bUserIsLoggedIn)
-          aActionCell.addChildren (new HCTextNode (" "), createCopyLink (aWPEC, aCurObject));
+          aActionCell.addChild (createCopyLink (aWPEC, aCurObject));
         else
-          aActionCell.addChildren (createEmptyAction (), new HCTextNode (" "));
+          aActionCell.addChild (createEmptyAction ());
+        aActionCell.addChild (new HCTextNode (" "));
+
         // Visible for all
-        aActionCell.addChildren (new HCTextNode (" "),
-                                 new HCA (_createParticipantInfoURL (aWPEC, aCurObject)).setTitle ("Show participant information")
-                                                                                        .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
+        aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC, aCurObject)).setTitle ("Show participant information")
+                                                                                     .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
       }
     aNodeList.addChild (aTable);
 

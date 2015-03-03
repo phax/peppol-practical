@@ -34,7 +34,7 @@ import com.helger.peppol.page.pub.PagePublicToolsSMPSML;
 import com.helger.peppol.page.pub.PagePublicToolsTestEndpoints;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.app.page.system.PageShowChildren;
-import com.helger.webctrls.page.security.BasePageChangePassword;
+import com.helger.webctrls.page.security.BasePageSecurityChangePassword;
 
 @Immutable
 public final class MenuPublic
@@ -113,7 +113,7 @@ public final class MenuPublic
 
     // Logged in user stuff
     {
-      aMenuTree.createRootItem (new BasePageChangePassword <WebPageExecutionContext> (CMenuPublic.MENU_CHANGE_PASSWORD))
+      aMenuTree.createRootItem (new BasePageSecurityChangePassword <WebPageExecutionContext> (CMenuPublic.MENU_CHANGE_PASSWORD))
                .setDisplayFilter (MenuItemFilterLoggedIn.getInstance ());
     }
 

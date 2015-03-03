@@ -18,6 +18,7 @@ package com.helger.peppol.page.pub;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 
@@ -34,7 +35,7 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.SMap;
+import com.helger.datetime.PDTFactory;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.AbstractHCForm;
@@ -115,14 +116,20 @@ public final class PagePublicSignUp extends AbstractAppWebPageExt
 
     if (aFormErrors.isEmpty ())
     {
+      final String sDescription = "User signed up at " +
+                                  PDTFactory.getCurrentDateTime ().toString () +
+                                  " from " +
+                                  aWPEC.getRequestScope ().getRemoteAddr ();
+
       // Create new user
       final IUser aCreatedUser = aAccessMgr.createNewUser (sEmailAddress,
                                                            sEmailAddress,
                                                            sPlainTextPassword,
                                                            sFirstName,
                                                            sLastName,
+                                                           sDescription,
                                                            aDisplayLocale,
-                                                           new SMap (),
+                                                           (Map <String, ?>) null,
                                                            false);
       if (aCreatedUser == null)
         aNodeList.addChild (BootstrapErrorBox.create ("Error creating the new user!"));

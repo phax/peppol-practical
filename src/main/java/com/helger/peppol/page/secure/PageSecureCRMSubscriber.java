@@ -65,6 +65,7 @@ import com.helger.webbasics.form.RequestFieldBooleanMultiValue;
 import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.datatables.DataTables;
 import com.helger.webctrls.masterdata.HCSalutationSelect;
+import com.helger.webctrls.page.EWebPageFormAction;
 
 public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubscriber>
 {
@@ -128,7 +129,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
                                                  @Nullable final ICRMSubscriber aSelectedObject,
                                                  @Nonnull final FormErrors aFormErrors,
-                                                 final boolean bEdit)
+                                                 @Nonnull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
@@ -154,7 +155,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
         final ICRMSubscriber aSameEmailAddresSubscriber = aCRMSubscriberMgr.getCRMSubscriberOfEmailAddress (sEmailAddress);
         if (aSameEmailAddresSubscriber != null)
         {
-          if (!bEdit || aSameEmailAddresSubscriber != aSelectedObject)
+          if (!eFormAction.isEdit () || aSameEmailAddresSubscriber != aSelectedObject)
             aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS,
                                        "A subscription for the provided email address is already present!");
         }
@@ -175,7 +176,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     if (aFormErrors.isEmpty ())
     {
       // All fields are valid -> save
-      if (bEdit)
+      if (eFormAction.isEdit ())
       {
         // We're editing an existing object
         aCRMSubscriberMgr.updateCRMSubscriber (aSelectedObject.getID (),
@@ -198,15 +199,14 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final ICRMSubscriber aSelectedObject,
                                 @Nonnull final AbstractHCForm <?> aForm,
-                                final boolean bEdit,
-                                final boolean bCopy,
+                                @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {
     final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
     final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (170), HCCol.star ()));
-    aTable.setSpanningHeaderContent (bEdit ? "Edit CRM subscriber" : "Create new CRM subscriber");
+    aTable.setSpanningHeaderContent (eFormAction.isEdit () ? "Edit CRM subscriber" : "Create new CRM subscriber");
 
     aTable.createItemRow ()
           .setLabel ("Salutation")
