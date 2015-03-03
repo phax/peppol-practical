@@ -98,7 +98,7 @@
     <servlet-class>com.helger.webbasics.servlet.StreamServlet</servlet-class>
     <init-param>
       <param-name>allowedExtensions</param-name>
-      <param-value>js,css,png,jpg,jpeg,gif,eot,svg,ttf,woff,woff2,map</param-value>
+      <param-value>$web-default$</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
@@ -111,7 +111,7 @@
     <servlet-class>com.helger.webbasics.servlet.UserStreamServlet</servlet-class>
     <init-param>
       <param-name>allowedExtensions</param-name>
-      <param-value>js,css,png,jpg,jpeg,gif,eot,svg,ttf,woff,woff2,map</param-value>
+      <param-value>$web-default$</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
