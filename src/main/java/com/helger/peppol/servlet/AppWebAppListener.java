@@ -24,7 +24,7 @@ import javax.servlet.ServletContext;
 
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import com.helger.bootstrap3.servlet.WebAppListenerMultiAppBootstrap;
+import com.helger.bootstrap3.servlet.AbstractWebAppListenerMultiAppBootstrap;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.peppol.app.AppInternalErrorHandler;
@@ -44,7 +44,7 @@ import com.helger.webbasics.app.layout.LayoutExecutionContext;
  *
  * @author Philip Helger
  */
-public final class AppWebAppListener extends WebAppListenerMultiAppBootstrap <LayoutExecutionContext>
+public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBootstrap <LayoutExecutionContext>
 {
   @Override
   protected String getInitParameterTrace (@Nonnull final ServletContext aSC)

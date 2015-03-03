@@ -25,14 +25,14 @@ import com.helger.peppol.app.AppUtils;
 import com.helger.webbasics.app.ISimpleWebExecutionContext;
 import com.helger.webbasics.app.layout.ApplicationLayoutManager;
 import com.helger.webbasics.app.layout.LayoutExecutionContext;
-import com.helger.webbasics.app.layout.LayoutHTMLProvider;
+import com.helger.webbasics.app.layout.AbstractLayoutManagerBasedLayoutHTMLProvider;
 
 /**
  * Main class for creating HTML output
  *
  * @author Philip Helger
  */
-public class AppLayoutHTMLProvider extends LayoutHTMLProvider <LayoutExecutionContext>
+public class AppLayoutHTMLProvider extends AbstractLayoutManagerBasedLayoutHTMLProvider <LayoutExecutionContext>
 {
   public AppLayoutHTMLProvider ()
   {
