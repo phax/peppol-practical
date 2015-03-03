@@ -30,7 +30,7 @@ import eu.europa.ec.cipa.sml.client.ManageServiceMetadataServiceCaller;
 /**
  * A special {@link ManageServiceMetadataServiceCaller} subclass that sets the
  * socket factory on a per web service client call basis.
- * 
+ *
  * @author Philip Helger
  */
 public class SecuredSMPSMLClient extends ManageServiceMetadataServiceCaller
@@ -48,6 +48,9 @@ public class SecuredSMPSMLClient extends ManageServiceMetadataServiceCaller
   {
     final ManageServiceMetadataServiceSoap aPort = super.createWSPort ();
     // Use the specific socket factory
+    // == com.sun.xml.internal.ws.developer.JAXWSProperties.SSL_SOCKET_FACTORY
+    ((BindingProvider) aPort).getRequestContext ()
+                             .put ("com.sun.xml.internal.ws.transport.https.client.SSLSocketFactory", m_aSocketFactory);
     ((BindingProvider) aPort).getRequestContext ().put (com.sun.xml.ws.developer.JAXWSProperties.SSL_SOCKET_FACTORY,
                                                         m_aSocketFactory);
     return aPort;
