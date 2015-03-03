@@ -44,6 +44,7 @@ import com.helger.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.bootstrap3.form.BootstrapForm;
 import com.helger.bootstrap3.form.BootstrapFormGroup;
 import com.helger.bootstrap3.form.EBootstrapFormType;
+import com.helger.bootstrap3.grid.BootstrapRow;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.property.CCSSProperties;
@@ -62,7 +63,8 @@ import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.html.HCTextArea;
 import com.helger.html.hc.html.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.AppUtils;
+import com.helger.html.js.EJSEvent;
+import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
@@ -70,9 +72,9 @@ import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.page.AbstractWebPageExt;
 
+import eu.europa.ec.cipa.peppol.identifier.CIdentifier;
 import eu.europa.ec.cipa.peppol.identifier.IdentifierUtils;
 import eu.europa.ec.cipa.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
-import eu.europa.ec.cipa.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 import eu.europa.ec.cipa.peppol.identifier.participant.SimpleParticipantIdentifier;
 import eu.europa.ec.cipa.peppol.sml.ESML;
 import eu.europa.ec.cipa.peppol.uri.BusdoxURLUtils;
@@ -83,6 +85,7 @@ import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
 
 public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
 {
+  public static final String FIELD_ID_ISO6523_PREDEF = "idschemepredef";
   public static final String FIELD_ID_ISO6523 = "idscheme";
   public static final String FIELD_ID_VALUE = "idvalue";
 
@@ -103,21 +106,27 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
     {
       // Validate fields
       final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_ID_ISO6523);
-      final EPredefinedIdentifierIssuingAgency eAgency = AppUtils.getIdentifierIssuingAgencyOfID (sParticipantIDISO6523);
       final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
 
       if (StringHelper.hasNoText (sParticipantIDISO6523))
         aFormErrors.addFieldError (FIELD_ID_ISO6523, "Please select an identifier scheme");
-      else
-        if (eAgency == null)
-          aFormErrors.addFieldError (FIELD_ID_ISO6523, "Please select a valid identifier scheme");
 
       if (StringHelper.hasNoText (sParticipantIDValue))
         aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
 
-      if (!aFormErrors.hasErrorsOrWarnings ())
+      String sParticipantIdentifierValue = null;
+      if (aFormErrors.isEmpty ())
       {
-        final SimpleParticipantIdentifier aParticipantID = eAgency.createParticipantIdentifier (sParticipantIDValue);
+        sParticipantIdentifierValue = sParticipantIDISO6523 + ":" + sParticipantIDValue;
+        if (!IdentifierUtils.isValidParticipantIdentifierValue (sParticipantIdentifierValue))
+          aFormErrors.addFieldError (FIELD_ID_VALUE, "The resulting participant identifier value '" +
+                                                     sParticipantIdentifierValue +
+                                                     "' is not valid!");
+      }
+
+      if (aFormErrors.isEmpty ())
+      {
+        final SimpleParticipantIdentifier aParticipantID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
         final SMPServiceCallerReadonly aSMPClient = new SMPServiceCallerReadonly (aParticipantID, ESML.PRODUCTION);
         try
         {
@@ -341,12 +350,25 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
                                                                        .addChild ("and value ")
                                                                        .addChild (new HCCode ().addChild ("test"))
                                                                        .addChild (" as an example.")));
-      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
-                                                   .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523),
-                                                                                                aDisplayLocale))
-                                                   .setErrorList (aFormErrors.getListOfField (FIELD_ID_ISO6523)));
+      {
+        final IdentifierIssuingAgencySelect aSelect = new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523_PREDEF),
+                                                                                         aDisplayLocale);
+        final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
+                                                                             .setPlaceholder ("Identifier value");
+        // In case something is selected, put it in the edit
+        aSelect.setEventHandler (EJSEvent.ONCHANGE, JQuery.idRef (aEdit).val (JQuery.jQueryThis ().val ()));
+
+        final BootstrapRow aRow = new BootstrapRow ();
+        aRow.createColumn (6).addChild (aSelect);
+        aRow.createColumn (6).addChild (aEdit);
+
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
+                                                     .setCtrl (aRow)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_ID_ISO6523)));
+      }
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
-                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setPlaceholder ("Identifier value"))
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setMaxLength (CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
+                                                                                                           .setPlaceholder ("Identifier value"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
