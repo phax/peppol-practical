@@ -124,7 +124,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-html</artifactId>
-      <version>4.6.0-SNAPSHOT</version>
+      <version>4.6.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
