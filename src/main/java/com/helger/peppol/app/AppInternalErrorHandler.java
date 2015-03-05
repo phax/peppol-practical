@@ -25,6 +25,7 @@ import org.quartz.Job;
 
 import com.helger.appbasics.app.dao.impl.AbstractDAO;
 import com.helger.appbasics.app.request.ApplicationRequestManager;
+import com.helger.appbasics.longrun.ILongRunningJob;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.email.EmailAddress;
 import com.helger.schedule.job.AbstractJob;
@@ -57,11 +58,10 @@ public final class AppInternalErrorHandler extends AbstractErrorCallback impleme
 
   public void onScheduledJobException (@Nonnull final Throwable t,
                                        @Nullable final String sJobClassName,
-                                       @Nonnull final Job aJob,
-                                       final boolean bIsLongRunning)
+                                       @Nonnull final Job aJob)
   {
     onError (t, null, "Error executing" +
-                      (bIsLongRunning ? " long running" : "") +
+                      (aJob instanceof ILongRunningJob ? " long running" : "") +
                       " job " +
                       sJobClassName +
                       ": " +
