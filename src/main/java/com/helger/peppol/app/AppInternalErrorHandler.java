@@ -47,7 +47,7 @@ public final class AppInternalErrorHandler extends AbstractErrorCallback impleme
                           @Nullable final IRequestWebScopeWithoutResponse aRequestScope,
                           @Nonnull @Nonempty final String sErrorCode)
   {
-    final Locale aDisplayLocale = ApplicationRequestManager.getInstance ().getRequestDisplayLocale ();
+    final Locale aDisplayLocale = ApplicationRequestManager.getRequestMgr ().getRequestDisplayLocale ();
     new InternalErrorBuilder ().setThrowable (t)
                                .setRequestScope (aRequestScope)
                                .addCustomData ("ErrorCode", sErrorCode)

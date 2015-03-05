@@ -94,7 +94,7 @@ public final class AppCommonUI
 
   public static void init ()
   {
-    ApplicationRequestManager.getInstance ().setUsePaths (true);
+    ApplicationRequestManager.getRequestMgr ().setUsePaths (true);
 
     WebPageStylerManager.getInstance ().setStyler (new BootstrapWebPageStyler ()
     {
@@ -278,8 +278,7 @@ public final class AppCommonUI
     if (aObject instanceof IUser)
     {
       final IUser aTypedObj = (IUser) aObject;
-      final String sRealDisplayName = sDisplayName != null
-                                                          ? sDisplayName
+      final String sRealDisplayName = sDisplayName != null ? sDisplayName
                                                           : SecurityUtils.getUserDisplayName (aTypedObj, aDisplayLocale);
       final String sMenuItemID = DefaultMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
