@@ -124,7 +124,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-html</artifactId>
-      <version>4.6.0</version>
+      <version>4.6.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -280,11 +280,11 @@
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-jscompress-maven-plugin</artifactId>
-        <version>1.1.0</version><!--$NO-MVN-MAN-VER$-->
+        <version>2.0.0</version><!--$NO-MVN-MAN-VER$-->
         <executions>
           <execution>
             <goals>
-              <goal>compressjs</goal>
+              <goal>jscompress</goal>
             </goals>
           </execution>
         </executions>
