@@ -108,7 +108,7 @@
   
   <servlet>
     <servlet-name>UserStreamServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.servlet.UserStreamServlet</servlet-class>
+    <servlet-class>com.helger.webbasics.userdata.UserStreamServlet</servlet-class>
     <init-param>
       <param-name>allowedExtensions</param-name>
       <param-value>$web-default$</param-value>
@@ -121,7 +121,7 @@
   
   <servlet>
     <servlet-name>UserUploadServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.servlet.UserUploadServlet</servlet-class>
+    <servlet-class>com.helger.webbasics.userdata.UserUploadServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UserUploadServlet</servlet-name>

@@ -19,6 +19,7 @@ package com.helger.peppol;
 import org.junit.Test;
 
 import com.helger.commons.mock.PHTestUtils;
+import com.helger.webbasics.mock.WebXmlValidator;
 
 public final class SPITest
 {
@@ -26,5 +27,6 @@ public final class SPITest
   public void testBasic () throws Exception
   {
     PHTestUtils.testIfAllSPIImplementationsAreValid ();
+    WebXmlValidator.validateWebXML ();
   }
 }
