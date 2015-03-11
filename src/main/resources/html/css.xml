@@ -18,13 +18,13 @@
 
 -->
 <items>
-  <css path="/stream/bootstrap/3.3.2/css/bootstrap.css"/>
-  <css path="/stream/bootstrap/3.3.2/css/bootstrap-theme.css"/>
-  <css path="/stream/bootstrap/bootstrap3-ph.css"/>
-  <css path="/stream/famfam/flags/flags.css"/>
-  <css path="/stream/famfam/013/famfam.css"/>
-  <css path="/stream/css/webctrls.css"/>
+  <css path="bootstrap/3.3.2/css/bootstrap.css"/>
+  <css path="bootstrap/3.3.2/css/bootstrap-theme.css"/>
+  <css path="bootstrap/bootstrap3-ph.css"/>
+  <css path="famfam/flags/flags.css"/>
+  <css path="famfam/013/famfam.css"/>
+  <css path="css/webctrls.css"/>
   <css path="/css/default.css"/>
   <css path="/css/print.css" media="print"/>
-  <css path="/stream/placeholder/placeholder-fix.css" condcomment="if lt IE 10"/>
+  <css path="placeholder/placeholder-fix.css" condcomment="if lt IE 10"/>
 </items>
