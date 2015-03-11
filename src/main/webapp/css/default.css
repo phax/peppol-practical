@@ -18,18 +18,10 @@ td {
   vertical-align: top;
 }
 
-/** Add a margin when using a DataTables within a Tab */
-.tab-pane > .dataTables_wrapper {
-  margin-top: 1em;
-}
-
 /* Remove margin from content tables */
 #viewport table {
   margin-bottom: 0 !important;
 }
-
-/* Margin for button bar */
-.btn-toolbar { margin: 1em 0; }
 
 /* no bottom margin */
 .panel ul,
