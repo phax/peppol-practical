@@ -23,6 +23,7 @@ import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.webbasics.ajax.IAjaxInvoker;
 import com.helger.webbasics.ajax.servlet.AbstractAjaxServlet;
 import com.helger.webbasics.app.CApplication;
+import com.helger.webbasics.servletstatus.ServletStatusManager;
 
 /**
  * Servlet that handles comment AJAX calls
@@ -33,6 +34,16 @@ public class CommentAjaxServlet extends AbstractAjaxServlet
 {
   public static final String SERVLET_DEFAULT_NAME = "comment";
   public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
+
+  private static final boolean s_bIsRegistered = ServletStatusManager.isServletRegistered (CommentAjaxServlet.class);
+
+  public CommentAjaxServlet ()
+  {}
+
+  public static boolean isServletRegisteredInServletContext ()
+  {
+    return s_bIsRegistered;
+  }
 
   @Override
   @Nonnull
