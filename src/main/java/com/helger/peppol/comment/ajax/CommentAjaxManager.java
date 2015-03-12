@@ -26,7 +26,6 @@ import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.callback.CallbackList;
-import com.helger.commons.factory.IFactory;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.web.scopes.singleton.GlobalWebSingleton;
@@ -110,15 +109,15 @@ public final class CommentAjaxManager extends GlobalWebSingleton implements IAja
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, IFactory <? extends IAjaxExecutor>> getAllRegisteredExecutors ()
+  public Map <String, IAjaxFunctionDeclaration> getAllRegisteredFunctions ()
   {
-    return m_aInvoker.getAllRegisteredExecutors ();
+    return m_aInvoker.getAllRegisteredFunctions ();
   }
 
   @Nullable
-  public IFactory <? extends IAjaxExecutor> getRegisteredExecutor (@Nullable final String sFunctionName)
+  public IAjaxFunctionDeclaration getRegisteredFunction (@Nullable final String sFunctionName)
   {
-    return m_aInvoker.getRegisteredExecutor (sFunctionName);
+    return m_aInvoker.getRegisteredFunction (sFunctionName);
   }
 
   @Nullable
