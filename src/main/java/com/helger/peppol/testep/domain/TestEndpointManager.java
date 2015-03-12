@@ -29,7 +29,7 @@ import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
@@ -67,7 +67,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
   {
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
-    for (final TestEndpoint aTestEndpoint : ContainerHelper.getSortedByKey (m_aMap).values ())
+    for (final TestEndpoint aTestEndpoint : CollectionHelper.getSortedByKey (m_aMap).values ())
       eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aTestEndpoint, ELEMENT_ITEM));
     return aDoc;
   }
@@ -167,7 +167,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (m_aMap.values ());
+      return CollectionHelper.newList (m_aMap.values ());
     }
     finally
     {

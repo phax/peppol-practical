@@ -36,7 +36,7 @@ import com.helger.bootstrap3.panel.EBootstrapPanelType;
 import com.helger.bootstrap3.table.BootstrapTableForm;
 import com.helger.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.NonBlockingStack;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
@@ -105,14 +105,14 @@ public final class CommentUI
 
     // Get all existing comments
     final List <ICommentThread> aComments = CommentThreadManager.getInstance ().getCommentThreadsOfObject (aObject);
-    if (ContainerHelper.isNotEmpty (aComments))
+    if (CollectionHelper.isNotEmpty (aComments))
     {
       final IUserManager aUserMgr = AccessManager.getInstance ();
       final boolean bIsCommentModerator = CommentSecurity.isCurrentUserCommentModerator ();
 
       // Container for all threads
       final HCDiv aAllThreadsContainer = new HCDiv ().addClass (CCommentCSS.CSS_CLASS_COMMENT_CONTAINER);
-      for (final ICommentThread aCommentThread : ContainerHelper.getSorted (aComments,
+      for (final ICommentThread aCommentThread : CollectionHelper.getSorted (aComments,
                                                                             new ComparatorCommentThreadCreationDateTime ()))
       {
         // Container for this thread

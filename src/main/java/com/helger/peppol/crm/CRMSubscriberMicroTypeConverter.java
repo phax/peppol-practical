@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.appbasics.object.AbstractObjectMicroTypeConverter;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.impl.MicroElement;
@@ -50,7 +50,7 @@ public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConv
     aElement.setAttribute (ATTR_SALUTATION, aValue.getSalutationID ());
     aElement.setAttribute (ATTR_NAME, aValue.getName ());
     aElement.setAttribute (ATTR_EMAIL_ADDRESS, aValue.getEmailAddress ());
-    for (final ICRMGroup aGroup : ContainerHelper.getSorted (aValue.getAllAssignedGroups (),
+    for (final ICRMGroup aGroup : CollectionHelper.getSorted (aValue.getAllAssignedGroups (),
                                                              new ComparatorHasIDString <ICRMGroup> ()))
       aElement.appendElement (sNamespaceURI, ELEMENT_ASSIGNED_GROUP).setAttribute (ATTR_ID, aGroup.getID ());
     return aElement;

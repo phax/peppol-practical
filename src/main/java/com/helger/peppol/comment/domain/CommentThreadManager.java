@@ -33,7 +33,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.annotations.UsedViaReflection;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.scopes.singleton.GlobalSingleton;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
@@ -102,7 +102,7 @@ public final class CommentThreadManager extends GlobalSingleton
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (m_aMap.keySet ());
+      return CollectionHelper.newSet (m_aMap.keySet ());
     }
     finally
     {

@@ -41,7 +41,7 @@ import com.helger.bootstrap3.form.EBootstrapFormType;
 import com.helger.bootstrap3.styler.BootstrapWebPageStyler;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.idfactory.GlobalIDFactory;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.url.ISimpleURL;
@@ -116,7 +116,7 @@ public final class AppCommonUI
            .setLengthMenu (LENGTH_MENU)
            .setUseJQueryAjax (true)
            .setAjaxSource (CAjaxPublic.DATATABLES.getInvocationURL (aRequestScope))
-           .setServerParams (ContainerHelper.newMap (AjaxExecutorDataTables.OBJECT_ID, aTable.getID ()))
+           .setServerParams (CollectionHelper.newMap (AjaxExecutorDataTables.OBJECT_ID, aTable.getID ()))
            .setServerFilterType (EDataTablesFilterType.ALL_TERMS_PER_ROW)
            .setTextLoadingURL (CActionPublic.DATATABLES_I18N.getInvocationURL (aRequestScope),
                                ActionExecutorDataTablesI18N.LANGUAGE_ID)

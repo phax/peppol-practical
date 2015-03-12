@@ -28,7 +28,7 @@ import com.helger.appbasics.object.StubObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -139,7 +139,7 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   @ReturnsMutableCopy
   public Set <ICRMGroup> getAllAssignedGroups ()
   {
-    return ContainerHelper.newSet (m_aAssignedGroups);
+    return CollectionHelper.newSet (m_aAssignedGroups);
   }
 
   @Nonnegative
@@ -157,7 +157,7 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   public EChange setAssignedGroups (@Nullable final Set <ICRMGroup> aAssignedGroups)
   {
     // Ensure same implementation type and non-null
-    final Set <ICRMGroup> aRealAssignedGroups = ContainerHelper.newSet (aAssignedGroups);
+    final Set <ICRMGroup> aRealAssignedGroups = CollectionHelper.newSet (aAssignedGroups);
     if (aRealAssignedGroups.equals (m_aAssignedGroups))
       return EChange.UNCHANGED;
     m_aAssignedGroups = aRealAssignedGroups;

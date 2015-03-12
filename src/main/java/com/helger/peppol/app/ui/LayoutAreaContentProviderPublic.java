@@ -51,7 +51,7 @@ import com.helger.bootstrap3.navbar.BootstrapNavbar;
 import com.helger.bootstrap3.navbar.EBootstrapNavbarPosition;
 import com.helger.bootstrap3.navbar.EBootstrapNavbarType;
 import com.helger.bootstrap3.pageheader.BootstrapPageHeader;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
@@ -374,9 +374,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
         for (int i = 0; i < m_nFooterRowCount; ++i)
         {
           final HCRow aRow = aTable.addBodyRow ();
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, ContainerHelper.getSafe (m_aFooterObjectsCol1, i)));
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, ContainerHelper.getSafe (m_aFooterObjectsCol2, i)));
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, ContainerHelper.getSafe (m_aFooterObjectsCol3, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, CollectionHelper.getSafe (m_aFooterObjectsCol1, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, CollectionHelper.getSafe (m_aFooterObjectsCol2, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, CollectionHelper.getSafe (m_aFooterObjectsCol3, i)));
         }
         aDiv.addChild (aTable);
       }

@@ -33,7 +33,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.MustBeLocked;
 import com.helger.commons.annotations.MustBeLocked.ELockType;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.multimap.IMultiMapListBased;
 import com.helger.commons.collections.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.microdom.IMicroDocument;
@@ -197,7 +197,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (m_aObjectToCommentThreads.keySet ());
+      return CollectionHelper.newSet (m_aObjectToCommentThreads.keySet ());
     }
     finally
     {
@@ -231,7 +231,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       {
         final List <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
         if (ret != null)
-          return ContainerHelper.newList (ret);
+          return CollectionHelper.newList (ret);
       }
       finally
       {

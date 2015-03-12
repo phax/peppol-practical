@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.Translatable;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.name.IHasDisplayText;
 import com.helger.commons.string.StringHelper;
@@ -140,7 +140,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
       aNodeList.addChild (aToolbar);
 
       final ITabBox <?> aTabBox = getStyler ().createTabBox (aWPEC);
-      for (final ObjectType aOT : ContainerHelper.getSorted (aCommentThreadMgr.getAllRegisteredObjectTypes ()))
+      for (final ObjectType aOT : CollectionHelper.getSorted (aCommentThreadMgr.getAllRegisteredObjectTypes ()))
       {
         final HCNodeList aTab = new HCNodeList ();
 

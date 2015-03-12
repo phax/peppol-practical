@@ -34,7 +34,7 @@ import com.helger.bootstrap3.table.BootstrapTable;
 import com.helger.bootstrap3.table.BootstrapTableForm;
 import com.helger.bootstrap3.table.BootstrapTableFormView;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.name.ComparatorHasDisplayName;
@@ -118,7 +118,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     aTable.createItemRow ().setLabel ("Email address").setCtrl (aSelectedObject.getEmailAddress ());
     {
       final HCNodeList aGroups = new HCNodeList ();
-      for (final ICRMGroup aCRMGroup : ContainerHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
+      for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
                                                                   new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         aGroups.addChild (new HCDiv ().addChild (new HCA (createViewURL (aWPEC, CMenuSecure.MENU_CRM_GROUPS, aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
       aTable.createItemRow ().setLabel ("Assigned groups").setCtrl (aGroups);
@@ -231,7 +231,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
 
     {
       final HCNodeList aGroups = new HCNodeList ();
-      for (final ICRMGroup aCRMGroup : ContainerHelper.getSorted (aCRMGroupMgr.getAllCRMGroups (),
+      for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aCRMGroupMgr.getAllCRMGroups (),
                                                                   new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
       {
         final String sCRMGroupID = aCRMGroup.getID ();

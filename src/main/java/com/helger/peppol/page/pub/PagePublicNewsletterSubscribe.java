@@ -31,7 +31,7 @@ import com.helger.bootstrap3.form.BootstrapForm;
 import com.helger.bootstrap3.form.BootstrapFormGroup;
 import com.helger.bootstrap3.form.EBootstrapFormType;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.name.ComparatorHasDisplayName;
 import com.helger.commons.string.StringHelper;
@@ -164,13 +164,13 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
       if (aAllCRMGroups.size () == 1)
       {
         // No need for selection - use hidden field
-        aForm.addChild (new HCHiddenField (FIELD_GROUP, ContainerHelper.getFirstElement (aAllCRMGroups).getID ()));
+        aForm.addChild (new HCHiddenField (FIELD_GROUP, CollectionHelper.getFirstElement (aAllCRMGroups).getID ()));
       }
       else
       {
         // Show selection
         final HCNodeList aGroups = new HCNodeList ();
-        for (final ICRMGroup aCRMGroup : ContainerHelper.getSorted (aAllCRMGroups,
+        for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aAllCRMGroups,
                                                                     new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         {
           final String sCRMGroupID = aCRMGroup.getID ();
