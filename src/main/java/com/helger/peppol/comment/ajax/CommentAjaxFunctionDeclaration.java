@@ -21,14 +21,14 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.factory.IFactory;
 import com.helger.webbasics.ajax.IAjaxExecutor;
-import com.helger.webbasics.ajax.decl.DefaultAjaxFunctionDeclaration;
+import com.helger.webbasics.ajax.decl.AbstractAjaxFunctionDeclaration;
 
 /**
  * Ajax function declaration for the public application
  *
  * @author Philip Helger
  */
-public class CommentAjaxFunctionDeclaration extends DefaultAjaxFunctionDeclaration
+public class CommentAjaxFunctionDeclaration extends AbstractAjaxFunctionDeclaration
 {
   public CommentAjaxFunctionDeclaration (@Nonnull @Nonempty final String sFunctionName,
                                          @Nonnull final IAjaxExecutor aExecutor)
@@ -48,10 +48,9 @@ public class CommentAjaxFunctionDeclaration extends DefaultAjaxFunctionDeclarati
     super (sFunctionName, aExecutorFactory);
   }
 
-  @Override
   @Nonnull
   @Nonempty
-  protected String getAjaxServletPath ()
+  public String getAjaxServletPath ()
   {
     return CommentAjaxServlet.SERVLET_DEFAULT_PATH + '/';
   }
