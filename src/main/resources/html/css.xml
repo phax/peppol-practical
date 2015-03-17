@@ -18,8 +18,8 @@
 
 -->
 <items>
-  <css path="bootstrap/3.3.2/css/bootstrap.css"/>
-  <css path="bootstrap/3.3.2/css/bootstrap-theme.css"/>
+  <css path="bootstrap/3.3.4/css/bootstrap.css"/>
+  <css path="bootstrap/3.3.4/css/bootstrap-theme.css"/>
   <css path="bootstrap/bootstrap3-ph.css"/>
   <css path="famfam/flags/flags.css"/>
   <css path="famfam/013/famfam.css"/>
