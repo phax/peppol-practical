@@ -22,11 +22,10 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringHelper;
-
-import eu.europa.ec.cipa.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
-import eu.europa.ec.cipa.peppol.sml.ESML;
-import eu.europa.ec.cipa.peppol.sml.ISMLInfo;
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
+import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smp.ESMPTransportProfile;
 
 /**
  * Misc utility methods

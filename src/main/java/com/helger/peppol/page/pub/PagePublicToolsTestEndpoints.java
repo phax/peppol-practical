@@ -49,10 +49,12 @@ import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.app.ui.AppCommonUI;
+import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.mgr.MetaManager;
 import com.helger.peppol.page.AbstractAppFormPage;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.page.ui.SMPTransportProfileSelect;
+import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.testep.domain.TestEndpoint;
 import com.helger.peppol.testep.domain.TestEndpointManager;
 import com.helger.validation.error.FormErrors;
@@ -62,9 +64,6 @@ import com.helger.webctrls.custom.EDefaultIcon;
 import com.helger.webctrls.custom.toolbar.IButtonToolbar;
 import com.helger.webctrls.datatables.DataTables;
 import com.helger.webctrls.page.EWebPageFormAction;
-
-import eu.europa.ec.cipa.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpoint>
 {

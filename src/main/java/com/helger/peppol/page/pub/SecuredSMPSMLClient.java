@@ -20,12 +20,10 @@ import javax.annotation.Nonnull;
 import javax.net.ssl.SSLSocketFactory;
 import javax.xml.ws.BindingProvider;
 
-import org.busdox.servicemetadata.manageservicemetadataservice._1.ManageServiceMetadataServiceSoap;
-
 import com.helger.commons.ValueEnforcer;
-
-import eu.europa.ec.cipa.peppol.sml.ISMLInfo;
-import eu.europa.ec.cipa.sml.client.ManageServiceMetadataServiceCaller;
+import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
+import com.helger.peppol.smlclient.smp.ManageServiceMetadataServiceSoap;
 
 /**
  * A special {@link ManageServiceMetadataServiceCaller} subclass that sets the

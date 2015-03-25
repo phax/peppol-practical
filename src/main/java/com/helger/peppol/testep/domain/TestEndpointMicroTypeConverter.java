@@ -24,8 +24,7 @@ import com.helger.appbasics.object.AbstractObjectMicroTypeConverter;
 import com.helger.appbasics.object.StubObject;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.impl.MicroElement;
-
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
+import com.helger.peppol.smp.ESMPTransportProfile;
 
 @Immutable
 public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTypeConverter

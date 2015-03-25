@@ -36,8 +36,7 @@ import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.impl.MicroDocument;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
-
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
+import com.helger.peppol.smp.ESMPTransportProfile;
 
 public final class TestEndpointManager extends AbstractSimpleDAO
 {

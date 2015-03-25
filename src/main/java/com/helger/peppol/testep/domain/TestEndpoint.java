@@ -29,8 +29,7 @@ import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
-
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
+import com.helger.peppol.smp.ESMPTransportProfile;
 
 /**
  * Represents a single test endpoint.

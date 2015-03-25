@@ -29,8 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.SystemProperties;
-
-import eu.europa.ec.cipa.peppol.utils.ConfigFile;
+import com.helger.peppol.utils.ConfigFile;
 
 /**
  * Run peppol-practical as a standalone web application in Jetty on port 8080.<br>

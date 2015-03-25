@@ -21,10 +21,9 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import com.helger.peppol.app.AppUtils;
+import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.custom.HCExtSelect;
-
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
 
 /**
  * UI select for SMP transport profiles

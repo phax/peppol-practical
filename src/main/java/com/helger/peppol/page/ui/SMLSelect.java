@@ -18,10 +18,9 @@ package com.helger.peppol.page.ui;
 
 import javax.annotation.Nonnull;
 
+import com.helger.peppol.sml.ESML;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.custom.HCExtSelect;
-
-import eu.europa.ec.cipa.peppol.sml.ESML;
 
 public class SMLSelect extends HCExtSelect
 {

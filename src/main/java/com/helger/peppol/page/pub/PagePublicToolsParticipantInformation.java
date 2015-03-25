@@ -65,23 +65,22 @@ import com.helger.html.hc.html.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.js.EJSEvent;
 import com.helger.html.js.builder.jquery.JQuery;
+import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
+import com.helger.peppol.sml.ESML;
+import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.smpclient.SMPClientReadonly;
+import com.helger.peppol.utils.BusdoxURLUtils;
+import com.helger.peppol.utils.CertificateUtils;
+import com.helger.peppol.utils.W3CEndpointReferenceUtils;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.page.AbstractWebPageExt;
-
-import eu.europa.ec.cipa.peppol.identifier.CIdentifier;
-import eu.europa.ec.cipa.peppol.identifier.IdentifierUtils;
-import eu.europa.ec.cipa.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
-import eu.europa.ec.cipa.peppol.identifier.participant.SimpleParticipantIdentifier;
-import eu.europa.ec.cipa.peppol.sml.ESML;
-import eu.europa.ec.cipa.peppol.uri.BusdoxURLUtils;
-import eu.europa.ec.cipa.peppol.utils.CertificateUtils;
-import eu.europa.ec.cipa.peppol.wsaddr.W3CEndpointReferenceUtils;
-import eu.europa.ec.cipa.smp.client.ESMPTransportProfile;
-import eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly;
 
 public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
 {
@@ -127,10 +126,10 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       if (aFormErrors.isEmpty ())
       {
         final SimpleParticipantIdentifier aParticipantID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
-        final SMPServiceCallerReadonly aSMPClient = new SMPServiceCallerReadonly (aParticipantID, ESML.PRODUCTION);
+        final SMPClientReadonly aSMPClient = new SMPClientReadonly (aParticipantID, ESML.PRODUCTION);
         try
         {
-          final URL aSMPHost = aSMPClient.getSMPHost ().toURL ();
+          final URL aSMPHost = new URL (aSMPClient.getSMPHostURI ());
           final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
           final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
           aNodeList.addChild (new HCDiv ().addChild ("Querying the following SMP for ")
@@ -149,7 +148,7 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
             // Check with lowercase host name as well (e.g. 9908:983974724)!
             // The generated hostname contains "B-" whereas the returned
             // hostname contains "b-"
-            final String sCommonPrefix = (aSMPHost.toExternalForm () + "/" + aParticipantID.getURIEncoded () + "/services/").toLowerCase (Locale.US);
+            final String sCommonPrefix = (aSMPHost.toExternalForm () + aParticipantID.getURIEncoded () + "/services/").toLowerCase (Locale.US);
 
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             final HCUL aUL = new HCUL ();

@@ -152,14 +152,14 @@
       <version>${cipa.version}</version>
     </dependency>
     <dependency>
-      <groupId>eu.europa.ec.cipa</groupId>
-      <artifactId>cipa-smp-client-library</artifactId>
-      <version>${cipa.version}</version>
+      <groupId>com.helger</groupId>
+      <artifactId>peppol-smp-client</artifactId>
+      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>eu.europa.ec.cipa</groupId>
-      <artifactId>cipa-sml-client-library</artifactId>
-      <version>${cipa.version}</version>
+      <groupId>com.helger</groupId>
+      <artifactId>peppol-sml-client</artifactId>
+      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     
     <dependency>

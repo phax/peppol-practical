@@ -35,11 +35,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import org.busdox.servicemetadata.manageservicemetadataservice._1.BadRequestFault;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.InternalErrorFault;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.NotFoundFault;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.UnauthorizedFault;
-
 import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.alert.BootstrapInfoBox;
@@ -64,6 +59,12 @@ import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.page.ui.SMLSelect;
+import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smlclient.smp.BadRequestFault;
+import com.helger.peppol.smlclient.smp.InternalErrorFault;
+import com.helger.peppol.smlclient.smp.NotFoundFault;
+import com.helger.peppol.smlclient.smp.UnauthorizedFault;
+import com.helger.peppol.utils.KeyStoreUtils;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.fileupload.IFileItem;
 import com.helger.web.https.DoNothingTrustManager;
@@ -71,9 +72,6 @@ import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
 import com.helger.webctrls.page.AbstractWebPageExt;
 import com.sun.xml.ws.client.ClientTransportException;
-
-import eu.europa.ec.cipa.peppol.security.KeyStoreUtils;
-import eu.europa.ec.cipa.peppol.sml.ISMLInfo;
 
 public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionContext>
 {
