@@ -123,7 +123,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-html</artifactId>
-      <version>4.7.0</version>
+      <version>4.7.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
