@@ -253,13 +253,13 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                                  "' and logical address '" +
                                                                  sLogicalAddress +
                                                                  "' to the SML '" +
-                                                                 aSML.getManagementHostName () +
+                                                                 aSML.getManagementServiceURL () +
                                                                  "'."));
         AuditUtils.onAuditExecuteSuccess ("smp-sml-create",
                                           sSMPID,
                                           sPhysicalAddress,
                                           sLogicalAddress,
-                                          aSML.getManagementHostName ());
+                                          aSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | ClientTransportException ex)
       {
@@ -270,14 +270,14 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                                "' and logical address '" +
                                                                sLogicalAddress +
                                                                "' to the SML '" +
-                                                               aSML.getManagementHostName () +
+                                                               aSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
         AuditUtils.onAuditExecuteFailure ("smp-sml-create",
                                           sSMPID,
                                           sPhysicalAddress,
                                           sLogicalAddress,
-                                          aSML.getManagementHostName (),
+                                          aSML.getManagementServiceURL (),
                                           ex.getClass (),
                                           ex.getMessage ());
       }
@@ -377,13 +377,13 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                                  "' and logical address '" +
                                                                  sLogicalAddress +
                                                                  "' at the SML '" +
-                                                                 aSML.getManagementHostName () +
+                                                                 aSML.getManagementServiceURL () +
                                                                  "'."));
         AuditUtils.onAuditExecuteSuccess ("smp-sml-update",
                                           sSMPID,
                                           sPhysicalAddress,
                                           sLogicalAddress,
-                                          aSML.getManagementHostName ());
+                                          aSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
       {
@@ -394,14 +394,14 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                                "' and logical address '" +
                                                                sLogicalAddress +
                                                                "' to the SML '" +
-                                                               aSML.getManagementHostName () +
+                                                               aSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
         AuditUtils.onAuditExecuteFailure ("smp-sml-update",
                                           sSMPID,
                                           sPhysicalAddress,
                                           sLogicalAddress,
-                                          aSML.getManagementHostName (),
+                                          aSML.getManagementServiceURL (),
                                           ex.getClass (),
                                           ex.getMessage ());
       }
@@ -441,21 +441,21 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
         aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully deleted SMP '" +
                                                                  sSMPID +
                                                                  "' from the SML '" +
-                                                                 aSML.getManagementHostName () +
+                                                                 aSML.getManagementServiceURL () +
                                                                  "'."));
-        AuditUtils.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSML.getManagementHostName ());
+        AuditUtils.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
       {
         aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error deleting SMP '" +
                                                                sSMPID +
                                                                "' from the SML '" +
-                                                               aSML.getManagementHostName () +
+                                                               aSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
         AuditUtils.onAuditExecuteFailure ("smp-sml-delete",
                                           sSMPID,
-                                          aSML.getManagementHostName (),
+                                          aSML.getManagementServiceURL (),
                                           ex.getClass (),
                                           ex.getMessage ());
       }
