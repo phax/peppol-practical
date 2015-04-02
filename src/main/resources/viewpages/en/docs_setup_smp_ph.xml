@@ -154,14 +154,14 @@ The information within the SMP is structured by participant ID, document type ID
 
 <ul>
   <li>
-    <strong>peppol-smp-server</strong> uses a relational database as its backend.
+    <em>peppol-smp-server</em> uses a relational database as its backend.
     A copy of the MySQL database initialization script can be found in the 
     <code>/database_backups/</code> folder of the project.
     By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
     The database layout is compatible to the one of the CIPA SMP.
   </li>
   <li>
-    <strong>peppol-smp-server-lightweight</strong> uses a 2 files as its backend.
+    <em>peppol-smp-server-lightweight</em> uses 2 files as its backend.
     <code>smp-servicegroup.xml</code> stores all the service groups and
     <code>smp-servicemetadata.xml</code> stores all the service metadata associated to the service groups.
     Additional files for user management etc. are also used.
@@ -226,55 +226,44 @@ The information within the SMP is structured by participant ID, document type ID
   </li>
   <li>
     <strong><code>smp.forceroot</code></strong>:
-    This is a flag which may either have the value <code>true</code> or <code>false</code>.
-    It indicates, whether all internal paths should be forced to root ("/").
+    It indicates, whether all internal paths should be forced to root ("/").<br />
+    This is a flag which may either have the value <code>true</code> or <code>false</code>.<br />
     This is especially helpful, when the application runs in a Tomcat application context (e.g. "/smp")
     but is proxied to a different domain via Apache httpd.
   </li>
   <li>
-    <strong><code>registrationHook.class</code></strong>:
-    The type of registration hook to use. 
-    The hook is used for notifying the SML of the creation or deletion of business identifiers. 
-    For testing purposes you may use the class <code>eu.europa.ec.cipa.smp.server.hook.DoNothingRegistrationHook</code>
-    which does not communicate with the SML. 
-    For production use the class <code>eu.europa.ec.cipa.smp.server.hook.RegistrationServiceRegistrationHook</code>
-    must be used, as it communicates with the SML and adds, updates or deletes participant DNS entries.
+    <strong><code>sml.active</code></strong>:
+    This field indicates, whether connection to the SML is active or not.<br /> 
+    This is a flag which may either have the value <code>true</code> or <code>false</code>.<br />
+    For testing purposes you may set it to <code>false</code> to disable the communication with the SML.
+    For production the value must be <code>true</code> so that all relevant adds, updates or deletes 
+      of participants is communicated to the SML which will create the respective DNS entries.
   </li>
   <li>
-    <strong><code>regServiceRegistrationHook.id</code></strong>:
+    <strong><code>sml.smpid</code></strong>:
     The SMP ID to use when using the SML interface.<br /> 
     Note: it must be the same ID that was used for the initial registration of the SMP to the SML.<br />
-    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
+    Note: is only required if the entry <code>sml.active</code> is set to <code>true</code>.
   </li>
   <li>
-    <strong><code>regServiceRegistrationHook.regLocatorUrl</code></strong>:
-    The URL of the SML manage business identifier service. 
+    <strong><code>sml.url</code></strong>:
+    The URL of the SML manage business identifier service.
     For production purposes (SML) use <code>https://sml.peppolcentral.org/manageparticipantidentifier</code>. 
     For the test-SML (SMK) use the URL <code>https://smk.peppolcentral.org/manageparticipantidentifier</code>.<br />
-    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
+    Note: is only required if the entry <code>sml.active</code> is set to <code>true</code>.<br />
+    Note: this is the field that needs to be changed for the <a href="/public/menuitem-docs-sml-migration">SML migration</a> on June 9<sup>th</sup> 2015!
   </li>
-  <li>
-    <strong><code>xmldsig.keystore.classpath</code></strong>:
-    Has the same semantics as <code>regServiceRegistrationHook.keystore.classpath</code> and should 
-    therefore have the same value.
-  </li>
-  <li>
-    <strong><code>xmldsig.keystore.password</code></strong>:
-    Has the same semantics as <code>regServiceRegistrationHook.keystore.password</code> and should 
-    therefore have the same value.
-  </li>
-  <li>
-    <strong><code>xmldsig.keystore.key.alias</code></strong>:
-    The alias of the key within the key store. Is case sensitive and may not be empty.
-  </li>
-  <li>
-    <strong><code>xmldsig.keystore.key.password</code></strong>:
-    The password of the certificate with the above specified alias.
-    Should be the same as the password of the whole key store (see <code>xmldsig.keystore.password</code>).
-  </li>
+</ul>
+
+<p>
+  The following configuration file properties are only relevant for the <em>peppol-smp-server</em>
+  project with the database backend:
+</p>  
+
+<ul>
   <li>
     <strong><code>jdbc.driver</code></strong>:
-    The JDBC driver class to be used by JPA. For MySQL use com.mysql.jdbc.Driver
+    The JDBC driver class to be used by JPA. For MySQL use <code>com.mysql.jdbc.Driver</code>.
   </li>
   <li>
     <strong><code>jdbc.url</code></strong>:
@@ -304,23 +293,25 @@ The information within the SMP is structured by participant ID, document type ID
 </ul>
 
 <p>
-  Example of a development <code>config.properties</code> file using a local MySQL database 
+  Example of a development <code>smp-server.properties</code> file using a local MySQL database 
   called <code>smp</code> without an SML connector (for easy testing):
 </p>
 
 <p>
   <pre>
-## DBMS handler
-dataManager.class=eu.europa.ec.cipa.smp.server.data.dbms.DBMSDataManager
+## Keystore data
+smp.keystore.path         = keystore/keystore.jks
+smp.keystore.password     = peppol
+smp.keystore.key.alias    = smp keypair
+smp.keystore.key.password = peppol
 
-## Registration callback (SML client caller)
-registrationHook.class=eu.europa.ec.cipa.smp.server.hook.DoNothingRegistrationHook
+# Force all paths to be "/" instead of the context path 
+smp.forceroot = true
 
-## XMLDSIG response signing:
-xmldsig.keystore.classpath    = keystore/keystore.jks
-xmldsig.keystore.password     = peppol
-xmldsig.keystore.key.alias    = smp keypair
-xmldsig.keystore.key.password = peppol
+## Write to SML? true or false
+sml.active=false
+
+## The following entries are not relevant for peppol-smp-server-lightweight: 
 
 ## JDBC configuration for DB
 jdbc.driver = com.mysql.jdbc.Driver
@@ -332,30 +323,29 @@ jdbc.read-connections.max = 10</pre>
 </p>
 
 <p>
-  Example of a production-like <code>config.properties</code> file using a local MySQL database 
-  called <code>smp</code> with the SML connector (for close to production):
+  Example of a production-like <code>smp-server.properties</code> file using a local MySQL database 
+  called <code>smp</code> with the SML connector (for close to production setup):
 </p>
 
 <p>
   <pre>
-## DBMS handler
-dataManager.class=eu.europa.ec.cipa.smp.server.data.dbms.DBMSDataManager
+## Keystore data
+smp.keystore.path         = keystore/keystore.jks
+smp.keystore.password     = peppol
+smp.keystore.key.alias    = smp keypair
+smp.keystore.key.password = peppol
 
-## Registration callback (SML client caller)
-registrationHook.class=eu.europa.ec.cipa.smp.server.hook.RegistrationServiceRegistrationHook
+# Force all paths to be "/" instead of the context path 
+smp.forceroot = true
 
+## Write to SML? true or false
+sml.active=true
 # SMP ID
-regServiceRegistrationHook.id=TEST-SMP-ID1
+sml.smpid=TEST-SMP-ID1
 # SML URL (incl. the service name)
-regServiceRegistrationHook.regLocatorUrl=https://sml.peppolcentral.org/manageparticipantidentifier
-regServiceRegistrationHook.keystore.classpath = keystore/keystore.jks
-regServiceRegistrationHook.keystore.password  = peppol
+sml.url=https://sml.peppolcentral.org/manageparticipantidentifier
 
-## XMLDSIG response signing:
-xmldsig.keystore.classpath    = keystore/keystore.jks
-xmldsig.keystore.password     = peppol
-xmldsig.keystore.key.alias    = smp keypair
-xmldsig.keystore.key.password = peppol
+## The following entries are not relevant for peppol-smp-server-lightweight: 
 
 ## JDBC configuration for DB
 jdbc.driver = com.mysql.jdbc.Driver
@@ -384,19 +374,21 @@ jdbc.read-connections.max = 10</pre>
 <ul>
   <li>
     <code>/{ServiceGroupId}</code>
-    is implemented in the <code>eu.europa.ec.cipa.smp.server.services.readwrite</code> class.
+    is implemented in the <code>com.helger.peppol.smpserver.rest.ServiceGroupInterface</code> class.
   </li>
   <li>
     <code>/{ServiceGroupId}/services/{DocumentTypeId}</code>
-    is implemented in the <code>eu.europa.ec.cipa.smp.server.services.readwrite.ServiceMetadataInterface</code> class.
+    is implemented in the <code>com.helger.peppol.smpserver.rest.ServiceMetadataInterface</code> class.
   </li>
   <li>
     <code>/list/{UserId}</code>
-    is implemented in the <code>eu.europa.ec.cipa.smp.server.services.common.ListInterface</code> class.
+    is implemented in the <code>com.helger.peppol.smpserver.rest.ListInterface</code> class.<br />
+    Note: this interface extends the official specification.
   </li>
   <li>
     <code>/complete/{ServiceGroupId}</code>
-    is implemented in the <code>eu.europa.ec.cipa.smp.server.services.common.CompleteServiceGroupInterface</code> class.
+    is implemented in the <code>com.helger.peppol.smpserver.rest.CompleteServiceGroupInterface</code> class.<br />
+    Note: this interface extends the official specification.
   </li>
 </ul>
 <p>
@@ -406,13 +398,13 @@ jdbc.read-connections.max = 10</pre>
   the service group as well as all the service metadata for that group in a single call.
   Further the <code>PUT</code> and <code>DELETE</code> operations have also been implemented for 
   <code>ServiceGroupInterface</code> and <code>ServiceMetadataInterface</code>.
-  These four interfaces make use of the <code>eu.europa.ec.cipa.smp.server.data.IDataManager</code>
-  interface to access the SMP data. 
-  The implementation currently contains one implementation of this interface which has a database 
-  as the underlying data source. 
+  These four interfaces make use of the <code>com.helger.peppol.smpserver.data.IDataManagerSPI</code>
+  interface to access the SMP data.<br /> 
   The database version of the interface is implemented in the class 
-  <code>eu.europa.ec.cipa.smp.server.data.dbms.DBMSDataManager</code> 
+  <code>com.helger.peppol.smpserver.data.dbms.DBMSDataManager</code> 
   and makes use of JPA (EclipseLink) for the main database access.
+  The file based version of the interface is implemented in the class
+  <code>com.helger.peppol.smpserver.data.dao.DAODataManager</code>.
 </p>
 
 <a name="modifyingapi"></a>
@@ -433,16 +425,10 @@ jdbc.read-connections.max = 10</pre>
   Please see chapter on <a href="#security">security considerations</a> how to handle BasicAuth proper and secure.
 </p>
 
-<p>
-  A Java EE Filter is used for reverting changes to the SML, if the change to the SMP fails. 
-  If a HTTP status code different from 200 (OK) is returned from the REST interface, 
-  then the corresponding change made to the SML is reverted. This functionality is 
-  implemented in the class <code>eu.europa.ec.cipa.smp.server.hook.PostRegistrationFilter</code>.
-</p>
 <p>  
   A Jersey Filter has been added for generating the XML-DSIG element which is part of the 
   response from a GET on Service Metadata interface. 
-  This is implemented in the class <code>eu.europa.ec.cipa.smp.server.util.SignatureFilter</code>.
+  This is implemented in the class <code>com.helger.peppol.smpserver.rest.SignatureFilter</code>.
 </p>
 
 <ul>
@@ -482,7 +468,7 @@ jdbc.read-connections.max = 10</pre>
 <a name="security"></a>
 <h3>Security considerations</h3>
 <p>
-  As the SMP is publically available on HTTP port 80 and does not require a client certificate 
+  As the SMP is publicly available on HTTP port 80 and does not require a client certificate 
   or anything the like it especially the modifying actions (HTTP <code>PUT</code> and <code>DELETE</code>)
   must be handled with special care to avoid man in the middle attacks.
   Even though HTTP BasicAuth is used this is not really added security, as the username and password 
@@ -492,7 +478,7 @@ jdbc.read-connections.max = 10</pre>
 <p>
   The recommended scenario is to <em>additionally</em> configure the SMP to run on HTTPS (on any port other than 80), 
   and do the modifying actions only via HTTPS. BasicAuth is required anyway but the data is not 
-  readable by third-partys because of the underlying transport security.
+  readable by third-parties because of the underlying transport security.
   This is something that is currently technically not available but should be used as a convention 
   when running an SMP with this implementation.
   For a future release it may be of value when the modifying actions are presented with a separate 
@@ -506,7 +492,8 @@ jdbc.read-connections.max = 10</pre>
 <p>
  Now that your new SMP server is up and running, you should perform some setup tasks.
 </p>
- 
+
+<h4>peppol-smp-server</h4> 
 <ul>
   <li>
     Change the default user <code>peppol_user</code> with the default password <code>Test1234</code> 
@@ -516,7 +503,21 @@ jdbc.read-connections.max = 10</pre>
   </li>
   <li>
     The SMP must be registered at the SML.
-    For this purpose a tool will be integrated into this page very soon.
+    For this purpose an <a href="/public/menuitem-tools-smp-sml">online tool</a> is integrated in this page to perform this task.
+  </li>
+</ul>
+
+<h4>peppol-smp-server-lightweight</h4> 
+<ul>
+  <li>
+    Change the default user <code>admin@helger.com</code> with the default password <code>password</code> 
+    to something more complex! This can be easily achieved by logging into the URL <code>http://yourserver/secure</code>
+    and use the <em>Change password</em> page to perform the change. 
+    After this change, simply provide the new credentials for writing operations.
+  </li>
+  <li>
+    The SMP must be registered at the SML.
+    For this purpose an <a href="/public/menuitem-tools-smp-sml">online tool</a> is integrated in this page to perform this task.
   </li>
 </ul>
 

@@ -185,7 +185,8 @@ The information within the SMP is structured by participant ID, document type ID
     The URL of the SML manage business identifier service. 
     For production purposes (SML) use <code>https://sml.peppolcentral.org/manageparticipantidentifier</code>. 
     For the test-SML (SMK) use the URL <code>https://smk.peppolcentral.org/manageparticipantidentifier</code>.<br />
-    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
+    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.<br />
+    Note: this is the field that needs to be changed for the <a href="/public/menuitem-docs-sml-migration">SML migration</a> on June 9<sup>th</sup> 2015!
   </li>
   <li>
     <strong><code>regServiceRegistrationHook.keystore.classpath</code></strong>: 
@@ -332,7 +333,7 @@ jdbc.read-connections.max = 10</pre>
 <ul>
   <li>
     <code>/{ServiceGroupId}</code>
-    is implemented in the <code>eu.europa.ec.cipa.smp.server.services.readwrite</code> class.
+    is implemented in the <code>eu.europa.ec.cipa.smp.server.services.readwrite.ServiceGroupInterface</code> class.
   </li>
   <li>
     <code>/{ServiceGroupId}/services/{DocumentTypeId}</code>
@@ -430,7 +431,7 @@ jdbc.read-connections.max = 10</pre>
 <a name="security"></a>
 <h3>Security considerations</h3>
 <p>
-  As the SMP is publically available on HTTP port 80 and does not require a client certificate 
+  As the SMP is publicly available on HTTP port 80 and does not require a client certificate 
   or anything the like it especially the modifying actions (HTTP <code>PUT</code> and <code>DELETE</code>)
   must be handled with special care to avoid man in the middle attacks.
   Even though HTTP BasicAuth is used this is not really added security, as the username and password 
@@ -440,7 +441,7 @@ jdbc.read-connections.max = 10</pre>
 <p>
   The recommended scenario is to <em>additionally</em> configure the SMP to run on HTTPS (on any port other than 80), 
   and do the modifying actions only via HTTPS. BasicAuth is required anyway but the data is not 
-  readable by third-partys because of the underlying transport security.
+  readable by third-parties because of the underlying transport security.
   This is something that is currently technically not available but should be used as a convention 
   when running an SMP with this implementation.
   For a future release it may be of value when the modifying actions are presented with a separate 
@@ -464,7 +465,7 @@ jdbc.read-connections.max = 10</pre>
   </li>
   <li>
     The SMP must be registered at the SML.
-    For this purpose a tool will be integrated into this page very soon.
+    For this purpose an <a href="/public/menuitem-tools-smp-sml">online tool</a> is integrated in this page to perform this task.
   </li>
 </ul>
 
