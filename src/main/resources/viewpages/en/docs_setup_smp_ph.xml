@@ -17,19 +17,19 @@
 
 -->
 <p>
-This page explains how to setup my implementation of an OpenPEPPOL SMP from scratch.
-SMP is the abbreviation for <em>Service Metadata Publisher</em> which is the decentralized
-directory service of OpenPEPPOL.
-SMPs are normally only operated by Service Providers and not by endpoints.
-An SMP contains information about the endpoints of receivers - the URLs where to send the main
-documents to.
-The information within the SMP is structured by participant ID, document type ID and process ID.  
+  This page explains how to setup my implementation of an OpenPEPPOL SMP from scratch.
+  SMP is the abbreviation for <em>Service Metadata Publisher</em> which is the decentralized
+  directory service of OpenPEPPOL.
+  SMPs are normally only operated by Service Providers and not by endpoints.
+  An SMP contains information about the endpoints of receivers - the URLs where to send the main
+  documents to.
+  The information within the SMP is structured by participant ID, document type ID and process ID.  
 </p>
 
 <p>
   My implementation is a fork of the CIPA e-Delivery SMP components on version 2.2.3.
   The goal is to keep the implementation simple and provide publicly available PEPPOL components
-  to the world.
+  to the world. An additional goal was to make the configuration as simple as possible.
 </p>
 
 <div class="panel panel-default">
@@ -49,7 +49,7 @@ The information within the SMP is structured by participant ID, document type ID
           <li><a href="#initialization">Initialization</a></li>
         </ol>
       </li>
-      <li><a href="#smpclient">peppol-smp-client</a></li>
+      <li><a href="#smpclient">SMP client</a></li>
     </ol>
   </div>
 </div>
@@ -531,12 +531,12 @@ jdbc.read-connections.max = 10</pre>
 </p>
  
 <p>
-  The <code>eu.europa.ec.cipa.smp.client.SMPServiceCaller</code> is the main class when using the library.
+  The <code>com.helger.peppol.smpclient.SMPClient</code> is the main class when using the library.
   The class contains methods for reading, saving and deleting both service groups and service metadata, 
   as well as listing the service groups of a given user. 
-  The writing methods of this class can only be used in conjunction with the CIPA SMP server as for 
-  different implementation the write access may have been implemented in a different way.
-  Alternatively the class <code>eu.europa.ec.cipa.smp.client.SMPServiceCallerReadonly</code> can be used
+  The writing methods of this class can only be used in conjunction with the my SMP server or the 
+  CIPA SMP server as for different implementation the write access may have been implemented in a different way.
+  Alternatively the class <code>com.helger.peppol.smpclient.SMPClientReadonly</code> can be used
   to access any SMP that complies to the SMP specifications.
   The library contains both static and non-static methods for performing all of these actions. 
   The class is documented using JavaDoc.
@@ -552,7 +552,7 @@ final ParticipantIdentifierType aServiceGroupID = EPredefinedIdentifierIssuingAg
 // Document type identifier from enumeration
 final DocumentIdentifierType aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20.getAsDocumentTypeIdentifier ();
 // Main call to the SMP client with the correct SML to use
-final SignedServiceMetadataType aMetadata = new SMPServiceCallerReadonly (aServiceGroupID, ESMP.PRODUCTION).getServiceRegistrationOrNull (aServiceGroupID, aDocumentTypeID);
+final SignedServiceMetadataType aMetadata = new SMPClientReadonly (aServiceGroupID, ESMP.PRODUCTION).getServiceRegistrationOrNull (aServiceGroupID, aDocumentTypeID);
 if (aMetadata == null)
 {
   // No such metadata
