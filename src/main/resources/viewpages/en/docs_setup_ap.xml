@@ -119,13 +119,13 @@
     <a href="http://bouncycastle.org/">The Legion of the Bouncy Castle</a> 
     provides tools for it.
     It is <a href="http://bouncycastle.org/licence.html">licensed under an MIT-like license</a>.
-    The latest version 1.51 is used within <em>as2-lib</em> for S/MIME handling.
+    The latest version 1.52 is used within <em>as2-lib</em> for S/MIME handling.
     The relevant Maven artefacts are:
     <pre>
     &lt;dependency&gt;
       &lt;groupId&gt;org.bouncycastle&lt;/groupId&gt;
       &lt;artifactId&gt;bcmail-jdk15on&lt;/artifactId&gt;
-      &lt;version&gt;1.51&lt;/version&gt;
+      &lt;version&gt;1.52&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
@@ -152,12 +152,12 @@
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;ph-sbdh&lt;/artifactId&gt;
-      &lt;version&gt;1.1.0&lt;/version&gt;
+      &lt;version&gt;1.1.1&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;peppol-sbdh&lt;/artifactId&gt;
-      &lt;version&gt;1.0.0&lt;/version&gt;
+      &lt;version&gt;1.0.1&lt;/version&gt;
     &lt;/dependency&gt;</pre>
   </li>
   <li>
@@ -169,7 +169,7 @@
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;ph-ubl&lt;/artifactId&gt;
-      &lt;version&gt;3.3.0&lt;/version&gt;
+      &lt;version&gt;3.3.1&lt;/version&gt;
       &lt;exclusions&gt;
         &lt;exclusion&gt;
           &lt;groupId&gt;com.helger&lt;/groupId&gt;
@@ -196,11 +196,16 @@
   It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
   <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
   <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> to receive messages from arbitrary
-  PEPPOL AS2 receivers. It requires no external AS2 handler and no mandatory database setup. 
+  PEPPOL AS2 receivers. It requires <strong>no external AS2 handler</strong> (like Mendelson) and 
+  no mandatory database setup. 
   <em>as2-peppol-server</em> is a Java 1.6+ project and licensed under Apache 2.0 license.
 </p>
 
-<p>More description to follow</p>
+<p>
+  Detailed setup description can be found directly on the
+  <a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a>
+  project page. 
+</p>
 
 <a name="as2sender"></a>
 <h2>AS2 AccessPoint sender</h2>

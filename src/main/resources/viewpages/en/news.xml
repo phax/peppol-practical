@@ -20,6 +20,28 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2015-04-02 - New PEPPOL SMP server implementation available</h3>
+
+<p>
+  Based on the CIPA SMP server 2.2.3 I decided to fork my own clone of a PEPPOL
+  SMP. It is available in 2 different versions:
+  <ul>
+    <li>
+      <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>
+      - an SMP server that uses a relational database (like MySQL) as the backend.
+    </li>
+    <li>
+      <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
+      - an SMP server that uses a file-based backend and keeps all information in main memory for
+      performance reasons. Additionally it includes a small management UI. 
+    </li>
+  </ul>
+  Both SMP servers use shared components also available on GitHub:
+  <a href="https://github.com/phax/peppol-commons">peppol-commons</a>,
+  <a href="https://github.com/phax/peppol-smp-client">peppol-smp-client</a> and
+  <a href="https://github.com/phax/peppol-sml-client">peppol-sml-client</a>.
+</p>
+
 <h3>2014-11-13 - <em>as2-peppol-server</em> released</h3>
 
 <p>
