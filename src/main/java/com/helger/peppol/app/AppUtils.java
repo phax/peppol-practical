@@ -48,6 +48,7 @@ public final class AppUtils
   @Nullable
   public static ISMLInfo getSMLOfID (@Nullable final String sSML)
   {
+    // Don't use ESML.valueOf because it throws an exception if not found
     if (StringHelper.hasText (sSML))
       for (final ESML eSML : ESML.values ())
         if (eSML.name ().equals (sSML))

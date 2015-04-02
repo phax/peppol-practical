@@ -54,6 +54,7 @@ import com.helger.peppol.mgr.MetaManager;
 import com.helger.peppol.page.AbstractAppFormPage;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.page.ui.SMPTransportProfileSelect;
+import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.testep.domain.TestEndpoint;
 import com.helger.peppol.testep.domain.TestEndpointManager;
@@ -85,7 +86,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     return aWPEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO)
                 .add (CHCParam.PARAM_ACTION, ACTION_PERFORM)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_ISO6523, aTestEndpoint.getParticipantIDScheme ())
-                .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantIDValue ());
+                .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantIDValue ())
+                .add (PagePublicToolsParticipantInformation.FIELD_SML, ESML.PRODUCTION.name ());
   }
 
   @Override
@@ -178,35 +180,30 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     aRealForm.setLeft (3);
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
-                                                                                             aSelectedObject == null
-                                                                                                                    ? null
+                                                                                             aSelectedObject == null ? null
                                                                                                                     : aSelectedObject.getCompanyName ())))
                                                      .setHelpText ("The name of the company operating the test AccessPoint")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_COMPANY_NAME)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_CONTACT_PERSON,
-                                                                                             aSelectedObject == null
-                                                                                                                    ? null
+                                                                                             aSelectedObject == null ? null
                                                                                                                     : aSelectedObject.getContactPerson ())))
                                                      .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
                                                      .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_PARTICIPANT_ID_ISO6523,
-                                                                                                                    aSelectedObject == null
-                                                                                                                                           ? null
+                                                                                                                    aSelectedObject == null ? null
                                                                                                                                            : aSelectedObject.getParticipantIDScheme ()),
                                                                                                   aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISO6523)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE,
-                                                                                             aSelectedObject == null
-                                                                                                                    ? null
+                                                                                             aSelectedObject == null ? null
                                                                                                                     : aSelectedObject.getParticipantIDValue ())))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
                                                      .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE,
-                                                                                                                aSelectedObject == null
-                                                                                                                                       ? null
+                                                                                                                aSelectedObject == null ? null
                                                                                                                                        : aSelectedObject.getTransportProfile ()
                                                                                                                                                         .getID ()),
                                                                                               aDisplayLocale))

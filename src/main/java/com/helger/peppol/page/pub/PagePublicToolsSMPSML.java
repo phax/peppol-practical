@@ -59,6 +59,7 @@ import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.page.ui.SMLSelect;
+import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
 import com.helger.peppol.smlclient.smp.InternalErrorFault;
@@ -94,6 +95,8 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
 
   private static final String PATTERN_SMP_ID = "[a-zA-Z0-9-]+";
   private static final String PATTERN_IPV4 = "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b";
+
+  private static final String DEFAULT_SML = ESML.PRODUCTION.name ();
 
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
   {
@@ -491,7 +494,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
         aForm.setEncTypeFileUpload ().setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Register a new SMP to the SML. This must only be done once per SMP!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML, DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
@@ -528,7 +531,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
         aForm.setEncTypeFileUpload ().setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML, DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
@@ -565,7 +568,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
         aForm.setEncTypeFileUpload ().setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Delete an existing SMP from the SML."));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML, DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
