@@ -17,13 +17,19 @@
 
 -->
 <p>
-This page explains how to setup an OpenPEPPOL CIPA SMP from scratch.
+This page explains how to setup my implementation of an OpenPEPPOL SMP from scratch.
 SMP is the abbreviation for <em>Service Metadata Publisher</em> which is the decentralized
 directory service of OpenPEPPOL.
 SMPs are normally only operated by Service Providers and not by endpoints.
 An SMP contains information about the endpoints of receivers - the URLs where to send the main
 documents to.
 The information within the SMP is structured by participant ID, document type ID and process ID.  
+</p>
+
+<p>
+  My implementation is a fork of the CIPA e-Delivery SMP components on version 2.2.3.
+  The goal is to keep the implementation simple and provide publicly available PEPPOL components
+  to the world.
 </p>
 
 <div class="panel panel-default">
@@ -34,7 +40,7 @@ The information within the SMP is structured by participant ID, document type ID
     <ol>
       <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#technical">Technical resources</a></li>
-      <li><a href="#smpwebapp">smp-webapp</a> - SMP server application
+      <li><a href="#smpserver">SMP server application</a>
         <ol>
           <li><a href="#configuring">Configuring the service</a></li>
           <li><a href="#publicapi">Public REST API</a></li>
@@ -43,8 +49,7 @@ The information within the SMP is structured by participant ID, document type ID
           <li><a href="#initialization">Initialization</a></li>
         </ol>
       </li>
-      <li><a href="#smpclientlibrary">smp-client-library</a></li>
-      <li><a href="#smpclientconsole">smp-client-console</a></li>
+      <li><a href="#smpclient">peppol-smp-client</a></li>
     </ol>
   </div>
 </div>
@@ -65,21 +70,46 @@ The information within the SMP is structured by participant ID, document type ID
       to an SMP but not the writing access. Nevertheless the implementation discussed here
       also contains the possibility to write new entries.</li>
   <li>You should be familiar with Java 1.6+</li>
-  <li>Basic knowledge of a relational database (e.g. MySQL) is required</li>
-  <li>Basic knowledge about Apache Tomcat (and optionally a web server) should be present</li>    
+  <li>When using the SMP server implementation with a database backend
+      basic knowledge of a relational database (e.g. MySQL) is required</li>
+  <li>Basic knowledge about Apache Tomcat or Jetty (and optionally a web server) should be present</li>    
 </ol>
 
 <a name="technical"></a>
 <h2>Technical resources</h2>
+
 <p>
-  The SMP software to be used can be obtained from the 
-  <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
-  project maintained by the European Commission and hosted on
-  <a href="https://joinup.ec.europa.eu/">joinup</a>.
+  My SMP server implementation is available in 2 different versions:
+  <ul>
+    <li>
+      <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>
+      - an SMP server that uses a relational database (like MySQL) as the backend.
+      This project is licensed under EUPL 1.1 or MPL 1.1 as the original one.
+    </li>
+    <li>
+      <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
+      - an SMP server that uses a file-based backend and keeps all information in main memory for
+      performance reasons. This is feasable, because usually an SMP only keeps track of at last
+      a few thousand entries which is not much data.
+      Additionally this implementation includes a small management UI (which still needs improvement). 
+      This project is licensed under Apache 2 license, since no code from the original is used.
+    </li>
+  </ul>
+  You have to choose one of the implementations before you start.
+  Both SMP servers use shared components also available on GitHub:
+  <a href="https://github.com/phax/peppol-commons">peppol-commons</a> (a common library with shared PEPPOL components),
+  <a href="https://github.com/phax/peppol-smp-client">peppol-smp-client</a> (an SMP client library) and
+  <a href="https://github.com/phax/peppol-sml-client">peppol-sml-client</a> (an SML client library).
+</p>
+
+<p>
   The <strong>sources</strong> reside in a publicly accessible 
-  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/">Subversion repository</a>
-  whereas the <strong>binary resources</strong> can be obtained from a
-  <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/">Nexus instance</a>.
+  GitHub repository (see above)
+  whereas the <strong>binary resources</strong> can be obtained from Maven Central:
+  <ul>
+    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/</a></li>
+    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/</a></li>
+  </ul> 
 </p>
 
 <p>
@@ -87,10 +117,15 @@ The information within the SMP is structured by participant ID, document type ID
 </p>
 
 <ul>
-  <li><code>smp-webapp</code> - The SMP server that offers the query service. This server exists in two versions: one that supports only reading and one that supports reading and writing.</li>
-  <li><code>smp-client-library</code> - An SMP client library to be used to access any SMP server.</li>
-  <li><code>smp-client-console</code> - An SMP console client for querying the SMP from the commandline.</li>
+  <li><code>peppol-smp-server</code> - The SMP server that offers the query service using a database backend.</li>
+  <li><code>peppol-smp-server-lightweight</code> - The SMP server that offers the query service using a file-based backend.</li>
+  <li><code>peppol-smp-client</code> - An SMP client library to be used to access any SMP server.</li>
 </ul>
+
+<p>
+  Note: an SMP client for the console is currently not offered. If you need it, just drop me a note, and I will
+  implement one.
+</p>
 
 <p>
   All of the components are available as ready-to-use Eclipse projects.
@@ -101,49 +136,57 @@ The information within the SMP is structured by participant ID, document type ID
   build is performed because otherwise Eclipse might want to refresh while the console 
   build is in progress. After the build finished you may re-open the project in Eclipse
   and clean it there again, because the Eclipse compiler and the Oracle console compiler 
-  produce incompatible byte code for enum classes!
+  produce incompatible byte code for enumeration classes!
 </p>
 
-<a name="smpwebapp"></a>
-<h2>smp-webapp</h2>
+<a name="smpserver"></a>
+<h2>peppol-smp-server and peppol-smp-server-lightweight</h2>
 <p>
-  This is the main SMP server application. It is provided as a Java web application that can be deployed
-  in an application server like Apache Tomcat or Jetty.
-  This section assumes that you are using the complete SMP with read and write API.
-  The respective CIPA project is called <code>cipa-smp-full-webapp</code>.
-  The latest version 2.2.3 can be found in the Joinup Subversion repository at
-  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3/cipa-smp-full-webapp"><code>https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3/cipa-smp-full-webapp</code></a>. 
-</p>
-
-<p>
-  The SMP service has been implemented as a REST interface with a database backend.
-  It is possible to change the backend, but the following description is based on a database backend.
-  A copy of the MySQL database initialization script can be found in the 
-  <code>/src/etc/database_backups/</code> folder of the <code>cipa-smp-server-library</code> project.
-  By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
+  This is the main SMP server application.
+  It is provided as a Java web application that can be deployed in an application server 
+    like Apache Tomcat or Jetty.
+  If there are differences between the versions, they are explicitly outline where necessary.
 </p>
 
 <p>
-  The service can be deployed in two ways:
+  The SMP service has been implemented as a REST interface with a backend that stores the data.
+</p>
+
+<ul>
+  <li>
+    <strong>peppol-smp-server</strong> uses a relational database as its backend.
+    A copy of the MySQL database initialization script can be found in the 
+    <code>/database_backups/</code> folder of the project.
+    By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
+    The database layout is compatible to the one of the CIPA SMP.
+  </li>
+  <li>
+    <strong>peppol-smp-server-lightweight</strong> uses a 2 files as its backend.
+    <code>smp-servicegroup.xml</code> stores all the service groups and
+    <code>smp-servicemetadata.xml</code> stores all the service metadata associated to the service groups.
+    Additional files for user management etc. are also used.
+    By default a user <code>admin@helger.com</code> with the password <code>password</code> is created!
+  </li>
+</ul>
+
+<p>
+  The application can be deployed in two ways:
 </p>
 
 <ul>
   <li>
     Compiling the project on the command line using <kbd>mvn clean install</kbd>. 
     The result is a WAR file in the <code>target</code> folder and additionally an exploded 
-    version of the WAR file in the <code>target/cipa-smp-full-webapp-x.y.z</code> directory
+    version of the WAR file in the <code>target/peppol-smp-server-x.y.z</code> or
+    <code>target/peppol-smp-server-lightweight-x.y.z</code> directory
     (where x.y.z denotes the version number).
   </li>
   <li>
-    Start the application <code>src/test/java/at/peppol/smp/server/jetty/RunInJettySMP</code> from within Eclipse.
+    Start the application <code>src/test/java/com/helger/peppol/smpserver/standalone/RunInJettySMPSERVER</code> 
+    (or <code>RunInJettySMPSERVERLIGHTWEIGHT</code>) from within Eclipse.
     Than the application will be running on localhost port 80 and can be accessed with a browser or an SMP client.
   </li>
 </ul>
-
-<p>
-  <a href="https://metro.java.net/2.2.1-1/">Metro 2.2.1-1</a> must be installed on the application server 
-  for the service to work since it makes use of the SML management client.
-</p>
 
 <div class="alert alert-info">  
   Note that the SMP service MUST be deployed as the <code>ROOT</code> web application (at path "/") on 
@@ -152,18 +195,41 @@ The information within the SMP is structured by participant ID, document type ID
 </div>
 
 <a name="configuring"></a>
-<h3>Configuring the service</h3>
+<h3>Configuring the SMP server</h3>
 <p>
   The service is configured using a single configuration file 
-  <code>src/main/resources/config.properties</code>. 
+  <code>src/main/resources/smp-server.properties</code>. 
   The following list describes all the possible configuration items:
 </p>
 <ul>
   <li>
-    <strong><code>dataManager.class</code></strong>:
-    The data manager implementation to use. 
-    The data manager is for retrieving the data to use in the REST service. 
-    The default class is <code>eu.europa.ec.cipa.smp.server.data.dbms.DBMSDataManager</code>.
+    <strong><code>smp.keystore.path</code></strong>: 
+    The classpath - relative to the project - where the Java key store (of type JKS) with the SMP 
+    certificate is located. 
+    An empty directory <code>src/main/resources/keystore</code> is present which could contain the key store. 
+    In this case the properties entry should start with <code>keystore/</code>.<br />
+    Note: The key store should contain exactly one certificate entry with an arbitrary name and the certificate must have the same password as the whole key store!
+  </li>
+  <li>
+    <strong><code>smp.keystore.password</code></strong>:
+    The password used to access the key store.
+  </li>
+  <li>
+    <strong><code>smp.keystore.key.alias</code></strong>:
+    The alias of the key within the key store. Is case sensitive and may not be empty.
+    This alias is used to sign certain response messages.
+  </li>
+  <li>
+    <strong><code>smp.keystore.key.password</code></strong>:
+    The password of the key with the above specified alias.
+    Should be the same as the password of the whole key store (see <code>smp.keystore.password</code>).
+  </li>
+  <li>
+    <strong><code>smp.forceroot</code></strong>:
+    This is a flag which may either have the value <code>true</code> or <code>false</code>.
+    It indicates, whether all internal paths should be forced to root ("/").
+    This is especially helpful, when the application runs in a Tomcat application context (e.g. "/smp")
+    but is proxied to a different domain via Apache httpd.
   </li>
   <li>
     <strong><code>registrationHook.class</code></strong>:
@@ -185,20 +251,6 @@ The information within the SMP is structured by participant ID, document type ID
     The URL of the SML manage business identifier service. 
     For production purposes (SML) use <code>https://sml.peppolcentral.org/manageparticipantidentifier</code>. 
     For the test-SML (SMK) use the URL <code>https://smk.peppolcentral.org/manageparticipantidentifier</code>.<br />
-    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
-  </li>
-  <li>
-    <strong><code>regServiceRegistrationHook.keystore.classpath</code></strong>: 
-    The classpath - relative to the project - where the Java key store (of type JKS) with the SMP 
-    certificate is located. 
-    An empty directory <code>src/main/resources/keystore</code> is present which could contain the key store. 
-    In this case the properties entry should start with <code>keystore/</code>.<br />
-    Note: The key store should contain exactly one certificate entry with an arbitrary name and the certificate must have the same password as the whole key store!<br />
-    Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
-  </li>
-  <li>
-    <strong><code>regServiceRegistrationHook.keystore.password</code></strong>:
-    The password used to access the key store.<br />
     Note: is only required if class <code>RegistrationServiceRegistrationHook</code> is used.
   </li>
   <li>
@@ -468,8 +520,8 @@ jdbc.read-connections.max = 10</pre>
   </li>
 </ul>
 
-<a name="smpclientlibrary"></a>
-<h2>smp-client-library</h2>
+<a name="smpclient"></a>
+<h2>peppol-smp-client</h2>
 
 <p>
   This is the default Java library to query any SMP server (that is compliant to the specifications)
@@ -509,88 +561,3 @@ else
   // Evaluate metadata
 }</pre>
 </p>
- 
-<a name="smpclientconsole"></a>
-<h2>smp-client-console</h2>
- 
-<p>
-  This is a Java application that uses the <a href="#smpclientlibrary">smp-client-library</a> to
-  allow for SMP querying from the commandline.
-  It can be executed on its own and also serves as an example on how to use the SMP client API.
-</p>
-
-<p>
-  It provides the following command line parameter:
-</p>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Parameter</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>-c COMMAND</td>
-      <td>The command to execute. Must be one of the following (case insensitive):
-        <ul>
-          <li><code>addgroup</code> - create a new service group</li>
-          <li><code>delgroup</code> - delete a service group</li>
-          <li><code>add</code> - create a new service registration</li>
-          <li><code>del</code> - delete a service registration</li>
-          <li><code>list</code> - list all registrations for the given user name</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>-h HOST</td>
-      <td>URL of the SMP host to work on</td>
-    </tr>
-    <tr>
-      <td>-u USERNAME</td>
-      <td>The username for the SMP</td>
-    </tr>
-    <tr>
-      <td>-p PASSWORD</td>
-      <td>The password for the SMP</td>
-    </tr>
-    <tr>
-      <td>-b BUSINESSID</td>
-      <td>
-        The participant ID of the business to handle. 
-        Must be in the PEPPOL specific format, without the common prefix. 
-        For example <code>0088:123456</code> would be a valid identifier.<br />
-        Only required for the following commands: addgroup, delgroup, add, del
-      </td>
-    </tr>
-    <tr>
-      <td>-a APURL</td>
-      <td>
-        The URL of the AccessPoint to register.<br />
-        Only required for the following commands: add
-      </td>
-    </tr>
-    <tr>
-      <td>-e PEMFILE</td>
-      <td>
-        File containing the Base64 encoded, DER encoded AP certificate (public key only).<br />
-        Only required for the following commands: add
-      </td>
-    </tr>
-    <tr>
-      <td>-r PROCESSID</td>
-      <td>
-        Process ID to perform operation on.<br />
-        Only required for the following commands: add
-      </td>
-    </tr>
-    <tr>
-      <td>-d DOCUMENTTYPEID</td>
-      <td>
-        Document type ID to perform operation on.<br />
-        Only required for the following commands: add, del
-      </td>
-    </tr>
-  </tbody>
-</table> 

@@ -34,7 +34,8 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
   <li>Technical documentation for PEPPOL software components:
     <ul>
       <li><a href="/public/menuitem-docs-setup-ap">AP setup guide</a></li>
-      <li><a href="/public/menuitem-docs-setup-smp">SMP setup guide</a></li> 
+      <li><a href="/public/menuitem-docs-setup-smp">SMP setup guide - CIPA</a></li> 
+      <li><a href="/public/menuitem-docs-setup-smp-ph">SMP setup guide - ph</a></li> 
       <li><a href="/public/menuitem-docs-sml-migration">SML migration guide</a></li> 
     </ul>
   </li>  
