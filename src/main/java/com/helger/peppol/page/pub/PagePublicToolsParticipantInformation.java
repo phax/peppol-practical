@@ -41,6 +41,7 @@ import com.helger.bootstrap3.EBootstrapIcon;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.bootstrap3.form.BootstrapCheckBox;
 import com.helger.bootstrap3.form.BootstrapForm;
 import com.helger.bootstrap3.form.BootstrapFormGroup;
 import com.helger.bootstrap3.form.EBootstrapFormType;
@@ -80,6 +81,7 @@ import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
 import com.helger.webbasics.app.page.WebPageExecutionContext;
 import com.helger.webbasics.form.RequestField;
+import com.helger.webbasics.form.RequestFieldBoolean;
 import com.helger.webctrls.page.AbstractWebPageExt;
 
 public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
@@ -87,6 +89,9 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
   public static final String FIELD_ID_ISO6523_PREDEF = "idschemepredef";
   public static final String FIELD_ID_ISO6523 = "idscheme";
   public static final String FIELD_ID_VALUE = "idvalue";
+  public static final String FIELD_USE_SML = "usesml";
+
+  public static final boolean DEFAULT_USE_SML = true;
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
@@ -106,6 +111,7 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       // Validate fields
       final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_ID_ISO6523);
       final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
+      final boolean bUseSML = aWPEC.getCheckBoxAttr (FIELD_USE_SML, DEFAULT_USE_SML);
 
       if (StringHelper.hasNoText (sParticipantIDISO6523))
         aFormErrors.addFieldError (FIELD_ID_ISO6523, "Please select an identifier scheme");
@@ -126,7 +132,8 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       if (aFormErrors.isEmpty ())
       {
         final SimpleParticipantIdentifier aParticipantID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
-        final SMPClientReadonly aSMPClient = new SMPClientReadonly (aParticipantID, ESML.PRODUCTION);
+        final SMPClientReadonly aSMPClient = new SMPClientReadonly (aParticipantID, bUseSML ? ESML.PRODUCTION
+                                                                                           : ESML.TEST);
         try
         {
           final URL aSMPHost = new URL (aSMPClient.getSMPHostURI ());
@@ -313,9 +320,11 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
         }
         catch (final UnknownHostException ex)
         {
-          aNodeList.addChild (new BootstrapErrorBox ().addChild ("Seems like the participant ID " +
-                                                                 aParticipantID.getURIEncoded () +
-                                                                 " is not registered to the PEPPOL network."));
+          aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
+                                                                                        aParticipantID.getURIEncoded () +
+                                                                                        " is not registered to the PEPPOL network."))
+                                                      .addChild (new HCDiv ().addChild ("Technical details: unknown host " +
+                                                                                        ex.getMessage ())));
 
           // Audit failure
           AuditUtils.onAuditExecuteFailure ("participate-information",
@@ -368,6 +377,11 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setMaxLength (CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
                                                                                                            .setPlaceholder ("Identifier value"))
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Use the SML?")
+                                                   .setCtrl (new BootstrapCheckBox (new RequestFieldBoolean (FIELD_USE_SML,
+                                                                                                             DEFAULT_USE_SML)))
+                                                   .setHelpText ("Use the SML or alternatively the SMK?")
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
