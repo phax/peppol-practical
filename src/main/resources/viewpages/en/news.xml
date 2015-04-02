@@ -42,6 +42,24 @@
   <a href="https://github.com/phax/peppol-sml-client">peppol-sml-client</a>.
 </p>
 
+<ul>
+  <li>
+    Binary releases:
+    <ul>
+      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/</a></li>
+      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/</a></li>
+    </ul> 
+  </li>
+  <li>
+    Source releases:
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0">https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0</a></li>
+      <li><a href="https://github.com/phax/peppol-smp-server-lightweight/releases/tag/peppol-smp-server-lightweight-3.1.0">https://github.com/phax/peppol-smp-server-lightweight/releases/tag/peppol-smp-server-lightweight-3.1.0</a></li>
+    </ul> 
+  </li>
+</ul>
+
+
 <h3>2014-11-13 - <em>as2-peppol-server</em> released</h3>
 
 <p>

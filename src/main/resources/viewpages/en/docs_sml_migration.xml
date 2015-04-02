@@ -25,8 +25,9 @@
 </p>
 
 <div class="alert alert-warning">
-  There is <strong>no fixed date</strong> for the transition yet.
-  Everything you read here does not apply yet for production and is mainly ment for preparation.
+  The migration of the SML from BRZ to DG DIGIT is planned for
+  <strong>Tuesday June 9<sup>th</sup> 2015</strong>.
+  So at that date, the SML URIs MUST be changed on all SMPs!
 </div>
 
 <div class="panel panel-default">
@@ -44,6 +45,12 @@
           <li><a href="#startclient">cipa-start-client</a> - the sending component of the Access Point (because of SMP client usage)</li>
         </ol>
       </li>
+      <li><a href="#phsmp">Changes for my SMP implementation</a>
+        <ol>
+          <li><a href="#phsmpserver">peppol-smp-server &amp; peppol-smp-server-lightweight</a> - the server/backend component of the SMP</li>
+          <li><a href="#phsmpclient">peppol-smp-client</a> - the client/requesting component of the SMP</li>
+        </ol>
+      </li>
       <li><a href="#oxalis">Changes for Oxalis</a></li>
     </ol>
   </div>
@@ -58,7 +65,7 @@
 <a name="newnames"></a>
 <h2>Changed domain names</h2>
 
-<p>The following table shows all changed domain names at a glance.</p>
+<p>The following table shows all changed service base URLs at a glance.</p>
 
 <table class="table">
   <thead>
@@ -120,7 +127,7 @@
 <h3>cipa-smp-client-library</h3>
 
 <p>
-  This is the Java library that provides structured access to any SMP.
+  This is the Java library that provides structured read access to any SMP.
 </p>
 
 <p>
@@ -135,7 +142,7 @@
     enumeration contains the new entries. Instead you have to instantiate class
     <code>eu.europa.ec.cipa.peppol.sml.SimpleSMLInfo</code> manually.<br/>
     To create a <code>SimpleSMLInfo</code> for the <strong>new SML</strong>, use the following code:<br />
-    <code>new SimpleSMLInfo ("edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu", "https://edelivery.tech.ec.europa.eu", true)</code><br />
+    <code>new SimpleSMLInfo ("edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true)</code><br />
     To create a <code>SimpleSMLInfo</code> for the <strong>new SMK</strong>, use the following code:<br />
     <code>new SimpleSMLInfo ("acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true)</code>
   </li>
@@ -172,8 +179,8 @@
         For the new SMK enter: <code>https://acc.edelivery.tech.ec.europa.eu</code>
       </li>
       <li>The property <code>server.sml.serviceurl</code> must be set.<br />
-        For the new SML enter: <code>https://edelivery.tech.ec.europa.eu</code><br />
-        For the new SMK enter: <code>https://acc.edelivery.tech.ec.europa.eu</code>
+        For the new SML enter: <code>https://edelivery.tech.ec.europa.eu/edelivery-sml</code><br />
+        For the new SMK enter: <code>https://acc.edelivery.tech.ec.europa.eu/edelivery-sml</code>
       </li>
       <li>The property <code>server.sml.requires-client-certificate</code> must be set to <code>true</code></li>
     </ul>
@@ -198,13 +205,63 @@
       <a href="#smpclient">cipa-smp-client-library</a>.</li>
 </ul>
 
+<a name="phsmp"></a>
+<h2>Changes for my SMP server implementation</h2>
+<p>
+  The changes listed here are for version 3.1.0+ of 
+  <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a> and
+  <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>.
+</p>
+
+<a name="phsmpserver"></a>
+<h3>peppol-smp-server and peppol-smp-server-lightweight</h3>
+
+<p>
+  This is the SMP server component that manages all endpoints and has a connection to the SML
+  for creating, updating and deleting entries in the DNS system.
+  The difference between the two applications is only the backend they are using.
+</p>
+
+<p>
+  The following locations must be changed:
+</p>
+
+<ul>
+  <li><a href="/public/menuitem-docs-setup-smp-ph#configuring">Configuration file</a> <code>smp-server.properties</code>:
+    <ul>
+      <li>The property <code>sml.url</code> must be adopted to the new URL</li>
+    </ul>
+  </li>
+</ul>
+
+<a name="phsmpclient"></a>
+<h3>peppol-smp-client</h3>
+
+<p>
+  This is the Java library that provides structured read access to any SMP.
+</p>
+
+<p>
+  The following locations must be changed:
+</p>
+
+<ul>
+  <li>When instantiating <code>SMPClient</code> or <code>SMPClientReadonly</code> 
+    you have to make sure that the correct <code>com.helger.peppol.sml.ISMLInfo</code> 
+    object is passed in.<br />
+    <strong>Note:</strong> there are already appropriate entries in the 
+    <code>com.helger.peppol.sml.ESML</code> enumeration that contain the new 
+    entries: <code>ESML.DIGIT_PRODUCTION</code> and <code>ESML.DIGIT_TEST</code>. 
+  </li>
+</ul>
+
 <a name="oxalis"></a>
 <h2>Changes for Oxalis</h2>
 <p>
-  Open <code>oxalis-global.properties</code> and add the following line:
+  Open <code>oxalis-global.properties</code> and add the following line for the new production SML:
 </p>
 <p>
-  <pre>oxalis.sml.hostname=edelivery.tech.ec.europa.eu</pre>
+  <pre>oxalis.sml.hostname=edelivery.tech.ec.europa.eu/edelivery-sml</pre>
 </p>
 <p>
   Afterwards Oxalis must be restarted.
