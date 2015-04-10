@@ -23,8 +23,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
-import com.helger.peppol.sml.ESML;
-import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 
 /**
@@ -43,17 +41,6 @@ public final class AppUtils
   public static String getApplicationTitle ()
   {
     return "PEPPOL practical" + (AppSettings.isTestVersion () ? " [TEST]" : "");
-  }
-
-  @Nullable
-  public static ISMLInfo getSMLOfID (@Nullable final String sSML)
-  {
-    // Don't use ESML.valueOf because it throws an exception if not found
-    if (StringHelper.hasText (sSML))
-      for (final ESML eSML : ESML.values ())
-        if (eSML.name ().equals (sSML))
-          return eSML;
-    return null;
   }
 
   @Nullable

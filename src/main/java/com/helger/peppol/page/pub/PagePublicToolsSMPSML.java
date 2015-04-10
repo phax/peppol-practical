@@ -57,10 +57,8 @@ import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCEditFile;
 import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
-import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
 import com.helger.peppol.smlclient.smp.InternalErrorFault;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
@@ -167,14 +165,14 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-    final ISMLInfo aSML = AppUtils.getSMLOfID (sSML);
+    final ESML eSML = ESML.getFromIDOrNull (sSML);
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
     final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
 
-    if (aSML == null)
+    if (eSML == null)
       aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
     if (StringHelper.hasNoText (sSMPID))
@@ -245,7 +243,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
 
     if (aFormErrors.isEmpty ())
     {
-      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (aSML, aSocketFactory);
+      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (eSML, aSocketFactory);
       try
       {
         aCaller.create (sSMPID, sPhysicalAddress, sLogicalAddress);
@@ -256,13 +254,13 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                                  "' and logical address '" +
                                                                  sLogicalAddress +
                                                                  "' to the SML '" +
-                                                                 aSML.getManagementServiceURL () +
+                                                                 eSML.getManagementServiceURL () +
                                                                  "'."));
         AuditUtils.onAuditExecuteSuccess ("smp-sml-create",
                                           sSMPID,
                                           sPhysicalAddress,
                                           sLogicalAddress,
-                                          aSML.getManagementServiceURL ());
+                                          eSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | ClientTransportException ex)
       {
@@ -273,14 +271,14 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                                "' and logical address '" +
                                                                sLogicalAddress +
                                                                "' to the SML '" +
-                                                               aSML.getManagementServiceURL () +
+                                                               eSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
         AuditUtils.onAuditExecuteFailure ("smp-sml-create",
                                           sSMPID,
                                           sPhysicalAddress,
                                           sLogicalAddress,
-                                          aSML.getManagementServiceURL (),
+                                          eSML.getManagementServiceURL (),
                                           ex.getClass (),
                                           ex.getMessage ());
       }
@@ -291,14 +289,14 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-    final ISMLInfo aSML = AppUtils.getSMLOfID (sSML);
+    final ESML eSML = ESML.getFromIDOrNull (sSML);
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
     final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
 
-    if (aSML == null)
+    if (eSML == null)
       aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
     if (StringHelper.hasNoText (sSMPID))
@@ -369,7 +367,7 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
 
     if (aFormErrors.isEmpty ())
     {
-      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (aSML, aSocketFactory);
+      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (eSML, aSocketFactory);
       try
       {
         aCaller.update (sSMPID, sPhysicalAddress, sLogicalAddress);
@@ -380,13 +378,13 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                                  "' and logical address '" +
                                                                  sLogicalAddress +
                                                                  "' at the SML '" +
-                                                                 aSML.getManagementServiceURL () +
+                                                                 eSML.getManagementServiceURL () +
                                                                  "'."));
         AuditUtils.onAuditExecuteSuccess ("smp-sml-update",
                                           sSMPID,
                                           sPhysicalAddress,
                                           sLogicalAddress,
-                                          aSML.getManagementServiceURL ());
+                                          eSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
       {
@@ -397,14 +395,14 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
                                                                "' and logical address '" +
                                                                sLogicalAddress +
                                                                "' to the SML '" +
-                                                               aSML.getManagementServiceURL () +
+                                                               eSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
         AuditUtils.onAuditExecuteFailure ("smp-sml-update",
                                           sSMPID,
                                           sPhysicalAddress,
                                           sLogicalAddress,
-                                          aSML.getManagementServiceURL (),
+                                          eSML.getManagementServiceURL (),
                                           ex.getClass (),
                                           ex.getMessage ());
       }
@@ -415,12 +413,12 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-    final ISMLInfo aSML = AppUtils.getSMLOfID (sSML);
+    final ESML eSML = ESML.getFromIDOrNull (sSML);
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
     final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
 
-    if (aSML == null)
+    if (eSML == null)
       aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
     if (StringHelper.hasNoText (sSMPID))
@@ -437,28 +435,28 @@ public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionC
 
     if (aFormErrors.isEmpty ())
     {
-      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (aSML, aSocketFactory);
+      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (eSML, aSocketFactory);
       try
       {
         aCaller.delete (sSMPID);
         aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully deleted SMP '" +
                                                                  sSMPID +
                                                                  "' from the SML '" +
-                                                                 aSML.getManagementServiceURL () +
+                                                                 eSML.getManagementServiceURL () +
                                                                  "'."));
-        AuditUtils.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSML.getManagementServiceURL ());
+        AuditUtils.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, eSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
       {
         aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error deleting SMP '" +
                                                                sSMPID +
                                                                "' from the SML '" +
-                                                               aSML.getManagementServiceURL () +
+                                                               eSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
         AuditUtils.onAuditExecuteFailure ("smp-sml-delete",
                                           sSMPID,
-                                          aSML.getManagementServiceURL (),
+                                          eSML.getManagementServiceURL (),
                                           ex.getClass (),
                                           ex.getMessage ());
       }

@@ -65,7 +65,6 @@ import com.helger.html.hc.html.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.js.EJSEvent;
 import com.helger.html.js.builder.jquery.JQuery;
-import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
@@ -73,7 +72,6 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
-import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadonly;
 import com.helger.peppol.utils.BusdoxURLUtils;
@@ -113,7 +111,7 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
       final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_ID_ISO6523);
       final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
       final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-      final ISMLInfo aSML = AppUtils.getSMLOfID (sSML);
+      final ESML eSML = ESML.getFromIDOrNull (sSML);
 
       if (StringHelper.hasNoText (sParticipantIDISO6523))
         aFormErrors.addFieldError (FIELD_ID_ISO6523, "Please select an identifier scheme");
@@ -131,13 +129,13 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
                                                      "' is not valid!");
       }
 
-      if (aSML == null)
+      if (eSML == null)
         aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
       if (aFormErrors.isEmpty ())
       {
         final SimpleParticipantIdentifier aParticipantID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
-        final SMPClientReadonly aSMPClient = new SMPClientReadonly (aParticipantID, aSML);
+        final SMPClientReadonly aSMPClient = new SMPClientReadonly (aParticipantID, eSML);
         try
         {
           final URL aSMPHost = new URL (aSMPClient.getSMPHostURI ());

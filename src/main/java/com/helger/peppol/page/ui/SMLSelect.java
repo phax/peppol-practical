@@ -29,6 +29,6 @@ public class SMLSelect extends HCExtSelect
     super (aRF);
     for (final ESML eSML : ESML.values ())
       if (eSML.requiresClientCertificate ())
-        addOption (eSML.name (), eSML.getManagementServiceURL ());
+        addOption (eSML.getID (), eSML.getManagementServiceURL ());
   }
 }
