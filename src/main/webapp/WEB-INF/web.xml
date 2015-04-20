@@ -186,6 +186,19 @@
     <servlet-name>CommentAjaxServlet</servlet-name>
     <url-pattern>/comment/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ResourceBundleServlet</servlet-name>
+    <servlet-class>com.helger.webbasics.resource.ResourceBundleServlet</servlet-class>
+    <init-param>
+      <param-name>allowedExtensions</param-name>
+      <param-value>js,css</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResourceBundleServlet</servlet-name>
+    <url-pattern>/resbundle/*</url-pattern>
+  </servlet-mapping>
 
   <!-- Web Service stuff -->
   <listener>
