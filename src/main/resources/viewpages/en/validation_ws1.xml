@@ -40,198 +40,206 @@ A very small Java WS client is available for
 
 <h2>Input parameters</h2>
 <p>It offers one method called "executeValidationPyramid" that takes the following arguments:</p>
-<table class="table table-bordered">
-  <tbody>
-    <tr>
-      <th>Parameter</th>
-      <th>Type</th>
-      <th>Usage</th>
-      <th>Notes</th>
-    </tr>
-    <tr>
-      <td><code>SyntaxBindung</code></td>
-      <td>enumeration</td>
-      <td>required</td>
-      <td>Only <code>UBL</code> is supported</td>
-    </tr>
-    <tr>
-      <td><code>DocumentType</code></td>
-      <td>enumeration</td>
-      <td>required</td>
-      <td>
-        <p>Should be one of <code>CATALOGUE</code>, <code>ORDER</code>, <code>ORDERRESPONSE</code>, <code>CREDITNOTE</code> or <code>INVOICE</code>.</p>
-        <p>At the moment no rules for <code>TENDERING_CATALOGUE</code> are present.</p>
-      </td>
-    </tr>
-    <tr>
-      <td><code>Transaction</code></td>
-      <td>enumeration</td>
-      <td>required</td>
-      <td>Depending on the DocumentType parameter, different values are allowed:<br />
-        <ul>
-          <li>For <code>CATALOGUE</code> use <code>T19</code></li>
-          <li>For <code>ORDER</code> use <code>T01</code></li>
-          <li>For <code>ORDERRESPONSE</code> use <code>T02</code> or <code>T03</code></li>
-          <li>For <code>CREDITNOTE</code> use <code>T14</code></li>
-          <li>For <code>INVOICE</code> use <code>T10</code>, <code>T15</code> or <code>T17</code></li>
-        </ul>
-        <p>The available enumeration of transactions is based on the overall transaction list of the CEN/BII workshop. The other available transactions are currently not in scope of PEPPOL or no validation rules are present.</p>
-      </td>
-    </tr>
-    <tr>
-      <td><code>Country</code></td>
-      <td>string</td>
-      <td>optional</td>
-      <td>
-        <p>This specifies the country who's national rules should be applied. It must be stated in the format ISO-3166 ALPHA 2.</p>
-        <p>At the moment national rules are available for the following countries:</p>
-        <ul>
-          <li><code>AT</code> - Austria</li>
-          <li><code>DK</code> - Denmark</li>
-          <li><code>IT</code> - Italy</li>
-          <li><code>NO</code> - Norway</li>
-        </ul>
-        <p>Passing in any other valid country code will do no harm but has no additional effect.</p>
-        <p>Not passing a country code has the effect, that</p>
-      </td>
-    </tr>
-    <tr>
-      <td><code>IndustrySpecificRules</code></td>
-      <td>boolean</td>
-      <td>required</td>
-      <td>
-        <p>Indicates whether the industry specific validation rules should be applied or not. Industry specific rules can also be rules that are specific for a government.</p>
-        <p>Industry specific rules are only available if national rules are available. Passing "true" but no country code means, that no industry specific rules are applied.</p>
-      </td>
-    </tr>
-    <tr>
-      <td><code>Document</code></td>
-      <td>string</td>
-      <td>required</td>
-      <td>This is the main XML document to be validated. For simplicity it must be provided as an inline string.</td>
-    </tr>
-    <tr>
-      <td><code>DisplayLocale</code></td>
-      <td>string</td>
-      <td>optional</td>
-      <td>
-        <p>This parameter determines the language in which error codes are returned. The following languages are supported:</p>
-        <ul>
-          <li><code>de</code> - German</li>
-          <li><code>en</code> - English</li>
-        </ul>
-        <p>If this parameter is not provided <code>en</code> is used as the default value.</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>Parameter</th>
+        <th>Type</th>
+        <th>Usage</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><code>SyntaxBindung</code></td>
+        <td>enumeration</td>
+        <td>required</td>
+        <td>Only <code>UBL</code> is supported</td>
+      </tr>
+      <tr>
+        <td><code>DocumentType</code></td>
+        <td>enumeration</td>
+        <td>required</td>
+        <td>
+          <p>Should be one of <code>CATALOGUE</code>, <code>ORDER</code>, <code>ORDERRESPONSE</code>, <code>CREDITNOTE</code> or <code>INVOICE</code>.</p>
+          <p>At the moment no rules for <code>TENDERING_CATALOGUE</code> are present.</p>
+        </td>
+      </tr>
+      <tr>
+        <td><code>Transaction</code></td>
+        <td>enumeration</td>
+        <td>required</td>
+        <td>Depending on the DocumentType parameter, different values are allowed:<br />
+          <ul>
+            <li>For <code>CATALOGUE</code> use <code>T19</code></li>
+            <li>For <code>ORDER</code> use <code>T01</code></li>
+            <li>For <code>ORDERRESPONSE</code> use <code>T02</code> or <code>T03</code></li>
+            <li>For <code>CREDITNOTE</code> use <code>T14</code></li>
+            <li>For <code>INVOICE</code> use <code>T10</code>, <code>T15</code> or <code>T17</code></li>
+          </ul>
+          <p>The available enumeration of transactions is based on the overall transaction list of the CEN/BII workshop. The other available transactions are currently not in scope of PEPPOL or no validation rules are present.</p>
+        </td>
+      </tr>
+      <tr>
+        <td><code>Country</code></td>
+        <td>string</td>
+        <td>optional</td>
+        <td>
+          <p>This specifies the country who's national rules should be applied. It must be stated in the format ISO-3166 ALPHA 2.</p>
+          <p>At the moment national rules are available for the following countries:</p>
+          <ul>
+            <li><code>AT</code> - Austria</li>
+            <li><code>DK</code> - Denmark</li>
+            <li><code>IT</code> - Italy</li>
+            <li><code>NO</code> - Norway</li>
+          </ul>
+          <p>Passing in any other valid country code will do no harm but has no additional effect.</p>
+          <p>Not passing a country code has the effect, that</p>
+        </td>
+      </tr>
+      <tr>
+        <td><code>IndustrySpecificRules</code></td>
+        <td>boolean</td>
+        <td>required</td>
+        <td>
+          <p>Indicates whether the industry specific validation rules should be applied or not. Industry specific rules can also be rules that are specific for a government.</p>
+          <p>Industry specific rules are only available if national rules are available. Passing "true" but no country code means, that no industry specific rules are applied.</p>
+        </td>
+      </tr>
+      <tr>
+        <td><code>Document</code></td>
+        <td>string</td>
+        <td>required</td>
+        <td>This is the main XML document to be validated. For simplicity it must be provided as an inline string.</td>
+      </tr>
+      <tr>
+        <td><code>DisplayLocale</code></td>
+        <td>string</td>
+        <td>optional</td>
+        <td>
+          <p>This parameter determines the language in which error codes are returned. The following languages are supported:</p>
+          <ul>
+            <li><code>de</code> - German</li>
+            <li><code>en</code> - English</li>
+          </ul>
+          <p>If this parameter is not provided <code>en</code> is used as the default value.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  
 <h2>Return value</h2>
 <p>The response of calling this service is a complex structure with the following items:</p>
-<table class="table table-bordered">
-  <tbody>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Usage</th>
-      <th>Notes</th>
-    </tr>
-    <tr>
-      <td><code>ReturnCode</code></td>
-      <td>string</td>
-      <td>required</td>
-      <td>Determines the overall return code. 
-          Only if the value is <code>NO_ERROR</code> that the remaining parts of the result are defined. 
-          Any value different from <code>NO_ERROR</code> indicates an error in the input parameters!</td>
-    </tr>
-    <tr>
-      <td><code>ValidationInterrupted</code></td>
-      <td>boolean</td>
-      <td>optional</td>
-      <td>
-        <p>In case the passed UBL document does not match the UBL XML schema, validation is "interrupted" and the remaining Schematron checks are not performed.</p>
-        <p>If this field is <code>true</code> than the Schematron checks where not executed!</p>
-      </td>
-    </tr>
-    <tr>
-      <td><code>MostSevereErrorLevel</code></td>
-      <td>enumeration</td>
-      <td>optional</td>
-      <td>This field indicates the most severe error that occurred in validation. 
-          This field has the sole purpose to easily identify whether a document was totally valid 
-          (value <code>SUCCESS</code>), whether some warnings but no errors occurred 
-          (value <code>WARN</code>) or whether at least one error occurred 
-          (value <code>ERROR</code> or <code>FATAL_ERROR</code>).</td>
-    </tr>
-    <tr>
-      <td><code>Items</code></td>
-      <td>list</td>
-      <td>optional</td>
-      <td>
-        <p>This field is a container for the detailed validation issues. For each warning or error a separate item is created. The order of the list is the order in which validation took place.</p>
-        <p>If the list may be empty if the MostSevereErrorLevel is <code>SUCCESS</code>.</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Usage</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><code>ReturnCode</code></td>
+        <td>string</td>
+        <td>required</td>
+        <td>Determines the overall return code. 
+            Only if the value is <code>NO_ERROR</code> that the remaining parts of the result are defined. 
+            Any value different from <code>NO_ERROR</code> indicates an error in the input parameters!</td>
+      </tr>
+      <tr>
+        <td><code>ValidationInterrupted</code></td>
+        <td>boolean</td>
+        <td>optional</td>
+        <td>
+          <p>In case the passed UBL document does not match the UBL XML schema, validation is "interrupted" and the remaining Schematron checks are not performed.</p>
+          <p>If this field is <code>true</code> than the Schematron checks where not executed!</p>
+        </td>
+      </tr>
+      <tr>
+        <td><code>MostSevereErrorLevel</code></td>
+        <td>enumeration</td>
+        <td>optional</td>
+        <td>This field indicates the most severe error that occurred in validation. 
+            This field has the sole purpose to easily identify whether a document was totally valid 
+            (value <code>SUCCESS</code>), whether some warnings but no errors occurred 
+            (value <code>WARN</code>) or whether at least one error occurred 
+            (value <code>ERROR</code> or <code>FATAL_ERROR</code>).</td>
+      </tr>
+      <tr>
+        <td><code>Items</code></td>
+        <td>list</td>
+        <td>optional</td>
+        <td>
+          <p>This field is a container for the detailed validation issues. For each warning or error a separate item is created. The order of the list is the order in which validation took place.</p>
+          <p>If the list may be empty if the MostSevereErrorLevel is <code>SUCCESS</code>.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>>
 
 <p>Each Item in the <code>Items</code> list has the following semantics:</p>
-<table class="table table-bordered">
-  <tbody>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Usage</th>
-      <th>Notes</th>
-    </tr>
-    <tr>
-      <td><code>ValidationLevel</code></td>
-      <td>enumeration</td>
-      <td>required</td>
-      <td>The validation level in which this error occurred.</td>
-    </tr>
-    <tr>
-      <td><code>ValidationType</code></td>
-      <td>enumeration</td>
-      <td>required</td>
-      <td>
-        <p>The type of validation applied. Currently supported types are:</p>
-        <ul>
-          <li><code>XSD</code> - XML Schema validation</li>
-          <li><code>SCHEMATRON</code> - <a class="external_href" target="_blank" href="http://www.schematron.com/">Schematron</a> validation</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td><code>ErrorLevel</code></td>
-      <td>enumeration</td>
-      <td>required</td>
-      <td>The error level of this item. See description on <code>MostSevereErrorLevel</code> above</td>
-    </tr>
-    <tr>
-      <td><code>Location</code></td>
-      <td>string</td>
-      <td>required</td>
-      <td>Provides a pseudo location where the error occurred. 
-          The layout depends on the <code>ValidationType</code> parameter.</td>
-    </tr>
-    <tr>
-      <td><code>SVRLTest</code></td>
-      <td>string</td>
-      <td>optional</td>
-      <td>In case the ValidationType parameter is <code>SCHEMATRON</code> this parameter contains 
-          the value of the SVRL <code>test</code> attribute showing what was tested.</td>
-    </tr>
-    <tr>
-      <td><code>ErrorText</code></td>
-      <td>string</td>
-      <td>required</td>
-      <td>The human readable error text. If possible the text is in the display locale provided by the respective input parameter.</td>
-    </tr>
-    <tr>
-      <td><code>ExceptionMessage</code></td>
-      <td>string</td>
-      <td>optional</td>
-      <td>In case an unexpected error occurred in validation, this field contains the respective message. This field is only present for error tracing and should not be presented to the user.</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Usage</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><code>ValidationLevel</code></td>
+        <td>enumeration</td>
+        <td>required</td>
+        <td>The validation level in which this error occurred.</td>
+      </tr>
+      <tr>
+        <td><code>ValidationType</code></td>
+        <td>enumeration</td>
+        <td>required</td>
+        <td>
+          <p>The type of validation applied. Currently supported types are:</p>
+          <ul>
+            <li><code>XSD</code> - XML Schema validation</li>
+            <li><code>SCHEMATRON</code> - <a class="external_href" target="_blank" href="http://www.schematron.com/">Schematron</a> validation</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><code>ErrorLevel</code></td>
+        <td>enumeration</td>
+        <td>required</td>
+        <td>The error level of this item. See description on <code>MostSevereErrorLevel</code> above</td>
+      </tr>
+      <tr>
+        <td><code>Location</code></td>
+        <td>string</td>
+        <td>required</td>
+        <td>Provides a pseudo location where the error occurred. 
+            The layout depends on the <code>ValidationType</code> parameter.</td>
+      </tr>
+      <tr>
+        <td><code>SVRLTest</code></td>
+        <td>string</td>
+        <td>optional</td>
+        <td>In case the ValidationType parameter is <code>SCHEMATRON</code> this parameter contains 
+            the value of the SVRL <code>test</code> attribute showing what was tested.</td>
+      </tr>
+      <tr>
+        <td><code>ErrorText</code></td>
+        <td>string</td>
+        <td>required</td>
+        <td>The human readable error text. If possible the text is in the display locale provided by the respective input parameter.</td>
+      </tr>
+      <tr>
+        <td><code>ExceptionMessage</code></td>
+        <td>string</td>
+        <td>optional</td>
+        <td>In case an unexpected error occurred in validation, this field contains the respective message. This field is only present for error tracing and should not be presented to the user.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
