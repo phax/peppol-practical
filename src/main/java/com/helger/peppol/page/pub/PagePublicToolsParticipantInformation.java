@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
@@ -40,12 +42,15 @@ import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.bootstrap3.EBootstrapIcon;
 import com.helger.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.bootstrap3.alert.BootstrapInfoBox;
+import com.helger.bootstrap3.alert.BootstrapWarnBox;
 import com.helger.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.bootstrap3.form.BootstrapForm;
 import com.helger.bootstrap3.form.BootstrapFormGroup;
 import com.helger.bootstrap3.form.EBootstrapFormType;
 import com.helger.bootstrap3.grid.BootstrapRow;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.compare.AbstractComparator;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -66,6 +71,7 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.js.EJSEvent;
 import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
@@ -138,6 +144,7 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
         final SMPClientReadonly aSMPClient = new SMPClientReadonly (aParticipantID, eSML);
         try
         {
+          // URL always with a trailing slash
           final URL aSMPHost = new URL (aSMPClient.getSMPHostURI ());
           final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
           final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
@@ -154,17 +161,34 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
           final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList <> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
+
+            final HCUL aUL = new HCUL ();
+
             // Check with lowercase host name as well (e.g. 9908:983974724)!
             // The generated hostname contains "B-" whereas the returned
             // hostname contains "b-"
+            // Note: the SMPHost must have a trailing slash
             final String sCommonPrefix = (aSMPHost.toExternalForm () + aParticipantID.getURIEncoded () + "/services/").toLowerCase (Locale.US);
 
+            // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
-            final HCUL aUL = new HCUL ();
+            // Map from cleaned URL to original URL
+            final Map <String, String> aSGHrefs = new TreeMap <> ();
             for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                               .getServiceMetadataReference ())
             {
               final String sHref = BusdoxURLUtils.createPercentDecodedURL (aSMR.getHref ());
+              if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+                aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
+                                                    .addChild (new HCCode ().addChild (sHref)));
+            }
+
+            // Show all ServiceGroup hrefs
+            for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
+            {
+              final String sHref = aEntry.getKey ();
+              final String sOriginalHref = aEntry.getValue ();
+
               final HCLI aLI = aUL.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
               if (sHref.toLowerCase (Locale.US).startsWith (sCommonPrefix))
               {
@@ -176,8 +200,9 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
                   aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" " + aDocType.getURIEncoded ()));
                   aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
-                                            .addChild (new HCA (aSMR.getHref ()).addChild ("Open in browser")
-                                                                                .setTargetBlank ()));
+                                            .addChild (" ")
+                                            .addChild (new HCA (sOriginalHref).addChild ("Open in browser")
+                                                                              .setTargetBlank ()));
                 }
                 catch (final IllegalArgumentException ex)
                 {
@@ -187,12 +212,17 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
                 }
               }
               else
+              {
                 aLI.addChild (new BootstrapErrorBox ().addChildren (new HCDiv ().addChild ("Contained href does not match the rules!"),
                                                                     new HCDiv ().addChild ("Found href: ")
                                                                                 .addChild (new HCCode ().addChild (sHref)),
                                                                     new HCDiv ().addChild ("Expected prefix: ")
                                                                                 .addChild (new HCCode ().addChild (sCommonPrefix))));
+              }
             }
+            if (!aUL.hasChildren ())
+              aUL.addItem (new BootstrapWarnBox ().addChild ("No service group entries where found for " +
+                                                             aParticipantID.getURIEncoded ()));
             aNodeList.addChild (aUL);
           }
 
@@ -204,7 +234,22 @@ public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <W
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();
-            for (final SimpleDocumentTypeIdentifier aDocTypeID : aDocTypeIDs)
+            for (final SimpleDocumentTypeIdentifier aDocTypeID : CollectionHelper.getSorted (aDocTypeIDs,
+                                                                                             new AbstractComparator <IReadonlyDocumentTypeIdentifier> ()
+                                                                                             {
+                                                                                               @Override
+                                                                                               protected int mainCompare (final IReadonlyDocumentTypeIdentifier aElement1,
+                                                                                                                          final IReadonlyDocumentTypeIdentifier aElement2)
+
+                                                                                               {
+                                                                                                 int ret = aElement1.getScheme ()
+                                                                                                                    .compareTo (aElement2.getScheme ());
+                                                                                                 if (ret == 0)
+                                                                                                   ret = aElement1.getValue ()
+                                                                                                                  .compareTo (aElement2.getValue ());
+                                                                                                 return ret;
+                                                                                               }
+                                                                                             }))
             {
               final HCLI aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (aDocTypeID.getURIEncoded ())));
               final SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
