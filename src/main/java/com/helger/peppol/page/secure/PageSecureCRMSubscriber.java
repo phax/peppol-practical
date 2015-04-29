@@ -119,7 +119,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     {
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
-                                                                  new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
+                                                                   new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         aGroups.addChild (new HCDiv ().addChild (new HCA (createViewURL (aWPEC, CMenuSecure.MENU_CRM_GROUPS, aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
       aTable.createItemRow ().setLabel ("Assigned groups").setCtrl (aGroups);
     }
@@ -139,7 +139,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
     final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
     final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
-    final List <String> aSelectedCRMGroupIDs = aWPEC.getAttributeValues (FIELD_GROUP);
+    final List <String> aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
     final Set <ICRMGroup> aSelectedCRMGroups = new HashSet <ICRMGroup> ();
 
     if (StringHelper.hasNoText (sName))
@@ -211,8 +211,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     aTable.createItemRow ()
           .setLabel ("Salutation")
           .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
-                                                              aSelectedObject == null
-                                                                                     ? null
+                                                              aSelectedObject == null ? null
                                                                                      : aSelectedObject.getSalutationID ()),
                                             aDisplayLocale))
           .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION));
@@ -232,7 +231,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     {
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aCRMGroupMgr.getAllCRMGroups (),
-                                                                  new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
+                                                                   new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
       {
         final String sCRMGroupID = aCRMGroup.getID ();
         final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,

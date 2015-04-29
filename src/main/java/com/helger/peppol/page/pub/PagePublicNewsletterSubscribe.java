@@ -82,7 +82,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
       final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
       final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
       final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
-      aSelectedCRMGroupIDs = aWPEC.getAttributeValues (FIELD_GROUP);
+      aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
       final Set <ICRMGroup> aSelectedCRMGroups = new HashSet <ICRMGroup> ();
       ICRMSubscriber aSameEmailAddressSubscriber = null;
 
@@ -171,7 +171,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
         // Show selection
         final HCNodeList aGroups = new HCNodeList ();
         for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aAllCRMGroups,
-                                                                    new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
+                                                                     new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         {
           final String sCRMGroupID = aCRMGroup.getID ();
           final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP, sCRMGroupID, false);

@@ -47,12 +47,6 @@ import com.helger.webbasics.app.layout.LayoutExecutionContext;
 public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBootstrap <LayoutExecutionContext>
 {
   @Override
-  protected String getInitParameterTrace (@Nonnull final ServletContext aSC)
-  {
-    return AppSettings.getGlobalTrace ();
-  }
-
-  @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
   {
     return AppSettings.getGlobalDebug ();

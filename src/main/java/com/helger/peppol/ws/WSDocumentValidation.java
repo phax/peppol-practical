@@ -29,6 +29,7 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.w3c.dom.Document;
 
+import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.locale.LocaleCache;
@@ -137,7 +138,7 @@ public class WSDocumentValidation implements IDocumentValidation
                   final IResourceErrorGroup aAggResults = res.getAggregatedResults ();
 
                   ret.setValidationInterrupted (res.isValidationInterrupted ());
-                  ret.setMostSevereErrorLevel (aAggResults.getMostSevereErrorLevel ());
+                  ret.setMostSevereErrorLevel ((EErrorLevel) aAggResults.getMostSevereErrorLevel ());
 
                   // For all layers
                   for (final ValidationPyramidResultLayer aResLayer : res.getAllValidationResultLayers ())
@@ -148,7 +149,7 @@ public class WSDocumentValidation implements IDocumentValidation
                       final ValidationServiceResultItem aItem = new ValidationServiceResultItem ();
                       aItem.setValidationLevel ((EValidationLevel) aResLayer.getValidationLevel ());
                       aItem.setValidationType (aResLayer.getXMLValidationType ());
-                      aItem.setErrorLevel (aError.getErrorLevel ());
+                      aItem.setErrorLevel ((EErrorLevel) aError.getErrorLevel ());
                       aItem.setLocation (aError.getLocation ().getAsString ());
                       aItem.setErrorText (aError.getDisplayText (aDisplayLocale));
                       if (aError.getLinkedException () != null)

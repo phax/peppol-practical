@@ -67,8 +67,8 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   public Comment convertToNative (@Nonnull final IMicroElement eComment)
   {
     final String sCommentID = eComment.getAttributeValue (ATTR_ID);
-    final DateTime aCreationDT = eComment.getAttributeWithConversion (ATTR_CREATIONDT, DateTime.class);
-    final DateTime aLastModDT = eComment.getAttributeWithConversion (ATTR_LASTMODDT, DateTime.class);
+    final DateTime aCreationDT = eComment.getAttributeValueWithConversion (ATTR_CREATIONDT, DateTime.class);
+    final DateTime aLastModDT = eComment.getAttributeValueWithConversion (ATTR_LASTMODDT, DateTime.class);
 
     final String sHost = eComment.getAttributeValue (ATTR_HOST);
 

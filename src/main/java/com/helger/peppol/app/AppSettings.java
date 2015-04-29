@@ -56,12 +56,6 @@ public class AppSettings extends GlobalSingleton
   }
 
   @Nullable
-  public static String getGlobalTrace ()
-  {
-    return s_aSettings.getStringValue ("global.trace");
-  }
-
-  @Nullable
   public static String getGlobalDebug ()
   {
     return s_aSettings.getStringValue ("global.debug");
