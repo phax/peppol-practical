@@ -88,7 +88,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
-      <version>5.7.0</version>
+      <version>5.7.1</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -103,7 +103,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
-      <version>6.4.3-SNAPSHOT</version>
+      <version>6.4.3</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -113,17 +113,17 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-css</artifactId>
-      <version>3.9.1</version>
+      <version>3.9.2</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-schedule</artifactId>
-      <version>1.8.3-SNAPSHOT</version>
+      <version>1.8.3</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-html</artifactId>
-      <version>4.7.2-SNAPSHOT</version>
+      <version>4.7.2</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -158,7 +158,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>peppol-sml-client</artifactId>
-      <version>3.1.2-SNAPSHOT</version>
+      <version>3.1.2</version>
     </dependency>
     
     <dependency>
