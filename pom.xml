@@ -128,22 +128,22 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webbasics</artifactId>
-      <version>4.0.2-SNAPSHOT</version>
+      <version>4.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-webctrls</artifactId>
-      <version>4.0.2-SNAPSHOT</version>
+      <version>4.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-bootstrap3</artifactId>
-      <version>2.0.2-SNAPSHOT</version>
+      <version>2.0.2</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-tinymce4</artifactId>
-      <version>0.3.6-SNAPSHOT</version>
+      <version>0.3.5</version>
     </dependency>
     <dependency>
       <groupId>eu.europa.ec.cipa</groupId>
