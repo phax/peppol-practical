@@ -18,14 +18,14 @@ package com.helger.peppol.app.ui;
 
 import javax.annotation.Nonnull;
 
-import com.helger.appbasics.app.request.IRequestManager;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.html.hc.html.HCHtml;
 import com.helger.peppol.app.AppUtils;
-import com.helger.webbasics.app.ISimpleWebExecutionContext;
-import com.helger.webbasics.app.layout.AbstractLayoutManagerBasedLayoutHTMLProvider;
-import com.helger.webbasics.app.layout.ApplicationLayoutManager;
-import com.helger.webbasics.app.layout.LayoutExecutionContext;
+import com.helger.photon.basic.app.request.IRequestManager;
+import com.helger.photon.core.app.context.ISimpleWebExecutionContext;
+import com.helger.photon.core.app.context.LayoutExecutionContext;
+import com.helger.photon.core.app.layout.AbstractLayoutManagerBasedLayoutHTMLProvider;
+import com.helger.photon.core.app.layout.ApplicationLayoutManager;
 
 /**
  * Main class for creating HTML output

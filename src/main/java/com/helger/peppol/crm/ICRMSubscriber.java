@@ -23,11 +23,11 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.appbasics.object.IObject;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.name.IHasDisplayText;
 import com.helger.masterdata.person.ESalutation;
+import com.helger.photon.basic.object.IObject;
 
 /**
  * The read-only interface for a single CRM subscriber, that is subscribed to

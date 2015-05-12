@@ -25,10 +25,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.appbasics.mock.AppBasicTestRule;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.mock.PHTestUtils;
+import com.helger.photon.basic.mock.PhotonBasicTestRule;
 
 /**
  * Unit test class for class {@link Comment}.
@@ -38,7 +38,7 @@ import com.helger.commons.mock.PHTestUtils;
 public final class CommentTest
 {
   @Rule
-  public TestRule m_aRule = new AppBasicTestRule ();
+  public TestRule m_aRule = new PhotonBasicTestRule ();
 
   @Test
   public void testBasic ()

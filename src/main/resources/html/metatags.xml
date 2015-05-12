@@ -18,8 +18,5 @@
 
 -->
 <mapping>
-  <map key="generator" value="ph web stack"/>
   <map key="description" value="peppol.helger.com" />
-  <map key="X-UA-Compatible" value="IE=edge" />
-  <map key="viewport" value="width=device-width, initial-scale=1.0" />
 </mapping>

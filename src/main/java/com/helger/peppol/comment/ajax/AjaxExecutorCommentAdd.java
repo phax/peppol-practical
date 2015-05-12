@@ -23,10 +23,6 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.appbasics.security.login.LoggedInUserManager;
-import com.helger.appbasics.security.user.IUser;
-import com.helger.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
@@ -44,11 +40,15 @@ import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
+import com.helger.photon.basic.security.login.LoggedInUserManager;
+import com.helger.photon.basic.security.user.IUser;
+import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
+import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
+import com.helger.photon.core.ajax.response.IAjaxResponse;
+import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.webbasics.ajax.executor.AbstractAjaxExecutor;
-import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
-import com.helger.webbasics.ajax.response.IAjaxResponse;
-import com.helger.webbasics.app.layout.LayoutExecutionContext;
 
 /**
  * AJAX handler for creating a new comment thread.

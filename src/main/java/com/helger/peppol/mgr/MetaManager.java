@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.appbasics.app.dao.impl.DAOException;
 import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.scopes.IScope;
@@ -29,6 +28,7 @@ import com.helger.commons.scopes.singleton.GlobalSingleton;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.testep.domain.TestEndpointManager;
+import com.helger.photon.basic.app.dao.impl.DAOException;
 
 /**
  * Central manager for all sub managers

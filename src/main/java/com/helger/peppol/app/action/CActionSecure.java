@@ -18,9 +18,9 @@ package com.helger.peppol.app.action;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.webbasics.action.IActionDeclaration;
-import com.helger.webbasics.action.decl.SecureApplicationActionDeclaration;
-import com.helger.webbasics.action.executor.ActionExecutorPing;
+import com.helger.photon.core.action.IActionDeclaration;
+import com.helger.photon.core.action.decl.SecureApplicationActionDeclaration;
+import com.helger.photon.core.action.executor.ActionExecutorPing;
 
 /**
  * This class defines the available actions for the config app

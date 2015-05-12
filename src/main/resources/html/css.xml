@@ -18,13 +18,6 @@
 
 -->
 <items>
-  <css path="bootstrap/3.3.4/css/bootstrap.css"/>
-  <css path="bootstrap/3.3.4/css/bootstrap-theme.css"/>
-  <css path="bootstrap/bootstrap3-ph.css"/>
-  <css path="famfam/flags/flags.css"/>
-  <css path="famfam/013/famfam.css"/>
-  <css path="css/webctrls.css"/>
   <css path="/css/default.css"/>
   <css path="/css/print.css" media="print"/>
-  <css path="placeholder/placeholder-fix.css" condcomment="if lt IE 10"/>
 </items>

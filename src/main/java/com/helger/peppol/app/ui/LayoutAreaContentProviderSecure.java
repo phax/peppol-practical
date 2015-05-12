@@ -20,20 +20,6 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import com.helger.appbasics.security.login.LoggedInUserManager;
-import com.helger.appbasics.security.user.IUser;
-import com.helger.appbasics.security.util.SecurityUtils;
-import com.helger.bootstrap3.CBootstrapCSS;
-import com.helger.bootstrap3.base.BootstrapContainer;
-import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
-import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
-import com.helger.bootstrap3.button.BootstrapButton;
-import com.helger.bootstrap3.ext.BootstrapMenuItemRenderer;
-import com.helger.bootstrap3.grid.BootstrapRow;
-import com.helger.bootstrap3.nav.BootstrapNav;
-import com.helger.bootstrap3.navbar.BootstrapNavbar;
-import com.helger.bootstrap3.navbar.EBootstrapNavbarPosition;
-import com.helger.bootstrap3.navbar.EBootstrapNavbarType;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.html.hc.IHCElement;
 import com.helger.html.hc.IHCNode;
@@ -44,14 +30,28 @@ import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppUtils;
+import com.helger.photon.basic.security.login.LoggedInUserManager;
+import com.helger.photon.basic.security.user.IUser;
+import com.helger.photon.basic.security.util.SecurityUtils;
+import com.helger.photon.bootstrap3.CBootstrapCSS;
+import com.helger.photon.bootstrap3.base.BootstrapContainer;
+import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
+import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
+import com.helger.photon.bootstrap3.button.BootstrapButton;
+import com.helger.photon.bootstrap3.grid.BootstrapRow;
+import com.helger.photon.bootstrap3.nav.BootstrapNav;
+import com.helger.photon.bootstrap3.navbar.BootstrapNavbar;
+import com.helger.photon.bootstrap3.navbar.EBootstrapNavbarPosition;
+import com.helger.photon.bootstrap3.navbar.EBootstrapNavbarType;
+import com.helger.photon.bootstrap3.uictrls.ext.BootstrapMenuItemRenderer;
+import com.helger.photon.core.EPhotonCoreText;
+import com.helger.photon.core.app.context.LayoutExecutionContext;
+import com.helger.photon.core.app.layout.CLayout;
+import com.helger.photon.core.app.layout.ILayoutAreaContentProvider;
+import com.helger.photon.core.servlet.AbstractPublicApplicationServlet;
+import com.helger.photon.core.servlet.LogoutServlet;
+import com.helger.photon.core.url.LinkUtils;
 import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.webbasics.EWebBasicsText;
-import com.helger.webbasics.app.LinkUtils;
-import com.helger.webbasics.app.layout.CLayout;
-import com.helger.webbasics.app.layout.ILayoutAreaContentProvider;
-import com.helger.webbasics.app.layout.LayoutExecutionContext;
-import com.helger.webbasics.servlet.AbstractPublicApplicationServlet;
-import com.helger.webbasics.servlet.LogoutServlet;
 
 /**
  * The viewport renderer (menu + content area)
@@ -91,7 +91,7 @@ public final class LayoutAreaContentProviderSecure implements ILayoutAreaContent
       final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
       aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (aRequestScope,
                                                                                       LogoutServlet.SERVLET_DEFAULT_PATH))
-                                            .addChild (EWebBasicsText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
+                                            .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
       aNav.addItem (aForm);
     }
     aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
@@ -135,7 +135,7 @@ public final class LayoutAreaContentProviderSecure implements ILayoutAreaContent
       aCol1.addChild (new HCDiv ().setID (CLayout.LAYOUT_AREAID_SPECIAL));
 
       // content - determine is exactly same as for view
-      aCol2.addChild (LayoutAreaContentProviderPublic._getMainContent (aLEC, aHead));
+      aCol2.addChild (LayoutAreaContentProviderPublic._getMainContent (aLEC));
     }
 
     return ret;

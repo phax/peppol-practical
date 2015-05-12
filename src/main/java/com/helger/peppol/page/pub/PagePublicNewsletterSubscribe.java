@@ -24,12 +24,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import com.helger.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.form.BootstrapCheckBox;
-import com.helger.bootstrap3.form.BootstrapForm;
-import com.helger.bootstrap3.form.BootstrapFormGroup;
-import com.helger.bootstrap3.form.EBootstrapFormType;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.email.EmailAddressUtils;
@@ -46,15 +40,21 @@ import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
 import com.helger.peppol.mgr.MetaManager;
+import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
+import com.helger.photon.bootstrap3.form.BootstrapForm;
+import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap3.form.EBootstrapFormType;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
+import com.helger.photon.uicore.html.select.HCSalutationSelect;
+import com.helger.photon.uicore.icon.EDefaultIcon;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webbasics.form.RequestFieldBooleanMultiValue;
-import com.helger.webctrls.custom.EDefaultIcon;
-import com.helger.webctrls.masterdata.HCSalutationSelect;
-import com.helger.webctrls.page.AbstractWebPageExt;
 
-public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <WebPageExecutionContext>
+public final class PagePublicNewsletterSubscribe extends AbstractAppWebPageExt
 {
   private static final String FIELD_SALUTATION = "salutation";
   private static final String FIELD_NAME = "name";
@@ -143,7 +143,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractWebPageExt <Web
       }
       else
       {
-        aNodeList.addChild (getStyler ().createIncorrectInputBox (aWPEC));
+        aNodeList.addChild (createIncorrectInputBox (aWPEC));
       }
     }
 

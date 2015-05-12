@@ -20,8 +20,8 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.factory.IFactory;
-import com.helger.webbasics.ajax.IAjaxExecutor;
-import com.helger.webbasics.ajax.decl.AbstractAjaxFunctionDeclaration;
+import com.helger.photon.core.ajax.IAjaxExecutor;
+import com.helger.photon.core.ajax.decl.AbstractAjaxFunctionDeclaration;
 
 /**
  * Ajax function declaration for the public application

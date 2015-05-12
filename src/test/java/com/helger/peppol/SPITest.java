@@ -19,7 +19,7 @@ package com.helger.peppol;
 import org.junit.Test;
 
 import com.helger.commons.mock.PHTestUtils;
-import com.helger.webbasics.mock.WebBasicValidator;
+import com.helger.photon.core.mock.PhotonCoreValidator;
 
 public final class SPITest
 {
@@ -27,6 +27,6 @@ public final class SPITest
   public void testBasic () throws Exception
   {
     PHTestUtils.testIfAllSPIImplementationsAreValid ();
-    WebBasicValidator.validateExternalResources ();
+    PhotonCoreValidator.validateExternalResources ();
   }
 }

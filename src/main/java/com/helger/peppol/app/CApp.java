@@ -22,10 +22,10 @@ import java.util.Map;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.appbasics.security.CSecurity;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.type.ObjectType;
+import com.helger.photon.basic.security.CSecurity;
 
 /**
  * Contains application wide constants.

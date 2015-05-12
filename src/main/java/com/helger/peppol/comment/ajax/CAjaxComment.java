@@ -18,7 +18,7 @@ package com.helger.peppol.comment.ajax;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.webbasics.ajax.IAjaxFunctionDeclaration;
+import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
 
 /**
  * This class defines the available ajax functions for comments

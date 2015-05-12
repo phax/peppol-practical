@@ -24,7 +24,6 @@ import javax.servlet.ServletContext;
 
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import com.helger.bootstrap3.servlet.AbstractWebAppListenerMultiAppBootstrap;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.peppol.app.AppInternalErrorHandler;
@@ -34,9 +33,10 @@ import com.helger.peppol.app.init.InitializerPublic;
 import com.helger.peppol.app.init.InitializerSecure;
 import com.helger.peppol.app.ui.AppCommonUI;
 import com.helger.peppol.mgr.MetaManager;
-import com.helger.webbasics.app.CApplication;
-import com.helger.webbasics.app.init.IApplicationInitializer;
-import com.helger.webbasics.app.layout.LayoutExecutionContext;
+import com.helger.photon.bootstrap3.servlet.AbstractWebAppListenerMultiAppBootstrap;
+import com.helger.photon.core.app.CApplication;
+import com.helger.photon.core.app.context.LayoutExecutionContext;
+import com.helger.photon.core.app.init.IApplicationInitializer;
 
 /**
  * This listener is invoked during the servlet initiailization. This is

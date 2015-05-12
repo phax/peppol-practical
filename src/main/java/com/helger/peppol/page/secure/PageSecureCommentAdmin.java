@@ -52,14 +52,17 @@ import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.page.AbstractAppWebPageExt;
-import com.helger.webbasics.EWebBasicsText;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webctrls.custom.EDefaultIcon;
-import com.helger.webctrls.custom.tabbox.ITabBox;
-import com.helger.webctrls.custom.toolbar.IButtonToolbar;
-import com.helger.webctrls.datatables.DataTables;
-import com.helger.webctrls.datatables.comparator.ComparatorDTDateTime;
-import com.helger.webctrls.datatables.comparator.ComparatorDTInteger;
+import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.core.EPhotonCoreText;
+import com.helger.photon.uicore.html.tabbox.ITabBox;
+import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
+import com.helger.photon.uicore.icon.EDefaultIcon;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.datatables.DataTables;
+import com.helger.photon.uictrls.datatables.comparator.ComparatorDTDateTime;
+import com.helger.photon.uictrls.datatables.comparator.ComparatorDTInteger;
 
 public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
 {
@@ -120,8 +123,8 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
                                                       null,
                                                       false));
         // Toolbar
-        final IButtonToolbar <?> aToolbar = getStyler ().createToolbar (aWPEC);
-        aToolbar.addButton (EWebBasicsText.MSG_BACK_TO_OVERVIEW.getDisplayText (aDisplayLocale),
+        final IButtonToolbar <?> aToolbar = new BootstrapButtonToolbar (aWPEC);
+        aToolbar.addButton (EPhotonCoreText.BACK_TO_OVERVIEW.getDisplayText (aDisplayLocale),
                             aWPEC.getSelfHref (),
                             EDefaultIcon.BACK_TO_LIST);
         aNodeList.addChild (aToolbar);
@@ -133,13 +136,13 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
     if (bShowList)
     {
       // Refresh button
-      final IButtonToolbar <?> aToolbar = getStyler ().createToolbar (aWPEC);
-      aToolbar.addButton (EWebBasicsText.MSG_BUTTON_REFRESH.getDisplayText (aDisplayLocale),
+      final IButtonToolbar <?> aToolbar = new BootstrapButtonToolbar (aWPEC);
+      aToolbar.addButton (EPhotonCoreText.ON_REFRESH.getDisplayText (aDisplayLocale),
                           aWPEC.getSelfHref (),
                           EDefaultIcon.REFRESH);
       aNodeList.addChild (aToolbar);
 
-      final ITabBox <?> aTabBox = getStyler ().createTabBox (aWPEC);
+      final ITabBox <?> aTabBox = new BootstrapTabBox ();
       for (final ObjectType aOT : CollectionHelper.getSorted (aCommentThreadMgr.getAllRegisteredObjectTypes ()))
       {
         final HCNodeList aTab = new HCNodeList ();
@@ -180,7 +183,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
         }
         aTab.addChild (aTable);
 
-        final DataTables aDataTables = getStyler ().createDefaultDataTables (aWPEC, aTable);
+        final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
         aDataTables.getOrCreateColumnOfTarget (1)
                    .addClass (CSS_CLASS_RIGHT)
                    .setComparator (new ComparatorDTInteger (aDisplayLocale));

@@ -22,8 +22,8 @@ import javax.annotation.Nonnull;
 
 import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.custom.HCExtSelect;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.html.select.HCExtSelect;
 
 /**
  * UI select for SMP transport profiles

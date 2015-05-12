@@ -20,11 +20,18 @@ import java.io.File;
 
 import javax.annotation.concurrent.Immutable;
 
+import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.FragmentConfiguration;
+import org.eclipse.jetty.webapp.JettyWebXmlConfiguration;
+import org.eclipse.jetty.webapp.MetaInfConfiguration;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.webapp.WebInfConfiguration;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,6 +87,13 @@ public final class RunInJettyPEPPOL
     aWebAppCtx.setThrowUnavailableOnStartupException (true);
     aWebAppCtx.setCopyWebInf (true);
     aWebAppCtx.setCopyWebDir (true);
+    // Important to add the AnnotationConfiguration!
+    aWebAppCtx.setConfigurations (new Configuration [] { new WebInfConfiguration (),
+                                                        new WebXmlConfiguration (),
+                                                        new MetaInfConfiguration (),
+                                                        new FragmentConfiguration (),
+                                                        new JettyWebXmlConfiguration (),
+                                                        new AnnotationConfiguration () });
     aServer.setHandler (aWebAppCtx);
     final ServletContextHandler aCtx = aWebAppCtx;
 

@@ -20,13 +20,13 @@ import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
-import com.helger.appbasics.security.login.ELoginResult;
-import com.helger.bootstrap3.ext.BootstrapLoginHTMLProvider;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.app.CApp;
-import com.helger.webbasics.app.html.IHTMLProvider;
-import com.helger.webbasics.login.LoginManager;
+import com.helger.photon.basic.security.login.ELoginResult;
+import com.helger.photon.bootstrap3.uictrls.ext.BootstrapLoginHTMLProvider;
+import com.helger.photon.core.app.html.IHTMLProvider;
+import com.helger.photon.core.login.LoginManager;
 
 public final class AppLoginManager extends LoginManager
 {

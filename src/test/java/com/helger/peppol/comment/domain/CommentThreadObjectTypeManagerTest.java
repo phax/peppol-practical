@@ -26,9 +26,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.appbasics.app.dao.impl.DAOException;
-import com.helger.appbasics.mock.AppBasicTestRule;
 import com.helger.commons.type.ObjectType;
+import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.photon.basic.mock.PhotonBasicTestRule;
 
 /**
  * Unit test class for class {@link CommentThreadObjectTypeManager}.
@@ -38,7 +38,7 @@ import com.helger.commons.type.ObjectType;
 public final class CommentThreadObjectTypeManagerTest
 {
   @Rule
-  public TestRule m_aRule = new AppBasicTestRule ();
+  public TestRule m_aRule = new PhotonBasicTestRule ();
 
   @Test
   public void testBasic () throws DAOException

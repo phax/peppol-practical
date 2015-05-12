@@ -23,23 +23,23 @@ import javax.annotation.Nullable;
 
 import org.quartz.Job;
 
-import com.helger.appbasics.app.dao.impl.AbstractDAO;
-import com.helger.appbasics.app.request.ApplicationRequestManager;
-import com.helger.appbasics.longrun.ILongRunningJob;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.email.EmailAddress;
+import com.helger.photon.basic.app.dao.impl.AbstractDAO;
+import com.helger.photon.basic.app.request.ApplicationRequestManager;
+import com.helger.photon.basic.longrun.ILongRunningJob;
+import com.helger.photon.core.action.servlet.AbstractActionServlet;
+import com.helger.photon.core.ajax.servlet.AbstractAjaxServlet;
+import com.helger.photon.core.app.error.InternalErrorBuilder;
+import com.helger.photon.core.app.error.InternalErrorHandler;
+import com.helger.photon.core.app.error.callback.AbstractErrorCallback;
+import com.helger.photon.core.mgr.PhotonCoreManager;
+import com.helger.photon.core.smtp.CNamedSMTPSettings;
+import com.helger.photon.core.smtp.NamedSMTPSettings;
 import com.helger.schedule.job.AbstractJob;
 import com.helger.schedule.job.IJobExceptionCallback;
 import com.helger.smtp.ISMTPSettings;
 import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.webbasics.action.servlet.AbstractActionServlet;
-import com.helger.webbasics.ajax.servlet.AbstractAjaxServlet;
-import com.helger.webbasics.app.error.AbstractErrorCallback;
-import com.helger.webbasics.app.error.InternalErrorBuilder;
-import com.helger.webbasics.app.error.InternalErrorHandler;
-import com.helger.webbasics.mgr.MetaSystemManager;
-import com.helger.webbasics.smtp.CNamedSMTPSettings;
-import com.helger.webbasics.smtp.NamedSMTPSettings;
 
 public final class AppInternalErrorHandler extends AbstractErrorCallback implements IJobExceptionCallback
 {
@@ -78,7 +78,7 @@ public final class AppInternalErrorHandler extends AbstractErrorCallback impleme
     AbstractDAO.getExceptionHandlersWrite ().addCallback (aIntErrHdl);
     AbstractJob.getExceptionCallbacks ().addCallback (aIntErrHdl);
 
-    final NamedSMTPSettings aNamedSettings = MetaSystemManager.getSMTPSettingsMgr ()
+    final NamedSMTPSettings aNamedSettings = PhotonCoreManager.getSMTPSettingsMgr ()
                                                               .getSettings (CNamedSMTPSettings.NAMED_SMTP_SETTINGS_DEFAULT_ID);
     final ISMTPSettings aSMTPSettings = aNamedSettings == null ? null : aNamedSettings.getSMTPSettings ();
     InternalErrorHandler.setSMTPSenderAddress (new EmailAddress ("peppol@helger.com", "peppol.helger.com application"));

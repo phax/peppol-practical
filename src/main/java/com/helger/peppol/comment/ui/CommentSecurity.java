@@ -18,9 +18,9 @@ package com.helger.peppol.comment.ui;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.appbasics.security.login.LoggedInUserManager;
-import com.helger.appbasics.security.util.SecurityUtils;
 import com.helger.peppol.app.CApp;
+import com.helger.photon.basic.security.login.LoggedInUserManager;
+import com.helger.photon.basic.security.util.SecurityUtils;
 
 @Immutable
 public final class CommentSecurity

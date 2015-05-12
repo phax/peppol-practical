@@ -18,19 +18,19 @@ package com.helger.peppol.app.init;
 
 import javax.annotation.Nonnull;
 
-import com.helger.appbasics.app.locale.ILocaleManager;
-import com.helger.appbasics.app.menu.IMenuTree;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.action.CActionPublic;
 import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.app.menu.MenuPublic;
 import com.helger.peppol.app.ui.LayoutAreaContentProviderPublic;
-import com.helger.webbasics.action.IActionInvoker;
-import com.helger.webbasics.ajax.IAjaxInvoker;
-import com.helger.webbasics.app.init.DefaultApplicationInitializer;
-import com.helger.webbasics.app.layout.CLayout;
-import com.helger.webbasics.app.layout.ILayoutManager;
-import com.helger.webbasics.app.layout.LayoutExecutionContext;
+import com.helger.photon.basic.app.locale.ILocaleManager;
+import com.helger.photon.basic.app.menu.IMenuTree;
+import com.helger.photon.core.action.IActionInvoker;
+import com.helger.photon.core.ajax.IAjaxInvoker;
+import com.helger.photon.core.app.context.LayoutExecutionContext;
+import com.helger.photon.core.app.init.DefaultApplicationInitializer;
+import com.helger.photon.core.app.layout.CLayout;
+import com.helger.photon.core.app.layout.ILayoutManager;
 
 /**
  * Initialize the view application stuff

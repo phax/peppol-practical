@@ -22,15 +22,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.helger.appbasics.security.AccessManager;
-import com.helger.appbasics.security.password.GlobalPasswordSettings;
-import com.helger.appbasics.security.user.IUser;
-import com.helger.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.form.BootstrapForm;
-import com.helger.bootstrap3.form.BootstrapFormGroup;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.equals.EqualsUtils;
@@ -47,10 +38,19 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.ui.AppCommonUI;
 import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.photon.basic.security.AccessManager;
+import com.helger.photon.basic.security.password.GlobalPasswordSettings;
+import com.helger.photon.basic.security.user.IUser;
+import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.form.BootstrapForm;
+import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.icon.EDefaultIcon;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.custom.EDefaultIcon;
 
 public final class PagePublicSignUp extends AbstractAppWebPageExt
 {
@@ -203,7 +203,7 @@ public final class PagePublicSignUp extends AbstractAppWebPageExt
         bShowForm = false;
       }
       else
-        aNodeList.addChild (getStyler ().createIncorrectInputBox (aWPEC));
+        aNodeList.addChild (createIncorrectInputBox (aWPEC));
     }
 
     if (bShowForm)

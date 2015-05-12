@@ -35,16 +35,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import com.helger.appbasics.security.audit.AuditUtils;
-import com.helger.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.form.BootstrapForm;
-import com.helger.bootstrap3.form.BootstrapFormGroup;
-import com.helger.bootstrap3.form.BootstrapHelpBlock;
-import com.helger.bootstrap3.form.EBootstrapFormType;
-import com.helger.bootstrap3.nav.BootstrapTabBox;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.random.VerySecureRandom;
@@ -57,6 +47,7 @@ import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCEditFile;
 import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.peppol.page.AbstractAppWebPageExt;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
@@ -64,15 +55,24 @@ import com.helger.peppol.smlclient.smp.InternalErrorFault;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppol.smlclient.smp.UnauthorizedFault;
 import com.helger.peppol.utils.KeyStoreUtils;
+import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.form.BootstrapForm;
+import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap3.form.BootstrapHelpBlock;
+import com.helger.photon.bootstrap3.form.EBootstrapFormType;
+import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.fileupload.IFileItem;
 import com.helger.web.https.DoNothingTrustManager;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.page.AbstractWebPageExt;
 import com.sun.xml.ws.client.ClientTransportException;
 
-public class PagePublicToolsSMPSML extends AbstractWebPageExt <WebPageExecutionContext>
+public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
 {
   private static final String FIELD_SML = "sml";
   private static final String FIELD_SMP_ID = "smpid";

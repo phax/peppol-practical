@@ -23,8 +23,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.appbasics.object.AbstractObject;
-import com.helger.appbasics.object.StubObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
@@ -35,6 +33,8 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
 import com.helger.masterdata.person.ESalutation;
+import com.helger.photon.basic.object.AbstractObject;
+import com.helger.photon.basic.object.StubObject;
 
 public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
 {

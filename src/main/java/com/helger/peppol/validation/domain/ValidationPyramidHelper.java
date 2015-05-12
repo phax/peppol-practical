@@ -26,7 +26,6 @@ import javax.xml.transform.dom.DOMSource;
 import org.joda.time.DateTime;
 import org.w3c.dom.Node;
 
-import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.lang.StackTraceHelper;
@@ -38,6 +37,7 @@ import com.helger.commons.stats.IStatisticsHandlerTimer;
 import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
+import com.helger.photon.basic.security.audit.AuditUtils;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.datetime.PDTWebDateUtils;
 

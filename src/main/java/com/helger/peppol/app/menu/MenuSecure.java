@@ -19,17 +19,17 @@ package com.helger.peppol.app.menu;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.appbasics.app.menu.IMenuItemPage;
-import com.helger.appbasics.app.menu.IMenuTree;
-import com.helger.appbasics.app.menu.filter.MenuItemFilterUserAssignedToUserGroup;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.page.secure.PageSecureAdminAddons;
 import com.helger.peppol.page.secure.PageSecureCRMGroup;
 import com.helger.peppol.page.secure.PageSecureCRMSubscriber;
 import com.helger.peppol.page.secure.PageSecureCommentAdmin;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.app.page.system.PageShowChildren;
-import com.helger.webctrls.page.DefaultMenuConfigurator;
+import com.helger.photon.basic.app.menu.IMenuItemPage;
+import com.helger.photon.basic.app.menu.IMenuTree;
+import com.helger.photon.basic.app.menu.filter.MenuItemFilterUserAssignedToUserGroup;
+import com.helger.photon.bootstrap3.pages.BootstrapPagesMenuConfigurator;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uicore.page.system.BasePageShowChildren;
 
 @Immutable
 public final class MenuSecure
@@ -45,9 +45,9 @@ public final class MenuSecure
 
     // CRM
     {
-      final IMenuItemPage aCRM = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_CRM,
-                                                                                                           "CRM",
-                                                                                                           aMenuTree));
+      final IMenuItemPage aCRM = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_CRM,
+                                                                                                               "CRM",
+                                                                                                               aMenuTree));
       aMenuTree.createItem (aCRM, new PageSecureCRMGroup (CMenuSecure.MENU_CRM_GROUPS));
       aMenuTree.createItem (aCRM, new PageSecureCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS));
     }
@@ -59,16 +59,16 @@ public final class MenuSecure
 
     // Administrator
     {
-      final IMenuItemPage aAdmin = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_ADMIN,
-                                                                                                             "Administration",
-                                                                                                             aMenuTree))
+      final IMenuItemPage aAdmin = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_ADMIN,
+                                                                                                                 "Administration",
+                                                                                                                 aMenuTree))
                                             .setDisplayFilter (aFilterAdministrators);
       aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS));
-      DefaultMenuConfigurator.addSecurityItems (aMenuTree, aAdmin, aFilterAdministrators, CApp.DEFAULT_LOCALE);
-      DefaultMenuConfigurator.addMonitoringItems (aMenuTree, aAdmin, aFilterAdministrators);
-      DefaultMenuConfigurator.addSysInfoItems (aMenuTree, aAdmin, aFilterAdministrators);
-      DefaultMenuConfigurator.addDataItems (aMenuTree, aAdmin, aFilterAdministrators);
-      DefaultMenuConfigurator.addSettingsItems (aMenuTree, aAdmin, aFilterAdministrators);
+      BootstrapPagesMenuConfigurator.addSecurityItems (aMenuTree, aAdmin, aFilterAdministrators, CApp.DEFAULT_LOCALE);
+      BootstrapPagesMenuConfigurator.addMonitoringItems (aMenuTree, aAdmin, aFilterAdministrators);
+      BootstrapPagesMenuConfigurator.addSysInfoItems (aMenuTree, aAdmin, aFilterAdministrators);
+      BootstrapPagesMenuConfigurator.addDataItems (aMenuTree, aAdmin, aFilterAdministrators);
+      BootstrapPagesMenuConfigurator.addSettingsItems (aMenuTree, aAdmin, aFilterAdministrators);
     }
 
     // Default menu item

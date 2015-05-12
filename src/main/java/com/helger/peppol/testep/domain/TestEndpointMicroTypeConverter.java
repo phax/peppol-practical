@@ -20,11 +20,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.appbasics.object.AbstractObjectMicroTypeConverter;
-import com.helger.appbasics.object.StubObject;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.photon.basic.object.AbstractObjectMicroTypeConverter;
+import com.helger.photon.basic.object.StubObject;
 
 @Immutable
 public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTypeConverter

@@ -21,17 +21,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.appbasics.security.login.LoggedInUserManager;
-import com.helger.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.bootstrap3.button.BootstrapButton;
-import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.form.BootstrapForm;
-import com.helger.bootstrap3.form.BootstrapFormGroup;
-import com.helger.bootstrap3.label.BootstrapLabel;
-import com.helger.bootstrap3.label.EBootstrapLabelType;
-import com.helger.bootstrap3.table.BootstrapTable;
-import com.helger.bootstrap3.table.BootstrapTableFormView;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.string.StringHelper;
@@ -58,13 +47,25 @@ import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.testep.domain.TestEndpoint;
 import com.helger.peppol.testep.domain.TestEndpointManager;
+import com.helger.photon.basic.security.login.LoggedInUserManager;
+import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap3.button.BootstrapButton;
+import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.form.BootstrapForm;
+import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap3.label.BootstrapLabel;
+import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
+import com.helger.photon.bootstrap3.table.BootstrapTable;
+import com.helger.photon.bootstrap3.table.BootstrapTableFormView;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
+import com.helger.photon.uicore.icon.EDefaultIcon;
+import com.helger.photon.uicore.page.EWebPageFormAction;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.validation.error.FormErrors;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.custom.EDefaultIcon;
-import com.helger.webctrls.custom.toolbar.IButtonToolbar;
-import com.helger.webctrls.datatables.DataTables;
-import com.helger.webctrls.page.EWebPageFormAction;
 
 public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpoint>
 {
@@ -342,7 +343,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
       }
     aNodeList.addChild (aTable);
 
-    final DataTables aDataTables = getStyler ().createDefaultDataTables (aWPEC, aTable);
+    final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
     aDataTables.getOrCreateColumnOfTarget (3).addClass (CSS_CLASS_ACTION_COL).setSortable (false);
     aDataTables.setInitialSorting (1, ESortOrder.ASCENDING);
     aNodeList.addChild (aDataTables);

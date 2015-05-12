@@ -38,105 +38,6 @@
     <location>/error404.jsp</location>
   </error-page>
   
-  <!-- common stuff -->
-  
-  <filter>
-    <filter-name>CharacterEncodingFilter</filter-name>
-    <filter-class>com.helger.webbasics.servlet.CharacterEncodingFilter</filter-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>CharacterEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  
-  <servlet>
-    <servlet-name>SecureApplicationActionServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.action.servlet.SecureApplicationActionServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SecureApplicationActionServlet</servlet-name>
-    <url-pattern>/secureaction/*</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-    <servlet-name>PublicApplicationActionServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.action.servlet.PublicApplicationActionServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PublicApplicationActionServlet</servlet-name>
-    <url-pattern>/publicaction/*</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-    <servlet-name>SecureApplicationAjaxServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.ajax.servlet.SecureApplicationAjaxServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SecureApplicationAjaxServlet</servlet-name>
-    <url-pattern>/secureajax/*</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-    <servlet-name>PublicApplicationAjaxServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.ajax.servlet.PublicApplicationAjaxServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PublicApplicationAjaxServlet</servlet-name>
-    <url-pattern>/publicajax/*</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-    <servlet-name>StreamServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.servlet.StreamServlet</servlet-class>
-    <init-param>
-      <param-name>allowedExtensions</param-name>
-      <param-value>$web-default$</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StreamServlet</servlet-name>
-    <url-pattern>/stream/*</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>UserStreamServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.userdata.UserStreamServlet</servlet-class>
-    <init-param>
-      <param-name>allowedExtensions</param-name>
-      <param-value>$web-default$</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserStreamServlet</servlet-name>
-    <url-pattern>/user/*</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>UserUploadServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.userdata.UserUploadServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserUploadServlet</servlet-name>
-    <url-pattern>/userUpload/*</url-pattern>
-  </servlet-mapping>  
-
-  <servlet>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.servlet.LogoutServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/logout/*</url-pattern>
-  </servlet-mapping>
-  
   <!-- Application specific stuff -->  
 
   <listener>
@@ -185,19 +86,6 @@
   <servlet-mapping>
     <servlet-name>CommentAjaxServlet</servlet-name>
     <url-pattern>/comment/*</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>ResourceBundleServlet</servlet-name>
-    <servlet-class>com.helger.webbasics.resource.ResourceBundleServlet</servlet-class>
-    <init-param>
-      <param-name>allowedExtensions</param-name>
-      <param-value>js,css</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ResourceBundleServlet</servlet-name>
-    <url-pattern>/resbundle/*</url-pattern>
   </servlet-mapping>
 
   <!-- Web Service stuff -->

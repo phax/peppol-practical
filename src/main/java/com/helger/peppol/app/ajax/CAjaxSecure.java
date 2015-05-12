@@ -18,9 +18,9 @@ package com.helger.peppol.app.ajax;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.webbasics.ajax.IAjaxFunctionDeclaration;
-import com.helger.webbasics.ajax.decl.SecureApplicationAjaxFunctionDeclaration;
-import com.helger.webbasics.form.ajax.AjaxExecutorSaveFormState;
+import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
+import com.helger.photon.core.ajax.decl.SecureApplicationAjaxFunctionDeclaration;
+import com.helger.photon.core.form.ajax.AjaxExecutorSaveFormState;
 
 /**
  * This class defines the available ajax functions for the config app

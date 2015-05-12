@@ -22,19 +22,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.appbasics.security.AccessManager;
-import com.helger.appbasics.security.login.LoggedInUserManager;
-import com.helger.appbasics.security.user.IUser;
-import com.helger.appbasics.security.user.IUserManager;
-import com.helger.bootstrap3.button.BootstrapButton;
-import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.button.EBootstrapButtonSize;
-import com.helger.bootstrap3.label.BootstrapLabel;
-import com.helger.bootstrap3.label.EBootstrapLabelType;
-import com.helger.bootstrap3.panel.BootstrapPanel;
-import com.helger.bootstrap3.panel.EBootstrapPanelType;
-import com.helger.bootstrap3.table.BootstrapTableForm;
-import com.helger.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.collections.NonBlockingStack;
@@ -68,14 +55,28 @@ import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.photon.basic.security.AccessManager;
+import com.helger.photon.basic.security.login.LoggedInUserManager;
+import com.helger.photon.basic.security.user.IUser;
+import com.helger.photon.basic.security.user.IUserManager;
+import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap3.button.BootstrapButton;
+import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.button.EBootstrapButtonSize;
+import com.helger.photon.bootstrap3.label.BootstrapLabel;
+import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
+import com.helger.photon.bootstrap3.panel.BootstrapPanel;
+import com.helger.photon.bootstrap3.panel.EBootstrapPanelType;
+import com.helger.photon.bootstrap3.table.BootstrapTableForm;
+import com.helger.photon.bootstrap3.tooltip.BootstrapTooltip;
+import com.helger.photon.core.EPhotonCoreText;
+import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
+import com.helger.photon.core.app.context.ILayoutExecutionContext;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.icon.EDefaultIcon;
+import com.helger.photon.uicore.js.JSJQueryUtils;
+import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
 import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.webbasics.ajax.response.AjaxDefaultResponse;
-import com.helger.webbasics.app.layout.ILayoutExecutionContext;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.autosize.HCTextAreaAutosize;
-import com.helger.webctrls.custom.EDefaultIcon;
-import com.helger.webctrls.js.JSJQueryUtils;
-import com.helger.webctrls.styler.WebPageStylerManager;
 
 public final class CommentUI
 {
@@ -113,7 +114,7 @@ public final class CommentUI
       // Container for all threads
       final HCDiv aAllThreadsContainer = new HCDiv ().addClass (CCommentCSS.CSS_CLASS_COMMENT_CONTAINER);
       for (final ICommentThread aCommentThread : CollectionHelper.getSorted (aComments,
-                                                                            new ComparatorCommentThreadCreationDateTime ()))
+                                                                             new ComparatorCommentThreadCreationDateTime ()))
       {
         // Container for this thread
         final HCDiv aThreadContainer = new HCDiv ();
@@ -368,7 +369,7 @@ public final class CommentUI
     aFormContainer.addClass (CCommentCSS.CSS_CLASS_COMMENT_CREATE);
 
     if (aFormErrors != null && !aFormErrors.isEmpty ())
-      aFormContainer.addChild (WebPageStylerManager.getStyler ().createIncorrectInputBox (aLEC));
+      aFormContainer.addChild (new BootstrapErrorBox ().addChild (EPhotonCoreText.ERR_INCORRECT_INPUT.getDisplayText (aDisplayLocale)));
 
     final BootstrapTableForm aTable = aFormContainer.addAndReturnChild (new BootstrapTableForm (new HCCol (130),
                                                                                                 HCCol.star (),

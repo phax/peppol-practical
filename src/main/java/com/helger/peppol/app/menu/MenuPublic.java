@@ -19,10 +19,6 @@ package com.helger.peppol.app.menu;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.appbasics.app.menu.IMenuItemPage;
-import com.helger.appbasics.app.menu.IMenuTree;
-import com.helger.appbasics.app.menu.filter.MenuItemFilterLoggedIn;
-import com.helger.appbasics.app.menu.filter.MenuItemFilterNotLoggedIn;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.peppol.page.AppPageViewExternal;
 import com.helger.peppol.page.pub.PagePublicLogin;
@@ -32,9 +28,13 @@ import com.helger.peppol.page.pub.PagePublicSignUp;
 import com.helger.peppol.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppol.page.pub.PagePublicToolsSMPSML;
 import com.helger.peppol.page.pub.PagePublicToolsTestEndpoints;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.app.page.system.PageShowChildren;
-import com.helger.webctrls.page.security.BasePageSecurityChangePassword;
+import com.helger.photon.basic.app.menu.IMenuItemPage;
+import com.helger.photon.basic.app.menu.IMenuTree;
+import com.helger.photon.basic.app.menu.filter.MenuItemFilterLoggedIn;
+import com.helger.photon.basic.app.menu.filter.MenuItemFilterNotLoggedIn;
+import com.helger.photon.bootstrap3.pages.security.BasePageSecurityChangePassword;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uicore.page.system.BasePageShowChildren;
 
 @Immutable
 public final class MenuPublic
@@ -51,9 +51,9 @@ public final class MenuPublic
 
     // Setup stuff
     {
-      final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_DOCS,
-                                                                                                             "Technical documentation",
-                                                                                                             aMenuTree));
+      final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_DOCS,
+                                                                                                                 "Technical documentation",
+                                                                                                                 aMenuTree));
       aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_AP_PH,
                                                              "Setup PEPPOL AP",
                                                              new ClassPathResource ("viewpages/en/docs_setup_ap.xml")));
@@ -79,9 +79,9 @@ public final class MenuPublic
 
     // Tools stuff
     {
-      final IMenuItemPage aSetup = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_TOOLS,
-                                                                                                             "Tools",
-                                                                                                             aMenuTree));
+      final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_TOOLS,
+                                                                                                                 "Tools",
+                                                                                                                 aMenuTree));
       aMenuTree.createItem (aSetup, new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsSMPSML (CMenuPublic.MENU_TOOLS_SMP_SML));
       aMenuTree.createItem (aSetup, new PagePublicToolsTestEndpoints (CMenuPublic.MENU_TOOLS_TEST_ENDPOINTS));
@@ -89,9 +89,9 @@ public final class MenuPublic
 
     // Validation stuff
     {
-      final IMenuItemPage aValidation = aMenuTree.createRootItem (new PageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
-                                                                                                                  "Validation",
-                                                                                                                  aMenuTree));
+      final IMenuItemPage aValidation = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
+                                                                                                                      "Validation",
+                                                                                                                      aMenuTree));
       aMenuTree.createItem (aValidation,
                             new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS1,
                                                      "PEPPOL document validation WebService",

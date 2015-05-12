@@ -27,17 +27,17 @@ import com.helger.commons.annotations.ReturnsMutableObject;
 import com.helger.commons.annotations.UsedViaReflection;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.photon.core.ajax.AjaxInvoker;
+import com.helger.photon.core.ajax.IAjaxAfterExecutionCallback;
+import com.helger.photon.core.ajax.IAjaxBeforeExecutionCallback;
+import com.helger.photon.core.ajax.IAjaxExceptionCallback;
+import com.helger.photon.core.ajax.IAjaxExecutor;
+import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
+import com.helger.photon.core.ajax.IAjaxInvoker;
+import com.helger.photon.core.ajax.IAjaxLongRunningExecutionCallback;
+import com.helger.photon.core.ajax.response.IAjaxResponse;
 import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
 import com.helger.web.scopes.singleton.GlobalWebSingleton;
-import com.helger.webbasics.ajax.AjaxInvoker;
-import com.helger.webbasics.ajax.IAjaxAfterExecutionCallback;
-import com.helger.webbasics.ajax.IAjaxBeforeExecutionCallback;
-import com.helger.webbasics.ajax.IAjaxExceptionCallback;
-import com.helger.webbasics.ajax.IAjaxExecutor;
-import com.helger.webbasics.ajax.IAjaxFunctionDeclaration;
-import com.helger.webbasics.ajax.IAjaxInvoker;
-import com.helger.webbasics.ajax.IAjaxLongRunningExecutionCallback;
-import com.helger.webbasics.ajax.response.IAjaxResponse;
 
 /**
  * The comment AJAX manager.

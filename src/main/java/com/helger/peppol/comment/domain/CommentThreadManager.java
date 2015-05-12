@@ -28,7 +28,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.appbasics.app.dao.impl.DAOException;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsImmutableObject;
 import com.helger.commons.annotations.ReturnsMutableCopy;
@@ -42,6 +41,7 @@ import com.helger.commons.stats.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.ObjectType;
+import com.helger.photon.basic.app.dao.impl.DAOException;
 
 /**
  * Main manager class for comments

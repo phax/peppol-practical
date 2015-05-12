@@ -19,9 +19,9 @@ package com.helger.peppol.app.action;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.peppol.app.CApp;
-import com.helger.webbasics.action.IActionDeclaration;
-import com.helger.webbasics.action.decl.PublicApplicationActionDeclaration;
-import com.helger.webctrls.datatables.ajax.ActionExecutorDataTablesI18N;
+import com.helger.photon.core.action.IActionDeclaration;
+import com.helger.photon.core.action.decl.PublicApplicationActionDeclaration;
+import com.helger.photon.uictrls.datatables.ajax.ActionExecutorDataTablesI18N;
 
 /**
  * This class defines the available actions for the view app

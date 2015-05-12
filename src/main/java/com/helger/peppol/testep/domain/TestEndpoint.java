@@ -20,8 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.appbasics.object.AbstractBaseObject;
-import com.helger.appbasics.object.StubObject;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.equals.EqualsUtils;
@@ -30,6 +28,8 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
 import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.photon.basic.object.AbstractBaseObject;
+import com.helger.photon.basic.object.StubObject;
 
 /**
  * Represents a single test endpoint.

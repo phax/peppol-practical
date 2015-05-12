@@ -26,9 +26,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.appbasics.app.dao.impl.AbstractSimpleDAO;
-import com.helger.appbasics.app.dao.impl.DAOException;
-import com.helger.appbasics.security.audit.AuditUtils;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ELockType;
 import com.helger.commons.annotations.MustBeLocked;
@@ -44,6 +41,9 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ObjectType;
+import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
+import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.photon.basic.security.audit.AuditUtils;
 
 /**
  * This class manages all comments of a certain object type.

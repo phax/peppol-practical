@@ -22,7 +22,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.appbasics.object.AbstractObjectMicroTypeConverter;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.microdom.IMicroElement;
@@ -30,6 +29,7 @@ import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.commons.string.StringHelper;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.mgr.MetaManager;
+import com.helger.photon.basic.object.AbstractObjectMicroTypeConverter;
 
 public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConverter
 {

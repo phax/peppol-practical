@@ -19,9 +19,9 @@ package com.helger.peppol.servlet;
 import javax.annotation.Nonnull;
 
 import com.helger.peppol.app.ui.AppLayoutHTMLProvider;
+import com.helger.photon.core.app.html.IHTMLProvider;
+import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.webbasics.app.html.IHTMLProvider;
-import com.helger.webbasics.servlet.AbstractSecureApplicationServlet;
 
 /**
  * The servlet to show the secure application

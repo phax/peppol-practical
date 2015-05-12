@@ -18,19 +18,19 @@ package com.helger.peppol.app.init;
 
 import javax.annotation.Nonnull;
 
-import com.helger.appbasics.app.locale.ILocaleManager;
-import com.helger.appbasics.app.menu.IMenuTree;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.action.CActionSecure;
 import com.helger.peppol.app.ajax.CAjaxSecure;
 import com.helger.peppol.app.menu.MenuSecure;
 import com.helger.peppol.app.ui.LayoutAreaContentProviderSecure;
-import com.helger.webbasics.action.IActionInvoker;
-import com.helger.webbasics.ajax.IAjaxInvoker;
-import com.helger.webbasics.app.init.DefaultApplicationInitializer;
-import com.helger.webbasics.app.layout.CLayout;
-import com.helger.webbasics.app.layout.ILayoutManager;
-import com.helger.webbasics.app.layout.LayoutExecutionContext;
+import com.helger.photon.basic.app.locale.ILocaleManager;
+import com.helger.photon.basic.app.menu.IMenuTree;
+import com.helger.photon.core.action.IActionInvoker;
+import com.helger.photon.core.ajax.IAjaxInvoker;
+import com.helger.photon.core.app.context.LayoutExecutionContext;
+import com.helger.photon.core.app.init.DefaultApplicationInitializer;
+import com.helger.photon.core.app.layout.CLayout;
+import com.helger.photon.core.app.layout.ILayoutManager;
 
 /**
  * Initialize the config application stuff

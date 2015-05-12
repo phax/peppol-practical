@@ -19,11 +19,6 @@ package com.helger.peppol.page.secure;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.table.BootstrapTable;
-import com.helger.bootstrap3.table.BootstrapTableForm;
-import com.helger.bootstrap3.table.BootstrapTableFormView;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.email.EmailAddressUtils;
@@ -41,11 +36,17 @@ import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.mgr.MetaManager;
 import com.helger.peppol.page.AbstractAppFormPage;
+import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.table.BootstrapTable;
+import com.helger.photon.bootstrap3.table.BootstrapTableForm;
+import com.helger.photon.bootstrap3.table.BootstrapTableFormView;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.page.EWebPageFormAction;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.validation.error.FormErrors;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.datatables.DataTables;
-import com.helger.webctrls.page.EWebPageFormAction;
 
 public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
 {
@@ -166,7 +167,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     }
     aNodeList.addChild (aTable);
 
-    final DataTables aDataTables = getStyler ().createDefaultDataTables (aWPEC, aTable);
+    final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
     aDataTables.getOrCreateColumnOfTarget (2).addClass (CSS_CLASS_ACTION_COL).setSortable (false);
     aDataTables.setInitialSorting (0, ESortOrder.ASCENDING);
     aNodeList.addChild (aDataTables);

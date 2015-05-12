@@ -21,8 +21,8 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.custom.HCExtSelect;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.html.select.HCExtSelect;
 
 public class IdentifierIssuingAgencySelect extends HCExtSelect
 {

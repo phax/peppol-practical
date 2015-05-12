@@ -22,8 +22,9 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webctrls.page.AbstractWebPageForm;
+import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPageForm;
+import com.helger.photon.uicore.page.AbstractWebPageForm;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
 
 /**
  * Abstract implementation of {@link AbstractWebPageForm} for this program.
@@ -32,7 +33,7 @@ import com.helger.webctrls.page.AbstractWebPageForm;
  * @param <DATATYPE>
  *        The data type to be handled.
  */
-public abstract class AbstractAppFormPage <DATATYPE extends IHasID <String>> extends AbstractWebPageForm <DATATYPE, WebPageExecutionContext>
+public abstract class AbstractAppFormPage <DATATYPE extends IHasID <String>> extends AbstractBootstrapWebPageForm <DATATYPE, WebPageExecutionContext>
 {
   public AbstractAppFormPage (@Nonnull @Nonempty final String sID, @Nonnull final String sName)
   {

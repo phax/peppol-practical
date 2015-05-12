@@ -23,34 +23,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.appbasics.app.menu.ApplicationMenuTree;
-import com.helger.appbasics.app.menu.IMenuItemExternal;
-import com.helger.appbasics.app.menu.IMenuItemPage;
-import com.helger.appbasics.app.menu.IMenuObject;
-import com.helger.appbasics.app.menu.IMenuSeparator;
-import com.helger.appbasics.app.menu.IMenuTree;
-import com.helger.appbasics.app.menu.MenuItemDeterminatorCallback;
-import com.helger.appbasics.security.AccessManager;
-import com.helger.appbasics.security.login.LoggedInUserManager;
-import com.helger.appbasics.security.user.IUser;
-import com.helger.appbasics.security.util.SecurityUtils;
-import com.helger.bootstrap3.CBootstrapCSS;
-import com.helger.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.bootstrap3.base.BootstrapContainer;
-import com.helger.bootstrap3.base.BootstrapContainerFluid;
-import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
-import com.helger.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
-import com.helger.bootstrap3.button.BootstrapButton;
-import com.helger.bootstrap3.button.EBootstrapButtonType;
-import com.helger.bootstrap3.dropdown.BootstrapDropdownMenu;
-import com.helger.bootstrap3.ext.BootstrapMenuItemRenderer;
-import com.helger.bootstrap3.ext.BootstrapMenuItemRendererHorz;
-import com.helger.bootstrap3.grid.BootstrapRow;
-import com.helger.bootstrap3.nav.BootstrapNav;
-import com.helger.bootstrap3.navbar.BootstrapNavbar;
-import com.helger.bootstrap3.navbar.EBootstrapNavbarPosition;
-import com.helger.bootstrap3.navbar.EBootstrapNavbarType;
-import com.helger.bootstrap3.pageheader.BootstrapPageHeader;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
@@ -80,18 +52,46 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppUtils;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.menu.CMenuPublic;
+import com.helger.photon.basic.app.menu.ApplicationMenuTree;
+import com.helger.photon.basic.app.menu.IMenuItemExternal;
+import com.helger.photon.basic.app.menu.IMenuItemPage;
+import com.helger.photon.basic.app.menu.IMenuObject;
+import com.helger.photon.basic.app.menu.IMenuSeparator;
+import com.helger.photon.basic.app.menu.IMenuTree;
+import com.helger.photon.basic.app.menu.MenuItemDeterminatorCallback;
+import com.helger.photon.basic.security.AccessManager;
+import com.helger.photon.basic.security.login.LoggedInUserManager;
+import com.helger.photon.basic.security.user.IUser;
+import com.helger.photon.basic.security.util.SecurityUtils;
+import com.helger.photon.bootstrap3.CBootstrapCSS;
+import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap3.base.BootstrapContainer;
+import com.helger.photon.bootstrap3.base.BootstrapContainerFluid;
+import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
+import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
+import com.helger.photon.bootstrap3.button.BootstrapButton;
+import com.helger.photon.bootstrap3.button.EBootstrapButtonType;
+import com.helger.photon.bootstrap3.dropdown.BootstrapDropdownMenu;
+import com.helger.photon.bootstrap3.grid.BootstrapRow;
+import com.helger.photon.bootstrap3.nav.BootstrapNav;
+import com.helger.photon.bootstrap3.navbar.BootstrapNavbar;
+import com.helger.photon.bootstrap3.navbar.EBootstrapNavbarPosition;
+import com.helger.photon.bootstrap3.navbar.EBootstrapNavbarType;
+import com.helger.photon.bootstrap3.pageheader.BootstrapPageHeader;
+import com.helger.photon.bootstrap3.uictrls.ext.BootstrapMenuItemRenderer;
+import com.helger.photon.bootstrap3.uictrls.ext.BootstrapMenuItemRendererHorz;
+import com.helger.photon.core.EPhotonCoreText;
+import com.helger.photon.core.app.context.ILayoutExecutionContext;
+import com.helger.photon.core.app.context.LayoutExecutionContext;
+import com.helger.photon.core.app.layout.CLayout;
+import com.helger.photon.core.app.layout.ILayoutAreaContentProvider;
+import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
+import com.helger.photon.core.servlet.LogoutServlet;
+import com.helger.photon.core.url.LinkUtils;
+import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
+import com.helger.photon.uicore.page.IWebPage;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.webbasics.EWebBasicsText;
-import com.helger.webbasics.app.LinkUtils;
-import com.helger.webbasics.app.layout.CLayout;
-import com.helger.webbasics.app.layout.ILayoutAreaContentProvider;
-import com.helger.webbasics.app.layout.ILayoutExecutionContext;
-import com.helger.webbasics.app.layout.LayoutExecutionContext;
-import com.helger.webbasics.app.page.IWebPage;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.servlet.AbstractSecureApplicationServlet;
-import com.helger.webbasics.servlet.LogoutServlet;
-import com.helger.webctrls.google.HCUniversalAnalytics;
 
 /**
  * The viewport renderer (menu + content area)
@@ -156,7 +156,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
         final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
         aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (aRequestScope,
                                                                                         LogoutServlet.SERVLET_DEFAULT_PATH))
-                                              .addChild (EWebBasicsText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
+                                              .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
         aNav.addItem (aForm);
       }
       aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
@@ -167,7 +167,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       final BootstrapNav aNav = new BootstrapNav ();
 
       final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-      aForm.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EWebBasicsText.MSG_BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))
+      aForm.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EPhotonCoreText.BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_SIGN_UP)));
       aNav.addItem (aForm);
 
@@ -243,7 +243,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
 
   @SuppressWarnings ("unchecked")
   @Nonnull
-  static IHCNode _getMainContent (@Nonnull final LayoutExecutionContext aLEC, @Nonnull final HCHead aHead)
+  static IHCNode _getMainContent (@Nonnull final LayoutExecutionContext aLEC)
   {
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
 
@@ -279,9 +279,8 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                                                   " (" +
                                                                   sHttpStatusMessage +
                                                                   ")" +
-                                                                  (StringHelper.hasText (sHttpRequestURI)
-                                                                                                         ? " for request URI " +
-                                                                                                           sHttpRequestURI
+                                                                  (StringHelper.hasText (sHttpRequestURI) ? " for request URI " +
+                                                                                                            sHttpRequestURI
                                                                                                          : "")));
     }
 
@@ -292,8 +291,6 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     aDisplayPage.getContent (aWPEC);
     // Add result
     aPageContainer.addChild (aWPEC.getNodeList ());
-    // Add all meta elements
-    aHead.getMetaElementList ().addMetaElements (aDisplayPage.getMetaElements ());
 
     // Add Google Analytics
     aPageContainer.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false, true));
@@ -353,7 +350,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       aCol1.addChild (new HCDiv ().setID (CLayout.LAYOUT_AREAID_SPECIAL));
 
       // content
-      aCol2.addChild (_getMainContent (aLEC, aHead));
+      aCol2.addChild (_getMainContent (aLEC));
     }
 
     // Footer

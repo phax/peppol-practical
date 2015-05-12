@@ -33,10 +33,10 @@ import com.helger.peppol.app.CApp;
 import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webctrls.page.PageViewExternal;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uicore.page.external.BasePageViewExternal;
 
-public class AppPageViewExternal extends PageViewExternal <WebPageExecutionContext>
+public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionContext>
 {
   private static final class MyCleanser extends DefaultHierarchyWalkerCallback <IMicroNode>
   {

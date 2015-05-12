@@ -22,13 +22,6 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.appbasics.app.menu.ApplicationMenuTree;
-import com.helger.appbasics.app.menu.IMenuItemPage;
-import com.helger.appbasics.app.menu.IMenuObject;
-import com.helger.appbasics.app.menu.IMenuTree;
-import com.helger.appbasics.security.audit.AuditUtils;
-import com.helger.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.bootstrap3.button.BootstrapButton;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.mutable.MutableInt;
@@ -38,9 +31,16 @@ import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCH2;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.page.AppPageViewExternal;
-import com.helger.webbasics.app.CApplication;
-import com.helger.webbasics.app.page.AbstractWebPage;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
+import com.helger.photon.basic.app.menu.ApplicationMenuTree;
+import com.helger.photon.basic.app.menu.IMenuItemPage;
+import com.helger.photon.basic.app.menu.IMenuObject;
+import com.helger.photon.basic.app.menu.IMenuTree;
+import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap3.button.BootstrapButton;
+import com.helger.photon.core.app.CApplication;
+import com.helger.photon.uicore.page.AbstractWebPage;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
 
 public final class PageSecureAdminAddons extends AbstractWebPage <WebPageExecutionContext>
 {

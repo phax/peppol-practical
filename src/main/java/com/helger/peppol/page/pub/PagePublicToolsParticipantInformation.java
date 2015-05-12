@@ -38,16 +38,6 @@ import org.busdox.servicemetadata.publishing._1.ServiceMetadataType;
 import org.busdox.servicemetadata.publishing._1.SignedServiceMetadataType;
 import org.joda.time.LocalDate;
 
-import com.helger.appbasics.security.audit.AuditUtils;
-import com.helger.bootstrap3.EBootstrapIcon;
-import com.helger.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.bootstrap3.alert.BootstrapWarnBox;
-import com.helger.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.bootstrap3.form.BootstrapForm;
-import com.helger.bootstrap3.form.BootstrapFormGroup;
-import com.helger.bootstrap3.form.EBootstrapFormType;
-import com.helger.bootstrap3.grid.BootstrapRow;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.AbstractComparator;
@@ -75,6 +65,7 @@ import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.page.AbstractAppWebPageExt;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
@@ -83,13 +74,22 @@ import com.helger.peppol.smpclient.SMPClientReadonly;
 import com.helger.peppol.utils.BusdoxURLUtils;
 import com.helger.peppol.utils.CertificateUtils;
 import com.helger.peppol.utils.W3CEndpointReferenceUtils;
+import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.photon.bootstrap3.EBootstrapIcon;
+import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
+import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.form.BootstrapForm;
+import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap3.form.EBootstrapFormType;
+import com.helger.photon.bootstrap3.grid.BootstrapRow;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
-import com.helger.webbasics.app.page.WebPageExecutionContext;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.page.AbstractWebPageExt;
 
-public class PagePublicToolsParticipantInformation extends AbstractWebPageExt <WebPageExecutionContext>
+public class PagePublicToolsParticipantInformation extends AbstractAppWebPageExt
 {
   public static final String FIELD_ID_ISO6523_PREDEF = "idschemepredef";
   public static final String FIELD_ID_ISO6523 = "idscheme";

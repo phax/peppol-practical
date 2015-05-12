@@ -23,8 +23,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import org.joda.time.DateTime;
 
-import com.helger.appbasics.security.login.LoggedInUserManager;
-import com.helger.appbasics.security.user.IUser;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -33,6 +31,8 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ObjectType;
 import com.helger.datetime.PDTFactory;
+import com.helger.photon.basic.security.login.LoggedInUserManager;
+import com.helger.photon.basic.security.user.IUser;
 
 /**
  * Default implementation of the {@link IComment} interface.

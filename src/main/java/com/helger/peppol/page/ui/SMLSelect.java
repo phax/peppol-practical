@@ -19,8 +19,8 @@ package com.helger.peppol.page.ui;
 import javax.annotation.Nonnull;
 
 import com.helger.peppol.sml.ESML;
-import com.helger.webbasics.form.RequestField;
-import com.helger.webctrls.custom.HCExtSelect;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.html.select.HCExtSelect;
 
 public class SMLSelect extends HCExtSelect
 {

@@ -18,11 +18,11 @@ package com.helger.peppol.app.init;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.appbasics.security.AccessManager;
-import com.helger.appbasics.security.role.RoleManager;
-import com.helger.appbasics.security.user.UserManager;
-import com.helger.appbasics.security.usergroup.UserGroupManager;
 import com.helger.peppol.app.CApp;
+import com.helger.photon.basic.security.AccessManager;
+import com.helger.photon.basic.security.role.RoleManager;
+import com.helger.photon.basic.security.user.UserManager;
+import com.helger.photon.basic.security.usergroup.UserGroupManager;
 
 @Immutable
 public final class AppSecurity
