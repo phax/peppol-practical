@@ -47,6 +47,7 @@ import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCEditFile;
 import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.peppol.app.CApp;
 import com.helger.peppol.page.AbstractAppWebPageExt;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
@@ -90,9 +91,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
   private static final String SUBACTION_SMP_REGISTER = "smpregister";
   private static final String SUBACTION_SMP_UPDATE = "smpupdate";
   private static final String SUBACTION_SMP_DELETE = "smpdelete";
-
-  private static final String PATTERN_SMP_ID = "[a-zA-Z0-9-]+";
-  private static final String PATTERN_IPV4 = "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b";
 
   private static final String DEFAULT_SML = ESML.PRODUCTION.name ();
 
@@ -178,15 +176,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                       PATTERN_SMP_ID);
+                                       CApp.PATTERN_SMP_ID);
 
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (PATTERN_IPV4, sPhysicalAddress))
+      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_IPV4, sPhysicalAddress))
         aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                    "The provided physical address does not seem to be an IPv4 address!");
       else
@@ -302,15 +300,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                       PATTERN_SMP_ID);
+                                       CApp.PATTERN_SMP_ID);
 
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (PATTERN_IPV4, sPhysicalAddress))
+      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_IPV4, sPhysicalAddress))
         aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                    "The provided physical address does not seem to be an IPv4 address!");
       else
@@ -424,10 +422,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                       PATTERN_SMP_ID);
+                                       CApp.PATTERN_SMP_ID);
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (aKeyStoreFile,
                                                                                     sKeyStorePassword,

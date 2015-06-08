@@ -33,7 +33,6 @@ import com.helger.commons.name.ComparatorHasDisplayName;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
-import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
@@ -55,6 +54,7 @@ import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
+import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
 import com.helger.photon.bootstrap3.table.BootstrapTableForm;
 import com.helger.photon.bootstrap3.table.BootstrapTableFormView;
@@ -199,7 +199,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
   @Override
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final ICRMSubscriber aSelectedObject,
-                                @Nonnull final AbstractHCForm <?> aForm,
+                                @Nonnull final BootstrapForm aForm,
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {

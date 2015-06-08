@@ -16,27 +16,16 @@
  */
 package com.helger.peppol.page;
 
-import java.util.Locale;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
-import com.helger.html.hc.IHCNode;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.photon.core.EPhotonCoreText;
-import com.helger.photon.uicore.page.AbstractWebPageExt;
+import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPageExt;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-public abstract class AbstractAppWebPageExt extends AbstractWebPageExt <WebPageExecutionContext>
+public abstract class AbstractAppWebPageExt extends AbstractBootstrapWebPageExt <WebPageExecutionContext>
 {
   public AbstractAppWebPageExt (@Nonnull @Nonempty final String sID, @Nonnull final String sName)
   {
     super (sID, sName);
-  }
-
-  protected final IHCNode createIncorrectInputBox (@Nonnull final WebPageExecutionContext aWPEC)
-  {
-    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    return new BootstrapErrorBox ().addChild (EPhotonCoreText.ERR_INCORRECT_INPUT.getDisplayText (aDisplayLocale));
   }
 }

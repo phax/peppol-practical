@@ -28,7 +28,6 @@ import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.SimpleURL;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.IHCCell;
-import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCEdit;
@@ -172,12 +171,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
   @Override
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final TestEndpoint aSelectedObject,
-                                @Nonnull final AbstractHCForm <?> aForm,
+                                @Nonnull final BootstrapForm aForm,
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final BootstrapForm aRealForm = (BootstrapForm) aForm;
+    final BootstrapForm aRealForm = aForm;
     aRealForm.setLeft (3);
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,

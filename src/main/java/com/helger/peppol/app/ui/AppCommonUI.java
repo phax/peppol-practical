@@ -72,7 +72,6 @@ import com.helger.photon.core.login.CLogin;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.AbstractWebPageExt;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
-import com.helger.photon.uictrls.autonumeric.HCAutoNumeric;
 import com.helger.photon.uictrls.datatables.DataTablesLengthMenuList;
 import com.helger.photon.uictrls.datatables.EDataTablesFilterType;
 import com.helger.photon.uictrls.datatables.ajax.ActionExecutorDataTablesI18N;
@@ -112,9 +111,6 @@ public final class AppCommonUI
                    .setUseSearchHighlight (true);
       }
     });
-
-    // Never show a thousand separator
-    HCAutoNumeric.setDefaultThousandSeparator ("");
 
     // Register comment handlers
     CommentThreadManager.getInstance ().registerObjectType (CApp.OT_PAGE);

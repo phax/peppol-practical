@@ -27,10 +27,12 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.utils.MicroWalker;
 import com.helger.commons.type.TypedObject;
+import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppSettings;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.comment.ui.CommentAction;
+import com.helger.peppol.comment.ui.CommentFormErrors;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -88,8 +90,8 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
       aNodeList.addChild (CommentUI.getCommentList (aWPEC,
                                                     aTO,
                                                     CommentAction.createGeneric (ECommentAction.NONE),
-                                                    null,
-                                                    null,
+                                                    (CommentFormErrors) null,
+                                                    (IHCNode) null,
                                                     true));
     }
   }

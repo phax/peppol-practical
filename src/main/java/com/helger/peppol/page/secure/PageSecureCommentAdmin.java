@@ -137,7 +137,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
     {
       // Refresh button
       final IButtonToolbar <?> aToolbar = new BootstrapButtonToolbar (aWPEC);
-      aToolbar.addButton (EPhotonCoreText.ON_REFRESH.getDisplayText (aDisplayLocale),
+      aToolbar.addButton (EPhotonCoreText.BUTTON_REFRESH.getDisplayText (aDisplayLocale),
                           aWPEC.getSelfHref (),
                           EDefaultIcon.REFRESH);
       aNodeList.addChild (aToolbar);

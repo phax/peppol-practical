@@ -83,6 +83,9 @@ public final class CApp
 
   public static final ObjectType OT_PAGE = new ObjectType ("webpage");
 
+  public static final String PATTERN_SMP_ID = "[a-zA-Z0-9\\-\\.]+";
+  public static final String PATTERN_IPV4 = "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b";
+
   private CApp ()
   {}
 }

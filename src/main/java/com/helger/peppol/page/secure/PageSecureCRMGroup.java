@@ -24,7 +24,6 @@ import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
-import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCEdit;
@@ -38,6 +37,7 @@ import com.helger.peppol.mgr.MetaManager;
 import com.helger.peppol.page.AbstractAppFormPage;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
 import com.helger.photon.bootstrap3.table.BootstrapTableForm;
 import com.helger.photon.bootstrap3.table.BootstrapTableFormView;
@@ -123,7 +123,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
   @Override
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final ICRMGroup aSelectedObject,
-                                @Nonnull final AbstractHCForm <?> aForm,
+                                @Nonnull final BootstrapForm aForm,
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {
