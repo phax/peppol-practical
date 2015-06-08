@@ -59,6 +59,8 @@ import com.helger.photon.basic.app.menu.IMenuObject;
 import com.helger.photon.basic.app.menu.IMenuSeparator;
 import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.basic.app.menu.MenuItemDeterminatorCallback;
+import com.helger.photon.basic.app.systemmsg.SystemMessageManager;
+import com.helger.photon.basic.mgr.PhotonBasicManager;
 import com.helger.photon.basic.security.AccessManager;
 import com.helger.photon.basic.security.login.LoggedInUserManager;
 import com.helger.photon.basic.security.user.IUser;
@@ -78,6 +80,7 @@ import com.helger.photon.bootstrap3.navbar.BootstrapNavbar;
 import com.helger.photon.bootstrap3.navbar.EBootstrapNavbarPosition;
 import com.helger.photon.bootstrap3.navbar.EBootstrapNavbarType;
 import com.helger.photon.bootstrap3.pageheader.BootstrapPageHeader;
+import com.helger.photon.bootstrap3.pages.settings.SystemMessageUIHelper;
 import com.helger.photon.bootstrap3.uictrls.ext.BootstrapMenuItemRenderer;
 import com.helger.photon.bootstrap3.uictrls.ext.BootstrapMenuItemRendererHorz;
 import com.helger.photon.core.EPhotonCoreText;
@@ -88,6 +91,7 @@ import com.helger.photon.core.app.layout.ILayoutAreaContentProvider;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.photon.core.servlet.LogoutServlet;
 import com.helger.photon.core.url.LinkUtils;
+import com.helger.photon.uicore.UITextFormatter;
 import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
 import com.helger.photon.uicore.page.IWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -267,6 +271,14 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
 
     // Build page content: header + content
     final HCNodeList aPageContainer = new HCNodeList ();
+
+    {
+      // System message always
+      final SystemMessageManager aSysMsgMgr = PhotonBasicManager.getSystemMessageMgr ();
+      final IHCNode aSystemMessage = SystemMessageUIHelper.createBox (aSysMsgMgr.getMessageType (),
+                                                                      UITextFormatter.markdownOnDemand (aSysMsgMgr.getSystemMessage ()));
+      aPageContainer.addChild (aSystemMessage);
+    }
 
     // Handle 404 case here (see error404.jsp)
     if (VALUE_HTTP_ERROR.equals (aRequestScope.getAttributeAsString (PARAM_HTTP_ERROR)))
