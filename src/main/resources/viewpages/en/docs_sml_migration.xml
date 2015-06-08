@@ -27,7 +27,10 @@
 <div class="alert alert-warning">
   The migration of the SML from BRZ to DG DIGIT is planned for
   <strong>Tuesday June 9<sup>th</sup> 2015</strong>.
-  So at that date, the SML URIs MUST be changed on all SMPs!
+  So at that date, the SML URIs MUST be changed on all SMPs!<br />
+  <br />
+  Important side note: the <strong>https certificates of the new SML/SMK</strong>
+  are different from the existing ones, so you may need to update your truststore!
 </div>
 
 <div class="panel panel-default">
@@ -229,7 +232,10 @@
 <ul>
   <li><a href="/public/menuitem-docs-setup-smp-ph#configuring">Configuration file</a> <code>smp-server.properties</code>:
     <ul>
-      <li>The property <code>sml.url</code> must be adopted to the new URL</li>
+      <li>The property <code>sml.url</code> must be adopted to the new URL<br />
+        For the new SML enter: <code>https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier</code><br />
+        For the new SMK enter: <code>https://acc.edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier</code>
+      </li>
     </ul>
   </li>
 </ul>

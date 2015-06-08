@@ -35,6 +35,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.random.VerySecureRandom;
@@ -75,6 +78,8 @@ import com.sun.xml.ws.client.ClientTransportException;
 
 public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PagePublicToolsSMPSML.class);
+
   private static final String FIELD_SML = "sml";
   private static final String FIELD_SMP_ID = "smpid";
   private static final String FIELD_PHYSICAL_ADDRESS = "physicaladdr";
@@ -126,6 +131,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
           aFormErrors.addFieldError (FIELD_KEYSTORE_PW,
                                      "The key store could not be loaded with the provided password. Technical details: " +
                                          ex.getMessage ());
+          s_aLogger.error ("The key store could not be loaded with the provided password.", ex);
           aKeyStore = null;
         }
         finally
@@ -154,6 +160,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         aFormErrors.addFieldError (FIELD_KEYSTORE,
                                    "Failed to use the provided key store for TLS connection. Technical details: " +
                                        ex.getMessage ());
+        s_aLogger.error ("Failed to use the provided key store for TLS connection.", ex);
       }
     }
     return aSocketFactory;
