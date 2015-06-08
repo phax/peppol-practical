@@ -38,9 +38,9 @@ import com.helger.peppol.page.AbstractAppFormPage;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
+import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
-import com.helger.photon.bootstrap3.table.BootstrapTableForm;
-import com.helger.photon.bootstrap3.table.BootstrapTableFormView;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.page.EWebPageFormAction;
@@ -72,13 +72,12 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
 
-    final BootstrapTableFormView aTable = aNodeList.addAndReturnChild (new BootstrapTableFormView (new HCCol (170),
-                                                                                                   HCCol.star ()));
-    aTable.createItemRow ().setLabel ("Name").setCtrl (aSelectedObject.getDisplayName ());
-    aTable.createItemRow ().setLabel ("Sender email address").setCtrl (aSelectedObject.getSenderEmailAddress ());
-    aTable.createItemRow ()
-          .setLabel ("Assigned participants")
-          .setCtrl (Integer.toString (aCRMSubscriberMgr.getCRMSubscriberCountOfGroup (aSelectedObject)));
+    final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getDisplayName ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Sender email address")
+                                                 .setCtrl (aSelectedObject.getSenderEmailAddress ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Assigned participants")
+                                                 .setCtrl (Integer.toString (aCRMSubscriberMgr.getCRMSubscriberCountOfGroup (aSelectedObject))));
   }
 
   @Override
@@ -127,19 +126,17 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {
-    final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (170), HCCol.star ()));
-    aTable.setSpanningHeaderContent (eFormAction.isEdit () ? "Edit CRM group" : "Create new CRM group");
-    aTable.createItemRow ()
-          .setLabelMandatory ("Name")
-          .setCtrl (new HCEdit (new RequestField (FIELD_NAME,
-                                                  aSelectedObject == null ? null : aSelectedObject.getDisplayName ())))
-          .setErrorList (aFormErrors.getListOfField (FIELD_NAME));
-    aTable.createItemRow ()
-          .setLabelMandatory ("Sender email address")
-          .setCtrl (new HCEdit (new RequestField (FIELD_SENDER_EMAIL_ADDRESS,
-                                                  aSelectedObject == null ? null
-                                                                         : aSelectedObject.getSenderEmailAddress ())))
-          .setErrorList (aFormErrors.getListOfField (FIELD_SENDER_EMAIL_ADDRESS));
+    aForm.addChild (createActionHeader (eFormAction.isEdit () ? "Edit CRM group" : "Create new CRM group"));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_NAME,
+                                                                                         aSelectedObject == null ? null
+                                                                                                                : aSelectedObject.getDisplayName ())))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_NAME)));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Sender email address")
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_SENDER_EMAIL_ADDRESS,
+                                                                                         aSelectedObject == null ? null
+                                                                                                                : aSelectedObject.getSenderEmailAddress ())))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_SENDER_EMAIL_ADDRESS)));
   }
 
   @Override
