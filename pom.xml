@@ -93,7 +93,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-oton-bootstrap3-stub</artifactId>
-      <version>5.0.0</version>
+      <version>5.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -159,11 +159,9 @@
       <version>3.1.9</version>
     </dependency>
 
-    <!-- Must be 3.1.x for Jetty 9.x -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version><!--$NO-MVN-MAN-VER$-->
       <scope>provided</scope>
     </dependency>
 
@@ -183,12 +181,6 @@
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-annotations</artifactId>
       <version>${jetty.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mortbay.jetty</groupId>
-      <artifactId>jsp-2.1-glassfish</artifactId>
-      <version>2.1.v20100127</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
