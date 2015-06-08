@@ -73,6 +73,13 @@ public final class CommentThreadManager extends GlobalSingleton
     return getGlobalSingleton (CommentThreadManager.class);
   }
 
+  /**
+   * Register an object type, for which comment threads may be created. This
+   * must be done once at startup!
+   * 
+   * @param aObjectType
+   *        The object type to be registered. May not be <code>null</code>.
+   */
   public void registerObjectType (@Nonnull final ObjectType aObjectType)
   {
     ValueEnforcer.notNull (aObjectType, "ObjectType");
