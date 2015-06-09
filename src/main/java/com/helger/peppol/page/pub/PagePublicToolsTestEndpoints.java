@@ -53,10 +53,10 @@ import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
-import com.helger.photon.bootstrap3.table.BootstrapTableFormView;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
@@ -113,43 +113,40 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
-    final BootstrapTableFormView aTable = aNodeList.addAndReturnChild (new BootstrapTableFormView (new HCCol (170),
-                                                                                                   HCCol.star ()));
-    aTable.createItemRow ()
-          .setLabel ("Creation")
-          .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
-                                              aSelectedObject.getCreationDateTime (),
-                                              aSelectedObject.getCreationUserID ()));
+    final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Creation")
+                                                 .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
+                                                                                     aSelectedObject.getCreationDateTime (),
+                                                                                     aSelectedObject.getCreationUserID ())));
     if (aSelectedObject.getLastModificationDateTime () != null)
     {
-      aTable.createItemRow ()
-            .setLabel ("Last modification")
-            .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
-                                                aSelectedObject.getLastModificationDateTime (),
-                                                aSelectedObject.getLastModificationUserID ()));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Last modification")
+                                                   .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
+                                                                                       aSelectedObject.getLastModificationDateTime (),
+                                                                                       aSelectedObject.getLastModificationUserID ())));
     }
     if (aSelectedObject.getLastModificationDateTime () != null)
     {
-      aTable.createItemRow ()
-            .setLabel ("Deletion")
-            .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
-                                                aSelectedObject.getDeletionDateTime (),
-                                                aSelectedObject.getDeletionUserID ()));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Deletion")
+                                                   .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
+                                                                                       aSelectedObject.getDeletionDateTime (),
+                                                                                       aSelectedObject.getDeletionUserID ())));
     }
-    aTable.createItemRow ().setLabel ("Company name").setCtrl (aSelectedObject.getCompanyName ());
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Company name").setCtrl (aSelectedObject.getCompanyName ()));
     if (StringHelper.hasText (aSelectedObject.getContactPerson ()))
     {
-      aTable.createItemRow ().setLabel ("Contact person").setCtrl (aSelectedObject.getContactPerson ());
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
+                                                   .setCtrl (aSelectedObject.getContactPerson ()));
     }
-    aTable.createItemRow ()
-          .setLabel ("Participant information")
-          .setCtrl (aSelectedObject.getParticipantIDScheme () + ":" + aSelectedObject.getParticipantIDValue ());
-    aTable.createItemRow ()
-          .setLabel ("Transport profile")
-          .setCtrl (AppUtils.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
-                    " (" +
-                    aSelectedObject.getTransportProfile ().getID () +
-                    ")");
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Participant information")
+                                                 .setCtrl (aSelectedObject.getParticipantIDScheme () +
+                                                           ":" +
+                                                           aSelectedObject.getParticipantIDValue ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Transport profile")
+                                                 .setCtrl (AppUtils.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
+                                                           " (" +
+                                                           aSelectedObject.getTransportProfile ().getID () +
+                                                           ")"));
   }
 
   @Override

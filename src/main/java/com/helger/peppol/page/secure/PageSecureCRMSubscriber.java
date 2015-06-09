@@ -55,9 +55,9 @@ import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
+import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
-import com.helger.photon.bootstrap3.table.BootstrapTableForm;
-import com.helger.photon.bootstrap3.table.BootstrapTableFormView;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
@@ -112,17 +112,18 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final BootstrapTableFormView aTable = aNodeList.addAndReturnChild (new BootstrapTableFormView (new HCCol (170),
-                                                                                                   HCCol.star ()));
-    aTable.createItemRow ().setLabel ("Salutation").setCtrl (aSelectedObject.getSalutationDisplayName (aDisplayLocale));
-    aTable.createItemRow ().setLabel ("Name").setCtrl (aSelectedObject.getName ());
-    aTable.createItemRow ().setLabel ("Email address").setCtrl (aSelectedObject.getEmailAddress ());
+    final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
+                                                 .setCtrl (aSelectedObject.getSalutationDisplayName (aDisplayLocale)));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getName ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Email address")
+                                                 .setCtrl (aSelectedObject.getEmailAddress ()));
     {
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
                                                                    new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         aGroups.addChild (new HCDiv ().addChild (new HCA (createViewURL (aWPEC, CMenuSecure.MENU_CRM_GROUPS, aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
-      aTable.createItemRow ().setLabel ("Assigned groups").setCtrl (aGroups);
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Assigned groups").setCtrl (aGroups));
     }
   }
 
@@ -206,28 +207,26 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
-    final BootstrapTableForm aTable = aForm.addAndReturnChild (new BootstrapTableForm (new HCCol (170), HCCol.star ()));
-    aTable.setSpanningHeaderContent (eFormAction.isEdit () ? "Edit CRM subscriber" : "Create new CRM subscriber");
+    aForm.addChild (createActionHeader (eFormAction.isEdit () ? "Edit CRM subscriber" : "Create new CRM subscriber"));
 
-    aTable.createItemRow ()
-          .setLabel ("Salutation")
-          .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
-                                                              aSelectedObject == null ? null
-                                                                                     : aSelectedObject.getSalutationID ()),
-                                            aDisplayLocale))
-          .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
+                                                 .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
+                                                                                                     aSelectedObject == null ? null
+                                                                                                                            : aSelectedObject.getSalutationID ()),
+                                                                                   aDisplayLocale))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION)));
 
-    aTable.createItemRow ()
-          .setLabelMandatory ("Name")
-          .setCtrl (new HCEdit (new RequestField (FIELD_NAME, aSelectedObject == null ? null
-                                                                                     : aSelectedObject.getName ())))
-          .setErrorList (aFormErrors.getListOfField (FIELD_NAME));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_NAME,
+                                                                                         aSelectedObject == null ? null
+                                                                                                                : aSelectedObject.getName ())))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_NAME)));
 
-    aTable.createItemRow ()
-          .setLabelMandatory ("Email address")
-          .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL_ADDRESS,
-                                                  aSelectedObject == null ? null : aSelectedObject.getEmailAddress ())))
-          .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL_ADDRESS));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Email address")
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL_ADDRESS,
+                                                                                         aSelectedObject == null ? null
+                                                                                                                : aSelectedObject.getEmailAddress ())))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL_ADDRESS)));
 
     {
       final HCNodeList aGroups = new HCNodeList ();
@@ -242,10 +241,9 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
         aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true).setValue (sCRMGroupID))
                                       .addChild (" " + aCRMGroup.getDisplayName ()));
       }
-      aTable.createItemRow ()
-            .setLabelMandatory ("Assigned groups")
-            .setCtrl (aGroups)
-            .setErrorList (aFormErrors.getListOfField (FIELD_GROUP));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Assigned groups")
+                                                   .setCtrl (aGroups)
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_GROUP)));
     }
   }
 
