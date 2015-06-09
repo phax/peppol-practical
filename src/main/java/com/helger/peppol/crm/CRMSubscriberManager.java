@@ -18,8 +18,10 @@ package com.helger.peppol.crm;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -209,6 +211,36 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
     }
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public List <ICRMSubscriber> getAllActiveCRMSubscribers ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aMap.values ().stream ().filter (c -> !c.isDeleted ()).collect (Collectors.toList ());
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public List <ICRMSubscriber> getAllDeletedCRMSubscribers ()
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aMap.values ().stream ().filter (c -> c.isDeleted ()).collect (Collectors.toList ());
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
+  }
+
   @Nullable
   public ICRMSubscriber getCRMSubscriberOfID (@Nullable final String sID)
   {
@@ -250,10 +282,11 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
     m_aRWLock.readLock ().lock ();
     try
     {
-      for (final CRMSubscriber aSubscriber : m_aMap.values ())
-        if (aSubscriber.getEmailAddress ().equals (sRealEmailAddress))
-          return aSubscriber;
-      return null;
+      return m_aMap.values ()
+                   .stream ()
+                   .filter (c -> c.getEmailAddress ().equals (sRealEmailAddress))
+                   .findAny ()
+                   .orElse (null);
     }
     finally
     {
@@ -262,22 +295,49 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
   }
 
   @Nonnegative
-  public int getCRMSubscriberCountOfGroup (@Nonnull final ICRMGroup aGroup)
+  public long getCRMSubscriberCountOfGroup (@Nonnull final ICRMGroup aGroup)
   {
     ValueEnforcer.notNull (aGroup, "Group");
 
-    int ret = 0;
     m_aRWLock.readLock ().lock ();
     try
     {
-      for (final CRMSubscriber aSubscriber : m_aMap.values ())
-        if (aSubscriber.isAssignedToGroup (aGroup))
-          ++ret;
+      return m_aMap.values ().stream ().filter (c -> c.isAssignedToGroup (aGroup)).count ();
     }
     finally
     {
       m_aRWLock.readLock ().unlock ();
     }
-    return ret;
+  }
+
+  @Nonnull
+  public EChange deleteCRMSubscriber (@Nonnull final ICRMSubscriber aCRMSubscriber)
+  {
+    ValueEnforcer.notNull (aCRMSubscriber, "CRMSubscriber");
+
+    final String sCRMSubscriberID = aCRMSubscriber.getID ();
+    final CRMSubscriber aRealCRMSubscriber = (CRMSubscriber) getCRMSubscriberOfID (sCRMSubscriberID);
+    if (aRealCRMSubscriber == null)
+    {
+      AuditUtils.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "id-not-found");
+      return EChange.UNCHANGED;
+    }
+
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      if (aRealCRMSubscriber.setDeletionNow ().isUnchanged ())
+      {
+        AuditUtils.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "already-deleted");
+        return EChange.UNCHANGED;
+      }
+      markAsChanged ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+    AuditUtils.onAuditDeleteSuccess (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID);
+    return EChange.CHANGED;
   }
 }

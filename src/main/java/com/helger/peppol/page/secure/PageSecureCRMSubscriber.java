@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.page.secure;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +34,9 @@ import com.helger.commons.name.ComparatorHasDisplayName;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
+import com.helger.html.hc.IHCCell;
+import com.helger.html.hc.IHCNode;
+import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
@@ -49,6 +53,7 @@ import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
 import com.helger.peppol.mgr.MetaManager;
 import com.helger.peppol.page.AbstractAppFormPage;
+import com.helger.photon.bootstrap3.alert.BootstrapQuestionBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
@@ -57,6 +62,7 @@ import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
+import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
@@ -100,6 +106,17 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
   }
 
   @Override
+  protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
+                                     @Nonnull final EWebPageFormAction eFormAction,
+                                     @Nullable final ICRMSubscriber aSelectedObject)
+  {
+    if (eFormAction == EWebPageFormAction.DELETE)
+      return !aSelectedObject.isDeleted ();
+
+    return super.isActionAllowed (aWPEC, eFormAction, aSelectedObject);
+  }
+
+  @Override
   @Nullable
   protected ICRMSubscriber getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
@@ -112,7 +129,10 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
+
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Status").setCtrl (aSelectedObject.isDeleted () ? "Deleted"
+                                                                                                           : "Active"));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (aSelectedObject.getSalutationDisplayName (aDisplayLocale)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getName ()));
@@ -248,21 +268,43 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
   }
 
   @Override
-  protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
+                                  @Nonnull final AbstractHCForm <?> aForm,
+                                  @Nonnull final ICRMSubscriber aSelectedObject)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    aForm.addChild (new BootstrapQuestionBox ().addChild ("Should the CRM subscriber '" +
+                                                          aSelectedObject.getDisplayText (aDisplayLocale) +
+                                                          "' really be deleted?"));
+  }
+
+  @Override
+  protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
+                                @Nonnull final ICRMSubscriber aSelectedObject)
+  {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
 
-    // Toolbar on top
-    final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
-    aToolbar.addButtonNew ("Create new CRM subscriber", createCreateURL (aWPEC));
+    if (aCRMSubscriberMgr.deleteCRMSubscriber (aSelectedObject).isChanged ())
+      aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The CRM subscriber '" +
+                                                               aSelectedObject.getDisplayText (aDisplayLocale) +
+                                                               "' was successfully deleted."));
+  }
+
+  @Nonnull
+  private IHCNode _getList (@Nonnull final WebPageExecutionContext aWPEC,
+                            @Nonnull final Collection <? extends ICRMSubscriber> aCRMSubscribers,
+                            @Nonnull final String sIDSuffix)
+  {
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
     // List existing
-    final BootstrapTable aTable = new BootstrapTable (HCCol.star (), HCCol.star (), HCCol.star (), createActionCol (2)).setID (getID ());
+    final BootstrapTable aTable = new BootstrapTable (HCCol.star (), HCCol.star (), HCCol.star (), createActionCol (3)).setID (getID () +
+                                                                                                                               sIDSuffix);
     aTable.addHeaderRow ().addCells ("Name", "Email address", "Groups", "Actions");
 
-    for (final ICRMSubscriber aCurObject : aCRMSubscriberMgr.getAllCRMSubscribers ())
+    for (final ICRMSubscriber aCurObject : aCRMSubscribers)
     {
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 
@@ -275,13 +317,36 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
                                                   .stream ()
                                                   .map ( (g) -> g.getDisplayName ())
                                                   .collect (Collectors.joining ("\n"))));
-      aRow.addCell (createEditLink (aWPEC, aCurObject), new HCTextNode (" "), createCopyLink (aWPEC, aCurObject));
+      final IHCCell <?> aActionCell = aRow.addCell ();
+      aActionCell.addChildren (createEditLink (aWPEC, aCurObject),
+                               new HCTextNode (" "),
+                               createCopyLink (aWPEC, aCurObject),
+                               new HCTextNode (" "));
+      aActionCell.addChild (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject) ? createDeleteLink (aWPEC,
+                                                                                                               aCurObject)
+                                                                                          : createEmptyAction ());
     }
-    aNodeList.addChild (aTable);
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
     aDataTables.getOrCreateColumnOfTarget (2).addClass (CSS_CLASS_ACTION_COL).setSortable (false);
     aDataTables.setInitialSorting (0, ESortOrder.ASCENDING);
-    aNodeList.addChild (aDataTables);
+
+    return new HCNodeList ().addChild (aTable).addChild (aDataTables);
+  }
+
+  @Override
+  protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
+  {
+    final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+
+    // Toolbar on top
+    final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
+    aToolbar.addButtonNew ("Create new CRM subscriber", createCreateURL (aWPEC));
+
+    final BootstrapTabBox aTabBox = new BootstrapTabBox ();
+    aTabBox.addTab ("Active", _getList (aWPEC, aCRMSubscriberMgr.getAllActiveCRMSubscribers (), "active"));
+    aTabBox.addTab ("Deleted", _getList (aWPEC, aCRMSubscriberMgr.getAllDeletedCRMSubscribers (), "del"));
+    aNodeList.addChild (aTabBox);
   }
 }

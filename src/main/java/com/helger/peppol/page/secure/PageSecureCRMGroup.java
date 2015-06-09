@@ -77,7 +77,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Sender email address")
                                                  .setCtrl (aSelectedObject.getSenderEmailAddress ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Assigned participants")
-                                                 .setCtrl (Integer.toString (aCRMSubscriberMgr.getCRMSubscriberCountOfGroup (aSelectedObject))));
+                                                 .setCtrl (Long.toString (aCRMSubscriberMgr.getCRMSubscriberCountOfGroup (aSelectedObject))));
   }
 
   @Override
