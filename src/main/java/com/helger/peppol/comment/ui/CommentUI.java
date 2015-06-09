@@ -30,7 +30,6 @@ import com.helger.commons.type.ITypedObject;
 import com.helger.css.property.CCSSProperties;
 import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCSpan;
@@ -63,11 +62,12 @@ import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.button.EBootstrapButtonSize;
+import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
 import com.helger.photon.bootstrap3.panel.BootstrapPanel;
 import com.helger.photon.bootstrap3.panel.EBootstrapPanelType;
-import com.helger.photon.bootstrap3.table.BootstrapTableForm;
 import com.helger.photon.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
@@ -371,41 +371,38 @@ public final class CommentUI
     if (aFormErrors != null && !aFormErrors.isEmpty ())
       aFormContainer.addChild (new BootstrapErrorBox ().addChild (EPhotonCoreText.ERR_INCORRECT_INPUT.getDisplayText (aDisplayLocale)));
 
-    final BootstrapTableForm aTable = aFormContainer.addAndReturnChild (new BootstrapTableForm (new HCCol (130),
-                                                                                                HCCol.star (),
-                                                                                                new HCCol (25)));
-    aTable.setTitle (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
+    final BootstrapViewForm aForm = aFormContainer.addAndReturnChild (new BootstrapViewForm ());
+    aForm.setTitle (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
 
     HCEdit aEditAuthor = null;
     if (aLoggedInUser != null)
     {
-      aTable.createItemRow ()
-            .setLabelMandatory (ECommentText.MSG_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
-            .setCtrl (aLoggedInUser.getDisplayName ());
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (ECommentText.MSG_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
+                                                   .setCtrl (aLoggedInUser.getDisplayName ()));
     }
     else
     {
       aEditAuthor = new HCEdit (new RequestField (FIELD_COMMENT_AUTHOR));
-      aTable.createItemRow ()
-            .setLabelMandatory (ECommentText.MSG_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
-            .setCtrl (aEditAuthor)
-            .setNote (BootstrapTooltip.createSimpleTooltip (ECommentText.DESC_FIELD_AUTHOR.getDisplayText (aDisplayLocale)))
-            .setErrorList (aFormErrors == null ? null : aFormErrors.getListOfField (FIELD_COMMENT_AUTHOR));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (ECommentText.MSG_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
+                                                   .setCtrl (aEditAuthor)
+                                                   .setHelpText (ECommentText.DESC_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
+                                                   .setErrorList (aFormErrors == null ? null
+                                                                                     : aFormErrors.getListOfField (FIELD_COMMENT_AUTHOR)));
     }
 
     final HCEdit aEditTitle = new HCEdit (new RequestField (FIELD_COMMENT_TITLE));
-    aTable.createItemRow ()
-          .setLabel (ECommentText.MSG_FIELD_TITLE.getDisplayText (aDisplayLocale))
-          .setCtrl (aEditTitle)
-          .setNote (BootstrapTooltip.createSimpleTooltip (ECommentText.DESC_FIELD_TITLE.getDisplayText (aDisplayLocale)))
-          .setErrorList (aFormErrors == null ? null : aFormErrors.getListOfField (FIELD_COMMENT_TITLE));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel (ECommentText.MSG_FIELD_TITLE.getDisplayText (aDisplayLocale))
+                                                 .setCtrl (aEditTitle)
+                                                 .setHelpText (ECommentText.DESC_FIELD_TITLE.getDisplayText (aDisplayLocale))
+                                                 .setErrorList (aFormErrors == null ? null
+                                                                                   : aFormErrors.getListOfField (FIELD_COMMENT_TITLE)));
 
     final HCTextArea aTextAreaContent = new HCTextAreaAutosize (new RequestField (FIELD_COMMENT_TEXT)).setRows (5);
-    aTable.createItemRow ()
-          .setLabelMandatory (ECommentText.MSG_FIELD_TEXT.getDisplayText (aDisplayLocale))
-          .setCtrl (aTextAreaContent)
-          .setNote (BootstrapTooltip.createSimpleTooltip (ECommentText.DESC_FIELD_TEXT.getDisplayText (aDisplayLocale)))
-          .setErrorList (aFormErrors == null ? null : aFormErrors.getListOfField (FIELD_COMMENT_TEXT));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (ECommentText.MSG_FIELD_TEXT.getDisplayText (aDisplayLocale))
+                                                 .setCtrl (aTextAreaContent)
+                                                 .setHelpText (ECommentText.DESC_FIELD_TEXT.getDisplayText (aDisplayLocale))
+                                                 .setErrorList (aFormErrors == null ? null
+                                                                                   : aFormErrors.getListOfField (FIELD_COMMENT_TEXT)));
 
     final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aLEC);
     // What to do on save?
