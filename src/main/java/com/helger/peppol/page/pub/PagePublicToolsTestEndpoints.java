@@ -56,7 +56,7 @@ import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
-import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColumnAction;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
@@ -311,7 +311,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     final BootstrapTable aTable = new BootstrapTable (new DTCol ("Participant ID"),
                                                       new DTCol ("Company").setInitialSorting (ESortOrder.ASCENDING),
                                                       new DTCol ("Transport profile"),
-                                                      new BootstrapDTColumnAction ("Actions")).setID (getID ());
+                                                      new BootstrapDTColAction ("Actions")).setID (getID ());
 
     for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllTestEndpoints ())
       if (!aCurObject.isDeleted ())

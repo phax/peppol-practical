@@ -63,7 +63,7 @@ import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
-import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColumnAction;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
@@ -304,8 +304,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final BootstrapTable aTable = new BootstrapTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
                                                       new DTCol ("Email address"),
                                                       new DTCol ("Groups"),
-                                                      new BootstrapDTColumnAction ("Actions")).setID (getID () +
-                                                                                                      sIDSuffix);
+                                                      new BootstrapDTColAction ("Actions")).setID (getID () + sIDSuffix);
 
     for (final ICRMSubscriber aCurObject : aCRMSubscribers)
     {

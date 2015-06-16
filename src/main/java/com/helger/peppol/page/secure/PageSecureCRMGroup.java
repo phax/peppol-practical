@@ -40,7 +40,7 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
-import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColumnAction;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.page.EWebPageFormAction;
@@ -153,7 +153,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     // List existing
     final BootstrapTable aTable = new BootstrapTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
                                                       new DTCol ("Sender email address"),
-                                                      new BootstrapDTColumnAction ("Actions")).setID (getID ());
+                                                      new BootstrapDTColAction ("Actions")).setID (getID ());
 
     for (final ICRMGroup aCurObject : aCRMGroupMgr.getAllCRMGroups ())
     {
