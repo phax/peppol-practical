@@ -25,7 +25,6 @@ import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.impl.HCNodeList;
@@ -41,10 +40,12 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColumnAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.validation.error.FormErrors;
 
@@ -150,8 +151,9 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     aToolbar.addButtonNew ("Create new CRM group", createCreateURL (aWPEC));
 
     // List existing
-    final BootstrapTable aTable = new BootstrapTable (HCCol.star (), HCCol.star (), createActionCol (2)).setID (getID ());
-    aTable.addHeaderRow ().addCells ("Name", "Sender email address", "Actions");
+    final BootstrapTable aTable = new BootstrapTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
+                                                      new DTCol ("Sender email address"),
+                                                      new BootstrapDTColumnAction ("Actions")).setID (getID ());
 
     for (final ICRMGroup aCurObject : aCRMGroupMgr.getAllCRMGroups ())
     {
@@ -165,8 +167,6 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     aNodeList.addChild (aTable);
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
-    aDataTables.getOrCreateColumnOfTarget (2).addClass (CSS_CLASS_ACTION_COL).setSortable (false);
-    aDataTables.setInitialSorting (0, ESortOrder.ASCENDING);
     aNodeList.addChild (aDataTables);
   }
 }

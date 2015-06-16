@@ -29,7 +29,6 @@ import com.helger.commons.url.SimpleURL;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.IHCCell;
 import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.impl.HCNodeList;
@@ -57,12 +56,14 @@ import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColumnAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.validation.error.FormErrors;
 
@@ -307,8 +308,10 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     aNodeList.addChild (new BootstrapInfoBox ().addChild ("Test endpoints are special PEPPOL participant identifiers whose sole purpose is the usage for testing. So if you are an PEPPOL AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients."));
 
     // List existing
-    final BootstrapTable aTable = new BootstrapTable (HCCol.star (), HCCol.star (), HCCol.star (), createActionCol (2)).setID (getID ());
-    aTable.addHeaderRow ().addCells ("Participant ID", "Company", "Transport profile", "Actions");
+    final BootstrapTable aTable = new BootstrapTable (new DTCol ("Participant ID"),
+                                                      new DTCol ("Company").setInitialSorting (ESortOrder.ASCENDING),
+                                                      new DTCol ("Transport profile"),
+                                                      new BootstrapDTColumnAction ("Actions")).setID (getID ());
 
     for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllTestEndpoints ())
       if (!aCurObject.isDeleted ())
@@ -340,8 +343,6 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     aNodeList.addChild (aTable);
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
-    aDataTables.getOrCreateColumnOfTarget (3).addClass (CSS_CLASS_ACTION_COL).setSortable (false);
-    aDataTables.setInitialSorting (1, ESortOrder.ASCENDING);
     aNodeList.addChild (aDataTables);
   }
 }

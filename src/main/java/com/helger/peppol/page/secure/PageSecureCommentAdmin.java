@@ -39,7 +39,6 @@ import com.helger.commons.url.ISimpleURL;
 import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.html.HCTable;
 import com.helger.html.hc.impl.HCNodeList;
@@ -60,6 +59,7 @@ import com.helger.photon.uicore.html.tabbox.ITabBox;
 import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.comparator.ComparatorDTDateTime;
 import com.helger.photon.uictrls.datatables.comparator.ComparatorDTInteger;
@@ -147,13 +147,17 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
       {
         final HCNodeList aTab = new HCNodeList ();
 
-        final HCTable aTable = new HCTable (HCCol.star (), HCCol.star (), HCCol.star (), HCCol.star (), HCCol.star ()).setID (getID () +
-                                                                                                                              aOT.getObjectTypeName ());
-        aTable.addHeaderRow ().addCells (EText.HEADER_OBJECT_ID.getDisplayText (aDisplayLocale),
-                                         EText.HEADER_THREADS.getDisplayText (aDisplayLocale),
-                                         EText.HEADER_COMMENTS.getDisplayText (aDisplayLocale),
-                                         EText.HEADER_ACTIVE_COMMENTS.getDisplayText (aDisplayLocale),
-                                         EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale));
+        final HCTable aTable = new HCTable (new DTCol (EText.HEADER_OBJECT_ID.getDisplayText (aDisplayLocale)),
+                                            new DTCol (EText.HEADER_THREADS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
+                                                                                                               .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                            new DTCol (EText.HEADER_COMMENTS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
+                                                                                                                .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                            new DTCol (EText.HEADER_ACTIVE_COMMENTS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
+                                                                                                                       .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                            new DTCol (EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
+                                                                                                                   .setComparator (new ComparatorDTDateTime (aDisplayLocale))
+                                                                                                                   .setInitialSorting (ESortOrder.DESCENDING)).setID (getID () +
+                                                                                                                                                                      aOT.getObjectTypeName ());
         final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
         for (final Map.Entry <String, List <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
         {
@@ -184,19 +188,6 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
         aTab.addChild (aTable);
 
         final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
-        aDataTables.getOrCreateColumnOfTarget (1)
-                   .addClass (CSS_CLASS_RIGHT)
-                   .setComparator (new ComparatorDTInteger (aDisplayLocale));
-        aDataTables.getOrCreateColumnOfTarget (2)
-                   .addClass (CSS_CLASS_RIGHT)
-                   .setComparator (new ComparatorDTInteger (aDisplayLocale));
-        aDataTables.getOrCreateColumnOfTarget (3)
-                   .addClass (CSS_CLASS_RIGHT)
-                   .setComparator (new ComparatorDTInteger (aDisplayLocale));
-        aDataTables.getOrCreateColumnOfTarget (4)
-                   .addClass (CSS_CLASS_RIGHT)
-                   .setComparator (new ComparatorDTDateTime (aDisplayLocale));
-        aDataTables.setInitialSorting (4, ESortOrder.DESCENDING);
         aTab.addChild (aDataTables);
 
         aTabBox.addTab (aOT.getObjectTypeName (), aTab, aOT.getObjectTypeName ().equals (sSelectedObjectType));

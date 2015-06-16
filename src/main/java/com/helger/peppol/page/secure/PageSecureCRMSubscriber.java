@@ -38,7 +38,6 @@ import com.helger.html.hc.IHCCell;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCCol;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
@@ -64,6 +63,7 @@ import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap3.table.BootstrapTable;
+import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColumnAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
@@ -71,6 +71,7 @@ import com.helger.photon.uicore.html.select.HCSalutationSelect;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.validation.error.FormErrors;
 
@@ -300,9 +301,11 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
     // List existing
-    final BootstrapTable aTable = new BootstrapTable (HCCol.star (), HCCol.star (), HCCol.star (), createActionCol (3)).setID (getID () +
-                                                                                                                               sIDSuffix);
-    aTable.addHeaderRow ().addCells ("Name", "Email address", "Groups", "Actions");
+    final BootstrapTable aTable = new BootstrapTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
+                                                      new DTCol ("Email address"),
+                                                      new DTCol ("Groups"),
+                                                      new BootstrapDTColumnAction ("Actions")).setID (getID () +
+                                                                                                      sIDSuffix);
 
     for (final ICRMSubscriber aCurObject : aCRMSubscribers)
     {
@@ -328,8 +331,6 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     }
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
-    aDataTables.getOrCreateColumnOfTarget (2).addClass (CSS_CLASS_ACTION_COL).setSortable (false);
-    aDataTables.setInitialSorting (0, ESortOrder.ASCENDING);
 
     return new HCNodeList ().addChild (aTable).addChild (aDataTables);
   }
