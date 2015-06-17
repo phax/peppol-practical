@@ -27,6 +27,7 @@ import com.helger.commons.url.ISimpleURL;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
+import com.helger.html.hc.html.HCTable;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.crm.CRMGroupManager;
@@ -39,7 +40,6 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
-import com.helger.photon.bootstrap3.table.BootstrapTable;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
@@ -151,9 +151,9 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     aToolbar.addButtonNew ("Create new CRM group", createCreateURL (aWPEC));
 
     // List existing
-    final BootstrapTable aTable = new BootstrapTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
-                                                      new DTCol ("Sender email address"),
-                                                      new BootstrapDTColAction ("Actions")).setID (getID ());
+    final HCTable aTable = new HCTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
+                                        new DTCol ("Sender email address"),
+                                        new BootstrapDTColAction ("Actions")).setID (getID ());
 
     for (final ICRMGroup aCurObject : aCRMGroupMgr.getAllCRMGroups ())
     {

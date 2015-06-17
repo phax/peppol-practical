@@ -41,6 +41,7 @@ import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCRow;
+import com.helger.html.hc.html.HCTable;
 import com.helger.html.hc.htmlext.HCUtils;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
@@ -62,7 +63,6 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
-import com.helger.photon.bootstrap3.table.BootstrapTable;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
@@ -301,10 +301,10 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
     // List existing
-    final BootstrapTable aTable = new BootstrapTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
-                                                      new DTCol ("Email address"),
-                                                      new DTCol ("Groups"),
-                                                      new BootstrapDTColAction ("Actions")).setID (getID () + sIDSuffix);
+    final HCTable aTable = new HCTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
+                                        new DTCol ("Email address"),
+                                        new DTCol ("Groups"),
+                                        new BootstrapDTColAction ("Actions")).setID (getID () + sIDSuffix);
 
     for (final ICRMSubscriber aCurObject : aCRMSubscribers)
     {
