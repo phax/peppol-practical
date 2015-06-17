@@ -304,7 +304,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final HCTable aTable = new HCTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
                                         new DTCol ("Email address"),
                                         new DTCol ("Groups"),
-                                        new BootstrapDTColAction ("Actions")).setID (getID () + sIDSuffix);
+                                        new BootstrapDTColAction (aDisplayLocale)).setID (getID () + sIDSuffix);
 
     for (final ICRMSubscriber aCurObject : aCRMSubscribers)
     {

@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.page.secure;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -143,6 +145,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
   @Override
   protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
   {
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
 
@@ -153,7 +156,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     // List existing
     final HCTable aTable = new HCTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
                                         new DTCol ("Sender email address"),
-                                        new BootstrapDTColAction ("Actions")).setID (getID ());
+                                        new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
 
     for (final ICRMGroup aCurObject : aCRMGroupMgr.getAllCRMGroups ())
     {

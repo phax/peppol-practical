@@ -294,6 +294,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
   @Override
   protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
   {
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
     final boolean bUserIsLoggedIn = LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
@@ -311,7 +312,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     final HCTable aTable = new HCTable (new DTCol ("Participant ID"),
                                         new DTCol ("Company").setInitialSorting (ESortOrder.ASCENDING),
                                         new DTCol ("Transport profile"),
-                                        new BootstrapDTColAction ("Actions")).setID (getID ());
+                                        new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
 
     for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllTestEndpoints ())
       if (!aCurObject.isDeleted ())
