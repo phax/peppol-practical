@@ -49,7 +49,7 @@ import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
-import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.peppol.page.AbstractAppWebPage;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
@@ -65,7 +65,7 @@ import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.comparator.ComparatorDTDateTime;
 import com.helger.photon.uictrls.datatables.comparator.ComparatorDTInteger;
 
-public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
+public final class PageSecureCommentAdmin extends AbstractAppWebPage
 {
   @Translatable
   protected static enum EText implements IHasDisplayText

@@ -22,10 +22,10 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.ui.AppCommonUI;
-import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.peppol.page.AbstractAppWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-public final class PagePublicLogin extends AbstractAppWebPageExt
+public final class PagePublicLogin extends AbstractAppWebPage
 {
   public PagePublicLogin (@Nonnull @Nonempty final String sID)
   {

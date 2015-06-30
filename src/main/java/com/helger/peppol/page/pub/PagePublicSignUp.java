@@ -37,7 +37,7 @@ import com.helger.html.hc.htmlext.HCUtils;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.ui.AppCommonUI;
-import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.peppol.page.AbstractAppWebPage;
 import com.helger.photon.basic.security.AccessManager;
 import com.helger.photon.basic.security.password.GlobalPasswordSettings;
 import com.helger.photon.basic.security.user.IUser;
@@ -53,7 +53,7 @@ import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
 
-public final class PagePublicSignUp extends AbstractAppWebPageExt
+public final class PagePublicSignUp extends AbstractAppWebPage
 {
   private static final String FIELD_FIRSTNAME = "firstname";
   private static final String FIELD_LASTNAME = "lastname";

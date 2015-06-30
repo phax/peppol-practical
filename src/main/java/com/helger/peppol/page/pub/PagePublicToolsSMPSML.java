@@ -50,7 +50,7 @@ import com.helger.html.hc.html.HCEditFile;
 import com.helger.html.hc.html.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
-import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.peppol.page.AbstractAppWebPage;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
@@ -76,7 +76,7 @@ import com.helger.web.fileupload.IFileItem;
 import com.helger.web.https.DoNothingTrustManager;
 import com.sun.xml.ws.client.ClientTransportException;
 
-public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
+public class PagePublicToolsSMPSML extends AbstractAppWebPage
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (PagePublicToolsSMPSML.class);
 

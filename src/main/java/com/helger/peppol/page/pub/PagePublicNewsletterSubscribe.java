@@ -39,7 +39,7 @@ import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
 import com.helger.peppol.mgr.MetaManager;
-import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.peppol.page.AbstractAppWebPage;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
@@ -54,7 +54,7 @@ import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
 
-public final class PagePublicNewsletterSubscribe extends AbstractAppWebPageExt
+public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
 {
   private static final String FIELD_SALUTATION = "salutation";
   private static final String FIELD_NAME = "name";

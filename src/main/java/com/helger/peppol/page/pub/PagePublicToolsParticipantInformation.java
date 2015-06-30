@@ -64,7 +64,7 @@ import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.page.AbstractAppWebPageExt;
+import com.helger.peppol.page.AbstractAppWebPage;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
@@ -89,7 +89,7 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
 
-public class PagePublicToolsParticipantInformation extends AbstractAppWebPageExt
+public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 {
   public static final String FIELD_ID_ISO6523_PREDEF = "idschemepredef";
   public static final String FIELD_ID_ISO6523 = "idscheme";
