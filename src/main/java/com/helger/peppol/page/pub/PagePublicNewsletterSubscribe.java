@@ -29,7 +29,6 @@ import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.name.ComparatorHasDisplayName;
 import com.helger.commons.string.StringHelper;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCHiddenField;
@@ -49,6 +48,7 @@ import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.select.HCSalutationSelect;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -76,7 +76,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPageExt
     final FormErrors aFormErrors = new FormErrors ();
     List <String> aSelectedCRMGroupIDs = null;
 
-    if (aWPEC.hasAction (ACTION_SAVE))
+    if (aWPEC.hasAction (CPageParam.ACTION_SAVE))
     {
       final String sSalutationID = aWPEC.getAttributeAsString (FIELD_SALUTATION);
       final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
@@ -174,7 +174,9 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPageExt
                                                                      new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         {
           final String sCRMGroupID = aCRMGroup.getID ();
-          final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP, sCRMGroupID, false);
+          final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
+                                                                                        sCRMGroupID,
+                                                                                        false);
           aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true))
                                         .addChild (" " + aCRMGroup.getDisplayName ()));
         }
@@ -186,7 +188,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPageExt
 
     // Toolbar
     final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
-    aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_SAVE);
+    aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_SAVE);
     aToolbar.addSubmitButton ("Subscribe", EDefaultIcon.YES);
 
     aNodeList.addChild (aForm);

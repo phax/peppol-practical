@@ -46,7 +46,6 @@ import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.datetime.PDTFactory;
 import com.helger.datetime.format.PDTToString;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.api.EHCFormMethod;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCCode;
@@ -85,6 +84,7 @@ import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.bootstrap3.grid.BootstrapRow;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.dns.IPV4Addr;
@@ -111,7 +111,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPageExt
     final FormErrors aFormErrors = new FormErrors ();
     final boolean bShowInput = true;
 
-    if (aWPEC.hasAction (ACTION_PERFORM))
+    if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
       // Validate fields
       final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_ID_ISO6523);
@@ -130,7 +130,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPageExt
       {
         sParticipantIdentifierValue = sParticipantIDISO6523 + ":" + sParticipantIDValue;
         if (!IdentifierUtils.isValidParticipantIdentifierValue (sParticipantIdentifierValue))
-          aFormErrors.addFieldError (FIELD_ID_VALUE, "The resulting participant identifier value '" +
+          aFormErrors.addFieldError (FIELD_ID_VALUE,
+                                     "The resulting participant identifier value '" +
                                                      sParticipantIdentifierValue +
                                                      "' is not valid!");
       }
@@ -168,7 +169,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPageExt
             // The generated hostname contains "B-" whereas the returned
             // hostname contains "b-"
             // Note: the SMPHost must have a trailing slash
-            final String sCommonPrefix = (aSMPHost.toExternalForm () + aParticipantID.getURIEncoded () + "/services/").toLowerCase (Locale.US);
+            final String sCommonPrefix = (aSMPHost.toExternalForm () +
+                                          aParticipantID.getURIEncoded () +
+                                          "/services/").toLowerCase (Locale.US);
 
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
@@ -291,7 +294,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPageExt
                       {
                         final LocalDate aValidTo = PDTFactory.createLocalDate (aEndpoint.getServiceExpirationDate ());
                         aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " +
-                                                                     PDTToString.getAsString (aValidTo, aDisplayLocale)));
+                                                                     PDTToString.getAsString (aValidTo,
+                                                                                              aDisplayLocale)));
                         if (aValidTo.isBefore (aNowDate))
                           aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is no longer valid!"));
                       }
@@ -430,7 +434,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPageExt
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
-      aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
+      aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
       aToolbar.addSubmitButton ("Show details");
     }
   }

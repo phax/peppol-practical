@@ -36,7 +36,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.html.hc.IHCCell;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.html.AbstractHCForm;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCDiv;
 import com.helger.html.hc.html.HCEdit;
@@ -132,8 +131,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Status").setCtrl (aSelectedObject.isDeleted () ? "Deleted"
-                                                                                                           : "Active"));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Status")
+                                                 .setCtrl (aSelectedObject.isDeleted () ? "Deleted" : "Active"));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (aSelectedObject.getSalutationDisplayName (aDisplayLocale)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getName ()));
@@ -143,7 +142,9 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
                                                                    new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
-        aGroups.addChild (new HCDiv ().addChild (new HCA (createViewURL (aWPEC, CMenuSecure.MENU_CRM_GROUPS, aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
+        aGroups.addChild (new HCDiv ().addChild (new HCA (createViewURL (aWPEC,
+                                                                         CMenuSecure.MENU_CRM_GROUPS,
+                                                                         aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Assigned groups").setCtrl (aGroups));
     }
   }
@@ -233,20 +234,20 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
                                                                                                      aSelectedObject == null ? null
-                                                                                                                            : aSelectedObject.getSalutationID ()),
+                                                                                                                             : aSelectedObject.getSalutationID ()),
                                                                                    aDisplayLocale))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION)));
 
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_NAME,
                                                                                          aSelectedObject == null ? null
-                                                                                                                : aSelectedObject.getName ())))
+                                                                                                                 : aSelectedObject.getName ())))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_NAME)));
 
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Email address")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL_ADDRESS,
                                                                                          aSelectedObject == null ? null
-                                                                                                                : aSelectedObject.getEmailAddress ())))
+                                                                                                                 : aSelectedObject.getEmailAddress ())))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL_ADDRESS)));
 
     {
@@ -258,7 +259,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
         final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
                                                                                       sCRMGroupID,
                                                                                       aSelectedObject != null &&
-                                                                                          aSelectedObject.isAssignedToGroup (aCRMGroup));
+                                                                                                   aSelectedObject.isAssignedToGroup (aCRMGroup));
         aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true).setValue (sCRMGroupID))
                                       .addChild (" " + aCRMGroup.getDisplayName ()));
       }
@@ -270,7 +271,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
 
   @Override
   protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
-                                  @Nonnull final AbstractHCForm <?> aForm,
+                                  @Nonnull final BootstrapForm aForm,
                                   @Nonnull final ICRMSubscriber aSelectedObject)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -324,9 +325,10 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
                                new HCTextNode (" "),
                                createCopyLink (aWPEC, aCurObject),
                                new HCTextNode (" "));
-      aActionCell.addChild (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject) ? createDeleteLink (aWPEC,
+      aActionCell.addChild (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject)
+                                                                                           ? createDeleteLink (aWPEC,
                                                                                                                aCurObject)
-                                                                                          : createEmptyAction ());
+                                                                                           : createEmptyAction ());
     }
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);

@@ -19,10 +19,10 @@ package com.helger.peppol.page;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
-import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPageExt;
+import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-public abstract class AbstractAppWebPageExt extends AbstractBootstrapWebPageExt <WebPageExecutionContext>
+public abstract class AbstractAppWebPageExt extends AbstractBootstrapWebPage <WebPageExecutionContext>
 {
   public AbstractAppWebPageExt (@Nonnull @Nonempty final String sID, @Nonnull final String sName)
   {

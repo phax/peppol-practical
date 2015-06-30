@@ -48,6 +48,7 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
@@ -212,8 +213,8 @@ public final class PagePublicSignUp extends AbstractAppWebPageExt
       showInputForm (aDisplayLocale, aForm, aFormErrors);
 
       final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aWPEC);
-      aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_CREATE);
-      aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, ACTION_SAVE);
+      aToolbar.addHiddenField (CHCParam.PARAM_ACTION, CPageParam.ACTION_CREATE);
+      aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, CPageParam.ACTION_SAVE);
       // Save button
       aToolbar.addSubmitButton ("Sign up now", EDefaultIcon.YES);
       aForm.addChild (aToolbar);

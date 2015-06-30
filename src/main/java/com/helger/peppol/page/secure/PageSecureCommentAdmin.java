@@ -37,7 +37,6 @@ import com.helger.commons.type.ObjectType;
 import com.helger.commons.type.TypedObject;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.datetime.format.PDTToString;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.html.HCTable;
@@ -55,9 +54,11 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.EPhotonCoreText;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.tabbox.ITabBox;
 import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
 import com.helger.photon.uicore.icon.EDefaultIcon;
+import com.helger.photon.uicore.page.AbstractWebPageForm;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
@@ -69,11 +70,11 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
   @Translatable
   protected static enum EText implements IHasDisplayText
   {
-    HEADER_OBJECT_ID ("Objekt-ID", "Object ID"),
-    HEADER_THREADS ("Themen", "Threads"),
-    HEADER_COMMENTS ("Einträge", "Comments"),
-    HEADER_ACTIVE_COMMENTS ("Aktive Einträge", "Active comments"),
-    HEADER_LAST_CHANGE ("Letzte Änderung", "Last change");
+   HEADER_OBJECT_ID ("Objekt-ID", "Object ID"),
+   HEADER_THREADS ("Themen", "Threads"),
+   HEADER_COMMENTS ("Einträge", "Comments"),
+   HEADER_ACTIVE_COMMENTS ("Aktive Einträge", "Active comments"),
+   HEADER_LAST_CHANGE ("Letzte Änderung", "Last change");
 
     private final TextProvider m_aTP;
 
@@ -104,9 +105,9 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
     final CommentThreadManager aCommentThreadMgr = CommentThreadManager.getInstance ();
     boolean bShowList = true;
     final String sSelectedObjectType = aWPEC.getAttributeAsString (PARAM_TYPE);
-    final String sSelectedOwningObjectID = aWPEC.getAttributeAsString (CHCParam.PARAM_OBJECT);
+    final String sSelectedOwningObjectID = aWPEC.getAttributeAsString (CPageParam.PARAM_OBJECT);
 
-    if (aWPEC.hasAction (ACTION_VIEW) &&
+    if (aWPEC.hasAction (CPageParam.ACTION_VIEW) &&
         StringHelper.hasText (sSelectedObjectType) &&
         StringHelper.hasText (sSelectedOwningObjectID))
     {
@@ -149,20 +150,21 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPageExt
 
         final HCTable aTable = new HCTable (new DTCol (EText.HEADER_OBJECT_ID.getDisplayText (aDisplayLocale)),
                                             new DTCol (EText.HEADER_THREADS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
-                                                                                                               .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                                                                                            .setComparator (new ComparatorDTInteger (aDisplayLocale)),
                                             new DTCol (EText.HEADER_COMMENTS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
-                                                                                                                .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                                                                                             .setComparator (new ComparatorDTInteger (aDisplayLocale)),
                                             new DTCol (EText.HEADER_ACTIVE_COMMENTS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
-                                                                                                                       .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                                                                                                    .setComparator (new ComparatorDTInteger (aDisplayLocale)),
                                             new DTCol (EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
-                                                                                                                   .setComparator (new ComparatorDTDateTime (aDisplayLocale))
-                                                                                                                   .setInitialSorting (ESortOrder.DESCENDING)).setID (getID () +
-                                                                                                                                                                      aOT.getObjectTypeName ());
+                                                                                                                .setComparator (new ComparatorDTDateTime (aDisplayLocale))
+                                                                                                                .setInitialSorting (ESortOrder.DESCENDING)).setID (getID () +
+                                                                                                                                                                   aOT.getObjectTypeName ());
         final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
         for (final Map.Entry <String, List <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
         {
           final String sOwningObjectID = aEntry.getKey ();
-          final ISimpleURL aViewURL = createViewURL (aWPEC, sOwningObjectID).add (PARAM_TYPE, aOT.getObjectTypeName ());
+          final ISimpleURL aViewURL = AbstractWebPageForm.createViewURL (aWPEC, sOwningObjectID)
+                                                         .add (PARAM_TYPE, aOT.getObjectTypeName ());
 
           final HCRow aRow = aTable.addBodyRow ();
           aRow.addCell (new HCA (aViewURL).addChild (sOwningObjectID));

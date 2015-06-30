@@ -45,7 +45,6 @@ import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.url.URLUtils;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.html.HCEditFile;
 import com.helger.html.hc.html.HCEditPassword;
@@ -70,6 +69,7 @@ import com.helger.photon.bootstrap3.form.BootstrapHelpBlock;
 import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
 import com.helger.web.fileupload.IFileItem;
@@ -130,7 +130,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         {
           aFormErrors.addFieldError (FIELD_KEYSTORE_PW,
                                      "The key store could not be loaded with the provided password. Technical details: " +
-                                         ex.getMessage ());
+                                                        ex.getMessage ());
           s_aLogger.error ("The key store could not be loaded with the provided password.", ex);
           aKeyStore = null;
         }
@@ -159,7 +159,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
       {
         aFormErrors.addFieldError (FIELD_KEYSTORE,
                                    "Failed to use the provided key store for TLS connection. Technical details: " +
-                                       ex.getMessage ());
+                                                   ex.getMessage ());
         s_aLogger.error ("Failed to use the provided key store for TLS connection.", ex);
       }
     }
@@ -186,7 +186,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
       if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                       CApp.PATTERN_SMP_ID);
+                                                 CApp.PATTERN_SMP_ID);
 
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
@@ -198,9 +198,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
       {
         final String [] aParts = StringHelper.getExplodedArray ('.', sPhysicalAddress, 4);
         final byte [] aBytes = new byte [] { (byte) StringParser.parseInt (aParts[0], -1),
-                                            (byte) StringParser.parseInt (aParts[1], -1),
-                                            (byte) StringParser.parseInt (aParts[2], -1),
-                                            (byte) StringParser.parseInt (aParts[3], -1) };
+                                             (byte) StringParser.parseInt (aParts[1], -1),
+                                             (byte) StringParser.parseInt (aParts[2], -1),
+                                             (byte) StringParser.parseInt (aParts[3], -1) };
         try
         {
           InetAddress.getByAddress (aBytes);
@@ -209,7 +209,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         {
           aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                      "The provided IP address does not resolve to a valid host. Technical details: " +
-                                         ex.getMessage ());
+                                                             ex.getMessage ());
         }
       }
 
@@ -227,16 +227,17 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         if (!"http".equals (aURL.getProtocol ()))
           aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                      "The provided logical address must use the 'http' protocol and may not use the '" +
-                                         aURL.getProtocol () +
-                                         "' protocol. According to the SMP specification, no other protocols than 'http' are allowed!");
+                                                            aURL.getProtocol () +
+                                                            "' protocol. According to the SMP specification, no other protocols than 'http' are allowed!");
         // -1 means default port
         if (aURL.getPort () != 80 && aURL.getPort () != -1)
           aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                      "The provided logical address must use the default http port 80 and not port " +
-                                         aURL.getPort () +
-                                         ". According to the SMP specification, no other ports are allowed!");
+                                                            aURL.getPort () +
+                                                            ". According to the SMP specification, no other ports are allowed!");
         if (StringHelper.hasText (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
-          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS, "The provided logical address may not contain a path (" +
+          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
+                                     "The provided logical address may not contain a path (" +
                                                             aURL.getPath () +
                                                             ") because according to the SMP specifications it must run in the root (/) path!");
       }
@@ -310,7 +311,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
       if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                       CApp.PATTERN_SMP_ID);
+                                                 CApp.PATTERN_SMP_ID);
 
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
@@ -322,9 +323,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
       {
         final String [] aParts = StringHelper.getExplodedArray ('.', sPhysicalAddress, 4);
         final byte [] aBytes = new byte [] { (byte) StringParser.parseInt (aParts[0], -1),
-                                            (byte) StringParser.parseInt (aParts[1], -1),
-                                            (byte) StringParser.parseInt (aParts[2], -1),
-                                            (byte) StringParser.parseInt (aParts[3], -1) };
+                                             (byte) StringParser.parseInt (aParts[1], -1),
+                                             (byte) StringParser.parseInt (aParts[2], -1),
+                                             (byte) StringParser.parseInt (aParts[3], -1) };
         try
         {
           InetAddress.getByAddress (aBytes);
@@ -333,7 +334,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         {
           aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                      "The provided IP address does not resolve to a valid host. Technical details: " +
-                                         ex.getMessage ());
+                                                             ex.getMessage ());
         }
       }
 
@@ -351,16 +352,17 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         if (!"http".equals (aURL.getProtocol ()))
           aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                      "The provided logical address must use the 'http' protocol and may not use the '" +
-                                         aURL.getProtocol () +
-                                         "' protocol. According to the SMP specification, no other protocols than 'http' are allowed!");
+                                                            aURL.getProtocol () +
+                                                            "' protocol. According to the SMP specification, no other protocols than 'http' are allowed!");
         // -1 means default port
         if (aURL.getPort () != 80 && aURL.getPort () != -1)
           aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                      "The provided logical address must use the default http port 80 and not port " +
-                                         aURL.getPort () +
-                                         ". According to the SMP specification, no other ports are allowed!");
+                                                            aURL.getPort () +
+                                                            ". According to the SMP specification, no other ports are allowed!");
         if (StringHelper.hasText (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
-          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS, "The provided logical address may not contain a path (" +
+          aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
+                                     "The provided logical address may not contain a path (" +
                                                             aURL.getPath () +
                                                             ") because according to the SMP specifications it must run in the root (/) path!");
       }
@@ -432,7 +434,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
       if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                       CApp.PATTERN_SMP_ID);
+                                                 CApp.PATTERN_SMP_ID);
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (aKeyStoreFile,
                                                                                     sKeyStorePassword,
@@ -475,7 +477,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
     final FormErrors aFormErrors = new FormErrors ();
     final boolean bShowInput = true;
 
-    if (aWPEC.hasAction (ACTION_PERFORM))
+    if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
       if (aWPEC.hasSubAction (SUBACTION_SMP_REGISTER))
         _registerSMPtoSML (aWPEC, aFormErrors);
@@ -497,7 +499,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         aForm.setEncTypeFileUpload ().setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Register a new SMP to the SML. This must only be done once per SMP!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML, DEFAULT_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
+                                                                                                DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
@@ -521,8 +524,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
-        aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
-        aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, SUBACTION_SMP_REGISTER);
+        aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
+        aToolbar.addHiddenField (CPageParam.PARAM_SUBACTION, SUBACTION_SMP_REGISTER);
         aToolbar.addSubmitButton ("Register SMP at SML");
 
         aTabBox.addTab ("Register SMP to SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_REGISTER));
@@ -534,7 +537,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         aForm.setEncTypeFileUpload ().setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML, DEFAULT_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
+                                                                                                DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
@@ -558,8 +562,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
-        aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
-        aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, SUBACTION_SMP_UPDATE);
+        aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
+        aToolbar.addHiddenField (CPageParam.PARAM_SUBACTION, SUBACTION_SMP_UPDATE);
         aToolbar.addSubmitButton ("Update SMP at SML");
 
         aTabBox.addTab ("Update SMP at SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_UPDATE));
@@ -571,7 +575,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
         aForm.setEncTypeFileUpload ().setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Delete an existing SMP from the SML."));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML, DEFAULT_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
+                                                                                                DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
@@ -587,8 +592,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPageExt
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
-        aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_PERFORM);
-        aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, SUBACTION_SMP_DELETE);
+        aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
+        aToolbar.addHiddenField (CPageParam.PARAM_SUBACTION, SUBACTION_SMP_DELETE);
         aToolbar.addSubmitButton ("Delete SMP from SML");
 
         aTabBox.addTab ("Delete SMP from SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_DELETE));

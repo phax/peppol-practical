@@ -69,8 +69,8 @@ import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.login.CLogin;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
-import com.helger.photon.uicore.page.AbstractWebPageExt;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTablesLengthMenuList;
 import com.helger.photon.uictrls.datatables.EDataTablesFilterType;
@@ -131,8 +131,9 @@ public final class AppCommonUI
     final String sIDPassword = GlobalIDFactory.getNewStringID ();
     final String sIDErrorField = GlobalIDFactory.getNewStringID ();
 
-    final BootstrapForm aForm = new BootstrapForm (aLEC.getSelfHref (), bFullUI ? EBootstrapFormType.HORIZONTAL
-                                                                               : EBootstrapFormType.DEFAULT);
+    final BootstrapForm aForm = new BootstrapForm (aLEC.getSelfHref (),
+                                                   bFullUI ? EBootstrapFormType.HORIZONTAL
+                                                           : EBootstrapFormType.DEFAULT);
     aForm.setLeft (3);
 
     // Placeholder for error message
@@ -224,7 +225,7 @@ public final class AppCommonUI
                                         @Nonnull final String sObjectID)
   {
     return aWPEC.getLinkToMenuItem (sMenuItemID)
-                .add (CHCParam.PARAM_ACTION, AbstractWebPageExt.ACTION_VIEW)
+                .add (CHCParam.PARAM_ACTION, CPageParam.ACTION_VIEW)
                 .add (CHCParam.PARAM_OBJECT, sObjectID);
   }
 
@@ -263,7 +264,8 @@ public final class AppCommonUI
     {
       final IUser aTypedObj = (IUser) aObject;
       final String sRealDisplayName = sDisplayName != null ? sDisplayName
-                                                          : SecurityUtils.getUserDisplayName (aTypedObj, aDisplayLocale);
+                                                           : SecurityUtils.getUserDisplayName (aTypedObj,
+                                                                                               aDisplayLocale);
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())

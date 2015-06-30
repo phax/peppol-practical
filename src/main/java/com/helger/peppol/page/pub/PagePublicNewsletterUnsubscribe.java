@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.email.EmailAddressUtils;
 import com.helger.commons.string.StringHelper;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.html.HCEdit;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.crm.CRMSubscriberManager;
@@ -37,6 +36,7 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.validation.error.FormErrors;
@@ -57,7 +57,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPageExt
     final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
     final FormErrors aFormErrors = new FormErrors ();
 
-    if (aWPEC.hasAction (ACTION_SAVE))
+    if (aWPEC.hasAction (CPageParam.ACTION_SAVE))
     {
       final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
       ICRMSubscriber aCRMSubscriber = null;
@@ -97,7 +97,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPageExt
 
     // Toolbar
     final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
-    aToolbar.addHiddenField (CHCParam.PARAM_ACTION, ACTION_SAVE);
+    aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_SAVE);
     aToolbar.addSubmitButton ("Unsubscribe", EDefaultIcon.YES);
 
     aNodeList.addChild (aForm);

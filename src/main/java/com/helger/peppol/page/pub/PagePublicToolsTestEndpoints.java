@@ -26,7 +26,6 @@ import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.SimpleURL;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.IHCCell;
 import com.helger.html.hc.html.HCA;
 import com.helger.html.hc.html.HCEdit;
@@ -59,7 +58,7 @@ import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
-import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -85,7 +84,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                                                       @Nonnull final TestEndpoint aTestEndpoint)
   {
     return aWPEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO)
-                .add (CHCParam.PARAM_ACTION, ACTION_PERFORM)
+                .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_ISO6523, aTestEndpoint.getParticipantIDScheme ())
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantIDValue ())
                 .add (PagePublicToolsParticipantInformation.FIELD_SML, ESML.PRODUCTION.name ());
@@ -101,7 +100,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
   @Override
   protected void modifyViewToolbar (@Nonnull final WebPageExecutionContext aWPEC,
                                     @Nonnull final TestEndpoint aSelectedObject,
-                                    @Nonnull final IButtonToolbar <?> aToolbar)
+                                    @Nonnull final BootstrapButtonToolbar aToolbar)
   {
     aToolbar.addChild (new BootstrapButton ().setOnClick (_createParticipantInfoURL (aWPEC, aSelectedObject))
                                              .addChild ("Show participant information")
@@ -133,7 +132,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                                                                                        aSelectedObject.getDeletionDateTime (),
                                                                                        aSelectedObject.getDeletionUserID ())));
     }
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Company name").setCtrl (aSelectedObject.getCompanyName ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Company name")
+                                                 .setCtrl (aSelectedObject.getCompanyName ()));
     if (StringHelper.hasText (aSelectedObject.getContactPerson ()))
     {
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
@@ -179,31 +179,31 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
                                                                                              aSelectedObject == null ? null
-                                                                                                                    : aSelectedObject.getCompanyName ())))
+                                                                                                                     : aSelectedObject.getCompanyName ())))
                                                      .setHelpText ("The name of the company operating the test AccessPoint")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_COMPANY_NAME)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_CONTACT_PERSON,
                                                                                              aSelectedObject == null ? null
-                                                                                                                    : aSelectedObject.getContactPerson ())))
+                                                                                                                     : aSelectedObject.getContactPerson ())))
                                                      .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
                                                      .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_PARTICIPANT_ID_ISO6523,
                                                                                                                     aSelectedObject == null ? null
-                                                                                                                                           : aSelectedObject.getParticipantIDScheme ()),
+                                                                                                                                            : aSelectedObject.getParticipantIDScheme ()),
                                                                                                   aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISO6523)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE,
                                                                                              aSelectedObject == null ? null
-                                                                                                                    : aSelectedObject.getParticipantIDValue ())))
+                                                                                                                     : aSelectedObject.getParticipantIDValue ())))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
                                                      .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE,
                                                                                                                 aSelectedObject == null ? null
-                                                                                                                                       : aSelectedObject.getTransportProfile ()
-                                                                                                                                                        .getID ()),
+                                                                                                                                        : aSelectedObject.getTransportProfile ()
+                                                                                                                                                         .getID ()),
                                                                                               aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
   }
@@ -248,7 +248,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                                                                                  sParticipantIDValue,
                                                                                  eTransportProfile);
       if (aSameIDTestEndpoint != null && !aSameIDTestEndpoint.equals (aSelectedObject))
-        aFormErrors.addFieldError (FIELD_TRANSPORT_PROFILE, "Another test endpoint for " +
+        aFormErrors.addFieldError (FIELD_TRANSPORT_PROFILE,
+                                   "Another test endpoint for " +
                                                             sParticipantIDISO6523 +
                                                             ":" +
                                                             sParticipantIDValue +
@@ -338,8 +339,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
         aActionCell.addChild (new HCTextNode (" "));
 
         // Visible for all
-        aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC, aCurObject)).setTitle ("Show participant information")
-                                                                                     .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
+        aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC,
+                                                                  aCurObject)).setTitle ("Show participant information")
+                                                                              .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
       }
     aNodeList.addChild (aTable);
 
