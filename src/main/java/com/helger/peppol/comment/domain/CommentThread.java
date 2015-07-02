@@ -188,7 +188,7 @@ public final class CommentThread implements ICommentThread
   {
     if (o == this)
       return true;
-    if (!(o instanceof CommentThread))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CommentThread rhs = (CommentThread) o;
     return m_sID.equals (rhs.m_sID) && m_aTree.equals (rhs.m_aTree);

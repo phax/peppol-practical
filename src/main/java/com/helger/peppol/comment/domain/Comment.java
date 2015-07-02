@@ -272,7 +272,7 @@ public final class Comment implements IComment
   {
     if (o == this)
       return true;
-    if (!(o instanceof Comment))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Comment rhs = (Comment) o;
     return m_sID.equals (rhs.m_sID);
