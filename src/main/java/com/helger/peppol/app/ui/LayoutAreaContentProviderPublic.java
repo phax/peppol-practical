@@ -49,7 +49,7 @@ import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.html.HCTable;
 import com.helger.html.hc.html.HC_Target;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.AppUtils;
+import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.photon.basic.app.menu.ApplicationMenuTree;
@@ -195,7 +195,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     final ISimpleURL aLinkToStartPage = aLEC.getLinkToMenuItem (aLEC.getMenuTree ().getDefaultMenuItemID ());
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar (EBootstrapNavbarType.STATIC_TOP, true, aDisplayLocale);
-    aNavbar.addBrand (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO1).addChild (AppUtils.getApplicationTitle ()),
+    aNavbar.addBrand (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()),
                       aLinkToStartPage);
 
     _addNavbarLoginLogout (aLEC, aNavbar);

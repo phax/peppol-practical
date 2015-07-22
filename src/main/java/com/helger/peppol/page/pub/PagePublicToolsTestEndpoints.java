@@ -33,7 +33,7 @@ import com.helger.html.hc.html.HCRow;
 import com.helger.html.hc.html.HCTable;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
-import com.helger.peppol.app.AppUtils;
+import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.app.ui.AppCommonUI;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
@@ -144,7 +144,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                                                            ":" +
                                                            aSelectedObject.getParticipantIDValue ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Transport profile")
-                                                 .setCtrl (AppUtils.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
+                                                 .setCtrl (AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
                                                            " (" +
                                                            aSelectedObject.getTransportProfile ().getID () +
                                                            ")"));
@@ -220,11 +220,11 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
     final String sCompanyName = aWPEC.getAttributeAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.getAttributeAsString (FIELD_CONTACT_PERSON);
     final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_ISO6523);
-    final EPredefinedIdentifierIssuingAgency eAgency = AppUtils.getIdentifierIssuingAgencyOfID (sParticipantIDISO6523);
+    final EPredefinedIdentifierIssuingAgency eAgency = AppHelper.getIdentifierIssuingAgencyOfID (sParticipantIDISO6523);
     final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_VALUE);
     final String sTransportProfile = aWPEC.getAttributeAsString (FIELD_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-    final String sTransportProfileName = AppUtils.getSMPTransportProfileShortName (eTransportProfile);
+    final String sTransportProfileName = AppHelper.getSMPTransportProfileShortName (eTransportProfile);
 
     if (StringHelper.hasNoText (sCompanyName))
       aFormErrors.addFieldError (FIELD_COMPANY_NAME, "Please provide the company name");
@@ -323,7 +323,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
         final HCRow aRow = aTable.addBodyRow ();
         aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
         aRow.addCell (aCurObject.getCompanyName ());
-        aRow.addCell (AppUtils.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
+        aRow.addCell (AppHelper.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
 
         final IHCCell <?> aActionCell = aRow.addCell ();
         if (isActionAllowed (aWPEC, EWebPageFormAction.EDIT, aCurObject))

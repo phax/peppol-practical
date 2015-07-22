@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.html.hc.html.HCHtml;
-import com.helger.peppol.app.AppUtils;
+import com.helger.peppol.app.AppHelper;
 import com.helger.photon.basic.app.request.IRequestManager;
 import com.helger.photon.core.app.context.ISimpleWebExecutionContext;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
@@ -58,6 +58,6 @@ public class AppLayoutHTMLProvider extends AbstractLayoutManagerBasedLayoutHTMLP
   protected void fillHead (@Nonnull final ISimpleWebExecutionContext aSWEC, @Nonnull final HCHtml aHtml)
   {
     super.fillHead (aSWEC, aHtml);
-    aHtml.getHead ().setPageTitle (AppUtils.getApplicationTitle ());
+    aHtml.getHead ().setPageTitle (AppHelper.getApplicationTitle ());
   }
 }

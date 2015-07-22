@@ -29,7 +29,7 @@ import com.helger.html.hc.html.HCHead;
 import com.helger.html.hc.html.HCSpan;
 import com.helger.html.hc.html.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.AppUtils;
+import com.helger.peppol.app.AppHelper;
 import com.helger.photon.basic.security.login.LoggedInUserManager;
 import com.helger.photon.basic.security.user.IUser;
 import com.helger.photon.basic.security.util.SecurityUtils;
@@ -70,7 +70,7 @@ public final class LayoutAreaContentProviderSecure implements ILayoutAreaContent
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar (EBootstrapNavbarType.STATIC_TOP, true, aDisplayLocale);
     aNavbar.addBrand (new HCNodeList ().addChild (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO1)
-                                                               .addChild (AppUtils.getApplicationTitle ()))
+                                                               .addChild (AppHelper.getApplicationTitle ()))
                                        .addChild (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO2)
                                                                .addChild (" Administration")),
                       aLinkToStartPage);

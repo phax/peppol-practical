@@ -31,9 +31,9 @@ import com.helger.peppol.smp.ESMPTransportProfile;
  * @author Philip Helger
  */
 @Immutable
-public final class AppUtils
+public final class AppHelper
 {
-  private AppUtils ()
+  private AppHelper ()
   {}
 
   @Nonnull

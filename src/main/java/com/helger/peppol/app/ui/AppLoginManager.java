@@ -21,7 +21,7 @@ import java.util.Collection;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.ReturnsImmutableObject;
-import com.helger.peppol.app.AppUtils;
+import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CApp;
 import com.helger.photon.basic.security.login.ELoginResult;
 import com.helger.photon.bootstrap3.uictrls.ext.BootstrapLoginHTMLProvider;
@@ -33,7 +33,7 @@ public final class AppLoginManager extends LoginManager
   @Override
   protected IHTMLProvider createLoginScreen (final boolean bLoginError, @Nonnull final ELoginResult eLoginResult)
   {
-    return new BootstrapLoginHTMLProvider (bLoginError, eLoginResult, AppUtils.getApplicationTitle () +
+    return new BootstrapLoginHTMLProvider (bLoginError, eLoginResult, AppHelper.getApplicationTitle () +
                                                                       " Administration - Login");
   }
 
