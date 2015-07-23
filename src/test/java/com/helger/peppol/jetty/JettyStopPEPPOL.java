@@ -25,6 +25,8 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.charset.CCharset;
+
 public final class JettyStopPEPPOL
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (JettyStopPEPPOL.class);
@@ -37,7 +39,7 @@ public final class JettyStopPEPPOL
 
       final OutputStream out = s.getOutputStream ();
       s_aLogger.info ("Sending jetty stop request");
-      out.write ((JettyMonitor.STOP_KEY + "\r\nstop\r\n").getBytes ());
+      out.write ((JettyMonitor.STOP_KEY + "\r\nstop\r\n").getBytes (CCharset.CHARSET_ISO_8859_1_OBJ));
       out.flush ();
     }
     catch (final ConnectException ex)
