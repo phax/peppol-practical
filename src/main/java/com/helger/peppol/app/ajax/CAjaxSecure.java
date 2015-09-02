@@ -20,7 +20,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
 import com.helger.photon.core.ajax.decl.SecureApplicationAjaxFunctionDeclaration;
-import com.helger.photon.core.form.ajax.AjaxExecutorSaveFormState;
+import com.helger.photon.uicore.form.ajax.AjaxExecutorSaveFormState;
 
 /**
  * This class defines the available ajax functions for the config app

@@ -34,17 +34,17 @@ import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.country.CountryCache;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.text.impl.TextProvider;
-import com.helger.commons.xml.serialize.DOMReader;
+import com.helger.commons.text.util.TextHelper;
+import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.peppol.validation.domain.ValidationPyramidHelper;
 import com.helger.peppol.ws.types.EValidationServiceReturnCode;
 import com.helger.peppol.ws.types.ValidationServiceResult;
 import com.helger.peppol.ws.types.ValidationServiceResultItem;
 import com.helger.schematron.svrl.SVRLResourceError;
-import com.helger.web.scopes.mgr.WebScopeManager;
+import com.helger.web.scope.mgr.WebScopeManager;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import eu.europa.ec.cipa.validation.pyramid.ValidationPyramidResult;
@@ -56,16 +56,16 @@ import eu.europa.ec.cipa.validation.rules.EValidationSyntaxBinding;
 @WebService (endpointInterface = "com.helger.peppol.ws.IDocumentValidation")
 public class WSDocumentValidation implements IDocumentValidation
 {
-  private static final IStatisticsHandlerCounter s_aCounterTotal = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
-                                                                                                        "$total");
-  private static final IStatisticsHandlerCounter s_aCounterAPISuccess = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
-                                                                                                             "$api-success");
-  private static final IStatisticsHandlerCounter s_aCounterAPIError = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
-                                                                                                           "$api-error");
-  private static final IStatisticsHandlerCounter s_aCounterValidationSuccess = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
-                                                                                                                    "$validation-success");
-  private static final IStatisticsHandlerCounter s_aCounterValidationError = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
-                                                                                                                  "$validation-error");
+  private static final IMutableStatisticsHandlerCounter s_aCounterTotal = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
+                                                                                                               "$total");
+  private static final IMutableStatisticsHandlerCounter s_aCounterAPISuccess = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
+                                                                                                                    "$api-success");
+  private static final IMutableStatisticsHandlerCounter s_aCounterAPIError = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
+                                                                                                                  "$api-error");
+  private static final IMutableStatisticsHandlerCounter s_aCounterValidationSuccess = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
+                                                                                                                           "$validation-success");
+  private static final IMutableStatisticsHandlerCounter s_aCounterValidationError = StatisticsManager.getCounterHandler (WSDocumentValidation.class.getName () +
+                                                                                                                         "$validation-error");
 
   @Resource
   private WebServiceContext m_aWSContext;
@@ -94,9 +94,10 @@ public class WSDocumentValidation implements IDocumentValidation
 
       // Interprete parameters
       final Locale aCountry = StringHelper.hasText (sCountry) ? CountryCache.getInstance ().getCountry (sCountry)
-                                                             : null;
-      final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getLocale (sDisplayLocale)
-                                                                         : TextProvider.EN;
+                                                              : null;
+      final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ()
+                                                                                       .getLocale (sDisplayLocale)
+                                                                          : TextHelper.EN;
       Document aXMLDoc = null;
       try
       {

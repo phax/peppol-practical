@@ -21,18 +21,19 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
-import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.commons.string.StringParser;
 
 @Immutable
 public final class CommentMicroTypeConverter implements IMicroTypeConverter
 {
   private static final String ATTR_ID = "id";
-  private static final String ATTR_CREATIONDT = "creationdt";
-  private static final String ATTR_LASTMODDT = "lastmoddt";
+  private static final String ATTR_CREATIONLDT = "creationldt";
+  private static final String ATTR_LASTMODLDT = "lastmodldt";
   private static final String ATTR_HOST = "host";
   private static final String ATTR_STATE = "state";
   private static final String ATTR_EDITCOUNT = "editcount";
@@ -50,8 +51,8 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
 
     final IMicroElement eComment = new MicroElement (sNamespaceURI, sTagName);
     eComment.setAttribute (ATTR_ID, aComment.getID ());
-    eComment.setAttributeWithConversion (ATTR_CREATIONDT, aComment.getCreationDateTime ());
-    eComment.setAttributeWithConversion (ATTR_LASTMODDT, aComment.getLastModificationDateTime ());
+    eComment.setAttributeWithConversion (ATTR_CREATIONLDT, aComment.getCreationDateTime ());
+    eComment.setAttributeWithConversion (ATTR_LASTMODLDT, aComment.getLastModificationDateTime ());
     eComment.setAttribute (ATTR_HOST, aComment.getHost ());
     eComment.setAttribute (ATTR_STATE, aComment.getState ().getID ());
     eComment.setAttribute (ATTR_EDITCOUNT, aComment.getEditCount ());
@@ -67,8 +68,20 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   public Comment convertToNative (@Nonnull final IMicroElement eComment)
   {
     final String sCommentID = eComment.getAttributeValue (ATTR_ID);
-    final DateTime aCreationDT = eComment.getAttributeValueWithConversion (ATTR_CREATIONDT, DateTime.class);
-    final DateTime aLastModDT = eComment.getAttributeValueWithConversion (ATTR_LASTMODDT, DateTime.class);
+    LocalDateTime aCreationLDT = eComment.getAttributeValueWithConversion (ATTR_CREATIONLDT, LocalDateTime.class);
+    if (aCreationLDT == null)
+    {
+      final DateTime aCreationDT = eComment.getAttributeValueWithConversion ("creationdt", DateTime.class);
+      if (aCreationDT != null)
+        aCreationLDT = aCreationDT.toLocalDateTime ();
+    }
+    LocalDateTime aLastModLDT = eComment.getAttributeValueWithConversion (ATTR_LASTMODLDT, LocalDateTime.class);
+    if (aLastModLDT == null)
+    {
+      final DateTime aLastModDT = eComment.getAttributeValueWithConversion ("lastmoddt", DateTime.class);
+      if (aLastModDT != null)
+        aLastModLDT = aLastModDT.toLocalDateTime ();
+    }
 
     final String sHost = eComment.getAttributeValue (ATTR_HOST);
 
@@ -91,8 +104,8 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
 
     // Create comment
     return new Comment (sCommentID,
-                        aCreationDT,
-                        aLastModDT,
+                        aCreationLDT,
+                        aLastModLDT,
                         sHost,
                         eState,
                         nEditCount,

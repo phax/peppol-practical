@@ -21,10 +21,10 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotations.UsedViaReflection;
-import com.helger.commons.exceptions.InitializationException;
-import com.helger.commons.scopes.IScope;
-import com.helger.commons.scopes.singleton.GlobalSingleton;
+import com.helger.commons.annotation.UsedViaReflection;
+import com.helger.commons.exception.InitializationException;
+import com.helger.commons.scope.IScope;
+import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.testep.domain.TestEndpointManager;
@@ -35,7 +35,7 @@ import com.helger.photon.basic.app.dao.impl.DAOException;
  *
  * @author Philip Helger
  */
-public final class MetaManager extends GlobalSingleton
+public final class MetaManager extends AbstractGlobalSingleton
 {
   public static final String CRMGROUP_XML = "crm/group.xml";
   public static final String CRMSUBSCRIBER_XML = "crm/subscriber.xml";

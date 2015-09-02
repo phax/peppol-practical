@@ -18,8 +18,8 @@ package com.helger.peppol.app.ui;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.html.hc.html.HCHtml;
+import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.html.hc.html.root.HCHtml;
 import com.helger.peppol.app.AppHelper;
 import com.helger.photon.basic.app.request.IRequestManager;
 import com.helger.photon.core.app.context.ISimpleWebExecutionContext;

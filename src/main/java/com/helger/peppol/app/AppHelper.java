@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.smp.ESMPTransportProfile;

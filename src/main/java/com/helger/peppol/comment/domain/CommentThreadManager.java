@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,15 +27,15 @@ import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ReturnsImmutableObject;
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.annotations.UsedViaReflection;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.scopes.singleton.GlobalSingleton;
+import com.helger.commons.annotation.ReturnsImmutableObject;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.UsedViaReflection;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.ObjectType;
@@ -49,16 +47,15 @@ import com.helger.photon.basic.app.dao.impl.DAOException;
  * @author Philip Helger
  */
 @ThreadSafe
-public final class CommentThreadManager extends GlobalSingleton
+public final class CommentThreadManager extends AbstractGlobalSingleton
 {
-  private static final IStatisticsHandlerCounter s_aStatsCounterThreadAdd = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
-                                                                                                                 "$threadAdd");
-  private static final IStatisticsHandlerCounter s_aStatsCounterCommentAdd = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
-                                                                                                                  "$commentAdd");
-  private static final IStatisticsHandlerCounter s_aStatsCounterCommentRemove = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
-                                                                                                                     "$commentRemove");
+  private static final IMutableStatisticsHandlerCounter s_aStatsCounterThreadAdd = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+                                                                                                                        "$threadAdd");
+  private static final IMutableStatisticsHandlerCounter s_aStatsCounterCommentAdd = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+                                                                                                                         "$commentAdd");
+  private static final IMutableStatisticsHandlerCounter s_aStatsCounterCommentRemove = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+                                                                                                                            "$commentRemove");
 
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final Map <ObjectType, CommentThreadObjectTypeManager> m_aMap = new HashMap <ObjectType, CommentThreadObjectTypeManager> ();
 
@@ -76,7 +73,7 @@ public final class CommentThreadManager extends GlobalSingleton
   /**
    * Register an object type, for which comment threads may be created. This
    * must be done once at startup!
-   * 
+   *
    * @param aObjectType
    *        The object type to be registered. May not be <code>null</code>.
    */
@@ -140,7 +137,7 @@ public final class CommentThreadManager extends GlobalSingleton
     ValueEnforcer.notNull (aOwner, "Owner");
 
     // Get/create the object type comment manager
-    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getTypeID ());
+    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getObjectType ());
     if (aMgr == null)
       return null;
 
@@ -158,7 +155,7 @@ public final class CommentThreadManager extends GlobalSingleton
                                       @Nonnull final IComment aComment)
   {
     // Get/create the object type comment manager
-    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getTypeID ());
+    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getObjectType ());
     if (aMgr == null)
       return ESuccess.FAILURE;
 
@@ -176,7 +173,7 @@ public final class CommentThreadManager extends GlobalSingleton
                                      @Nonnull final ECommentState eNewState)
   {
     // Get/create the object type comment manager
-    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getTypeID ());
+    final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getObjectType ());
     if (aMgr == null)
       return EChange.UNCHANGED;
 
@@ -201,7 +198,7 @@ public final class CommentThreadManager extends GlobalSingleton
     if (aObject != null)
     {
       // Resolve appropriate manager
-      final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aObject.getTypeID ());
+      final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aObject.getObjectType ());
       if (aMgr != null)
         return aMgr.getAllCommentThreadsOfObject (aObject.getID ());
     }
@@ -214,7 +211,7 @@ public final class CommentThreadManager extends GlobalSingleton
   {
     ValueEnforcer.notNull (aObject, "Object");
 
-    return getCommentThreadOfID (aObject.getTypeID (), sCommentThreadID);
+    return getCommentThreadOfID (aObject.getObjectType (), sCommentThreadID);
   }
 
   @Nullable

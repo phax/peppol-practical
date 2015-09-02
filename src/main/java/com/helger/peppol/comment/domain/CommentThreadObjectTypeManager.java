@@ -27,23 +27,23 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ELockType;
-import com.helger.commons.annotations.MustBeLocked;
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.multimap.IMultiMapListBased;
-import com.helger.commons.collections.multimap.MultiHashMapArrayListBased;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.MustBeLocked;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.multimap.IMultiMapListBased;
+import com.helger.commons.collection.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
-import com.helger.commons.microdom.impl.MicroDocument;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ObjectType;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
-import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.photon.basic.security.audit.AuditHelper;
 
 /**
  * This class manages all comments of a certain object type.
@@ -69,7 +69,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
 
   public CommentThreadObjectTypeManager (@Nonnull final ObjectType aObjectType) throws DAOException
   {
-    super ("comments/" + aObjectType.getObjectTypeName () + ".xml");
+    super ("comments/" + aObjectType.getName () + ".xml");
     m_aObjectType = aObjectType;
     initialRead ();
   }
@@ -96,7 +96,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
   {
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
-    eRoot.setAttribute (ATTR_OBJECT_TYPE, m_aObjectType.getObjectTypeName ());
+    eRoot.setAttribute (ATTR_OBJECT_TYPE, m_aObjectType.getName ());
     for (final Map.Entry <String, List <ICommentThread>> aEntry : m_aObjectToCommentThreads.entrySet ())
     {
       final IMicroElement eItem = eRoot.appendElement (ELEMENT_ITEM);
@@ -150,7 +150,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     {
       m_aRWLock.writeLock ().unlock ();
     }
-    AuditUtils.onAuditCreateSuccess (CommentThread.TYPE_COMMENT_THREAD, sOwningObjectID, aCommentThread.getID ());
+    AuditHelper.onAuditCreateSuccess (CommentThread.TYPE_COMMENT_THREAD, sOwningObjectID, aCommentThread.getID ());
     return aCommentThread;
   }
 
@@ -182,11 +182,11 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       m_aRWLock.writeLock ().unlock ();
     }
 
-    AuditUtils.onAuditCreateSuccess (Comment.TYPE_COMMENT,
-                                     sOwningObjectID,
-                                     sCommentThreadID,
-                                     sParentCommentID,
-                                     aNewComment.getID ());
+    AuditHelper.onAuditCreateSuccess (Comment.TYPE_COMMENT,
+                                      sOwningObjectID,
+                                      sCommentThreadID,
+                                      sParentCommentID,
+                                      aNewComment.getID ());
     return ESuccess.SUCCESS;
   }
 
@@ -301,24 +301,24 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       final ICommentThread aCommentThread = m_aAllCommentThreads.get (sCommentThreadID);
       if (aCommentThread == null)
       {
-        AuditUtils.onAuditModifyFailure (Comment.TYPE_COMMENT,
-                                         "state",
-                                         "no-such-id",
-                                         sOwningObjectID,
-                                         sCommentThreadID,
-                                         sCommentID);
+        AuditHelper.onAuditModifyFailure (Comment.TYPE_COMMENT,
+                                          "state",
+                                          "no-such-id",
+                                          sOwningObjectID,
+                                          sCommentThreadID,
+                                          sCommentID);
         return EChange.UNCHANGED;
       }
 
       final List <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
       if (ret == null || !ret.contains (aCommentThread))
       {
-        AuditUtils.onAuditModifyFailure (Comment.TYPE_COMMENT,
-                                         "state",
-                                         "invalid-owner",
-                                         sOwningObjectID,
-                                         sCommentThreadID,
-                                         sCommentID);
+        AuditHelper.onAuditModifyFailure (Comment.TYPE_COMMENT,
+                                          "state",
+                                          "invalid-owner",
+                                          sOwningObjectID,
+                                          sCommentThreadID,
+                                          sCommentID);
         return EChange.UNCHANGED;
       }
 
@@ -332,7 +332,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       m_aRWLock.writeLock ().unlock ();
     }
 
-    AuditUtils.onAuditModifySuccess (Comment.TYPE_COMMENT, "state", sOwningObjectID, sCommentThreadID, sCommentID);
+    AuditHelper.onAuditModifySuccess (Comment.TYPE_COMMENT, "state", sOwningObjectID, sCommentThreadID, sCommentID);
     return EChange.CHANGED;
   }
 
@@ -349,7 +349,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       aRemovedCommentThreads = m_aObjectToCommentThreads.remove (sOwningObjectID);
       if (aRemovedCommentThreads == null)
       {
-        AuditUtils.onAuditDeleteFailure (CommentThread.TYPE_COMMENT_THREAD, "no-such-id", sOwningObjectID);
+        AuditHelper.onAuditDeleteFailure (CommentThread.TYPE_COMMENT_THREAD, "no-such-id", sOwningObjectID);
         return EChange.UNCHANGED;
       }
 
@@ -367,7 +367,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     }
 
     for (final ICommentThread aCommentThread : aRemovedCommentThreads)
-      AuditUtils.onAuditDeleteSuccess (CommentThread.TYPE_COMMENT_THREAD, sOwningObjectID, aCommentThread.getID ());
+      AuditHelper.onAuditDeleteSuccess (CommentThread.TYPE_COMMENT_THREAD, sOwningObjectID, aCommentThread.getID ());
     return EChange.CHANGED;
   }
 }

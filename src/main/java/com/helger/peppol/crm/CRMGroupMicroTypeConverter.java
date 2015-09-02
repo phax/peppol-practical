@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.impl.MicroElement;
+import com.helger.commons.microdom.MicroElement;
 import com.helger.photon.basic.object.AbstractObjectMicroTypeConverter;
 
 public class CRMGroupMicroTypeConverter extends AbstractObjectMicroTypeConverter

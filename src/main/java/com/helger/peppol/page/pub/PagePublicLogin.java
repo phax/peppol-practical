@@ -19,7 +19,7 @@ package com.helger.peppol.page.pub;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.ui.AppCommonUI;
 import com.helger.peppol.page.AbstractAppWebPage;

@@ -34,7 +34,7 @@ public interface IDocumentValidation
    * Execute the validation pyramid.<br>
    * Because of JAXB dependencies, @XmlElement (required = true) cannot be put
    * on all required parameters even though it makes sense.
-   * 
+   *
    * @param eSyntaxBinding
    *        Syntax binding to use. Required.
    * @param eDocType

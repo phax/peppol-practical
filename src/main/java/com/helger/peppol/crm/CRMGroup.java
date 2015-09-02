@@ -19,7 +19,7 @@ package com.helger.peppol.crm;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
@@ -48,7 +48,7 @@ public class CRMGroup extends AbstractObject implements ICRMGroup
   }
 
   @Nonnull
-  public ObjectType getTypeID ()
+  public ObjectType getObjectType ()
   {
     return OT_CRM_GROUP;
   }

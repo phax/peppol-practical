@@ -22,23 +22,23 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.mutable.MutableInt;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCH2;
+import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.page.AppPageViewExternal;
 import com.helger.photon.basic.app.menu.ApplicationMenuTree;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuObject;
 import com.helger.photon.basic.app.menu.IMenuTree;
-import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.photon.basic.security.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.core.app.CApplication;
+import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.AbstractWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
@@ -90,9 +90,11 @@ public final class PageSecureAdminAddons extends AbstractWebPage <WebPageExecuti
                           (aCounterNoNeed.isGreater0 () ? " On " +
                                                           aCounterNoNeed.intValue () +
                                                           " pages no action was necessary because they are set to reload every time."
-                                                       : "");
+                                                        : "");
       s_aLogger.info (sMsg);
-      AuditUtils.onAuditExecuteSuccess ("page-reload", aCounterUpdated.getAsInteger (), aCounterNoNeed.getAsInteger ());
+      AuditHelper.onAuditExecuteSuccess ("page-reload",
+                                         aCounterUpdated.getAsInteger (),
+                                         aCounterNoNeed.getAsInteger ());
       return new BootstrapSuccessBox ().addChild (sMsg);
     }
 
@@ -108,9 +110,9 @@ public final class PageSecureAdminAddons extends AbstractWebPage <WebPageExecuti
     aNodeList.addChild (_handleAction (aWPEC.getAction ()));
 
     aNodeList.addChild (new HCH2 ().addChild ("Cache handling"));
-    aNodeList.addChild (new HCDiv ().addChild (new BootstrapButton ().setOnClick (aWPEC.getSelfHref ()
-                                                                                       .add (CHCParam.PARAM_ACTION,
-                                                                                             ACTION_EXPIRE_PAGE_CACHE))
+    aNodeList.addChild (new HCDiv ().addChild (new BootstrapButton ().setOnClick (aWPEC.getSelfHref ().add (
+                                                                                                            CPageParam.PARAM_ACTION,
+                                                                                                            ACTION_EXPIRE_PAGE_CACHE))
                                                                      .addChild ("Expire static page cache")));
   }
 }

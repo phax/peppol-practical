@@ -21,7 +21,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.state.EContinue;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.ui.AppLoginManager;
@@ -29,7 +29,7 @@ import com.helger.photon.basic.security.AccessManager;
 import com.helger.photon.basic.security.login.LoggedInUserManager;
 import com.helger.photon.core.app.CApplication;
 import com.helger.photon.core.servlet.AbstractUnifiedResponseFilter;
-import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.web.servlet.response.UnifiedResponse;
 
 /**

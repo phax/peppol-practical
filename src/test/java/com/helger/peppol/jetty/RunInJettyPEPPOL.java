@@ -35,7 +35,7 @@ import org.eclipse.jetty.webapp.WebXmlConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.SystemProperties;
+import com.helger.commons.system.SystemProperties;
 import com.helger.peppol.utils.ConfigFile;
 
 /**

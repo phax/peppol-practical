@@ -38,30 +38,28 @@ import org.busdox.servicemetadata.publishing._1.ServiceMetadataType;
 import org.busdox.servicemetadata.publishing._1.SignedServiceMetadataType;
 import org.joda.time.LocalDate;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.compare.AbstractComparator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.datetime.PDTFactory;
 import com.helger.datetime.format.PDTToString;
-import com.helger.html.hc.api.EHCFormMethod;
-import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCCode;
-import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCH3;
-import com.helger.html.hc.html.HCLI;
-import com.helger.html.hc.html.HCStrong;
-import com.helger.html.hc.html.HCTextArea;
-import com.helger.html.hc.html.HCUL;
+import com.helger.html.hc.html.forms.EHCFormMethod;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.forms.HCTextArea;
+import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.grouping.HCUL;
+import com.helger.html.hc.html.grouping.IHCLI;
+import com.helger.html.hc.html.sections.HCH3;
+import com.helger.html.hc.html.textlevel.HCA;
+import com.helger.html.hc.html.textlevel.HCCode;
+import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.html.jquery.JQuery;
 import com.helger.html.js.EJSEvent;
-import com.helger.html.js.builder.jquery.JQuery;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.page.AbstractAppWebPage;
@@ -69,11 +67,11 @@ import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.peppol.smpclient.SMPClientReadonly;
-import com.helger.peppol.utils.BusdoxURLUtils;
-import com.helger.peppol.utils.CertificateUtils;
-import com.helger.peppol.utils.W3CEndpointReferenceUtils;
-import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.peppol.smpclient.SMPClientReadOnly;
+import com.helger.peppol.utils.BusdoxURLHelper;
+import com.helger.peppol.utils.CertificateHelper;
+import com.helger.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.photon.basic.security.audit.AuditHelper;
 import com.helger.photon.bootstrap3.EBootstrapIcon;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
@@ -96,7 +94,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_ID_VALUE = "idvalue";
   public static final String FIELD_SML = "sml";
 
-  public static final String DEFAULT_SML = ESML.PRODUCTION.name ();
+  public static final String DEFAULT_SML = ESML.DIGIT_PRODUCTION.name ();
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
@@ -129,7 +127,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         sParticipantIdentifierValue = sParticipantIDISO6523 + ":" + sParticipantIDValue;
-        if (!IdentifierUtils.isValidParticipantIdentifierValue (sParticipantIdentifierValue))
+        if (!IdentifierHelper.isValidParticipantIdentifierValue (sParticipantIdentifierValue))
           aFormErrors.addFieldError (FIELD_ID_VALUE,
                                      "The resulting participant identifier value '" +
                                                      sParticipantIdentifierValue +
@@ -142,7 +140,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         final SimpleParticipantIdentifier aParticipantID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
-        final SMPClientReadonly aSMPClient = new SMPClientReadonly (aParticipantID, eSML);
+        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aParticipantID, eSML);
         try
         {
           // URL always with a trailing slash
@@ -180,7 +178,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                               .getServiceMetadataReference ())
             {
-              final String sHref = BusdoxURLUtils.createPercentDecodedURL (aSMR.getHref ());
+              final String sHref = BusdoxURLHelper.createPercentDecodedURL (aSMR.getHref ());
               if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
                 aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
                                                     .addChild (new HCCode ().addChild (sHref)));
@@ -192,7 +190,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final String sHref = aEntry.getKey ();
               final String sOriginalHref = aEntry.getValue ();
 
-              final HCLI aLI = aUL.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
+              final IHCLI <?> aLI = aUL.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
               if (sHref.toLowerCase (Locale.US).startsWith (sCommonPrefix))
               {
                 final String sDocType = sHref.substring (sCommonPrefix.length ());
@@ -237,24 +235,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();
-            for (final SimpleDocumentTypeIdentifier aDocTypeID : CollectionHelper.getSorted (aDocTypeIDs,
-                                                                                             new AbstractComparator <IReadonlyDocumentTypeIdentifier> ()
-                                                                                             {
-                                                                                               @Override
-                                                                                               protected int mainCompare (final IReadonlyDocumentTypeIdentifier aElement1,
-                                                                                                                          final IReadonlyDocumentTypeIdentifier aElement2)
-
-                                                                                               {
-                                                                                                 int ret = aElement1.getScheme ()
-                                                                                                                    .compareTo (aElement2.getScheme ());
-                                                                                                 if (ret == 0)
-                                                                                                   ret = aElement1.getValue ()
-                                                                                                                  .compareTo (aElement2.getValue ());
-                                                                                                 return ret;
-                                                                                               }
-                                                                                             }))
+            for (final SimpleDocumentTypeIdentifier aDocTypeID : CollectionHelper.getSorted (aDocTypeIDs))
             {
-              final HCLI aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (aDocTypeID.getURIEncoded ())));
+              final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (aDocTypeID.getURIEncoded ())));
               final SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
                                                                                               aDocTypeID);
               if (aSSM != null)
@@ -268,15 +251,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   final HCUL aULProcessID = new HCUL ();
                   for (final ProcessType aProcess : aSM.getServiceInformation ().getProcessList ().getProcess ())
                   {
-                    final HCLI aLIProcessID = aULProcessID.addAndReturnItem (new HCDiv ().addChild ("Process ID: ")
-                                                                                         .addChild (new HCCode ().addChild (IdentifierUtils.getIdentifierURIEncoded (aProcess.getProcessIdentifier ()))));
+                    final IHCLI <?> aLIProcessID = aULProcessID.addAndReturnItem (new HCDiv ().addChild ("Process ID: ")
+                                                                                              .addChild (new HCCode ().addChild (IdentifierHelper.getIdentifierURIEncoded (aProcess.getProcessIdentifier ()))));
                     final HCUL aULEndpoint = new HCUL ();
                     // For all endpoints of the process
                     for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                     {
                       // Endpoint URL
-                      final HCLI aLIEndpoint = aULEndpoint.addAndReturnItem (new HCDiv ().addChild ("Endpoint URL: ")
-                                                                                         .addChild (new HCCode ().addChild (W3CEndpointReferenceUtils.getAddress (aEndpoint.getEndpointReference ()))));
+                      final IHCLI <?> aLIEndpoint = aULEndpoint.addAndReturnItem (new HCDiv ().addChild ("Endpoint URL: ")
+                                                                                              .addChild (new HCCode ().addChild (W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ()))));
 
                       // Valid from
                       if (aEndpoint.getServiceActivationDate () != null)
@@ -339,8 +322,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             final HCUL aULCerts = new HCUL ();
             for (final String sCertificate : aAllUsedCertifiactes)
             {
-              final HCLI aLICert = aULCerts.addItem ();
-              final X509Certificate aCert = CertificateUtils.convertStringToCertficate (sCertificate);
+              final IHCLI <?> aLICert = aULCerts.addItem ();
+              final X509Certificate aCert = CertificateHelper.convertStringToCertficate (sCertificate);
               if (aCert != null)
               {
                 aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
@@ -358,7 +341,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               }
               else
                 aLICert.addChild (new BootstrapErrorBox ().addChild ("Failed to interpret the data as a X509 certificate"));
-              aLICert.addChild (new HCDiv ().addChild (new HCTextArea ().setReadonly (true)
+              aLICert.addChild (new HCDiv ().addChild (new HCTextArea ().setReadOnly (true)
                                                                         .setRows (3)
                                                                         .setValue (sCertificate)
                                                                         .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE))));
@@ -367,7 +350,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
 
           // Audit success
-          AuditUtils.onAuditExecuteSuccess ("participate-information", aParticipantID.getURIEncoded ());
+          AuditHelper.onAuditExecuteSuccess ("participate-information", aParticipantID.getURIEncoded ());
         }
         catch (final UnknownHostException ex)
         {
@@ -378,10 +361,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                         ex.getMessage ())));
 
           // Audit failure
-          AuditUtils.onAuditExecuteFailure ("participate-information",
-                                            aParticipantID.getURIEncoded (),
-                                            "unknown-host",
-                                            ex.getMessage ());
+          AuditHelper.onAuditExecuteFailure ("participate-information",
+                                             aParticipantID.getURIEncoded (),
+                                             "unknown-host",
+                                             ex.getMessage ());
         }
         catch (final Exception ex)
         {
@@ -390,10 +373,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                         ex.getMessage ())));
 
           // Audit failure
-          AuditUtils.onAuditExecuteFailure ("participate-information",
-                                            aParticipantID.getURIEncoded (),
-                                            ex.getClass (),
-                                            ex.getMessage ());
+          AuditHelper.onAuditExecuteFailure ("participate-information",
+                                             aParticipantID.getURIEncoded (),
+                                             ex.getClass (),
+                                             ex.getMessage ());
         }
       }
     }
@@ -415,7 +398,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
                                                                              .setPlaceholder ("Identifier value");
         // In case something is selected, put it in the edit
-        aSelect.setEventHandler (EJSEvent.ONCHANGE, JQuery.idRef (aEdit).val (JQuery.jQueryThis ().val ()));
+        aSelect.setEventHandler (EJSEvent.CHANGE, JQuery.idRef (aEdit).val (JQuery.jQueryThis ().val ()));
 
         final BootstrapRow aRow = new BootstrapRow ();
         aRow.createColumn (6).addChild (aSelect);

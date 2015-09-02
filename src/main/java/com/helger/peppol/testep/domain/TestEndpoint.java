@@ -21,8 +21,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -107,7 +107,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   }
 
   @Nonnull
-  public ObjectType getTypeID ()
+  public ObjectType getObjectType ()
   {
     return TYPE_TEST_ENDPOINT;
   }
@@ -139,7 +139,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   @Nonnull
   public EChange setContactPerson (@Nullable final String sContactPerson)
   {
-    if (EqualsUtils.equals (sContactPerson, m_sContactPerson))
+    if (EqualsHelper.equals (sContactPerson, m_sContactPerson))
       return EChange.UNCHANGED;
 
     m_sContactPerson = sContactPerson;

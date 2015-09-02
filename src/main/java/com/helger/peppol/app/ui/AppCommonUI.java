@@ -22,28 +22,27 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.idfactory.GlobalIDFactory;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.css.property.CCSSProperties;
 import com.helger.datetime.format.PDTToString;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.IHCTable;
-import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCEditPassword;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.forms.HCEditPassword;
+import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.tabular.IHCTable;
+import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
-import com.helger.html.js.builder.JSAssocArray;
-import com.helger.html.js.builder.JSPackage;
-import com.helger.html.js.builder.jquery.JQuery;
+import com.helger.html.jquery.JQuery;
+import com.helger.html.jquery.JQueryAjaxBuilder;
+import com.helger.html.jscode.JSAssocArray;
+import com.helger.html.jscode.JSPackage;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.action.CActionPublic;
 import com.helger.peppol.app.ajax.CAjaxPublic;
@@ -55,7 +54,7 @@ import com.helger.photon.basic.security.AccessManager;
 import com.helger.photon.basic.security.role.IRole;
 import com.helger.photon.basic.security.user.IUser;
 import com.helger.photon.basic.security.usergroup.IUserGroup;
-import com.helger.photon.basic.security.util.SecurityUtils;
+import com.helger.photon.basic.security.util.SecurityHelper;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.button.EBootstrapButtonType;
@@ -66,25 +65,27 @@ import com.helger.photon.bootstrap3.pages.BootstrapPagesMenuConfigurator;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.bootstrap3.uictrls.datatables.IBootstrapDataTablesConfigurator;
 import com.helger.photon.core.EPhotonCoreText;
+import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.login.CLogin;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
-import com.helger.photon.uictrls.datatables.DataTablesLengthMenuList;
+import com.helger.photon.uictrls.datatables.DataTablesLengthMenu;
 import com.helger.photon.uictrls.datatables.EDataTablesFilterType;
 import com.helger.photon.uictrls.datatables.ajax.ActionExecutorDataTablesI18N;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTables;
-import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
+import com.helger.photon.uictrls.datatables.plugins.DataTablesPluginSearchHighlight;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 @Immutable
 public final class AppCommonUI
 {
-  private static final DataTablesLengthMenuList LENGTH_MENU = new DataTablesLengthMenuList ().addItem (25)
-                                                                                             .addItem (50)
-                                                                                             .addItem (100)
-                                                                                             .addItemAll ();
+  private static final DataTablesLengthMenu LENGTH_MENU = new DataTablesLengthMenu ().addItem (25)
+                                                                                     .addItem (50)
+                                                                                     .addItem (100)
+                                                                                     .addItemAll ();
 
   private AppCommonUI ()
   {}
@@ -95,20 +96,20 @@ public final class AppCommonUI
 
     BootstrapDataTables.setConfigurator (new IBootstrapDataTablesConfigurator ()
     {
-      public void configure (@Nonnull final IWebPageExecutionContext aWPEC,
+      public void configure (@Nonnull final ILayoutExecutionContext aLEC,
                              @Nonnull final IHCTable <?> aTable,
                              @Nonnull final BootstrapDataTables aDataTables)
       {
-        final IRequestWebScopeWithoutResponse aRequestScope = aWPEC.getRequestScope ();
+        final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
         aDataTables.setAutoWidth (false)
                    .setLengthMenu (LENGTH_MENU)
-                   .setUseJQueryAjax (true)
-                   .setAjaxSource (CAjaxPublic.DATATABLES.getInvocationURL (aRequestScope))
-                   .setServerParams (CollectionHelper.newMap (AjaxExecutorDataTables.OBJECT_ID, aTable.getID ()))
+                   .setAjaxBuilder (new JQueryAjaxBuilder ().url (CAjaxPublic.DATATABLES.getInvocationURL (aRequestScope))
+                                                            .data (new JSAssocArray ().add (AjaxExecutorDataTables.OBJECT_ID,
+                                                                                            aTable.getID ())))
                    .setServerFilterType (EDataTablesFilterType.ALL_TERMS_PER_ROW)
                    .setTextLoadingURL (CActionPublic.DATATABLES_I18N.getInvocationURL (aRequestScope),
                                        ActionExecutorDataTablesI18N.LANGUAGE_ID)
-                   .setUseSearchHighlight (true);
+                   .addPlugin (new DataTablesPluginSearchHighlight ());
       }
     });
 
@@ -172,7 +173,7 @@ public final class AppCommonUI
 
   @Nullable
   public static IHCNode getDTAndUser (@Nonnull final IWebPageExecutionContext aWPEC,
-                                      @Nullable final DateTime aDateTime,
+                                      @Nullable final LocalDateTime aDateTime,
                                       @Nullable final String sUserID)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -225,8 +226,8 @@ public final class AppCommonUI
                                         @Nonnull final String sObjectID)
   {
     return aWPEC.getLinkToMenuItem (sMenuItemID)
-                .add (CHCParam.PARAM_ACTION, CPageParam.ACTION_VIEW)
-                .add (CHCParam.PARAM_OBJECT, sObjectID);
+                .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_VIEW)
+                .add (CPageParam.PARAM_OBJECT, sObjectID);
   }
 
   @Nonnull
@@ -264,8 +265,8 @@ public final class AppCommonUI
     {
       final IUser aTypedObj = (IUser) aObject;
       final String sRealDisplayName = sDisplayName != null ? sDisplayName
-                                                           : SecurityUtils.getUserDisplayName (aTypedObj,
-                                                                                               aDisplayLocale);
+                                                           : SecurityHelper.getUserDisplayName (aTypedObj,
+                                                                                                aDisplayLocale);
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())

@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.type.ObjectType;
 import com.helger.photon.basic.security.CSecurity;
@@ -35,8 +35,8 @@ import com.helger.photon.basic.security.CSecurity;
 @Immutable
 public final class CApp
 {
-  public static final Locale LOCALE_DE = LocaleCache.getLocale ("de", "DE");
-  public static final Locale LOCALE_EN = LocaleCache.getLocale ("en", "US");
+  public static final Locale LOCALE_DE = LocaleCache.getInstance ().getLocale ("de", "DE");
+  public static final Locale LOCALE_EN = LocaleCache.getInstance ().getLocale ("en", "US");
   public static final Locale DEFAULT_LOCALE = LOCALE_EN;
 
   // Security roles

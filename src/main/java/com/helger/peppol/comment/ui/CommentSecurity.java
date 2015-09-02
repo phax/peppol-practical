@@ -20,7 +20,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.peppol.app.CApp;
 import com.helger.photon.basic.security.login.LoggedInUserManager;
-import com.helger.photon.basic.security.util.SecurityUtils;
+import com.helger.photon.basic.security.util.SecurityHelper;
 
 @Immutable
 public final class CommentSecurity
@@ -35,6 +35,6 @@ public final class CommentSecurity
 
   public static boolean isCurrentUserCommentModerator ()
   {
-    return SecurityUtils.hasCurrentUserRole (CApp.ROLE_COMMENT_MODERATOR_ID);
+    return SecurityHelper.hasCurrentUserRole (CApp.ROLE_COMMENT_MODERATOR_ID);
   }
 }

@@ -23,31 +23,31 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.css.property.CCSSProperties;
 import com.helger.html.css.DefaultCSSClassProvider;
 import com.helger.html.css.ICSSClassProvider;
-import com.helger.html.hc.IHCElement;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.api.EHCInputType;
-import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCCol;
-import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCForm;
-import com.helger.html.hc.html.HCH1;
-import com.helger.html.hc.html.HCHead;
-import com.helger.html.hc.html.HCHiddenField;
-import com.helger.html.hc.html.HCImg;
-import com.helger.html.hc.html.HCInput;
-import com.helger.html.hc.html.HCP;
-import com.helger.html.hc.html.HCRow;
-import com.helger.html.hc.html.HCSpan;
-import com.helger.html.hc.html.HCStrong;
-import com.helger.html.hc.html.HCTable;
 import com.helger.html.hc.html.HC_Target;
+import com.helger.html.hc.html.IHCElement;
+import com.helger.html.hc.html.embedded.HCImg;
+import com.helger.html.hc.html.forms.EHCInputType;
+import com.helger.html.hc.html.forms.HCForm;
+import com.helger.html.hc.html.forms.HCHiddenField;
+import com.helger.html.hc.html.forms.HCInput;
+import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.grouping.HCP;
+import com.helger.html.hc.html.metadata.HCHead;
+import com.helger.html.hc.html.sections.HCH1;
+import com.helger.html.hc.html.tabular.HCCol;
+import com.helger.html.hc.html.tabular.HCRow;
+import com.helger.html.hc.html.tabular.HCTable;
+import com.helger.html.hc.html.textlevel.HCA;
+import com.helger.html.hc.html.textlevel.HCSpan;
+import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CApp;
@@ -64,7 +64,7 @@ import com.helger.photon.basic.mgr.PhotonBasicManager;
 import com.helger.photon.basic.security.AccessManager;
 import com.helger.photon.basic.security.login.LoggedInUserManager;
 import com.helger.photon.basic.security.user.IUser;
-import com.helger.photon.basic.security.util.SecurityUtils;
+import com.helger.photon.basic.security.util.SecurityHelper;
 import com.helger.photon.bootstrap3.CBootstrapCSS;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.base.BootstrapContainer;
@@ -90,12 +90,12 @@ import com.helger.photon.core.app.layout.CLayout;
 import com.helger.photon.core.app.layout.ILayoutAreaContentProvider;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.photon.core.servlet.LogoutServlet;
-import com.helger.photon.core.url.LinkUtils;
+import com.helger.photon.core.url.LinkHelper;
 import com.helger.photon.uicore.UITextFormatter;
 import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
 import com.helger.photon.uicore.page.IWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 /**
  * The viewport renderer (menu + content area)
@@ -147,19 +147,19 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       final BootstrapNav aNav = new BootstrapNav ();
       aNav.addItem (new HCSpan ().addClass (CBootstrapCSS.NAVBAR_TEXT)
                                  .addChild ("Logged in as ")
-                                 .addChild (new HCStrong ().addChild (SecurityUtils.getUserDisplayName (aUser,
-                                                                                                        aDisplayLocale))));
+                                 .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser,
+                                                                                                         aDisplayLocale))));
       if (AccessManager.getInstance ().hasUserRole (aUser.getID (), CApp.ROLE_CONFIG_ID))
       {
         final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-        aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH))
+        aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH))
                                               .addChild ("Administration"));
         aNav.addItem (aForm);
       }
       {
         final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-        aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (aRequestScope,
-                                                                                        LogoutServlet.SERVLET_DEFAULT_PATH))
+        aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (aRequestScope,
+                                                                                         LogoutServlet.SERVLET_DEFAULT_PATH))
                                               .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
         aNav.addItem (aForm);
       }
@@ -242,7 +242,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                     .setExtent (1, 1));
     }
 
-    return HCNodeList.create (aMenu, aPayPal);
+    return new HCNodeList ().addChild (aMenu).addChild (aPayPal);
   }
 
   @SuppressWarnings ("unchecked")
@@ -293,7 +293,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                                                   ")" +
                                                                   (StringHelper.hasText (sHttpRequestURI) ? " for request URI " +
                                                                                                             sHttpRequestURI
-                                                                                                         : "")));
+                                                                                                          : "")));
     }
 
     final String sHeaderText = aDisplayPage.getHeaderText (aWPEC);
@@ -383,9 +383,15 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
         for (int i = 0; i < m_nFooterRowCount; ++i)
         {
           final HCRow aRow = aTable.addBodyRow ();
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, CollectionHelper.getSafe (m_aFooterObjectsCol1, i)));
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, CollectionHelper.getSafe (m_aFooterObjectsCol2, i)));
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, CollectionHelper.getSafe (m_aFooterObjectsCol3, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC,
+                                                   aRenderer,
+                                                   CollectionHelper.getSafe (m_aFooterObjectsCol1, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC,
+                                                   aRenderer,
+                                                   CollectionHelper.getSafe (m_aFooterObjectsCol2, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC,
+                                                   aRenderer,
+                                                   CollectionHelper.getSafe (m_aFooterObjectsCol3, i)));
         }
         aDiv.addChild (aTable);
       }

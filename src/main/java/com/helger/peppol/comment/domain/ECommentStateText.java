@@ -21,30 +21,31 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Translatable;
-import com.helger.commons.name.IHasDisplayText;
-import com.helger.commons.text.impl.TextProvider;
+import com.helger.commons.annotation.Translatable;
+import com.helger.commons.text.IMultilingualText;
+import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.resolve.DefaultTextResolver;
+import com.helger.commons.text.util.TextHelper;
 
 @Translatable
 public enum ECommentStateText implements IHasDisplayText
 {
-  TO_BE_APPROVED ("erwartet Freigabe", "to be approved"),
-  APPROVED ("freigegeben", "approved"),
-  REJECTED ("abgelehnt", "rejected"),
-  DELETED_BY_USER ("vom Benutzer gelöscht", "deleted by user"),
-  DELETED_BY_MODERATOR ("vom Moderator gelöscht", "deleted by moderator");
+ TO_BE_APPROVED ("erwartet Freigabe", "to be approved"),
+ APPROVED ("freigegeben", "approved"),
+ REJECTED ("abgelehnt", "rejected"),
+ DELETED_BY_USER ("vom Benutzer gelöscht", "deleted by user"),
+ DELETED_BY_MODERATOR ("vom Moderator gelöscht", "deleted by moderator");
 
-  private final TextProvider m_aTP;
+  private final IMultilingualText m_aTP;
 
   private ECommentStateText (@Nonnull final String sDE, @Nonnull final String sEN)
   {
-    m_aTP = TextProvider.create_DE_EN (sDE, sEN);
+    m_aTP = TextHelper.create_DE_EN (sDE, sEN);
   }
 
   @Nullable
   public String getDisplayText (@Nonnull final Locale aContentLocale)
   {
-    return DefaultTextResolver.getText (this, m_aTP, aContentLocale);
+    return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
   }
 }

@@ -18,14 +18,15 @@ package com.helger.peppol.page;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
-import com.helger.commons.io.IReadableResource;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.microdom.IMicroComment;
 import com.helger.commons.microdom.IMicroContainer;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.microdom.utils.MicroWalker;
+import com.helger.commons.microdom.util.MicroVisitor;
 import com.helger.commons.type.TypedObject;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.impl.HCNodeList;
@@ -40,10 +41,10 @@ import com.helger.photon.uicore.page.external.BasePageViewExternal;
 
 public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionContext>
 {
-  private static final class MyCleanser extends DefaultHierarchyWalkerCallback <IMicroNode>
+  private static final class MyCleanser extends DefaultHierarchyVisitorCallback <IMicroNode>
   {
     @Override
-    public void onItemBeforeChildren (final IMicroNode aItem)
+    public EHierarchyVisitorReturn onItemBeforeChildren (final IMicroNode aItem)
     {
       if (aItem instanceof IMicroComment)
       {
@@ -56,6 +57,7 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
           final IMicroElement e = (IMicroElement) aItem;
           e.setNamespaceURI (null);
         }
+      return EHierarchyVisitorReturn.CONTINUE;
     }
   }
 
@@ -66,7 +68,7 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
     super (sID, sName, aResource);
     // Do additional cleansing since the overloaded method is not called in the
     // ctor!
-    MicroWalker.walkNode (m_aParsedContent, new MyCleanser ());
+    MicroVisitor.visit (m_aParsedContent, new MyCleanser ());
   }
 
   @Override
@@ -74,7 +76,7 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
   {
     super.afterPageRead (aCont);
     // Do additional cleansing
-    MicroWalker.walkNode (aCont, new MyCleanser ());
+    MicroVisitor.visit (aCont, new MyCleanser ());
   }
 
   @Override

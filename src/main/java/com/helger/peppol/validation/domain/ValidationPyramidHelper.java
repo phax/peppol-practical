@@ -31,15 +31,15 @@ import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.impl.MicroDocument;
-import com.helger.commons.stats.IStatisticsHandlerCounter;
-import com.helger.commons.stats.IStatisticsHandlerTimer;
-import com.helger.commons.stats.StatisticsManager;
+import com.helger.commons.microdom.MicroDocument;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
-import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.photon.basic.security.audit.AuditHelper;
 import com.helger.schematron.svrl.SVRLResourceError;
-import com.helger.web.datetime.PDTWebDateUtils;
+import com.helger.web.datetime.PDTWebDateHelper;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import eu.europa.ec.cipa.validation.pyramid.ValidationPyramid2;
@@ -54,10 +54,10 @@ import eu.europa.ec.cipa.validation.rules.ValidationTransaction;
 @Immutable
 public final class ValidationPyramidHelper
 {
-  private static final IStatisticsHandlerCounter s_aStatsCount = StatisticsManager.getCounterHandler (ValidationPyramidHelper.class.getName () +
-                                                                                                      "$count");
-  private static final IStatisticsHandlerTimer s_aStatsDuration = StatisticsManager.getTimerHandler (ValidationPyramidHelper.class.getName () +
-                                                                                                     "$duration");
+  private static final IMutableStatisticsHandlerCounter s_aStatsCount = StatisticsManager.getCounterHandler (ValidationPyramidHelper.class.getName () +
+                                                                                                             "$count");
+  private static final IMutableStatisticsHandlerTimer s_aStatsDuration = StatisticsManager.getTimerHandler (ValidationPyramidHelper.class.getName () +
+                                                                                                            "$duration");
 
   private ValidationPyramidHelper ()
   {}
@@ -72,7 +72,7 @@ public final class ValidationPyramidHelper
   {
     s_aStatsCount.increment ();
 
-    final StopWatch aSW = new StopWatch (true);
+    final StopWatch aSW = StopWatch.createdStarted ();
     final ValidationPyramid2 aPyramid = ValidationPyramid2.createDefault (eDocType,
                                                                           new ValidationTransaction (eSyntaxBinding,
                                                                                                      eTransaction),
@@ -90,14 +90,14 @@ public final class ValidationPyramidHelper
     final ValidationPyramidResult aResult = aPyramid.applyValidation (new DOMSource (aXMLNode));
     final long nMillis = aSW.stopAndGetMillis ();
     s_aStatsDuration.addTime (nMillis);
-    AuditUtils.onAuditExecuteSuccess ("validation-pyramid",
-                                      eSyntaxBinding.getID (),
-                                      eDocType.getID (),
-                                      eTransaction.getID (),
-                                      aCountry,
-                                      Boolean.valueOf (bIndustrySpecificRules),
-                                      Integer.valueOf (aResult.getAggregatedResults ().getFailureCount ()),
-                                      Integer.valueOf (aResult.getAggregatedResults ().getErrorCount ()));
+    AuditHelper.onAuditExecuteSuccess ("validation-pyramid",
+                                       eSyntaxBinding.getID (),
+                                       eDocType.getID (),
+                                       eTransaction.getID (),
+                                       aCountry,
+                                       Boolean.valueOf (bIndustrySpecificRules),
+                                       Integer.valueOf (aResult.getAggregatedResults ().getFailureCount ()),
+                                       Integer.valueOf (aResult.getAggregatedResults ().getErrorCount ()));
     return aResult;
   }
 
@@ -114,7 +114,7 @@ public final class ValidationPyramidHelper
     // Header
     final IMicroElement eHeader = eRoot.appendElement ("header");
     eHeader.appendElement ("requestor").appendText (sRequestor);
-    eHeader.appendElement ("datetime").appendText (PDTWebDateUtils.getAsStringW3C (aDT));
+    eHeader.appendElement ("datetime").appendText (PDTWebDateHelper.getAsStringW3C (aDT));
     eHeader.appendElement ("duration").appendText (Long.toString (nDurationMillis));
     eHeader.appendElement ("requestsource").appendText (eRequestSource.getID ());
     // Result

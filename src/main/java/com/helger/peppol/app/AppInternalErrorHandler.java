@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 import org.quartz.Job;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.email.EmailAddress;
 import com.helger.photon.basic.app.dao.impl.AbstractDAO;
 import com.helger.photon.basic.app.request.ApplicationRequestManager;
@@ -38,8 +38,8 @@ import com.helger.photon.core.smtp.CNamedSMTPSettings;
 import com.helger.photon.core.smtp.NamedSMTPSettings;
 import com.helger.schedule.job.AbstractJob;
 import com.helger.schedule.job.IJobExceptionCallback;
-import com.helger.smtp.ISMTPSettings;
-import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
+import com.helger.smtp.settings.ISMTPSettings;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class AppInternalErrorHandler extends AbstractErrorCallback implements IJobExceptionCallback
 {

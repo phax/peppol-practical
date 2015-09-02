@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.photon.basic.mock.PhotonBasicTestRule;
 
@@ -45,7 +45,8 @@ public final class CRMGroupTest
     assertEquals ("Name", aGroup.getDisplayName ());
     assertEquals ("bla@foo.com", aGroup.getSenderEmailAddress ());
     // Only ID is relevant!
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aGroup, new CRMGroup ("Name", "bla@foo.com"));
-    PHTestUtils.testMicroTypeConversion (aGroup);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aGroup,
+                                                                           new CRMGroup ("Name", "bla@foo.com"));
+    CommonsTestHelper.testMicroTypeConversion (aGroup);
   }
 }

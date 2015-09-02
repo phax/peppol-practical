@@ -18,24 +18,16 @@ package com.helger.peppol.comment.domain;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.compare.AbstractComparator;
-import com.helger.commons.compare.ESortOrder;
+import org.joda.time.LocalDateTime;
 
-public class ComparatorCommentLastChange extends AbstractComparator <IComment>
+import com.helger.commons.compare.AbstractPartComparatorComparable;
+
+public class ComparatorCommentLastChange extends AbstractPartComparatorComparable <IComment, LocalDateTime>
 {
-  public ComparatorCommentLastChange ()
-  {
-    super ();
-  }
-
-  public ComparatorCommentLastChange (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
-
   @Override
-  protected int mainCompare (@Nonnull final IComment aElement1, @Nonnull final IComment aElement2)
+  @Nonnull
+  protected LocalDateTime getPart (@Nonnull final IComment aObject)
   {
-    return aElement1.getLastChangeDateTime ().compareTo (aElement2.getLastChangeDateTime ());
+    return aObject.getLastChangeDateTime ();
   }
 }

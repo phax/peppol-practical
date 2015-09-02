@@ -26,22 +26,22 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.email.EmailAddressUtils;
-import com.helger.commons.name.ComparatorHasDisplayName;
+import com.helger.commons.email.EmailAddressHelper;
+import com.helger.commons.name.CollatingComparatorHasDisplayName;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
-import com.helger.html.hc.IHCCell;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCRow;
-import com.helger.html.hc.html.HCTable;
-import com.helger.html.hc.htmlext.HCUtils;
+import com.helger.html.hc.ext.HCExtHelper;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.tabular.HCRow;
+import com.helger.html.hc.html.tabular.HCTable;
+import com.helger.html.hc.html.tabular.IHCCell;
+import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.masterdata.person.ESalutation;
@@ -70,8 +70,8 @@ import com.helger.photon.uicore.html.select.HCSalutationSelect;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
+import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.validation.error.FormErrors;
 
 public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubscriber>
@@ -141,7 +141,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     {
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
-                                                                   new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
+                                                                   new CollatingComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         aGroups.addChild (new HCDiv ().addChild (new HCA (createViewURL (aWPEC,
                                                                          CMenuSecure.MENU_CRM_GROUPS,
                                                                          aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
@@ -172,7 +172,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     if (StringHelper.hasNoText (sEmailAddress))
       aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "An email address must be provided!");
     else
-      if (!EmailAddressUtils.isValid (sEmailAddress))
+      if (!EmailAddressHelper.isValid (sEmailAddress))
         aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "The provided email address is invalid!");
       else
       {
@@ -253,7 +253,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
     {
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aCRMGroupMgr.getAllCRMGroups (),
-                                                                   new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
+                                                                   new CollatingComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
       {
         final String sCRMGroupID = aCRMGroup.getID ();
         final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
@@ -316,10 +316,10 @@ public final class PageSecureCRMSubscriber extends AbstractAppFormPage <ICRMSubs
                                                                                         " ",
                                                                                         aCurObject.getName ())));
       aRow.addCell (aCurObject.getEmailAddress ());
-      aRow.addCell (HCUtils.nl2divList (aCurObject.getAllAssignedGroups ()
-                                                  .stream ()
-                                                  .map ( (g) -> g.getDisplayName ())
-                                                  .collect (Collectors.joining ("\n"))));
+      aRow.addCell (HCExtHelper.nl2divList (aCurObject.getAllAssignedGroups ()
+                                                      .stream ()
+                                                      .map ( (g) -> g.getDisplayName ())
+                                                      .collect (Collectors.joining ("\n"))));
       final IHCCell <?> aActionCell = aRow.addCell ();
       aActionCell.addChildren (createEditLink (aWPEC, aCurObject),
                                new HCTextNode (" "),

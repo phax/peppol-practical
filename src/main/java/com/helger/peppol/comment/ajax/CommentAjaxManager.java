@@ -22,9 +22,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.annotations.UsedViaReflection;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.photon.core.ajax.AjaxInvoker;
@@ -36,8 +36,8 @@ import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
 import com.helger.photon.core.ajax.IAjaxInvoker;
 import com.helger.photon.core.ajax.IAjaxLongRunningExecutionCallback;
 import com.helger.photon.core.ajax.response.IAjaxResponse;
-import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
-import com.helger.web.scopes.singleton.GlobalWebSingleton;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.web.scope.singleton.AbstractGlobalWebSingleton;
 
 /**
  * The comment AJAX manager.
@@ -45,7 +45,7 @@ import com.helger.web.scopes.singleton.GlobalWebSingleton;
  * @author Philip Helger
  */
 @ThreadSafe
-public final class CommentAjaxManager extends GlobalWebSingleton implements IAjaxInvoker
+public final class CommentAjaxManager extends AbstractGlobalWebSingleton implements IAjaxInvoker
 {
   private final AjaxInvoker m_aInvoker = new AjaxInvoker ();
 
@@ -70,21 +70,21 @@ public final class CommentAjaxManager extends GlobalWebSingleton implements IAja
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public CallbackList <IAjaxExceptionCallback> getExceptionCallbacks ()
   {
     return m_aInvoker.getExceptionCallbacks ();
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public CallbackList <IAjaxBeforeExecutionCallback> getBeforeExecutionCallbacks ()
   {
     return m_aInvoker.getBeforeExecutionCallbacks ();
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public CallbackList <IAjaxAfterExecutionCallback> getAfterExecutionCallbacks ()
   {
     return m_aInvoker.getAfterExecutionCallbacks ();
@@ -101,7 +101,7 @@ public final class CommentAjaxManager extends GlobalWebSingleton implements IAja
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public CallbackList <IAjaxLongRunningExecutionCallback> getLongRunningExecutionCallbacks ()
   {
     return m_aInvoker.getLongRunningExecutionCallbacks ();
@@ -118,12 +118,6 @@ public final class CommentAjaxManager extends GlobalWebSingleton implements IAja
   public IAjaxFunctionDeclaration getRegisteredFunction (@Nullable final String sFunctionName)
   {
     return m_aInvoker.getRegisteredFunction (sFunctionName);
-  }
-
-  @Nullable
-  public IAjaxExecutor createExecutor (@Nullable final String sFunctionName)
-  {
-    return m_aInvoker.createExecutor (sFunctionName);
   }
 
   public boolean isRegisteredFunction (@Nullable final String sFunctionName)

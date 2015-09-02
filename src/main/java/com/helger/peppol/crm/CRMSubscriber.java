@@ -24,10 +24,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -67,7 +67,7 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   }
 
   @Nonnull
-  public ObjectType getTypeID ()
+  public ObjectType getObjectType ()
   {
     return OT_CRM_SUBSCRIBER;
   }
@@ -93,7 +93,7 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   @Nonnull
   public EChange setSalutation (@Nullable final ESalutation eSalutation)
   {
-    if (EqualsUtils.equals (eSalutation, m_eSalutation))
+    if (EqualsHelper.equals (eSalutation, m_eSalutation))
       return EChange.UNCHANGED;
     m_eSalutation = eSalutation;
     return EChange.CHANGED;
@@ -165,11 +165,9 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull Locale aContentLocale)
+  public String getDisplayText (@Nonnull final Locale aContentLocale)
   {
-    return StringHelper.getConcatenatedOnDemand (getSalutationDisplayName (aContentLocale),
-                                                 " ",
-                                                m_sName);
+    return StringHelper.getConcatenatedOnDemand (getSalutationDisplayName (aContentLocale), " ", m_sName);
   }
 
   @Override

@@ -24,19 +24,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
-import com.helger.commons.microdom.impl.MicroDocument;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
-import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.photon.basic.security.audit.AuditHelper;
 
 public final class TestEndpointManager extends AbstractSimpleDAO
 {
@@ -104,13 +104,13 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     {
       m_aRWLock.writeLock ().unlock ();
     }
-    AuditUtils.onAuditCreateSuccess (TestEndpoint.TYPE_TEST_ENDPOINT,
-                                     aTestEndpoint.getID (),
-                                     sCompanyName,
-                                     sContactPerson,
-                                     sParticipantIDScheme,
-                                     sParticipantIDValue,
-                                     eTransportProfile);
+    AuditHelper.onAuditCreateSuccess (TestEndpoint.TYPE_TEST_ENDPOINT,
+                                      aTestEndpoint.getID (),
+                                      sCompanyName,
+                                      sContactPerson,
+                                      sParticipantIDScheme,
+                                      sParticipantIDValue,
+                                      eTransportProfile);
     return aTestEndpoint;
   }
 
@@ -128,7 +128,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       final TestEndpoint aTestEndpoint = m_aMap.get (sTestEndpointID);
       if (aTestEndpoint == null)
       {
-        AuditUtils.onAuditModifyFailure (TestEndpoint.TYPE_TEST_ENDPOINT, sTestEndpointID, "no-such-id");
+        AuditHelper.onAuditModifyFailure (TestEndpoint.TYPE_TEST_ENDPOINT, sTestEndpointID, "no-such-id");
         return EChange.UNCHANGED;
       }
 
@@ -149,13 +149,13 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     {
       m_aRWLock.writeLock ().unlock ();
     }
-    AuditUtils.onAuditModifySuccess (TestEndpoint.TYPE_TEST_ENDPOINT,
-                                     sTestEndpointID,
-                                     sCompanyName,
-                                     sContactPerson,
-                                     sParticipantIDScheme,
-                                     sParticipantIDValue,
-                                     eTransportProfile);
+    AuditHelper.onAuditModifySuccess (TestEndpoint.TYPE_TEST_ENDPOINT,
+                                      sTestEndpointID,
+                                      sCompanyName,
+                                      sContactPerson,
+                                      sParticipantIDScheme,
+                                      sParticipantIDValue,
+                                      eTransportProfile);
     return EChange.CHANGED;
   }
 

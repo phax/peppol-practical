@@ -18,12 +18,12 @@ package com.helger.peppol.comment.ajax;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.photon.core.ajax.IAjaxInvoker;
 import com.helger.photon.core.ajax.servlet.AbstractAjaxServlet;
 import com.helger.photon.core.app.CApplication;
 import com.helger.photon.core.servletstatus.ServletStatusManager;
-import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 /**
  * Servlet that handles comment AJAX calls

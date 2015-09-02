@@ -23,27 +23,26 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.collections.NonBlockingStack;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.css.property.CCSSProperties;
 import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCSpan;
-import com.helger.html.hc.html.HCTextArea;
-import com.helger.html.hc.htmlext.HCUtils;
+import com.helger.html.hc.ext.HCExtHelper;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.html.js.builder.JSAnonymousFunction;
-import com.helger.html.js.builder.JSAssocArray;
-import com.helger.html.js.builder.JSExpr;
-import com.helger.html.js.builder.JSStatementList;
-import com.helger.html.js.builder.JSVar;
-import com.helger.html.js.builder.jquery.JQuery;
-import com.helger.html.js.builder.jquery.JQueryAjaxBuilder;
-import com.helger.html.js.builder.jquery.JQueryInvocation;
+import com.helger.html.jquery.JQuery;
+import com.helger.html.jquery.JQueryAjaxBuilder;
+import com.helger.html.jquery.JQueryInvocation;
+import com.helger.html.jscode.JSAnonymousFunction;
+import com.helger.html.jscode.JSAssocArray;
+import com.helger.html.jscode.JSExpr;
+import com.helger.html.jscode.JSStatementList;
+import com.helger.html.jscode.JSVar;
 import com.helger.peppol.comment.ajax.AjaxExecutorCommentAdd;
 import com.helger.peppol.comment.ajax.AjaxExecutorCommentCreateThread;
 import com.helger.peppol.comment.ajax.AjaxExecutorCommentDelete;
@@ -74,9 +73,9 @@ import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
 import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.icon.EDefaultIcon;
-import com.helger.photon.uicore.js.JSJQueryUtils;
+import com.helger.photon.uicore.js.JSJQueryHelper;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
-import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class CommentUI
 {
@@ -149,7 +148,7 @@ public final class CommentUI
 
               // Fill panel header
               final BootstrapPanel aCommentPanel = new BootstrapPanel (bIsApproved ? EBootstrapPanelType.DEFAULT
-                                                                                  : EBootstrapPanelType.DANGER);
+                                                                                   : EBootstrapPanelType.DANGER);
               final HCDiv aHeader = aCommentPanel.getOrCreateHeader ();
 
               // Is comment deleted?
@@ -220,8 +219,8 @@ public final class CommentUI
                   final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().cache (false)
                                                                                    .url (CAjaxComment.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
                                                                                    .data (new JSAssocArray ().add (AjaxExecutorCommentShowInput.PARAM_OBJECT_TYPE,
-                                                                                                                   aObject.getTypeID ()
-                                                                                                                          .getObjectTypeName ())
+                                                                                                                   aObject.getObjectType ()
+                                                                                                                          .getName ())
                                                                                                              .add (AjaxExecutorCommentShowInput.PARAM_OBJECT_ID,
                                                                                                                    aObject.getID ())
                                                                                                              .add (AjaxExecutorCommentShowInput.PARAM_COMMENT_THREAD_ID,
@@ -230,8 +229,8 @@ public final class CommentUI
                                                                                                                    aComment.getID ())
                                                                                                              .add (AjaxExecutorCommentShowInput.PARAM_RESULT_DIV_ID,
                                                                                                                    sResultDivID))
-                                                                                   .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
-                                                                                                                                     false))
+                                                                                   .success (JSJQueryHelper.jqueryAjaxSuccessHandler (aOnSuccess,
+                                                                                                                                      null))
                                                                                    .build ();
                   aResponseButton.setOnClick (aResponseAction);
                 }
@@ -256,16 +255,16 @@ public final class CommentUI
                   final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().cache (false)
                                                                                  .url (CAjaxComment.COMMENT_DELETE.getInvocationURL (aRequestScope))
                                                                                  .data (new JSAssocArray ().add (AjaxExecutorCommentDelete.PARAM_OBJECT_TYPE,
-                                                                                                                 aObject.getTypeID ()
-                                                                                                                        .getObjectTypeName ())
+                                                                                                                 aObject.getObjectType ()
+                                                                                                                        .getName ())
                                                                                                            .add (AjaxExecutorCommentDelete.PARAM_OBJECT_ID,
                                                                                                                  aObject.getID ())
                                                                                                            .add (AjaxExecutorCommentDelete.PARAM_COMMENT_THREAD_ID,
                                                                                                                  aCommentThread.getID ())
                                                                                                            .add (AjaxExecutorCommentDelete.PARAM_COMMENT_ID,
                                                                                                                  aComment.getID ()))
-                                                                                 .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess,
-                                                                                                                                   false))
+                                                                                 .success (JSJQueryHelper.jqueryAjaxSuccessHandler (aOnSuccess,
+                                                                                                                                    null))
                                                                                  .build ();
                   aDeleteButton.setOnClick (aDeleteAction);
                 }
@@ -285,8 +284,8 @@ public final class CommentUI
                 final String sLastModText = aComment.getEditCount () > 0 ? ECommentText.MSG_EDITED_AND_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
                                                                                                                                                  Integer.valueOf (aComment.getEditCount ()),
                                                                                                                                                  sLastModDT)
-                                                                        : ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
-                                                                                                                                     sLastModDT);
+                                                                         : ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
+                                                                                                                                      sLastModDT);
                 aHeader.addChild (new HCDiv ().addChild (sLastModText)
                                               .addClass (CCommentCSS.CSS_CLASS_COMMENT_LAST_MODIFICATION));
               }
@@ -296,7 +295,7 @@ public final class CommentUI
 
               // Always put the text as the first part of the body
               aCommentPanel.getBody ().addChild (0,
-                                                 new HCDiv ().addChildren (HCUtils.nl2brList (aComment.getText ()))
+                                                 new HCDiv ().addChildren (HCExtHelper.nl2brList (aComment.getText ()))
                                                              .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
               // the dummy container for new comment form
               aCommentPanel.getBody ().addChild (aCommentResponseContainer);
@@ -387,7 +386,7 @@ public final class CommentUI
                                                    .setCtrl (aEditAuthor)
                                                    .setHelpText (ECommentText.DESC_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
                                                    .setErrorList (aFormErrors == null ? null
-                                                                                     : aFormErrors.getListOfField (FIELD_COMMENT_AUTHOR)));
+                                                                                      : aFormErrors.getListOfField (FIELD_COMMENT_AUTHOR)));
     }
 
     final HCEdit aEditTitle = new HCEdit (new RequestField (FIELD_COMMENT_TITLE));
@@ -395,14 +394,14 @@ public final class CommentUI
                                                  .setCtrl (aEditTitle)
                                                  .setHelpText (ECommentText.DESC_FIELD_TITLE.getDisplayText (aDisplayLocale))
                                                  .setErrorList (aFormErrors == null ? null
-                                                                                   : aFormErrors.getListOfField (FIELD_COMMENT_TITLE)));
+                                                                                    : aFormErrors.getListOfField (FIELD_COMMENT_TITLE)));
 
-    final HCTextArea aTextAreaContent = new HCTextAreaAutosize (new RequestField (FIELD_COMMENT_TEXT)).setRows (5);
+    final HCTextAreaAutosize aTextAreaContent = new HCTextAreaAutosize (new RequestField (FIELD_COMMENT_TEXT)).setRows (5);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (ECommentText.MSG_FIELD_TEXT.getDisplayText (aDisplayLocale))
                                                  .setCtrl (aTextAreaContent)
                                                  .setHelpText (ECommentText.DESC_FIELD_TEXT.getDisplayText (aDisplayLocale))
                                                  .setErrorList (aFormErrors == null ? null
-                                                                                   : aFormErrors.getListOfField (FIELD_COMMENT_TEXT)));
+                                                                                    : aFormErrors.getListOfField (FIELD_COMMENT_TEXT)));
 
     final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aLEC);
     // What to do on save?
@@ -418,18 +417,18 @@ public final class CommentUI
         aSaveAction = new JQueryAjaxBuilder ().cache (false)
                                               .url (CAjaxComment.COMMENT_CREATE_THREAD.getInvocationURL (aRequestScope))
                                               .data (new JSAssocArray ().add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_TYPE,
-                                                                              aObject.getTypeID ().getObjectTypeName ())
+                                                                              aObject.getObjectType ().getName ())
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_ID,
                                                                               aObject.getID ())
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_AUTHOR,
                                                                               aLoggedInUser != null ? JSExpr.lit ("")
-                                                                                                   : JQuery.idRef (aEditAuthor)
-                                                                                                           .val ())
+                                                                                                    : JQuery.idRef (aEditAuthor)
+                                                                                                            .val ())
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_TITLE,
                                                                               JQuery.idRef (aEditTitle).val ())
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_TEXT,
                                                                               JQuery.idRef (aTextAreaContent).val ()))
-                                              .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess, false))
+                                              .success (JSJQueryHelper.jqueryAjaxSuccessHandler (aOnSuccess, null))
                                               .build ();
       }
       else
@@ -438,7 +437,7 @@ public final class CommentUI
         aSaveAction = new JQueryAjaxBuilder ().cache (false)
                                               .url (CAjaxComment.COMMENT_ADD.getInvocationURL (aRequestScope))
                                               .data (new JSAssocArray ().add (AjaxExecutorCommentAdd.PARAM_OBJECT_TYPE,
-                                                                              aObject.getTypeID ().getObjectTypeName ())
+                                                                              aObject.getObjectType ().getName ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_OBJECT_ID,
                                                                               aObject.getID ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_COMMENT_THREAD_ID,
@@ -449,13 +448,13 @@ public final class CommentUI
                                                                               aObject.getID ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_AUTHOR,
                                                                               aLoggedInUser != null ? JSExpr.lit ("")
-                                                                                                   : JQuery.idRef (aEditAuthor)
-                                                                                                           .val ())
+                                                                                                    : JQuery.idRef (aEditAuthor)
+                                                                                                            .val ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_TITLE,
                                                                               JQuery.idRef (aEditTitle).val ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_TEXT,
                                                                               JQuery.idRef (aTextAreaContent).val ()))
-                                              .success (JSJQueryUtils.jqueryAjaxSuccessHandler (aOnSuccess, false))
+                                              .success (JSJQueryHelper.jqueryAjaxSuccessHandler (aOnSuccess, null))
                                               .build ();
       }
       aToolbar.addButtonSave (aDisplayLocale, aSaveAction);
@@ -466,14 +465,15 @@ public final class CommentUI
     {
       // The create button
       aButtonCreate = new BootstrapButton ().addChild (ECommentText.MSG_CREATE_COMMENT.getDisplayText (aDisplayLocale));
-      aButtonCreate.setOnClick (new JSStatementList (JQuery.idRef (aFormContainer).show (), JQuery.jQueryThis ()
-                                                                                                  .disable ()));
+      aButtonCreate.setOnClick (new JSStatementList (JQuery.idRef (aFormContainer).show (),
+                                                     JQuery.jQueryThis ().disable ()));
     }
 
     // What to do on cancel?
     {
       final JSStatementList aCancelAction = new JSStatementList (JQuery.idRefMultiple (aEditTitle, aTextAreaContent)
-                                                                       .val (""), JQuery.idRef (aFormContainer).hide ());
+                                                                       .val (""),
+                                                                 JQuery.idRef (aFormContainer).hide ());
       if (aButtonCreate != null)
         aCancelAction.add (JQuery.idRef (aButtonCreate).enable ());
       if (aEditAuthor != null)

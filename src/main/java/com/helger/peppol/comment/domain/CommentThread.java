@@ -26,13 +26,14 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.state.EChange;
-import com.helger.commons.tree.utils.walk.TreeWalker;
+import com.helger.commons.tree.util.TreeVisitor;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.commons.type.ObjectType;
@@ -70,7 +71,7 @@ public final class CommentThread implements ICommentThread
   }
 
   @Nonnull
-  public ObjectType getTypeID ()
+  public ObjectType getObjectType ()
   {
     return TYPE_COMMENT_THREAD;
   }
@@ -83,7 +84,7 @@ public final class CommentThread implements ICommentThread
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public DefaultTreeWithGlobalUniqueID <String, IComment> getTree ()
   {
     return m_aTree;
@@ -166,21 +167,27 @@ public final class CommentThread implements ICommentThread
 
   public void iterateAllComments (@Nonnull final ICommentIterationCallback aCallback)
   {
-    TreeWalker.walkSubTree (m_aTree.getRootItem (),
-                            new DefaultHierarchyWalkerCallback <DefaultTreeItemWithID <String, IComment>> ()
-                            {
-                              @Override
-                              public void onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
-                              {
-                                aCallback.onCommentStart (getLevel (), aItem.getParent ().getData (), aItem.getData ());
-                              }
+    TreeVisitor.visitTreeItem (m_aTree.getRootItem (),
+                               new DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, IComment>> ()
+                               {
+                                 @Override
+                                 public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+                                 {
+                                   aCallback.onCommentStart (getLevel (),
+                                                             aItem.getParent ().getData (),
+                                                             aItem.getData ());
+                                   return EHierarchyVisitorReturn.CONTINUE;
+                                 }
 
-                              @Override
-                              public void onItemAfterChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
-                              {
-                                aCallback.onCommentEnd (getLevel (), aItem.getParent ().getData (), aItem.getData ());
-                              }
-                            });
+                                 @Override
+                                 public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+                                 {
+                                   aCallback.onCommentEnd (getLevel (),
+                                                           aItem.getParent ().getData (),
+                                                           aItem.getData ());
+                                   return EHierarchyVisitorReturn.CONTINUE;
+                                 }
+                               });
   }
 
   @Override

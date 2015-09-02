@@ -27,16 +27,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import com.helger.commons.annotations.DevelopersNote;
-import com.helger.commons.annotations.ReturnsMutableObject;
+import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.error.EErrorLevel;
 
 @XmlRootElement
 @XmlAccessorType (XmlAccessType.FIELD)
-@XmlType (name = "ValidationServiceResultType", propOrder = { "m_eReturnCode",
-                                                             "m_bValidationInterrupted",
-                                                             "m_eMostSeverErrorLevel",
-                                                             "m_aItems" })
+@XmlType (name = "ValidationServiceResultType",
+          propOrder = { "m_eReturnCode", "m_bValidationInterrupted", "m_eMostSeverErrorLevel", "m_aItems" })
 public final class ValidationServiceResult
 {
   @XmlElement (name = "ReturnCode", required = true)
@@ -84,7 +82,7 @@ public final class ValidationServiceResult
   }
 
   @Nonnull
-  @ReturnsMutableObject (reason = "JAXB Design")
+  @ReturnsMutableObject ("JAXB Design")
   @DevelopersNote ("Cannot change the name, because it must match JAXB naming conventions!")
   public List <ValidationServiceResultItem> getItems ()
   {

@@ -38,16 +38,16 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.url.URLUtils;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCEditFile;
-import com.helger.html.hc.html.HCEditPassword;
+import com.helger.commons.url.URLHelper;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.forms.HCEditFile;
+import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.page.AbstractAppWebPage;
@@ -57,8 +57,8 @@ import com.helger.peppol.smlclient.smp.BadRequestFault;
 import com.helger.peppol.smlclient.smp.InternalErrorFault;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppol.smlclient.smp.UnauthorizedFault;
-import com.helger.peppol.utils.KeyStoreUtils;
-import com.helger.photon.basic.security.audit.AuditUtils;
+import com.helger.peppol.utils.KeyStoreHelper;
+import com.helger.photon.basic.security.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
@@ -97,7 +97,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String SUBACTION_SMP_UPDATE = "smpupdate";
   private static final String SUBACTION_SMP_DELETE = "smpdelete";
 
-  private static final String DEFAULT_SML = ESML.PRODUCTION.name ();
+  private static final String DEFAULT_SML = ESML.DIGIT_PRODUCTION.name ();
 
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
   {
@@ -123,7 +123,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final InputStream aIS = aKeyStoreFile.getInputStream ();
         try
         {
-          aKeyStore = KeyStore.getInstance (KeyStoreUtils.KEYSTORE_TYPE_JKS);
+          aKeyStore = KeyStore.getInstance (KeyStoreHelper.KEYSTORE_TYPE_JKS);
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
         }
         catch (final KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException ex)
@@ -136,7 +136,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         }
         finally
         {
-          StreamUtils.close (aIS);
+          StreamHelper.close (aIS);
         }
       }
 
@@ -218,7 +218,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                  "A logical address must be provided in the form 'http://smp.example.org'!");
     else
     {
-      final URL aURL = URLUtils.getAsURL (sLogicalAddress);
+      final URL aURL = URLHelper.getAsURL (sLogicalAddress);
       if (aURL == null)
         aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                    "The provided logical address seems not be a URL! Please use the form 'http://smp.example.org'");
@@ -262,11 +262,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                  "' to the SML '" +
                                                                  eSML.getManagementServiceURL () +
                                                                  "'."));
-        AuditUtils.onAuditExecuteSuccess ("smp-sml-create",
-                                          sSMPID,
-                                          sPhysicalAddress,
-                                          sLogicalAddress,
-                                          eSML.getManagementServiceURL ());
+        AuditHelper.onAuditExecuteSuccess ("smp-sml-create",
+                                           sSMPID,
+                                           sPhysicalAddress,
+                                           sLogicalAddress,
+                                           eSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | ClientTransportException ex)
       {
@@ -280,13 +280,13 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                eSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
-        AuditUtils.onAuditExecuteFailure ("smp-sml-create",
-                                          sSMPID,
-                                          sPhysicalAddress,
-                                          sLogicalAddress,
-                                          eSML.getManagementServiceURL (),
-                                          ex.getClass (),
-                                          ex.getMessage ());
+        AuditHelper.onAuditExecuteFailure ("smp-sml-create",
+                                           sSMPID,
+                                           sPhysicalAddress,
+                                           sLogicalAddress,
+                                           eSML.getManagementServiceURL (),
+                                           ex.getClass (),
+                                           ex.getMessage ());
       }
     }
   }
@@ -343,7 +343,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                  "A logical address must be provided in the form 'http://smp.example.org'!");
     else
     {
-      final URL aURL = URLUtils.getAsURL (sLogicalAddress);
+      final URL aURL = URLHelper.getAsURL (sLogicalAddress);
       if (aURL == null)
         aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                    "The provided logical address seems not be a URL! Please use the form 'http://smp.example.org'");
@@ -387,11 +387,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                  "' at the SML '" +
                                                                  eSML.getManagementServiceURL () +
                                                                  "'."));
-        AuditUtils.onAuditExecuteSuccess ("smp-sml-update",
-                                          sSMPID,
-                                          sPhysicalAddress,
-                                          sLogicalAddress,
-                                          eSML.getManagementServiceURL ());
+        AuditHelper.onAuditExecuteSuccess ("smp-sml-update",
+                                           sSMPID,
+                                           sPhysicalAddress,
+                                           sLogicalAddress,
+                                           eSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
       {
@@ -405,13 +405,13 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                eSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
-        AuditUtils.onAuditExecuteFailure ("smp-sml-update",
-                                          sSMPID,
-                                          sPhysicalAddress,
-                                          sLogicalAddress,
-                                          eSML.getManagementServiceURL (),
-                                          ex.getClass (),
-                                          ex.getMessage ());
+        AuditHelper.onAuditExecuteFailure ("smp-sml-update",
+                                           sSMPID,
+                                           sPhysicalAddress,
+                                           sLogicalAddress,
+                                           eSML.getManagementServiceURL (),
+                                           ex.getClass (),
+                                           ex.getMessage ());
       }
     }
   }
@@ -451,7 +451,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                  "' from the SML '" +
                                                                  eSML.getManagementServiceURL () +
                                                                  "'."));
-        AuditUtils.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, eSML.getManagementServiceURL ());
+        AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, eSML.getManagementServiceURL ());
       }
       catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
       {
@@ -461,11 +461,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                eSML.getManagementServiceURL () +
                                                                "'. Technical details: " +
                                                                ex.getMessage ()));
-        AuditUtils.onAuditExecuteFailure ("smp-sml-delete",
-                                          sSMPID,
-                                          eSML.getManagementServiceURL (),
-                                          ex.getClass (),
-                                          ex.getMessage ());
+        AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
+                                           sSMPID,
+                                           eSML.getManagementServiceURL (),
+                                           ex.getClass (),
+                                           ex.getMessage ());
       }
     }
   }

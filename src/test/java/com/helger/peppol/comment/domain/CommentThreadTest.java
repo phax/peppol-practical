@@ -28,7 +28,7 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.serialize.MicroWriter;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.photon.basic.mock.PhotonBasicTestRule;
 
 /**
@@ -63,21 +63,23 @@ public final class CommentThreadTest
     assertEquals (1, aCommentThread.getTotalCommentCount ());
 
     // Add another comments into the thread
-    aCommentThread.addComment (aInitialComment, new Comment ("unittest",
-                                                             ECommentState.APPROVED,
-                                                             "userid",
-                                                             "creatorname",
-                                                             "title2",
-                                                             "text2"));
+    aCommentThread.addComment (aInitialComment,
+                               new Comment ("unittest",
+                                            ECommentState.APPROVED,
+                                            "userid",
+                                            "creatorname",
+                                            "title2",
+                                            "text2"));
     assertEquals (2, aCommentThread.getTotalCommentCount ());
 
     // Add another comments into the thread
-    final IComment aComment3 = aCommentThread.addComment (aInitialComment, new Comment ("unittest",
-                                                                                        ECommentState.APPROVED,
-                                                                                        "userid",
-                                                                                        "creatorname",
-                                                                                        "title3",
-                                                                                        "text3"));
+    final IComment aComment3 = aCommentThread.addComment (aInitialComment,
+                                                          new Comment ("unittest",
+                                                                       ECommentState.APPROVED,
+                                                                       "userid",
+                                                                       "creatorname",
+                                                                       "title3",
+                                                                       "text3"));
     assertEquals (3, aCommentThread.getTotalCommentCount ());
     assertSame (aComment3, aCommentThread.getCommentOfID (aComment3.getID ()));
 
@@ -85,6 +87,6 @@ public final class CommentThreadTest
       System.out.println (MicroWriter.getXMLString (MicroTypeConverter.convertToMicroElement (aCommentThread,
                                                                                               "commentthread")));
 
-    PHTestUtils.testMicroTypeConversion (aCommentThread);
+    CommonsTestHelper.testMicroTypeConversion (aCommentThread);
   }
 }

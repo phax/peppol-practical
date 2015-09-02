@@ -21,12 +21,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.hash.HashCodeGenerator;
-import com.helger.commons.idfactory.GlobalIDFactory;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ObjectType;
@@ -45,8 +45,8 @@ public final class Comment implements IComment
   public static final ObjectType TYPE_COMMENT = new ObjectType ("comment");
 
   private final String m_sID;
-  private final DateTime m_aCreationDT;
-  private DateTime m_aLastModDT;
+  private final LocalDateTime m_aCreationDT;
+  private LocalDateTime m_aLastModDT;
   private ECommentState m_eState;
   private int m_nEditCount;
   private int m_nSpamReportCount;
@@ -84,8 +84,8 @@ public final class Comment implements IComment
                   @Nonnull @Nonempty final String sText)
   {
     this (GlobalIDFactory.getNewPersistentStringID (),
-          PDTFactory.getCurrentDateTime (),
-          (DateTime) null,
+          PDTFactory.getCurrentLocalDateTime (),
+          (LocalDateTime) null,
           sHost,
           eState,
           0,
@@ -126,8 +126,8 @@ public final class Comment implements IComment
    *        comment Text
    */
   Comment (@Nonnull @Nonempty final String sID,
-           @Nonnull final DateTime aCreationDT,
-           @Nullable final DateTime aLastModDT,
+           @Nonnull final LocalDateTime aCreationDT,
+           @Nullable final LocalDateTime aLastModDT,
            @Nonnull @Nonempty final String sHost,
            @Nonnull final ECommentState eState,
            @Nonnegative final int nEditCount,
@@ -158,7 +158,7 @@ public final class Comment implements IComment
   }
 
   @Nonnull
-  public ObjectType getTypeID ()
+  public ObjectType getObjectType ()
   {
     return TYPE_COMMENT;
   }
@@ -171,19 +171,19 @@ public final class Comment implements IComment
   }
 
   @Nonnull
-  public DateTime getCreationDateTime ()
+  public LocalDateTime getCreationDateTime ()
   {
     return m_aCreationDT;
   }
 
   @Nullable
-  public DateTime getLastModificationDateTime ()
+  public LocalDateTime getLastModificationDateTime ()
   {
     return m_aLastModDT;
   }
 
   @Nonnull
-  public DateTime getLastChangeDateTime ()
+  public LocalDateTime getLastChangeDateTime ()
   {
     if (m_aLastModDT != null)
       return m_aLastModDT;
@@ -210,7 +210,7 @@ public final class Comment implements IComment
     if (eState.equals (m_eState))
       return EChange.UNCHANGED;
     m_eState = eState;
-    m_aLastModDT = PDTFactory.getCurrentDateTime ();
+    m_aLastModDT = PDTFactory.getCurrentLocalDateTime ();
     return EChange.CHANGED;
   }
 
@@ -228,7 +228,7 @@ public final class Comment implements IComment
   public void onCommentEdited ()
   {
     m_nEditCount++;
-    m_aLastModDT = PDTFactory.getCurrentDateTime ();
+    m_aLastModDT = PDTFactory.getCurrentLocalDateTime ();
   }
 
   @Nonnegative

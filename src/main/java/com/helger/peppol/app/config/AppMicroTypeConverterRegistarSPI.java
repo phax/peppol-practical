@@ -16,7 +16,7 @@
  */
 package com.helger.peppol.app.config;
 
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
 import com.helger.peppol.comment.domain.Comment;

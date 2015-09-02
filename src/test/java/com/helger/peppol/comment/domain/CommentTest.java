@@ -27,7 +27,7 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.microdom.serialize.MicroWriter;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.photon.basic.mock.PhotonBasicTestRule;
 
 /**
@@ -55,7 +55,7 @@ public final class CommentTest
     if (false)
       System.out.println (MicroWriter.getXMLString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
 
-    PHTestUtils.testDefaultSerialization (aComment);
-    PHTestUtils.testMicroTypeConversion (aComment);
+    CommonsTestHelper.testDefaultSerialization (aComment);
+    CommonsTestHelper.testMicroTypeConversion (aComment);
   }
 }

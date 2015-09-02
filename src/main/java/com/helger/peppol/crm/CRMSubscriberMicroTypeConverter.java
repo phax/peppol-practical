@@ -22,10 +22,10 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.id.ComparatorHasIDString;
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.impl.MicroElement;
+import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.string.StringHelper;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.mgr.MetaManager;
@@ -37,7 +37,6 @@ public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConv
   private static final String ATTR_NAME = "name";
   private static final String ATTR_EMAIL_ADDRESS = "emailaddress";
   private static final String ELEMENT_ASSIGNED_GROUP = "assignedgroup";
-  private static final String ATTR_ID = "id";
 
   @Nullable
   public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
@@ -51,7 +50,7 @@ public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConv
     aElement.setAttribute (ATTR_NAME, aValue.getName ());
     aElement.setAttribute (ATTR_EMAIL_ADDRESS, aValue.getEmailAddress ());
     for (final ICRMGroup aGroup : CollectionHelper.getSorted (aValue.getAllAssignedGroups (),
-                                                             new ComparatorHasIDString <ICRMGroup> ()))
+                                                              new ComparatorHasIDString <ICRMGroup> ()))
       aElement.appendElement (sNamespaceURI, ELEMENT_ASSIGNED_GROUP).setAttribute (ATTR_ID, aGroup.getID ());
     return aElement;
   }

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.peppol.wsclient.ETransaction;
 import com.helger.peppol.wsclient.EValidationDocumentType;
 import com.helger.peppol.wsclient.EValidationSyntaxBinding;
@@ -37,8 +37,8 @@ public final class WSDocumentValiationServiceTester
   public static void main (final String [] args)
   {
     s_aLogger.info ("Starting the engines");
-    final String sXML = StreamUtils.getAllBytesAsString (new ClassPathResource ("invoice1.xml"),
-                                                         CCharset.CHARSET_UTF_8_OBJ);
+    final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("invoice1.xml"),
+                                                          CCharset.CHARSET_UTF_8_OBJ);
 
     final WSDocumentValidationService aService = new WSDocumentValidationService ();
     final IDocumentValidation aPort = aService.getWSDocumentValidationPort ();

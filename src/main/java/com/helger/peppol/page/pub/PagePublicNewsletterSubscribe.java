@@ -24,14 +24,14 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.email.EmailAddressUtils;
-import com.helger.commons.name.ComparatorHasDisplayName;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.email.EmailAddressHelper;
+import com.helger.commons.name.CollatingComparatorHasDisplayName;
 import com.helger.commons.string.StringHelper;
-import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCHiddenField;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.forms.HCHiddenField;
+import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.crm.CRMGroupManager;
@@ -92,7 +92,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
       if (StringHelper.hasNoText (sEmailAddress))
         aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "You must provide your email address!");
       else
-        if (!EmailAddressUtils.isValid (sEmailAddress))
+        if (!EmailAddressHelper.isValid (sEmailAddress))
           aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "The provided email address is invalid!");
         else
         {
@@ -171,7 +171,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
         // Show selection
         final HCNodeList aGroups = new HCNodeList ();
         for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aAllCRMGroups,
-                                                                     new ComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
+                                                                     new CollatingComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
         {
           final String sCRMGroupID = aCRMGroup.getID ();
           final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,

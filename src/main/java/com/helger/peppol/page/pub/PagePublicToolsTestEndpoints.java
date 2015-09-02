@@ -21,16 +21,16 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.SimpleURL;
-import com.helger.html.hc.IHCCell;
-import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCRow;
-import com.helger.html.hc.html.HCTable;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.tabular.HCRow;
+import com.helger.html.hc.html.tabular.HCTable;
+import com.helger.html.hc.html.tabular.IHCCell;
+import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppHelper;
@@ -62,8 +62,8 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
+import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.validation.error.FormErrors;
 
 public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpoint>
@@ -87,7 +87,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpo
                 .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_ISO6523, aTestEndpoint.getParticipantIDScheme ())
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantIDValue ())
-                .add (PagePublicToolsParticipantInformation.FIELD_SML, ESML.PRODUCTION.name ());
+                .add (PagePublicToolsParticipantInformation.FIELD_SML, ESML.DIGIT_PRODUCTION.name ());
   }
 
   @Override

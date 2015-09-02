@@ -21,18 +21,18 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.url.ISimpleURL;
-import com.helger.html.hc.IHCElement;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.html.HCDiv;
-import com.helger.html.hc.html.HCForm;
-import com.helger.html.hc.html.HCHead;
-import com.helger.html.hc.html.HCSpan;
-import com.helger.html.hc.html.HCStrong;
+import com.helger.html.hc.html.IHCElement;
+import com.helger.html.hc.html.forms.HCForm;
+import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.metadata.HCHead;
+import com.helger.html.hc.html.textlevel.HCSpan;
+import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
 import com.helger.photon.basic.security.login.LoggedInUserManager;
 import com.helger.photon.basic.security.user.IUser;
-import com.helger.photon.basic.security.util.SecurityUtils;
+import com.helger.photon.basic.security.util.SecurityHelper;
 import com.helger.photon.bootstrap3.CBootstrapCSS;
 import com.helger.photon.bootstrap3.base.BootstrapContainer;
 import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
@@ -50,8 +50,8 @@ import com.helger.photon.core.app.layout.CLayout;
 import com.helger.photon.core.app.layout.ILayoutAreaContentProvider;
 import com.helger.photon.core.servlet.AbstractPublicApplicationServlet;
 import com.helger.photon.core.servlet.LogoutServlet;
-import com.helger.photon.core.url.LinkUtils;
-import com.helger.web.scopes.domain.IRequestWebScopeWithoutResponse;
+import com.helger.photon.core.url.LinkHelper;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 /**
  * The viewport renderer (menu + content area)
@@ -79,18 +79,18 @@ public final class LayoutAreaContentProviderSecure implements ILayoutAreaContent
     final IUser aUser = LoggedInUserManager.getInstance ().getCurrentUser ();
     aNav.addItem (new HCSpan ().addChild ("Logged in as ")
                                .addClass (CBootstrapCSS.NAVBAR_TEXT)
-                               .addChild (new HCStrong ().addChild (SecurityUtils.getUserDisplayName (aUser,
-                                                                                                      aDisplayLocale))));
+                               .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser,
+                                                                                                       aDisplayLocale))));
     {
       final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-      aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (AbstractPublicApplicationServlet.SERVLET_DEFAULT_PATH))
+      aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractPublicApplicationServlet.SERVLET_DEFAULT_PATH))
                                             .addChild ("Public area"));
       aNav.addItem (aForm);
     }
     {
       final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-      aForm.addChild (new BootstrapButton ().setOnClick (LinkUtils.getURLWithContext (aRequestScope,
-                                                                                      LogoutServlet.SERVLET_DEFAULT_PATH))
+      aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (aRequestScope,
+                                                                                       LogoutServlet.SERVLET_DEFAULT_PATH))
                                             .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
       aNav.addItem (aForm);
     }

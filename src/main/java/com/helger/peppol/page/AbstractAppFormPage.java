@@ -19,7 +19,7 @@ package com.helger.peppol.page;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPageForm;

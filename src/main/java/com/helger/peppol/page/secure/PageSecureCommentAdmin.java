@@ -25,21 +25,22 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.Translatable;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.Translatable;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.name.IHasDisplayText;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.text.impl.TextProvider;
+import com.helger.commons.text.IMultilingualText;
+import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.resolve.DefaultTextResolver;
+import com.helger.commons.text.util.TextHelper;
 import com.helger.commons.type.ObjectType;
 import com.helger.commons.type.TypedObject;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.datetime.format.PDTToString;
-import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCRow;
-import com.helger.html.hc.html.HCTable;
+import com.helger.html.hc.html.tabular.HCRow;
+import com.helger.html.hc.html.tabular.HCTable;
+import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.CommentThreadObjectTypeManager;
@@ -60,8 +61,8 @@ import com.helger.photon.uicore.html.toolbar.IButtonToolbar;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.AbstractWebPageForm;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
+import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.photon.uictrls.datatables.comparator.ComparatorDTDateTime;
 import com.helger.photon.uictrls.datatables.comparator.ComparatorDTInteger;
 
@@ -76,17 +77,17 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
    HEADER_ACTIVE_COMMENTS ("Aktive Einträge", "Active comments"),
    HEADER_LAST_CHANGE ("Letzte Änderung", "Last change");
 
-    private final TextProvider m_aTP;
+    private final IMultilingualText m_aTP;
 
     private EText (final String sDE, final String sEN)
     {
-      m_aTP = TextProvider.create_DE_EN (sDE, sEN);
+      m_aTP = TextHelper.create_DE_EN (sDE, sEN);
     }
 
     @Nullable
     public String getDisplayText (@Nonnull final Locale aContentLocale)
     {
-      return DefaultTextResolver.getText (this, m_aTP, aContentLocale);
+      return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
     }
   }
 
@@ -158,13 +159,13 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
                                             new DTCol (EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
                                                                                                                 .setComparator (new ComparatorDTDateTime (aDisplayLocale))
                                                                                                                 .setInitialSorting (ESortOrder.DESCENDING)).setID (getID () +
-                                                                                                                                                                   aOT.getObjectTypeName ());
+                                                                                                                                                                   aOT.getName ());
         final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
         for (final Map.Entry <String, List <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
         {
           final String sOwningObjectID = aEntry.getKey ();
-          final ISimpleURL aViewURL = AbstractWebPageForm.createViewURL (aWPEC, sOwningObjectID)
-                                                         .add (PARAM_TYPE, aOT.getObjectTypeName ());
+          final ISimpleURL aViewURL = AbstractWebPageForm.createViewURL (aWPEC, sOwningObjectID).add (PARAM_TYPE,
+                                                                                                      aOT.getName ());
 
           final HCRow aRow = aTable.addBodyRow ();
           aRow.addCell (new HCA (aViewURL).addChild (sOwningObjectID));
@@ -177,7 +178,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
             aAllComments.addAll (aCommentThread.getAllComments ());
             nActiveComments += aCommentThread.getTotalActiveCommentCount ();
           }
-          Collections.sort (aAllComments, new ComparatorCommentLastChange (ESortOrder.DESCENDING));
+          Collections.sort (aAllComments, new ComparatorCommentLastChange ().setSortOrder (ESortOrder.DESCENDING));
 
           aRow.addCell (Integer.toString (aAllComments.size ()));
           aRow.addCell (Integer.toString (nActiveComments));
@@ -192,7 +193,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
         final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
         aTab.addChild (aDataTables);
 
-        aTabBox.addTab (aOT.getObjectTypeName (), aTab, aOT.getObjectTypeName ().equals (sSelectedObjectType));
+        aTabBox.addTab (aOT.getName (), aTab, aOT.getName ().equals (sSelectedObjectType));
       }
 
       aNodeList.addChild (aTabBox);

@@ -20,10 +20,10 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.email.EmailAddressUtils;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.html.hc.html.HCEdit;
+import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
@@ -65,7 +65,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
       if (StringHelper.hasNoText (sEmailAddress))
         aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "You must provide your email address!");
       else
-        if (!EmailAddressUtils.isValid (sEmailAddress))
+        if (!EmailAddressHelper.isValid (sEmailAddress))
           aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "The provided email address is invalid!");
         else
         {

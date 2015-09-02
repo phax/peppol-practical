@@ -22,18 +22,17 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.email.EmailAddressUtils;
-import com.helger.commons.equals.EqualsUtils;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.email.EmailAddressHelper;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.datetime.PDTFactory;
-import com.helger.html.hc.CHCParam;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.html.AbstractHCForm;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCEditPassword;
-import com.helger.html.hc.html.HCStrong;
-import com.helger.html.hc.htmlext.HCUtils;
+import com.helger.html.hc.ext.HCExtHelper;
+import com.helger.html.hc.html.forms.AbstractHCForm;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.forms.HCEditPassword;
+import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.app.ui.AppCommonUI;
@@ -90,7 +89,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     if (StringHelper.hasNoText (sEmailAddress))
       aFormErrors.addFieldError (FIELD_EMAIL1, "An email address must be provded!!");
     else
-      if (!EmailAddressUtils.isValid (sEmailAddress))
+      if (!EmailAddressHelper.isValid (sEmailAddress))
         aFormErrors.addFieldError (FIELD_EMAIL1, "The provided email address is not valid!");
       else
         if (!sEmailAddress.equals (sEmailAddressConfirm))
@@ -112,7 +111,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     for (final String sPasswordError : aPasswordErrors)
       aFormErrors.addFieldError (FIELD_PASSWORD, "Error: " + sPasswordError);
     if (!aFormErrors.hasEntryForField (FIELD_PASSWORD) &&
-        !EqualsUtils.equals (sPlainTextPassword, sPlainTextPasswordConfirm))
+        !EqualsHelper.equals (sPlainTextPassword, sPlainTextPasswordConfirm))
       aFormErrors.addFieldError (FIELD_PASSWORD_CONFIRM, "The two provided passwords don't match!");
 
     if (aFormErrors.isEmpty ())
@@ -133,17 +132,17 @@ public final class PagePublicSignUp extends AbstractAppWebPage
                                                            (Map <String, ?>) null,
                                                            false);
       if (aCreatedUser == null)
-        aNodeList.addChild (BootstrapErrorBox.create ("Error creating the new user!"));
+        aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error creating the new user!"));
       else
       {
         // Assign new user to user group
         if (aAccessMgr.assignUserToUserGroup (CApp.USERGROUP_VIEW_ID, aCreatedUser.getID ()).isUnchanged ())
-          aNodeList.addChild (BootstrapErrorBox.create ("Error assigning the user to the user group!"));
+          aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error assigning the user to the user group!"));
         else
         {
-          aNodeList.addChild (BootstrapSuccessBox.create ("You have been registered successfully! You may now login with your email address '" +
-                                                          sEmailAddress +
-                                                          "' and the selected password."));
+          aNodeList.addChild (new BootstrapSuccessBox ().addChild ("You have been registered successfully! You may now login with your email address '" +
+                                                                   sEmailAddress +
+                                                                   "' and the selected password."));
           // Show login form
           aNodeList.addChild (AppCommonUI.createViewLoginForm (aWPEC, sEmailAddress, true, false));
         }
@@ -155,8 +154,8 @@ public final class PagePublicSignUp extends AbstractAppWebPage
                                 @Nonnull final AbstractHCForm <?> aForm,
                                 @Nonnull final FormErrors aFormErrors)
   {
-    final List <IHCNode> aPasswordHelpText = HCUtils.list2divList (GlobalPasswordSettings.getPasswordConstraintList ()
-                                                                                         .getAllPasswordConstraintDescriptions (aDisplayLocale));
+    final List <IHCNode> aPasswordHelpText = HCExtHelper.list2divList (GlobalPasswordSettings.getPasswordConstraintList ()
+                                                                                             .getAllPasswordConstraintDescriptions (aDisplayLocale));
 
     aForm.addChild (new BootstrapInfoBox ().addChild ("Sign up to ")
                                            .addChild (new HCStrong ().addChild ("PEPPOL practical"))
@@ -194,7 +193,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     final FormErrors aFormErrors = new FormErrors ();
     boolean bShowForm = true;
 
-    if (aWPEC.hasSubAction (CHCParam.ACTION_SAVE))
+    if (aWPEC.hasSubAction (CPageParam.ACTION_SAVE))
     {
       // try to save
       validateAndSaveInputParameters (aWPEC, aFormErrors);
@@ -213,8 +212,8 @@ public final class PagePublicSignUp extends AbstractAppWebPage
       showInputForm (aDisplayLocale, aForm, aFormErrors);
 
       final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aWPEC);
-      aToolbar.addHiddenField (CHCParam.PARAM_ACTION, CPageParam.ACTION_CREATE);
-      aToolbar.addHiddenField (CHCParam.PARAM_SUBACTION, CPageParam.ACTION_SAVE);
+      aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_CREATE);
+      aToolbar.addHiddenField (CPageParam.PARAM_SUBACTION, CPageParam.ACTION_SAVE);
       // Save button
       aToolbar.addSubmitButton ("Sign up now", EDefaultIcon.YES);
       aForm.addChild (aToolbar);

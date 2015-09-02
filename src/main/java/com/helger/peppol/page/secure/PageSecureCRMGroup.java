@@ -21,15 +21,15 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.email.EmailAddressUtils;
+import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
-import com.helger.html.hc.html.HCA;
-import com.helger.html.hc.html.HCEdit;
-import com.helger.html.hc.html.HCRow;
-import com.helger.html.hc.html.HCTable;
+import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.tabular.HCRow;
+import com.helger.html.hc.html.tabular.HCTable;
+import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.crm.CRMGroupManager;
@@ -47,8 +47,8 @@ import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.photon.uictrls.datatables.DTCol;
 import com.helger.photon.uictrls.datatables.DataTables;
+import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.validation.error.FormErrors;
 
 public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
@@ -101,7 +101,7 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     if (StringHelper.hasNoText (sSenderEmailAddress))
       aFormErrors.addFieldError (FIELD_SENDER_EMAIL_ADDRESS, "A sender email address must be provided!");
     else
-      if (!EmailAddressUtils.isValid (sSenderEmailAddress))
+      if (!EmailAddressHelper.isValid (sSenderEmailAddress))
         aFormErrors.addFieldError (FIELD_SENDER_EMAIL_ADDRESS, "The provided sender email address is invalid!");
 
     if (aFormErrors.isEmpty ())
@@ -133,12 +133,12 @@ public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_NAME,
                                                                                          aSelectedObject == null ? null
-                                                                                                                : aSelectedObject.getDisplayName ())))
+                                                                                                                 : aSelectedObject.getDisplayName ())))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_NAME)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Sender email address")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_SENDER_EMAIL_ADDRESS,
                                                                                          aSelectedObject == null ? null
-                                                                                                                : aSelectedObject.getSenderEmailAddress ())))
+                                                                                                                 : aSelectedObject.getSenderEmailAddress ())))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SENDER_EMAIL_ADDRESS)));
   }
 

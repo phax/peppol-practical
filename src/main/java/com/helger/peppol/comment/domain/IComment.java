@@ -22,14 +22,14 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.state.EChange;
 import com.helger.commons.type.ITypedObject;
-import com.helger.datetime.IHasCreationDateTime;
-import com.helger.datetime.IHasLastModificationDateTime;
+import com.helger.datetime.domain.IHasCreationDateTime;
+import com.helger.datetime.domain.IHasLastModificationDateTime;
 
 /**
  * Interface for a single comment object. It is not directly linked to the
@@ -102,7 +102,7 @@ public interface IComment extends ITypedObject <String>, IHasCreationDateTime, I
    *         time.
    */
   @Nonnull
-  DateTime getLastChangeDateTime ();
+  LocalDateTime getLastChangeDateTime ();
 
   /**
    * @return The user who created the comment. May be <code>null</code> for

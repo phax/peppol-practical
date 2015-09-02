@@ -30,8 +30,8 @@ import com.helger.peppol.page.pub.PagePublicToolsSMPSML;
 import com.helger.peppol.page.pub.PagePublicToolsTestEndpoints;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
-import com.helger.photon.basic.app.menu.filter.MenuItemFilterLoggedIn;
-import com.helger.photon.basic.app.menu.filter.MenuItemFilterNotLoggedIn;
+import com.helger.photon.basic.app.menu.filter.MenuObjectFilterNoUserLoggedIn;
+import com.helger.photon.basic.app.menu.filter.MenuObjectFilterUserLoggedIn;
 import com.helger.photon.bootstrap3.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
@@ -54,12 +54,14 @@ public final class MenuPublic
       final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_DOCS,
                                                                                                                  "Technical documentation",
                                                                                                                  aMenuTree));
-      aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_AP_PH,
-                                                             "Setup PEPPOL AP",
-                                                             new ClassPathResource ("viewpages/en/docs_setup_ap.xml")));
-      aMenuTree.createItem (aSetup, new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_CIPA,
-                                                             "Setup PEPPOL SMP - CIPA",
-                                                             new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_AP_PH,
+                                                     "Setup PEPPOL AP",
+                                                     new ClassPathResource ("viewpages/en/docs_setup_ap.xml")));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_CIPA,
+                                                     "Setup PEPPOL SMP - CIPA",
+                                                     new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_PH,
                                                      "Setup PEPPOL SMP - ph",
@@ -82,7 +84,8 @@ public final class MenuPublic
       final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_TOOLS,
                                                                                                                  "Tools",
                                                                                                                  aMenuTree));
-      aMenuTree.createItem (aSetup, new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
+      aMenuTree.createItem (aSetup,
+                            new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsSMPSML (CMenuPublic.MENU_TOOLS_SMP_SML));
       aMenuTree.createItem (aSetup, new PagePublicToolsTestEndpoints (CMenuPublic.MENU_TOOLS_TEST_ENDPOINTS));
     }
@@ -110,15 +113,15 @@ public final class MenuPublic
     // Register/Login stuff
     {
       aMenuTree.createRootItem (new PagePublicLogin (CMenuPublic.MENU_LOGIN))
-               .setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
+               .setDisplayFilter (new MenuObjectFilterNoUserLoggedIn ());
       aMenuTree.createRootItem (new PagePublicSignUp (CMenuPublic.MENU_SIGN_UP))
-               .setDisplayFilter (MenuItemFilterNotLoggedIn.getInstance ());
+               .setDisplayFilter (new MenuObjectFilterNoUserLoggedIn ());
     }
 
     // Logged in user stuff
     {
       aMenuTree.createRootItem (new BasePageSecurityChangePassword <WebPageExecutionContext> (CMenuPublic.MENU_CHANGE_PASSWORD))
-               .setDisplayFilter (MenuItemFilterLoggedIn.getInstance ());
+               .setDisplayFilter (new MenuObjectFilterUserLoggedIn ());
     }
 
     // Set default
