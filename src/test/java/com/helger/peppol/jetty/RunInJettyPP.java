@@ -45,9 +45,9 @@ import com.helger.peppol.utils.ConfigFile;
  * @author Philip Helger
  */
 @Immutable
-public final class RunInJettyPEPPOL
+public final class RunInJettyPP
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (RunInJettyPEPPOL.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (RunInJettyPP.class);
   private static final String RESOURCE_PREFIX = "target/webapp-classes";
 
   public static void main (final String [] args) throws Exception
@@ -82,7 +82,7 @@ public final class RunInJettyPEPPOL
     aWebAppCtx.setDescriptor (RESOURCE_PREFIX + "/WEB-INF/web.xml");
     aWebAppCtx.setResourceBase (RESOURCE_PREFIX);
     aWebAppCtx.setContextPath ("/");
-    aWebAppCtx.setTempDirectory (new File (SystemProperties.getTmpDir () + '/' + RunInJettyPEPPOL.class.getName ()));
+    aWebAppCtx.setTempDirectory (new File (SystemProperties.getTmpDir () + '/' + RunInJettyPP.class.getName ()));
     aWebAppCtx.setParentLoaderPriority (true);
     aWebAppCtx.setThrowUnavailableOnStartupException (true);
     aWebAppCtx.setCopyWebInf (true);

@@ -27,9 +27,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 
-public final class JettyStopPEPPOL
+public final class JettyStopPP
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JettyStopPEPPOL.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JettyStopPP.class);
 
   public static void main (final String [] args) throws IOException
   {
