@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
+<CodeList xmlns="http://docs.oasis-open.org/codelist/ns/genericode/1.0/">
+  <ns0:Identification xmlns:ns0="">
+    <ns0:ShortName>TaxSchemeID</ns0:ShortName>
+    <ns0:Version>D08B</ns0:Version>
+    <ns0:CanonicalUri>UN/ECE 5153 Subset</ns0:CanonicalUri>
+    <ns0:CanonicalVersionUri>UN/ECE 5153 Subset-D08B</ns0:CanonicalVersionUri>
+    <ns0:LocationUri>http://docs.oasis-open.org/ubl/os-ubl-2.0/cl/gc/default/TaxSchemeID-2.0.gc</ns0:LocationUri>
+  </ns0:Identification>
+  <ns0:ColumnSet xmlns:ns0="">
+    <ns0:Column ns0:Id="code" ns0:Use="required">
+      <ns0:ShortName>Code</ns0:ShortName>
+      <ns0:Data ns0:Type="normalizedString" />
+    </ns0:Column>
+    <ns0:Column ns0:Id="name" ns0:Use="optional">
+      <ns0:ShortName>Name</ns0:ShortName>
+      <ns0:Data ns0:Type="string" />
+    </ns0:Column>
+    <ns0:Key ns0:Id="codeKey">
+      <ns0:ShortName>CodeKey</ns0:ShortName>
+      <ns0:ColumnRef ns0:Ref="code" />
+    </ns0:Key>
+  </ns0:ColumnSet>
+  <ns0:SimpleCodeList xmlns:ns0="">
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAA</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Petroleum tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAB</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Provisional countervailing duty cash</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Provisional countervailing duty bond</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAD</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Tobacco tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAE</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Energy fee</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAF</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Coffee tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAG</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Harmonised sales tax, Canadian</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAH</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Quebec sales tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAI</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Canadian provincial sales tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAJ</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Tax on replacement part</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAK</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Mineral oil tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>AAL</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Special tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>ADD</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Anti-dumping duty</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>BOL</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Stamp duty (Imposta di Bollo)</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>CAP</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Agricultural levy</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>CAR</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Car tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>COC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Paper consortium tax (Italy)</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>CST</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Commodity specific tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>CUD</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Customs duty</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>CVD</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Countervailing duty</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>ENV</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Environmental tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>EXC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Excise duty</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>EXP</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Agricultural export rebate</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>FET</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Federal excise tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>FRE</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Free</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>GCN</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>General construction tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>GST</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Goods and services tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>ILL</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Illuminants tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>IMP</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Import tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>IND</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Individual tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>LAC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Business license fee</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>LCN</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Local construction tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>LDP</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Light dues payable</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>LOC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Local sales tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>LST</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Lust tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>MCA</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Monetary compensatory amount</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>MCD</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Miscellaneous cash deposit</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>OTH</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Other taxes</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>PDB</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Provisional duty bond</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>PDC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Provisional duty cash</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>PRF</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Preference duty</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>SCN</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Special construction tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>SSS</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Shifted social securities</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>STT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>State/provincial sales tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>SUP</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Suspended duty</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>SUR</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Surtax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>SWT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Shifted wage tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>TAC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Alcohol mark tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>TOT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Total</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>TOX</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Turnover tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>TTA</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Tonnage taxes</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>VAD</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Valuation deposit</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Value added tax</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+  </ns0:SimpleCodeList>
+</CodeList>
