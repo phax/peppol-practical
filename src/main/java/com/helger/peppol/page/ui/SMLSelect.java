@@ -24,11 +24,21 @@ import com.helger.photon.uicore.html.select.HCExtSelect;
 
 public class SMLSelect extends HCExtSelect
 {
+  @Nonnull
+  private static String _getPrefix (@Nonnull final ESML eSML)
+  {
+    if (eSML == ESML.DIGIT_PRODUCTION)
+      return "[SML] ";
+    if (eSML == ESML.DIGIT_TEST)
+      return "[SMK] ";
+    return "";
+  }
+
   public SMLSelect (@Nonnull final RequestField aRF)
   {
     super (aRF);
     for (final ESML eSML : ESML.values ())
       if (eSML.requiresClientCertificate ())
-        addOption (eSML.getID (), eSML.getManagementServiceURL ());
+        addOption (eSML.getID (), _getPrefix (eSML) + eSML.getManagementServiceURL ());
   }
 }
