@@ -90,8 +90,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String HELPTEXT_SMP_ID = "This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!";
   private static final String HELPTEXT_PHYSICAL_ADDRESS = "This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!";
   private static final String HELPTEXT_LOGICAL_ADDRESS = "This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!";
-  private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your PEPPOL SMP certificate is required to perform the action! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
-  private static final String HELPTEXT_KEYSTORE_PW = "The password of the JKS key store is required to access the content of the key store!";
+  private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your PEPPOL SMP certificate is required to perform the action! Remember to use the production keystore when accessing the SML and the pilot keystore when accessing the SMK! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
+  private static final String HELPTEXT_KEYSTORE_PW = "The password of the JKS key store is required to access the content of the key store! The password is neither logged nor stored anywhere and discarded after opening the keystore.";
 
   private static final String SUBACTION_SMP_REGISTER = "smpregister";
   private static final String SUBACTION_SMP_UPDATE = "smpupdate";
