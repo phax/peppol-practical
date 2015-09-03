@@ -27,6 +27,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,7 +40,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
@@ -90,7 +93,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String HELPTEXT_SMP_ID = "This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!";
   private static final String HELPTEXT_PHYSICAL_ADDRESS = "This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!";
   private static final String HELPTEXT_LOGICAL_ADDRESS = "This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!";
-  private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your PEPPOL SMP certificate is required to perform the action! Remember to use the production keystore when accessing the SML and the pilot keystore when accessing the SMK! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
+  private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your PEPPOL SMP key is required to perform the action! Remember to use the production keystore when accessing the SML and the pilot keystore when accessing the SMK! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
   private static final String HELPTEXT_KEYSTORE_PW = "The password of the JKS key store is required to access the content of the key store! The password is neither logged nor stored anywhere and discarded after opening the keystore.";
 
   private static final String SUBACTION_SMP_REGISTER = "smpregister";
@@ -102,6 +105,13 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
   {
     super (sID, "SMP - SML tools");
+  }
+
+  @Nonnull
+  @Nonempty
+  private static String _getTechnicalDetails (@Nonnull final Throwable t)
+  {
+    return " Technical details: " + ClassHelper.getClassLocalName (t) + " " + StringHelper.getNotNull (t.getMessage ());
   }
 
   @Nullable
@@ -125,14 +135,38 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         {
           aKeyStore = KeyStore.getInstance (KeyStoreHelper.KEYSTORE_TYPE_JKS);
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
-          s_aLogger.info ("Successfully loaded key store!");
+
+          final List <String> aAllAliases = CollectionHelper.newList (aKeyStore.aliases ());
+          s_aLogger.info ("Successfully loaded key store containing " + aAllAliases.size () + " aliases");
+
+          int nKeyCount = 0;
+          for (final String sAlias : aAllAliases)
+          {
+            final boolean bIsKeyEntry = aKeyStore.isKeyEntry (sAlias);
+            final boolean bIsCertificateEntry = aKeyStore.isCertificateEntry (sAlias);
+            s_aLogger.info ("  Alias '" +
+                            sAlias +
+                            "'" +
+                            (bIsKeyEntry ? " [key entry]" : "") +
+                            (bIsCertificateEntry ? " [certificate]" : ""));
+            if (bIsKeyEntry)
+              ++nKeyCount;
+          }
+
+          if (nKeyCount != 1)
+          {
+            aFormErrors.addFieldError (FIELD_KEYSTORE_PW,
+                                       "The keystore must contain exactly one key entry but " +
+                                                          nKeyCount +
+                                                          " key entries were found!");
+            aKeyStore = null;
+          }
         }
         catch (final KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException ex)
         {
-          aFormErrors.addFieldError (FIELD_KEYSTORE_PW,
-                                     "The key store could not be loaded with the provided password. Technical details: " +
-                                                        ex.getMessage ());
-          s_aLogger.error ("The key store could not be loaded with the provided password.", ex);
+          final String sMsg = "The key store could not be loaded with the provided password.";
+          s_aLogger.error (sMsg, ex);
+          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + _getTechnicalDetails (ex));
           aKeyStore = null;
         }
         finally
@@ -158,10 +192,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       }
       catch (final NoSuchAlgorithmException | KeyManagementException | UnrecoverableKeyException | KeyStoreException ex)
       {
-        aFormErrors.addFieldError (FIELD_KEYSTORE,
-                                   "Failed to use the provided key store for TLS connection. Technical details: " +
-                                                   ex.getMessage ());
-        s_aLogger.error ("Failed to use the provided key store for TLS connection.", ex);
+        final String sMsg = "Failed to use the provided key store for TLS connection.";
+        s_aLogger.error (sMsg, ex);
+        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + _getTechnicalDetails (ex));
       }
     }
     return aSocketFactory;
@@ -209,8 +242,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final UnknownHostException ex)
         {
           aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
-                                     "The provided IP address does not resolve to a valid host. Technical details: " +
-                                                             ex.getMessage ());
+                                     "The provided IP address does not resolve to a valid host." +
+                                                             _getTechnicalDetails (ex));
         }
       }
 
@@ -284,7 +317,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             eSML.getManagementServiceURL () +
                             "'.";
         s_aLogger.error (sMsg, ex);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + " Technical details: " + ex.getMessage ()));
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -338,8 +371,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final UnknownHostException ex)
         {
           aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
-                                     "The provided IP address does not resolve to a valid host. Technical details: " +
-                                                             ex.getMessage ());
+                                     "The provided IP address does not resolve to a valid host." +
+                                                             _getTechnicalDetails (ex));
         }
       }
 
@@ -413,7 +446,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             eSML.getManagementServiceURL () +
                             "'.";
         s_aLogger.error (sMsg, ex);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + " Technical details: " + ex.getMessage ()));
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -473,7 +506,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             eSML.getManagementServiceURL () +
                             "'.";
         s_aLogger.error (sMsg, ex);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + " Technical details: " + ex.getMessage ()));
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
                                            eSML.getManagementServiceURL (),
