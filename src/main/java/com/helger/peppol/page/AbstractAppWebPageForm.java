@@ -33,9 +33,9 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
  * @param <DATATYPE>
  *        The data type to be handled.
  */
-public abstract class AbstractAppFormPage <DATATYPE extends IHasID <String>> extends AbstractBootstrapWebPageForm <DATATYPE, WebPageExecutionContext>
+public abstract class AbstractAppWebPageForm <DATATYPE extends IHasID <String>> extends AbstractBootstrapWebPageForm <DATATYPE, WebPageExecutionContext>
 {
-  public AbstractAppFormPage (@Nonnull @Nonempty final String sID, @Nonnull final String sName)
+  public AbstractAppWebPageForm (@Nonnull @Nonempty final String sID, @Nonnull final String sName)
   {
     super (sID, sName);
   }

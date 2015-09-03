@@ -38,7 +38,7 @@ import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.app.ui.AppCommonUI;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.mgr.MetaManager;
-import com.helger.peppol.page.AbstractAppFormPage;
+import com.helger.peppol.page.AbstractAppWebPageForm;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.page.ui.SMPTransportProfileSelect;
 import com.helger.peppol.sml.ESML;
@@ -66,7 +66,7 @@ import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.validation.error.FormErrors;
 
-public class PagePublicToolsTestEndpoints extends AbstractAppFormPage <TestEndpoint>
+public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEndpoint>
 {
   private static final String FIELD_COMPANY_NAME = "companyname";
   private static final String FIELD_CONTACT_PERSON = "contactperson";

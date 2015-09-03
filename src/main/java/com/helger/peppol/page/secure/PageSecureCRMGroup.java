@@ -36,7 +36,7 @@ import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.mgr.MetaManager;
-import com.helger.peppol.page.AbstractAppFormPage;
+import com.helger.peppol.page.AbstractAppWebPageForm;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
@@ -51,7 +51,7 @@ import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.validation.error.FormErrors;
 
-public final class PageSecureCRMGroup extends AbstractAppFormPage <ICRMGroup>
+public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
 {
   private static final String FIELD_NAME = "name";
   private static final String FIELD_SENDER_EMAIL_ADDRESS = "senderemailaddress";
