@@ -125,6 +125,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         {
           aKeyStore = KeyStore.getInstance (KeyStoreHelper.KEYSTORE_TYPE_JKS);
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
+          s_aLogger.info ("Successfully loaded key store!");
         }
         catch (final KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException ex)
         {
@@ -253,33 +254,37 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       try
       {
         aCaller.create (sSMPID, sPhysicalAddress, sLogicalAddress);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully registered SMP '" +
-                                                                 sSMPID +
-                                                                 "' with physical address '" +
-                                                                 sPhysicalAddress +
-                                                                 "' and logical address '" +
-                                                                 sLogicalAddress +
-                                                                 "' to the SML '" +
-                                                                 eSML.getManagementServiceURL () +
-                                                                 "'."));
+
+        final String sMsg = "Successfully registered SMP '" +
+                            sSMPID +
+                            "' with physical address '" +
+                            sPhysicalAddress +
+                            "' and logical address '" +
+                            sLogicalAddress +
+                            "' to the SML '" +
+                            eSML.getManagementServiceURL () +
+                            "'.";
+        s_aLogger.info (sMsg);
+        aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-create",
                                            sSMPID,
                                            sPhysicalAddress,
                                            sLogicalAddress,
                                            eSML.getManagementServiceURL ());
       }
-      catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | ClientTransportException ex)
+      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | ClientTransportException ex)
       {
-        aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error registering SMP '" +
-                                                               sSMPID +
-                                                               "' with physical address '" +
-                                                               sPhysicalAddress +
-                                                               "' and logical address '" +
-                                                               sLogicalAddress +
-                                                               "' to the SML '" +
-                                                               eSML.getManagementServiceURL () +
-                                                               "'. Technical details: " +
-                                                               ex.getMessage ()));
+        final String sMsg = "Error registering SMP '" +
+                            sSMPID +
+                            "' with physical address '" +
+                            sPhysicalAddress +
+                            "' and logical address '" +
+                            sLogicalAddress +
+                            "' to the SML '" +
+                            eSML.getManagementServiceURL () +
+                            "'.";
+        s_aLogger.error (sMsg, ex);
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + " Technical details: " + ex.getMessage ()));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -378,33 +383,37 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       try
       {
         aCaller.update (sSMPID, sPhysicalAddress, sLogicalAddress);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully updated SMP '" +
-                                                                 sSMPID +
-                                                                 "' with physical address '" +
-                                                                 sPhysicalAddress +
-                                                                 "' and logical address '" +
-                                                                 sLogicalAddress +
-                                                                 "' at the SML '" +
-                                                                 eSML.getManagementServiceURL () +
-                                                                 "'."));
+
+        final String sMsg = "Successfully updated SMP '" +
+                            sSMPID +
+                            "' with physical address '" +
+                            sPhysicalAddress +
+                            "' and logical address '" +
+                            sLogicalAddress +
+                            "' at the SML '" +
+                            eSML.getManagementServiceURL () +
+                            "'.";
+        s_aLogger.info (sMsg);
+        aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update",
                                            sSMPID,
                                            sPhysicalAddress,
                                            sLogicalAddress,
                                            eSML.getManagementServiceURL ());
       }
-      catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
+      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
       {
-        aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error updating SMP '" +
-                                                               sSMPID +
-                                                               "' with physical address '" +
-                                                               sPhysicalAddress +
-                                                               "' and logical address '" +
-                                                               sLogicalAddress +
-                                                               "' to the SML '" +
-                                                               eSML.getManagementServiceURL () +
-                                                               "'. Technical details: " +
-                                                               ex.getMessage ()));
+        final String sMsg = "Error updating SMP '" +
+                            sSMPID +
+                            "' with physical address '" +
+                            sPhysicalAddress +
+                            "' and logical address '" +
+                            sLogicalAddress +
+                            "' to the SML '" +
+                            eSML.getManagementServiceURL () +
+                            "'.";
+        s_aLogger.error (sMsg, ex);
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + " Technical details: " + ex.getMessage ()));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -446,21 +455,25 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       try
       {
         aCaller.delete (sSMPID);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully deleted SMP '" +
-                                                                 sSMPID +
-                                                                 "' from the SML '" +
-                                                                 eSML.getManagementServiceURL () +
-                                                                 "'."));
+
+        final String sMsg = "Successfully deleted SMP '" +
+                            sSMPID +
+                            "' from the SML '" +
+                            eSML.getManagementServiceURL () +
+                            "'.";
+        s_aLogger.info (sMsg);
+        aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, eSML.getManagementServiceURL ());
       }
-      catch (BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
+      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
       {
-        aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error deleting SMP '" +
-                                                               sSMPID +
-                                                               "' from the SML '" +
-                                                               eSML.getManagementServiceURL () +
-                                                               "'. Technical details: " +
-                                                               ex.getMessage ()));
+        final String sMsg = "Error deleting SMP '" +
+                            sSMPID +
+                            "' from the SML '" +
+                            eSML.getManagementServiceURL () +
+                            "'.";
+        s_aLogger.error (sMsg, ex);
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + " Technical details: " + ex.getMessage ()));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
                                            eSML.getManagementServiceURL (),
