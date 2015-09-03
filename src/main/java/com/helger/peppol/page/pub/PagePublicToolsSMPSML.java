@@ -136,10 +136,13 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           aKeyStore = KeyStore.getInstance (KeyStoreHelper.KEYSTORE_TYPE_JKS);
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
+          // Get all aliases
           final List <String> aAllAliases = CollectionHelper.newList (aKeyStore.aliases ());
           s_aLogger.info ("Successfully loaded key store containing " + aAllAliases.size () + " aliases");
 
+          // Check key and certificate count
           int nKeyCount = 0;
+          int nCertificateCount = 0;
           for (final String sAlias : aAllAliases)
           {
             final boolean bIsKeyEntry = aKeyStore.isKeyEntry (sAlias);
@@ -151,14 +154,19 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             (bIsCertificateEntry ? " [certificate]" : ""));
             if (bIsKeyEntry)
               ++nKeyCount;
+            if (bIsCertificateEntry)
+              ++nCertificateCount;
           }
 
           if (nKeyCount != 1)
           {
-            aFormErrors.addFieldError (FIELD_KEYSTORE_PW,
-                                       "The keystore must contain exactly one key entry but " +
-                                                          nKeyCount +
-                                                          " key entries were found!");
+            final String sMsg = "The keystore must contain exactly one key entry but " +
+                                nKeyCount +
+                                " key entries and " +
+                                nCertificateCount +
+                                " certificate entries were found!";
+            s_aLogger.error (sMsg);
+            aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg);
             aKeyStore = null;
           }
         }
