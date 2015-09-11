@@ -68,7 +68,6 @@ import com.helger.photon.basic.security.util.SecurityHelper;
 import com.helger.photon.bootstrap3.CBootstrapCSS;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.base.BootstrapContainer;
-import com.helger.photon.bootstrap3.base.BootstrapContainerFluid;
 import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
 import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
@@ -367,7 +366,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
 
     // Footer
     {
-      final BootstrapContainerFluid aDiv = new BootstrapContainerFluid ().setID (CLayout.LAYOUT_AREAID_FOOTER);
+      final BootstrapContainer aDiv = new BootstrapContainer ().setFluid (true).setID (CLayout.LAYOUT_AREAID_FOOTER);
 
       aDiv.addChild (new HCP ().addChild ("PEPPOL practical - created by Philip Helger")
                                .addChild (" - GitHub: ")
