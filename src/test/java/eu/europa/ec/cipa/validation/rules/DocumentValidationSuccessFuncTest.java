@@ -74,9 +74,9 @@ import oasis.names.specification.ubl.schema.xsd.orderresponsesimple_2.OrderRespo
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class FuncTestDocumentValidationSuccess
+public final class DocumentValidationSuccessFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FuncTestDocumentValidationSuccess.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (DocumentValidationSuccessFuncTest.class);
 
   @Test
   public void testReadCataloguesSuccess ()

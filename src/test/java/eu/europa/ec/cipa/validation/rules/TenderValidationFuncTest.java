@@ -62,9 +62,8 @@ import eu.europa.ec.cipa.test.TestFiles;
 import oasis.names.specification.ubl.schema.xsd.callfortenders_21.CallForTendersType;
 import oasis.names.specification.ubl.schema.xsd.tender_21.TenderType;
 
-public class FuncTestTenderValidation
+public final class TenderValidationFuncTest
 {
-
   private static final boolean DEBUG = false;
 
   @Test

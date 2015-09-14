@@ -51,9 +51,11 @@ import com.helger.schematron.xslt.SchematronResourceXSLT;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EValidationArtefactTest {
+public final class EValidationArtefactTest
+{
   @Test
-  public void testSchematronExisting () {
+  public void testSchematronExisting ()
+  {
     // Check if all referenced SCH artefacts exist
     for (final IValidationArtefact aArtefacts : EValidationArtefact.values ())
       for (final IReadableResource aSchematron : aArtefacts.getAllValidationSchematronResources ())
@@ -61,7 +63,8 @@ public final class EValidationArtefactTest {
   }
 
   @Test
-  public void testXSLTExisting () {
+  public void testXSLTExisting ()
+  {
     // Check if all referenced XSLT artefacts exist
     for (final EValidationArtefact aArtefacts : EValidationArtefact.values ())
       for (final IReadableResource aXSLT : aArtefacts.getAllValidationXSLTResources ())
@@ -69,103 +72,126 @@ public final class EValidationArtefactTest {
   }
 
   @Test
-  public void testGetAllValidationXSLTResources () {
-    for (final EValidationArtefact aArtefacts : EValidationArtefact.values ()) {
+  public void testGetAllValidationXSLTResources ()
+  {
+    for (final EValidationArtefact aArtefacts : EValidationArtefact.values ())
+    {
       // Don't run the Schematron compilation because on some artefacts it takes
       // up to 15 minutes to compile one!!!!!
-      for (final IReadableResource aXSLT : aArtefacts.getAllValidationXSLTResources ()) {
-        assertTrue ("No valid schematron: " + aXSLT.toString (),
+      for (final IReadableResource aXSLT : aArtefacts.getAllValidationXSLTResources ())
+      {
+        assertTrue ("No valid schematron: " +
+                    aXSLT.toString (),
                     new SchematronResourceXSLT (aXSLT).isValidSchematron ());
       }
     }
   }
 
   @Test
-  public void testGetAllMatchingArtefacts () {
+  public void testGetAllMatchingArtefacts ()
+  {
     // Test all
-    assertEquals (EValidationArtefact.values ().length, EValidationArtefact.getAllMatchingArtefacts (null, null, null)
-                                                                           .size ());
+    assertEquals (EValidationArtefact.values ().length,
+                  EValidationArtefact.getAllMatchingArtefacts (null, null, null).size ());
 
     // Test for level only
-    assertEquals (3, EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.TECHNICAL_STRUCTURE, null, null)
-                                        .size ());
+    assertEquals (3,
+                  EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.TECHNICAL_STRUCTURE, null, null)
+                                     .size ());
     assertEquals (8,
                   EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.TRANSACTION_REQUIREMENTS, null, null)
                                      .size ());
-    assertEquals (2, EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.PROFILE_REQUIREMENTS, null, null)
-                                        .size ());
-    assertEquals (6, EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.LEGAL_REQUIREMENTS, null, null)
-                                        .size ());
-    assertEquals (4, EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.INDUSTRY_SPECIFIC, null, null)
-                                        .size ());
+    assertEquals (2,
+                  EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.PROFILE_REQUIREMENTS, null, null)
+                                     .size ());
+    assertEquals (6,
+                  EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.LEGAL_REQUIREMENTS, null, null)
+                                     .size ());
+    assertEquals (4,
+                  EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.INDUSTRY_SPECIFIC, null, null).size ());
     assertEquals (0, EValidationArtefact.getAllMatchingArtefacts (EValidationLevel.ENTITY_SPECIFC, null, null).size ());
 
     // Test document level only
     assertEquals (0,
                   EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.TENDERING_CATALOGUE, null)
                                      .size ());
-    assertEquals (1, EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.CATALOGUE, null)
-                                        .size ());
+    assertEquals (1,
+                  EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.CATALOGUE, null).size ());
     assertEquals (3, EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.ORDER, null).size ());
-    assertEquals (1, EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.ORDERRESPONSE, null)
-                                        .size ());
-    assertEquals (10, EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.INVOICE, null).size ());
-    assertEquals (8, EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.CREDIT_NOTE, null)
-                                        .size ());
+    assertEquals (1,
+                  EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.ORDERRESPONSE, null)
+                                     .size ());
+    assertEquals (10,
+                  EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.INVOICE, null).size ());
+    assertEquals (8,
+                  EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.CREDIT_NOTE, null)
+                                     .size ());
 
     // Test country only
     assertEquals (13,
                   EValidationArtefact.getAllMatchingArtefacts (null,
                                                                null,
-                                                               CountryCache.getInstance ().getCountry ("XX")).size ());
+                                                               CountryCache.getInstance ().getCountry ("XX"))
+                                     .size ());
     assertEquals (17,
                   EValidationArtefact.getAllMatchingArtefacts (null,
                                                                null,
-                                                               CountryCache.getInstance ().getCountry ("AT")).size ());
+                                                               CountryCache.getInstance ().getCountry ("AT"))
+                                     .size ());
     assertEquals (17,
                   EValidationArtefact.getAllMatchingArtefacts (null,
                                                                null,
-                                                               CountryCache.getInstance ().getCountry ("NO")).size ());
+                                                               CountryCache.getInstance ().getCountry ("NO"))
+                                     .size ());
     assertEquals (14,
                   EValidationArtefact.getAllMatchingArtefacts (null,
                                                                null,
-                                                               CountryCache.getInstance ().getCountry ("DK")).size ());
+                                                               CountryCache.getInstance ().getCountry ("DK"))
+                                     .size ());
     assertEquals (14,
                   EValidationArtefact.getAllMatchingArtefacts (null,
                                                                null,
-                                                               CountryCache.getInstance ().getCountry ("IT")).size ());
+                                                               CountryCache.getInstance ().getCountry ("IT"))
+                                     .size ());
   }
 
   @Test
-  public void testGetAllCountriesWithSpecialRules () {
+  public void testGetAllCountriesWithSpecialRules ()
+  {
     // All counties
     assertEquals (4, EValidationArtefact.getAllCountriesWithSpecialRules (null, null).size ());
     // Level specific
-    assertEquals (0, EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.TECHNICAL_STRUCTURE, null)
-                                        .size ());
+    assertEquals (0,
+                  EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.TECHNICAL_STRUCTURE, null)
+                                     .size ());
     assertEquals (0,
                   EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.TRANSACTION_REQUIREMENTS, null)
                                      .size ());
-    assertEquals (0, EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.PROFILE_REQUIREMENTS, null)
-                                        .size ());
-    assertEquals (4, EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.LEGAL_REQUIREMENTS, null)
-                                        .size ());
-    assertEquals (2, EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.INDUSTRY_SPECIFIC, null)
-                                        .size ());
-    assertEquals (0, EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.ENTITY_SPECIFC, null)
-                                        .size ());
+    assertEquals (0,
+                  EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.PROFILE_REQUIREMENTS, null)
+                                     .size ());
+    assertEquals (4,
+                  EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.LEGAL_REQUIREMENTS, null)
+                                     .size ());
+    assertEquals (2,
+                  EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.INDUSTRY_SPECIFIC, null)
+                                     .size ());
+    assertEquals (0,
+                  EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.ENTITY_SPECIFC, null).size ());
     // Document type specific
     assertEquals (0,
                   EValidationArtefact.getAllCountriesWithSpecialRules (null,
                                                                        EValidationDocumentType.TENDERING_CATALOGUE)
                                      .size ());
-    assertEquals (0, EValidationArtefact.getAllCountriesWithSpecialRules (null, EValidationDocumentType.CATALOGUE)
-                                        .size ());
+    assertEquals (0,
+                  EValidationArtefact.getAllCountriesWithSpecialRules (null, EValidationDocumentType.CATALOGUE)
+                                     .size ());
     assertEquals (0, EValidationArtefact.getAllCountriesWithSpecialRules (null, EValidationDocumentType.ORDER).size ());
-    assertEquals (0, EValidationArtefact.getAllCountriesWithSpecialRules (null, EValidationDocumentType.ORDERRESPONSE)
-                                        .size ());
-    assertEquals (4, EValidationArtefact.getAllCountriesWithSpecialRules (null, EValidationDocumentType.INVOICE)
-                                        .size ());
+    assertEquals (0,
+                  EValidationArtefact.getAllCountriesWithSpecialRules (null, EValidationDocumentType.ORDERRESPONSE)
+                                     .size ());
+    assertEquals (4,
+                  EValidationArtefact.getAllCountriesWithSpecialRules (null, EValidationDocumentType.INVOICE).size ());
     // Level and document type specific
     assertEquals (0,
                   EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.LEGAL_REQUIREMENTS,
@@ -173,15 +199,19 @@ public final class EValidationArtefactTest {
                                      .size ());
     assertEquals (0,
                   EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.LEGAL_REQUIREMENTS,
-                                                                       EValidationDocumentType.CATALOGUE).size ());
+                                                                       EValidationDocumentType.CATALOGUE)
+                                     .size ());
     assertEquals (4,
                   EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.LEGAL_REQUIREMENTS,
-                                                                       EValidationDocumentType.INVOICE).size ());
+                                                                       EValidationDocumentType.INVOICE)
+                                     .size ());
     assertEquals (2,
                   EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.INDUSTRY_SPECIFIC,
-                                                                       EValidationDocumentType.INVOICE).size ());
+                                                                       EValidationDocumentType.INVOICE)
+                                     .size ());
     assertEquals (0,
                   EValidationArtefact.getAllCountriesWithSpecialRules (EValidationLevel.ENTITY_SPECIFC,
-                                                                       EValidationDocumentType.INVOICE).size ());
+                                                                       EValidationDocumentType.INVOICE)
+                                     .size ());
   }
 }

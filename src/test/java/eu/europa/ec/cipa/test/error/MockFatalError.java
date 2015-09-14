@@ -42,8 +42,10 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.EErrorLevel;
 
-public class FatalError extends AbstractErrorDefinition {
-  public FatalError (@Nonnull @Nonempty final String sErrorCode) {
+public final class MockFatalError extends AbstractErrorDefinition
+{
+  public MockFatalError (@Nonnull @Nonempty final String sErrorCode)
+  {
     super (EErrorLevel.FATAL_ERROR, sErrorCode);
   }
 }

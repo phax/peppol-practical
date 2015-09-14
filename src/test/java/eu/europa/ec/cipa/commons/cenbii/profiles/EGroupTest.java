@@ -49,10 +49,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EGroupTest {
+public final class EGroupTest
+{
   @Test
-  public void testBasic () {
-    for (final EGroup eGroup : EGroup.values ()) {
+  public void testBasic ()
+  {
+    for (final EGroup eGroup : EGroup.values ())
+    {
       assertTrue (StringHelper.hasText (eGroup.getID ()));
       assertSame (eGroup, EGroup.valueOf (eGroup.name ()));
       assertSame (eGroup, EGroup.getFromIDOrNull (eGroup.getID ()));

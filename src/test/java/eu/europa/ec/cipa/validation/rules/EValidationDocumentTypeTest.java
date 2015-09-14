@@ -49,10 +49,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EValidationDocumentTypeTest {
+public final class EValidationDocumentTypeTest
+{
   @Test
-  public void testAll () {
-    for (final EValidationDocumentType eDocumentType : EValidationDocumentType.values ()) {
+  public void testAll ()
+  {
+    for (final EValidationDocumentType eDocumentType : EValidationDocumentType.values ())
+    {
       assertTrue (StringHelper.hasText (eDocumentType.getID ()));
       assertSame (eDocumentType, EValidationDocumentType.getFromIDOrNull (eDocumentType.getID ()));
     }

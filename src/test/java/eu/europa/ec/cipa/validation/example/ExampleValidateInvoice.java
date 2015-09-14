@@ -55,8 +55,10 @@ import eu.europa.ec.cipa.validation.rules.ValidationTransaction;
  * 
  * @author Philip Helger
  */
-public final class ExampleValidateInvoice {
-  public static void main (final String [] args) {
+public final class ExampleValidateInvoice
+{
+  public static void main (final String [] args)
+  {
     // Main validation object
     final ValidationPyramid2 vp = ValidationPyramid2.createDefault (EValidationDocumentType.INVOICE,
                                                                     ValidationTransaction.createUBLTransaction (ETransaction.T10));

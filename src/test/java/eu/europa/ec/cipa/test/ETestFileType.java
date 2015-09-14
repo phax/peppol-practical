@@ -43,29 +43,33 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 
-public enum ETestFileType {
-  CALLFORTENDERS ("test-callfortenders"),
-  CATALOGUE ("test-catalogues"),
-  CREDITNOTE ("test-creditnotes"),
-  INVOICE ("test-invoices"),
-  ORDER ("test-orders"),
-  ORDERRESPONSE ("test-orderresponses"),
-  TENDER ("test-tenders"),
-  TENDERINGCATALOGUE ("test-tenderingcatalogues");
+public enum ETestFileType
+{
+ CALLFORTENDERS ("test-callfortenders"),
+ CATALOGUE ("test-catalogues"),
+ CREDITNOTE ("test-creditnotes"),
+ INVOICE ("test-invoices"),
+ ORDER ("test-orders"),
+ ORDERRESPONSE ("test-orderresponses"),
+ TENDER ("test-tenders"),
+ TENDERINGCATALOGUE ("test-tenderingcatalogues");
 
   private final String m_sDirName;
 
-  private ETestFileType (@Nonnull @Nonempty final String sDirName) {
+  private ETestFileType (@Nonnull @Nonempty final String sDirName)
+  {
     m_sDirName = "/" + sDirName;
   }
 
   @Nonnull
-  public IReadableResource getSuccessResource (@Nonnull @Nonempty final String sFilename) {
+  public IReadableResource getSuccessResource (@Nonnull @Nonempty final String sFilename)
+  {
     return new ClassPathResource (m_sDirName + "/success/" + sFilename);
   }
 
   @Nonnull
-  public IReadableResource getErrorResource (@Nonnull @Nonempty final String sFilename) {
+  public IReadableResource getErrorResource (@Nonnull @Nonempty final String sFilename)
+  {
     return new ClassPathResource (m_sDirName + "/error/" + sFilename);
   }
 }

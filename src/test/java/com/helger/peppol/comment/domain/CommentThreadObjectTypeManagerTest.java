@@ -66,12 +66,15 @@ public final class CommentThreadObjectTypeManagerTest
       assertEquals (1, aMgr.getAllCommentThreadsOfObject (sOwningObjectID).size ());
 
       // Add another comments into the thread
-      aMgr.addCommentToThread (sOwningObjectID, sThreadID, sThreadID, new Comment ("unittest",
-                                                                                   ECommentState.APPROVED,
-                                                                                   "userid",
-                                                                                   "creatorname",
-                                                                                   "title2",
-                                                                                   "text2"));
+      aMgr.addCommentToThread (sOwningObjectID,
+                               sThreadID,
+                               sThreadID,
+                               new Comment ("unittest",
+                                            ECommentState.APPROVED,
+                                            "userid",
+                                            "creatorname",
+                                            "title2",
+                                            "text2"));
 
       assertEquals (1, aMgr.getAllCommentThreadsOfObject (sOwningObjectID).size ());
 
@@ -85,12 +88,13 @@ public final class CommentThreadObjectTypeManagerTest
       {}
 
       // Create a second thread
-      aMgr.createNewThread (sOwningObjectID, new Comment ("unittest",
-                                                          ECommentState.APPROVED,
-                                                          "userid2",
-                                                          "creatorname2",
-                                                          "title4",
-                                                          "text4"));
+      aMgr.createNewThread (sOwningObjectID,
+                            new Comment ("unittest",
+                                         ECommentState.APPROVED,
+                                         "userid2",
+                                         "creatorname2",
+                                         "title4",
+                                         "text4"));
       assertEquals (2, aMgr.getAllCommentThreadsOfObject (sOwningObjectID).size ());
     }
     finally

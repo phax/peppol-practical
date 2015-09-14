@@ -48,16 +48,18 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-
 /**
  * Test class for class {@link EProfile}.
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EProfileTest {
+public final class EProfileTest
+{
   @Test
-  public void testBasic () {
-    for (final EProfile eProfile : EProfile.values ()) {
+  public void testBasic ()
+  {
+    for (final EProfile eProfile : EProfile.values ())
+    {
       assertNotNull (eProfile.getGroup ());
       assertNotNull (eProfile.getDisplayText (Locale.ENGLISH));
       assertTrue (eProfile.getNumber () > 0);
@@ -69,17 +71,21 @@ public final class EProfileTest {
   }
 
   @Test
-  public void testGetAllProfilesWithCollaboration () {
-    for (final ECollaboration eCollaboration : ECollaboration.values ()) {
+  public void testGetAllProfilesWithCollaboration ()
+  {
+    for (final ECollaboration eCollaboration : ECollaboration.values ())
+    {
       final List <EProfile> aList = EProfile.getAllProfilesWithCollaboration (eCollaboration);
       assertNotNull (aList);
       assertTrue (aList.size () > 0);
     }
 
-    try {
+    try
+    {
       EProfile.getAllProfilesWithCollaboration (null);
       fail ();
     }
-    catch (final NullPointerException ex) {}
+    catch (final NullPointerException ex)
+    {}
   }
 }

@@ -49,7 +49,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 
-public class TestResource
+public final class TestResource
 {
   private final IReadableResource m_aRes;
   private final Set <AbstractErrorDefinition> m_aExpectedErrors = new HashSet <AbstractErrorDefinition> ();

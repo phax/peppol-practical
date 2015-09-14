@@ -49,10 +49,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ETransactionTest {
+public final class ETransactionTest
+{
   @Test
-  public void testBasic () {
-    for (final ETransaction eTransaction : ETransaction.values ()) {
+  public void testBasic ()
+  {
+    for (final ETransaction eTransaction : ETransaction.values ())
+    {
       assertTrue (StringHelper.hasText (eTransaction.getID ()));
       assertTrue (StringHelper.hasText (eTransaction.getName ()));
       assertTrue (eTransaction.getNumber () > 0);

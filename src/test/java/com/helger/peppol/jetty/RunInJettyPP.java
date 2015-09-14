@@ -39,7 +39,8 @@ import com.helger.commons.system.SystemProperties;
 import com.helger.peppol.utils.ConfigFile;
 
 /**
- * Run peppol-practical as a standalone web application in Jetty on port 8080.<br>
+ * Run peppol-practical as a standalone web application in Jetty on port 8080.
+ * <br>
  * http://localhost:8080/
  *
  * @author Philip Helger
@@ -89,11 +90,11 @@ public final class RunInJettyPP
     aWebAppCtx.setCopyWebDir (true);
     // Important to add the AnnotationConfiguration!
     aWebAppCtx.setConfigurations (new Configuration [] { new WebInfConfiguration (),
-                                                        new WebXmlConfiguration (),
-                                                        new MetaInfConfiguration (),
-                                                        new FragmentConfiguration (),
-                                                        new JettyWebXmlConfiguration (),
-                                                        new AnnotationConfiguration () });
+                                                         new WebXmlConfiguration (),
+                                                         new MetaInfConfiguration (),
+                                                         new FragmentConfiguration (),
+                                                         new JettyWebXmlConfiguration (),
+                                                         new AnnotationConfiguration () });
     aServer.setHandler (aWebAppCtx);
     final ServletContextHandler aCtx = aWebAppCtx;
 

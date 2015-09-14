@@ -48,7 +48,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
 
-public class TestDocument
+public final class TestDocument
 {
   private final String m_sFilename;
   private final Set <AbstractErrorDefinition> m_aExpectedErrors = new HashSet <AbstractErrorDefinition> ();

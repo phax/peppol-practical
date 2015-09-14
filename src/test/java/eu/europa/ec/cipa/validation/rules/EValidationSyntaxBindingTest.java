@@ -49,10 +49,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EValidationSyntaxBindingTest {
+public final class EValidationSyntaxBindingTest
+{
   @Test
-  public void testAll () {
-    for (final EValidationSyntaxBinding eSyntaxBinding : EValidationSyntaxBinding.values ()) {
+  public void testAll ()
+  {
+    for (final EValidationSyntaxBinding eSyntaxBinding : EValidationSyntaxBinding.values ())
+    {
       assertTrue (StringHelper.hasText (eSyntaxBinding.getID ()));
       assertSame (eSyntaxBinding, EValidationSyntaxBinding.getFromIDOrNull (eSyntaxBinding.getID ()));
     }

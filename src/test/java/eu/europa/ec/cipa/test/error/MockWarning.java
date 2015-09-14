@@ -42,8 +42,10 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.EErrorLevel;
 
-public class Warning extends AbstractErrorDefinition {
-  public Warning (@Nonnull @Nonempty final String sErrorCode) {
+public final class MockWarning extends AbstractErrorDefinition
+{
+  public MockWarning (@Nonnull @Nonempty final String sErrorCode)
+  {
     super (EErrorLevel.WARN, sErrorCode);
   }
 }

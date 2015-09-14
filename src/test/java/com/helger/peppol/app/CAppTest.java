@@ -28,13 +28,13 @@ public final class CAppTest
   public void testSMPIDPattern ()
   {
     for (final String s : new String [] { "1000000066",
-                                         "2000000042",
-                                         "b2brouter",
-                                         "BRZ",
-                                         "BRZ-TEST-SMP",
-                                         "IBM.ECSCTEST",
-                                         "smp.difi.no",
-                                         "SMP123" })
+                                          "2000000042",
+                                          "b2brouter",
+                                          "BRZ",
+                                          "BRZ-TEST-SMP",
+                                          "IBM.ECSCTEST",
+                                          "smp.difi.no",
+                                          "SMP123" })
       assertTrue (s + " failed!", RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, s));
   }
 }

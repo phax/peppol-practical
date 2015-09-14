@@ -74,9 +74,9 @@ import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import eu.europa.ec.cipa.test.ETestFileType;
 import eu.europa.ec.cipa.test.TestFiles;
 import eu.europa.ec.cipa.test.error.AbstractErrorDefinition;
-import eu.europa.ec.cipa.test.error.FatalError;
+import eu.europa.ec.cipa.test.error.MockFatalError;
 import eu.europa.ec.cipa.test.error.TestResource;
-import eu.europa.ec.cipa.test.error.Warning;
+import eu.europa.ec.cipa.test.error.MockWarning;
 import oasis.names.specification.ubl.schema.xsd.invoice_2.InvoiceType;
 import oasis.names.specification.ubl.schema.xsd.order_2.OrderType;
 
@@ -86,9 +86,9 @@ import oasis.names.specification.ubl.schema.xsd.order_2.OrderType;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class FuncTestDocumentValidationError
+public final class DocumentValidationErrorFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FuncTestDocumentValidationError.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (DocumentValidationErrorFuncTest.class);
 
   @Nonnull
   @ReturnsMutableCopy
@@ -104,9 +104,9 @@ public final class FuncTestDocumentValidationError
       if (aMatches != null)
       {
         if (bIsWarning)
-          ret.add (new Warning (aMatches[0]));
+          ret.add (new MockWarning (aMatches[0]));
         else
-          ret.add (new FatalError (aMatches[0]));
+          ret.add (new MockFatalError (aMatches[0]));
       }
     }
     return ret;

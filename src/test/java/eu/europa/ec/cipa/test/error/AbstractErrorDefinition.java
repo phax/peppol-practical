@@ -45,11 +45,13 @@ import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
-public abstract class AbstractErrorDefinition implements Comparable <AbstractErrorDefinition> {
+public abstract class AbstractErrorDefinition implements Comparable <AbstractErrorDefinition>
+{
   private final EErrorLevel m_eLevel;
   private final String m_sErrorCode;
 
-  public AbstractErrorDefinition (@Nonnull final EErrorLevel eLevel, @Nonnull @Nonempty final String sErrorCode) {
+  public AbstractErrorDefinition (@Nonnull final EErrorLevel eLevel, @Nonnull @Nonempty final String sErrorCode)
+  {
     ValueEnforcer.notNull (eLevel, "Level");
     ValueEnforcer.notEmpty (sErrorCode, "ErrorCode");
     m_eLevel = eLevel;
@@ -57,17 +59,20 @@ public abstract class AbstractErrorDefinition implements Comparable <AbstractErr
   }
 
   @Nonnull
-  public EErrorLevel getLevel () {
+  public EErrorLevel getLevel ()
+  {
     return m_eLevel;
   }
 
   @Nonnull
   @Nonempty
-  public String getErrorCode () {
+  public String getErrorCode ()
+  {
     return m_sErrorCode;
   }
 
-  public int compareTo (@Nonnull final AbstractErrorDefinition rhs) {
+  public int compareTo (@Nonnull final AbstractErrorDefinition rhs)
+  {
     int i = m_eLevel.compareTo (rhs.m_eLevel);
     if (i == 0)
       i = m_sErrorCode.compareTo (rhs.m_sErrorCode);
@@ -75,7 +80,8 @@ public abstract class AbstractErrorDefinition implements Comparable <AbstractErr
   }
 
   @Override
-  public boolean equals (final Object o) {
+  public boolean equals (final Object o)
+  {
     if (o == this)
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
@@ -85,12 +91,14 @@ public abstract class AbstractErrorDefinition implements Comparable <AbstractErr
   }
 
   @Override
-  public int hashCode () {
+  public int hashCode ()
+  {
     return new HashCodeGenerator (this).append (m_eLevel).append (m_sErrorCode).getHashCode ();
   }
 
   @Override
-  public String toString () {
+  public String toString ()
+  {
     return new ToStringGenerator (null).append ("level", m_eLevel).append ("errorCode", m_sErrorCode).toString ();
   }
 }

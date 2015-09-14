@@ -56,15 +56,19 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ECollaborationTest {
+public final class ECollaborationTest
+{
   @BeforeClass
-  public static void before () {
+  public static void before ()
+  {
     GlobalDebug.setDebugModeDirect (true);
   }
 
   @Test
-  public void testBasic () {
-    for (final ECollaboration eCollaboration : ECollaboration.values ()) {
+  public void testBasic ()
+  {
+    for (final ECollaboration eCollaboration : ECollaboration.values ())
+    {
       assertTrue (StringHelper.hasText (eCollaboration.getID ()));
       assertTrue (StringHelper.hasText (eCollaboration.getName ()));
       assertNotNull (eCollaboration.getAllTransactions ());
@@ -76,17 +80,21 @@ public final class ECollaborationTest {
   }
 
   @Test
-  public void testGetAllCollaborationsWithTransaction () {
-    for (final ETransaction eTransaction : ETransaction.values ()) {
+  public void testGetAllCollaborationsWithTransaction ()
+  {
+    for (final ETransaction eTransaction : ETransaction.values ())
+    {
       final List <ECollaboration> aList = ECollaboration.getAllCollaborationsWithTransaction (eTransaction);
       assertNotNull (aList);
       assertTrue (aList.size () > 0);
     }
 
-    try {
+    try
+    {
       ECollaboration.getAllCollaborationsWithTransaction (null);
       fail ();
     }
-    catch (final NullPointerException ex) {}
+    catch (final NullPointerException ex)
+    {}
   }
 }
