@@ -27,11 +27,6 @@ and am still involved in OpenPEPPOL. I also did huge parts of the
 PEPPOL reference implementation (which is based on my PEPPOL Silicone). 
 </p>
 
-<div class="alert alert-warning">
-  On June 9<sup>th</sup> the SML migration from BRZ to the EC took place.
-  <a href="/public/menuitem-docs-sml-migration">Read this page for all the details!</a>
-</div>
-
 <p>
   This page is currently divided into the following sections:
 </p>
@@ -41,7 +36,8 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
       <li><a href="/public/menuitem-docs-setup-ap">AP setup guide</a></li>
       <li><a href="/public/menuitem-docs-setup-smp">SMP setup guide - CIPA</a></li> 
       <li><a href="/public/menuitem-docs-setup-smp-ph">SMP setup guide - ph</a></li> 
-      <li><a href="/public/menuitem-docs-sml-migration">SML migration guide</a></li> 
+      <li><a href="/public/menuitem-docs-sml-support">SML support guide</a></li> 
+      <li><a href="/public/menuitem-docs-sml-migration">SML migration guide (obsolete)</a></li> 
     </ul>
   </li>  
   <li>

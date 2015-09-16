@@ -89,3 +89,12 @@ table.footer-links td {
 .comment-last-modification {
   font-size: small;
 }
+
+.table-sla tr.main th {
+  background-color: #eee;
+}
+
+.table-sla td,
+.table-sla th {
+  text-align: center;
+}

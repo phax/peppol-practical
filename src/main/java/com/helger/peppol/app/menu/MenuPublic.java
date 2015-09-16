@@ -67,6 +67,10 @@ public final class MenuPublic
                                                      "Setup PEPPOL SMP - ph",
                                                      new ClassPathResource ("viewpages/en/docs_setup_smp_ph.xml")));
       aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_SUPPORT,
+                                                     "SML support",
+                                                     new ClassPathResource ("viewpages/en/docs_sml_support.xml")));
+      aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_MIGRATION,
                                                      "SML migration information",
                                                      new ClassPathResource ("viewpages/en/docs_sml_migration.xml")));

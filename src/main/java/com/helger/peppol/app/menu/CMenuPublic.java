@@ -31,6 +31,7 @@ public final class CMenuPublic
   public static final String MENU_DOCS_SETUP_AP_PH = "docs-setup-ap";
   public static final String MENU_DOCS_SETUP_SMP_CIPA = "docs-setup-smp";
   public static final String MENU_DOCS_SETUP_SMP_PH = "docs-setup-smp-ph";
+  public static final String MENU_DOCS_SML_SUPPORT = "docs-sml-support";
   public static final String MENU_DOCS_SML_MIGRATION = "docs-sml-migration";
   public static final String MENU_NEWS = "news";
   public static final String MENU_TOOLS = "tools";

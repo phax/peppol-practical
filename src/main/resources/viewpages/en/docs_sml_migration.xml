@@ -61,7 +61,7 @@
 
 <div class="alert alert-info">
   Note: inside this document the term <em>SML</em> represents the production SML and the term
-  <em>SMK</em> represents the publically available test version of the SML which should not be
+  <em>SMK</em> represents the publicly available test version of the SML which should not be
   used in production.
 </div>
 
