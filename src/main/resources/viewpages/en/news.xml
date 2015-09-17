@@ -20,6 +20,21 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2015-09-17</h3>
+
+<p>
+  Added information about the SML support since these information are hard to find if
+  you can't find the original email anymore.
+  <a href="/public/menuitem-docs-sml-support">Read all the details.</a>
+</p>
+
+<p>
+  New versions of my SMP server will be released soon. Version 4 of 
+  <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
+  ships with a brand new administration interface that gives you the possibility to manage
+  your endpoints with nice forms directly in the browser.
+</p>
+
 <h3>2015-06-09</h3>
 
 <p>
