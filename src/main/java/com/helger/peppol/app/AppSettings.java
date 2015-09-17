@@ -32,7 +32,7 @@ import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
  *
  * @author Philip Helger
  */
-public class AppSettings extends AbstractGlobalSingleton
+public final class AppSettings extends AbstractGlobalSingleton
 {
   /** The name of the file containing the settings */
   public static final String FILENAME = "webapp.properties";
