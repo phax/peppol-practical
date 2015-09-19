@@ -149,7 +149,7 @@ public final class DocumentValidationErrorFuncTest
 
       final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
       for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
-        assertTrue (aTestDoc.getFilename () +
+        assertTrue (aTestDoc.getPath () +
                     " expected " +
                     aExpectedErrCode.toString () +
                     " but having " +
@@ -157,7 +157,7 @@ public final class DocumentValidationErrorFuncTest
                     aCopy.remove (aExpectedErrCode));
       if (!aCopy.isEmpty ())
         s_aLogger.info (aCopy.toString ());
-      assertTrue (aTestDoc.getFilename () + " also indicated: " + aCopy.toString (), aCopy.isEmpty ());
+      assertTrue (aTestDoc.getPath () + " also indicated: " + aCopy.toString (), aCopy.isEmpty ());
     }
   }
 
@@ -198,13 +198,13 @@ public final class DocumentValidationErrorFuncTest
       }
       final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
       for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
-        assertTrue (aTestDoc.getFilename () +
+        assertTrue (aTestDoc.getPath () +
                     " expected " +
                     aExpectedErrCode.toString () +
                     " but having " +
                     aCopy.toString (),
                     aCopy.remove (aExpectedErrCode));
-      assertTrue (aTestDoc.getFilename () + " also indicated: " + aCopy, aCopy.isEmpty ());
+      assertTrue (aTestDoc.getPath () + " also indicated: " + aCopy, aCopy.isEmpty ());
     }
   }
 
@@ -251,13 +251,13 @@ public final class DocumentValidationErrorFuncTest
         }
         final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
         for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
-          assertTrue (aTestDoc.getFilename () +
+          assertTrue (aTestDoc.getPath () +
                       " expected " +
                       aExpectedErrCode.toString () +
                       " but having " +
                       aCopy.toString (),
                       aCopy.remove (aExpectedErrCode));
-        assertTrue (aTestDoc.getFilename () + " also indicated: " + aCopy, aCopy.isEmpty ());
+        assertTrue (aTestDoc.getPath () + " also indicated: " + aCopy, aCopy.isEmpty ());
       }
       catch (final OutOfMemoryError ex)
       {
