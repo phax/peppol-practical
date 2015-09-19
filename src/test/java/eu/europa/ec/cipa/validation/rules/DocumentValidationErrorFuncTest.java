@@ -63,6 +63,8 @@ import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.write.XMLWriter;
+import com.helger.peppol.testfiles.ErrorDefinition;
+import com.helger.peppol.testfiles.TestResource;
 import com.helger.schematron.SchematronHelper;
 import com.helger.schematron.pure.SchematronResourcePure;
 import com.helger.schematron.svrl.SVRLFailedAssert;
@@ -73,10 +75,6 @@ import com.helger.ubl20.UBL20Reader;
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import eu.europa.ec.cipa.test.ETestFileType;
 import eu.europa.ec.cipa.test.TestFiles;
-import eu.europa.ec.cipa.test.error.AbstractErrorDefinition;
-import eu.europa.ec.cipa.test.error.MockFatalError;
-import eu.europa.ec.cipa.test.error.TestResource;
-import eu.europa.ec.cipa.test.error.MockWarning;
 import oasis.names.specification.ubl.schema.xsd.invoice_2.InvoiceType;
 import oasis.names.specification.ubl.schema.xsd.order_2.OrderType;
 
@@ -92,9 +90,9 @@ public final class DocumentValidationErrorFuncTest
 
   @Nonnull
   @ReturnsMutableCopy
-  private static Set <AbstractErrorDefinition> _getAllFailedAssertionErrorCode (@Nonnull final SchematronOutputType aSVRL)
+  private static Set <ErrorDefinition> _getAllFailedAssertionErrorCode (@Nonnull final SchematronOutputType aSVRL)
   {
-    final Set <AbstractErrorDefinition> ret = new HashSet <AbstractErrorDefinition> ();
+    final Set <ErrorDefinition> ret = new HashSet <ErrorDefinition> ();
     final List <SVRLFailedAssert> aFAs = SVRLHelper.getAllFailedAssertions (aSVRL);
     for (final SVRLFailedAssert aFA : aFAs)
     {
@@ -104,9 +102,9 @@ public final class DocumentValidationErrorFuncTest
       if (aMatches != null)
       {
         if (bIsWarning)
-          ret.add (new MockWarning (aMatches[0]));
+          ret.add (ErrorDefinition.createWarning (aMatches[0]));
         else
-          ret.add (new MockFatalError (aMatches[0]));
+          ret.add (ErrorDefinition.createError (aMatches[0]));
       }
     }
     return ret;
@@ -127,7 +125,7 @@ public final class DocumentValidationErrorFuncTest
       final OrderType aUBLOrder = UBL20Reader.readOrder (aTestFileDoc);
       assertNotNull (aUBLOrder);
 
-      final Set <AbstractErrorDefinition> aErrCodes = new HashSet <AbstractErrorDefinition> ();
+      final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
 
       // Test the country-independent orders layers
       for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null,
@@ -149,8 +147,8 @@ public final class DocumentValidationErrorFuncTest
         aErrCodes.addAll (_getAllFailedAssertionErrorCode (aSVRL));
       }
 
-      final Set <AbstractErrorDefinition> aCopy = new TreeSet <AbstractErrorDefinition> (aErrCodes);
-      for (final AbstractErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
+      final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
+      for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
         assertTrue (aTestDoc.getFilename () +
                     " expected " +
                     aExpectedErrCode.toString () +
@@ -178,7 +176,7 @@ public final class DocumentValidationErrorFuncTest
       final InvoiceType aUBLInvoice = UBL20Reader.readInvoice (aTestFileDoc);
       assertNotNull (aUBLInvoice);
 
-      final Set <AbstractErrorDefinition> aErrCodes = new HashSet <AbstractErrorDefinition> ();
+      final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
 
       // Test the country-independent invoice layers
       for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null,
@@ -198,8 +196,8 @@ public final class DocumentValidationErrorFuncTest
 
         aErrCodes.addAll (_getAllFailedAssertionErrorCode (aSVRL));
       }
-      final Set <AbstractErrorDefinition> aCopy = new TreeSet <AbstractErrorDefinition> (aErrCodes);
-      for (final AbstractErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
+      final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
+      for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
         assertTrue (aTestDoc.getFilename () +
                     " expected " +
                     aExpectedErrCode.toString () +
@@ -231,7 +229,7 @@ public final class DocumentValidationErrorFuncTest
         final InvoiceType aUBLInvoice = UBL20Reader.readInvoice (aTestFileDoc);
         assertNotNull (aUBLInvoice);
 
-        final Set <AbstractErrorDefinition> aErrCodes = new HashSet <AbstractErrorDefinition> ();
+        final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
 
         // Test the country-dependent invoice layers
         for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null,
@@ -251,8 +249,8 @@ public final class DocumentValidationErrorFuncTest
 
           aErrCodes.addAll (_getAllFailedAssertionErrorCode (aSVRL));
         }
-        final Set <AbstractErrorDefinition> aCopy = new TreeSet <AbstractErrorDefinition> (aErrCodes);
-        for (final AbstractErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
+        final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
+        for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
           assertTrue (aTestDoc.getFilename () +
                       " expected " +
                       aExpectedErrCode.toString () +

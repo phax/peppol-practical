@@ -58,18 +58,18 @@ public enum ETestFileType
 
   private ETestFileType (@Nonnull @Nonempty final String sDirName)
   {
-    m_sDirName = "/" + sDirName;
+    m_sDirName = sDirName;
   }
 
   @Nonnull
   public IReadableResource getSuccessResource (@Nonnull @Nonempty final String sFilename)
   {
-    return new ClassPathResource (m_sDirName + "/success/" + sFilename);
+    return new ClassPathResource ("peppol-ubl/" + m_sDirName + "/success/" + sFilename);
   }
 
   @Nonnull
   public IReadableResource getErrorResource (@Nonnull @Nonempty final String sFilename)
   {
-    return new ClassPathResource (m_sDirName + "/error/" + sFilename);
+    return new ClassPathResource ("peppol-ubl/" + m_sDirName + "/error/" + sFilename);
   }
 }
