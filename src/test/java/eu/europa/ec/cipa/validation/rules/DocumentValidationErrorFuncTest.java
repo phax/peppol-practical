@@ -65,6 +65,8 @@ import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.write.XMLWriter;
 import com.helger.peppol.testfiles.ErrorDefinition;
 import com.helger.peppol.testfiles.TestResource;
+import com.helger.peppol.testfiles.peppolubl.EPeppolUBLTestFileType;
+import com.helger.peppol.testfiles.peppolubl.PeppolUBLTestFiles;
 import com.helger.schematron.SchematronHelper;
 import com.helger.schematron.pure.SchematronResourcePure;
 import com.helger.schematron.svrl.SVRLFailedAssert;
@@ -73,8 +75,6 @@ import com.helger.schematron.svrl.SVRLWriter;
 import com.helger.ubl20.UBL20Reader;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
-import eu.europa.ec.cipa.test.ETestFileType;
-import eu.europa.ec.cipa.test.TestFiles;
 import oasis.names.specification.ubl.schema.xsd.invoice_2.InvoiceType;
 import oasis.names.specification.ubl.schema.xsd.order_2.OrderType;
 
@@ -115,7 +115,7 @@ public final class DocumentValidationErrorFuncTest
   {
     final IValidationTransaction aVT = ValidationTransaction.createUBLTransaction (ETransaction.T01);
     // For all available orders
-    for (final TestResource aTestDoc : TestFiles.getErrorFiles (ETestFileType.ORDER))
+    for (final TestResource aTestDoc : PeppolUBLTestFiles.getErrorFiles (EPeppolUBLTestFileType.ORDER))
     {
       // Get the UBL XML file
       final IReadableResource aTestFile = aTestDoc.getResource ();
@@ -166,7 +166,7 @@ public final class DocumentValidationErrorFuncTest
   {
     final IValidationTransaction aVT = ValidationTransaction.createUBLTransaction (ETransaction.T10);
     // For all available orders
-    for (final TestResource aTestDoc : TestFiles.getErrorFiles (ETestFileType.INVOICE))
+    for (final TestResource aTestDoc : PeppolUBLTestFiles.getErrorFiles (EPeppolUBLTestFileType.INVOICE))
     {
       // Get the UBL XML file
       final IReadableResource aTestFile = aTestDoc.getResource ();
@@ -214,7 +214,7 @@ public final class DocumentValidationErrorFuncTest
     final IValidationTransaction aVT = ValidationTransaction.createUBLTransaction (ETransaction.T10);
     // For all available orders
     final Locale aCountry = CountryCache.getInstance ().getCountry ("AT");
-    for (final TestResource aTestDoc : TestFiles.getErrorFiles (ETestFileType.INVOICE, aCountry))
+    for (final TestResource aTestDoc : PeppolUBLTestFiles.getErrorFiles (EPeppolUBLTestFileType.INVOICE, aCountry))
     {
       // Get the UBL XML file
       final IReadableResource aTestFile = aTestDoc.getResource ();

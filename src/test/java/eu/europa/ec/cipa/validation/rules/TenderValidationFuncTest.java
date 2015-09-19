@@ -49,6 +49,8 @@ import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.write.XMLWriter;
+import com.helger.peppol.testfiles.peppolubl.EPeppolUBLTestFileType;
+import com.helger.peppol.testfiles.peppolubl.PeppolUBLTestFiles;
 import com.helger.schematron.SchematronHelper;
 import com.helger.schematron.svrl.SVRLFailedAssert;
 import com.helger.schematron.svrl.SVRLHelper;
@@ -57,8 +59,6 @@ import com.helger.schematron.xslt.SchematronResourceXSLT;
 import com.helger.ubl21.UBL21Reader;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
-import eu.europa.ec.cipa.test.ETestFileType;
-import eu.europa.ec.cipa.test.TestFiles;
 import oasis.names.specification.ubl.schema.xsd.callfortenders_21.CallForTendersType;
 import oasis.names.specification.ubl.schema.xsd.tender_21.TenderType;
 
@@ -70,7 +70,7 @@ public final class TenderValidationFuncTest
   public void testReadTender () throws SAXException
   {
     // For all available tenders
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.TENDER))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.TENDER))
     {
       // Ensure the UBL file validates against the scheme
       final TenderType aUBLTender = UBL21Reader.readTender (DOMReader.readXMLDOM (aTestFile));
@@ -107,7 +107,7 @@ public final class TenderValidationFuncTest
   public void testReadCallForTenders () throws SAXException
   {
     // For all available call for tenders
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.CALLFORTENDERS))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.CALLFORTENDERS))
     {
       // Ensure the UBL file validates against the scheme
       final CallForTendersType aUBLCallForTenders = UBL21Reader.readCallForTenders (DOMReader.readXMLDOM (aTestFile));

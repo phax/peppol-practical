@@ -52,6 +52,8 @@ import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.xml.serialize.write.XMLWriter;
+import com.helger.peppol.testfiles.peppolubl.EPeppolUBLTestFileType;
+import com.helger.peppol.testfiles.peppolubl.PeppolUBLTestFiles;
 import com.helger.schematron.SchematronHelper;
 import com.helger.schematron.svrl.SVRLFailedAssert;
 import com.helger.schematron.svrl.SVRLHelper;
@@ -60,8 +62,6 @@ import com.helger.schematron.xslt.SchematronResourceXSLT;
 import com.helger.ubl20.UBL20Reader;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
-import eu.europa.ec.cipa.test.ETestFileType;
-import eu.europa.ec.cipa.test.TestFiles;
 import oasis.names.specification.ubl.schema.xsd.catalogue_2.CatalogueType;
 import oasis.names.specification.ubl.schema.xsd.creditnote_2.CreditNoteType;
 import oasis.names.specification.ubl.schema.xsd.invoice_2.InvoiceType;
@@ -82,7 +82,7 @@ public final class DocumentValidationSuccessFuncTest
   public void testReadCataloguesSuccess ()
   {
     // For all available catalogues
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.CATALOGUE))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.CATALOGUE))
     {
       // Ensure the UBL file validates against the scheme
       final CatalogueType aUBLCatalogue = UBL20Reader.readCatalogue (aTestFile);
@@ -120,7 +120,7 @@ public final class DocumentValidationSuccessFuncTest
   public void testReadOrdersSuccess ()
   {
     // For all available orders
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.ORDER))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.ORDER))
     {
       // Ensure the UBL file validates against the scheme
       final OrderType aUBLOrder = UBL20Reader.readOrder (aTestFile);
@@ -162,7 +162,7 @@ public final class DocumentValidationSuccessFuncTest
   public void testReadOrderResponsesSuccess ()
   {
     // For all available orders
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.ORDERRESPONSE))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.ORDERRESPONSE))
     {
       // Ensure the UBL file validates against the scheme
       final OrderResponseSimpleType aUBLOrderResponse = UBL20Reader.readOrderResponseSimple (aTestFile);
@@ -204,7 +204,7 @@ public final class DocumentValidationSuccessFuncTest
   public void testReadCreditNotesSuccess ()
   {
     // For all available credit notes
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.CREDITNOTE))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.CREDITNOTE))
     {
       // Ensure the UBL file validates against the scheme
       final CreditNoteType aUBLCreditNote = UBL20Reader.readCreditNote (aTestFile);
@@ -247,7 +247,7 @@ public final class DocumentValidationSuccessFuncTest
   {
     final IValidationTransaction aVT = ValidationTransaction.createUBLTransaction (ETransaction.T10);
     // For all available invoices
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.INVOICE))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.INVOICE))
     {
       // Ensure the UBL file validates against the scheme
       final InvoiceType aUBLInvoice = UBL20Reader.readInvoice (aTestFile);
@@ -290,7 +290,7 @@ public final class DocumentValidationSuccessFuncTest
   {
     final Locale aCountry = CountryCache.getInstance ().getCountry ("AT");
     // For all available invoices
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.INVOICE, aCountry))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.INVOICE, aCountry))
     {
       // Ensure the UBL file validates against the scheme
       final InvoiceType aUBLInvoice = UBL20Reader.readInvoice (aTestFile);

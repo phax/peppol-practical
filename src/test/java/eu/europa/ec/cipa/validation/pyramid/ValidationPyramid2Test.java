@@ -51,10 +51,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.country.CountryCache;
+import com.helger.peppol.testfiles.peppolubl.EPeppolUBLTestFileType;
+import com.helger.peppol.testfiles.peppolubl.PeppolUBLTestFiles;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
-import eu.europa.ec.cipa.test.ETestFileType;
-import eu.europa.ec.cipa.test.TestFiles;
 import eu.europa.ec.cipa.validation.rules.EValidationArtefact;
 import eu.europa.ec.cipa.validation.rules.EValidationDocumentType;
 import eu.europa.ec.cipa.validation.rules.EValidationLevel;
@@ -74,7 +74,7 @@ public final class ValidationPyramid2Test
   {
     final ValidationPyramid2 vp = ValidationPyramid2.createDefault (EValidationDocumentType.INVOICE,
                                                                     ValidationTransaction.createUBLTransaction (ETransaction.T10));
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.INVOICE))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.INVOICE))
     {
       for (final ValidationPyramidResultLayer aResultLayer : vp.applyValidation (aTestFile)
                                                                .getAllValidationResultLayers ())
@@ -100,7 +100,7 @@ public final class ValidationPyramid2Test
     catch (final IllegalArgumentException ex)
     {}
 
-    for (final IReadableResource aTestFile : TestFiles.getSuccessFiles (ETestFileType.INVOICE, aCountry))
+    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.INVOICE, aCountry))
     {
       // Do validation
       final ValidationPyramidResult aResult = vp.applyValidation (aTestFile);
