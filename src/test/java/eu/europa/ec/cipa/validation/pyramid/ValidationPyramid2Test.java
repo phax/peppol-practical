@@ -51,8 +51,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.country.CountryCache;
-import com.helger.peppol.testfiles.peppolubl.EPeppolUBLTestFileType;
-import com.helger.peppol.testfiles.peppolubl.PeppolUBLTestFiles;
+import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
+import com.helger.peppol.testfiles.ubl.PeppolUBLTestFiles;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import eu.europa.ec.cipa.validation.rules.EValidationArtefact;
