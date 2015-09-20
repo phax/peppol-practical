@@ -50,7 +50,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.write.XMLWriter;
 import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
-import com.helger.peppol.testfiles.ubl.PeppolUBLTestFiles;
+import com.helger.peppol.testfiles.ubl.PeppolBISV1TestFiles;
 import com.helger.schematron.SchematronHelper;
 import com.helger.schematron.svrl.SVRLFailedAssert;
 import com.helger.schematron.svrl.SVRLHelper;
@@ -70,7 +70,7 @@ public final class TenderValidationFuncTest
   public void testReadTender () throws SAXException
   {
     // For all available tenders
-    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.TENDER))
+    for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.TENDER))
     {
       // Ensure the UBL file validates against the scheme
       final TenderType aUBLTender = UBL21Reader.readTender (DOMReader.readXMLDOM (aTestFile));
@@ -107,7 +107,7 @@ public final class TenderValidationFuncTest
   public void testReadCallForTenders () throws SAXException
   {
     // For all available call for tenders
-    for (final IReadableResource aTestFile : PeppolUBLTestFiles.getSuccessFiles (EPeppolUBLTestFileType.CALLFORTENDERS))
+    for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.CALLFORTENDERS))
     {
       // Ensure the UBL file validates against the scheme
       final CallForTendersType aUBLCallForTenders = UBL21Reader.readCallForTenders (DOMReader.readXMLDOM (aTestFile));

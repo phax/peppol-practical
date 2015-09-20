@@ -66,7 +66,7 @@ import com.helger.commons.xml.serialize.write.XMLWriter;
 import com.helger.peppol.testfiles.ErrorDefinition;
 import com.helger.peppol.testfiles.TestResource;
 import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
-import com.helger.peppol.testfiles.ubl.PeppolUBLTestFiles;
+import com.helger.peppol.testfiles.ubl.PeppolBISV1TestFiles;
 import com.helger.schematron.SchematronHelper;
 import com.helger.schematron.pure.SchematronResourcePure;
 import com.helger.schematron.svrl.SVRLFailedAssert;
@@ -115,7 +115,7 @@ public final class DocumentValidationErrorFuncTest
   {
     final IValidationTransaction aVT = ValidationTransaction.createUBLTransaction (ETransaction.T01);
     // For all available orders
-    for (final TestResource aTestDoc : PeppolUBLTestFiles.getErrorFiles (EPeppolUBLTestFileType.ORDER))
+    for (final TestResource aTestDoc : PeppolBISV1TestFiles.getErrorFiles (EPeppolUBLTestFileType.ORDER))
     {
       // Get the UBL XML file
       final IReadableResource aTestFile = aTestDoc.getResource ();
@@ -166,7 +166,7 @@ public final class DocumentValidationErrorFuncTest
   {
     final IValidationTransaction aVT = ValidationTransaction.createUBLTransaction (ETransaction.T10);
     // For all available orders
-    for (final TestResource aTestDoc : PeppolUBLTestFiles.getErrorFiles (EPeppolUBLTestFileType.INVOICE))
+    for (final TestResource aTestDoc : PeppolBISV1TestFiles.getErrorFiles (EPeppolUBLTestFileType.INVOICE))
     {
       // Get the UBL XML file
       final IReadableResource aTestFile = aTestDoc.getResource ();
@@ -214,7 +214,7 @@ public final class DocumentValidationErrorFuncTest
     final IValidationTransaction aVT = ValidationTransaction.createUBLTransaction (ETransaction.T10);
     // For all available orders
     final Locale aCountry = CountryCache.getInstance ().getCountry ("AT");
-    for (final TestResource aTestDoc : PeppolUBLTestFiles.getErrorFiles (EPeppolUBLTestFileType.INVOICE, aCountry))
+    for (final TestResource aTestDoc : PeppolBISV1TestFiles.getErrorFiles (EPeppolUBLTestFileType.INVOICE, aCountry))
     {
       // Get the UBL XML file
       final IReadableResource aTestFile = aTestDoc.getResource ();
