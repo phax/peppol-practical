@@ -30,12 +30,6 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
-import org.busdox.servicemetadata.publishing._1.EndpointType;
-import org.busdox.servicemetadata.publishing._1.ProcessType;
-import org.busdox.servicemetadata.publishing._1.ServiceGroupType;
-import org.busdox.servicemetadata.publishing._1.ServiceMetadataReferenceType;
-import org.busdox.servicemetadata.publishing._1.ServiceMetadataType;
-import org.busdox.servicemetadata.publishing._1.SignedServiceMetadataType;
 import org.joda.time.LocalDate;
 
 import com.helger.commons.annotation.Nonempty;
@@ -67,6 +61,12 @@ import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.smp.EndpointType;
+import com.helger.peppol.smp.ProcessType;
+import com.helger.peppol.smp.ServiceGroupType;
+import com.helger.peppol.smp.ServiceMetadataReferenceType;
+import com.helger.peppol.smp.ServiceMetadataType;
+import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.CertificateHelper;
