@@ -56,14 +56,6 @@ public final class AppHelper
   @Nullable
   public static String getSMPTransportProfileShortName (@Nullable final ESMPTransportProfile eTransportProfile)
   {
-    if (eTransportProfile != null)
-      switch (eTransportProfile)
-      {
-        case TRANSPORT_PROFILE_AS2:
-          return "AS2";
-        case TRANSPORT_PROFILE_START:
-          return "START";
-      }
-    return null;
+    return eTransportProfile == null ? null : eTransportProfile.getName ();
   }
 }

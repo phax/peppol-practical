@@ -286,12 +286,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                       // Transport profile
                       final String sTransportProfile = aEndpoint.getTransportProfile ();
                       final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-                      String sShortName = "unknown";
-                      if (eTransportProfile == ESMPTransportProfile.TRANSPORT_PROFILE_START)
-                        sShortName = "START";
-                      else
-                        if (eTransportProfile == ESMPTransportProfile.TRANSPORT_PROFILE_AS2)
-                          sShortName = "AS2";
+                      final String sShortName = eTransportProfile == null ? "unknown" : eTransportProfile.getName ();
                       aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: " + sTransportProfile + " (")
                                                         .addChild (new HCStrong ().addChild (sShortName))
                                                         .addChild (")"));
