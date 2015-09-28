@@ -20,14 +20,13 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
 /**
  * UI select for SMP transport profiles
- * 
+ *
  * @author Philip Helger
  */
 public class SMPTransportProfileSelect extends HCExtSelect
@@ -37,6 +36,6 @@ public class SMPTransportProfileSelect extends HCExtSelect
     super (aRF);
     addOptionPleaseSelect (aDisplayLocale);
     for (final ESMPTransportProfile e : ESMPTransportProfile.values ())
-      addOption (e.getID (), AppHelper.getSMPTransportProfileShortName (e) + " (" + e.getID () + ")");
+      addOption (e.getID (), e.getName () + " (" + e.getID () + ")");
   }
 }

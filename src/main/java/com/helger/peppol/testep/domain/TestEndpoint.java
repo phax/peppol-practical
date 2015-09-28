@@ -27,7 +27,7 @@ import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
-import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.basic.object.AbstractBaseObject;
 import com.helger.photon.basic.object.StubObject;
 
@@ -45,7 +45,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   private String m_sContactPerson;
   private String m_sParticipantIDScheme;
   private String m_sParticipantIDValue;
-  private ESMPTransportProfile m_eTransportProfile;
+  private ISMPTransportProfile m_aTransportProfile;
 
   /**
    * Constructor.
@@ -58,21 +58,21 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
    *        Test endpoint participant ID scheme (e.g. 9915).
    * @param sParticipantIDValue
    *        Test endpoint participant ID value (e.g. 123456).
-   * @param eTransportProfile
+   * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
    */
   public TestEndpoint (@Nonnull @Nonempty final String sCompanyName,
                        @Nullable final String sContactPerson,
                        @Nonnull @Nonempty final String sParticipantIDScheme,
                        @Nonnull @Nonempty final String sParticipantIDValue,
-                       @Nonnull final ESMPTransportProfile eTransportProfile)
+                       @Nonnull final ISMPTransportProfile aTransportProfile)
   {
     this (StubObject.createForCurrentUser (),
           sCompanyName,
           sContactPerson,
           sParticipantIDScheme,
           sParticipantIDValue,
-          eTransportProfile);
+          aTransportProfile);
   }
 
   /**
@@ -88,7 +88,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
    *        Test endpoint participant ID scheme (e.g. 9915).
    * @param sParticipantIDValue
    *        Test endpoint participant ID value (e.g. 123456).
-   * @param eTransportProfile
+   * @param aTransportProfile
    *        Transport profile.
    */
   TestEndpoint (@Nonnull final StubObject aObject,
@@ -96,14 +96,14 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
                 @Nullable final String sContactPerson,
                 @Nonnull @Nonempty final String sParticipantIDScheme,
                 @Nonnull @Nonempty final String sParticipantIDValue,
-                @Nonnull final ESMPTransportProfile eTransportProfile)
+                @Nonnull final ISMPTransportProfile aTransportProfile)
   {
     super (aObject);
     setCompanyName (sCompanyName);
     setContactPerson (sContactPerson);
     setParticipantIDScheme (sParticipantIDScheme);
     setParticipantIDValue (sParticipantIDValue);
-    setTransportProfile (eTransportProfile);
+    setTransportProfile (aTransportProfile);
   }
 
   @Nonnull
@@ -189,31 +189,31 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   }
 
   @Nonnull
-  public ESMPTransportProfile getTransportProfile ()
+  public ISMPTransportProfile getTransportProfile ()
   {
-    return m_eTransportProfile;
+    return m_aTransportProfile;
   }
 
   @Nonnull
-  public EChange setTransportProfile (@Nonnull final ESMPTransportProfile eTransportProfile)
+  public EChange setTransportProfile (@Nonnull final ISMPTransportProfile eTransportProfile)
   {
     ValueEnforcer.notNull (eTransportProfile, "ParticipantIDValue");
-    if (eTransportProfile.equals (m_eTransportProfile))
+    if (eTransportProfile.equals (m_aTransportProfile))
       return EChange.UNCHANGED;
 
-    m_eTransportProfile = eTransportProfile;
+    m_aTransportProfile = eTransportProfile;
     return EChange.CHANGED;
   }
 
   public boolean hasSameIdentifier (@Nullable final String sParticipantIDScheme,
                                     @Nullable final String sParticipantIDValue,
-                                    @Nullable final ESMPTransportProfile eTransportProfile)
+                                    @Nullable final ISMPTransportProfile aTransportProfile)
   {
-    if (sParticipantIDScheme == null || sParticipantIDValue == null || eTransportProfile == null)
+    if (sParticipantIDScheme == null || sParticipantIDValue == null || aTransportProfile == null)
       return false;
     return m_sParticipantIDScheme.equals (sParticipantIDScheme) &&
            m_sParticipantIDValue.equals (sParticipantIDValue) &&
-           m_eTransportProfile.equals (eTransportProfile);
+           m_aTransportProfile.equals (aTransportProfile);
   }
 
   @Nonnull
@@ -231,7 +231,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
                             .appendIfNotNull ("ContactPerson", m_sContactPerson)
                             .append ("ParticipantIDScheme", m_sParticipantIDScheme)
                             .append ("ParticipantIDValue", m_sParticipantIDValue)
-                            .append ("TransportProfile", m_eTransportProfile)
+                            .append ("TransportProfile", m_aTransportProfile)
                             .toString ();
   }
 }

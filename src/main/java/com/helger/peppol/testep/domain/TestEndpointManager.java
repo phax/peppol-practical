@@ -33,7 +33,7 @@ import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 import com.helger.photon.basic.security.audit.AuditHelper;
@@ -86,13 +86,13 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                           @Nullable final String sContactPerson,
                                           @Nonnull @Nonempty final String sParticipantIDScheme,
                                           @Nonnull @Nonempty final String sParticipantIDValue,
-                                          @Nonnull final ESMPTransportProfile eTransportProfile)
+                                          @Nonnull final ISMPTransportProfile aTransportProfile)
   {
     final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName,
                                                          sContactPerson,
                                                          sParticipantIDScheme,
                                                          sParticipantIDValue,
-                                                         eTransportProfile);
+                                                         aTransportProfile);
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -110,7 +110,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                       sContactPerson,
                                       sParticipantIDScheme,
                                       sParticipantIDValue,
-                                      eTransportProfile);
+                                      aTransportProfile);
     return aTestEndpoint;
   }
 
@@ -120,7 +120,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                      @Nullable final String sContactPerson,
                                      @Nonnull @Nonempty final String sParticipantIDScheme,
                                      @Nonnull @Nonempty final String sParticipantIDValue,
-                                     @Nonnull final ESMPTransportProfile eTransportProfile)
+                                     @Nonnull final ISMPTransportProfile aTransportProfile)
   {
     m_aRWLock.writeLock ().lock ();
     try
@@ -138,7 +138,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       eChange = eChange.or (aTestEndpoint.setContactPerson (sContactPerson));
       eChange = eChange.or (aTestEndpoint.setParticipantIDScheme (sParticipantIDScheme));
       eChange = eChange.or (aTestEndpoint.setParticipantIDValue (sParticipantIDValue));
-      eChange = eChange.or (aTestEndpoint.setTransportProfile (eTransportProfile));
+      eChange = eChange.or (aTestEndpoint.setTransportProfile (aTransportProfile));
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
@@ -155,7 +155,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                       sContactPerson,
                                       sParticipantIDScheme,
                                       sParticipantIDValue,
-                                      eTransportProfile);
+                                      aTransportProfile);
     return EChange.CHANGED;
   }
 
@@ -207,17 +207,17 @@ public final class TestEndpointManager extends AbstractSimpleDAO
   @Nullable
   public TestEndpoint getTestEndpoint (@Nullable final String sParticipantIDScheme,
                                        @Nullable final String sParticipantIDValue,
-                                       @Nullable final ESMPTransportProfile eTransportProfile)
+                                       @Nullable final ISMPTransportProfile aTransportProfile)
   {
     if (StringHelper.hasText (sParticipantIDScheme) &&
         StringHelper.hasText (sParticipantIDValue) &&
-        eTransportProfile != null)
+        aTransportProfile != null)
     {
       m_aRWLock.readLock ().lock ();
       try
       {
         for (final TestEndpoint aTestEndpoint : m_aMap.values ())
-          if (aTestEndpoint.hasSameIdentifier (sParticipantIDScheme, sParticipantIDValue, eTransportProfile))
+          if (aTestEndpoint.hasSameIdentifier (sParticipantIDScheme, sParticipantIDValue, aTransportProfile))
             return aTestEndpoint;
       }
       finally
@@ -230,8 +230,8 @@ public final class TestEndpointManager extends AbstractSimpleDAO
 
   public boolean containsTestEndpoint (@Nullable final String sParticipantIDScheme,
                                        @Nullable final String sParticipantIDValue,
-                                       @Nullable final ESMPTransportProfile eTransportProfile)
+                                       @Nullable final ISMPTransportProfile aTransportProfile)
   {
-    return getTestEndpoint (sParticipantIDScheme, sParticipantIDValue, eTransportProfile) != null;
+    return getTestEndpoint (sParticipantIDScheme, sParticipantIDValue, aTransportProfile) != null;
   }
 }

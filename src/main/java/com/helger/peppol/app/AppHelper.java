@@ -23,7 +23,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
-import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.smp.ISMPTransportProfile;
 
 /**
  * Misc utility methods
@@ -54,8 +54,8 @@ public final class AppHelper
   }
 
   @Nullable
-  public static String getSMPTransportProfileShortName (@Nullable final ESMPTransportProfile eTransportProfile)
+  public static String getSMPTransportProfileShortName (@Nullable final ISMPTransportProfile aTransportProfile)
   {
-    return eTransportProfile == null ? null : eTransportProfile.getName ();
+    return aTransportProfile == null ? null : aTransportProfile.getName ();
   }
 }
