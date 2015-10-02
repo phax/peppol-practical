@@ -28,12 +28,12 @@ AppClass.prototype = {
       url:ajaxUrl,
       data:vals,
       success:function(data){
-        if (data.value.loggedin) {
+        if (data.loggedin) {
           // reload the whole page because of too many changes
           location.reload ();
         }
         else
-          $('#'+errorField).empty ().append (data.value.html);
+          $('#'+errorField).empty ().append (data.html);
       }
     });
   }
