@@ -41,8 +41,7 @@ import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
-import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
-import com.helger.photon.core.ajax.response.IAjaxResponse;
+import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -61,7 +60,7 @@ public final class AjaxExecutorCommentDelete extends AbstractAjaxExecutor
 
   @Override
   @Nonnull
-  protected IAjaxResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
+  protected AjaxHtmlResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
@@ -99,15 +98,15 @@ public final class AjaxExecutorCommentDelete extends AbstractAjaxExecutor
             aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_DELETE_FAILURE.getDisplayText (aDisplayLocale));
 
           // Message box + list of exiting comments
-          return AjaxDefaultResponse.createSuccess (aRequestScope,
-                                                    CommentUI.getCommentList (aLEC,
-                                                                              aOwner,
-                                                                              CommentAction.createForComment (ECommentAction.DELETE_COMMENT,
-                                                                                                              aCommentThread,
-                                                                                                              aParentComment),
-                                                                              null,
-                                                                              aMessageBox,
-                                                                              true));
+          return AjaxHtmlResponse.createSuccess (aRequestScope,
+                                                 CommentUI.getCommentList (aLEC,
+                                                                           aOwner,
+                                                                           CommentAction.createForComment (ECommentAction.DELETE_COMMENT,
+                                                                                                           aCommentThread,
+                                                                                                           aParentComment),
+                                                                           null,
+                                                                           aMessageBox,
+                                                                           true));
         }
       }
     }
@@ -122,6 +121,6 @@ public final class AjaxExecutorCommentDelete extends AbstractAjaxExecutor
                     "' in thread '" +
                     sCommentThreadID +
                     "'");
-    return AjaxDefaultResponse.createError ();
+    return AjaxHtmlResponse.createError ("Missing required parameter");
   }
 }

@@ -33,8 +33,7 @@ import com.helger.photon.basic.security.login.LoggedInUserManager;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
-import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
-import com.helger.photon.core.ajax.response.IAjaxResponse;
+import com.helger.photon.core.ajax.response.AjaxJsonResponse;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.login.CLogin;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
@@ -46,13 +45,13 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
  */
 public final class AjaxExecutorPublicLogin extends AbstractAjaxExecutor
 {
+  public static final String JSON_LOGGEDIN = "loggedin";
+  public static final String JSON_HTML = "html";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorPublicLogin.class);
-  private static final String JSON_LOGGEDIN = "loggedin";
-  private static final String JSON_HTML = "html";
 
   @Override
   @Nonnull
-  protected IAjaxResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
+  protected AjaxJsonResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final String sLoginName = aRequestScope.getAttributeAsString (CLogin.REQUEST_ATTR_USERID);
@@ -63,7 +62,7 @@ public final class AjaxExecutorPublicLogin extends AbstractAjaxExecutor
                                                                                     sPassword,
                                                                                     CApp.REQUIRED_ROLE_IDS_VIEW);
     if (eLoginResult.isSuccess ())
-      return AjaxDefaultResponse.createSuccess (aRequestScope, new JsonObject ().add (JSON_LOGGEDIN, true));
+      return AjaxJsonResponse.createSuccess (new JsonObject ().add (JSON_LOGGEDIN, true));
 
     // Get the rendered content of the menu area
     if (GlobalDebug.isDebugMode ())
@@ -75,9 +74,8 @@ public final class AjaxExecutorPublicLogin extends AbstractAjaxExecutor
                                                              eLoginResult.getDisplayText (aDisplayLocale));
 
     // Set as result property
-    return AjaxDefaultResponse.createSuccess (aRequestScope,
-                                              new JsonObject ().add (JSON_LOGGEDIN, false)
-                                                               .add (JSON_HTML,
-                                                                     HCRenderer.getAsHTMLStringWithoutNamespaces (aRoot)));
+    return AjaxJsonResponse.createSuccess (new JsonObject ().add (JSON_LOGGEDIN, false)
+                                                            .add (JSON_HTML,
+                                                                  HCRenderer.getAsHTMLStringWithoutNamespaces (aRoot)));
   }
 }

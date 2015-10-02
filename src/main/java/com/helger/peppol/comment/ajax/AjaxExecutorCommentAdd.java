@@ -45,8 +45,7 @@ import com.helger.photon.basic.security.user.IUser;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
-import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
-import com.helger.photon.core.ajax.response.IAjaxResponse;
+import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -68,7 +67,7 @@ public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
 
   @Override
   @Nonnull
-  protected IAjaxResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
+  protected AjaxHtmlResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
@@ -112,7 +111,8 @@ public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
           if (StringHelper.hasNoText (sText))
           {
             // No text provided
-            aFormErrors.addFieldError (PARAM_TEXT, ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
+            aFormErrors.addFieldError (PARAM_TEXT,
+                                       ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
           }
 
           IHCNode aMessageBox = null;
@@ -136,15 +136,15 @@ public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
           }
 
           // List of exiting comments + message box
-          return AjaxDefaultResponse.createSuccess (aRequestScope,
-                                                    CommentUI.getCommentList (aLEC,
-                                                                              aOwner,
-                                                                              CommentAction.createForComment (ECommentAction.ADD_COMMENT,
-                                                                                                              aCommentThread,
-                                                                                                              aParentComment),
-                                                                              aFormErrors,
-                                                                              aMessageBox,
-                                                                              true));
+          return AjaxHtmlResponse.createSuccess (aRequestScope,
+                                                 CommentUI.getCommentList (aLEC,
+                                                                           aOwner,
+                                                                           CommentAction.createForComment (ECommentAction.ADD_COMMENT,
+                                                                                                           aCommentThread,
+                                                                                                           aParentComment),
+                                                                           aFormErrors,
+                                                                           aMessageBox,
+                                                                           true));
         }
       }
     }
@@ -159,6 +159,6 @@ public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
                     "' in thread '" +
                     sCommentThreadID +
                     "'");
-    return AjaxDefaultResponse.createError ();
+    return AjaxHtmlResponse.createError ("Missing required parameters");
   }
 }

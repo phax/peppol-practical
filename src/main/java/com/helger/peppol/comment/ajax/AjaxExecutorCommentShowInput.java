@@ -32,8 +32,7 @@ import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
-import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
-import com.helger.photon.core.ajax.response.IAjaxResponse;
+import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -53,7 +52,7 @@ public final class AjaxExecutorCommentShowInput extends AbstractAjaxExecutor
 
   @Override
   @Nonnull
-  protected IAjaxResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
+  protected AjaxHtmlResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final String sObjectType = aRequestScope.getAttributeAsString (PARAM_OBJECT_TYPE);
@@ -86,7 +85,7 @@ public final class AjaxExecutorCommentShowInput extends AbstractAjaxExecutor
                                                             aParentComment,
                                                             null,
                                                             null);
-          return AjaxDefaultResponse.createSuccess (aRequestScope, aNode);
+          return AjaxHtmlResponse.createSuccess (aRequestScope, aNode);
         }
       }
     }
@@ -101,6 +100,6 @@ public final class AjaxExecutorCommentShowInput extends AbstractAjaxExecutor
                     "' in thread '" +
                     sCommentThreadID +
                     "'");
-    return AjaxDefaultResponse.createError ();
+    return AjaxHtmlResponse.createError ("Missing required parameter");
   }
 }

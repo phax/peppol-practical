@@ -21,8 +21,7 @@ import javax.annotation.Nonnull;
 import com.helger.html.hc.IHCNode;
 import com.helger.peppol.app.ui.LayoutAreaContentProviderPublic;
 import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
-import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
-import com.helger.photon.core.ajax.response.IAjaxResponse;
+import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -35,7 +34,7 @@ public final class AjaxExecutorPublicUpdateMenuView extends AbstractAjaxExecutor
 {
   @Override
   @Nonnull
-  protected IAjaxResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
+  protected AjaxHtmlResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
 
@@ -43,6 +42,6 @@ public final class AjaxExecutorPublicUpdateMenuView extends AbstractAjaxExecutor
     final IHCNode aRoot = LayoutAreaContentProviderPublic.getMenuContent (aLEC);
 
     // Set as result property
-    return AjaxDefaultResponse.createSuccess (aRequestScope, aRoot);
+    return AjaxHtmlResponse.createSuccess (aRequestScope, aRoot);
   }
 }

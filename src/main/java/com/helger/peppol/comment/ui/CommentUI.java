@@ -69,7 +69,7 @@ import com.helger.photon.bootstrap3.panel.BootstrapPanel;
 import com.helger.photon.bootstrap3.panel.EBootstrapPanelType;
 import com.helger.photon.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.photon.core.EPhotonCoreText;
-import com.helger.photon.core.ajax.response.AjaxDefaultResponse;
+import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.icon.EDefaultIcon;
@@ -215,7 +215,7 @@ public final class CommentUI
                   final JSVar aJSData = aOnSuccess.param ("data");
                   aOnSuccess.body ().add (JQuery.idRef (aCommentResponseContainer)
                                                 .empty ()
-                                                .append (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
+                                                .append (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
                   final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().cache (false)
                                                                                    .url (CAjaxComment.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
                                                                                    .data (new JSAssocArray ().add (AjaxExecutorCommentShowInput.PARAM_OBJECT_TYPE,
@@ -251,7 +251,7 @@ public final class CommentUI
                   final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
                   final JSVar aJSData = aOnSuccess.param ("data");
                   aOnSuccess.body ().add (JQuery.idRef (sResultDivID)
-                                                .replaceWith (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
+                                                .replaceWith (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
                   final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().cache (false)
                                                                                  .url (CAjaxComment.COMMENT_DELETE.getInvocationURL (aRequestScope))
                                                                                  .data (new JSAssocArray ().add (AjaxExecutorCommentDelete.PARAM_OBJECT_TYPE,
@@ -408,8 +408,7 @@ public final class CommentUI
     {
       final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
       final JSVar aJSData = aOnSuccess.param ("data");
-      aOnSuccess.body ()
-                .add (JQuery.idRef (sResultDivID).replaceWith (aJSData.ref (AjaxDefaultResponse.PROPERTY_HTML)));
+      aOnSuccess.body ().add (JQuery.idRef (sResultDivID).replaceWith (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
       JQueryInvocation aSaveAction;
       if (bIsCreateNewThread)
       {

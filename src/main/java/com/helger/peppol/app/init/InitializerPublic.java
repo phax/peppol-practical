@@ -19,13 +19,11 @@ package com.helger.peppol.app.init;
 import javax.annotation.Nonnull;
 
 import com.helger.peppol.app.CApp;
-import com.helger.peppol.app.action.CActionPublic;
 import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.app.menu.MenuPublic;
 import com.helger.peppol.app.ui.LayoutAreaContentProviderPublic;
 import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.basic.app.menu.IMenuTree;
-import com.helger.photon.core.action.IActionInvoker;
 import com.helger.photon.core.ajax.IAjaxInvoker;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.init.DefaultApplicationInitializer;
@@ -64,14 +62,9 @@ public final class InitializerPublic extends DefaultApplicationInitializer <Layo
   public void initAjax (@Nonnull final IAjaxInvoker aAjaxInvoker)
   {
     aAjaxInvoker.registerFunction (CAjaxPublic.DATATABLES);
+    aAjaxInvoker.registerFunction (CAjaxPublic.DATATABLES_I18N);
     aAjaxInvoker.registerFunction (CAjaxPublic.LOGIN);
     aAjaxInvoker.registerFunction (CAjaxPublic.UPDATE_MENU_VIEW);
-  }
-
-  @Override
-  public void initActions (@Nonnull final IActionInvoker aActionInvoker)
-  {
-    aActionInvoker.registerAction (CActionPublic.DATATABLES_I18N);
   }
 
   @Override
