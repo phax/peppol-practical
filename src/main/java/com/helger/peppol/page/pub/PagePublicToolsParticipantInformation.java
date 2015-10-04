@@ -94,7 +94,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_ID_VALUE = "idvalue";
   public static final String FIELD_SML = "sml";
 
-  public static final String DEFAULT_SML = ESML.DIGIT_PRODUCTION.name ();
+  public static final String DEFAULT_SML = ESML.DIGIT_PRODUCTION.getID ();
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {

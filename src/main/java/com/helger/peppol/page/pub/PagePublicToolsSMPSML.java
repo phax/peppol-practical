@@ -100,7 +100,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String SUBACTION_SMP_UPDATE = "smpupdate";
   private static final String SUBACTION_SMP_DELETE = "smpdelete";
 
-  private static final String DEFAULT_SML = ESML.DIGIT_PRODUCTION.name ();
+  private static final String DEFAULT_SML = ESML.DIGIT_PRODUCTION.getID ();
 
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
   {

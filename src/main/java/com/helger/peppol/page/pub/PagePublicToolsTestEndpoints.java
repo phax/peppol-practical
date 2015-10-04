@@ -87,7 +87,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                 .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_ISO6523, aTestEndpoint.getParticipantIDScheme ())
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantIDValue ())
-                .add (PagePublicToolsParticipantInformation.FIELD_SML, ESML.DIGIT_PRODUCTION.name ());
+                .add (PagePublicToolsParticipantInformation.FIELD_SML, ESML.DIGIT_PRODUCTION.getID ());
   }
 
   @Override
