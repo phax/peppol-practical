@@ -16,27 +16,6 @@
  */
 function AppClass(){}
 AppClass.prototype = {
-  /**
-   * Perform a login via AJAX
-   * @param ajaxUrl AJAX URL to use
-   * @param vals custom data like login name and password
-   * @param errorField The ID of the HTML element that will retrieve the error message
-   */
-  viewLogin : function(ajaxUrl,vals,errorField) {
-    $.ajax ({
-      type: 'POST',
-      url:ajaxUrl,
-      data:vals,
-      success:function(data){
-        if (data.loggedin) {
-          // reload the whole page because of too many changes
-          location.reload ();
-        }
-        else
-          $('#'+errorField).empty ().append (data.html);
-      }
-    });
-  }
 };
 
 var App = window.App = new AppClass();

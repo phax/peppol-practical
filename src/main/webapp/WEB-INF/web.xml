@@ -27,7 +27,7 @@
   
   <!-- The welcome file is only required for the initial redirect -->
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>public</welcome-file>
   </welcome-file-list>
   
   <!-- In case of page not found - goto error page
@@ -86,6 +86,15 @@
   <servlet-mapping>
     <servlet-name>CommentAjaxServlet</servlet-name>
     <url-pattern>/comment/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AppRootServlet</servlet-name>
+    <servlet-class>com.helger.peppol.servlet.AppRootServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AppRootServlet</servlet-name>
+    <url-pattern></url-pattern>
   </servlet-mapping>
 
   <!-- Web Service stuff -->

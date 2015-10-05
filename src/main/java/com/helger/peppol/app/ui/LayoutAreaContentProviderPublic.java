@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
@@ -87,6 +88,7 @@ import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.layout.CLayout;
 import com.helger.photon.core.app.layout.ILayoutAreaContentProvider;
+import com.helger.photon.core.app.redirect.ForcedRedirectManager;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.photon.core.servlet.LogoutServlet;
 import com.helger.photon.core.url.LinkHelper;
@@ -246,7 +248,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
 
   @SuppressWarnings ("unchecked")
   @Nonnull
-  static IHCNode _getMainContent (@Nonnull final LayoutExecutionContext aLEC)
+  static IHCNode getPageContent (@Nonnull final LayoutExecutionContext aLEC)
   {
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
 
@@ -294,17 +296,27 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                                                                                             sHttpRequestURI
                                                                                                           : "")));
     }
+    else
+    {
+      // Add the forced redirect content here
+      if (aWPEC.containsAttribute (ForcedRedirectManager.REQUEST_PARAMETER_PRG_ACTIVE))
+        aPageContainer.addChild (ForcedRedirectManager.getLastForcedRedirectContent (aDisplayPage.getID ()));
+    }
 
     final String sHeaderText = aDisplayPage.getHeaderText (aWPEC);
     if (StringHelper.hasText (sHeaderText))
       aPageContainer.addChild (new BootstrapPageHeader ().addChild (new HCH1 ().addChild (sHeaderText)));
+
     // Main fill content
     aDisplayPage.getContent (aWPEC);
     // Add result
     aPageContainer.addChild (aWPEC.getNodeList ());
 
-    // Add Google Analytics
-    aPageContainer.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false, true));
+    if (GlobalDebug.isProductionMode ())
+    {
+      // Add Google Analytics
+      aPageContainer.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false, true));
+    }
 
     return aPageContainer;
   }
@@ -361,7 +373,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       aCol1.addChild (new HCDiv ().setID (CLayout.LAYOUT_AREAID_SPECIAL));
 
       // content
-      aCol2.addChild (_getMainContent (aLEC));
+      aCol2.addChild (getPageContent (aLEC));
     }
 
     // Footer

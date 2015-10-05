@@ -40,9 +40,13 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.html.jquery.JQuery;
 import com.helger.html.jquery.JQueryAjaxBuilder;
+import com.helger.html.jscode.JSAnonymousFunction;
 import com.helger.html.jscode.JSAssocArray;
 import com.helger.html.jscode.JSPackage;
+import com.helger.html.jscode.JSVar;
+import com.helger.html.jscode.html.JSHtml;
 import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.ajax.AjaxExecutorPublicLogin;
 import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.app.menu.CMenuPublic;
 import com.helger.peppol.comment.domain.CommentThreadManager;
@@ -143,16 +147,26 @@ public final class AppCommonUI
 
     // Login button
     final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aLEC));
-    final JSPackage aOnClick = new JSPackage ();
-    aOnClick.add (CAppJS.viewLogin ()
-                        .arg (CAjaxPublic.LOGIN.getInvocationURI (aRequestScope))
-                        .arg (new JSAssocArray ().add (CLogin.REQUEST_ATTR_USERID, JQuery.idRef (sIDUserName).val ())
-                                                 .add (CLogin.REQUEST_ATTR_PASSWORD, JQuery.idRef (sIDPassword).val ()))
-                        .arg (sIDErrorField));
-    aOnClick._return (false);
-    aToolbar.addSubmitButton (EPhotonCoreText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale),
-                              aOnClick,
-                              EDefaultIcon.YES.getIcon ());
+    {
+      final JSPackage aOnClick = new JSPackage ();
+      final JSAnonymousFunction aJSSuccess = new JSAnonymousFunction ();
+      final JSVar aJSData = aJSSuccess.param ("data");
+      aJSSuccess.body ()
+                ._if (aJSData.ref (AjaxExecutorPublicLogin.JSON_LOGGEDIN),
+                      JSHtml.windowLocationReload (),
+                      JQuery.idRef (sIDErrorField).empty ().append (aJSData.ref (AjaxExecutorPublicLogin.JSON_HTML)));
+      aOnClick.add (new JQueryAjaxBuilder ().url (CAjaxPublic.LOGIN.getInvocationURI (aRequestScope))
+                                            .data (new JSAssocArray ().add (CLogin.REQUEST_ATTR_USERID,
+                                                                            JQuery.idRef (sIDUserName).val ())
+                                                                      .add (CLogin.REQUEST_ATTR_PASSWORD,
+                                                                            JQuery.idRef (sIDPassword).val ()))
+                                            .success (aJSSuccess)
+                                            .build ());
+      aOnClick._return (false);
+      aToolbar.addSubmitButton (EPhotonCoreText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale),
+                                aOnClick,
+                                EDefaultIcon.YES.getIcon ());
+    }
     if (bShowRegistration)
     {
       aToolbar.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EPhotonCoreText.BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))

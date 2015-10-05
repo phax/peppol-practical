@@ -135,7 +135,7 @@ public final class LayoutAreaContentProviderSecure implements ILayoutAreaContent
       aCol1.addChild (new HCDiv ().setID (CLayout.LAYOUT_AREAID_SPECIAL));
 
       // content - determine is exactly same as for view
-      aCol2.addChild (LayoutAreaContentProviderPublic._getMainContent (aLEC));
+      aCol2.addChild (LayoutAreaContentProviderPublic.getPageContent (aLEC));
     }
 
     return ret;
