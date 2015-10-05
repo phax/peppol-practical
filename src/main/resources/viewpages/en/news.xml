@@ -20,12 +20,21 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2015-10-05</h3>
+
+<p>
+  Added information about my new SMP release 4.0.0. It includes a management GUI for easily 
+  creating service groups, endpoints and redirects. 
+  <a href="/public/menuitem-docs-setup-smp-ph">Read all the details</a> or quick start at
+  <a href="https://github.com/phax/peppol-smp-server">https://github.com/phax/peppol-smp-server</a>.
+</p>
+
 <h3>2015-09-17</h3>
 
 <p>
   Added information about the SML support since these information are hard to find if
   you can't find the original email anymore.
-  <a href="/public/menuitem-docs-sml-support">Read all the details.</a>
+  <a href="/public/menuitem-docs-sml-support">Read all the details</a>.
 </p>
 
 <p>

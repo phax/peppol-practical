@@ -30,6 +30,8 @@
   My implementation is a fork of the CIPA e-Delivery SMP components on version 2.2.3.
   The goal is to keep the implementation simple and provide publicly available PEPPOL components
   to the world. An additional goal was to make the configuration as simple as possible.
+  Please read the official <a href="https://github.com/phax/peppol-smp-server/wiki">SMP Server Wiki</a> for
+  all the details.
 </p>
 
 <div class="panel panel-default">
@@ -43,8 +45,6 @@
       <li><a href="#smpserver">SMP server application</a>
         <ol>
           <li><a href="#configuring">Configuring the service</a></li>
-          <li><a href="#publicapi">Public REST API</a></li>
-          <li><a href="#modifyingapi">Modifying REST API</a></li>
           <li><a href="#security">Security considerations</a></li>
           <li><a href="#initialization">Initialization</a></li>
         </ol>
@@ -79,24 +79,16 @@
 <h2>Technical resources</h2>
 
 <p>
-  My SMP server implementation is available in 2 different versions:
-  <ul>
-    <li>
-      <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>
-      - an SMP server that uses a relational database (like MySQL) as the backend.
-      This project is licensed under EUPL 1.1 or MPL 1.1 as the original one.
-    </li>
-    <li>
-      <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
-      - an SMP server that uses a file-based backend and keeps all information in main memory for
-      performance reasons. This is feasable, because usually an SMP only keeps track of at last
-      a few thousand entries which is not much data.
-      Additionally this implementation includes a small management UI (which still needs improvement). 
-      This project is licensed under Apache 2 license, since no code from the original is used.
-    </li>
-  </ul>
-  You have to choose one of the implementations before you start.
-  Both SMP servers use shared components also available on GitHub:
+  My SMP server implementation is located on GitHub at
+  <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>. It contains
+  the source code and a 
+  <a href="https://github.com/phax/peppol-smp-server/wiki">Wiki</a>
+  with the relevant documentation.
+  Previously I had two separate versions - one with an SQL backend and one with an XML
+  backend - but I now decided to merge these versions so that both backends can use the
+  benefits of the management GUI. The backend can now be chosen via a configuration file
+  property.
+  The SMP servers uses shared components also available on GitHub:
   <a href="https://github.com/phax/peppol-commons">peppol-commons</a> (a common library with shared PEPPOL components),
   <a href="https://github.com/phax/peppol-smp-client">peppol-smp-client</a> (an SMP client library) and
   <a href="https://github.com/phax/peppol-sml-client">peppol-sml-client</a> (an SML client library).
@@ -107,8 +99,7 @@
   GitHub repository (see above)
   whereas the <strong>binary resources</strong> can be obtained from Maven Central:
   <ul>
-    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/</a></li>
-    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/</a></li>
+    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.0/</a></li>
   </ul> 
 </p>
 
@@ -117,8 +108,10 @@
 </p>
 
 <ul>
-  <li><code>peppol-smp-server</code> - The SMP server that offers the query service using a database backend.</li>
-  <li><code>peppol-smp-server-lightweight</code> - The SMP server that offers the query service using a file-based backend.</li>
+  <li><code>peppol-smp-server-library</code> - A common used library with everything needed for an SMP server except the backend and the GUI.</li>
+  <li><code>peppol-smp-server-sql</code> - The SQL backend implementation. Tested with MySQL 5.x</li>
+  <li><code>peppol-smp-server-xml</code> - The XML backend implementation.</li>
+  <li><code>peppol-smp-server-webapp</code> - The main web application. It provides the GUI and assembles everything together.</li>
   <li><code>peppol-smp-client</code> - An SMP client library to be used to access any SMP server.</li>
 </ul>
 
@@ -140,12 +133,11 @@
 </p>
 
 <a name="smpserver"></a>
-<h2>peppol-smp-server and peppol-smp-server-lightweight</h2>
+<h2>peppol-smp-server-webapp</h2>
 <p>
   This is the main SMP server application.
   It is provided as a Java web application that can be deployed in an application server 
     like Apache Tomcat or Jetty.
-  If there are differences between the versions, they are explicitly outline where necessary.
 </p>
 
 <p>
@@ -154,18 +146,18 @@
 
 <ul>
   <li>
-    <em>peppol-smp-server</em> uses a relational database as its backend.
+    <em>peppol-smp-server-xml</em> uses a relational database as its backend.
     A copy of the MySQL database initialization script can be found in the 
     <code>/database_backups/</code> folder of the project.
     By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
     The database layout is compatible to the one of the CIPA SMP.
   </li>
   <li>
-    <em>peppol-smp-server-lightweight</em> uses 2 files as its backend.
-    <code>smp-servicegroup.xml</code> stores all the service groups and
-    <code>smp-servicemetadata.xml</code> stores all the service metadata associated to the service groups.
+    <em>peppol-smp-server-xml</em> uses XML files as its backend.
+    <code>smp-servicegroup.xml</code> stores all the service groups,
+    <code>smp-servicemetadata.xml</code> stores all the service metadata associated to the service groups and
+    <code>smp-redirect.xml</code> stores all the service redirects related to a service group.
     Additional files for user management etc. are also used.
-    By default a user <code>admin@helger.com</code> with the password <code>password</code> is created!
   </li>
 </ul>
 
@@ -177,13 +169,12 @@
   <li>
     Compiling the project on the command line using <kbd>mvn clean install</kbd>. 
     The result is a WAR file in the <code>target</code> folder and additionally an exploded 
-    version of the WAR file in the <code>target/peppol-smp-server-x.y.z</code> or
-    <code>target/peppol-smp-server-lightweight-x.y.z</code> directory
+    version of the WAR file in the <code>target/peppol-smp-server-webapp-x.y.z</code> directory
     (where x.y.z denotes the version number).
   </li>
   <li>
-    Start the application <code>src/test/java/com/helger/peppol/smpserver/standalone/RunInJettySMPSERVER</code> 
-    (or <code>RunInJettySMPSERVERLIGHTWEIGHT</code>) from within Eclipse.
+    Run the application <code>src/test/java/com/helger/peppol/smpserver/standalone/RunInJettySMPSERVER</code> 
+    from within Eclipse.
     Than the application will be running on localhost port 80 and can be accessed with a browser or an SMP client.
   </li>
 </ul>
@@ -197,273 +188,13 @@
 <a name="configuring"></a>
 <h3>Configuring the SMP server</h3>
 <p>
-  The service is configured using a single configuration file 
-  <code>src/main/resources/smp-server.properties</code>. 
-  The following list describes all the possible configuration items:
+  The SMP server is configured with two files. One file (<code>webapp.properties</code>) is for the
+  customization of the web application and the other file (<code>smp-server.properties</code>) is
+  for the SMP functionality itself.
+  Please read the Wiki page
+  <a href="https://github.com/phax/peppol-smp-server/wiki/Configuration">https://github.com/phax/peppol-smp-server/wiki/Configuration</a>
+  for all configuration options and example files.
 </p>
-<ul>
-  <li>
-    <strong><code>smp.keystore.path</code></strong>: 
-    The classpath - relative to the project - where the Java key store (of type JKS) with the SMP 
-    certificate is located. 
-    An empty directory <code>src/main/resources/keystore</code> is present which could contain the key store. 
-    In this case the properties entry should start with <code>keystore/</code>.<br />
-    Note: The key store should contain exactly one certificate entry with an arbitrary name and the certificate must have the same password as the whole key store!
-  </li>
-  <li>
-    <strong><code>smp.keystore.password</code></strong>:
-    The password used to access the key store.
-  </li>
-  <li>
-    <strong><code>smp.keystore.key.alias</code></strong>:
-    The alias of the key within the key store. Is case sensitive and may not be empty.
-    This alias is used to sign certain response messages.
-  </li>
-  <li>
-    <strong><code>smp.keystore.key.password</code></strong>:
-    The password of the key with the above specified alias.
-    Should be the same as the password of the whole key store (see <code>smp.keystore.password</code>).
-  </li>
-  <li>
-    <strong><code>smp.forceroot</code></strong>:
-    It indicates, whether all internal paths should be forced to root ("/").<br />
-    This is a flag which may either have the value <code>true</code> or <code>false</code>.<br />
-    This is especially helpful, when the application runs in a Tomcat application context (e.g. "/smp")
-    but is proxied to a different domain via Apache httpd.
-  </li>
-  <li>
-    <strong><code>sml.active</code></strong>:
-    This field indicates, whether connection to the SML is active or not.<br /> 
-    This is a flag which may either have the value <code>true</code> or <code>false</code>.<br />
-    For testing purposes you may set it to <code>false</code> to disable the communication with the SML.
-    For production the value must be <code>true</code> so that all relevant adds, updates or deletes 
-      of participants is communicated to the SML which will create the respective DNS entries.
-  </li>
-  <li>
-    <strong><code>sml.smpid</code></strong>:
-    The SMP ID to use when using the SML interface.<br /> 
-    Note: it must be the same ID that was used for the initial registration of the SMP to the SML.<br />
-    Note: is only required if the entry <code>sml.active</code> is set to <code>true</code>.
-  </li>
-  <li>
-    <strong><code>sml.url</code></strong>:
-    The URL of the SML manage business identifier service.
-    For production purposes (SML) use <code>https://sml.peppolcentral.org/manageparticipantidentifier</code>. 
-    For the test-SML (SMK) use the URL <code>https://smk.peppolcentral.org/manageparticipantidentifier</code>.<br />
-    Note: is only required if the entry <code>sml.active</code> is set to <code>true</code>.<br />
-    Note: this is the field that needs to be changed for the <a href="/public/menuitem-docs-sml-migration">SML migration</a> on June 9<sup>th</sup> 2015!
-  </li>
-</ul>
-
-<p>
-  The following configuration file properties are only relevant for the <em>peppol-smp-server</em>
-  project with the database backend:
-</p>  
-
-<ul>
-  <li>
-    <strong><code>jdbc.driver</code></strong>:
-    The JDBC driver class to be used by JPA. For MySQL use <code>com.mysql.jdbc.Driver</code>.
-  </li>
-  <li>
-    <strong><code>jdbc.url</code></strong>:
-    The JDBC URL of the database to connect to. 
-    For a local MySQL database called "smp" the string would look like this: 
-    <code>jdbc:mysql://localhost/smp?autoReconnect=true</code><br />
-    Note: the URL depends on the JDBC driver used!
-  </li>
-  <li>
-    <strong><code>jdbc.user</code></strong>:
-    The database user to be used when connecting to the database.
-  </li>
-  <li>
-    <strong><code>jdbc.password</code></strong>:
-    The password of the JDBC user to be used when connecting to the DB
-  </li>
-  <li>
-    <strong><code>target-database</code></strong>:
-    The JPA target database type to be used. For MySQL this value should be <code>MySQL</code><br />
-    Note: Please see the documentation of EclipseLink for other target database systems!
-  </li>
-  <li>
-    <strong><code>jdbc.read-connections.max</code></strong>:
-    The maximum number of JDBC connections to be used for reading.
-    Usually 10 should be suitable for most use cases.
-  </li>
-</ul>
-
-<p>
-  Example of a development <code>smp-server.properties</code> file using a local MySQL database 
-  called <code>smp</code> without an SML connector (for easy testing):
-</p>
-
-<p>
-  <pre>
-## Keystore data
-smp.keystore.path         = keystore/keystore.jks
-smp.keystore.password     = peppol
-smp.keystore.key.alias    = smp keypair
-smp.keystore.key.password = peppol
-
-# Force all paths to be "/" instead of the context path 
-smp.forceroot = true
-
-## Write to SML? true or false
-sml.active=false
-
-## The following entries are not relevant for peppol-smp-server-lightweight: 
-
-## JDBC configuration for DB
-jdbc.driver = com.mysql.jdbc.Driver
-jdbc.url = jdbc:mysql://localhost:3306/smp
-jdbc.user = smp
-jdbc.password = smp
-target-database = MySQL
-jdbc.read-connections.max = 10</pre>
-</p>
-
-<p>
-  Example of a production-like <code>smp-server.properties</code> file using a local MySQL database 
-  called <code>smp</code> with the SML connector (for close to production setup):
-</p>
-
-<p>
-  <pre>
-## Keystore data
-smp.keystore.path         = keystore/keystore.jks
-smp.keystore.password     = peppol
-smp.keystore.key.alias    = smp keypair
-smp.keystore.key.password = peppol
-
-# Force all paths to be "/" instead of the context path 
-smp.forceroot = true
-
-## Write to SML? true or false
-sml.active=true
-# SMP ID
-sml.smpid=TEST-SMP-ID1
-# SML URL (incl. the service name)
-sml.url=https://sml.peppolcentral.org/manageparticipantidentifier
-
-## The following entries are not relevant for peppol-smp-server-lightweight: 
-
-## JDBC configuration for DB
-jdbc.driver = com.mysql.jdbc.Driver
-jdbc.url = jdbc:mysql://localhost:3306/smp
-jdbc.user = smp
-jdbc.password = smp
-target-database = MySQL
-jdbc.read-connections.max = 10</pre>
-</p>
-
-<div class="alert alert-info">
-  Note: since the default Java properties file handling is used to read the configuration 
-  file recall that trailing whitespaces of a property name and leading white spaces of a 
-  property value are automatically skipped. Trailing whitespaces of a property value are not skipped!
-</div>
-
-<a name="publicapi"></a>
-<h3>Public REST API</h3>
-<p>
-  The service is implemented as a REST interface using the <a href="http://jersey.java.net/">Jersey framework</a>.
-  See the SMP specification for details on the intention of the REST URL paths.
-</p>
-<p>
-  The implementation contains four main REST classes, one for each path for which one can make queries:
-</p>
-<ul>
-  <li>
-    <code>/{ServiceGroupId}</code>
-    is implemented in the <code>com.helger.peppol.smpserver.rest.ServiceGroupInterface</code> class.
-  </li>
-  <li>
-    <code>/{ServiceGroupId}/services/{DocumentTypeId}</code>
-    is implemented in the <code>com.helger.peppol.smpserver.rest.ServiceMetadataInterface</code> class.
-  </li>
-  <li>
-    <code>/list/{UserId}</code>
-    is implemented in the <code>com.helger.peppol.smpserver.rest.ListInterface</code> class.<br />
-    Note: this interface extends the official specification.
-  </li>
-  <li>
-    <code>/complete/{ServiceGroupId}</code>
-    is implemented in the <code>com.helger.peppol.smpserver.rest.CompleteServiceGroupInterface</code> class.<br />
-    Note: this interface extends the official specification.
-  </li>
-</ul>
-<p>
-  The <code>list</code> interface is not part of the SMP specification and is used for getting a 
-  list of registered service groups for a given user. 
-  The <code>complete</code> interface is also not part of the specification and is used for getting 
-  the service group as well as all the service metadata for that group in a single call.
-  Further the <code>PUT</code> and <code>DELETE</code> operations have also been implemented for 
-  <code>ServiceGroupInterface</code> and <code>ServiceMetadataInterface</code>.
-  These four interfaces make use of the <code>com.helger.peppol.smpserver.data.IDataManagerSPI</code>
-  interface to access the SMP data.<br /> 
-  The database version of the interface is implemented in the class 
-  <code>com.helger.peppol.smpserver.data.dbms.DBMSDataManager</code> 
-  and makes use of JPA (EclipseLink) for the main database access.
-  The file based version of the interface is implemented in the class
-  <code>com.helger.peppol.smpserver.data.dao.DAODataManager</code>.
-</p>
-
-<a name="modifyingapi"></a>
-<h3>Modifying REST API</h3>
-<p>
-  Some REST APIs are used to modify data within the SMP.
-  Those APIs are not standardized by the PEPPOL SMP specifications and therefore are described here.
-  All modifying REST APIs are either using HTTP <code>PUT</code> or HTTP <code>DELETE</code> for 
-  creating/updating or for deleting elements.
-  As the SMP itself running without transport security these modifying methods require an HTTP BasicAuth header.
-</p>
-<div class="alert alert-info">  
-  Note: to send an HTTP Basic Auth header you must provide an HTTP header called 
-  <code>Authorization</code> with a value like created by the following pseudo code:
-  <code>"Basic " + Base64.encode (userName + ":" + password)</code>
-</div>
-<p>
-  Please see chapter on <a href="#security">security considerations</a> how to handle BasicAuth proper and secure.
-</p>
-
-<p>  
-  A Jersey Filter has been added for generating the XML-DSIG element which is part of the 
-  response from a GET on Service Metadata interface. 
-  This is implemented in the class <code>com.helger.peppol.smpserver.rest.SignatureFilter</code>.
-</p>
-
-<ul>
-  <li>
-    <code>ServiceGroupInterface</code>
-    <ul>
-      <li>
-        <code>PUT /{ServiceGroupId}</code><br />
-        Expected body: A <code>ServiceGroupType</code> object as specified by the SMP XSD<br />
-        Description: create a new service group
-      </li>
-      <li>
-        <code>DELETE /{ServiceGroupId}</code><br />
-        Expected body: none<br />
-        Description: Delete the whole service group with the specified service group ID. 
-        Implicitly deletes all related elements as well
-      </li>
-    </ul>
-  </li>
-  <li>
-    <code>ServiceMetadataInterface</code>
-    <ul>
-      <li>
-        <code>PUT /{ServiceGroupId}/services/{DocumentTypeId}</code><br />
-        Expected body: A <code>ServiceMetadataType</code> object as specified by the SMP XSD<br />
-        Description: Define the AP endpoint URL etc. for a certain participant and a certain document type
-      </li>
-      <li>
-        <code>DELETE /{ServiceGroupId}/services/{DocumentTypeId}</code><br />
-        Expected body: none<br />
-        Description: Delete all participant information for the specified document type
-      </li>
-    </ul>
-  </li>
-</ul>
 
 <a name="security"></a>
 <h3>Security considerations</h3>
@@ -493,27 +224,18 @@ jdbc.read-connections.max = 10</pre>
  Now that your new SMP server is up and running, you should perform some setup tasks.
 </p>
 
-<h4>peppol-smp-server</h4> 
-<ul>
-  <li>
-    Change the default user <code>peppol_user</code> with the default password <code>Test1234</code> 
-    to something more complex! This can be easily achieved by altering the content of the database
-    table <code>smp_user</code> manually. After this change, simply provide the new credentials for
-    writing operations.
-  </li>
-  <li>
-    The SMP must be registered at the SML.
-    For this purpose an <a href="/public/menuitem-tools-smp-sml">online tool</a> is integrated in this page to perform this task.
-  </li>
-</ul>
-
-<h4>peppol-smp-server-lightweight</h4> 
 <ul>
   <li>
     Change the default user <code>admin@helger.com</code> with the default password <code>password</code> 
     to something more complex! This can be easily achieved by logging into the URL <code>http://yourserver/secure</code>
     and use the <em>Change password</em> page to perform the change. 
-    After this change, simply provide the new credentials for writing operations.
+  </li>
+  <li>
+    When using the SQL backend, change the default DB user <code>peppol_user</code> with the 
+    default password <code>Test1234</code> to something more complex! 
+    This can be easily achieved on the management page "DB users" or by altering the content of the database
+    table <code>smp_user</code> manually. After this change, simply provide the new credentials for
+    writing operations.
   </li>
   <li>
     The SMP must be registered at the SML.
