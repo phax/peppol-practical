@@ -17,6 +17,7 @@
 package com.helger.peppol.page.secure;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -37,6 +38,7 @@ import com.helger.commons.url.ISimpleURL;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.forms.HCTextArea;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.tabular.HCRow;
 import com.helger.html.hc.html.tabular.HCTable;
@@ -336,6 +338,24 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     return new HCNodeList ().addChild (aTable).addChild (aDataTables);
   }
 
+  @Nonnull
+  private static IHCNode _getListForMailing ()
+  {
+    final StringBuilder aSB = new StringBuilder ();
+    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    int nCount = 0;
+    for (final ICRMSubscriber aSubscriber : CollectionHelper.getSorted (aCRMSubscriberMgr.getAllActiveCRMSubscribers (),
+                                                                        Comparator.comparing (ICRMSubscriber::getEmailAddress)))
+    {
+      if (aSB.length () > 0)
+        aSB.append ("\n");
+      aSB.append (aSubscriber.getEmailAddress ());
+      ++nCount;
+    }
+
+    return new HCTextArea ().setValue (aSB.toString ()).setRows (Math.min (nCount, 20));
+  }
+
   @Override
   protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
   {
@@ -349,6 +369,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final BootstrapTabBox aTabBox = new BootstrapTabBox ();
     aTabBox.addTab ("Active", _getList (aWPEC, aCRMSubscriberMgr.getAllActiveCRMSubscribers (), "active"));
     aTabBox.addTab ("Deleted", _getList (aWPEC, aCRMSubscriberMgr.getAllDeletedCRMSubscribers (), "del"));
+    aTabBox.addTab ("Mailing", _getListForMailing ());
     aNodeList.addChild (aTabBox);
   }
 }
