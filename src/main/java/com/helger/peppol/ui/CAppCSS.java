@@ -14,26 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.servlet;
+package com.helger.peppol.ui;
 
-import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 
-import com.helger.peppol.ui.AppLayoutHTMLProvider;
-import com.helger.photon.core.app.html.IHTMLProvider;
-import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
-import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.html.css.DefaultCSSClassProvider;
+import com.helger.html.css.ICSSClassProvider;
 
 /**
- * The servlet to show the secure application
+ * Contains constant CSS classes
  *
  * @author Philip Helger
  */
-public class SecureApplicationServlet extends AbstractSecureApplicationServlet
+@Immutable
+public final class CAppCSS
 {
-  @Override
-  @Nonnull
-  protected IHTMLProvider createHTMLProvider (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope)
-  {
-    return new AppLayoutHTMLProvider ();
-  }
+  // Logo parts
+  public static final ICSSClassProvider CSS_CLASS_LOGO1 = DefaultCSSClassProvider.create ("logo1");
+  public static final ICSSClassProvider CSS_CLASS_LOGO2 = DefaultCSSClassProvider.create ("logo2");
+
+  private CAppCSS ()
+  {}
 }

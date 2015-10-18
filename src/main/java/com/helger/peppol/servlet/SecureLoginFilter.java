@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.state.EContinue;
 import com.helger.peppol.app.CApp;
-import com.helger.peppol.app.ui.AppLoginManager;
+import com.helger.peppol.ui.AppLoginManager;
 import com.helger.photon.basic.security.AccessManager;
 import com.helger.photon.basic.security.login.LoggedInUserManager;
 import com.helger.photon.core.app.CApplication;

@@ -27,8 +27,8 @@ import com.helger.peppol.crm.CRMGroup;
 import com.helger.peppol.crm.CRMGroupMicroTypeConverter;
 import com.helger.peppol.crm.CRMSubscriber;
 import com.helger.peppol.crm.CRMSubscriberMicroTypeConverter;
-import com.helger.peppol.testep.domain.TestEndpoint;
-import com.helger.peppol.testep.domain.TestEndpointMicroTypeConverter;
+import com.helger.peppol.pub.testep.TestEndpoint;
+import com.helger.peppol.pub.testep.TestEndpointMicroTypeConverter;
 
 /**
  * SPI implementation to register all micro type converters of this application.

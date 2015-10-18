@@ -14,26 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.servlet;
+package com.helger.peppol.secure;
 
-import javax.annotation.Nonnull;
-
-import com.helger.peppol.ui.AppLayoutHTMLProvider;
-import com.helger.photon.core.app.html.IHTMLProvider;
-import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
-import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import javax.annotation.concurrent.Immutable;
 
 /**
- * The servlet to show the secure application
+ * Menu items for the secure application
  *
  * @author Philip Helger
  */
-public class SecureApplicationServlet extends AbstractSecureApplicationServlet
+@Immutable
+public final class CMenuSecure
 {
-  @Override
-  @Nonnull
-  protected IHTMLProvider createHTMLProvider (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope)
-  {
-    return new AppLayoutHTMLProvider ();
-  }
+  // Menu item IDs
+  public static final String MENU_CRM = "crm";
+  public static final String MENU_CRM_GROUPS = "crm-groups";
+  public static final String MENU_CRM_SUBSCRIBERS = "crm-subscribers";
+
+  public static final String MENU_COMMENTS = "comments";
+
+  public static final String MENU_ADMIN = "admin";
+  public static final String MENU_ADMIN_ADDONS = "admin-addons";
+
+  private CMenuSecure ()
+  {}
 }

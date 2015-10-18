@@ -14,26 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.servlet;
+package com.helger.peppol.pub.page;
 
 import javax.annotation.Nonnull;
+import javax.net.ssl.SSLSocketFactory;
 
-import com.helger.peppol.ui.AppLayoutHTMLProvider;
-import com.helger.photon.core.app.html.IHTMLProvider;
-import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
-import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 
 /**
- * The servlet to show the secure application
+ * A special {@link ManageServiceMetadataServiceCaller} subclass that sets the
+ * socket factory on a per web service client call basis.
  *
  * @author Philip Helger
  */
-public class SecureApplicationServlet extends AbstractSecureApplicationServlet
+public class SecuredSMPSMLClient extends ManageServiceMetadataServiceCaller
 {
-  @Override
-  @Nonnull
-  protected IHTMLProvider createHTMLProvider (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope)
+  public SecuredSMPSMLClient (@Nonnull final ISMLInfo aSMLInfo, @Nonnull final SSLSocketFactory aSocketFactory)
   {
-    return new AppLayoutHTMLProvider ();
+    super (aSMLInfo);
+    setSSLSocketFactory (aSocketFactory);
   }
 }

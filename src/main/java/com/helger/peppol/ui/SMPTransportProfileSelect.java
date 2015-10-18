@@ -14,26 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.servlet;
+package com.helger.peppol.ui;
+
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.ui.AppLayoutHTMLProvider;
-import com.helger.photon.core.app.html.IHTMLProvider;
-import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
-import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.photon.core.form.RequestField;
+import com.helger.photon.uicore.html.select.HCExtSelect;
 
 /**
- * The servlet to show the secure application
+ * UI select for SMP transport profiles
  *
  * @author Philip Helger
  */
-public class SecureApplicationServlet extends AbstractSecureApplicationServlet
+public class SMPTransportProfileSelect extends HCExtSelect
 {
-  @Override
-  @Nonnull
-  protected IHTMLProvider createHTMLProvider (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope)
+  public SMPTransportProfileSelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
-    return new AppLayoutHTMLProvider ();
+    super (aRF);
+    addOptionPleaseSelect (aDisplayLocale);
+    for (final ESMPTransportProfile e : ESMPTransportProfile.values ())
+      addOption (e.getID (), e.getName () + " (" + e.getID () + ")");
   }
 }

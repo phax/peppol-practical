@@ -19,7 +19,7 @@ package com.helger.peppol.app.ajax;
 import javax.annotation.Nonnull;
 
 import com.helger.html.hc.IHCNode;
-import com.helger.peppol.app.ui.LayoutAreaContentProviderSecure;
+import com.helger.peppol.secure.LayoutAreaContentProviderSecure;
 import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
 import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.LayoutExecutionContext;

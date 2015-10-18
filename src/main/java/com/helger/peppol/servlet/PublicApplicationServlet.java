@@ -18,7 +18,7 @@ package com.helger.peppol.servlet;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.app.ui.AppLayoutHTMLProvider;
+import com.helger.peppol.ui.AppLayoutHTMLProvider;
 import com.helger.photon.core.app.html.IHTMLProvider;
 import com.helger.photon.core.servlet.AbstractPublicApplicationServlet;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;

@@ -42,7 +42,7 @@ import com.helger.photon.basic.security.audit.AuditHelper;
  * Manager for {@link CRMGroup} instances.
  *
  * @author Philip Helger
- * @see com.helger.peppol.mgr.MetaManager
+ * @see com.helger.peppol.app.MetaManager
  */
 @ThreadSafe
 public final class CRMGroupManager extends AbstractSimpleDAO
