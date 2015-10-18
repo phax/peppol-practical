@@ -161,7 +161,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     if (eFormAction.isReadonly ())
       return true;
 
-    if (eFormAction.isEdit ())
+    if (eFormAction.isEdit () || eFormAction.isDelete ())
       return aSelectedObject.getCreationUserID ().equals (LoggedInUserManager.getInstance ().getCurrentUserID ());
 
     // Only logged in users can modify something

@@ -28,6 +28,7 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
+import com.helger.commons.url.SimpleURL;
 import com.helger.css.property.CCSSProperties;
 import com.helger.html.css.DefaultCSSClassProvider;
 import com.helger.html.css.ICSSClassProvider;
@@ -41,6 +42,7 @@ import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.html.forms.HCInput;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.grouping.HCP;
+import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.metadata.HCHead;
 import com.helger.html.hc.html.sections.HCH1;
 import com.helger.html.hc.html.tabular.HCCol;
@@ -73,7 +75,9 @@ import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbs;
 import com.helger.photon.bootstrap3.breadcrumbs.BootstrapBreadcrumbsProvider;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.EBootstrapButtonType;
+import com.helger.photon.bootstrap3.dropdown.BootstrapDropdown;
 import com.helger.photon.bootstrap3.dropdown.BootstrapDropdownMenu;
+import com.helger.photon.bootstrap3.dropdown.EBootstrapDropdownMenuAlignment;
 import com.helger.photon.bootstrap3.grid.BootstrapRow;
 import com.helger.photon.bootstrap3.nav.BootstrapNav;
 import com.helger.photon.bootstrap3.navbar.BootstrapNavbar;
@@ -176,7 +180,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_SIGN_UP)));
       aNav.addItem (aForm);
 
-      final BootstrapDropdownMenu aDropDown = aNav.addDropdownMenu ("Login");
+      final IHCLI <?> aLI = aNav.addItem ().addClass (CBootstrapCSS.DROPDOWN);
+      aLI.addChild (BootstrapDropdown.makeDropdownToggle (new HCA (new SimpleURL ()).addChild ("Login")));
+      final BootstrapDropdownMenu aDropDown = aLI.addAndReturnChild (new BootstrapDropdownMenu (EBootstrapDropdownMenuAlignment.RIGHT));
       {
         // 300px would lead to a messy layout - so 250px is fine
         final HCDiv aDiv = new HCDiv ().addStyle (CCSSProperties.PADDING.newValue ("10px"))

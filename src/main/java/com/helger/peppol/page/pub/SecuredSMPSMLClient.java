@@ -18,12 +18,9 @@ package com.helger.peppol.page.pub;
 
 import javax.annotation.Nonnull;
 import javax.net.ssl.SSLSocketFactory;
-import javax.xml.ws.BindingProvider;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
-import com.helger.peppol.smlclient.smp.ManageServiceMetadataServiceSoap;
 
 /**
  * A special {@link ManageServiceMetadataServiceCaller} subclass that sets the
@@ -33,24 +30,9 @@ import com.helger.peppol.smlclient.smp.ManageServiceMetadataServiceSoap;
  */
 public class SecuredSMPSMLClient extends ManageServiceMetadataServiceCaller
 {
-  private final SSLSocketFactory m_aSocketFactory;
-
   public SecuredSMPSMLClient (@Nonnull final ISMLInfo aSMLInfo, @Nonnull final SSLSocketFactory aSocketFactory)
   {
     super (aSMLInfo);
-    m_aSocketFactory = ValueEnforcer.notNull (aSocketFactory, "SocketFactory");
-  }
-
-  @Override
-  protected ManageServiceMetadataServiceSoap createWSPort ()
-  {
-    final ManageServiceMetadataServiceSoap aPort = super.createWSPort ();
-    // Use the specific socket factory
-    // == com.sun.xml.internal.ws.developer.JAXWSProperties.SSL_SOCKET_FACTORY
-    ((BindingProvider) aPort).getRequestContext ()
-                             .put ("com.sun.xml.internal.ws.transport.https.client.SSLSocketFactory", m_aSocketFactory);
-    ((BindingProvider) aPort).getRequestContext ().put (com.sun.xml.ws.developer.JAXWSProperties.SSL_SOCKET_FACTORY,
-                                                        m_aSocketFactory);
-    return aPort;
+    setSSLSocketFactory (aSocketFactory);
   }
 }
