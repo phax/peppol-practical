@@ -14,11 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.pub.testep;
+package com.helger.peppol.pub.testendpoint;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -196,12 +197,12 @@ public final class TestEndpointManager extends AbstractSimpleDAO
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <? extends TestEndpoint> getAllTestEndpoints ()
+  public Collection <? extends TestEndpoint> getAllActvieTestEndpoints ()
   {
     m_aRWLock.readLock ().lock ();
     try
     {
-      return CollectionHelper.newList (m_aMap.values ());
+      return m_aMap.values ().stream ().filter (e -> !e.isDeleted ()).collect (Collectors.toList ());
     }
     finally
     {
@@ -228,6 +229,9 @@ public final class TestEndpointManager extends AbstractSimpleDAO
 
   public boolean containsTestEndpointWithID (@Nullable final String sID)
   {
+    if (StringHelper.hasNoText (sID))
+      return false;
+
     m_aRWLock.readLock ().lock ();
     try
     {

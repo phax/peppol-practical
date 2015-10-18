@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.app;
+package com.helger.peppol.app.mgr;
 
 import javax.annotation.Nonnull;
 
@@ -27,7 +27,7 @@ import com.helger.commons.scope.IScope;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
-import com.helger.peppol.pub.testep.TestEndpointManager;
+import com.helger.peppol.pub.testendpoint.TestEndpointManager;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 
 /**

@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
@@ -34,12 +35,12 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppHelper;
-import com.helger.peppol.app.MetaManager;
+import com.helger.peppol.app.mgr.MetaManager;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.page.AbstractAppWebPageForm;
 import com.helger.peppol.pub.CMenuPublic;
-import com.helger.peppol.pub.testep.TestEndpoint;
-import com.helger.peppol.pub.testep.TestEndpointManager;
+import com.helger.peppol.pub.testendpoint.TestEndpoint;
+import com.helger.peppol.pub.testendpoint.TestEndpointManager;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.ui.AppCommonUI;
@@ -47,7 +48,9 @@ import com.helger.peppol.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.ui.SMLSelect;
 import com.helger.peppol.ui.SMPTransportProfileSelect;
 import com.helger.photon.basic.security.login.LoggedInUserManager;
+import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap3.alert.BootstrapQuestionBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
@@ -97,6 +100,26 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   {
     final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
     return aTestEndpointMgr.getTestEndpointOfID (sID);
+  }
+
+  @Override
+  @Nonnull
+  protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
+                                     @Nonnull final EWebPageFormAction eFormAction,
+                                     @Nullable final TestEndpoint aSelectedObject)
+  {
+    if (eFormAction.isReadonly ())
+      return true;
+
+    if (eFormAction.isEdit ())
+      return aSelectedObject.getCreationUserID ().equals (LoggedInUserManager.getInstance ().getCurrentUserID ());
+
+    if (eFormAction.isDelete ())
+      return !aSelectedObject.isDeleted () &&
+             aSelectedObject.getCreationUserID ().equals (LoggedInUserManager.getInstance ().getCurrentUserID ());
+
+    // Only logged in users can modify something
+    return LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
   }
 
   @Override
@@ -150,22 +173,6 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                            " (" +
                                                            aSelectedObject.getTransportProfile ().getID () +
                                                            ")"));
-  }
-
-  @Override
-  @Nonnull
-  protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
-                                     @Nonnull final EWebPageFormAction eFormAction,
-                                     @Nullable final TestEndpoint aSelectedObject)
-  {
-    if (eFormAction.isReadonly ())
-      return true;
-
-    if (eFormAction.isEdit () || eFormAction.isDelete ())
-      return aSelectedObject.getCreationUserID ().equals (LoggedInUserManager.getInstance ().getCurrentUserID ());
-
-    // Only logged in users can modify something
-    return LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
   }
 
   @Override
@@ -307,6 +314,30 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
+  protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
+                                  @Nonnull final BootstrapForm aForm,
+                                  @Nonnull final TestEndpoint aSelectedObject)
+  {
+    aForm.addChild (new BootstrapQuestionBox ().addChild ("Are you sure you want to delete the test endpoint '" +
+                                                          aSelectedObject.getParticipantIDValue () +
+                                                          "' for transport profile '" +
+                                                          AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
+                                                          "'?"));
+  }
+
+  @Override
+  @OverrideOnDemand
+  protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
+                                @Nonnull final TestEndpoint aSelectedObject)
+  {
+    final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
+    if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
+      aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("The test endpoint was successfully deleted!"));
+    else
+      aWPEC.postRedirectGet (new BootstrapErrorBox ().addChild ("Error deleting the test endpoint!"));
+  }
+
+  @Override
   protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -330,41 +361,40 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                         new DTCol ("SML"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
 
-    for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllTestEndpoints ())
-      if (!aCurObject.isDeleted ())
-      {
-        final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
+    for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllActvieTestEndpoints ())
+    {
+      final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 
-        final HCRow aRow = aTable.addBodyRow ();
-        aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
-        aRow.addCell (aCurObject.getCompanyName ());
-        aRow.addCell (AppHelper.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
-        aRow.addCell (AppHelper.getSMLName (aCurObject.getSML ()));
+      final HCRow aRow = aTable.addBodyRow ();
+      aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
+      aRow.addCell (aCurObject.getCompanyName ());
+      aRow.addCell (AppHelper.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
+      aRow.addCell (AppHelper.getSMLName (aCurObject.getSML ()));
 
-        final IHCCell <?> aActionCell = aRow.addCell ();
-        if (isActionAllowed (aWPEC, EWebPageFormAction.EDIT, aCurObject))
-          aActionCell.addChild (createEditLink (aWPEC, aCurObject));
-        else
-          aActionCell.addChild (createEmptyAction ());
-        aActionCell.addChild (new HCTextNode (" "));
+      final IHCCell <?> aActionCell = aRow.addCell ();
+      if (isActionAllowed (aWPEC, EWebPageFormAction.EDIT, aCurObject))
+        aActionCell.addChild (createEditLink (aWPEC, aCurObject));
+      else
+        aActionCell.addChild (createEmptyAction ());
+      aActionCell.addChild (new HCTextNode (" "));
 
-        if (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject))
-          aActionCell.addChild (createDeleteLink (aWPEC, aCurObject));
-        else
-          aActionCell.addChild (createEmptyAction ());
-        aActionCell.addChild (new HCTextNode (" "));
+      if (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject))
+        aActionCell.addChild (createDeleteLink (aWPEC, aCurObject));
+      else
+        aActionCell.addChild (createEmptyAction ());
+      aActionCell.addChild (new HCTextNode (" "));
 
-        if (bUserIsLoggedIn)
-          aActionCell.addChild (createCopyLink (aWPEC, aCurObject));
-        else
-          aActionCell.addChild (createEmptyAction ());
-        aActionCell.addChild (new HCTextNode (" "));
+      if (bUserIsLoggedIn)
+        aActionCell.addChild (createCopyLink (aWPEC, aCurObject));
+      else
+        aActionCell.addChild (createEmptyAction ());
+      aActionCell.addChild (new HCTextNode (" "));
 
-        // Visible for all
-        aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC,
-                                                                  aCurObject)).setTitle ("Show participant information")
-                                                                              .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
-      }
+      // Visible for all
+      aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC,
+                                                                aCurObject)).setTitle ("Show participant information")
+                                                                            .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
+    }
     aNodeList.addChild (aTable);
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
