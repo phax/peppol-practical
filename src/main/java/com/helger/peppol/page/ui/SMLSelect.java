@@ -18,6 +18,8 @@ package com.helger.peppol.page.ui;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.string.StringHelper;
+import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.sml.ESML;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
@@ -27,10 +29,9 @@ public class SMLSelect extends HCExtSelect
   @Nonnull
   private static String _getPrefix (@Nonnull final ESML eSML)
   {
-    if (eSML == ESML.DIGIT_PRODUCTION)
-      return "[SML] ";
-    if (eSML == ESML.DIGIT_TEST)
-      return "[SMK] ";
+    final String sName = AppHelper.getSMLName (eSML);
+    if (StringHelper.hasText (sName))
+      return "[" + sName + "] ";
     return "";
   }
 

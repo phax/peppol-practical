@@ -27,6 +27,7 @@ import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
+import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.basic.object.AbstractBaseObject;
 import com.helger.photon.basic.object.StubObject;
@@ -46,6 +47,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   private String m_sParticipantIDScheme;
   private String m_sParticipantIDValue;
   private ISMPTransportProfile m_aTransportProfile;
+  private ESML m_eSML;
 
   /**
    * Constructor.
@@ -60,19 +62,23 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
    *        Test endpoint participant ID value (e.g. 123456).
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
+   * @param eSML
+   *        SML to use. May not be <code>null</code>.
    */
   public TestEndpoint (@Nonnull @Nonempty final String sCompanyName,
                        @Nullable final String sContactPerson,
                        @Nonnull @Nonempty final String sParticipantIDScheme,
                        @Nonnull @Nonempty final String sParticipantIDValue,
-                       @Nonnull final ISMPTransportProfile aTransportProfile)
+                       @Nonnull final ISMPTransportProfile aTransportProfile,
+                       @Nonnull final ESML eSML)
   {
     this (StubObject.createForCurrentUser (),
           sCompanyName,
           sContactPerson,
           sParticipantIDScheme,
           sParticipantIDValue,
-          aTransportProfile);
+          aTransportProfile,
+          eSML);
   }
 
   /**
@@ -89,14 +95,17 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
    * @param sParticipantIDValue
    *        Test endpoint participant ID value (e.g. 123456).
    * @param aTransportProfile
-   *        Transport profile.
+   *        Transport profile.May not be <code>null</code>.
+   * @param eSML
+   *        SML to use. May not be <code>null</code>.
    */
   TestEndpoint (@Nonnull final StubObject aObject,
                 @Nonnull @Nonempty final String sCompanyName,
                 @Nullable final String sContactPerson,
                 @Nonnull @Nonempty final String sParticipantIDScheme,
                 @Nonnull @Nonempty final String sParticipantIDValue,
-                @Nonnull final ISMPTransportProfile aTransportProfile)
+                @Nonnull final ISMPTransportProfile aTransportProfile,
+                @Nonnull final ESML eSML)
   {
     super (aObject);
     setCompanyName (sCompanyName);
@@ -104,6 +113,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
     setParticipantIDScheme (sParticipantIDScheme);
     setParticipantIDValue (sParticipantIDValue);
     setTransportProfile (aTransportProfile);
+    setSML (eSML);
   }
 
   @Nonnull
@@ -195,13 +205,30 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   }
 
   @Nonnull
-  public EChange setTransportProfile (@Nonnull final ISMPTransportProfile eTransportProfile)
+  public EChange setTransportProfile (@Nonnull final ISMPTransportProfile aTransportProfile)
   {
-    ValueEnforcer.notNull (eTransportProfile, "ParticipantIDValue");
-    if (eTransportProfile.equals (m_aTransportProfile))
+    ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
+    if (aTransportProfile.equals (m_aTransportProfile))
       return EChange.UNCHANGED;
 
-    m_aTransportProfile = eTransportProfile;
+    m_aTransportProfile = aTransportProfile;
+    return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public ESML getSML ()
+  {
+    return m_eSML;
+  }
+
+  @Nonnull
+  public EChange setSML (@Nonnull final ESML eSML)
+  {
+    ValueEnforcer.notNull (eSML, "SML");
+    if (eSML.equals (m_eSML))
+      return EChange.UNCHANGED;
+
+    m_eSML = eSML;
     return EChange.CHANGED;
   }
 
@@ -232,6 +259,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
                             .append ("ParticipantIDScheme", m_sParticipantIDScheme)
                             .append ("ParticipantIDValue", m_sParticipantIDValue)
                             .append ("TransportProfile", m_aTransportProfile)
+                            .append ("SML", m_eSML)
                             .toString ();
   }
 }

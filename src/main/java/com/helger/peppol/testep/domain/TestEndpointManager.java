@@ -33,6 +33,7 @@ import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
@@ -86,13 +87,15 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                           @Nullable final String sContactPerson,
                                           @Nonnull @Nonempty final String sParticipantIDScheme,
                                           @Nonnull @Nonempty final String sParticipantIDValue,
-                                          @Nonnull final ISMPTransportProfile aTransportProfile)
+                                          @Nonnull final ISMPTransportProfile aTransportProfile,
+                                          @Nonnull final ESML eSML)
   {
     final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName,
                                                          sContactPerson,
                                                          sParticipantIDScheme,
                                                          sParticipantIDValue,
-                                                         aTransportProfile);
+                                                         aTransportProfile,
+                                                         eSML);
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -110,7 +113,8 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                       sContactPerson,
                                       sParticipantIDScheme,
                                       sParticipantIDValue,
-                                      aTransportProfile);
+                                      aTransportProfile,
+                                      eSML);
     return aTestEndpoint;
   }
 
@@ -120,7 +124,8 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                      @Nullable final String sContactPerson,
                                      @Nonnull @Nonempty final String sParticipantIDScheme,
                                      @Nonnull @Nonempty final String sParticipantIDValue,
-                                     @Nonnull final ISMPTransportProfile aTransportProfile)
+                                     @Nonnull final ISMPTransportProfile aTransportProfile,
+                                     @Nonnull final ESML eSML)
   {
     m_aRWLock.writeLock ().lock ();
     try
@@ -139,6 +144,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       eChange = eChange.or (aTestEndpoint.setParticipantIDScheme (sParticipantIDScheme));
       eChange = eChange.or (aTestEndpoint.setParticipantIDValue (sParticipantIDValue));
       eChange = eChange.or (aTestEndpoint.setTransportProfile (aTransportProfile));
+      eChange = eChange.or (aTestEndpoint.setSML (eSML));
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
@@ -155,7 +161,8 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                       sContactPerson,
                                       sParticipantIDScheme,
                                       sParticipantIDValue,
-                                      aTransportProfile);
+                                      aTransportProfile,
+                                      eSML);
     return EChange.CHANGED;
   }
 

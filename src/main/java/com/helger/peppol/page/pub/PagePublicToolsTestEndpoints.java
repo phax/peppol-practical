@@ -40,6 +40,7 @@ import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAg
 import com.helger.peppol.mgr.MetaManager;
 import com.helger.peppol.page.AbstractAppWebPageForm;
 import com.helger.peppol.page.ui.IdentifierIssuingAgencySelect;
+import com.helger.peppol.page.ui.SMLSelect;
 import com.helger.peppol.page.ui.SMPTransportProfileSelect;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -73,6 +74,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   private static final String FIELD_PARTICIPANT_ID_ISO6523 = "participantidscheme";
   private static final String FIELD_PARTICIPANT_ID_VALUE = "participantidvalue";
   private static final String FIELD_TRANSPORT_PROFILE = "transportprofile";
+  private static final String FIELD_SML = "sml";
 
   public PagePublicToolsTestEndpoints (@Nonnull @Nonempty final String sID)
   {
@@ -87,7 +89,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                 .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_ISO6523, aTestEndpoint.getParticipantIDScheme ())
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantIDValue ())
-                .add (PagePublicToolsParticipantInformation.FIELD_SML, ESML.DIGIT_PRODUCTION.getID ());
+                .add (PagePublicToolsParticipantInformation.FIELD_SML, aTestEndpoint.getSML ().getID ());
   }
 
   @Override
@@ -206,6 +208,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                                                                                                                          .getID ()),
                                                                                               aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
+                                                                                                aSelectedObject == null ? ESML.DIGIT_PRODUCTION.getID ()
+                                                                                                                        : aSelectedObject.getSML ()
+                                                                                                                                         .getID ())))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
   }
 
   @Override
@@ -214,7 +222,6 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                  @Nonnull final FormErrors aFormErrors,
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
-    final HCNodeList aNodeList = aWPEC.getNodeList ();
     final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
 
     final String sCompanyName = aWPEC.getAttributeAsString (FIELD_COMPANY_NAME);
@@ -225,6 +232,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final String sTransportProfile = aWPEC.getAttributeAsString (FIELD_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
     final String sTransportProfileName = AppHelper.getSMPTransportProfileShortName (eTransportProfile);
+    final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
+    final ESML eSML = ESML.getFromIDOrNull (sSML);
 
     if (StringHelper.hasNoText (sCompanyName))
       aFormErrors.addFieldError (FIELD_COMPANY_NAME, "Please provide the company name");
@@ -240,6 +249,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
 
     if (eTransportProfile == null)
       aFormErrors.addFieldError (FIELD_TRANSPORT_PROFILE, "Please select a transport profile");
+
+    if (eSML == null)
+      aFormErrors.addFieldError (FIELD_SML, "Please select an SML where the participant is registered");
 
     if (aFormErrors.isEmpty ())
     {
@@ -267,13 +279,14 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                              sContactPerson,
                                              sParticipantIDISO6523,
                                              sParticipantIDValue,
-                                             eTransportProfile);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully edited the test endpoint for " +
-                                                                 sParticipantIDISO6523 +
-                                                                 ":" +
-                                                                 sParticipantIDValue +
-                                                                 " with transport profile " +
-                                                                 sTransportProfileName));
+                                             eTransportProfile,
+                                             eSML);
+        aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("Successfully edited the test endpoint for " +
+                                                                    sParticipantIDISO6523 +
+                                                                    ":" +
+                                                                    sParticipantIDValue +
+                                                                    " with transport profile " +
+                                                                    sTransportProfileName));
       }
       else
       {
@@ -281,13 +294,14 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                              sContactPerson,
                                              sParticipantIDISO6523,
                                              sParticipantIDValue,
-                                             eTransportProfile);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully added the new test endpoint for " +
-                                                                 sParticipantIDISO6523 +
-                                                                 ":" +
-                                                                 sParticipantIDValue +
-                                                                 " with transport profile " +
-                                                                 sTransportProfileName));
+                                             eTransportProfile,
+                                             eSML);
+        aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("Successfully added the new test endpoint for " +
+                                                                    sParticipantIDISO6523 +
+                                                                    ":" +
+                                                                    sParticipantIDValue +
+                                                                    " with transport profile " +
+                                                                    sTransportProfileName));
       }
     }
   }
@@ -313,6 +327,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final HCTable aTable = new HCTable (new DTCol ("Participant ID"),
                                         new DTCol ("Company").setInitialSorting (ESortOrder.ASCENDING),
                                         new DTCol ("Transport profile"),
+                                        new DTCol ("SML"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
 
     for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllTestEndpoints ())
@@ -324,10 +339,17 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
         aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
         aRow.addCell (aCurObject.getCompanyName ());
         aRow.addCell (AppHelper.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
+        aRow.addCell (AppHelper.getSMLName (aCurObject.getSML ()));
 
         final IHCCell <?> aActionCell = aRow.addCell ();
         if (isActionAllowed (aWPEC, EWebPageFormAction.EDIT, aCurObject))
           aActionCell.addChild (createEditLink (aWPEC, aCurObject));
+        else
+          aActionCell.addChild (createEmptyAction ());
+        aActionCell.addChild (new HCTextNode (" "));
+
+        if (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject))
+          aActionCell.addChild (createDeleteLink (aWPEC, aCurObject));
         else
           aActionCell.addChild (createEmptyAction ());
         aActionCell.addChild (new HCTextNode (" "));

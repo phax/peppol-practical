@@ -23,6 +23,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ISMPTransportProfile;
 
 /**
@@ -51,6 +52,16 @@ public final class AppHelper
         if (eAgency.getISO6523Code ().equals (sSchemeID) || eAgency.getSchemeID ().equals (sSchemeID))
           return eAgency;
     return null;
+  }
+
+  @Nullable
+  public static String getSMLName (@Nonnull final ESML eSML)
+  {
+    if (eSML == ESML.DIGIT_PRODUCTION)
+      return "SML";
+    if (eSML == ESML.DIGIT_TEST)
+      return "SMK";
+    return "other";
   }
 
   @Nullable

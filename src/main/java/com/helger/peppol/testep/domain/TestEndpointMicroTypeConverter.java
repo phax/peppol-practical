@@ -20,8 +20,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.annotation.ContainsSoftMigration;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
+import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.basic.object.AbstractObjectMicroTypeConverter;
 import com.helger.photon.basic.object.StubObject;
@@ -34,6 +36,7 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
   private static final String ATTR_PARTICIPANT_ID_SCHEME = "participantidscheme";
   private static final String ATTR_PARTICIPANT_ID_VALUE = "participantidvalue";
   private static final String ATTR_TRANSPORT_PROFILE = "transportprofile";
+  private static final String ATTR_SML = "sml";
 
   @Nonnull
   public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
@@ -49,11 +52,13 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
     eValue.setAttribute (ATTR_PARTICIPANT_ID_SCHEME, aValue.getParticipantIDScheme ());
     eValue.setAttribute (ATTR_PARTICIPANT_ID_VALUE, aValue.getParticipantIDValue ());
     eValue.setAttribute (ATTR_TRANSPORT_PROFILE, aValue.getTransportProfile ().getID ());
+    eValue.setAttribute (ATTR_SML, aValue.getSML ().getID ());
 
     return eValue;
   }
 
   @Nonnull
+  @ContainsSoftMigration
   public TestEndpoint convertToNative (@Nonnull final IMicroElement eValue)
   {
     final StubObject aStubObject = getStubObject (eValue);
@@ -66,12 +71,17 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
     final String sTransportProfile = eValue.getAttributeValue (ATTR_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
 
+    final String sSML = eValue.getAttributeValue (ATTR_SML);
+    // Soft migration
+    final ESML eSML = sSML == null ? ESML.DIGIT_PRODUCTION : ESML.getFromIDOrNull (sSML);
+
     // Create object
     return new TestEndpoint (aStubObject,
                              sCompanyName,
                              sContactPerson,
                              sParticipantIDScheme,
                              sParticipantIDValue,
-                             eTransportProfile);
+                             eTransportProfile,
+                             eSML);
   }
 }
