@@ -16,10 +16,11 @@
  */
 package com.helger.peppol.pub.testendpoint;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -108,7 +109,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     {
       m_aRWLock.writeLock ().unlock ();
     }
-    AuditHelper.onAuditCreateSuccess (TestEndpoint.TYPE_TEST_ENDPOINT,
+    AuditHelper.onAuditCreateSuccess (TestEndpoint.OT,
                                       aTestEndpoint.getID (),
                                       sCompanyName,
                                       sContactPerson,
@@ -134,7 +135,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       final TestEndpoint aTestEndpoint = m_aMap.get (sTestEndpointID);
       if (aTestEndpoint == null)
       {
-        AuditHelper.onAuditModifyFailure (TestEndpoint.TYPE_TEST_ENDPOINT, sTestEndpointID, "no-such-id");
+        AuditHelper.onAuditModifyFailure (TestEndpoint.OT, sTestEndpointID, "no-such-id");
         return EChange.UNCHANGED;
       }
 
@@ -156,7 +157,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     {
       m_aRWLock.writeLock ().unlock ();
     }
-    AuditHelper.onAuditModifySuccess (TestEndpoint.TYPE_TEST_ENDPOINT,
+    AuditHelper.onAuditModifySuccess (TestEndpoint.OT,
                                       sTestEndpointID,
                                       sCompanyName,
                                       sContactPerson,
@@ -173,7 +174,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     final TestEndpoint aTestEndpoint = getTestEndpointOfID (sTestEndpointID);
     if (aTestEndpoint == null)
     {
-      AuditHelper.onAuditDeleteFailure (TestEndpoint.TYPE_TEST_ENDPOINT, "no-such-id", sTestEndpointID);
+      AuditHelper.onAuditDeleteFailure (TestEndpoint.OT, "no-such-id", sTestEndpointID);
       return EChange.UNCHANGED;
     }
 
@@ -182,7 +183,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     {
       if (aTestEndpoint.setDeletionNow ().isUnchanged ())
       {
-        AuditHelper.onAuditDeleteFailure (TestEndpoint.TYPE_TEST_ENDPOINT, "already-deleted", aTestEndpoint.getID ());
+        AuditHelper.onAuditDeleteFailure (TestEndpoint.OT, "already-deleted", aTestEndpoint.getID ());
         return EChange.UNCHANGED;
       }
       markAsChanged ();
@@ -191,18 +192,22 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     {
       m_aRWLock.writeLock ().unlock ();
     }
-    AuditHelper.onAuditDeleteSuccess (TestEndpoint.TYPE_TEST_ENDPOINT, aTestEndpoint.getID ());
+    AuditHelper.onAuditDeleteSuccess (TestEndpoint.OT, aTestEndpoint.getID ());
     return EChange.CHANGED;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <? extends TestEndpoint> getAllActvieTestEndpoints ()
+  public Collection <? extends TestEndpoint> getAllActiveTestEndpoints ()
   {
     m_aRWLock.readLock ().lock ();
     try
     {
-      return m_aMap.values ().stream ().filter (e -> !e.isDeleted ()).collect (Collectors.toList ());
+      final List <TestEndpoint> ret = new ArrayList <> ();
+      for (final TestEndpoint aItem : m_aMap.values ())
+        if (!aItem.isDeleted ())
+          ret.add (aItem);
+      return ret;
     }
     finally
     {

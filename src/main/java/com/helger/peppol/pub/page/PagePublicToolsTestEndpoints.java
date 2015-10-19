@@ -361,7 +361,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                         new DTCol ("SML"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
 
-    for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllActvieTestEndpoints ())
+    for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllActiveTestEndpoints ())
     {
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 

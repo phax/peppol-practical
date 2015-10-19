@@ -40,7 +40,7 @@ import com.helger.photon.basic.object.StubObject;
 @Immutable
 public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
 {
-  public static final ObjectType TYPE_TEST_ENDPOINT = new ObjectType ("test-endpoint");
+  public static final ObjectType OT = new ObjectType ("test-endpoint");
 
   private String m_sCompanyName;
   private String m_sContactPerson;
@@ -119,7 +119,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   @Nonnull
   public ObjectType getObjectType ()
   {
-    return TYPE_TEST_ENDPOINT;
+    return OT;
   }
 
   @Nonnull
