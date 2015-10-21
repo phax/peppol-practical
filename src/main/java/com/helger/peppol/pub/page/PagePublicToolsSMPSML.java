@@ -68,7 +68,6 @@ import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.BootstrapHelpBlock;
 import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.core.form.RequestField;
@@ -557,24 +556,24 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                                 DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_SMP_ID))
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
+                                                     .setHelpText (HELPTEXT_SMP_ID)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Physical address")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_PHYSICAL_ADDRESS))
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"))
+                                                     .setHelpText (HELPTEXT_PHYSICAL_ADDRESS)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PHYSICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Logical address")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_LOGICAL_ADDRESS))
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"))
+                                                     .setHelpText (HELPTEXT_LOGICAL_ADDRESS)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE))
+                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE))
+                                                     .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
-                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE_PW))
+                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_PW)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
@@ -595,24 +594,24 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                                 DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_SMP_ID))
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
+                                                     .setHelpText (HELPTEXT_SMP_ID)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Physical address")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_PHYSICAL_ADDRESS))
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"))
+                                                     .setHelpText (HELPTEXT_PHYSICAL_ADDRESS)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PHYSICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Logical address")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_LOGICAL_ADDRESS))
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"))
+                                                     .setHelpText (HELPTEXT_LOGICAL_ADDRESS)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE))
+                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE))
+                                                     .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
-                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE_PW))
+                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_PW)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
@@ -633,16 +632,16 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                                 DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_SMP_ID))
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
+                                                     .setHelpText (HELPTEXT_SMP_ID)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE))
+                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE))
+                                                     .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
-                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."),
-                                                               new BootstrapHelpBlock ().addChild (HELPTEXT_KEYSTORE_PW))
+                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_PW)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
