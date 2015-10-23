@@ -29,7 +29,7 @@ import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.page.AppPageViewExternal;
+import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.basic.app.menu.ApplicationMenuTree;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuObject;

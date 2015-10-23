@@ -33,7 +33,7 @@ import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.html.textlevel.HCEM;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.page.AbstractAppWebPage;
+import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.validation.UBLDocumentValidator;
 import com.helger.peppol.validation.ValidationConfiguration;
 import com.helger.peppol.validation.ValidationLayerResult;

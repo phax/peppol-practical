@@ -21,8 +21,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.page.AbstractAppWebPage;
 import com.helger.peppol.ui.AppCommonUI;
+import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
 public final class PagePublicLogin extends AbstractAppWebPage

@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.peppol.page.AppPageViewExternal;
 import com.helger.peppol.pub.page.PagePublicLogin;
 import com.helger.peppol.pub.page.PagePublicNewsletterSubscribe;
 import com.helger.peppol.pub.page.PagePublicNewsletterUnsubscribe;
@@ -29,6 +28,7 @@ import com.helger.peppol.pub.page.PagePublicToolsParticipantInformation;
 import com.helger.peppol.pub.page.PagePublicToolsSMPSML;
 import com.helger.peppol.pub.page.PagePublicToolsTestEndpoints;
 import com.helger.peppol.pub.page.PagePublicToolsValidateBIS2;
+import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.basic.app.menu.filter.MenuObjectFilterNoUserLoggedIn;

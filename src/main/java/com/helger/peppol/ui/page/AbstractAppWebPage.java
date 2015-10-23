@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.page;
+package com.helger.peppol.ui.page;
 
 import javax.annotation.Nonnull;
 
