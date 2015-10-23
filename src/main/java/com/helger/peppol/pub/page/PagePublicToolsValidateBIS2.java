@@ -39,6 +39,8 @@ import com.helger.peppol.validation.ValidationConfiguration;
 import com.helger.peppol.validation.ValidationLayerResult;
 import com.helger.peppol.validation.ValidationLayerResultList;
 import com.helger.peppol.validation.artefact.IValidationArtefact;
+import com.helger.peppol.validation.artefact.peppol.EPeppolStandardValidationSchematronArtefact;
+import com.helger.peppol.validation.domain.ValidationKey;
 import com.helger.peppol.validation.domain.peppol.PeppolValidationKeys;
 import com.helger.peppol.validation.peppol.PeppolValidationConfiguration;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
@@ -57,7 +59,16 @@ import com.helger.web.fileupload.IFileItem;
 
 public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 {
+  private static final String FIELD_VALIDATION_KEY = "validationkey";
   private static final String FIELD_FILE = "file";
+
+  static
+  {
+    for (final ValidationKey aKey : EPeppolStandardValidationSchematronArtefact.getAllValidationKeys ())
+    {
+      // TODO
+    }
+  }
 
   public PagePublicToolsValidateBIS2 (@Nonnull @Nonempty final String sID)
   {
@@ -115,15 +126,12 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                   sErrorLevel = "Warning";
                 }
               final IResourceLocation aLocation = aError.getLocation ();
-              final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
-                                                                                       : null;
+              final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError : null;
               final IHCLI <?> aItem = aUL.addItem ();
               aItem.addChild (new HCDiv ().addChild (sErrorLevel));
-              aItem.addChild (new HCDiv ().addChild ("Field: ")
-                                          .addChild (new HCCode ().addChild (aLocation.getAsString ())));
+              aItem.addChild (new HCDiv ().addChild ("Field: ").addChild (new HCCode ().addChild (aLocation.getAsString ())));
               if (aSVRLError != null)
-                aItem.addChild (new HCDiv ().addChild ("XPath test: ")
-                                            .addChild (new HCCode ().addChild (aSVRLError.getTest ())));
+                aItem.addChild (new HCDiv ().addChild ("XPath test: ").addChild (new HCCode ().addChild (aSVRLError.getTest ())));
               aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getDisplayText (aDisplayLocale)));
             }
           aDetails.addChild (aUL);
@@ -145,11 +153,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         else
         {
           if (nWarnings == 0)
-            aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
-                                                                   sFileName +
-                                                                   "' is invalid. It contains " +
-                                                                   nErrors +
-                                                                   " errors."));
+            aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" + sFileName + "' is invalid. It contains " + nErrors + " errors."));
           else
             aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
                                                                    sFileName +
