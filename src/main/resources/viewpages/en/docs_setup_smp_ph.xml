@@ -146,7 +146,7 @@
 
 <ul>
   <li>
-    <em>peppol-smp-server-xml</em> uses a relational database as its backend.
+    <em>peppol-smp-server-sql</em> uses a relational database as its backend.
     A copy of the MySQL database initialization script can be found in the 
     <code>/database_backups/</code> folder of the project.
     By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
