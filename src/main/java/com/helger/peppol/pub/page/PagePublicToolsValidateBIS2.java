@@ -67,7 +67,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 
   public PagePublicToolsValidateBIS2 (@Nonnull @Nonempty final String sID)
   {
-    super (sID, "Validate BIS2 documents");
+    super (sID, "BIS2 Document Validation");
   }
 
   @Override
