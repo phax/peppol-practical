@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceErrorGroup;
@@ -44,6 +45,7 @@ import com.helger.peppol.validation.ValidationLayerResult;
 import com.helger.peppol.validation.ValidationLayerResultList;
 import com.helger.peppol.validation.artefact.IValidationArtefact;
 import com.helger.peppol.validation.artefact.peppol.EPeppolStandardValidationSchematronArtefact;
+import com.helger.peppol.validation.artefact.peppol.EPeppolThirdPartyValidationSchematronArtefact;
 import com.helger.peppol.validation.domain.ValidationKey;
 import com.helger.peppol.validation.peppol.PeppolValidationConfiguration;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
@@ -76,6 +78,11 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       final ExtValidationKey aItem = new ExtValidationKey (aKey);
       m_aKeys.put (aItem.getID (), aItem);
     }
+    for (final ValidationKey aKey : EPeppolThirdPartyValidationSchematronArtefact.getAllValidationKeys ())
+    {
+      final ExtValidationKey aItem = new ExtValidationKey (aKey);
+      m_aKeys.put (aItem.getID (), aItem);
+    }
   }
 
   private static final class ExtValidationKeySelect extends HCExtSelect
@@ -83,8 +90,8 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
     public ExtValidationKeySelect (@Nonnull final IHCRequestField aRF, @Nonnull final Locale aDisplayLocale)
     {
       super (aRF);
-      for (final Map.Entry <String, ExtValidationKey> aEntry : m_aKeys.entrySet ())
-        addOption (aEntry.getKey (), aEntry.getValue ().getDisplayName ());
+      for (final Map.Entry <String, ExtValidationKey> aEntry : CollectionHelper.getSortedByValue (m_aKeys).entrySet ())
+        addOption (aEntry.getKey (), aEntry.getValue ().getDisplayName (aDisplayLocale));
       addOptionPleaseSelect (aDisplayLocale);
     }
   }
@@ -207,7 +214,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Rule set")
                                                    .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VALIDATION_KEY),
-                                                                             aDisplayLocale))
+                                                                                         aDisplayLocale))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_VALIDATION_KEY)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("UBL file")
                                                    .setCtrl (new HCEditFile (FIELD_FILE))

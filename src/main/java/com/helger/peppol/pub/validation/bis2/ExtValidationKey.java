@@ -1,12 +1,15 @@
 package com.helger.peppol.pub.validation.bis2;
 
+import java.io.Serializable;
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.peppol.validation.domain.ValidationKey;
 
-public final class ExtValidationKey
+public final class ExtValidationKey implements Serializable, Comparable <ExtValidationKey>
 {
   private final ValidationKey m_aValidationKey;
 
@@ -25,18 +28,34 @@ public final class ExtValidationKey
   @Nonempty
   public String getID ()
   {
-    return m_aValidationKey.getBusinessSpecification ().getID () +
-           m_aValidationKey.getTransaction ().getTransactionKey ();
+    String ret = m_aValidationKey.getBusinessSpecification ().getID () +
+                 "-" +
+                 m_aValidationKey.getTransaction ().getTransactionKey ();
+    if (m_aValidationKey.isCountrySpecific ())
+      ret += "-" + m_aValidationKey.getCountryCode ();
+    if (m_aValidationKey.isSectorSpecific ())
+      ret += "-" + m_aValidationKey.getSectorKey ().getID ();
+    return ret;
   }
 
   @Nonnull
   @Nonempty
-  public String getDisplayName ()
+  public String getDisplayName (@Nonnull final Locale aDisplayLocale)
   {
-    return m_aValidationKey.getBusinessSpecification ().getDisplayName () +
-           "; transaction T" +
-           m_aValidationKey.getTransaction ().getNumber () +
-           " " +
-           m_aValidationKey.getTransaction ().getName ();
+    String ret = m_aValidationKey.getBusinessSpecification ().getDisplayName () +
+                 "; transaction T" +
+                 m_aValidationKey.getTransaction ().getNumber () +
+                 " " +
+                 m_aValidationKey.getTransaction ().getName ();
+    if (m_aValidationKey.isCountrySpecific ())
+      ret += "; Country " + m_aValidationKey.getCountryLocale ().getDisplayCountry (aDisplayLocale);
+    if (m_aValidationKey.isSectorSpecific ())
+      ret += "; Sector: " + m_aValidationKey.getSectorKey ().getDisplayName ();
+    return ret;
+  }
+
+  public int compareTo (@Nonnull final ExtValidationKey aOther)
+  {
+    return m_aValidationKey.compareTo (aOther.m_aValidationKey);
   }
 }
