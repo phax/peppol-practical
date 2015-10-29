@@ -28,6 +28,8 @@ import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.commons.string.StringParser;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 @Immutable
 public final class CommentMicroTypeConverter implements IMicroTypeConverter
 {
@@ -65,6 +67,7 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   }
 
   @Nonnull
+  @SuppressFBWarnings ("NP_NULL_PARAM_DEREF")
   public Comment convertToNative (@Nonnull final IMicroElement eComment)
   {
     final String sCommentID = eComment.getAttributeValue (ATTR_ID);
