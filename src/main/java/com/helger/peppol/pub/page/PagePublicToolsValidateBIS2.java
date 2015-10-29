@@ -16,7 +16,9 @@
  */
 package com.helger.peppol.pub.page;
 
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 
@@ -33,6 +35,8 @@ import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.html.textlevel.HCEM;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.html.request.IHCRequestField;
+import com.helger.peppol.pub.validation.bis2.ExtValidationKey;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.validation.UBLDocumentValidator;
 import com.helger.peppol.validation.ValidationConfiguration;
@@ -41,7 +45,6 @@ import com.helger.peppol.validation.ValidationLayerResultList;
 import com.helger.peppol.validation.artefact.IValidationArtefact;
 import com.helger.peppol.validation.artefact.peppol.EPeppolStandardValidationSchematronArtefact;
 import com.helger.peppol.validation.domain.ValidationKey;
-import com.helger.peppol.validation.domain.peppol.PeppolValidationKeys;
 import com.helger.peppol.validation.peppol.PeppolValidationConfiguration;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
@@ -50,7 +53,9 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.EBootstrapFormType;
+import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
+import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.validation.error.FormErrors;
@@ -62,11 +67,25 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
   private static final String FIELD_VALIDATION_KEY = "validationkey";
   private static final String FIELD_FILE = "file";
 
+  private static Map <String, ExtValidationKey> m_aKeys = new LinkedHashMap <> ();
+
   static
   {
     for (final ValidationKey aKey : EPeppolStandardValidationSchematronArtefact.getAllValidationKeys ())
     {
-      // TODO
+      final ExtValidationKey aItem = new ExtValidationKey (aKey);
+      m_aKeys.put (aItem.getID (), aItem);
+    }
+  }
+
+  private static final class ExtValidationKeySelect extends HCExtSelect
+  {
+    public ExtValidationKeySelect (@Nonnull final IHCRequestField aRF, @Nonnull final Locale aDisplayLocale)
+    {
+      super (aRF);
+      for (final Map.Entry <String, ExtValidationKey> aEntry : m_aKeys.entrySet ())
+        addOption (aEntry.getKey (), aEntry.getValue ().getDisplayName ());
+      addOptionPleaseSelect (aDisplayLocale);
     }
   }
 
@@ -86,14 +105,20 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
       // Validate fields
+      final String sValidationKey = aWPEC.getAttributeAsString (FIELD_VALIDATION_KEY);
+      final ExtValidationKey aValidationItem = m_aKeys.get (sValidationKey);
       final IFileItem aFileItem = aWPEC.getFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
+
+      if (aValidationItem == null)
+        aFormErrors.addFieldError (FIELD_VALIDATION_KEY, "Please select a valid rule set.");
       if (StringHelper.hasNoText (sFileName))
         aFormErrors.addFieldError (FIELD_FILE, "Please select a file to be validated.");
-      else
+
+      if (aFormErrors.isEmpty ())
       {
         // Start validation
-        final ValidationConfiguration aConfig = PeppolValidationConfiguration.createDefault (PeppolValidationKeys.INVOICE_04_T10);
+        final ValidationConfiguration aConfig = PeppolValidationConfiguration.createDefault (aValidationItem.getValidationKey ());
         final UBLDocumentValidator aValidator = new UBLDocumentValidator (aConfig);
         final ValidationLayerResultList aValidationResult = aValidator.applyCompleteValidation (new FileItemResource (aFileItem));
         int nWarnings = 0;
@@ -126,12 +151,15 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                   sErrorLevel = "Warning";
                 }
               final IResourceLocation aLocation = aError.getLocation ();
-              final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError : null;
+              final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
+                                                                                       : null;
               final IHCLI <?> aItem = aUL.addItem ();
               aItem.addChild (new HCDiv ().addChild (sErrorLevel));
-              aItem.addChild (new HCDiv ().addChild ("Field: ").addChild (new HCCode ().addChild (aLocation.getAsString ())));
+              aItem.addChild (new HCDiv ().addChild ("Field: ")
+                                          .addChild (new HCCode ().addChild (aLocation.getAsString ())));
               if (aSVRLError != null)
-                aItem.addChild (new HCDiv ().addChild ("XPath test: ").addChild (new HCCode ().addChild (aSVRLError.getTest ())));
+                aItem.addChild (new HCDiv ().addChild ("XPath test: ")
+                                            .addChild (new HCCode ().addChild (aSVRLError.getTest ())));
               aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getDisplayText (aDisplayLocale)));
             }
           aDetails.addChild (aUL);
@@ -153,7 +181,11 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         else
         {
           if (nWarnings == 0)
-            aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" + sFileName + "' is invalid. It contains " + nErrors + " errors."));
+            aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
+                                                                   sFileName +
+                                                                   "' is invalid. It contains " +
+                                                                   nErrors +
+                                                                   " errors."));
           else
             aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
                                                                    sFileName +
@@ -173,6 +205,10 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       aForm.setEncTypeFileUpload ();
       aForm.addChild (new BootstrapInfoBox ().addChild ("Select the PEPPOL UBL file for validation and upload it"));
 
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Rule set")
+                                                   .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VALIDATION_KEY),
+                                                                             aDisplayLocale))
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_VALIDATION_KEY)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("UBL file")
                                                    .setCtrl (new HCEditFile (FIELD_FILE))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_FILE)));
