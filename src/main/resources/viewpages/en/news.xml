@@ -20,6 +20,15 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2015-11-02</h3>
+
+<p>
+  Here is a list of issues identified with the new SMK 3.0.0:
+</p>
+<ul>
+
+</ul>
+
 <h3>2015-10-29</h3>
 
 <p>
@@ -27,6 +36,29 @@
   <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
   A respective WebService will follow soon.
 </p>
+
+<h3>2015-10-27</h3>
+
+<p>
+  A new version (3.0.0) of the SMK (not SML) was deployed by DIGIT. It contains the following new features:
+</p>
+<ul>
+  <li>Enhances compliance with SML specification</li>
+  <li>Adds support for Oasis BDXL specification</li>
+  <li>U-NAPTR and CNAME records</li>
+  <li>Adds service to allow SMP to change their certificate</li>
+  <li>Support for multiple business domains</li>
+  <li>Support for DNSSEC</li>
+  <li>Enhances logging</li>
+  <li>Enhances users and roles management</li>
+  <li>Enhances unit and integration testing</li>
+  <li>Enhances database versioning with Liquibase</li>
+  <li>Adds support for certificate revocation check (CRL)</li>
+  <li>Work managers to limit the load on servers for guaranteed performance (Weblogic only)</li>
+  <li>Fixes EDELIVERY-294: Improve the signature of the SML Read Service Metadata service</li>
+  <li>New monitoring service</li>
+  <li>New service to list all participants (PEPPOL Yellow Pages)</li>  
+</ul>
 
 <h3>2015-10-09</h3>
 
