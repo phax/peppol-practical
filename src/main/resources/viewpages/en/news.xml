@@ -20,13 +20,16 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
-<h3>2015-11-02</h3>
+<h3>2015-11-03</h3>
 
 <p>
-  Here is a list of issues identified with the new SMK 3.0.0:
+  Here is a list of issues I've identified with the new SMK 3.0.0:
 </p>
 <ul>
-
+  <li>The handling of participant IDs is now case-sensitive (this is not compliant with the BusDox spec)</li>
+  <li>The name of the list DNS servlet changed from "listdns" to "listDNS"</li>
+  <li>The "delete participant" API now requires a valid SMP-ID to be provided (this is incompatible with existing SML client solutions) - the respective changes are contained in my peppol-sml-client as of version 4.3.1</li>
+  <li>The SMK now accepts any participant identifier schemes that are incompatible to the BusDox specs</li>
 </ul>
 
 <h3>2015-10-29</h3>
