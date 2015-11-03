@@ -38,11 +38,12 @@ import com.helger.peppol.pub.validation.bis2.ExtValidationKeyRegistry;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.validation.UBLDocumentValidator;
-import com.helger.peppol.validation.ValidationConfiguration;
 import com.helger.peppol.validation.ValidationLayerResult;
 import com.helger.peppol.validation.ValidationLayerResultList;
 import com.helger.peppol.validation.artefact.IValidationArtefact;
+import com.helger.peppol.validation.domain.ValidationKey;
 import com.helger.peppol.validation.peppol.PeppolValidationConfiguration;
+import com.helger.photon.basic.security.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
@@ -82,11 +83,11 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
     {
       // Validate fields
       final String sValidationKey = aWPEC.getAttributeAsString (FIELD_VALIDATION_KEY);
-      final ExtValidationKey aExrValidationKey = ExtValidationKeyRegistry.getFromID (sValidationKey);
+      final ExtValidationKey aExtValidationKey = ExtValidationKeyRegistry.getFromID (sValidationKey);
       final IFileItem aFileItem = aWPEC.getFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
 
-      if (aExrValidationKey == null)
+      if (aExtValidationKey == null)
         aFormErrors.addFieldError (FIELD_VALIDATION_KEY, "Please select a valid rule set.");
       if (StringHelper.hasNoText (sFileName))
         aFormErrors.addFieldError (FIELD_FILE, "Please select a file to be validated.");
@@ -94,8 +95,9 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         // Start validation
-        final ValidationConfiguration aConfig = PeppolValidationConfiguration.createDefault (aExrValidationKey.getValidationKey ());
-        final UBLDocumentValidator aValidator = new UBLDocumentValidator (aConfig);
+        final ValidationKey aVK = aExtValidationKey.getValidationKey ();
+        final UBLDocumentValidator aValidator = new UBLDocumentValidator (PeppolValidationConfiguration.createDefault (aVK));
+        // Perform the validation
         final ValidationLayerResultList aValidationResult = aValidator.applyCompleteValidation (new FileItemResource (aFileItem));
         int nWarnings = 0;
         int nErrors = 0;
@@ -110,7 +112,9 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
           aDetails.addChild (aDiv);
           final HCUL aUL = new HCUL ();
           if (aResourceErrors.isEmpty ())
+          {
             aUL.addItem (new BootstrapLabel (EBootstrapLabelType.SUCCESS).addChild ("All fine on this level"));
+          }
           else
             for (final IResourceError aError : aResourceErrors)
             {
@@ -130,15 +134,12 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                   aErrorLevel = new BootstrapLabel ().addChild ("undefined");
 
               final IResourceLocation aLocation = aError.getLocation ();
-              final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
-                                                                                       : null;
+              final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError : null;
               final IHCLI <?> aItem = aUL.addItem ();
               aItem.addChild (new HCDiv ().addChild (aErrorLevel));
-              aItem.addChild (new HCDiv ().addChild ("Field: ")
-                                          .addChild (new HCCode ().addChild (aLocation.getAsString ())));
+              aItem.addChild (new HCDiv ().addChild ("Field: ").addChild (new HCCode ().addChild (aLocation.getAsString ())));
               if (aSVRLError != null)
-                aItem.addChild (new HCDiv ().addChild ("XPath test: ")
-                                            .addChild (new HCCode ().addChild (aSVRLError.getTest ())));
+                aItem.addChild (new HCDiv ().addChild ("XPath test: ").addChild (new HCCode ().addChild (aSVRLError.getTest ())));
               aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getDisplayText (aDisplayLocale)));
             }
           aDetails.addChild (aUL);
@@ -147,9 +148,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         if (nErrors == 0)
         {
           if (nWarnings == 0)
-            aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Congratulations - the file '" +
-                                                                     sFileName +
-                                                                     "' is valid. No warnings and no errors."));
+            aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Congratulations - the file '" + sFileName + "' is valid. No warnings and no errors."));
           else
             aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Congratulations - the file '" +
                                                                      sFileName +
@@ -161,12 +160,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         else
         {
           if (nWarnings == 0)
-            aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
-                                                                   sFileName +
-                                                                   "' is invalid. It contains " +
-                                                                   nErrors +
-                                                                   (nErrors == 1 ? " error" : " errors") +
-                                                                   "."));
+            aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" + sFileName + "' is invalid. It contains " + nErrors + (nErrors == 1 ? " error" : " errors") + "."));
           else
             aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
                                                                    sFileName +
@@ -179,6 +173,16 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                                                                    "."));
         }
         aNodeList.addChild (aDetails);
+        AuditHelper.onAuditExecuteSuccess ("validation-bis2-upload",
+                                           sFileName,
+                                           aVK.getBusinessSpecification ().getID (),
+                                           aVK.getTransaction ().getTransactionKey (),
+                                           aVK.getCountryCode (),
+                                           aVK.getSectorKey () == null ? null : aVK.getSectorKey ().getID (),
+                                           aVK.getPrerequisiteXPath (),
+                                           Integer.valueOf (aValidationResult.getSize ()),
+                                           Integer.valueOf (nErrors),
+                                           Integer.valueOf (nWarnings));
       }
     }
 
@@ -189,12 +193,9 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       aForm.addChild (new BootstrapInfoBox ().addChild ("Select the PEPPOL UBL file for validation and upload it"));
 
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Rule set")
-                                                   .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VALIDATION_KEY),
-                                                                                         aDisplayLocale))
+                                                   .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VALIDATION_KEY), aDisplayLocale))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_VALIDATION_KEY)));
-      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("UBL file")
-                                                   .setCtrl (new HCEditFile (FIELD_FILE))
-                                                   .setErrorList (aFormErrors.getListOfField (FIELD_FILE)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("UBL file").setCtrl (new HCEditFile (FIELD_FILE)).setErrorList (aFormErrors.getListOfField (FIELD_FILE)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
