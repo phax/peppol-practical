@@ -97,54 +97,64 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         // Start validation
         final ValidationKey aVK = aExtValidationKey.getValidationKey ();
         final UBLDocumentValidator aValidator = new UBLDocumentValidator (PeppolValidationConfiguration.createDefault (aVK));
+
         // Perform the validation
-        final ValidationLayerResultList aValidationResult = aValidator.applyCompleteValidation (new FileItemResource (aFileItem));
+        final ValidationLayerResultList aValidationResultList = aValidator.applyCompleteValidation (new FileItemResource (aFileItem));
+
+        // Show results per layer
         int nWarnings = 0;
         int nErrors = 0;
         final HCNodeList aDetails = new HCNodeList ();
-        for (final ValidationLayerResult aValidationResultItem : aValidationResult)
+        for (final ValidationLayerResult aValidationResultItem : aValidationResultList)
         {
           final IValidationArtefact aValidationArtefact = aValidationResultItem.getValidationArtefact ();
-          final IResourceErrorGroup aResourceErrors = aValidationResultItem.getResourceErrorGroup ();
+          final IResourceErrorGroup aItemErrors = aValidationResultItem.getResourceErrorGroup ();
+
           final HCDiv aDiv = new HCDiv ();
           aDiv.addChild (aValidationArtefact.getValidationArtefactType ().getName ());
           aDiv.addChild (" - " + aValidationArtefact.getRuleResource ().getPath ());
           aDetails.addChild (aDiv);
           final HCUL aUL = new HCUL ();
-          if (aResourceErrors.isEmpty ())
+          if (aValidationResultItem.isIgnored ())
           {
-            aUL.addItem (new BootstrapLabel (EBootstrapLabelType.SUCCESS).addChild ("All fine on this level"));
+            aUL.addItem (new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("This layer was not executed because the prerequisite is not fulfilled"));
           }
           else
-            for (final IResourceError aError : aResourceErrors)
+            if (aItemErrors.isEmpty ())
             {
-              IHCNode aErrorLevel;
-              if (aError.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.ERROR))
+              aUL.addItem (new BootstrapLabel (EBootstrapLabelType.SUCCESS).addChild ("All fine on this level"));
+            }
+            else
+              for (final IResourceError aError : aItemErrors)
               {
-                nErrors++;
-                aErrorLevel = new BootstrapLabel (EBootstrapLabelType.DANGER).addChild ("Error");
-              }
-              else
-                if (aError.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN))
+                IHCNode aErrorLevel;
+                if (aError.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.ERROR))
                 {
-                  nWarnings++;
-                  aErrorLevel = new BootstrapLabel (EBootstrapLabelType.WARNING).addChild ("Warning");
+                  nErrors++;
+                  aErrorLevel = new BootstrapLabel (EBootstrapLabelType.DANGER).addChild ("Error");
                 }
                 else
-                  aErrorLevel = new BootstrapLabel ().addChild ("undefined");
+                  if (aError.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN))
+                  {
+                    nWarnings++;
+                    aErrorLevel = new BootstrapLabel (EBootstrapLabelType.WARNING).addChild ("Warning");
+                  }
+                  else
+                    aErrorLevel = new BootstrapLabel ().addChild ("undefined");
 
-              final IResourceLocation aLocation = aError.getLocation ();
-              final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError : null;
-              final IHCLI <?> aItem = aUL.addItem ();
-              aItem.addChild (new HCDiv ().addChild (aErrorLevel));
-              aItem.addChild (new HCDiv ().addChild ("Field: ").addChild (new HCCode ().addChild (aLocation.getAsString ())));
-              if (aSVRLError != null)
-                aItem.addChild (new HCDiv ().addChild ("XPath test: ").addChild (new HCCode ().addChild (aSVRLError.getTest ())));
-              aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getDisplayText (aDisplayLocale)));
-            }
+                final IResourceLocation aLocation = aError.getLocation ();
+                final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError : null;
+                final IHCLI <?> aItem = aUL.addItem ();
+                aItem.addChild (new HCDiv ().addChild (aErrorLevel));
+                aItem.addChild (new HCDiv ().addChild ("Field: ").addChild (new HCCode ().addChild (aLocation.getAsString ())));
+                if (aSVRLError != null)
+                  aItem.addChild (new HCDiv ().addChild ("XPath test: ").addChild (new HCCode ().addChild (aSVRLError.getTest ())));
+                aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getDisplayText (aDisplayLocale)));
+              }
           aDetails.addChild (aUL);
         }
 
+        // Build overall result
         if (nErrors == 0)
         {
           if (nWarnings == 0)
@@ -173,6 +183,8 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                                                                    "."));
         }
         aNodeList.addChild (aDetails);
+
+        // Audit execution
         AuditHelper.onAuditExecuteSuccess ("validation-bis2-upload",
                                            sFileName,
                                            aVK.getBusinessSpecification ().getID (),
@@ -180,7 +192,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                                            aVK.getCountryCode (),
                                            aVK.getSectorKey () == null ? null : aVK.getSectorKey ().getID (),
                                            aVK.getPrerequisiteXPath (),
-                                           Integer.valueOf (aValidationResult.getSize ()),
+                                           Integer.valueOf (aValidationResultList.getSize ()),
                                            Integer.valueOf (nErrors),
                                            Integer.valueOf (nWarnings));
       }
