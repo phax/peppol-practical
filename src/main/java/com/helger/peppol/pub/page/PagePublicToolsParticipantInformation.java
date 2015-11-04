@@ -81,6 +81,7 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.bootstrap3.grid.BootstrapRow;
+import com.helger.photon.core.app.error.InternalErrorBuilder;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -129,9 +130,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         sParticipantIdentifierValue = sParticipantIDISO6523 + ":" + sParticipantIDValue;
         if (!IdentifierHelper.isValidParticipantIdentifierValue (sParticipantIdentifierValue))
           aFormErrors.addFieldError (FIELD_ID_VALUE,
-                                     "The resulting participant identifier value '" +
-                                                     sParticipantIdentifierValue +
-                                                     "' is not valid!");
+                                     "The resulting participant identifier value '" + sParticipantIdentifierValue + "' is not valid!");
       }
 
       if (eSML == null)
@@ -150,12 +149,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new HCDiv ().addChild ("Querying the following SMP for ")
                                           .addChild (new HCCode ().addChild (aParticipantID.getURIEncoded ()))
                                           .addChild (":"));
-          aNodeList.addChild (new HCDiv ().addChild ("PEPPOL name: ")
-                                          .addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
-          aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
-                                          .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ())));
-          aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
-                                          .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
+          aNodeList.addChild (new HCDiv ().addChild ("PEPPOL name: ").addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
+          aNodeList.addChild (new HCDiv ().addChild ("Nice name: ").addChild (new HCCode ().addChild (aNice.getCanonicalHostName ())));
+          aNodeList.addChild (new HCDiv ().addChild ("IP address: ").addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
           final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList <> ();
           {
@@ -167,16 +163,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // The generated hostname contains "B-" whereas the returned
             // hostname contains "b-"
             // Note: the SMPHost must have a trailing slash
-            final String sCommonPrefix = (aSMPHost.toExternalForm () +
-                                          aParticipantID.getURIEncoded () +
-                                          "/services/").toLowerCase (Locale.US);
+            final String sCommonPrefix = (aSMPHost.toExternalForm () + aParticipantID.getURIEncoded () + "/services/").toLowerCase (Locale.US);
 
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
             final Map <String, String> aSGHrefs = new TreeMap <> ();
-            for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                              .getServiceMetadataReference ())
+            for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ().getServiceMetadataReference ())
             {
               final String sHref = BusdoxURLHelper.createPercentDecodedURL (aSMR.getHref ());
               if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
@@ -198,12 +191,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 {
                   final SimpleDocumentTypeIdentifier aDocType = SimpleDocumentTypeIdentifier.createFromURIPart (sDocType);
                   aDocTypeIDs.add (aDocType);
-                  aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
-                                            .addChild (" " + aDocType.getURIEncoded ()));
+                  aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ()).addChild (" " + aDocType.getURIEncoded ()));
                   aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" ")
-                                            .addChild (new HCA (sOriginalHref).addChild ("Open in browser")
-                                                                              .setTargetBlank ()));
+                                            .addChild (new HCA (sOriginalHref).addChild ("Open in browser").setTargetBlank ()));
                 }
                 catch (final IllegalArgumentException ex)
                 {
@@ -215,15 +206,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               else
               {
                 aLI.addChild (new BootstrapErrorBox ().addChildren (new HCDiv ().addChild ("Contained href does not match the rules!"),
-                                                                    new HCDiv ().addChild ("Found href: ")
-                                                                                .addChild (new HCCode ().addChild (sHref)),
+                                                                    new HCDiv ().addChild ("Found href: ").addChild (new HCCode ().addChild (sHref)),
                                                                     new HCDiv ().addChild ("Expected prefix: ")
                                                                                 .addChild (new HCCode ().addChild (sCommonPrefix))));
               }
             }
             if (!aUL.hasChildren ())
-              aUL.addItem (new BootstrapWarnBox ().addChild ("No service group entries where found for " +
-                                                             aParticipantID.getURIEncoded ()));
+              aUL.addItem (new BootstrapWarnBox ().addChild ("No service group entries where found for " + aParticipantID.getURIEncoded ()));
             aNodeList.addChild (aUL);
           }
 
@@ -238,8 +227,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             for (final SimpleDocumentTypeIdentifier aDocTypeID : CollectionHelper.getSorted (aDocTypeIDs))
             {
               final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (aDocTypeID.getURIEncoded ())));
-              final SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
-                                                                                              aDocTypeID);
+              final SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID, aDocTypeID);
               if (aSSM != null)
               {
                 final ServiceMetadataType aSM = aSSM.getServiceMetadata ();
@@ -265,9 +253,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                       if (aEndpoint.getServiceActivationDate () != null)
                       {
                         final LocalDate aValidFrom = PDTFactory.createLocalDate (aEndpoint.getServiceActivationDate ());
-                        aLIEndpoint.addChild (new HCDiv ().addChild ("Valid from: " +
-                                                                     PDTToString.getAsString (aValidFrom,
-                                                                                              aDisplayLocale)));
+                        aLIEndpoint.addChild (new HCDiv ().addChild ("Valid from: " + PDTToString.getAsString (aValidFrom, aDisplayLocale)));
                         if (aValidFrom.isAfter (aNowDate))
                           aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is not yet valid!"));
                       }
@@ -276,9 +262,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                       if (aEndpoint.getServiceExpirationDate () != null)
                       {
                         final LocalDate aValidTo = PDTFactory.createLocalDate (aEndpoint.getServiceExpirationDate ());
-                        aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " +
-                                                                     PDTToString.getAsString (aValidTo,
-                                                                                              aDisplayLocale)));
+                        aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " + PDTToString.getAsString (aValidTo, aDisplayLocale)));
                         if (aValidTo.isBefore (aNowDate))
                           aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is no longer valid!"));
                       }
@@ -324,13 +308,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
                 aLICert.addChild (new HCDiv ().addChild ("Subject: " + aCert.getSubjectDN ().toString ()));
                 final LocalDate aNotBefore = PDTFactory.createLocalDate (aCert.getNotBefore ());
-                aLICert.addChild (new HCDiv ().addChild ("Not before: " +
-                                                         PDTToString.getAsString (aNotBefore, aDisplayLocale)));
+                aLICert.addChild (new HCDiv ().addChild ("Not before: " + PDTToString.getAsString (aNotBefore, aDisplayLocale)));
                 if (aNotBefore.isAfter (aNowDate))
                   aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is not yet valid!"));
                 final LocalDate aNotAfter = PDTFactory.createLocalDate (aCert.getNotAfter ());
-                aLICert.addChild (new HCDiv ().addChild ("Not after: " +
-                                                         PDTToString.getAsString (aNotAfter, aDisplayLocale)));
+                aLICert.addChild (new HCDiv ().addChild ("Not after: " + PDTToString.getAsString (aNotAfter, aDisplayLocale)));
                 if (aNotAfter.isBefore (aNowDate))
                   aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is no longer valid!"));
               }
@@ -352,26 +334,22 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
                                                                                         aParticipantID.getURIEncoded () +
                                                                                         " is not registered to the PEPPOL network."))
-                                                      .addChild (new HCDiv ().addChild ("Technical details: unknown host " +
-                                                                                        ex.getMessage ())));
+                                                      .addChild (new HCDiv ().addChild ("Technical details: unknown host " + ex.getMessage ())));
 
           // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participate-information",
-                                             aParticipantID.getURIEncoded (),
-                                             "unknown-host",
-                                             ex.getMessage ());
+          AuditHelper.onAuditExecuteFailure ("participate-information", aParticipantID.getURIEncoded (), "unknown-host", ex.getMessage ());
         }
         catch (final Exception ex)
         {
+          new InternalErrorBuilder ().setRequestScope (aWPEC.getRequestScope ())
+                                     .setDisplayLocale (aWPEC.getDisplayLocale ())
+                                     .setThrowable (ex)
+                                     .handle ();
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Error querying SMP."))
-                                                      .addChild (new HCDiv ().addChild ("Technical details: " +
-                                                                                        ex.getMessage ())));
+                                                      .addChild (new HCDiv ().addChild ("Technical details: " + ex.getMessage ())));
 
           // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participate-information",
-                                             aParticipantID.getURIEncoded (),
-                                             ex.getClass (),
-                                             ex.getMessage ());
+          AuditHelper.onAuditExecuteFailure ("participate-information", aParticipantID.getURIEncoded (), ex.getClass (), ex.getMessage ());
         }
       }
     }
@@ -388,8 +366,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                        .addChild (new HCCode ().addChild ("test"))
                                                                        .addChild (" as an example.")));
       {
-        final IdentifierIssuingAgencySelect aSelect = new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523_PREDEF),
-                                                                                         aDisplayLocale);
+        final IdentifierIssuingAgencySelect aSelect = new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523_PREDEF), aDisplayLocale);
         final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
                                                                              .setPlaceholder ("Identifier value");
         // In case something is selected, put it in the edit
