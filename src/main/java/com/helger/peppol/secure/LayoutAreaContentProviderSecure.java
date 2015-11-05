@@ -71,18 +71,16 @@ public final class LayoutAreaContentProviderSecure implements ILayoutAreaContent
     final ISimpleURL aLinkToStartPage = aLEC.getLinkToMenuItem (aLEC.getMenuTree ().getDefaultMenuItemID ());
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar (EBootstrapNavbarType.STATIC_TOP, true, aDisplayLocale);
-    aNavbar.addBrand (new HCNodeList ().addChild (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO1)
-                                                               .addChild (AppHelper.getApplicationTitle ()))
-                                       .addChild (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO2)
-                                                               .addChild (" Administration")),
+    aNavbar.getContainer ().setFluid (true);
+    aNavbar.addBrand (new HCNodeList ().addChild (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()))
+                                       .addChild (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO2).addChild (" Administration")),
                       aLinkToStartPage);
 
     final BootstrapNav aNav = new BootstrapNav ();
     final IUser aUser = LoggedInUserManager.getInstance ().getCurrentUser ();
     aNav.addItem (new HCSpan ().addChild ("Logged in as ")
                                .addClass (CBootstrapCSS.NAVBAR_TEXT)
-                               .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser,
-                                                                                                       aDisplayLocale))));
+                               .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser, aDisplayLocale))));
     {
       final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
       aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractPublicApplicationServlet.SERVLET_DEFAULT_PATH))
@@ -91,8 +89,7 @@ public final class LayoutAreaContentProviderSecure implements ILayoutAreaContent
     }
     {
       final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-      aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (aRequestScope,
-                                                                                       LogoutServlet.SERVLET_DEFAULT_PATH))
+      aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (aRequestScope, LogoutServlet.SERVLET_DEFAULT_PATH))
                                             .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
       aNav.addItem (aForm);
     }
