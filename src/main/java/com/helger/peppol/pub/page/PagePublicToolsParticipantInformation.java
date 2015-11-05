@@ -327,7 +327,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
 
           // Audit success
-          AuditHelper.onAuditExecuteSuccess ("participate-information", aParticipantID.getURIEncoded ());
+          AuditHelper.onAuditExecuteSuccess ("participant-information", aParticipantID.getURIEncoded ());
         }
         catch (final UnknownHostException ex)
         {
@@ -337,7 +337,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                       .addChild (new HCDiv ().addChild ("Technical details: unknown host " + ex.getMessage ())));
 
           // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participate-information", aParticipantID.getURIEncoded (), "unknown-host", ex.getMessage ());
+          AuditHelper.onAuditExecuteFailure ("participant-information", aParticipantID.getURIEncoded (), "unknown-host", ex.getMessage ());
         }
         catch (final Exception ex)
         {
@@ -349,7 +349,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                       .addChild (new HCDiv ().addChild ("Technical details: " + ex.getMessage ())));
 
           // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participate-information", aParticipantID.getURIEncoded (), ex.getClass (), ex.getMessage ());
+          AuditHelper.onAuditExecuteFailure ("participant-information", aParticipantID.getURIEncoded (), ex.getClass (), ex.getMessage ());
         }
       }
     }
