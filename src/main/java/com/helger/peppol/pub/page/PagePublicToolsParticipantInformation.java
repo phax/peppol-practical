@@ -169,13 +169,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
             final Map <String, String> aSGHrefs = new TreeMap <> ();
-            for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ().getServiceMetadataReference ())
-            {
-              final String sHref = BusdoxURLHelper.createPercentDecodedURL (aSMR.getHref ());
-              if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-                aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
-                                                    .addChild (new HCCode ().addChild (sHref)));
-            }
+            if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
+              for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ().getServiceMetadataReference ())
+              {
+                final String sHref = BusdoxURLHelper.createPercentDecodedURL (aSMR.getHref ());
+                if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+                  aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
+                                                      .addChild (new HCCode ().addChild (sHref)));
+              }
 
             // Show all ServiceGroup hrefs
             for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
