@@ -50,7 +50,7 @@
       </li>
       <li><a href="#phsmp">Changes for my SMP implementation</a>
         <ol>
-          <li><a href="#phsmpserver">peppol-smp-server &amp; peppol-smp-server-lightweight</a> - the server/backend component of the SMP</li>
+          <li><a href="#phsmpserver">peppol-smp-server</a> - the server/backend component of the SMP</li>
           <li><a href="#phsmpclient">peppol-smp-client</a> - the client/requesting component of the SMP</li>
         </ol>
       </li>
@@ -213,11 +213,11 @@
 <p>
   The changes listed here are for version 3.1.0+ of 
   <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a> and
-  <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>.
+  (the previous peppol-smp-server-lightweight).
 </p>
 
 <a name="phsmpserver"></a>
-<h3>peppol-smp-server and peppol-smp-server-lightweight</h3>
+<h3>peppol-smp-server</h3>
 
 <p>
   This is the SMP server component that manages all endpoints and has a connection to the SML
