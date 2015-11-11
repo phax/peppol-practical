@@ -25,7 +25,6 @@ import javax.servlet.ServletContext;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
@@ -112,7 +111,6 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
     // Setup error handler
     AppInternalErrorHandler.doSetup ();
 
-    if (GlobalDebug.isProductionMode () || true)
-      ValidationBootstraper.run ();
+    ValidationBootstraper.run ();
   }
 }
