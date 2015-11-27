@@ -285,10 +285,15 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>**/NOTICE</exclude>
+            <exclude>**/LICENSE</exclude>
+            <exclude>src/main/resources/rules/**</exclude>
             <exclude>src/main/webapp/*.jsp</exclude>
             <!-- Minified CSS/JS files - usually generated -->
             <exclude>**/*.min.css</exclude>
             <exclude>**/*.min.js</exclude>
+            <exclude>src/main/java/eu/**</exclude>
+            <exclude>src/test/java/eu/**</exclude>
           </excludes>
         </configuration>
       </plugin>
