@@ -85,7 +85,7 @@ public final class DocumentValidationSuccessFuncTest
     for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.CATALOGUE))
     {
       // Ensure the UBL file validates against the scheme
-      final CatalogueType aUBLCatalogue = UBL20Reader.readCatalogue (aTestFile);
+      final CatalogueType aUBLCatalogue = UBL20Reader.catalogue ().read (aTestFile);
       assertNotNull (aUBLCatalogue);
 
       // Test the country-independent catalogue layers
@@ -97,8 +97,7 @@ public final class DocumentValidationSuccessFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T19));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
-                                                                             aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
         assertNotNull (aSVRL);
 
         if (false)
@@ -123,7 +122,7 @@ public final class DocumentValidationSuccessFuncTest
     for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.ORDER))
     {
       // Ensure the UBL file validates against the scheme
-      final OrderType aUBLOrder = UBL20Reader.readOrder (aTestFile);
+      final OrderType aUBLOrder = UBL20Reader.order ().read (aTestFile);
       assertNotNull (aUBLOrder);
 
       // Test the country-independent orders layers
@@ -135,8 +134,7 @@ public final class DocumentValidationSuccessFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T01));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
-                                                                             aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
         assertNotNull (aSVRL);
 
         if (false)
@@ -148,11 +146,7 @@ public final class DocumentValidationSuccessFuncTest
         // Check that all failed assertions are only warnings
         for (final SVRLFailedAssert aFailedAssert : SVRLHelper.getAllFailedAssertions (aSVRL))
         {
-          assertEquals (aTestFile.toString () +
-                        "\n" +
-                        aFailedAssert.toString (),
-                        EErrorLevel.WARN,
-                        aFailedAssert.getFlag ());
+          assertEquals (aTestFile.toString () + "\n" + aFailedAssert.toString (), EErrorLevel.WARN, aFailedAssert.getFlag ());
         }
       }
     }
@@ -165,7 +159,7 @@ public final class DocumentValidationSuccessFuncTest
     for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.ORDERRESPONSE))
     {
       // Ensure the UBL file validates against the scheme
-      final OrderResponseSimpleType aUBLOrderResponse = UBL20Reader.readOrderResponseSimple (aTestFile);
+      final OrderResponseSimpleType aUBLOrderResponse = UBL20Reader.orderResponseSimple ().read (aTestFile);
       assertNotNull (aUBLOrderResponse);
 
       // Test the country-independent orders layers
@@ -177,8 +171,7 @@ public final class DocumentValidationSuccessFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T02));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
-                                                                             aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
         assertNotNull (aSVRL);
 
         if (false)
@@ -190,11 +183,7 @@ public final class DocumentValidationSuccessFuncTest
         // Check that all failed assertions are only warnings
         for (final SVRLFailedAssert aFailedAssert : SVRLHelper.getAllFailedAssertions (aSVRL))
         {
-          assertEquals (aTestFile.toString () +
-                        "\n" +
-                        aFailedAssert.toString (),
-                        EErrorLevel.WARN,
-                        aFailedAssert.getFlag ());
+          assertEquals (aTestFile.toString () + "\n" + aFailedAssert.toString (), EErrorLevel.WARN, aFailedAssert.getFlag ());
         }
       }
     }
@@ -207,7 +196,7 @@ public final class DocumentValidationSuccessFuncTest
     for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.CREDITNOTE))
     {
       // Ensure the UBL file validates against the scheme
-      final CreditNoteType aUBLCreditNote = UBL20Reader.readCreditNote (aTestFile);
+      final CreditNoteType aUBLCreditNote = UBL20Reader.creditNote ().read (aTestFile);
       assertNotNull (aUBLCreditNote);
 
       // Test the country-independent orders layers
@@ -219,8 +208,7 @@ public final class DocumentValidationSuccessFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T14));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
-                                                                             aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
         assertNotNull (aSVRL);
 
         if (false)
@@ -232,11 +220,7 @@ public final class DocumentValidationSuccessFuncTest
         // Check that all failed assertions are only warnings
         for (final SVRLFailedAssert aFailedAssert : SVRLHelper.getAllFailedAssertions (aSVRL))
         {
-          assertEquals (aTestFile.toString () +
-                        "\n" +
-                        aFailedAssert.toString (),
-                        EErrorLevel.WARN,
-                        aFailedAssert.getFlag ());
+          assertEquals (aTestFile.toString () + "\n" + aFailedAssert.toString (), EErrorLevel.WARN, aFailedAssert.getFlag ());
         }
       }
     }
@@ -250,7 +234,7 @@ public final class DocumentValidationSuccessFuncTest
     for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.INVOICE))
     {
       // Ensure the UBL file validates against the scheme
-      final InvoiceType aUBLInvoice = UBL20Reader.readInvoice (aTestFile);
+      final InvoiceType aUBLInvoice = UBL20Reader.invoice ().read (aTestFile);
       assertNotNull (aUBLInvoice);
 
       // Test the country-independent invoice layers
@@ -262,8 +246,7 @@ public final class DocumentValidationSuccessFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (aVT);
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
-                                                                             aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
         assertNotNull (aSVRL);
 
         if (false)
@@ -275,11 +258,7 @@ public final class DocumentValidationSuccessFuncTest
         // Check that all failed assertions are only warnings
         for (final SVRLFailedAssert aFailedAssert : SVRLHelper.getAllFailedAssertions (aSVRL))
         {
-          assertEquals (aTestFile.toString () +
-                        "\n" +
-                        aFailedAssert.toString (),
-                        EErrorLevel.WARN,
-                        aFailedAssert.getFlag ());
+          assertEquals (aTestFile.toString () + "\n" + aFailedAssert.toString (), EErrorLevel.WARN, aFailedAssert.getFlag ());
         }
       }
     }
@@ -293,20 +272,17 @@ public final class DocumentValidationSuccessFuncTest
     for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.INVOICE, aCountry))
     {
       // Ensure the UBL file validates against the scheme
-      final InvoiceType aUBLInvoice = UBL20Reader.readInvoice (aTestFile);
+      final InvoiceType aUBLInvoice = UBL20Reader.invoice ().read (aTestFile);
       assertNotNull (aUBLInvoice);
 
       // Test the country-independent invoice layers
-      for (final EValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null,
-                                                                                              EValidationDocumentType.INVOICE,
-                                                                                              aCountry))
+      for (final EValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.INVOICE, aCountry))
       {
         // Get the XSLT for transaction T10
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T10));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
-                                                                             aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
         assertNotNull (aSVRL);
 
         if (false)
@@ -318,11 +294,7 @@ public final class DocumentValidationSuccessFuncTest
         // Check that all failed assertions are only warnings
         for (final SVRLFailedAssert aFailedAssert : SVRLHelper.getAllFailedAssertions (aSVRL))
         {
-          assertEquals (aTestFile.toString () +
-                        " " +
-                        aFailedAssert.toString (),
-                        EErrorLevel.WARN,
-                        aFailedAssert.getFlag ());
+          assertEquals (aTestFile.toString () + " " + aFailedAssert.toString (), EErrorLevel.WARN, aFailedAssert.getFlag ());
         }
       }
     }

@@ -42,12 +42,10 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.write.XMLWriter;
 import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
 import com.helger.peppol.testfiles.ubl.PeppolBISV1TestFiles;
@@ -67,13 +65,13 @@ public final class TenderValidationFuncTest
   private static final boolean DEBUG = false;
 
   @Test
-  public void testReadTender () throws SAXException
+  public void testReadTender ()
   {
     // For all available tenders
     for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.TENDER))
     {
       // Ensure the UBL file validates against the scheme
-      final TenderType aUBLTender = UBL21Reader.readTender (DOMReader.readXMLDOM (aTestFile));
+      final TenderType aUBLTender = UBL21Reader.tender ().read (aTestFile);
       assertNotNull (aUBLTender);
 
       // Test the country-independent catalogue layers
@@ -85,8 +83,7 @@ public final class TenderValidationFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T44));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
-                                                                             aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
         assertNotNull (aSVRL);
 
         if (DEBUG)
@@ -104,13 +101,13 @@ public final class TenderValidationFuncTest
     }
   }
 
-  public void testReadCallForTenders () throws SAXException
+  public void testReadCallForTenders ()
   {
     // For all available call for tenders
     for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.CALLFORTENDERS))
     {
       // Ensure the UBL file validates against the scheme
-      final CallForTendersType aUBLCallForTenders = UBL21Reader.readCallForTenders (DOMReader.readXMLDOM (aTestFile));
+      final CallForTendersType aUBLCallForTenders = UBL21Reader.callForTenders ().read (aTestFile);
       assertNotNull (aUBLCallForTenders);
 
       // Test the country-independent catalogue layers
@@ -122,8 +119,7 @@ public final class TenderValidationFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T44));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
-                                                                             aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
         assertNotNull (aSVRL);
 
         if (DEBUG)

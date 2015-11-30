@@ -122,7 +122,7 @@ public final class DocumentValidationErrorFuncTest
       final Document aTestFileDoc = DOMReader.readXMLDOM (aTestFile);
 
       // Ensure the UBL file validates against the scheme
-      final OrderType aUBLOrder = UBL20Reader.readOrder (aTestFileDoc);
+      final OrderType aUBLOrder = UBL20Reader.order ().read (aTestFileDoc);
       assertNotNull (aUBLOrder);
 
       final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
@@ -134,8 +134,7 @@ public final class DocumentValidationErrorFuncTest
       {
 
         SchematronOutputType aSVRL;
-        aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)),
-                                                  aTestFileDoc);
+        aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)), aTestFileDoc);
         assertNotNull (aSVRL);
 
         if (false)
@@ -173,7 +172,7 @@ public final class DocumentValidationErrorFuncTest
       final Document aTestFileDoc = DOMReader.readXMLDOM (aTestFile);
 
       // Ensure the UBL file validates against the scheme
-      final InvoiceType aUBLInvoice = UBL20Reader.readInvoice (aTestFileDoc);
+      final InvoiceType aUBLInvoice = UBL20Reader.invoice ().read (aTestFileDoc);
       assertNotNull (aUBLInvoice);
 
       final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
@@ -184,8 +183,7 @@ public final class DocumentValidationErrorFuncTest
                                                                                               CGlobal.LOCALE_INDEPENDENT))
       {
         SchematronOutputType aSVRL;
-        aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)),
-                                                  aTestFileDoc);
+        aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)), aTestFileDoc);
         assertNotNull (aSVRL);
 
         if (false)
@@ -226,19 +224,16 @@ public final class DocumentValidationErrorFuncTest
       // Ensure the UBL file validates against the scheme
       try
       {
-        final InvoiceType aUBLInvoice = UBL20Reader.readInvoice (aTestFileDoc);
+        final InvoiceType aUBLInvoice = UBL20Reader.invoice ().read (aTestFileDoc);
         assertNotNull (aUBLInvoice);
 
         final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
 
         // Test the country-dependent invoice layers
-        for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null,
-                                                                                                EValidationDocumentType.INVOICE,
-                                                                                                aCountry))
+        for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.INVOICE, aCountry))
         {
           SchematronOutputType aSVRL;
-          aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)),
-                                                    aTestFileDoc);
+          aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)), aTestFileDoc);
           assertNotNull (aSVRL);
 
           if (false)
