@@ -41,7 +41,8 @@ import com.helger.commons.string.StringHelper;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
-import com.helger.photon.basic.security.audit.AuditHelper;
+import com.helger.photon.basic.audit.AuditHelper;
+import com.helger.photon.security.object.ObjectHelper;
 
 /**
  * Manager for {@link CRMSubscriber} instances.
@@ -146,7 +147,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
-      aCRMSubscriber.setLastModificationNow ();
+      ObjectHelper.setLastModificationNow (aCRMSubscriber);
       markAsChanged ();
     }
     finally
@@ -182,7 +183,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
-      aCRMSubscriber.setLastModificationNow ();
+      ObjectHelper.setLastModificationNow (aCRMSubscriber);
       markAsChanged ();
     }
     finally
@@ -326,7 +327,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
     m_aRWLock.writeLock ().lock ();
     try
     {
-      if (aRealCRMSubscriber.setDeletionNow ().isUnchanged ())
+      if (ObjectHelper.setDeletionNow (aRealCRMSubscriber).isUnchanged ())
       {
         AuditHelper.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "already-deleted");
         return EChange.UNCHANGED;

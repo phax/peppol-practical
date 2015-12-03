@@ -37,7 +37,7 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
-import com.helger.photon.basic.security.audit.AuditHelper;
+import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.datetime.PDTWebDateHelper;
 

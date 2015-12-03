@@ -29,7 +29,7 @@ import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.string.StringHelper;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.app.mgr.MetaManager;
-import com.helger.photon.basic.object.AbstractObjectMicroTypeConverter;
+import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
 
 public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConverter
 {

@@ -52,11 +52,6 @@ import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.photon.basic.app.menu.IMenuObject;
 import com.helger.photon.basic.app.request.ApplicationRequestManager;
-import com.helger.photon.basic.security.AccessManager;
-import com.helger.photon.basic.security.role.IRole;
-import com.helger.photon.basic.security.user.IUser;
-import com.helger.photon.basic.security.usergroup.IUserGroup;
-import com.helger.photon.basic.security.util.SecurityHelper;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.button.EBootstrapButtonType;
@@ -69,6 +64,11 @@ import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.login.CLogin;
+import com.helger.photon.security.mgr.PhotonSecurityManager;
+import com.helger.photon.security.role.IRole;
+import com.helger.photon.security.user.IUser;
+import com.helger.photon.security.usergroup.IUserGroup;
+import com.helger.photon.security.util.SecurityHelper;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
@@ -188,7 +188,7 @@ public final class AppCommonUI
     IHCNode aUserName = null;
     if (sUserID != null)
     {
-      final IUser aUser = AccessManager.getInstance ().getUserOfID (sUserID);
+      final IUser aUser = PhotonSecurityManager.getUserMgr ().getUserOfID (sUserID);
       aUserName = createViewLink (aWPEC, aUser);
     }
 

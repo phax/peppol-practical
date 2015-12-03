@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.email.EmailAddressHelper;
+import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.name.CollatingComparatorHasDisplayName;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
@@ -52,7 +53,6 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.select.HCSalutationSelect;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.validation.error.FormErrors;
 
 public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
 {

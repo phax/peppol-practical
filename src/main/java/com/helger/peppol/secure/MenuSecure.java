@@ -26,8 +26,8 @@ import com.helger.peppol.secure.page.PageSecureCRMSubscriber;
 import com.helger.peppol.secure.page.PageSecureCommentAdmin;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
-import com.helger.photon.basic.app.menu.filter.MenuObjectFilterUserAssignedToUserGroup;
 import com.helger.photon.bootstrap3.pages.BootstrapPagesMenuConfigurator;
+import com.helger.photon.security.menu.MenuObjectFilterUserAssignedToUserGroup;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
 

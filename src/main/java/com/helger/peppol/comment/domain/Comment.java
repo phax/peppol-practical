@@ -31,8 +31,8 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ObjectType;
 import com.helger.datetime.PDTFactory;
-import com.helger.photon.basic.security.login.LoggedInUserManager;
-import com.helger.photon.basic.security.user.IUser;
+import com.helger.photon.security.login.LoggedInUserManager;
+import com.helger.photon.security.user.IUser;
 
 /**
  * Default implementation of the {@link IComment} interface.

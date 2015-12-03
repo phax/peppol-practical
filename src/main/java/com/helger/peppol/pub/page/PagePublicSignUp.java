@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.string.StringHelper;
 import com.helger.datetime.PDTFactory;
 import com.helger.html.hc.IHCNode;
@@ -37,9 +38,6 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.basic.security.AccessManager;
-import com.helger.photon.basic.security.password.GlobalPasswordSettings;
-import com.helger.photon.basic.security.user.IUser;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
@@ -47,10 +45,14 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.security.mgr.PhotonSecurityManager;
+import com.helger.photon.security.password.GlobalPasswordSettings;
+import com.helger.photon.security.user.IUser;
+import com.helger.photon.security.user.UserManager;
+import com.helger.photon.security.usergroup.UserGroupManager;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.validation.error.FormErrors;
 
 public final class PagePublicSignUp extends AbstractAppWebPage
 {
@@ -71,7 +73,8 @@ public final class PagePublicSignUp extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final AccessManager aAccessMgr = AccessManager.getInstance ();
+    final UserManager aUserMgr = PhotonSecurityManager.getUserMgr ();
+    final UserGroupManager aUserGroupMgr = PhotonSecurityManager.getUserGroupMgr ();
 
     final String sFirstName = aWPEC.getAttributeAsString (FIELD_FIRSTNAME);
     final String sLastName = aWPEC.getAttributeAsString (FIELD_LASTNAME);
@@ -98,9 +101,9 @@ public final class PagePublicSignUp extends AbstractAppWebPage
         }
         else
         {
-          IUser aUser = aAccessMgr.getUserOfLoginName (sEmailAddress);
+          IUser aUser = aUserMgr.getUserOfLoginName (sEmailAddress);
           if (aUser == null)
-            aUser = aAccessMgr.getUserOfEmailAddress (sEmailAddress);
+            aUser = aUserMgr.getUserOfEmailAddress (sEmailAddress);
           if (aUser != null)
             aFormErrors.addFieldError (FIELD_EMAIL1, "Another user with the same email address is already registered!");
         }
@@ -122,21 +125,21 @@ public final class PagePublicSignUp extends AbstractAppWebPage
                                   aWPEC.getRequestScope ().getRemoteAddr ();
 
       // Create new user
-      final IUser aCreatedUser = aAccessMgr.createNewUser (sEmailAddress,
-                                                           sEmailAddress,
-                                                           sPlainTextPassword,
-                                                           sFirstName,
-                                                           sLastName,
-                                                           sDescription,
-                                                           aDisplayLocale,
-                                                           (Map <String, ?>) null,
-                                                           false);
+      final IUser aCreatedUser = aUserMgr.createNewUser (sEmailAddress,
+                                                         sEmailAddress,
+                                                         sPlainTextPassword,
+                                                         sFirstName,
+                                                         sLastName,
+                                                         sDescription,
+                                                         aDisplayLocale,
+                                                         (Map <String, String>) null,
+                                                         false);
       if (aCreatedUser == null)
         aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error creating the new user!"));
       else
       {
         // Assign new user to user group
-        if (aAccessMgr.assignUserToUserGroup (CApp.USERGROUP_VIEW_ID, aCreatedUser.getID ()).isUnchanged ())
+        if (aUserGroupMgr.assignUserToUserGroup (CApp.USERGROUP_VIEW_ID, aCreatedUser.getID ()).isUnchanged ())
           aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error assigning the user to the user group!"));
         else
         {

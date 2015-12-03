@@ -30,7 +30,7 @@ import com.helger.commons.type.ObjectType;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.basic.object.AbstractBaseObject;
-import com.helger.photon.basic.object.StubObject;
+import com.helger.photon.security.object.StubObject;
 
 /**
  * Represents a single test endpoint.

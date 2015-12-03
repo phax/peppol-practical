@@ -25,8 +25,8 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.photon.basic.object.AbstractObjectMicroTypeConverter;
-import com.helger.photon.basic.object.StubObject;
+import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
+import com.helger.photon.security.object.StubObject;
 
 @Immutable
 public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTypeConverter

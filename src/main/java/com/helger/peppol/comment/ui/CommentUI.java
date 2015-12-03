@@ -53,10 +53,6 @@ import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
 import com.helger.peppol.comment.domain.ICommentThread;
-import com.helger.photon.basic.security.AccessManager;
-import com.helger.photon.basic.security.login.LoggedInUserManager;
-import com.helger.photon.basic.security.user.IUser;
-import com.helger.photon.basic.security.user.IUserManager;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
@@ -72,6 +68,10 @@ import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.security.login.LoggedInUserManager;
+import com.helger.photon.security.mgr.PhotonSecurityManager;
+import com.helger.photon.security.user.IUser;
+import com.helger.photon.security.user.UserManager;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.js.JSJQueryHelper;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
@@ -107,7 +107,7 @@ public final class CommentUI
     final List <ICommentThread> aComments = CommentThreadManager.getInstance ().getCommentThreadsOfObject (aObject);
     if (CollectionHelper.isNotEmpty (aComments))
     {
-      final IUserManager aUserMgr = AccessManager.getInstance ();
+      final UserManager aUserMgr = PhotonSecurityManager.getUserMgr ();
       final boolean bIsCommentModerator = CommentSecurity.isCurrentUserCommentModerator ();
 
       // Container for all threads

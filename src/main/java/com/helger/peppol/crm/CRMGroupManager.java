@@ -36,7 +36,8 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
-import com.helger.photon.basic.security.audit.AuditHelper;
+import com.helger.photon.basic.audit.AuditHelper;
+import com.helger.photon.security.object.ObjectHelper;
 
 /**
  * Manager for {@link CRMGroup} instances.
@@ -130,7 +131,7 @@ public final class CRMGroupManager extends AbstractSimpleDAO
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
-      aCRMGroup.setLastModificationNow ();
+      ObjectHelper.setLastModificationNow (aCRMGroup);
       markAsChanged ();
     }
     finally
