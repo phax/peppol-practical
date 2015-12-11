@@ -20,6 +20,24 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2015-12-11</h3>
+
+<p>
+  The Webservice to validate UBL documents according to the old BIS will turned off by
+  the beginning of 2016. Until than a new WS for the current PEPPOL BIS will be available.
+</p>
+
+<h3>2015-12-07</h3>
+
+<p>
+  <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.0 is out.
+  Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
+  <ul>
+    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.0">Source release</a></li>
+    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.0/">Binary release</a></li>
+  </ul>
+</p>
+
 <h3>2015-11-09</h3>
 
 <p>

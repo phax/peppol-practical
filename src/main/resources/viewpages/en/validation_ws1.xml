@@ -17,8 +17,13 @@
 
 -->
 <div class="alert alert-warning">
-This site offers a WebService to automatically validate your PEPPOL documents according to the OLD PEPPOL rules.
-The validation service requires UBL files and cannot handle StandardBusinessDocuments yet.
+  <div>
+    This site offers a WebService to automatically validate your PEPPOL documents according to the OLD PEPPOL rules.
+    The validation service requires UBL files and cannot handle StandardBusinessDocuments.
+  </div>
+  <div>
+    <strong>This Webservice will be shut down at the beginning of 2016! The old BIS are too old.</strong>
+  </div>
 </div>
 <p>
 The WSDL file can be found at <a class="external_href" href="http://peppol.helger.com/wsdocumentvalidation?wsdl">http://peppol.helger.com/wsdocumentvalidation?wsdl</a>.
