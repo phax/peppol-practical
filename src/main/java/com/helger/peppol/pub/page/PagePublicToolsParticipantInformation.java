@@ -165,11 +165,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
             final HCUL aUL = new HCUL ();
 
-            // Check with lowercase host name as well (e.g. 9908:983974724)!
-            // The generated hostname contains "B-" whereas the returned
-            // hostname contains "b-"
-            // Note: the SMPHost must have a trailing slash
-            final String sCommonPrefix = ("/" + aParticipantID.getURIEncoded () + "/services/").toLowerCase (Locale.US);
+            final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
 
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
@@ -192,10 +188,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final String sOriginalHref = aEntry.getValue ();
 
               final IHCLI <?> aLI = aUL.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
-              final int nStartPrefix = sHref.toLowerCase (Locale.US).indexOf (sCommonPrefix);
-              if (nStartPrefix >= 0)
+              final int nPathStart = sHref.indexOf (sPathStart);
+              if (nPathStart >= 0)
               {
-                final String sDocType = sHref.substring (nStartPrefix + sCommonPrefix.length ());
+                final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
                 try
                 {
                   final SimpleDocumentTypeIdentifier aDocType = SimpleDocumentTypeIdentifier.createFromURIPart (sDocType);
@@ -219,8 +215,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 aLI.addChild (new BootstrapErrorBox ().addChildren (new HCDiv ().addChild ("Contained href does not match the rules!"),
                                                                     new HCDiv ().addChild ("Found href: ")
                                                                                 .addChild (new HCCode ().addChild (sHref)),
-                                                                    new HCDiv ().addChild ("Expected prefix: ")
-                                                                                .addChild (new HCCode ().addChild (sCommonPrefix))));
+                                                                    new HCDiv ().addChild ("Expected path part: ")
+                                                                                .addChild (new HCCode ().addChild (sPathStart))));
               }
             }
             if (!aUL.hasChildren ())
