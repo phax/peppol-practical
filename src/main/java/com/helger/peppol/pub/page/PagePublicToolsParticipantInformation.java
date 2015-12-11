@@ -169,9 +169,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // The generated hostname contains "B-" whereas the returned
             // hostname contains "b-"
             // Note: the SMPHost must have a trailing slash
-            final String sCommonPrefix = (aSMPHost.toExternalForm () +
-                                          aParticipantID.getURIEncoded () +
-                                          "/services/").toLowerCase (Locale.US);
+            final String sCommonPrefix = ("/" + aParticipantID.getURIEncoded () + "/services/").toLowerCase (Locale.US);
 
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
@@ -194,9 +192,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final String sOriginalHref = aEntry.getValue ();
 
               final IHCLI <?> aLI = aUL.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
-              if (sHref.toLowerCase (Locale.US).startsWith (sCommonPrefix))
+              final int nStartPrefix = sHref.toLowerCase (Locale.US).indexOf (sCommonPrefix);
+              if (nStartPrefix >= 0)
               {
-                final String sDocType = sHref.substring (sCommonPrefix.length ());
+                final String sDocType = sHref.substring (nStartPrefix + sCommonPrefix.length ());
                 try
                 {
                   final SimpleDocumentTypeIdentifier aDocType = SimpleDocumentTypeIdentifier.createFromURIPart (sDocType);
