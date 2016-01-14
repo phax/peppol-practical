@@ -32,7 +32,7 @@ import com.helger.peppol.validation.domain.ValidationKey;
 @Immutable
 public final class ExtValidationKeyRegistry
 {
-  private static Map <String, ExtValidationKey> m_aKeys;
+  private static Map <String, ExtValidationKey> s_aKeys;
 
   static
   {
@@ -49,7 +49,7 @@ public final class ExtValidationKeyRegistry
     }
 
     // Sort only once
-    m_aKeys = CollectionHelper.getSortedByValue (aKeys);
+    s_aKeys = CollectionHelper.getSortedByValue (aKeys);
   }
 
   private ExtValidationKeyRegistry ()
@@ -59,12 +59,12 @@ public final class ExtValidationKeyRegistry
   @ReturnsMutableCopy
   public static Map <String, ExtValidationKey> getAllSorted ()
   {
-    return CollectionHelper.newOrderedMap (m_aKeys);
+    return CollectionHelper.newOrderedMap (s_aKeys);
   }
 
   @Nullable
   public static ExtValidationKey getFromID (@Nullable final String sID)
   {
-    return m_aKeys.get (sID);
+    return s_aKeys.get (sID);
   }
 }
