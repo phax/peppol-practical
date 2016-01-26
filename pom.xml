@@ -94,6 +94,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>jaxws-ri-bom</artifactId>
+        <version>${jaxws.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -146,37 +153,30 @@
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-      <version>${jaxws.version}</version>
     </dependency>
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>policy</artifactId>
-      <version>2.3.1</version>
     </dependency>    
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-core</artifactId>
-      <version>2.2.8-b01</version>
     </dependency>
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
-      <version>2.2.8-b01</version><!--$NO-MVN-MAN-VER$-->
     </dependency>
     <dependency>
       <groupId>org.glassfish.gmbal</groupId>
       <artifactId>gmbal-api-only</artifactId>
-      <version>3.1.0-b001</version>
     </dependency>
     <dependency>
       <groupId>com.sun.xml.stream.buffer</groupId>
       <artifactId>streambuffer</artifactId>
-      <version>1.5.3</version>
     </dependency>
     <dependency>
       <groupId>org.glassfish.ha</groupId>
       <artifactId>ha-api</artifactId>
-      <version>3.1.9</version>
     </dependency>
 
     <dependency>
