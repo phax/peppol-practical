@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.peppol.validation.domain.ValidationKey;
+import com.helger.peppol.validation.api.ValidationKey;
 
 public final class ExtValidationKey implements Serializable, Comparable <ExtValidationKey>
 {

@@ -25,9 +25,9 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.peppol.validation.artefact.peppol.EPeppolStandardValidationSchematronArtefact;
-import com.helger.peppol.validation.artefact.peppol.EPeppolThirdPartyValidationSchematronArtefact;
-import com.helger.peppol.validation.domain.ValidationKey;
+import com.helger.peppol.validation.api.ValidationKey;
+import com.helger.peppol.validation.engine.peppol.EPeppolStandardValidationSchematronArtefact;
+import com.helger.peppol.validation.engine.peppol.EPeppolThirdPartyValidationSchematronArtefact;
 
 @Immutable
 public final class ExtValidationKeyRegistry
