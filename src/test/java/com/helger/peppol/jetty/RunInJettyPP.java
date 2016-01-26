@@ -110,9 +110,10 @@ public final class RunInJettyPP
       // Starting the engines:
       aServer.start ();
     }
-    catch (final Exception ex)
+    catch (final Throwable t)
     {
-      throw new IllegalStateException ("Failed to start server!", ex);
+      // Do not throw something here, in case some exception occurs in stop code
+      s_aLogger.error ("Failed to start server!", t);
     }
     finally
     {
