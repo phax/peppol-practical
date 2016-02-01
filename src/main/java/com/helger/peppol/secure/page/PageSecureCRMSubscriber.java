@@ -48,7 +48,7 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.masterdata.person.ESalutation;
-import com.helger.peppol.app.mgr.MetaManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
@@ -93,7 +93,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   protected EValidity isValidToDisplayPage (@Nonnull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
+    final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
 
     if (aCRMGroupMgr.isEmpty ())
     {
@@ -122,7 +122,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   @Nullable
   protected ICRMSubscriber getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
-    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
     return aCRMSubscriberMgr.getCRMSubscriberOfID (sID);
   }
 
@@ -158,8 +158,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
-    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
 
     final String sSalutationID = aWPEC.getAttributeAsString (FIELD_SALUTATION);
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
@@ -228,7 +228,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {
-    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
+    final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
     aForm.addChild (createActionHeader (eFormAction.isEdit () ? "Edit CRM subscriber" : "Create new CRM subscriber"));
@@ -288,7 +288,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
 
     if (aCRMSubscriberMgr.deleteCRMSubscriber (aSelectedObject).isChanged ())
       aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The CRM subscriber '" +
@@ -342,7 +342,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   private static IHCNode _getListForMailing ()
   {
     final StringBuilder aSB = new StringBuilder ();
-    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
     int nCount = 0;
     for (final ICRMSubscriber aSubscriber : CollectionHelper.getSorted (aCRMSubscriberMgr.getAllActiveCRMSubscribers (),
                                                                         Comparator.comparing (ICRMSubscriber::getEmailAddress)))
@@ -360,7 +360,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
 
     // Toolbar on top
     final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));

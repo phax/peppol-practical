@@ -29,7 +29,7 @@ import com.helger.commons.vendor.VendorInfo;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
 import com.helger.peppol.app.AppSettings;
-import com.helger.peppol.app.mgr.MetaManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.pub.InitializerPublic;
 import com.helger.peppol.secure.InitializerSecure;
 import com.helger.peppol.ui.AppCommonUI;
@@ -114,7 +114,7 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
     AppSecurity.init ();
 
     // Load managers
-    MetaManager.getInstance ();
+    PPMetaManager.getInstance ();
 
     // Setup error handler
     AppInternalErrorHandler.doSetup ();

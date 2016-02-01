@@ -35,13 +35,13 @@ import com.helger.photon.basic.app.dao.impl.DAOException;
  *
  * @author Philip Helger
  */
-public final class MetaManager extends AbstractGlobalSingleton
+public final class PPMetaManager extends AbstractGlobalSingleton
 {
   public static final String CRMGROUP_XML = "crm/group.xml";
   public static final String CRMSUBSCRIBER_XML = "crm/subscriber.xml";
   public static final String TEST_ENDPOINT_XML = "test-endpoint.xml";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MetaManager.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PPMetaManager.class);
 
   private CRMGroupManager m_aCRMGroupMgr;
   private CRMSubscriberManager m_aCRMSubscriberMgr;
@@ -49,7 +49,7 @@ public final class MetaManager extends AbstractGlobalSingleton
 
   @Deprecated
   @UsedViaReflection
-  public MetaManager ()
+  public PPMetaManager ()
   {}
 
   @Override
@@ -70,9 +70,9 @@ public final class MetaManager extends AbstractGlobalSingleton
   }
 
   @Nonnull
-  public static MetaManager getInstance ()
+  public static PPMetaManager getInstance ()
   {
-    return getGlobalSingleton (MetaManager.class);
+    return getGlobalSingleton (PPMetaManager.class);
   }
 
   @Nonnull

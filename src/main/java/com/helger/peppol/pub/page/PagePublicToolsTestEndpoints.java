@@ -36,7 +36,7 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppHelper;
-import com.helger.peppol.app.mgr.MetaManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppol.pub.testendpoint.TestEndpoint;
@@ -98,7 +98,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   @Override
   protected TestEndpoint getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
-    final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
+    final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
     return aTestEndpointMgr.getTestEndpointOfID (sID);
   }
 
@@ -229,7 +229,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                  @Nonnull final FormErrors aFormErrors,
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
-    final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
+    final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
 
     final String sCompanyName = aWPEC.getAttributeAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.getAttributeAsString (FIELD_CONTACT_PERSON);
@@ -330,7 +330,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nonnull final TestEndpoint aSelectedObject)
   {
-    final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
+    final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
     if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
       aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("The test endpoint was successfully deleted!"));
     else
@@ -342,7 +342,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final TestEndpointManager aTestEndpointMgr = MetaManager.getTestEndpointMgr ();
+    final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
     final boolean bUserIsLoggedIn = LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
 
     // Toolbar on top

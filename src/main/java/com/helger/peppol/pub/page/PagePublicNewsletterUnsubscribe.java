@@ -26,7 +26,7 @@ import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.mgr.MetaManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
@@ -54,7 +54,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
   protected void fillContent (final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
     final FormErrors aFormErrors = new FormErrors ();
 
     if (aWPEC.hasAction (CPageParam.ACTION_SAVE))

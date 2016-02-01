@@ -48,7 +48,7 @@ import com.helger.photon.security.object.ObjectHelper;
  * Manager for {@link CRMSubscriber} instances.
  *
  * @author Philip Helger
- * @see com.helger.peppol.app.mgr.MetaManager
+ * @see com.helger.peppol.app.mgr.PPMetaManager
  */
 @ThreadSafe
 public final class CRMSubscriberManager extends AbstractSimpleDAO

@@ -33,7 +33,7 @@ import com.helger.html.hc.html.tabular.HCTable;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
-import com.helger.peppol.app.mgr.MetaManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
@@ -65,7 +65,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
   @Nullable
   protected ICRMGroup getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
-    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
+    final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     return aCRMGroupMgr.getCRMGroupOfID (sID);
   }
 
@@ -73,7 +73,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
   protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, final ICRMGroup aSelectedObject)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
 
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getDisplayName ()));
@@ -90,7 +90,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
+    final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
 
     final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
     final String sSenderEmailAddress = aWPEC.getAttributeAsString (FIELD_SENDER_EMAIL_ADDRESS);
@@ -147,7 +147,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
+    final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
 
     // Toolbar on top
     final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));

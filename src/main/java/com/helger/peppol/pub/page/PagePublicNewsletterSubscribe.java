@@ -35,7 +35,7 @@ import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.masterdata.person.ESalutation;
-import com.helger.peppol.app.mgr.MetaManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
@@ -71,8 +71,8 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
-    final CRMSubscriberManager aCRMSubscriberMgr = MetaManager.getCRMSubscriberMgr ();
+    final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
+    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
     final FormErrors aFormErrors = new FormErrors ();
     List <String> aSelectedCRMGroupIDs = null;
 

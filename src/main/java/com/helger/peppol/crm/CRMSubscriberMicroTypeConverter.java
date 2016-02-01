@@ -28,7 +28,7 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.string.StringHelper;
 import com.helger.masterdata.person.ESalutation;
-import com.helger.peppol.app.mgr.MetaManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
 
 public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConverter
@@ -58,7 +58,7 @@ public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConv
   @Nullable
   public CRMSubscriber convertToNative (@Nonnull final IMicroElement aElement)
   {
-    final CRMGroupManager aCRMGroupMgr = MetaManager.getCRMGroupMgr ();
+    final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
 
     final String sSalutationID = aElement.getAttributeValue (ATTR_SALUTATION);
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
