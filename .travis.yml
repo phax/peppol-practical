@@ -1,5 +1,9 @@
 language: java
 
+env:
+  global:
+    - MAVEN_OPTS=-Xmx1024m
+
 jdk:
   - oraclejdk8
   
