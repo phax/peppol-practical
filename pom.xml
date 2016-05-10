@@ -69,6 +69,8 @@
     <jaxws-plugin.version>2.4.1</jaxws-plugin.version>
     <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
     <jaxws.version>2.2.9-b14002</jaxws.version>
+    <!-- For surefire plugin (use property for JaCoCo integration -->
+    <argLine>-Xmx1024m</argLine>
   </properties>
   
   <dependencyManagement>
@@ -313,13 +315,6 @@
             <version>2.2.11.6</version>
           </dependency>
         </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <argLine>-Xmx1024m</argLine>
-        </configuration>
       </plugin>
     </plugins>
   </build>
