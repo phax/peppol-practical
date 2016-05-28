@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.comment.ui;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,7 +50,6 @@ import com.helger.peppol.comment.ajax.AjaxExecutorCommentDelete;
 import com.helger.peppol.comment.ajax.AjaxExecutorCommentShowInput;
 import com.helger.peppol.comment.ajax.CAjaxComment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
-import com.helger.peppol.comment.domain.ComparatorCommentThreadCreationDateTime;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
 import com.helger.peppol.comment.domain.ICommentThread;
@@ -113,12 +113,13 @@ public final class CommentUI
       // Container for all threads
       final HCDiv aAllThreadsContainer = new HCDiv ().addClass (CCommentCSS.CSS_CLASS_COMMENT_CONTAINER);
       for (final ICommentThread aCommentThread : CollectionHelper.getSorted (aComments,
-                                                                             new ComparatorCommentThreadCreationDateTime ()))
+                                                                             Comparator.comparing (a -> a.getInitialComment ()
+                                                                                                         .getCreationDateTime ())))
       {
         // Container for this thread
         final HCDiv aThreadContainer = new HCDiv ();
         aThreadContainer.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
-        final NonBlockingStack <HCDiv> aStack = new NonBlockingStack <> ();
+        final NonBlockingStack <HCDiv> aStack = new NonBlockingStack<> ();
         aStack.push (aThreadContainer);
 
         aCommentThread.iterateAllComments (new ICommentIterationCallback ()

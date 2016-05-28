@@ -16,13 +16,12 @@
  */
 package com.helger.peppol.ui;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-
-import org.joda.time.LocalDateTime;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -55,6 +54,7 @@ import com.helger.photon.basic.app.request.ApplicationRequestManager;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.button.EBootstrapButtonType;
+import com.helger.photon.bootstrap3.ext.BootstrapSystemMessage;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.EBootstrapFormType;
@@ -109,6 +109,8 @@ public final class AppCommonUI
 
     // Register comment handlers
     CommentThreadManager.getInstance ().registerObjectType (CApp.OT_PAGE);
+
+    BootstrapSystemMessage.setDefaultUseMarkdown (true);
   }
 
   @Nonnull

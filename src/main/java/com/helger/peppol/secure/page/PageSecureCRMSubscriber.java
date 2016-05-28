@@ -32,7 +32,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.errorlist.FormErrors;
-import com.helger.commons.name.CollatingComparatorHasDisplayName;
+import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
@@ -143,7 +143,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     {
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
-                                                                   new CollatingComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
+                                                                   IHasDisplayName.getComparatorCollating (aDisplayLocale)))
         aGroups.addChild (new HCDiv ().addChild (new HCA (createViewURL (aWPEC,
                                                                          CMenuSecure.MENU_CRM_GROUPS,
                                                                          aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
@@ -255,7 +255,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     {
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aCRMGroupMgr.getAllCRMGroups (),
-                                                                   new CollatingComparatorHasDisplayName <ICRMGroup> (aDisplayLocale)))
+                                                                   IHasDisplayName.getComparatorCollating (aDisplayLocale)))
       {
         final String sCRMGroupID = aCRMGroup.getID ();
         final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
@@ -367,9 +367,9 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     aToolbar.addButtonNew ("Create new CRM subscriber", createCreateURL (aWPEC));
 
     final BootstrapTabBox aTabBox = new BootstrapTabBox ();
-    aTabBox.addTab ("Active", _getList (aWPEC, aCRMSubscriberMgr.getAllActiveCRMSubscribers (), "active"));
-    aTabBox.addTab ("Deleted", _getList (aWPEC, aCRMSubscriberMgr.getAllDeletedCRMSubscribers (), "del"));
-    aTabBox.addTab ("Mailing", _getListForMailing ());
+    aTabBox.addTab ("active", "Active", _getList (aWPEC, aCRMSubscriberMgr.getAllActiveCRMSubscribers (), "active"));
+    aTabBox.addTab ("deleted", "Deleted", _getList (aWPEC, aCRMSubscriberMgr.getAllDeletedCRMSubscribers (), "del"));
+    aTabBox.addTab ("mailing", "Mailing", _getListForMailing ());
     aNodeList.addChild (aTabBox);
   }
 }

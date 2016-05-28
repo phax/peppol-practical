@@ -28,10 +28,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.email.EmailAddress;
 import com.helger.commons.scope.mgr.ScopeManager;
-import com.helger.photon.basic.app.dao.impl.AbstractDAO;
 import com.helger.photon.basic.app.request.ApplicationRequestManager;
 import com.helger.photon.basic.longrun.ILongRunningJob;
-import com.helger.photon.core.ajax.servlet.AbstractAjaxServlet;
 import com.helger.photon.core.app.error.InternalErrorBuilder;
 import com.helger.photon.core.app.error.InternalErrorHandler;
 import com.helger.photon.core.app.error.callback.AbstractErrorCallback;
@@ -99,9 +97,7 @@ public final class AppInternalErrorHandler extends AbstractErrorCallback impleme
   {
     // Set global internal error handlers
     final AppInternalErrorHandler aIntErrHdl = new AppInternalErrorHandler ();
-    AbstractAjaxServlet.getExceptionCallbacks ().addCallback (aIntErrHdl);
-    AbstractDAO.getExceptionHandlersRead ().addCallback (aIntErrHdl);
-    AbstractDAO.getExceptionHandlersWrite ().addCallback (aIntErrHdl);
+    AbstractErrorCallback.install (aIntErrHdl);
     AbstractJob.getExceptionCallbacks ().addCallback (aIntErrHdl);
 
     final NamedSMTPSettings aNamedSettings = PhotonCoreManager.getSMTPSettingsMgr ()

@@ -20,6 +20,7 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -29,8 +30,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
-
-import org.joda.time.LocalDate;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
@@ -54,10 +53,10 @@ import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.jquery.JQuery;
 import com.helger.html.js.EJSEvent;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
-import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
@@ -129,7 +128,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         sParticipantIdentifierValue = sParticipantIDISO6523 + ":" + sParticipantIDValue;
-        if (!IdentifierHelper.isValidParticipantIdentifierValue (sParticipantIdentifierValue))
+        if (!IPeppolParticipantIdentifier.isValidValue (sParticipantIdentifierValue))
           aFormErrors.addFieldError (FIELD_ID_VALUE,
                                      "The resulting participant identifier value '" +
                                                      sParticipantIdentifierValue +
@@ -141,7 +140,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
-        final SimpleParticipantIdentifier aParticipantID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
+        final IPeppolParticipantIdentifier aParticipantID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aParticipantID, eSML);
         try
         {
@@ -159,7 +158,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
-          final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList <> ();
+          final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList<> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
 
@@ -170,7 +169,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
-            final Map <String, String> aSGHrefs = new TreeMap <> ();
+            final Map <String, String> aSGHrefs = new TreeMap<> ();
             if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
               for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                                 .getServiceMetadataReference ())
@@ -392,7 +391,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       {
         final IdentifierIssuingAgencySelect aSelect = new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523_PREDEF),
                                                                                          aDisplayLocale);
-        final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
+        final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (IPeppolParticipantIdentifier.MAX_VALUE_LENGTH)
                                                                              .setPlaceholder ("Identifier value");
         // In case something is selected, put it in the edit
         aSelect.setEventHandler (EJSEvent.CHANGE, JQuery.idRef (aEdit).val (JQuery.jQueryThis ().val ()));
@@ -406,7 +405,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_ID_ISO6523)));
       }
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
-                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setMaxLength (CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setMaxLength (IPeppolParticipantIdentifier.MAX_VALUE_LENGTH)
                                                                                                            .setPlaceholder ("Identifier value"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")

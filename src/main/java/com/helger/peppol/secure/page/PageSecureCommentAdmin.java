@@ -18,6 +18,7 @@ package com.helger.peppol.secure.page;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,6 +29,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.Translatable;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.IMultilingualText;
@@ -44,7 +46,6 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.CommentThreadObjectTypeManager;
-import com.helger.peppol.comment.domain.ComparatorCommentLastChange;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.peppol.comment.ui.CommentAction;
@@ -63,19 +64,18 @@ import com.helger.photon.uicore.page.AbstractWebPageForm;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
-import com.helger.photon.uictrls.datatables.comparator.ComparatorDTDateTime;
-import com.helger.photon.uictrls.datatables.comparator.ComparatorDTInteger;
+import com.helger.photon.uictrls.datatables.column.EDTColType;
 
 public final class PageSecureCommentAdmin extends AbstractAppWebPage
 {
   @Translatable
   protected static enum EText implements IHasDisplayText
   {
-   HEADER_OBJECT_ID ("Objekt-ID", "Object ID"),
-   HEADER_THREADS ("Themen", "Threads"),
-   HEADER_COMMENTS ("Einträge", "Comments"),
-   HEADER_ACTIVE_COMMENTS ("Aktive Einträge", "Active comments"),
-   HEADER_LAST_CHANGE ("Letzte Änderung", "Last change");
+    HEADER_OBJECT_ID ("Objekt-ID", "Object ID"),
+    HEADER_THREADS ("Themen", "Threads"),
+    HEADER_COMMENTS ("Einträge", "Comments"),
+    HEADER_ACTIVE_COMMENTS ("Aktive Einträge", "Active comments"),
+    HEADER_LAST_CHANGE ("Letzte Änderung", "Last change");
 
     private final IMultilingualText m_aTP;
 
@@ -151,17 +151,22 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
 
         final HCTable aTable = new HCTable (new DTCol (EText.HEADER_OBJECT_ID.getDisplayText (aDisplayLocale)),
                                             new DTCol (EText.HEADER_THREADS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
-                                                                                                            .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                                                                                            .setDisplayType (EDTColType.INT,
+                                                                                                                             aDisplayLocale),
                                             new DTCol (EText.HEADER_COMMENTS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
-                                                                                                             .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                                                                                             .setDisplayType (EDTColType.INT,
+                                                                                                                              aDisplayLocale),
                                             new DTCol (EText.HEADER_ACTIVE_COMMENTS.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
-                                                                                                                    .setComparator (new ComparatorDTInteger (aDisplayLocale)),
+                                                                                                                    .setDisplayType (EDTColType.INT,
+                                                                                                                                     aDisplayLocale),
                                             new DTCol (EText.HEADER_LAST_CHANGE.getDisplayText (aDisplayLocale)).addClass (CSS_CLASS_RIGHT)
-                                                                                                                .setComparator (new ComparatorDTDateTime (aDisplayLocale))
+                                                                                                                .setDisplayType (EDTColType.DATETIME,
+                                                                                                                                 aDisplayLocale)
                                                                                                                 .setInitialSorting (ESortOrder.DESCENDING)).setID (getID () +
                                                                                                                                                                    aOT.getName ());
         final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
-        for (final Map.Entry <String, List <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
+        for (final Map.Entry <String, ICommonsList <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ()
+                                                                                      .entrySet ())
         {
           final String sOwningObjectID = aEntry.getKey ();
           final ISimpleURL aViewURL = AbstractWebPageForm.createViewURL (aWPEC, sOwningObjectID).add (PARAM_TYPE,
@@ -178,7 +183,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
             aAllComments.addAll (aCommentThread.getAllComments ());
             nActiveComments += aCommentThread.getTotalActiveCommentCount ();
           }
-          Collections.sort (aAllComments, new ComparatorCommentLastChange ().setSortOrder (ESortOrder.DESCENDING));
+          Collections.sort (aAllComments, Comparator.comparing (IComment::getLastChangeDateTime).reversed ());
 
           aRow.addCell (Integer.toString (aAllComments.size ()));
           aRow.addCell (Integer.toString (nActiveComments));

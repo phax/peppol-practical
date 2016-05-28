@@ -16,8 +16,6 @@
  */
 package com.helger.peppol.comment.ajax;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
@@ -26,6 +24,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.callback.CallbackList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.photon.core.ajax.AjaxInvoker;
 import com.helger.photon.core.ajax.IAjaxAfterExecutionCallback;
@@ -109,7 +108,7 @@ public final class CommentAjaxManager extends AbstractGlobalWebSingleton impleme
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, IAjaxFunctionDeclaration> getAllRegisteredFunctions ()
+  public ICommonsMap <String, IAjaxFunctionDeclaration> getAllRegisteredFunctions ()
   {
     return m_aInvoker.getAllRegisteredFunctions ();
   }

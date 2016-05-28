@@ -43,7 +43,7 @@ import javax.xml.validation.Schema;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.ubl.api.IUBLDocumentType;
+import com.helger.jaxb.builder.IJAXBDocumentType;
 import com.helger.ubl20.EUBL20DocumentType;
 import com.helger.ubl21.EUBL21DocumentType;
 
@@ -54,34 +54,34 @@ import com.helger.ubl21.EUBL21DocumentType;
  */
 public enum EValidationDocumentType implements IValidationDocumentType
 {
- /** Pre award catalogue document type */
+  /** Pre award catalogue document type */
   TENDERING_CATALOGUE ("tenderingcatalogue", null),
 
- /** Post award catalogue document type */
+  /** Post award catalogue document type */
   CATALOGUE ("catalogue", EUBL20DocumentType.CATALOGUE),
 
- /** Order document type */
+  /** Order document type */
   ORDER ("order", EUBL20DocumentType.ORDER),
 
- /** Order response document type */
+  /** Order response document type */
   ORDERRESPONSE ("orderresponse", EUBL20DocumentType.ORDER_RESPONSE_SIMPLE),
 
- /** Invoice document type */
+  /** Invoice document type */
   INVOICE ("invoice", EUBL20DocumentType.INVOICE),
 
- /** Credit note document type */
+  /** Credit note document type */
   CREDIT_NOTE ("creditnote", EUBL20DocumentType.CREDIT_NOTE),
 
- /** Tender document type */
+  /** Tender document type */
   TENDER ("tender", EUBL21DocumentType.TENDER),
 
- /** Call for tenders document type */
+  /** Call for tenders document type */
   CALL_FOR_TENDERS ("callfortenders", EUBL21DocumentType.CALL_FOR_TENDERS);
 
   private final String m_sID;
-  private final IUBLDocumentType m_aUBLDocType;
+  private final IJAXBDocumentType m_aUBLDocType;
 
-  private EValidationDocumentType (@Nonnull @Nonempty final String sID, @Nullable final IUBLDocumentType aUBLDocType)
+  private EValidationDocumentType (@Nonnull @Nonempty final String sID, @Nullable final IJAXBDocumentType aUBLDocType)
   {
     m_sID = sID;
     m_aUBLDocType = aUBLDocType;
@@ -103,15 +103,9 @@ public enum EValidationDocumentType implements IValidationDocumentType
    *         certain special document types.
    */
   @Nullable
-  public IUBLDocumentType getUBLDocumentType ()
+  public IJAXBDocumentType getUBLDocumentType ()
   {
     return m_aUBLDocType;
-  }
-
-  @Nullable
-  public Schema getSchema ()
-  {
-    return getSchema (null);
   }
 
   @Nullable

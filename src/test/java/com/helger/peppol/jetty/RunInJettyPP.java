@@ -16,27 +16,13 @@
  */
 package com.helger.peppol.jetty;
 
-import java.io.File;
-
 import javax.annotation.concurrent.Immutable;
 
-import org.eclipse.jetty.annotations.AnnotationConfiguration;
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.webapp.Configuration;
-import org.eclipse.jetty.webapp.FragmentConfiguration;
-import org.eclipse.jetty.webapp.JettyWebXmlConfiguration;
-import org.eclipse.jetty.webapp.MetaInfConfiguration;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.eclipse.jetty.webapp.WebInfConfiguration;
-import org.eclipse.jetty.webapp.WebXmlConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.system.SystemProperties;
 import com.helger.peppol.utils.ConfigFile;
+import com.helger.photon.jetty.JettyStarter;
 
 /**
  * Run peppol-practical as a standalone web application in Jetty on port 8080.
@@ -49,18 +35,9 @@ import com.helger.peppol.utils.ConfigFile;
 public final class RunInJettyPP
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (RunInJettyPP.class);
-  private static final String RESOURCE_PREFIX = "target/webapp-classes";
 
   public static void main (final String [] args) throws Exception
   {
-    run (8080);
-  }
-
-  public static void run (final int nPort) throws Exception
-  {
-    if (System.getSecurityManager () != null)
-      throw new IllegalStateException ("Security Manager is set but not supported - aborting!");
-
     // Proxy configuration is simply applied by setting system properties
     final ConfigFile aCF = new ConfigFile ("private-configProxy.properties", "configProxy.properties");
     for (final String sKey : aCF.getAllKeys ())
@@ -70,65 +47,6 @@ public final class RunInJettyPP
       s_aLogger.info ("Setting Proxy property " + sKey + "=" + sValue);
     }
 
-    // Create main server
-    final Server aServer = new Server ();
-    // Create connector on Port
-    final ServerConnector aConnector = new ServerConnector (aServer);
-    aConnector.setPort (nPort);
-    aConnector.setIdleTimeout (30000);
-    // aConnector.setStatsOn (true);
-    aServer.setConnectors (new Connector [] { aConnector });
-
-    final WebAppContext aWebAppCtx = new WebAppContext ();
-    aWebAppCtx.setDescriptor (RESOURCE_PREFIX + "/WEB-INF/web.xml");
-    aWebAppCtx.setResourceBase (RESOURCE_PREFIX);
-    aWebAppCtx.setContextPath ("/");
-    aWebAppCtx.setTempDirectory (new File (SystemProperties.getTmpDir () + '/' + RunInJettyPP.class.getName ()));
-    aWebAppCtx.setParentLoaderPriority (true);
-    aWebAppCtx.setThrowUnavailableOnStartupException (true);
-    aWebAppCtx.setCopyWebInf (true);
-    aWebAppCtx.setCopyWebDir (true);
-    // Important to add the AnnotationConfiguration!
-    aWebAppCtx.setConfigurations (new Configuration [] { new WebInfConfiguration (),
-                                                         new WebXmlConfiguration (),
-                                                         new MetaInfConfiguration (),
-                                                         new FragmentConfiguration (),
-                                                         new JettyWebXmlConfiguration (),
-                                                         new AnnotationConfiguration () });
-    aServer.setHandler (aWebAppCtx);
-    final ServletContextHandler aCtx = aWebAppCtx;
-
-    // Setting final properties
-    // Stops the server when ctrl+c is pressed (registers to
-    // Runtime.addShutdownHook)
-    aServer.setStopAtShutdown (true);
-    // Starting shutdown listener thread
-    if (nPort == 8080)
-      new JettyMonitor ().start ();
-    try
-    {
-      // Starting the engines:
-      aServer.start ();
-    }
-    catch (final Throwable t)
-    {
-      // Do not throw something here, in case some exception occurs in stop code
-      s_aLogger.error ("Failed to start server!", t);
-    }
-    finally
-    {
-      if (aCtx.isFailed ())
-      {
-        s_aLogger.error ("Failed to start server - stopping server!");
-        aServer.stop ();
-        s_aLogger.error ("Failed to start server - stopped server!");
-      }
-      else
-        if (!aServer.isFailed ())
-        {
-          // Running the server!
-          aServer.join ();
-        }
-    }
+    new JettyStarter (RunInJettyPP.class).run ();
   }
 }

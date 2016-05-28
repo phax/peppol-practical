@@ -16,15 +16,14 @@
  */
 package com.helger.peppol.servlet;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 import javax.servlet.ServletContext;
 
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
@@ -38,9 +37,6 @@ import com.helger.photon.bootstrap3.servlet.AbstractWebAppListenerMultiAppBootst
 import com.helger.photon.core.app.CApplication;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.init.IApplicationInitializer;
-import com.helger.photon.security.role.RoleManager;
-import com.helger.photon.security.user.UserManager;
-import com.helger.photon.security.usergroup.UserGroupManager;
 
 /**
  * This listener is invoked during the servlet initiailization. This is
@@ -77,9 +73,9 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
   @Override
   @Nonnull
   @Nonempty
-  protected Map <String, IApplicationInitializer <LayoutExecutionContext>> getAllInitializers ()
+  protected ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> getAllInitializers ()
   {
-    final Map <String, IApplicationInitializer <LayoutExecutionContext>> ret = new HashMap <String, IApplicationInitializer <LayoutExecutionContext>> ();
+    final ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> ret = new CommonsHashMap<> ();
     ret.put (CApplication.APP_ID_SECURE, new InitializerSecure ());
     ret.put (CApplication.APP_ID_PUBLIC, new InitializerPublic ());
     return ret;
@@ -99,11 +95,6 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
     VendorInfo.setVendorEmail ("philip@helger.com");
     VendorInfo.setVendorLocation ("Vienna, Austria");
     VendorInfo.setInceptionYear (2014);
-
-    // Call before accessing PhotonSecurityManager!
-    RoleManager.setCreateDefaults (false);
-    UserManager.setCreateDefaults (false);
-    UserGroupManager.setCreateDefaults (false);
 
     super.initGlobals ();
 

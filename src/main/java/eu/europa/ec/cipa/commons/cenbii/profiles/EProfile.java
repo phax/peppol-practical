@@ -49,7 +49,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.text.display.IHasDisplayText;
 
@@ -63,63 +63,63 @@ import com.helger.commons.text.display.IHasDisplayText;
  */
 public enum EProfile implements IHasDisplayText
 {
- BII14 (EGroup.PUBLICATION, EProfileName.BII14, 14, new ECollaboration [] { ECollaboration.COLL018 }),
- BII10 (EGroup.PUBLICATION, EProfileName.BII10, 10, new ECollaboration [] { ECollaboration.COLL019,
-                                                                            ECollaboration.COLL023 }),
- BII11 (EGroup.TENDERING, EProfileName.BII11, 11, new ECollaboration [] { ECollaboration.COLL021 }),
- BII22 (EGroup.TENDERING, EProfileName.BII22, 22, new ECollaboration [] { ECollaboration.COLL020 }),
- BII12 (EGroup.TENDERING, EProfileName.BII12, 12, new ECollaboration [] { ECollaboration.COLL022 }),
- BII01 (EGroup.SOURCING, EProfileName.BII01, 1, new ECollaboration [] { ECollaboration.COLL009 }),
- BII02 (EGroup.SOURCING, EProfileName.BII02, 2, new ECollaboration [] { ECollaboration.COLL010,
-                                                                        ECollaboration.COLL011 }),
- BII16 (EGroup.SOURCING, EProfileName.BII16, 16, new ECollaboration [] { ECollaboration.COLL012 }),
- BII17 (EGroup.SOURCING, EProfileName.BII17, 17, new ECollaboration [] { ECollaboration.COLL008,
-                                                                         ECollaboration.COLL026 }),
- BII18 (EGroup.SOURCING, EProfileName.BII18, 18, new ECollaboration [] { ECollaboration.COLL027 }),
- BII20 (EGroup.SOURCING, EProfileName.BII20, 20, new ECollaboration [] { ECollaboration.COLL013,
-                                                                         ECollaboration.COLL027 }),
- BII03 (EGroup.ORDERING_AND_BILLING, EProfileName.BII03, 3, new ECollaboration [] { ECollaboration.COLL001 }),
- BII04 (EGroup.ORDERING_AND_BILLING, EProfileName.BII04, 4, new ECollaboration [] { ECollaboration.COLL004 }),
- BII23 (EGroup.ORDERING_AND_BILLING, EProfileName.BII23, 23, new ECollaboration [] { ECollaboration.COLL004,
-                                                                                     ECollaboration.COLL029 }),
- BII05 (EGroup.ORDERING_AND_BILLING, EProfileName.BII05, 5, new ECollaboration [] { ECollaboration.COLL004,
-                                                                                    ECollaboration.COLL005 }),
- BII06 (EGroup.ORDERING_AND_BILLING, EProfileName.BII06, 6, new ECollaboration [] { ECollaboration.COLL001,
-                                                                                    ECollaboration.COLL003,
-                                                                                    ECollaboration.COLL004,
-                                                                                    ECollaboration.COLL005 }),
- BII07 (EGroup.ORDERING_AND_BILLING, EProfileName.BII07, 7, new ECollaboration [] { ECollaboration.COLL001,
-                                                                                    ECollaboration.COLL003,
-                                                                                    ECollaboration.COLL004,
-                                                                                    ECollaboration.COLL029,
-                                                                                    ECollaboration.COLL005 }),
- BII08 (EGroup.ORDERING_AND_BILLING, EProfileName.BII08, 8, new ECollaboration [] { ECollaboration.COLL004,
-                                                                                    ECollaboration.COLL029,
-                                                                                    ECollaboration.COLL005,
-                                                                                    ECollaboration.COLL007 }),
- BII13 (EGroup.ORDERING_AND_BILLING, EProfileName.BII13, 13, new ECollaboration [] { ECollaboration.COLL001,
+  BII14 (EGroup.PUBLICATION, EProfileName.BII14, 14, new ECollaboration [] { ECollaboration.COLL018 }),
+  BII10 (EGroup.PUBLICATION, EProfileName.BII10, 10, new ECollaboration [] { ECollaboration.COLL019,
+                                                                             ECollaboration.COLL023 }),
+  BII11 (EGroup.TENDERING, EProfileName.BII11, 11, new ECollaboration [] { ECollaboration.COLL021 }),
+  BII22 (EGroup.TENDERING, EProfileName.BII22, 22, new ECollaboration [] { ECollaboration.COLL020 }),
+  BII12 (EGroup.TENDERING, EProfileName.BII12, 12, new ECollaboration [] { ECollaboration.COLL022 }),
+  BII01 (EGroup.SOURCING, EProfileName.BII01, 1, new ECollaboration [] { ECollaboration.COLL009 }),
+  BII02 (EGroup.SOURCING, EProfileName.BII02, 2, new ECollaboration [] { ECollaboration.COLL010,
+                                                                         ECollaboration.COLL011 }),
+  BII16 (EGroup.SOURCING, EProfileName.BII16, 16, new ECollaboration [] { ECollaboration.COLL012 }),
+  BII17 (EGroup.SOURCING, EProfileName.BII17, 17, new ECollaboration [] { ECollaboration.COLL008,
+                                                                          ECollaboration.COLL026 }),
+  BII18 (EGroup.SOURCING, EProfileName.BII18, 18, new ECollaboration [] { ECollaboration.COLL027 }),
+  BII20 (EGroup.SOURCING, EProfileName.BII20, 20, new ECollaboration [] { ECollaboration.COLL013,
+                                                                          ECollaboration.COLL027 }),
+  BII03 (EGroup.ORDERING_AND_BILLING, EProfileName.BII03, 3, new ECollaboration [] { ECollaboration.COLL001 }),
+  BII04 (EGroup.ORDERING_AND_BILLING, EProfileName.BII04, 4, new ECollaboration [] { ECollaboration.COLL004 }),
+  BII23 (EGroup.ORDERING_AND_BILLING, EProfileName.BII23, 23, new ECollaboration [] { ECollaboration.COLL004,
+                                                                                      ECollaboration.COLL029 }),
+  BII05 (EGroup.ORDERING_AND_BILLING, EProfileName.BII05, 5, new ECollaboration [] { ECollaboration.COLL004,
+                                                                                     ECollaboration.COLL005 }),
+  BII06 (EGroup.ORDERING_AND_BILLING, EProfileName.BII06, 6, new ECollaboration [] { ECollaboration.COLL001,
                                                                                      ECollaboration.COLL003,
-                                                                                     ECollaboration.COLL002,
-                                                                                     ECollaboration.COLL028,
-                                                                                     ECollaboration.COLL006,
                                                                                      ECollaboration.COLL004,
+                                                                                     ECollaboration.COLL005 }),
+  BII07 (EGroup.ORDERING_AND_BILLING, EProfileName.BII07, 7, new ECollaboration [] { ECollaboration.COLL001,
+                                                                                     ECollaboration.COLL003,
+                                                                                     ECollaboration.COLL004,
+                                                                                     ECollaboration.COLL029,
+                                                                                     ECollaboration.COLL005 }),
+  BII08 (EGroup.ORDERING_AND_BILLING, EProfileName.BII08, 8, new ECollaboration [] { ECollaboration.COLL004,
                                                                                      ECollaboration.COLL029,
                                                                                      ECollaboration.COLL005,
                                                                                      ECollaboration.COLL007 }),
- BII15 (EGroup.ORDERING_AND_BILLING, EProfileName.BII15, 15, new ECollaboration [] { ECollaboration.COLL031 }),
- BII19 (EGroup.ORDERING_AND_BILLING, EProfileName.BII19, 19, new ECollaboration [] { ECollaboration.COLL001,
-                                                                                     ECollaboration.COLL003,
-                                                                                     ECollaboration.COLL002,
-                                                                                     ECollaboration.COLL028,
-                                                                                     ECollaboration.COLL004,
-                                                                                     ECollaboration.COLL029,
-                                                                                     ECollaboration.COLL005,
-                                                                                     ECollaboration.COLL007 }),
- BII09 (EGroup.SUPPORT, EProfileName.BII09, 9, new ECollaboration [] { ECollaboration.COLL030 }),
- BII21 (EGroup.SUPPORT, EProfileName.BII21, 21, new ECollaboration [] { ECollaboration.COLL014 }),
- BII24 (EGroup.SUPPORT, EProfileName.BII24, 24, new ECollaboration [] { ECollaboration.COLL017 }),
- BII25 (EGroup.SUPPORT, EProfileName.BII25, 25, new ECollaboration [] { ECollaboration.COLL015 }),
- BII26 (EGroup.SUPPORT, EProfileName.BII26, 26, new ECollaboration [] { ECollaboration.COLL016 });
+  BII13 (EGroup.ORDERING_AND_BILLING, EProfileName.BII13, 13, new ECollaboration [] { ECollaboration.COLL001,
+                                                                                      ECollaboration.COLL003,
+                                                                                      ECollaboration.COLL002,
+                                                                                      ECollaboration.COLL028,
+                                                                                      ECollaboration.COLL006,
+                                                                                      ECollaboration.COLL004,
+                                                                                      ECollaboration.COLL029,
+                                                                                      ECollaboration.COLL005,
+                                                                                      ECollaboration.COLL007 }),
+  BII15 (EGroup.ORDERING_AND_BILLING, EProfileName.BII15, 15, new ECollaboration [] { ECollaboration.COLL031 }),
+  BII19 (EGroup.ORDERING_AND_BILLING, EProfileName.BII19, 19, new ECollaboration [] { ECollaboration.COLL001,
+                                                                                      ECollaboration.COLL003,
+                                                                                      ECollaboration.COLL002,
+                                                                                      ECollaboration.COLL028,
+                                                                                      ECollaboration.COLL004,
+                                                                                      ECollaboration.COLL029,
+                                                                                      ECollaboration.COLL005,
+                                                                                      ECollaboration.COLL007 }),
+  BII09 (EGroup.SUPPORT, EProfileName.BII09, 9, new ECollaboration [] { ECollaboration.COLL030 }),
+  BII21 (EGroup.SUPPORT, EProfileName.BII21, 21, new ECollaboration [] { ECollaboration.COLL014 }),
+  BII24 (EGroup.SUPPORT, EProfileName.BII24, 24, new ECollaboration [] { ECollaboration.COLL017 }),
+  BII25 (EGroup.SUPPORT, EProfileName.BII25, 25, new ECollaboration [] { ECollaboration.COLL015 }),
+  BII26 (EGroup.SUPPORT, EProfileName.BII26, 26, new ECollaboration [] { ECollaboration.COLL016 });
 
   private final EGroup m_eGroup;
   private final IHasDisplayText m_aName;
@@ -144,7 +144,7 @@ public enum EProfile implements IHasDisplayText
     m_eGroup = eGroup;
     m_aName = eName;
     m_nNumber = nNumber;
-    m_aCollaborations = CollectionHelper.newUnmodifiableList (aCollaborations);
+    m_aCollaborations = new CommonsArrayList<> (aCollaborations).getAsUnmodifiable ();
     // All collaborations in a profile must share the same state
     m_bInCoreSupported = m_aCollaborations.get (0).isInCoreSupported ();
     if (GlobalDebug.isDebugMode ())

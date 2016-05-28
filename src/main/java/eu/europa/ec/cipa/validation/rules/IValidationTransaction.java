@@ -40,7 +40,7 @@ package eu.europa.ec.cipa.validation.rules;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.lang.IHasStringRepresentation;
+import com.helger.commons.annotation.Nonempty;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 
@@ -51,7 +51,7 @@ import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IValidationTransaction extends IHasStringRepresentation
+public interface IValidationTransaction
 {
   /**
    * @return The syntax binding of this transaction. Never <code>null</code>.
@@ -65,4 +65,8 @@ public interface IValidationTransaction extends IHasStringRepresentation
    */
   @Nonnull
   ETransaction getTransaction ();
+
+  @Nonnull
+  @Nonempty
+  String getAsString ();
 }

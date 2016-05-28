@@ -47,7 +47,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
@@ -60,37 +60,39 @@ import com.helger.commons.name.IHasName;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public enum ECollaboration implements IHasID <String>,IHasName
+public enum ECollaboration implements IHasID <String>, IHasName
 {
- COLL001 ("Ordering", new ETransaction [] { ETransaction.T01 }),
- COLL002 ("CounterOfferSubmission", new ETransaction [] { ETransaction.T04 }),
- COLL003 ("OrderResponse", new ETransaction [] { ETransaction.T02, ETransaction.T03 }),
- COLL004 ("Invoicing", new ETransaction [] { ETransaction.T10 }),
- COLL005 ("ResolveInvoiceDispute", new ETransaction [] { ETransaction.T14, ETransaction.T15 }),
- COLL006 ("DispatchAdvice", new ETransaction [] { ETransaction.T16 }),
- COLL007 ("Reminder", new ETransaction [] { ETransaction.T17 }),
- COLL008 ("RequestCatalogue", new ETransaction [] { ETransaction.T18, ETransaction.T55 }),
- COLL009 ("CatalogueSubmission", new ETransaction [] { ETransaction.T19, ETransaction.T57, ETransaction.T58 }),
- COLL010 ("CatalogueItemUpdate", new ETransaction [] { ETransaction.T20, ETransaction.T59, ETransaction.T60 }),
- COLL011 ("CataloguePriceUpdate", new ETransaction [] { ETransaction.T21, ETransaction.T61, ETransaction.T62 }),
- COLL012 ("CatalogueDelete", new ETransaction [] { ETransaction.T22, ETransaction.T23 }),
- COLL013 ("QuoteRequest", new ETransaction [] { ETransaction.T24, ETransaction.T25 }),
- COLL014 ("Statement", new ETransaction [] { ETransaction.T26, ETransaction.T51 }),
- COLL015 ("StatusRequest", new ETransaction [] { ETransaction.T27, ETransaction.T29 }),
- COLL016 ("RetrieveDocument", new ETransaction [] { ETransaction.T31, ETransaction.T28 }),
- COLL017 ("Attachment", new ETransaction [] { ETransaction.T33, ETransaction.T30, ETransaction.T32 }),
- COLL018 ("PriorInformationNotification", new ETransaction [] { ETransaction.T34, ETransaction.T35, ETransaction.T36 }),
- COLL019 ("ContractNotification", new ETransaction [] { ETransaction.T37, ETransaction.T38, ETransaction.T39 }),
- COLL020 ("CallForTender", new ETransaction [] { ETransaction.T40 }),
- COLL021 ("Qualification", new ETransaction [] { ETransaction.T41, ETransaction.T42, ETransaction.T43 }),
- COLL022 ("TenderSubmission", new ETransaction [] { ETransaction.T44, ETransaction.T45 }),
- COLL023 ("ContractAwardNotification", new ETransaction [] { ETransaction.T46, ETransaction.T47, ETransaction.T48 }),
- COLL026 ("MultiPartyCatalogue", new ETransaction [] { ETransaction.T54 }),
- COLL027 ("QuoteSubmission", new ETransaction [] { ETransaction.T56 }),
- COLL028 ("CounterOfferResponse", new ETransaction [] { ETransaction.T05, ETransaction.T06 }),
- COLL029 ("InvoiceDispute", new ETransaction [] { ETransaction.T13 }),
- COLL030 ("CustomsBilling", new ETransaction [] { ETransaction.T07, ETransaction.T08, ETransaction.T09 }),
- COLL031 ("ScannedInvoice", new ETransaction [] { ETransaction.T52, ETransaction.T53, ETransaction.T63 });
+  COLL001 ("Ordering", new ETransaction [] { ETransaction.T01 }),
+  COLL002 ("CounterOfferSubmission", new ETransaction [] { ETransaction.T04 }),
+  COLL003 ("OrderResponse", new ETransaction [] { ETransaction.T02, ETransaction.T03 }),
+  COLL004 ("Invoicing", new ETransaction [] { ETransaction.T10 }),
+  COLL005 ("ResolveInvoiceDispute", new ETransaction [] { ETransaction.T14, ETransaction.T15 }),
+  COLL006 ("DispatchAdvice", new ETransaction [] { ETransaction.T16 }),
+  COLL007 ("Reminder", new ETransaction [] { ETransaction.T17 }),
+  COLL008 ("RequestCatalogue", new ETransaction [] { ETransaction.T18, ETransaction.T55 }),
+  COLL009 ("CatalogueSubmission", new ETransaction [] { ETransaction.T19, ETransaction.T57, ETransaction.T58 }),
+  COLL010 ("CatalogueItemUpdate", new ETransaction [] { ETransaction.T20, ETransaction.T59, ETransaction.T60 }),
+  COLL011 ("CataloguePriceUpdate", new ETransaction [] { ETransaction.T21, ETransaction.T61, ETransaction.T62 }),
+  COLL012 ("CatalogueDelete", new ETransaction [] { ETransaction.T22, ETransaction.T23 }),
+  COLL013 ("QuoteRequest", new ETransaction [] { ETransaction.T24, ETransaction.T25 }),
+  COLL014 ("Statement", new ETransaction [] { ETransaction.T26, ETransaction.T51 }),
+  COLL015 ("StatusRequest", new ETransaction [] { ETransaction.T27, ETransaction.T29 }),
+  COLL016 ("RetrieveDocument", new ETransaction [] { ETransaction.T31, ETransaction.T28 }),
+  COLL017 ("Attachment", new ETransaction [] { ETransaction.T33, ETransaction.T30, ETransaction.T32 }),
+  COLL018 ("PriorInformationNotification", new ETransaction [] { ETransaction.T34,
+                                                                 ETransaction.T35,
+                                                                 ETransaction.T36 }),
+  COLL019 ("ContractNotification", new ETransaction [] { ETransaction.T37, ETransaction.T38, ETransaction.T39 }),
+  COLL020 ("CallForTender", new ETransaction [] { ETransaction.T40 }),
+  COLL021 ("Qualification", new ETransaction [] { ETransaction.T41, ETransaction.T42, ETransaction.T43 }),
+  COLL022 ("TenderSubmission", new ETransaction [] { ETransaction.T44, ETransaction.T45 }),
+  COLL023 ("ContractAwardNotification", new ETransaction [] { ETransaction.T46, ETransaction.T47, ETransaction.T48 }),
+  COLL026 ("MultiPartyCatalogue", new ETransaction [] { ETransaction.T54 }),
+  COLL027 ("QuoteSubmission", new ETransaction [] { ETransaction.T56 }),
+  COLL028 ("CounterOfferResponse", new ETransaction [] { ETransaction.T05, ETransaction.T06 }),
+  COLL029 ("InvoiceDispute", new ETransaction [] { ETransaction.T13 }),
+  COLL030 ("CustomsBilling", new ETransaction [] { ETransaction.T07, ETransaction.T08, ETransaction.T09 }),
+  COLL031 ("ScannedInvoice", new ETransaction [] { ETransaction.T52, ETransaction.T53, ETransaction.T63 });
 
   private final String m_sID;
   private final String m_sName;
@@ -110,7 +112,7 @@ public enum ECollaboration implements IHasID <String>,IHasName
   {
     m_sID = name ();
     m_sName = sName;
-    m_aTransactions = CollectionHelper.newUnmodifiableList (aTransactions);
+    m_aTransactions = new CommonsArrayList<> (aTransactions).getAsUnmodifiable ();
     // All transactions in a collaboration must share the same state
     m_bInCoreSupported = m_aTransactions.get (0).isInCoreSupported ();
     if (GlobalDebug.isDebugMode ())

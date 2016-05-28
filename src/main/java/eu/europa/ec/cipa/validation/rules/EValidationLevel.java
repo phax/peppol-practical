@@ -38,6 +38,7 @@
 package eu.europa.ec.cipa.validation.rules;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
@@ -47,8 +48,8 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.AbstractIntComparator;
-import com.helger.commons.compare.ESortOrder;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.EnumHelper;
 
 /**
@@ -59,48 +60,34 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum EValidationLevel implements IValidationLevel
 {
- /**
-  * Technical structure validation (e.g. XML schema) - never country specific
-  */
+  /**
+   * Technical structure validation (e.g. XML schema) - never country specific
+   */
   TECHNICAL_STRUCTURE ("technical", 10),
 
- /**
-  * Validation rules based on BII transaction requirements - never country
-  * specific
-  */
+  /**
+   * Validation rules based on BII transaction requirements - never country
+   * specific
+   */
   TRANSACTION_REQUIREMENTS ("transaction", 20),
 
- /**
-  * Validation rules based on BII profile (=process) requirements - never
-  * country specific
-  */
+  /**
+   * Validation rules based on BII profile (=process) requirements - never
+   * country specific
+   */
   PROFILE_REQUIREMENTS ("profile", 30),
 
- /** Validation rules based on legal obligations - maybe country specific */
+  /** Validation rules based on legal obligations - maybe country specific */
   LEGAL_REQUIREMENTS ("legal", 40),
 
- /** Industry specific validation rules - maybe country specific */
+  /** Industry specific validation rules - maybe country specific */
   INDUSTRY_SPECIFIC ("industry", 50),
 
- /**
-  * Entity (=company) specific validation rules - this level represents
-  * bilateral agreements - maybe country specific
-  */
+  /**
+   * Entity (=company) specific validation rules - this level represents
+   * bilateral agreements - maybe country specific
+   */
   ENTITY_SPECIFC ("entity", 60);
-
-  public static final class ComparatorLevel extends AbstractIntComparator <IValidationLevel>
-  {
-    public ComparatorLevel (@Nonnull final ESortOrder eSortOrder)
-    {
-      setSortOrder (eSortOrder);
-    }
-
-    @Override
-    protected int getAsInt (final IValidationLevel eLevel)
-    {
-      return eLevel.getLevel ();
-    }
-  }
 
   private final String m_sID;
   private final int m_nLevel;
@@ -180,10 +167,9 @@ public enum EValidationLevel implements IValidationLevel
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <EValidationLevel> getAllLevelsInValidationOrder (@Nullable final EValidationLevel... aLevels)
+  public static ICommonsList <EValidationLevel> getAllLevelsInValidationOrder (@Nullable final EValidationLevel... aLevels)
   {
-    return CollectionHelper.getSortedInline (CollectionHelper.newList (aLevels),
-                                             new ComparatorLevel (ESortOrder.ASCENDING));
+    return new CommonsArrayList<> (aLevels).getSortedInline (Comparator.comparingInt (EValidationLevel::getLevel));
   }
 
   /**

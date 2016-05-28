@@ -37,7 +37,6 @@
  */
 package eu.europa.ec.cipa.validation.rules;
 
-import javax.annotation.Nullable;
 import javax.xml.validation.Schema;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
@@ -53,11 +52,4 @@ import com.helger.commons.xml.schema.IHasSchema;
  */
 @MustImplementEqualsAndHashcode
 public interface IValidationDocumentType extends IHasID <String>, IHasSchema
-{
-  /**
-   * @return The XML {@link Schema} to validate this document type agains or
-   *         <code>null</code> if no XML schema is present
-   */
-  @Nullable
-  Schema getSchema ();
-}
+{}

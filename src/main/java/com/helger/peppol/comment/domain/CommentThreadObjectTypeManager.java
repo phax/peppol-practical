@@ -31,6 +31,7 @@ import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.microdom.IMicroDocument;
@@ -97,7 +98,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
     eRoot.setAttribute (ATTR_OBJECT_TYPE, m_aObjectType.getName ());
-    for (final Map.Entry <String, List <ICommentThread>> aEntry : m_aObjectToCommentThreads.entrySet ())
+    for (final Map.Entry <String, ICommonsList <ICommentThread>> aEntry : m_aObjectToCommentThreads.entrySet ())
     {
       final IMicroElement eItem = eRoot.appendElement (ELEMENT_ITEM);
       eItem.setAttribute (ATTR_ID, aEntry.getKey ());

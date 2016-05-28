@@ -37,7 +37,7 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppol.pub.testendpoint.TestEndpoint;
 import com.helger.peppol.pub.testendpoint.TestEndpointManager;

@@ -47,6 +47,7 @@ import javax.xml.validation.Schema;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.resource.IReadableResource;
 
@@ -157,7 +158,18 @@ public class ValidationPyramid2 extends AbstractValidationPyramid
 
     m_aValidationLayers.add (aLayer);
     // Sort validation layers, so that the basic layers always come first
-    Collections.sort (m_aValidationLayers, new ComparatorValidationPyramidLayerByLevel ());
+    Collections.sort (m_aValidationLayers, (aLayer1, aLayer2) -> {
+      // First compare validation level
+      final int nLevel1 = aLayer1.getValidationLevel ().getLevel ();
+      final int nLevel2 = aLayer2.getValidationLevel ().getLevel ();
+      int ret = CompareHelper.compare (nLevel1, nLevel2);
+      if (ret == 0)
+      {
+        // Equal validation level: XSD before Schematron
+        ret = aLayer1.getValidationType ().compareTo (aLayer2.getValidationType ());
+      }
+      return ret;
+    });
     return this;
   }
 

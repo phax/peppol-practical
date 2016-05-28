@@ -120,7 +120,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     if (aFormErrors.isEmpty ())
     {
       final String sDescription = "User signed up at " +
-                                  PDTFactory.getCurrentDateTime ().toString () +
+                                  PDTFactory.getCurrentLocalDateTime ().toString () +
                                   " from " +
                                   aWPEC.getRequestScope ().getRemoteAddr ();
 

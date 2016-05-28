@@ -49,6 +49,7 @@ import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.url.URLHelper;
+import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.forms.HCEditPassword;
@@ -75,7 +76,6 @@ import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.web.fileupload.IFileItem;
-import com.helger.web.https.DoNothingTrustManager;
 import com.sun.xml.ws.client.ClientTransportException;
 
 public class PagePublicToolsSMPSML extends AbstractAppWebPage
@@ -193,7 +193,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
         final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
         aSSLContext.init (aKeyManagerFactory.getKeyManagers (),
-                          new TrustManager [] { new DoNothingTrustManager (false) },
+                          new TrustManager [] { new TrustManagerTrustAll (false) },
                           VerySecureRandom.getInstance ());
         aSocketFactory = aSSLContext.getSocketFactory ();
       }
@@ -581,7 +581,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aToolbar.addHiddenField (CPageParam.PARAM_SUBACTION, SUBACTION_SMP_REGISTER);
         aToolbar.addSubmitButton ("Register SMP at SML");
 
-        aTabBox.addTab ("Register SMP to SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_REGISTER));
+        aTabBox.addTab ("register", "Register SMP to SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_REGISTER));
       }
 
       // Update SMP at SML
@@ -619,7 +619,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aToolbar.addHiddenField (CPageParam.PARAM_SUBACTION, SUBACTION_SMP_UPDATE);
         aToolbar.addSubmitButton ("Update SMP at SML");
 
-        aTabBox.addTab ("Update SMP at SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_UPDATE));
+        aTabBox.addTab ("update", "Update SMP at SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_UPDATE));
       }
 
       // Delete SMP from SML
@@ -649,7 +649,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aToolbar.addHiddenField (CPageParam.PARAM_SUBACTION, SUBACTION_SMP_DELETE);
         aToolbar.addSubmitButton ("Delete SMP from SML");
 
-        aTabBox.addTab ("Delete SMP from SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_DELETE));
+        aTabBox.addTab ("delete", "Delete SMP from SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_DELETE));
       }
 
       aNodeList.addChild (aTabBox);

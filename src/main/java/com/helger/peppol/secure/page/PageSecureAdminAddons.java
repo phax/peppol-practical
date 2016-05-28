@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.grouping.HCDiv;
@@ -32,7 +31,6 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.basic.app.menu.ApplicationMenuTree;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
-import com.helger.photon.basic.app.menu.IMenuObject;
 import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
@@ -64,23 +62,19 @@ public final class PageSecureAdminAddons extends AbstractWebPage <WebPageExecuti
       // Bulk modify
       final MutableInt aCounterUpdated = new MutableInt (0);
       final MutableInt aCounterNoNeed = new MutableInt (0);
-      aPublicMenuTree.iterateAllMenuObjects (new INonThrowingRunnableWithParameter <IMenuObject> ()
-      {
-        public void run (final IMenuObject aMenuObj)
+      aPublicMenuTree.iterateAllMenuObjects (aMenuObj -> {
+        if (aMenuObj instanceof IMenuItemPage)
         {
-          if (aMenuObj instanceof IMenuItemPage)
+          final IMenuItemPage aMenuItemPage = (IMenuItemPage) aMenuObj;
+          if (aMenuItemPage.getPage () instanceof AppPageViewExternal)
           {
-            final IMenuItemPage aMenuItemPage = (IMenuItemPage) aMenuObj;
-            if (aMenuItemPage.getPage () instanceof AppPageViewExternal)
+            final AppPageViewExternal aPageViewExternal = (AppPageViewExternal) aMenuItemPage.getPage ();
+            if (aPageViewExternal.isReadEveryTime ())
+              aCounterNoNeed.inc ();
+            else
             {
-              final AppPageViewExternal aPageViewExternal = (AppPageViewExternal) aMenuItemPage.getPage ();
-              if (aPageViewExternal.isReadEveryTime ())
-                aCounterNoNeed.inc ();
-              else
-              {
-                aPageViewExternal.updateFromResource ();
-                aCounterUpdated.inc ();
-              }
+              aPageViewExternal.updateFromResource ();
+              aCounterUpdated.inc ();
             }
           }
         }

@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.pub.validation.bis1;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -23,7 +24,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.dom.DOMSource;
 
-import org.joda.time.DateTime;
 import org.w3c.dom.Node;
 
 import com.helger.commons.error.IResourceError;
@@ -37,9 +37,9 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
+import com.helger.datetime.util.PDTWebDateHelper;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.schematron.svrl.SVRLResourceError;
-import com.helger.web.datetime.PDTWebDateHelper;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import eu.europa.ec.cipa.validation.pyramid.ValidationPyramid2;
@@ -103,7 +103,7 @@ public final class ValidationPyramidHelper
 
   @Nonnull
   public static IMicroDocument getAsXML (@Nonnull final String sRequestor,
-                                         @Nonnull final DateTime aDT,
+                                         @Nonnull final LocalDateTime aDT,
                                          final long nDurationMillis,
                                          @Nonnull final ValidationPyramidResult aResult,
                                          @Nonnull final Locale aDisplayLocale,

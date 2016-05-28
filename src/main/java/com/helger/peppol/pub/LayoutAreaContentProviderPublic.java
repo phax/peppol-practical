@@ -16,14 +16,13 @@
  */
 package com.helger.peppol.pub;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
@@ -63,8 +62,6 @@ import com.helger.photon.basic.app.menu.IMenuObject;
 import com.helger.photon.basic.app.menu.IMenuSeparator;
 import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.basic.app.menu.MenuItemDeterminatorCallback;
-import com.helger.photon.basic.app.systemmsg.SystemMessageManager;
-import com.helger.photon.basic.mgr.PhotonBasicManager;
 import com.helger.photon.bootstrap3.CBootstrapCSS;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.base.BootstrapContainer;
@@ -75,13 +72,13 @@ import com.helger.photon.bootstrap3.button.EBootstrapButtonType;
 import com.helger.photon.bootstrap3.dropdown.BootstrapDropdown;
 import com.helger.photon.bootstrap3.dropdown.BootstrapDropdownMenu;
 import com.helger.photon.bootstrap3.dropdown.EBootstrapDropdownMenuAlignment;
+import com.helger.photon.bootstrap3.ext.BootstrapSystemMessage;
 import com.helger.photon.bootstrap3.grid.BootstrapRow;
 import com.helger.photon.bootstrap3.nav.BootstrapNav;
 import com.helger.photon.bootstrap3.navbar.BootstrapNavbar;
 import com.helger.photon.bootstrap3.navbar.EBootstrapNavbarPosition;
 import com.helger.photon.bootstrap3.navbar.EBootstrapNavbarType;
 import com.helger.photon.bootstrap3.pageheader.BootstrapPageHeader;
-import com.helger.photon.bootstrap3.pages.settings.SystemMessageUIHelper;
 import com.helger.photon.bootstrap3.uictrls.ext.BootstrapMenuItemRenderer;
 import com.helger.photon.bootstrap3.uictrls.ext.BootstrapMenuItemRendererHorz;
 import com.helger.photon.core.EPhotonCoreText;
@@ -96,7 +93,6 @@ import com.helger.photon.core.url.LinkHelper;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
 import com.helger.photon.security.util.SecurityHelper;
-import com.helger.photon.uicore.UITextFormatter;
 import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
 import com.helger.photon.uicore.page.IWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -118,9 +114,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
   private static final ICSSClassProvider CSS_CLASS_PAYPAL = DefaultCSSClassProvider.create ("paypal");
   private static final ICSSClassProvider CSS_CLASS_FOOTER_LINKS = DefaultCSSClassProvider.create ("footer-links");
 
-  private final List <IMenuObject> m_aFooterObjectsCol1 = new ArrayList <IMenuObject> ();
-  private final List <IMenuObject> m_aFooterObjectsCol2 = new ArrayList <IMenuObject> ();
-  private final List <IMenuObject> m_aFooterObjectsCol3 = new ArrayList <IMenuObject> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol1 = new CommonsArrayList<> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol2 = new CommonsArrayList<> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol3 = new CommonsArrayList<> ();
   private final int m_nFooterRowCount;
 
   public LayoutAreaContentProviderPublic ()
@@ -236,8 +232,8 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     // Add PayPal
     HCForm aPayPal;
     {
-      aPayPal = new HCForm ("https://www.paypal.com/cgi-bin/webscr").setTarget (HC_Target.TOP)
-                                                                    .addClass (CSS_CLASS_PAYPAL);
+      aPayPal = new HCForm (new SimpleURL ("https://www.paypal.com/cgi-bin/webscr")).setTarget (HC_Target.TOP)
+                                                                                    .addClass (CSS_CLASS_PAYPAL);
       aPayPal.addChild (new HCHiddenField ("cmd", "_s-xclick"));
       aPayPal.addChild (new HCHiddenField ("encrypted",
                                            "-----BEGIN PKCS7-----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-----END PKCS7-----\r\n"));
@@ -280,13 +276,8 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     // Build page content: header + content
     final HCNodeList aPageContainer = new HCNodeList ();
 
-    {
-      // System message always
-      final SystemMessageManager aSysMsgMgr = PhotonBasicManager.getSystemMessageMgr ();
-      final IHCNode aSystemMessage = SystemMessageUIHelper.createBox (aSysMsgMgr.getMessageType (),
-                                                                      UITextFormatter.markdownOnDemand (aSysMsgMgr.getSystemMessage ()));
-      aPageContainer.addChild (aSystemMessage);
-    }
+    // System message always
+    aPageContainer.addChild (BootstrapSystemMessage.createDefault ());
 
     // Handle 404 case here (see error404.jsp)
     if (VALUE_HTTP_ERROR.equals (aRequestScope.getAttributeAsString (PARAM_HTTP_ERROR)))
@@ -401,15 +392,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
         for (int i = 0; i < m_nFooterRowCount; ++i)
         {
           final HCRow aRow = aTable.addBodyRow ();
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC,
-                                                   aRenderer,
-                                                   CollectionHelper.getSafe (m_aFooterObjectsCol1, i)));
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC,
-                                                   aRenderer,
-                                                   CollectionHelper.getSafe (m_aFooterObjectsCol2, i)));
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC,
-                                                   aRenderer,
-                                                   CollectionHelper.getSafe (m_aFooterObjectsCol3, i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol1.getAtIndex (i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol2.getAtIndex (i)));
+          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol3.getAtIndex (i)));
         }
         aDiv.addChild (aTable);
       }

@@ -16,12 +16,11 @@
  */
 package com.helger.peppol.comment.domain;
 
+import java.time.LocalDateTime;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
@@ -71,20 +70,8 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   public Comment convertToNative (@Nonnull final IMicroElement eComment)
   {
     final String sCommentID = eComment.getAttributeValue (ATTR_ID);
-    LocalDateTime aCreationLDT = eComment.getAttributeValueWithConversion (ATTR_CREATIONLDT, LocalDateTime.class);
-    if (aCreationLDT == null)
-    {
-      final DateTime aCreationDT = eComment.getAttributeValueWithConversion ("creationdt", DateTime.class);
-      if (aCreationDT != null)
-        aCreationLDT = aCreationDT.toLocalDateTime ();
-    }
-    LocalDateTime aLastModLDT = eComment.getAttributeValueWithConversion (ATTR_LASTMODLDT, LocalDateTime.class);
-    if (aLastModLDT == null)
-    {
-      final DateTime aLastModDT = eComment.getAttributeValueWithConversion ("lastmoddt", DateTime.class);
-      if (aLastModDT != null)
-        aLastModLDT = aLastModDT.toLocalDateTime ();
-    }
+    final LocalDateTime aCreationLDT = eComment.getAttributeValueWithConversion (ATTR_CREATIONLDT, LocalDateTime.class);
+    final LocalDateTime aLastModLDT = eComment.getAttributeValueWithConversion (ATTR_LASTMODLDT, LocalDateTime.class);
 
     final String sHost = eComment.getAttributeValue (ATTR_HOST);
 

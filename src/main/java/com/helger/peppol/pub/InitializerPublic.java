@@ -24,7 +24,7 @@ import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.core.ajax.IAjaxInvoker;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
-import com.helger.photon.core.app.init.DefaultApplicationInitializer;
+import com.helger.photon.core.app.init.IApplicationInitializer;
 import com.helger.photon.core.app.layout.CLayout;
 import com.helger.photon.core.app.layout.ILayoutManager;
 
@@ -33,7 +33,7 @@ import com.helger.photon.core.app.layout.ILayoutManager;
  *
  * @author Philip Helger
  */
-public final class InitializerPublic extends DefaultApplicationInitializer <LayoutExecutionContext>
+public final class InitializerPublic implements IApplicationInitializer <LayoutExecutionContext>
 {
   @Override
   public void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
