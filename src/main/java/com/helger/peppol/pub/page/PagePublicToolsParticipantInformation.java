@@ -55,6 +55,7 @@ import com.helger.html.jquery.JQuery;
 import com.helger.html.js.EJSEvent;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
@@ -391,7 +392,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       {
         final IdentifierIssuingAgencySelect aSelect = new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523_PREDEF),
                                                                                          aDisplayLocale);
-        final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (IPeppolParticipantIdentifier.MAX_VALUE_LENGTH)
+        final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
                                                                              .setPlaceholder ("Identifier value");
         // In case something is selected, put it in the edit
         aSelect.setEventHandler (EJSEvent.CHANGE, JQuery.idRef (aEdit).val (JQuery.jQueryThis ().val ()));
@@ -405,7 +406,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_ID_ISO6523)));
       }
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
-                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setMaxLength (IPeppolParticipantIdentifier.MAX_VALUE_LENGTH)
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
                                                                                                            .setPlaceholder ("Identifier value"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
