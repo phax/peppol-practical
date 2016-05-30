@@ -21,19 +21,13 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.photon.core.ajax.AjaxInvoker;
-import com.helger.photon.core.ajax.IAjaxAfterExecutionCallback;
-import com.helger.photon.core.ajax.IAjaxBeforeExecutionCallback;
-import com.helger.photon.core.ajax.IAjaxExceptionCallback;
 import com.helger.photon.core.ajax.IAjaxExecutor;
 import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
 import com.helger.photon.core.ajax.IAjaxInvoker;
-import com.helger.photon.core.ajax.IAjaxLongRunningExecutionCallback;
 import com.helger.photon.core.ajax.response.IAjaxResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.web.scope.singleton.AbstractGlobalWebSingleton;
@@ -66,44 +60,6 @@ public final class CommentAjaxManager extends AbstractGlobalWebSingleton impleme
   public static CommentAjaxManager getInstance ()
   {
     return getGlobalSingleton (CommentAjaxManager.class);
-  }
-
-  @Nonnull
-  @ReturnsMutableObject ("design")
-  public CallbackList <IAjaxExceptionCallback> getExceptionCallbacks ()
-  {
-    return m_aInvoker.getExceptionCallbacks ();
-  }
-
-  @Nonnull
-  @ReturnsMutableObject ("design")
-  public CallbackList <IAjaxBeforeExecutionCallback> getBeforeExecutionCallbacks ()
-  {
-    return m_aInvoker.getBeforeExecutionCallbacks ();
-  }
-
-  @Nonnull
-  @ReturnsMutableObject ("design")
-  public CallbackList <IAjaxAfterExecutionCallback> getAfterExecutionCallbacks ()
-  {
-    return m_aInvoker.getAfterExecutionCallbacks ();
-  }
-
-  public long getLongRunningExecutionLimitTime ()
-  {
-    return m_aInvoker.getLongRunningExecutionLimitTime ();
-  }
-
-  public void setLongRunningExecutionLimitTime (final long nLongRunningExecutionLimitTime)
-  {
-    m_aInvoker.setLongRunningExecutionLimitTime (nLongRunningExecutionLimitTime);
-  }
-
-  @Nonnull
-  @ReturnsMutableObject ("design")
-  public CallbackList <IAjaxLongRunningExecutionCallback> getLongRunningExecutionCallbacks ()
-  {
-    return m_aInvoker.getLongRunningExecutionCallbacks ();
   }
 
   @Nonnull
