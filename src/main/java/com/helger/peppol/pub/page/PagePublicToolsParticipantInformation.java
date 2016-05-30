@@ -55,6 +55,7 @@ import com.helger.html.jquery.JQuery;
 import com.helger.html.js.EJSEvent;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
@@ -141,7 +142,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
-        final IPeppolParticipantIdentifier aParticipantID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
+        final IParticipantIdentifier aParticipantID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aParticipantID, eSML);
         try
         {
@@ -159,7 +160,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
-          final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList<> ();
+          final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList <> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
 
@@ -170,7 +171,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
-            final Map <String, String> aSGHrefs = new TreeMap<> ();
+            final Map <String, String> aSGHrefs = new TreeMap <> ();
             if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
               for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                                 .getServiceMetadataReference ())
