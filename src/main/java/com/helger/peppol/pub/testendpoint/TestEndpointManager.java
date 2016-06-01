@@ -16,10 +16,6 @@
  */
 package com.helger.peppol.pub.testendpoint;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,7 +23,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
@@ -199,12 +198,12 @@ public final class TestEndpointManager extends AbstractSimpleDAO
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <? extends TestEndpoint> getAllActiveTestEndpoints ()
+  public ICommonsCollection <? extends TestEndpoint> getAllActiveTestEndpoints ()
   {
     m_aRWLock.readLock ().lock ();
     try
     {
-      final List <TestEndpoint> ret = new ArrayList<> ();
+      final ICommonsList <TestEndpoint> ret = new CommonsArrayList<> ();
       for (final TestEndpoint aItem : m_aMap.values ())
         if (!aItem.isDeleted ())
           ret.add (aItem);
