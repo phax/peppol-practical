@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.pub.validation.bis2;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -25,6 +24,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.peppol.validation.api.ValidationKey;
 import com.helger.peppol.validation.engine.peppol.EPeppolStandardValidationSchematronArtefact;
 import com.helger.peppol.validation.engine.peppol.EPeppolThirdPartyValidationSchematronArtefact;
@@ -32,11 +33,11 @@ import com.helger.peppol.validation.engine.peppol.EPeppolThirdPartyValidationSch
 @Immutable
 public final class ExtValidationKeyRegistry
 {
-  private static Map <String, ExtValidationKey> s_aKeys;
+  private static ICommonsOrderedMap <String, ExtValidationKey> s_aKeys;
 
   static
   {
-    final Map <String, ExtValidationKey> aKeys = new LinkedHashMap <> ();
+    final ICommonsOrderedMap <String, ExtValidationKey> aKeys = new CommonsLinkedHashMap<> ();
     for (final ValidationKey aKey : EPeppolStandardValidationSchematronArtefact.getAllValidationKeys ())
     {
       final ExtValidationKey aItem = new ExtValidationKey (aKey);
