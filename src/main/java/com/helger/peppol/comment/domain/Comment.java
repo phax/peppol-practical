@@ -25,12 +25,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ObjectType;
-import com.helger.datetime.PDTFactory;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
 
