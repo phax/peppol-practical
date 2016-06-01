@@ -16,10 +16,6 @@
  */
 package com.helger.peppol.crm;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
@@ -28,6 +24,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
@@ -51,7 +50,7 @@ public final class CRMGroupManager extends AbstractSimpleDAO
   private static final String ELEMENT_ROOT = "crmgroups";
   private static final String ELEMENT_ITEM = "crmgroup";
 
-  private final Map <String, CRMGroup> m_aMap = new HashMap <String, CRMGroup> ();
+  private final ICommonsMap <String, CRMGroup> m_aMap = new CommonsHashMap<> ();
 
   public CRMGroupManager (@Nonnull @Nonempty final String sFilename) throws DAOException
   {
@@ -144,17 +143,9 @@ public final class CRMGroupManager extends AbstractSimpleDAO
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <? extends ICRMGroup> getAllCRMGroups ()
+  public ICommonsCollection <? extends ICRMGroup> getAllCRMGroups ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aMap.values ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.copyOfValues ());
   }
 
   @Nullable
@@ -163,40 +154,16 @@ public final class CRMGroupManager extends AbstractSimpleDAO
     if (StringHelper.hasNoText (sID))
       return null;
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.get (sID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.get (sID));
   }
 
   public boolean containsCRMGroupWithID (@Nullable final String sID)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.containsKey (sID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.containsKey (sID));
   }
 
   public boolean isEmpty ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.isEmpty ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.isEmpty ());
   }
 }

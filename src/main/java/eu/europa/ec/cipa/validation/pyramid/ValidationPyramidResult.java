@@ -37,8 +37,6 @@
  */
 package eu.europa.ec.cipa.validation.pyramid;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -47,7 +45,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.error.ResourceErrorGroup;
 import com.helger.commons.string.ToStringGenerator;
@@ -67,7 +66,7 @@ public class ValidationPyramidResult
   private final IValidationDocumentType m_aValidationDocumentType;
   private final IValidationTransaction m_aValidationTransaction;
   private final Locale m_aValidationCountry;
-  private final List <ValidationPyramidResultLayer> m_aValidationResultLayers = new ArrayList <ValidationPyramidResultLayer> ();
+  private final ICommonsList <ValidationPyramidResultLayer> m_aValidationResultLayers = new CommonsArrayList<> ();
   private boolean m_bValidationInterrupted = false;
 
   /**
@@ -150,9 +149,9 @@ public class ValidationPyramidResult
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ValidationPyramidResultLayer> getAllValidationResultLayers ()
+  public ICommonsList <ValidationPyramidResultLayer> getAllValidationResultLayers ()
   {
-    return CollectionHelper.newList (m_aValidationResultLayers);
+    return m_aValidationResultLayers.getClone ();
   }
 
   /**
@@ -205,11 +204,11 @@ public class ValidationPyramidResult
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ValidationPyramidResultLayer> getValidationResultLayersForLevel (@Nonnull final IValidationLevel aValidationLevel)
+  public ICommonsList <ValidationPyramidResultLayer> getValidationResultLayersForLevel (@Nonnull final IValidationLevel aValidationLevel)
   {
     ValueEnforcer.notNull (aValidationLevel, "ValidationLevel");
 
-    final List <ValidationPyramidResultLayer> ret = new ArrayList <ValidationPyramidResultLayer> ();
+    final ICommonsList <ValidationPyramidResultLayer> ret = new CommonsArrayList<> ();
     for (final ValidationPyramidResultLayer aValidationResultLayer : m_aValidationResultLayers)
       if (aValidationResultLayer.getValidationLevel ().equals (aValidationLevel))
         ret.add (aValidationResultLayer);

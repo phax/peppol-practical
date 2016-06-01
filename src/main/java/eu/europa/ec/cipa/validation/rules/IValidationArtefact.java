@@ -37,15 +37,15 @@
  */
 package eu.europa.ec.cipa.validation.rules;
 
-import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.io.resource.IReadableResource;
 
@@ -101,7 +101,7 @@ public interface IValidationArtefact extends IHasID <String>
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  Set <IValidationTransaction> getAllValidationTransactions ();
+  ICommonsSet <IValidationTransaction> getAllValidationTransactions ();
 
   /**
    * @return A set with all BII transaction supported by this artefact. Neither
@@ -110,7 +110,7 @@ public interface IValidationArtefact extends IHasID <String>
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  Set <ETransaction> getAllTransactions ();
+  ICommonsSet <ETransaction> getAllTransactions ();
 
   /**
    * Check if the passed transaction is supported by this validation artefact.
@@ -140,7 +140,7 @@ public interface IValidationArtefact extends IHasID <String>
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <IReadableResource> getAllValidationXSDResources ();
+  ICommonsList <IReadableResource> getAllValidationXSDResources ();
 
   /**
    * Get the Schematron resource (.SCH) of this artefact for the specified
@@ -160,5 +160,5 @@ public interface IValidationArtefact extends IHasID <String>
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <IReadableResource> getAllValidationSchematronResources ();
+  ICommonsList <IReadableResource> getAllValidationSchematronResources ();
 }

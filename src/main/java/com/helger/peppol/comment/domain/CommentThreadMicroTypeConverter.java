@@ -42,9 +42,9 @@ public final class CommentThreadMicroTypeConverter implements IMicroTypeConverte
 
     final IMicroElement eCommentThread = new MicroElement (sNamespaceURI, sTagName);
 
-    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <IComment> (sNamespaceURI,
-                                                                                                 ELEMENT_COMMENT,
-                                                                                                 Comment.class);
+    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML<> (sNamespaceURI,
+                                                                                        ELEMENT_COMMENT,
+                                                                                        Comment.class);
     eCommentThread.appendChild (TreeXMLConverter.getTreeWithStringIDAsXML (aCommentThread.getTree (), aXMLConverter));
     return eCommentThread;
   }
@@ -52,9 +52,9 @@ public final class CommentThreadMicroTypeConverter implements IMicroTypeConverte
   @Nonnull
   public CommentThread convertToNative (@Nonnull final IMicroElement eCommentThread)
   {
-    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <IComment> (eCommentThread.getNamespaceURI (),
-                                                                                                 ELEMENT_COMMENT,
-                                                                                                 Comment.class);
+    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML<> (eCommentThread.getNamespaceURI (),
+                                                                                        ELEMENT_COMMENT,
+                                                                                        Comment.class);
     final DefaultTreeWithGlobalUniqueID <String, IComment> aTree = TreeXMLConverter.getXMLAsTreeWithUniqueStringID (eCommentThread.getFirstChildElement (),
                                                                                                                     aXMLConverter);
 

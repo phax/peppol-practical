@@ -40,11 +40,7 @@ package eu.europa.ec.cipa.validation.rules;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -57,6 +53,11 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.CommonsTreeSet;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsSortedSet;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.country.CountryCache;
@@ -90,10 +91,10 @@ public final class DocumentValidationErrorFuncTest
 
   @Nonnull
   @ReturnsMutableCopy
-  private static Set <ErrorDefinition> _getAllFailedAssertionErrorCode (@Nonnull final SchematronOutputType aSVRL)
+  private static ICommonsSet <ErrorDefinition> _getAllFailedAssertionErrorCode (@Nonnull final SchematronOutputType aSVRL)
   {
-    final Set <ErrorDefinition> ret = new HashSet <ErrorDefinition> ();
-    final List <SVRLFailedAssert> aFAs = SVRLHelper.getAllFailedAssertions (aSVRL);
+    final ICommonsSet <ErrorDefinition> ret = new CommonsHashSet<> ();
+    final ICommonsList <SVRLFailedAssert> aFAs = SVRLHelper.getAllFailedAssertions (aSVRL);
     for (final SVRLFailedAssert aFA : aFAs)
     {
       final String sText = aFA.getText ();
@@ -125,7 +126,7 @@ public final class DocumentValidationErrorFuncTest
       final OrderType aUBLOrder = UBL20Reader.order ().read (aTestFileDoc);
       assertNotNull (aUBLOrder);
 
-      final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
+      final ICommonsSet <ErrorDefinition> aErrCodes = new CommonsHashSet<> ();
 
       // Test the country-independent orders layers
       for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null,
@@ -134,7 +135,8 @@ public final class DocumentValidationErrorFuncTest
       {
 
         SchematronOutputType aSVRL;
-        aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)), aTestFileDoc);
+        aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)),
+                                                  aTestFileDoc);
         assertNotNull (aSVRL);
 
         if (false)
@@ -146,7 +148,7 @@ public final class DocumentValidationErrorFuncTest
         aErrCodes.addAll (_getAllFailedAssertionErrorCode (aSVRL));
       }
 
-      final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
+      final ICommonsSet <ErrorDefinition> aCopy = new CommonsTreeSet<> (aErrCodes);
       for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
         assertTrue (aTestDoc.getPath () +
                     " expected " +
@@ -175,7 +177,7 @@ public final class DocumentValidationErrorFuncTest
       final InvoiceType aUBLInvoice = UBL20Reader.invoice ().read (aTestFileDoc);
       assertNotNull (aUBLInvoice);
 
-      final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
+      final ICommonsSet <ErrorDefinition> aErrCodes = new CommonsHashSet<> ();
 
       // Test the country-independent invoice layers
       for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null,
@@ -183,7 +185,8 @@ public final class DocumentValidationErrorFuncTest
                                                                                               CGlobal.LOCALE_INDEPENDENT))
       {
         SchematronOutputType aSVRL;
-        aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)), aTestFileDoc);
+        aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)),
+                                                  aTestFileDoc);
         assertNotNull (aSVRL);
 
         if (false)
@@ -194,7 +197,7 @@ public final class DocumentValidationErrorFuncTest
 
         aErrCodes.addAll (_getAllFailedAssertionErrorCode (aSVRL));
       }
-      final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
+      final ICommonsSortedSet <ErrorDefinition> aCopy = new CommonsTreeSet<> (aErrCodes);
       for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
         assertTrue (aTestDoc.getPath () +
                     " expected " +
@@ -227,13 +230,16 @@ public final class DocumentValidationErrorFuncTest
         final InvoiceType aUBLInvoice = UBL20Reader.invoice ().read (aTestFileDoc);
         assertNotNull (aUBLInvoice);
 
-        final Set <ErrorDefinition> aErrCodes = new HashSet <ErrorDefinition> ();
+        final ICommonsSet <ErrorDefinition> aErrCodes = new CommonsHashSet<> ();
 
         // Test the country-dependent invoice layers
-        for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null, EValidationDocumentType.INVOICE, aCountry))
+        for (final IValidationArtefact eArtefact : EValidationArtefact.getAllMatchingArtefacts (null,
+                                                                                                EValidationDocumentType.INVOICE,
+                                                                                                aCountry))
         {
           SchematronOutputType aSVRL;
-          aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)), aTestFileDoc);
+          aSVRL = SchematronHelper.applySchematron (new SchematronResourcePure (eArtefact.getValidationSchematronResource (aVT)),
+                                                    aTestFileDoc);
           assertNotNull (aSVRL);
 
           if (false)
@@ -244,7 +250,7 @@ public final class DocumentValidationErrorFuncTest
 
           aErrCodes.addAll (_getAllFailedAssertionErrorCode (aSVRL));
         }
-        final Set <ErrorDefinition> aCopy = new TreeSet <ErrorDefinition> (aErrCodes);
+        final ICommonsSortedSet <ErrorDefinition> aCopy = new CommonsTreeSet<> (aErrCodes);
         for (final ErrorDefinition aExpectedErrCode : aTestDoc.getAllExpectedErrors ())
           assertTrue (aTestDoc.getPath () +
                       " expected " +

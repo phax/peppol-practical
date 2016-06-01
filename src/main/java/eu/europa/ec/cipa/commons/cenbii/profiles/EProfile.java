@@ -37,7 +37,6 @@
  */
 package eu.europa.ec.cipa.commons.cenbii.profiles;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,6 +49,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.text.display.IHasDisplayText;
 
@@ -225,11 +225,11 @@ public enum EProfile implements IHasDisplayText
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <EProfile> getAllProfilesWithCollaboration (@Nonnull final ECollaboration eCollaboration)
+  public static ICommonsList <EProfile> getAllProfilesWithCollaboration (@Nonnull final ECollaboration eCollaboration)
   {
     ValueEnforcer.notNull (eCollaboration, "Collaboration");
 
-    final List <EProfile> ret = new ArrayList <EProfile> ();
+    final ICommonsList <EProfile> ret = new CommonsArrayList<> ();
     for (final EProfile eProfile : values ())
       if (eProfile.containsCollaboration (eCollaboration))
         ret.add (eProfile);

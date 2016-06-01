@@ -37,8 +37,6 @@
  */
 package eu.europa.ec.cipa.validation.pyramid;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnegative;
@@ -53,7 +51,8 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
@@ -77,7 +76,7 @@ public abstract class AbstractValidationPyramid implements IValidationPyramid
   protected final IValidationDocumentType m_aValidationDocType;
   protected final IValidationTransaction m_aValidationTransaction;
   protected final Locale m_aValidationCountry;
-  protected final List <ValidationPyramidLayer> m_aValidationLayers = new ArrayList <ValidationPyramidLayer> ();
+  protected final ICommonsList <ValidationPyramidLayer> m_aValidationLayers = new CommonsArrayList<> ();
 
   /**
    * Create a new validation pyramid that handles the first four levels.
@@ -137,9 +136,9 @@ public abstract class AbstractValidationPyramid implements IValidationPyramid
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ValidationPyramidLayer> getAllValidationLayers ()
+  public ICommonsList <ValidationPyramidLayer> getAllValidationLayers ()
   {
-    return CollectionHelper.newList (m_aValidationLayers);
+    return m_aValidationLayers.getClone ();
   }
 
   @Nonnull

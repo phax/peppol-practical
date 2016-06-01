@@ -37,7 +37,6 @@
  */
 package eu.europa.ec.cipa.validation.rules;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -181,9 +180,9 @@ public enum EValidationLevel implements IValidationLevel
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <EValidationLevel> getAllLevelsSupportingCountrySpecificArtefacts ()
+  public static ICommonsList <EValidationLevel> getAllLevelsSupportingCountrySpecificArtefacts ()
   {
-    final List <EValidationLevel> ret = new ArrayList <EValidationLevel> ();
+    final ICommonsList <EValidationLevel> ret = new CommonsArrayList<> ();
     for (final EValidationLevel eValidationLevel : EValidationLevel.values ())
       if (eValidationLevel.canHaveCountrySpecificArtefacts ())
         ret.add (eValidationLevel);
@@ -199,9 +198,9 @@ public enum EValidationLevel implements IValidationLevel
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <EValidationLevel> getAllLevelsNotSupportingCountrySpecificArtefacts ()
+  public static ICommonsList <EValidationLevel> getAllLevelsNotSupportingCountrySpecificArtefacts ()
   {
-    final List <EValidationLevel> ret = new ArrayList <EValidationLevel> ();
+    final ICommonsList <EValidationLevel> ret = new CommonsArrayList<> ();
     for (final EValidationLevel eValidationLevel : EValidationLevel.values ())
       if (!eValidationLevel.canHaveCountrySpecificArtefacts ())
         ret.add (eValidationLevel);

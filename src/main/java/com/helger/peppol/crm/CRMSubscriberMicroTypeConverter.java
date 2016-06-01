@@ -16,13 +16,12 @@
  */
 package com.helger.peppol.crm;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
@@ -68,7 +67,7 @@ public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConv
     final String sName = aElement.getAttributeValue (ATTR_NAME);
     final String sEmailAddress = aElement.getAttributeValue (ATTR_EMAIL_ADDRESS);
 
-    final Set <ICRMGroup> aGroups = new HashSet <ICRMGroup> ();
+    final ICommonsSet <ICRMGroup> aGroups = new CommonsHashSet<> ();
     for (final IMicroElement eGroup : aElement.getAllChildElements (ELEMENT_ASSIGNED_GROUP))
     {
       final String sCRMGroupID = eGroup.getAttributeValue (ATTR_ID);

@@ -16,10 +16,6 @@
  */
 package com.helger.peppol.comment.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,6 +25,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
@@ -55,7 +54,7 @@ public final class CommentThread implements ICommentThread
   {
     ValueEnforcer.notNull (aInitialComment, "InitialComment");
 
-    m_aTree = new DefaultTreeWithGlobalUniqueID <String, IComment> ();
+    m_aTree = new DefaultTreeWithGlobalUniqueID<> ();
     m_aTree.getRootItem ().createChildItem (aInitialComment.getID (), aInitialComment);
     m_sID = aInitialComment.getID ();
   }
@@ -129,7 +128,7 @@ public final class CommentThread implements ICommentThread
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <IComment> getAllComments ()
+  public ICommonsCollection <IComment> getAllComments ()
   {
     return m_aTree.getAllItemDatas ();
   }
@@ -149,9 +148,9 @@ public final class CommentThread implements ICommentThread
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <IComment> getAllActiveComments ()
+  public ICommonsCollection <IComment> getAllActiveComments ()
   {
-    final List <IComment> ret = new ArrayList <IComment> ();
+    final ICommonsList <IComment> ret = new CommonsArrayList<> ();
     for (final IComment aComment : m_aTree.getAllItemDatas ())
       if (!aComment.isDeleted ())
         ret.add (aComment);

@@ -22,17 +22,17 @@ import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.string.StringHelper;
@@ -160,7 +160,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
-          final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList <> ();
+          final List <SimpleDocumentTypeIdentifier> aDocTypeIDs = new ArrayList<> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
 
@@ -171,7 +171,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
-            final Map <String, String> aSGHrefs = new TreeMap <> ();
+            final Map <String, String> aSGHrefs = new TreeMap<> ();
             if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
               for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                                 .getServiceMetadataReference ())
@@ -230,7 +230,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (!aDocTypeIDs.isEmpty ())
           {
             final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
-            final Set <String> aAllUsedCertifiactes = new LinkedHashSet <String> ();
+            final ICommonsOrderedSet <String> aAllUsedCertifiactes = new CommonsLinkedHashSet<> ();
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();

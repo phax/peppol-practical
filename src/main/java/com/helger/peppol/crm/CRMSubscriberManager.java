@@ -17,9 +17,7 @@
 package com.helger.peppol.crm;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,6 +30,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroDocument;
@@ -56,7 +56,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
   private static final String ELEMENT_ROOT = "crmsubscribers";
   private static final String ELEMENT_ITEM = "crmsubscriber";
 
-  private final Map <String, CRMSubscriber> m_aMap = new HashMap <String, CRMSubscriber> ();
+  private final ICommonsMap <String, CRMSubscriber> m_aMap = new CommonsHashMap<> ();
 
   public CRMSubscriberManager (@Nonnull @Nonempty final String sFilename) throws DAOException
   {

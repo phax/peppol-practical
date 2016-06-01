@@ -26,7 +26,8 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -43,7 +44,7 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   private ESalutation m_eSalutation;
   private String m_sName;
   private String m_sEmailAddress;
-  private Set <ICRMGroup> m_aAssignedGroups;
+  private ICommonsSet <ICRMGroup> m_aAssignedGroups;
 
   public CRMSubscriber (@Nullable final ESalutation eSalutation,
                         @Nonnull @Nonempty final String sName,
@@ -137,9 +138,9 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <ICRMGroup> getAllAssignedGroups ()
+  public ICommonsSet <ICRMGroup> getAllAssignedGroups ()
   {
-    return CollectionHelper.newSet (m_aAssignedGroups);
+    return m_aAssignedGroups.getClone ();
   }
 
   @Nonnegative
@@ -157,7 +158,7 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   public EChange setAssignedGroups (@Nullable final Set <ICRMGroup> aAssignedGroups)
   {
     // Ensure same implementation type and non-null
-    final Set <ICRMGroup> aRealAssignedGroups = CollectionHelper.newSet (aAssignedGroups);
+    final ICommonsSet <ICRMGroup> aRealAssignedGroups = new CommonsHashSet<> (aAssignedGroups);
     if (aRealAssignedGroups.equals (m_aAssignedGroups))
       return EChange.UNCHANGED;
     m_aAssignedGroups = aRealAssignedGroups;

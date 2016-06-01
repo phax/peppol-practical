@@ -37,8 +37,6 @@
  */
 package eu.europa.ec.cipa.validation.rules;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -54,7 +52,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.EnumHelper;
@@ -73,58 +74,58 @@ import eu.europa.ec.cipa.validation.generic.EXMLValidationType;
  */
 public enum EValidationArtefact implements IValidationArtefact
 {
- // Technical structure:
- ORDER_BII_CORE (EValidationLevel.TECHNICAL_STRUCTURE, EValidationDocumentType.ORDER, "biicore", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T01))),
- INVOICE_BII_CORE (EValidationLevel.TECHNICAL_STRUCTURE, EValidationDocumentType.INVOICE, "biicore", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
-                                                                                                                                 ValidationTransaction.createUBLTransaction (ETransaction.T15))),
- CREDITNOTE_BII_CORE (EValidationLevel.TECHNICAL_STRUCTURE, EValidationDocumentType.CREDIT_NOTE, "biicore", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
-
- // Transaction requirements:
- CATALOGUE_EU_GEN (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.CATALOGUE, "eugen", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T19))),
- ORDER_EU_GEN (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.ORDER, "eugen", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T01))),
- INVOICE_EU_GEN (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.INVOICE, "eugen", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
+  // Technical structure:
+  ORDER_BII_CORE (EValidationLevel.TECHNICAL_STRUCTURE, EValidationDocumentType.ORDER, "biicore", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T01))),
+  INVOICE_BII_CORE (EValidationLevel.TECHNICAL_STRUCTURE, EValidationDocumentType.INVOICE, "biicore", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
                                                                                                                                   ValidationTransaction.createUBLTransaction (ETransaction.T15))),
- CREDITNOTE_EU_GEN (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "eugen", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
- ORDER_BII_RULES (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.ORDER, "biirules", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T01))),
- ORDERRESPONSE_BII_RULES (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.ORDERRESPONSE, "biirules", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T02),
-                                                                                                                                                    ValidationTransaction.createUBLTransaction (ETransaction.T03))),
- INVOICE_BII_RULES (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.INVOICE, "biirules", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
-                                                                                                                                        ValidationTransaction.createUBLTransaction (ETransaction.T15))),
- CREDITNOTE_BII_RULES (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "biirules", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
+  CREDITNOTE_BII_CORE (EValidationLevel.TECHNICAL_STRUCTURE, EValidationDocumentType.CREDIT_NOTE, "biicore", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
 
- // Profile requirements:
- INVOICE_BII_PROFILES (EValidationLevel.PROFILE_REQUIREMENTS, EValidationDocumentType.INVOICE, "biiprofiles", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
-                                                                                                                                          ValidationTransaction.createUBLTransaction (ETransaction.T15))),
- CREDITNOTE_BII_PROFILES (EValidationLevel.PROFILE_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "biiprofiles", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
+  // Transaction requirements:
+  CATALOGUE_EU_GEN (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.CATALOGUE, "eugen", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T19))),
+  ORDER_EU_GEN (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.ORDER, "eugen", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T01))),
+  INVOICE_EU_GEN (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.INVOICE, "eugen", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
+                                                                                                                                   ValidationTransaction.createUBLTransaction (ETransaction.T15))),
+  CREDITNOTE_EU_GEN (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "eugen", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
+  ORDER_BII_RULES (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.ORDER, "biirules", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T01))),
+  ORDERRESPONSE_BII_RULES (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.ORDERRESPONSE, "biirules", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T02),
+                                                                                                                                                     ValidationTransaction.createUBLTransaction (ETransaction.T03))),
+  INVOICE_BII_RULES (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.INVOICE, "biirules", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
+                                                                                                                                         ValidationTransaction.createUBLTransaction (ETransaction.T15))),
+  CREDITNOTE_BII_RULES (EValidationLevel.TRANSACTION_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "biirules", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
 
- // Legal requirements - per transaction and country only one artifact should
- // be present:
- INVOICE_AUSTRIA_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.INVOICE, "atnat", CountryCache.getInstance ()
-                                                                                                                      .getCountry ("AT"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10))),
- INVOICE_DENMARK_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.INVOICE, "dknat", CountryCache.getInstance ()
-                                                                                                                      .getCountry ("DK"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10))),
- INVOICE_ITALY_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.INVOICE, "itnat", CountryCache.getInstance ()
-                                                                                                                    .getCountry ("IT"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10))),
- INVOICE_NORWAY_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.INVOICE, "nonat", CountryCache.getInstance ()
-                                                                                                                     .getCountry ("NO"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
-                                                                                                                                                               ValidationTransaction.createUBLTransaction (ETransaction.T15),
-                                                                                                                                                               ValidationTransaction.createUBLTransaction (ETransaction.T17))),
- CREDITNOTE_AUSTRIA_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "atnat", CountryCache.getInstance ()
-                                                                                                                             .getCountry ("AT"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
- CREDITNOTE_NORWAY_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "nonat", CountryCache.getInstance ()
-                                                                                                                            .getCountry ("NO"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
+  // Profile requirements:
+  INVOICE_BII_PROFILES (EValidationLevel.PROFILE_REQUIREMENTS, EValidationDocumentType.INVOICE, "biiprofiles", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
+                                                                                                                                           ValidationTransaction.createUBLTransaction (ETransaction.T15))),
+  CREDITNOTE_BII_PROFILES (EValidationLevel.PROFILE_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "biiprofiles", null, ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
 
- // Industry specific - per transaction and country, multiple artifacts may be
- // present. They need to be identified by ID!
- INVOICE_AUSTRIA_GOVERNMENT (EValidationLevel.INDUSTRY_SPECIFIC, EValidationDocumentType.INVOICE, "atgov", CountryCache.getInstance ()
+  // Legal requirements - per transaction and country only one artifact should
+  // be present:
+  INVOICE_AUSTRIA_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.INVOICE, "atnat", CountryCache.getInstance ()
                                                                                                                        .getCountry ("AT"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10))),
- INVOICE_NORWAY_GOVERNMENT (EValidationLevel.INDUSTRY_SPECIFIC, EValidationDocumentType.INVOICE, "nogov", CountryCache.getInstance ()
+  INVOICE_DENMARK_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.INVOICE, "dknat", CountryCache.getInstance ()
+                                                                                                                       .getCountry ("DK"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10))),
+  INVOICE_ITALY_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.INVOICE, "itnat", CountryCache.getInstance ()
+                                                                                                                     .getCountry ("IT"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10))),
+  INVOICE_NORWAY_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.INVOICE, "nonat", CountryCache.getInstance ()
                                                                                                                       .getCountry ("NO"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
-                                                                                                                                                                ValidationTransaction.createUBLTransaction (ETransaction.T15))),
- CREDITNOTE_AUSTRIA_GOVERNMENT (EValidationLevel.INDUSTRY_SPECIFIC, EValidationDocumentType.CREDIT_NOTE, "atgov", CountryCache.getInstance ()
+                                                                                                                                                                ValidationTransaction.createUBLTransaction (ETransaction.T15),
+                                                                                                                                                                ValidationTransaction.createUBLTransaction (ETransaction.T17))),
+  CREDITNOTE_AUSTRIA_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "atnat", CountryCache.getInstance ()
                                                                                                                               .getCountry ("AT"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
- CREDITNOTE_NORWAY_GOVERNMENT (EValidationLevel.INDUSTRY_SPECIFIC, EValidationDocumentType.CREDIT_NOTE, "nogov", CountryCache.getInstance ()
-                                                                                                                             .getCountry ("NO"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14)));
+  CREDITNOTE_NORWAY_NATIONAL (EValidationLevel.LEGAL_REQUIREMENTS, EValidationDocumentType.CREDIT_NOTE, "nonat", CountryCache.getInstance ()
+                                                                                                                             .getCountry ("NO"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
+
+  // Industry specific - per transaction and country, multiple artifacts may be
+  // present. They need to be identified by ID!
+  INVOICE_AUSTRIA_GOVERNMENT (EValidationLevel.INDUSTRY_SPECIFIC, EValidationDocumentType.INVOICE, "atgov", CountryCache.getInstance ()
+                                                                                                                        .getCountry ("AT"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10))),
+  INVOICE_NORWAY_GOVERNMENT (EValidationLevel.INDUSTRY_SPECIFIC, EValidationDocumentType.INVOICE, "nogov", CountryCache.getInstance ()
+                                                                                                                       .getCountry ("NO"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T10),
+                                                                                                                                                                 ValidationTransaction.createUBLTransaction (ETransaction.T15))),
+  CREDITNOTE_AUSTRIA_GOVERNMENT (EValidationLevel.INDUSTRY_SPECIFIC, EValidationDocumentType.CREDIT_NOTE, "atgov", CountryCache.getInstance ()
+                                                                                                                               .getCountry ("AT"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14))),
+  CREDITNOTE_NORWAY_GOVERNMENT (EValidationLevel.INDUSTRY_SPECIFIC, EValidationDocumentType.CREDIT_NOTE, "nogov", CountryCache.getInstance ()
+                                                                                                                              .getCountry ("NO"), ArrayHelper.newArray (ValidationTransaction.createUBLTransaction (ETransaction.T14)));
   // Entity specific - no such default artefact is present
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EValidationArtefact.class);
@@ -135,7 +136,7 @@ public enum EValidationArtefact implements IValidationArtefact
   private final String m_sDirName;
   private final String m_sFileNamePrefix;
   private final Locale m_aCountry;
-  private final Set <IValidationTransaction> m_aTransactions;
+  private final ICommonsSet <IValidationTransaction> m_aTransactions;
 
   /**
    * Constructor for invoice validation artefacts.
@@ -185,7 +186,7 @@ public enum EValidationArtefact implements IValidationArtefact
     m_sDirName = sDirName;
     m_sFileNamePrefix = sDirName.toUpperCase (Locale.US);
     m_aCountry = aCountry;
-    m_aTransactions = CollectionHelper.newSet (aTransactions);
+    m_aTransactions = new CommonsHashSet<> (aTransactions);
   }
 
   /**
@@ -232,17 +233,17 @@ public enum EValidationArtefact implements IValidationArtefact
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public Set <IValidationTransaction> getAllValidationTransactions ()
+  public ICommonsSet <IValidationTransaction> getAllValidationTransactions ()
   {
-    return CollectionHelper.newSet (m_aTransactions);
+    return m_aTransactions.getClone ();
   }
 
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public Set <ETransaction> getAllTransactions ()
+  public ICommonsSet <ETransaction> getAllTransactions ()
   {
-    final Set <ETransaction> ret = new HashSet <ETransaction> ();
+    final ICommonsSet <ETransaction> ret = new CommonsHashSet<> ();
     for (final IValidationTransaction aTransaction : m_aTransactions)
       ret.add (aTransaction.getTransaction ());
     return ret;
@@ -267,10 +268,10 @@ public enum EValidationArtefact implements IValidationArtefact
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public List <IReadableResource> getAllValidationXSDResources ()
+  public ICommonsList <IReadableResource> getAllValidationXSDResources ()
   {
     // Only Schematrons are contained
-    return new ArrayList <IReadableResource> ();
+    return new CommonsArrayList<> ();
   }
 
   @Nullable
@@ -304,9 +305,9 @@ public enum EValidationArtefact implements IValidationArtefact
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IReadableResource> getAllValidationSchematronResources ()
+  public ICommonsList <IReadableResource> getAllValidationSchematronResources ()
   {
-    final List <IReadableResource> aList = new ArrayList <IReadableResource> ();
+    final ICommonsList <IReadableResource> aList = new CommonsArrayList<> ();
     for (final IValidationTransaction aTransaction : m_aTransactions)
     {
       final IReadableResource aSCH = getValidationSchematronResource (aTransaction);
@@ -348,9 +349,9 @@ public enum EValidationArtefact implements IValidationArtefact
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <IReadableResource> getAllValidationXSLTResources ()
+  public ICommonsList <IReadableResource> getAllValidationXSLTResources ()
   {
-    final List <IReadableResource> aList = new ArrayList <IReadableResource> ();
+    final ICommonsList <IReadableResource> aList = new CommonsArrayList<> ();
     for (final IValidationTransaction aTransaction : m_aTransactions)
     {
       final IReadableResource aXSLT = getValidationXSLTResource (aTransaction);
@@ -395,11 +396,11 @@ public enum EValidationArtefact implements IValidationArtefact
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <EValidationArtefact> getAllMatchingArtefacts (@Nullable final IValidationLevel aLevel,
-                                                                    @Nullable final IValidationDocumentType aDocType,
-                                                                    @Nullable final Locale aCountry)
+  public static ICommonsList <EValidationArtefact> getAllMatchingArtefacts (@Nullable final IValidationLevel aLevel,
+                                                                            @Nullable final IValidationDocumentType aDocType,
+                                                                            @Nullable final Locale aCountry)
   {
-    final List <EValidationArtefact> ret = new ArrayList <EValidationArtefact> ();
+    final ICommonsList <EValidationArtefact> ret = new CommonsArrayList<> ();
     for (final EValidationArtefact eArtefact : values ())
     {
       // Does the level match?
@@ -448,10 +449,10 @@ public enum EValidationArtefact implements IValidationArtefact
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Locale> getAllCountriesWithSpecialRules (@Nullable final IValidationLevel aLevel,
-                                                              @Nullable final IValidationDocumentType aDocType)
+  public static ICommonsSet <Locale> getAllCountriesWithSpecialRules (@Nullable final IValidationLevel aLevel,
+                                                                      @Nullable final IValidationDocumentType aDocType)
   {
-    final Set <Locale> ret = new HashSet <Locale> ();
+    final ICommonsSet <Locale> ret = new CommonsHashSet<> ();
     for (final IValidationArtefact eArtefact : values ())
     {
       // Is the artefact country dependent?
@@ -482,9 +483,9 @@ public enum EValidationArtefact implements IValidationArtefact
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <EValidationArtefact> getAllArtefactsForTransaction (@Nullable final ETransaction eTransaction)
+  public static ICommonsList <EValidationArtefact> getAllArtefactsForTransaction (@Nullable final ETransaction eTransaction)
   {
-    final List <EValidationArtefact> ret = new ArrayList <EValidationArtefact> ();
+    final ICommonsList <EValidationArtefact> ret = new CommonsArrayList<> ();
     for (final EValidationArtefact eArtefact : values ())
       if (eArtefact.containsTransaction (eTransaction))
         ret.add (eArtefact);

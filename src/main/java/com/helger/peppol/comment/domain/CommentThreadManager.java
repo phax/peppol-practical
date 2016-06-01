@@ -16,9 +16,7 @@
  */
 package com.helger.peppol.comment.domain;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -30,7 +28,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
@@ -57,7 +56,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
                                                                                                                             "$commentRemove");
 
   @GuardedBy ("m_aRWLock")
-  private final Map <ObjectType, CommentThreadObjectTypeManager> m_aMap = new HashMap <ObjectType, CommentThreadObjectTypeManager> ();
+  private final ICommonsMap <ObjectType, CommentThreadObjectTypeManager> m_aMap = new CommonsHashMap<> ();
 
   @Deprecated
   @UsedViaReflection
@@ -103,15 +102,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   @ReturnsMutableCopy
   public Set <ObjectType> getAllRegisteredObjectTypes ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (m_aMap.keySet ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.copyOfKeySet ());
   }
 
   @Nullable
@@ -120,15 +111,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
     if (aObjectType == null)
       return null;
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.get (aObjectType);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aMap.get (aObjectType));
   }
 
   @Nullable

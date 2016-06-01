@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.ws.types;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -29,12 +28,15 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.error.EErrorLevel;
 
 @XmlRootElement
 @XmlAccessorType (XmlAccessType.FIELD)
-@XmlType (name = "ValidationServiceResultType",
-          propOrder = { "m_eReturnCode", "m_bValidationInterrupted", "m_eMostSeverErrorLevel", "m_aItems" })
+@XmlType (name = "ValidationServiceResultType", propOrder = { "m_eReturnCode",
+                                                              "m_bValidationInterrupted",
+                                                              "m_eMostSeverErrorLevel",
+                                                              "m_aItems" })
 public final class ValidationServiceResult
 {
   @XmlElement (name = "ReturnCode", required = true)
@@ -87,7 +89,7 @@ public final class ValidationServiceResult
   public List <ValidationServiceResultItem> getItems ()
   {
     if (m_aItems == null)
-      m_aItems = new ArrayList <ValidationServiceResultItem> ();
+      m_aItems = new CommonsArrayList<> ();
     return m_aItems;
   }
 }

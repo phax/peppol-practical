@@ -17,15 +17,15 @@
 package com.helger.peppol.pub.page;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.name.IHasDisplayName;
@@ -83,7 +83,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
       final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
       final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
       aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
-      final Set <ICRMGroup> aSelectedCRMGroups = new HashSet <ICRMGroup> ();
+      final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet<> ();
       ICRMSubscriber aSameEmailAddressSubscriber = null;
 
       if (StringHelper.hasNoText (sName))

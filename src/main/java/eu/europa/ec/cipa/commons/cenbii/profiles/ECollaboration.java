@@ -37,7 +37,6 @@
  */
 package eu.europa.ec.cipa.commons.cenbii.profiles;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -48,6 +47,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
@@ -178,11 +178,11 @@ public enum ECollaboration implements IHasID <String>, IHasName
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ECollaboration> getAllCollaborationsWithTransaction (@Nonnull final ETransaction eTransaction)
+  public static ICommonsList <ECollaboration> getAllCollaborationsWithTransaction (@Nonnull final ETransaction eTransaction)
   {
     ValueEnforcer.notNull (eTransaction, "Transaction");
 
-    final List <ECollaboration> ret = new ArrayList <ECollaboration> ();
+    final ICommonsList <ECollaboration> ret = new CommonsArrayList<> ();
     for (final ECollaboration eCollaboration : values ())
       if (eCollaboration.containsTransaction (eTransaction))
         ret.add (eCollaboration);

@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.secure.page;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +28,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.Translatable;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.string.StringHelper;
@@ -177,7 +177,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
           aRow.addCell (Integer.toString (aEntry.getValue ().size ()));
 
           int nActiveComments = 0;
-          final List <IComment> aAllComments = new ArrayList <IComment> ();
+          final ICommonsList <IComment> aAllComments = new CommonsArrayList<> ();
           for (final ICommentThread aCommentThread : aEntry.getValue ())
           {
             aAllComments.addAll (aCommentThread.getAllComments ());

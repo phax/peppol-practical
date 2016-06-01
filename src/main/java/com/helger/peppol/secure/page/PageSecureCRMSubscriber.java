@@ -18,10 +18,7 @@ package com.helger.peppol.secure.page;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
@@ -29,6 +26,9 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.errorlist.FormErrors;
@@ -165,8 +165,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
     final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
     final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
-    final List <String> aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
-    final Set <ICRMGroup> aSelectedCRMGroups = new HashSet <ICRMGroup> ();
+    final ICommonsList <String> aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
+    final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet<> ();
 
     if (StringHelper.hasNoText (sName))
       aFormErrors.addFieldError (FIELD_NAME, "A name for the CRM subscriber must be provided!");

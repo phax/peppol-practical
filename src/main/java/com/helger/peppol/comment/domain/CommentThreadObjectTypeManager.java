@@ -16,11 +16,7 @@
  */
 package com.helger.peppol.comment.domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +27,11 @@ import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.microdom.IMicroDocument;
@@ -63,10 +63,10 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
   private final ObjectType m_aObjectType;
 
   // multi map from owning object to list <ICommentThread>
-  private final IMultiMapListBased <String, ICommentThread> m_aObjectToCommentThreads = new MultiHashMapArrayListBased <String, ICommentThread> ();
+  private final IMultiMapListBased <String, ICommentThread> m_aObjectToCommentThreads = new MultiHashMapArrayListBased<> ();
 
   // Status map from comment thread ID to comment thread
-  private final Map <String, ICommentThread> m_aAllCommentThreads = new HashMap <String, ICommentThread> ();
+  private final ICommonsMap <String, ICommentThread> m_aAllCommentThreads = new CommonsHashMap<> ();
 
   public CommentThreadObjectTypeManager (@Nonnull final ObjectType aObjectType) throws DAOException
   {
@@ -193,44 +193,28 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <String> getAllOwningObjectIDs ()
+  public ICommonsSet <String> getAllOwningObjectIDs ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (m_aObjectToCommentThreads.keySet ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aObjectToCommentThreads.copyOfKeySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public IMultiMapListBased <String, ICommentThread> getAllCommentThreads ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return new MultiHashMapArrayListBased <String, ICommentThread> (m_aObjectToCommentThreads);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> new MultiHashMapArrayListBased<> (m_aObjectToCommentThreads));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICommentThread> getAllCommentThreadsOfObject (@Nullable final String sOwningObjectID)
+  public ICommonsList <ICommentThread> getAllCommentThreadsOfObject (@Nullable final String sOwningObjectID)
   {
     if (StringHelper.hasText (sOwningObjectID))
     {
       m_aRWLock.readLock ().lock ();
       try
       {
-        final List <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
+        final ICommonsList <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
         if (ret != null)
           return CollectionHelper.newList (ret);
       }
@@ -240,7 +224,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       }
     }
 
-    return new ArrayList <ICommentThread> ();
+    return new CommonsArrayList<> ();
   }
 
   @Nullable
@@ -249,15 +233,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     if (StringHelper.hasNoText (sCommentThreadID))
       return null;
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aAllCommentThreads.get (sCommentThreadID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aAllCommentThreads.get (sCommentThreadID));
   }
 
   @Nullable
@@ -311,7 +287,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
         return EChange.UNCHANGED;
       }
 
-      final List <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
+      final ICommonsList <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
       if (ret == null || !ret.contains (aCommentThread))
       {
         AuditHelper.onAuditModifyFailure (Comment.TYPE_COMMENT,
@@ -343,7 +319,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
     if (StringHelper.hasNoText (sOwningObjectID))
       return EChange.UNCHANGED;
 
-    List <ICommentThread> aRemovedCommentThreads;
+    ICommonsList <ICommentThread> aRemovedCommentThreads;
     m_aRWLock.writeLock ().lock ();
     try
     {
