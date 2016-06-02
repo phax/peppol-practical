@@ -16,8 +16,6 @@
  */
 package com.helger.peppol.pub.validation.bis2;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -37,7 +35,7 @@ public final class ExtValidationKeyRegistry
 
   static
   {
-    final ICommonsOrderedMap <String, ExtValidationKey> aKeys = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, ExtValidationKey> aKeys = new CommonsLinkedHashMap <> ();
     for (final ValidationKey aKey : EPeppolStandardValidationSchematronArtefact.getAllValidationKeys ())
     {
       final ExtValidationKey aItem = new ExtValidationKey (aKey);
@@ -58,9 +56,9 @@ public final class ExtValidationKeyRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <String, ExtValidationKey> getAllSorted ()
+  public static ICommonsOrderedMap <String, ExtValidationKey> getAllSorted ()
   {
-    return CollectionHelper.newOrderedMap (s_aKeys);
+    return s_aKeys.getClone ();
   }
 
   @Nullable
