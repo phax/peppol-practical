@@ -103,7 +103,6 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
-  @Nonnull
   protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
                                      @Nonnull final EWebPageFormAction eFormAction,
                                      @Nullable final TestEndpoint aSelectedObject)
