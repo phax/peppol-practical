@@ -32,10 +32,10 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.state.EChange;
-import com.helger.commons.tree.util.TreeVisitor;
-import com.helger.commons.tree.withid.DefaultTreeItemWithID;
-import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.commons.type.ObjectType;
+import com.helger.tree.util.TreeVisitor;
+import com.helger.tree.withid.DefaultTreeItemWithID;
+import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
 /**
  * This class represents a single thread of comments.

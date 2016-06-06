@@ -25,8 +25,8 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
-import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.commons.type.ITypedObject;
+import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
 /**
  * Interface for a single comment thread. It holds {@link IComment} objects in a
