@@ -71,6 +71,8 @@ import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.ui.SMLSelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
+import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.CertificateHelper;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
@@ -98,6 +100,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_SML = "sml";
 
   public static final String DEFAULT_SML = ESML.DIGIT_PRODUCTION.getID ();
+  private static final IPeppolURLProvider URL_PROVIDER = new BDXURLProvider ();
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
@@ -143,7 +146,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         final IParticipantIdentifier aParticipantID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
-        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aParticipantID, eSML);
+        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aParticipantID, eSML);
         try
         {
           // URL always with a trailing slash
@@ -160,7 +163,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
-          final ICommonsList <SimpleDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList<> ();
+          final ICommonsList <SimpleDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
 
@@ -171,7 +174,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
-            final Map <String, String> aSGHrefs = new TreeMap<> ();
+            final Map <String, String> aSGHrefs = new TreeMap <> ();
             if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
               for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                                 .getServiceMetadataReference ())
@@ -230,7 +233,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (!aDocTypeIDs.isEmpty ())
           {
             final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
-            final ICommonsOrderedSet <String> aAllUsedCertifiactes = new CommonsLinkedHashSet<> ();
+            final ICommonsOrderedSet <String> aAllUsedCertifiactes = new CommonsLinkedHashSet <> ();
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();
