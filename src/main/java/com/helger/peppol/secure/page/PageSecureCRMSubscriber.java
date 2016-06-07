@@ -95,7 +95,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
 
-    if (aCRMGroupMgr.isEmpty ())
+    if (aCRMGroupMgr.containsNone ())
     {
       aNodeList.addChild (new BootstrapWarnBox ().addChild ("No CRM groups is present! At least one CRM group must be present to assign a subscriber to"));
       aNodeList.addChild (new BootstrapButton ().addChild ("Create new CRM group")

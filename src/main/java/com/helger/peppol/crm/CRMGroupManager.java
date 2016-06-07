@@ -20,23 +20,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsCollection;
-import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
+import com.helger.photon.basic.app.dao.impl.AbstractMapBasedWALDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.security.object.ObjectHelper;
-import com.helger.xml.microdom.IMicroDocument;
-import com.helger.xml.microdom.IMicroElement;
-import com.helger.xml.microdom.MicroDocument;
-import com.helger.xml.microdom.convert.MicroTypeConverter;
 
 /**
  * Manager for {@link CRMGroup} instances.
@@ -45,47 +36,11 @@ import com.helger.xml.microdom.convert.MicroTypeConverter;
  * @see com.helger.peppol.app.mgr.PPMetaManager
  */
 @ThreadSafe
-public final class CRMGroupManager extends AbstractSimpleDAO
+public final class CRMGroupManager extends AbstractMapBasedWALDAO <ICRMGroup, CRMGroup>
 {
-  private static final String ELEMENT_ROOT = "crmgroups";
-  private static final String ELEMENT_ITEM = "crmgroup";
-
-  private final ICommonsMap <String, CRMGroup> m_aMap = new CommonsHashMap<> ();
-
   public CRMGroupManager (@Nonnull @Nonempty final String sFilename) throws DAOException
   {
-    super (sFilename);
-    initialRead ();
-  }
-
-  @Override
-  @Nonnull
-  protected EChange onRead (@Nonnull final IMicroDocument aDoc)
-  {
-    for (final IMicroElement eCRMGroup : aDoc.getDocumentElement ().getAllChildElements (ELEMENT_ITEM))
-      _addCRMGroup (MicroTypeConverter.convertToNative (eCRMGroup, CRMGroup.class));
-    return EChange.UNCHANGED;
-  }
-
-  @Override
-  @Nonnull
-  protected IMicroDocument createWriteData ()
-  {
-    final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
-    for (final CRMGroup aCRMGroup : CollectionHelper.getSortedByKey (m_aMap).values ())
-      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aCRMGroup, ELEMENT_ITEM));
-    return aDoc;
-  }
-
-  private void _addCRMGroup (@Nonnull final CRMGroup aCRMGroup)
-  {
-    ValueEnforcer.notNull (aCRMGroup, "CRMGroup");
-
-    final String sCRMGroupID = aCRMGroup.getID ();
-    if (m_aMap.containsKey (sCRMGroupID))
-      throw new IllegalArgumentException ("CRMGroup ID '" + sCRMGroupID + "' is already in use!");
-    m_aMap.put (sCRMGroupID, aCRMGroup);
+    super (CRMGroup.class, sFilename);
   }
 
   @Nonnull
@@ -94,16 +49,9 @@ public final class CRMGroupManager extends AbstractSimpleDAO
   {
     final CRMGroup aCRMGroup = new CRMGroup (sDisplayName, sSenderEmailAddress);
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      _addCRMGroup (aCRMGroup);
-      markAsChanged ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> {
+      internalCreateItem (aCRMGroup);
+    });
     AuditHelper.onAuditCreateSuccess (CRMGroup.OT_CRM_GROUP, aCRMGroup.getID (), sDisplayName, sSenderEmailAddress);
     return aCRMGroup;
   }
@@ -113,16 +61,16 @@ public final class CRMGroupManager extends AbstractSimpleDAO
                                  @Nonnull @Nonempty final String sDisplayName,
                                  @Nonnull @Nonempty final String sSenderEmailAddress)
   {
+    final CRMGroup aCRMGroup = getOfID (sCRMGroupID);
+    if (aCRMGroup == null)
+    {
+      AuditHelper.onAuditModifyFailure (CRMGroup.OT_CRM_GROUP, sCRMGroupID, "no-such-id");
+      return EChange.UNCHANGED;
+    }
+
     m_aRWLock.writeLock ().lock ();
     try
     {
-      final CRMGroup aCRMGroup = m_aMap.get (sCRMGroupID);
-      if (aCRMGroup == null)
-      {
-        AuditHelper.onAuditModifyFailure (CRMGroup.OT_CRM_GROUP, sCRMGroupID, "no-such-id");
-        return EChange.UNCHANGED;
-      }
-
       EChange eChange = EChange.UNCHANGED;
       // ID cannot be changed!
       eChange = eChange.or (aCRMGroup.setDisplayName (sDisplayName));
@@ -131,7 +79,7 @@ public final class CRMGroupManager extends AbstractSimpleDAO
         return EChange.UNCHANGED;
 
       ObjectHelper.setLastModificationNow (aCRMGroup);
-      markAsChanged ();
+      internalUpdateItem (aCRMGroup);
     }
     finally
     {
@@ -145,25 +93,17 @@ public final class CRMGroupManager extends AbstractSimpleDAO
   @ReturnsMutableCopy
   public ICommonsCollection <? extends ICRMGroup> getAllCRMGroups ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.copyOfValues ());
+    return getAll ();
   }
 
   @Nullable
   public ICRMGroup getCRMGroupOfID (@Nullable final String sID)
   {
-    if (StringHelper.hasNoText (sID))
-      return null;
-
-    return m_aRWLock.readLocked ( () -> m_aMap.get (sID));
+    return getOfID (sID);
   }
 
   public boolean containsCRMGroupWithID (@Nullable final String sID)
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.containsKey (sID));
-  }
-
-  public boolean isEmpty ()
-  {
-    return m_aRWLock.readLocked ( () -> m_aMap.isEmpty ());
+    return containsWithID (sID);
   }
 }

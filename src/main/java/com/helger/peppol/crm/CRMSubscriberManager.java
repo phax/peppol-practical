@@ -16,10 +16,8 @@
  */
 package com.helger.peppol.crm;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -29,20 +27,15 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.masterdata.person.ESalutation;
-import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
+import com.helger.photon.basic.app.dao.impl.AbstractMapBasedWALDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.security.object.ObjectHelper;
-import com.helger.xml.microdom.IMicroDocument;
-import com.helger.xml.microdom.IMicroElement;
-import com.helger.xml.microdom.MicroDocument;
-import com.helger.xml.microdom.convert.MicroTypeConverter;
 
 /**
  * Manager for {@link CRMSubscriber} instances.
@@ -51,47 +44,11 @@ import com.helger.xml.microdom.convert.MicroTypeConverter;
  * @see com.helger.peppol.app.mgr.PPMetaManager
  */
 @ThreadSafe
-public final class CRMSubscriberManager extends AbstractSimpleDAO
+public final class CRMSubscriberManager extends AbstractMapBasedWALDAO <ICRMSubscriber, CRMSubscriber>
 {
-  private static final String ELEMENT_ROOT = "crmsubscribers";
-  private static final String ELEMENT_ITEM = "crmsubscriber";
-
-  private final ICommonsMap <String, CRMSubscriber> m_aMap = new CommonsHashMap<> ();
-
   public CRMSubscriberManager (@Nonnull @Nonempty final String sFilename) throws DAOException
   {
-    super (sFilename);
-    initialRead ();
-  }
-
-  @Override
-  @Nonnull
-  protected EChange onRead (@Nonnull final IMicroDocument aDoc)
-  {
-    for (final IMicroElement eCRMSubscriber : aDoc.getDocumentElement ().getAllChildElements (ELEMENT_ITEM))
-      _addCRMSubscriber (MicroTypeConverter.convertToNative (eCRMSubscriber, CRMSubscriber.class));
-    return EChange.UNCHANGED;
-  }
-
-  @Override
-  @Nonnull
-  protected IMicroDocument createWriteData ()
-  {
-    final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
-    for (final CRMSubscriber aCRMSubscriber : CollectionHelper.getSortedByKey (m_aMap).values ())
-      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aCRMSubscriber, ELEMENT_ITEM));
-    return aDoc;
-  }
-
-  private void _addCRMSubscriber (@Nonnull final CRMSubscriber aCRMSubscriber)
-  {
-    ValueEnforcer.notNull (aCRMSubscriber, "CRMSubscriber");
-
-    final String sCRMSubscriberID = aCRMSubscriber.getID ();
-    if (m_aMap.containsKey (sCRMSubscriberID))
-      throw new IllegalArgumentException ("CRMSubscriber ID '" + sCRMSubscriberID + "' is already in use!");
-    m_aMap.put (sCRMSubscriberID, aCRMSubscriber);
+    super (CRMSubscriber.class, sFilename);
   }
 
   @Nonnull
@@ -102,16 +59,9 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
   {
     final CRMSubscriber aCRMSubscriber = new CRMSubscriber (eSalutation, sName, sEmailAddress, aAssignedGroups);
 
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      _addCRMSubscriber (aCRMSubscriber);
-      markAsChanged ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    m_aRWLock.writeLocked ( () -> {
+      internalCreateItem (aCRMSubscriber);
+    });
     AuditHelper.onAuditCreateSuccess (CRMSubscriber.OT_CRM_SUBSCRIBER,
                                       aCRMSubscriber.getID (),
                                       eSalutation,
@@ -128,16 +78,16 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
                                       @Nonnull @Nonempty final String sEmailAddress,
                                       @Nullable final Set <ICRMGroup> aAssignedGroups)
   {
+    final CRMSubscriber aCRMSubscriber = getOfID (sCRMSubscriberID);
+    if (aCRMSubscriber == null)
+    {
+      AuditHelper.onAuditModifyFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "no-such-id");
+      return EChange.UNCHANGED;
+    }
+
     m_aRWLock.writeLock ().lock ();
     try
     {
-      final CRMSubscriber aCRMSubscriber = m_aMap.get (sCRMSubscriberID);
-      if (aCRMSubscriber == null)
-      {
-        AuditHelper.onAuditModifyFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "no-such-id");
-        return EChange.UNCHANGED;
-      }
-
       EChange eChange = EChange.UNCHANGED;
       // ID cannot be changed!
       eChange = eChange.or (aCRMSubscriber.setSalutation (eSalutation));
@@ -148,7 +98,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
         return EChange.UNCHANGED;
 
       ObjectHelper.setLastModificationNow (aCRMSubscriber);
-      markAsChanged ();
+      internalUpdateItem (aCRMSubscriber);
     }
     finally
     {
@@ -168,23 +118,23 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
   public EChange updateCRMSubscriberGroupAssignments (@Nullable final String sCRMSubscriberID,
                                                       @Nullable final Set <ICRMGroup> aAssignedGroups)
   {
+    final CRMSubscriber aCRMSubscriber = getOfID (sCRMSubscriberID);
+    if (aCRMSubscriber == null)
+    {
+      AuditHelper.onAuditModifyFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "no-such-id");
+      return EChange.UNCHANGED;
+    }
+
     m_aRWLock.writeLock ().lock ();
     try
     {
-      final CRMSubscriber aCRMSubscriber = m_aMap.get (sCRMSubscriberID);
-      if (aCRMSubscriber == null)
-      {
-        AuditHelper.onAuditModifyFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "no-such-id");
-        return EChange.UNCHANGED;
-      }
-
       EChange eChange = EChange.UNCHANGED;
       eChange = eChange.or (aCRMSubscriber.setAssignedGroups (aAssignedGroups));
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
       ObjectHelper.setLastModificationNow (aCRMSubscriber);
-      markAsChanged ();
+      internalUpdateItem (aCRMSubscriber);
     }
     finally
     {
@@ -199,77 +149,34 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <? extends ICRMSubscriber> getAllCRMSubscribers ()
+  public ICommonsCollection <? extends ICRMSubscriber> getAllCRMSubscribers ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aMap.values ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return getAll ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICRMSubscriber> getAllActiveCRMSubscribers ()
+  public ICommonsList <? extends ICRMSubscriber> getAllActiveCRMSubscribers ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.values ().stream ().filter (c -> !c.isDeleted ()).collect (Collectors.toList ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return getAll (c -> !c.isDeleted ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICRMSubscriber> getAllDeletedCRMSubscribers ()
+  public List <? extends ICRMSubscriber> getAllDeletedCRMSubscribers ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.values ().stream ().filter (c -> c.isDeleted ()).collect (Collectors.toList ());
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return getAll (c -> c.isDeleted ());
   }
 
   @Nullable
   public ICRMSubscriber getCRMSubscriberOfID (@Nullable final String sID)
   {
-    if (StringHelper.hasNoText (sID))
-      return null;
-
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.get (sID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return getOfID (sID);
   }
 
   public boolean containsCRMSubscriberWithID (@Nullable final String sID)
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.containsKey (sID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return containsWithID (sID);
   }
 
   @Nullable
@@ -280,19 +187,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
 
     // Unify before checking
     final String sRealEmailAddress = ICRMSubscriber.getUnifiedEmailAddress (sEmailAddress);
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.values ()
-                   .stream ()
-                   .filter (c -> c.getEmailAddress ().equals (sRealEmailAddress))
-                   .findAny ()
-                   .orElse (null);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return findFirst (c -> c.getEmailAddress ().equals (sRealEmailAddress));
   }
 
   @Nonnegative
@@ -300,15 +195,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
   {
     ValueEnforcer.notNull (aGroup, "Group");
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.values ().stream ().filter (c -> c.isAssignedToGroup (aGroup)).count ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return getCount (c -> c.isAssignedToGroup (aGroup));
   }
 
   @Nonnull
@@ -317,7 +204,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
     ValueEnforcer.notNull (aCRMSubscriber, "CRMSubscriber");
 
     final String sCRMSubscriberID = aCRMSubscriber.getID ();
-    final CRMSubscriber aRealCRMSubscriber = (CRMSubscriber) getCRMSubscriberOfID (sCRMSubscriberID);
+    final CRMSubscriber aRealCRMSubscriber = getOfID (sCRMSubscriberID);
     if (aRealCRMSubscriber == null)
     {
       AuditHelper.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "id-not-found");
@@ -332,7 +219,7 @@ public final class CRMSubscriberManager extends AbstractSimpleDAO
         AuditHelper.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "already-deleted");
         return EChange.UNCHANGED;
       }
-      markAsChanged ();
+      internalMarkItemDeleted (aRealCRMSubscriber);
     }
     finally
     {
