@@ -42,7 +42,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.xml.transform.TransformSourceFactory;
+import com.helger.xml.transform.TransformSourceFactory;
 
 /**
  * Abstract implementation of the {@link IXMLValidator}.

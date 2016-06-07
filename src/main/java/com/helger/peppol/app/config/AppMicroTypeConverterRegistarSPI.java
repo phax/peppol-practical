@@ -17,8 +17,6 @@
 package com.helger.peppol.app.config;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
-import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
 import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentMicroTypeConverter;
 import com.helger.peppol.comment.domain.CommentThread;
@@ -29,6 +27,8 @@ import com.helger.peppol.crm.CRMSubscriber;
 import com.helger.peppol.crm.CRMSubscriberMicroTypeConverter;
 import com.helger.peppol.pub.testendpoint.TestEndpoint;
 import com.helger.peppol.pub.testendpoint.TestEndpointMicroTypeConverter;
+import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
+import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 
 /**
  * SPI implementation to register all micro type converters of this application.

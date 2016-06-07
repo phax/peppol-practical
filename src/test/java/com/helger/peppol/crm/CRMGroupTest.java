@@ -26,6 +26,7 @@ import org.junit.rules.TestRule;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.photon.basic.mock.PhotonBasicWebTestRule;
+import com.helger.xml.mock.XMLTestHelper;
 
 /**
  * Unit test class for class {@link CRMGroup}.
@@ -47,6 +48,6 @@ public final class CRMGroupTest
     // Only ID is relevant!
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aGroup,
                                                                            new CRMGroup ("Name", "bla@foo.com"));
-    CommonsTestHelper.testMicroTypeConversion (aGroup);
+    XMLTestHelper.testMicroTypeConversion (aGroup);
   }
 }

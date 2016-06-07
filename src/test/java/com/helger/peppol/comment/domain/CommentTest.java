@@ -25,10 +25,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.microdom.convert.MicroTypeConverter;
-import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.photon.basic.mock.PhotonBasicTestRule;
+import com.helger.xml.microdom.convert.MicroTypeConverter;
+import com.helger.xml.microdom.serialize.MicroWriter;
+import com.helger.xml.mock.XMLTestHelper;
 
 /**
  * Unit test class for class {@link Comment}.
@@ -56,6 +57,6 @@ public final class CommentTest
       System.out.println (MicroWriter.getXMLString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
 
     CommonsTestHelper.testDefaultSerialization (aComment);
-    CommonsTestHelper.testMicroTypeConversion (aComment);
+    XMLTestHelper.testMicroTypeConversion (aComment);
   }
 }

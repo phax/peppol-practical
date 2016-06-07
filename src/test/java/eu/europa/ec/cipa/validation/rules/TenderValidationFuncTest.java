@@ -46,7 +46,6 @@ import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import com.helger.commons.CGlobal;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.xml.serialize.write.XMLWriter;
 import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
 import com.helger.peppol.testfiles.ubl.PeppolBISV1TestFiles;
 import com.helger.schematron.SchematronHelper;
@@ -55,6 +54,7 @@ import com.helger.schematron.svrl.SVRLHelper;
 import com.helger.schematron.svrl.SVRLWriter;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
 import com.helger.ubl21.UBL21Reader;
+import com.helger.xml.serialize.write.XMLWriter;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import oasis.names.specification.ubl.schema.xsd.callfortenders_21.CallForTendersType;

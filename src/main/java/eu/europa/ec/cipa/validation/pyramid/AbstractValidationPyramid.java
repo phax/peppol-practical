@@ -56,7 +56,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.xml.serialize.read.DOMReader;
+import com.helger.xml.serialize.read.DOMReader;
 
 import eu.europa.ec.cipa.validation.generic.IXMLValidator;
 import eu.europa.ec.cipa.validation.rules.EValidationDocumentType;

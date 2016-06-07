@@ -38,13 +38,13 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.text.util.TextHelper;
-import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.peppol.pub.validation.bis1.ValidationPyramidHelper;
 import com.helger.peppol.ws.types.EValidationServiceReturnCode;
 import com.helger.peppol.ws.types.ValidationServiceResult;
 import com.helger.peppol.ws.types.ValidationServiceResultItem;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.scope.mgr.WebScopeManager;
+import com.helger.xml.serialize.read.DOMReader;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import eu.europa.ec.cipa.validation.pyramid.ValidationPyramidResult;

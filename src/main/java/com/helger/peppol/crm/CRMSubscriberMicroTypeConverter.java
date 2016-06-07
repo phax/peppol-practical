@@ -23,12 +23,12 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.string.StringHelper;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroElement;
 
 public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConverter
 {

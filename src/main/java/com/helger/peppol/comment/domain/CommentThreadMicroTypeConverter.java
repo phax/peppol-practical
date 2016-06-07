@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.tree.xml.IConverterTreeXML;
 import com.helger.tree.xml.MicroTypeConverterTreeXML;
 import com.helger.tree.xml.TreeXMLConverter;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroElement;
+import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
 @Immutable
 public final class CommentThreadMicroTypeConverter implements IMicroTypeConverter

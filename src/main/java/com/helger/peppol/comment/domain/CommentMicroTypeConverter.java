@@ -22,10 +22,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.commons.string.StringParser;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroElement;
+import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

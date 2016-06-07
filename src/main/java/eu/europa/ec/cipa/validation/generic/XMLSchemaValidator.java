@@ -51,8 +51,8 @@ import com.helger.commons.error.ResourceErrorGroup;
 import com.helger.commons.error.ResourceLocation;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.xml.schema.XMLSchemaCache;
-import com.helger.commons.xml.schema.XMLSchemaValidationHelper;
+import com.helger.xml.schema.XMLSchemaCache;
+import com.helger.xml.schema.XMLSchemaValidationHelper;
 
 /**
  * Implementation of the {@link IXMLValidator} for XML Schema.

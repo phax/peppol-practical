@@ -41,7 +41,7 @@ import javax.xml.validation.Schema;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.xml.schema.IHasSchema;
+import com.helger.xml.schema.IHasSchema;
 
 /**
  * Represents a single validation document type. It needs an ID and must provide

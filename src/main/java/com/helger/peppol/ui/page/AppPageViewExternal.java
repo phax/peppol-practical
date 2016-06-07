@@ -22,11 +22,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.microdom.IMicroComment;
-import com.helger.commons.microdom.IMicroContainer;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.microdom.util.MicroVisitor;
 import com.helger.commons.type.TypedObject;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.impl.HCNodeList;
@@ -38,6 +33,11 @@ import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.external.BasePageViewExternal;
+import com.helger.xml.microdom.IMicroComment;
+import com.helger.xml.microdom.IMicroContainer;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.IMicroNode;
+import com.helger.xml.microdom.util.MicroVisitor;
 
 public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionContext>
 {

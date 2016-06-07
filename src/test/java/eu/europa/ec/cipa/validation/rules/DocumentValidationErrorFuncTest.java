@@ -62,8 +62,6 @@ import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.xml.serialize.read.DOMReader;
-import com.helger.commons.xml.serialize.write.XMLWriter;
 import com.helger.peppol.testfiles.ErrorDefinition;
 import com.helger.peppol.testfiles.TestResource;
 import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
@@ -74,6 +72,8 @@ import com.helger.schematron.svrl.SVRLFailedAssert;
 import com.helger.schematron.svrl.SVRLHelper;
 import com.helger.schematron.svrl.SVRLWriter;
 import com.helger.ubl20.UBL20Reader;
+import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xml.serialize.write.XMLWriter;
 
 import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
 import oasis.names.specification.ubl.schema.xsd.invoice_2.InvoiceType;
