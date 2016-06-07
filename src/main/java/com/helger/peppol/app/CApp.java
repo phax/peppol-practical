@@ -53,8 +53,8 @@ public final class CApp
   public static final String ROLE_COMMENT_MODERATOR_DESCRIPTION = null;
   public static final Map <String, String> ROLE_COMMENT_MODERATOR_CUSTOMATTRS = null;
 
-  public static final List <String> REQUIRED_ROLE_IDS_CONFIG = new CommonsArrayList<> (ROLE_CONFIG_ID).getAsUnmodifiable ();
-  public static final List <String> REQUIRED_ROLE_IDS_VIEW = new CommonsArrayList<> (ROLE_VIEW_ID).getAsUnmodifiable ();
+  public static final List <String> REQUIRED_ROLE_IDS_CONFIG = new CommonsArrayList <> (ROLE_CONFIG_ID).getAsUnmodifiable ();
+  public static final List <String> REQUIRED_ROLE_IDS_VIEW = new CommonsArrayList <> (ROLE_VIEW_ID).getAsUnmodifiable ();
 
   // User groups
   public static final String USERGROUP_ADMINISTRATORS_ID = CSecurity.USERGROUP_ADMINISTRATORS_ID;
@@ -84,8 +84,6 @@ public final class CApp
   public static final ObjectType OT_PAGE = new ObjectType ("webpage");
 
   public static final String PATTERN_SMP_ID = "[a-zA-Z0-9\\-\\.]+";
-  public static final String PATTERN_IPV4 = "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b";
-
   private CApp ()
   {}
 }

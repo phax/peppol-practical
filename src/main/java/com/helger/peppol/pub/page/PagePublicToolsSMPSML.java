@@ -75,6 +75,7 @@ import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.web.dns.IPV4Addr;
 import com.helger.web.fileupload.IFileItem;
 import com.sun.xml.ws.client.ClientTransportException;
 
@@ -232,7 +233,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_IPV4, sPhysicalAddress))
+      if (!RegExHelper.stringMatchesPattern (IPV4Addr.PATTERN_IPV4, sPhysicalAddress))
         aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                    "The provided physical address does not seem to be an IPv4 address!");
       else
@@ -361,7 +362,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_IPV4, sPhysicalAddress))
+      if (!RegExHelper.stringMatchesPattern (IPV4Addr.PATTERN_IPV4, sPhysicalAddress))
         aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                    "The provided physical address does not seem to be an IPv4 address!");
       else
