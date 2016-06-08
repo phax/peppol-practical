@@ -18,28 +18,17 @@ package com.helger.peppol.ui;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.string.StringHelper;
-import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.sml.ESML;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
 public class SMLSelect extends HCExtSelect
 {
-  @Nonnull
-  private static String _getPrefix (@Nonnull final ESML eSML)
-  {
-    final String sName = AppHelper.getSMLName (eSML);
-    if (StringHelper.hasText (sName))
-      return "[" + sName + "] ";
-    return "";
-  }
-
   public SMLSelect (@Nonnull final RequestField aRF)
   {
     super (aRF);
     for (final ESML eSML : ESML.values ())
       if (eSML.requiresClientCertificate ())
-        addOption (eSML.getID (), _getPrefix (eSML) + eSML.getManagementServiceURL ());
+        addOption (eSML.getID (), "[" + eSML.getDisplayName () + "] " + eSML.getManagementServiceURL ());
   }
 }

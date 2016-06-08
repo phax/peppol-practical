@@ -368,7 +368,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
       aRow.addCell (aCurObject.getCompanyName ());
       aRow.addCell (AppHelper.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
-      aRow.addCell (AppHelper.getSMLName (aCurObject.getSML ()));
+      aRow.addCell (aCurObject.getSML ().getDisplayName ());
 
       final IHCCell <?> aActionCell = aRow.addCell ();
       if (isActionAllowed (aWPEC, EWebPageFormAction.EDIT, aCurObject))
