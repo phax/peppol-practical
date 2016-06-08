@@ -27,7 +27,7 @@ import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
-import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.basic.object.AbstractBaseObject;
 import com.helger.photon.security.object.StubObject;
@@ -47,7 +47,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   private String m_sParticipantIDScheme;
   private String m_sParticipantIDValue;
   private ISMPTransportProfile m_aTransportProfile;
-  private ESML m_eSML;
+  private ISMLInfo m_aSML;
 
   /**
    * Constructor.
@@ -70,7 +70,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
                        @Nonnull @Nonempty final String sParticipantIDScheme,
                        @Nonnull @Nonempty final String sParticipantIDValue,
                        @Nonnull final ISMPTransportProfile aTransportProfile,
-                       @Nonnull final ESML eSML)
+                       @Nonnull final ISMLInfo eSML)
   {
     this (StubObject.createForCurrentUser (),
           sCompanyName,
@@ -105,7 +105,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
                 @Nonnull @Nonempty final String sParticipantIDScheme,
                 @Nonnull @Nonempty final String sParticipantIDValue,
                 @Nonnull final ISMPTransportProfile aTransportProfile,
-                @Nonnull final ESML eSML)
+                @Nonnull final ISMLInfo eSML)
   {
     super (aObject);
     setCompanyName (sCompanyName);
@@ -216,19 +216,19 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   }
 
   @Nonnull
-  public ESML getSML ()
+  public ISMLInfo getSML ()
   {
-    return m_eSML;
+    return m_aSML;
   }
 
   @Nonnull
-  public EChange setSML (@Nonnull final ESML eSML)
+  public EChange setSML (@Nonnull final ISMLInfo aSML)
   {
-    ValueEnforcer.notNull (eSML, "SML");
-    if (eSML.equals (m_eSML))
+    ValueEnforcer.notNull (aSML, "SML");
+    if (aSML.equals (m_aSML))
       return EChange.UNCHANGED;
 
-    m_eSML = eSML;
+    m_aSML = aSML;
     return EChange.CHANGED;
   }
 
@@ -259,7 +259,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
                             .append ("ParticipantIDScheme", m_sParticipantIDScheme)
                             .append ("ParticipantIDValue", m_sParticipantIDValue)
                             .append ("TransportProfile", m_aTransportProfile)
-                            .append ("SML", m_eSML)
+                            .append ("SML", m_aSML)
                             .toString ();
   }
 }

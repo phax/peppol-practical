@@ -30,7 +30,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
@@ -46,7 +46,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
   private static final String ELEMENT_ROOT = "testendpoints";
   private static final String ELEMENT_ITEM = "testendpoint";
 
-  private final ICommonsMap <String, TestEndpoint> m_aMap = new CommonsHashMap<> ();
+  private final ICommonsMap <String, TestEndpoint> m_aMap = new CommonsHashMap <> ();
 
   public TestEndpointManager (@Nonnull @Nonempty final String sFilename) throws DAOException
   {
@@ -90,14 +90,14 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                           @Nonnull @Nonempty final String sParticipantIDScheme,
                                           @Nonnull @Nonempty final String sParticipantIDValue,
                                           @Nonnull final ISMPTransportProfile aTransportProfile,
-                                          @Nonnull final ESML eSML)
+                                          @Nonnull final ISMLInfo aSML)
   {
     final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName,
                                                          sContactPerson,
                                                          sParticipantIDScheme,
                                                          sParticipantIDValue,
                                                          aTransportProfile,
-                                                         eSML);
+                                                         aSML);
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -116,7 +116,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                       sParticipantIDScheme,
                                       sParticipantIDValue,
                                       aTransportProfile,
-                                      eSML);
+                                      aSML);
     return aTestEndpoint;
   }
 
@@ -127,7 +127,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                      @Nonnull @Nonempty final String sParticipantIDScheme,
                                      @Nonnull @Nonempty final String sParticipantIDValue,
                                      @Nonnull final ISMPTransportProfile aTransportProfile,
-                                     @Nonnull final ESML eSML)
+                                     @Nonnull final ISMLInfo aSML)
   {
     m_aRWLock.writeLock ().lock ();
     try
@@ -146,7 +146,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       eChange = eChange.or (aTestEndpoint.setParticipantIDScheme (sParticipantIDScheme));
       eChange = eChange.or (aTestEndpoint.setParticipantIDValue (sParticipantIDValue));
       eChange = eChange.or (aTestEndpoint.setTransportProfile (aTransportProfile));
-      eChange = eChange.or (aTestEndpoint.setSML (eSML));
+      eChange = eChange.or (aTestEndpoint.setSML (aSML));
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
@@ -164,7 +164,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
                                       sParticipantIDScheme,
                                       sParticipantIDValue,
                                       aTransportProfile,
-                                      eSML);
+                                      aSML);
     return EChange.CHANGED;
   }
 
@@ -203,7 +203,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     m_aRWLock.readLock ().lock ();
     try
     {
-      final ICommonsList <TestEndpoint> ret = new CommonsArrayList<> ();
+      final ICommonsList <TestEndpoint> ret = new CommonsArrayList <> ();
       for (final TestEndpoint aItem : m_aMap.values ())
         if (!aItem.isDeleted ())
           ret.add (aItem);

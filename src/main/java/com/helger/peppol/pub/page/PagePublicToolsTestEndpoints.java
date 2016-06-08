@@ -42,6 +42,7 @@ import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppol.pub.testendpoint.TestEndpoint;
 import com.helger.peppol.pub.testendpoint.TestEndpointManager;
 import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.IdentifierIssuingAgencySelect;
@@ -216,9 +217,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
-                                                                                                aSelectedObject == null ? ESML.DIGIT_PRODUCTION.getID ()
-                                                                                                                        : aSelectedObject.getSML ()
-                                                                                                                                         .getID ())))
+                                                                                                aSelectedObject == null ? ESML.DIGIT_PRODUCTION
+                                                                                                                        : aSelectedObject.getSML ())))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
   }
 
@@ -239,7 +239,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
     final String sTransportProfileName = AppHelper.getSMPTransportProfileShortName (eTransportProfile);
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-    final ESML eSML = ESML.getFromIDOrNull (sSML);
+    final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
 
     if (StringHelper.hasNoText (sCompanyName))
       aFormErrors.addFieldError (FIELD_COMPANY_NAME, "Please provide the company name");
@@ -256,7 +256,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     if (eTransportProfile == null)
       aFormErrors.addFieldError (FIELD_TRANSPORT_PROFILE, "Please select a transport profile");
 
-    if (eSML == null)
+    if (aSML == null)
       aFormErrors.addFieldError (FIELD_SML, "Please select an SML where the participant is registered");
 
     if (aFormErrors.isEmpty ())
@@ -286,7 +286,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                              sParticipantIDISO6523,
                                              sParticipantIDValue,
                                              eTransportProfile,
-                                             eSML);
+                                             aSML);
         aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("Successfully edited the test endpoint for " +
                                                                     sParticipantIDISO6523 +
                                                                     ":" +
@@ -301,7 +301,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                              sParticipantIDISO6523,
                                              sParticipantIDValue,
                                              eTransportProfile,
-                                             eSML);
+                                             aSML);
         aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("Successfully added the new test endpoint for " +
                                                                     sParticipantIDISO6523 +
                                                                     ":" +

@@ -22,6 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.ContainsSoftMigration;
 import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
 import com.helger.photon.security.object.StubObject;
@@ -73,7 +74,7 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
 
     final String sSML = eValue.getAttributeValue (ATTR_SML);
     // Soft migration
-    final ESML eSML = sSML == null ? ESML.DIGIT_PRODUCTION : ESML.getFromIDOrNull (sSML);
+    final ISMLInfo aSML = sSML == null ? ESML.DIGIT_PRODUCTION : ESML.getFromIDOrNull (sSML);
 
     // Create object
     return new TestEndpoint (aStubObject,
@@ -82,6 +83,6 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
                              sParticipantIDScheme,
                              sParticipantIDValue,
                              eTransportProfile,
-                             eSML);
+                             aSML);
   }
 }

@@ -60,6 +60,7 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ProcessType;
@@ -99,7 +100,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_ID_VALUE = "idvalue";
   public static final String FIELD_SML = "sml";
 
-  public static final String DEFAULT_SML = ESML.DIGIT_PRODUCTION.getID ();
+  public static final ISMLInfo DEFAULT_SML = ESML.DIGIT_PRODUCTION;
   private static final IPeppolURLProvider URL_PROVIDER = new BDXURLProvider ();
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
@@ -121,7 +122,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_ID_ISO6523);
       final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
       final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-      final ESML eSML = ESML.getFromIDOrNull (sSML);
+      final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
 
       if (StringHelper.hasNoText (sParticipantIDISO6523))
         aFormErrors.addFieldError (FIELD_ID_ISO6523, "Please select an identifier scheme");
@@ -140,13 +141,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                      "' is not valid!");
       }
 
-      if (eSML == null)
+      if (aSML == null)
         aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
       if (aFormErrors.isEmpty ())
       {
         final IParticipantIdentifier aParticipantID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
-        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aParticipantID, eSML);
+        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aParticipantID, aSML);
         try
         {
           // URL always with a trailing slash
