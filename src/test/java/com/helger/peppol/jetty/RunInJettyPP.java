@@ -16,11 +16,14 @@
  */
 package com.helger.peppol.jetty;
 
+import java.util.Map;
+
 import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.system.SystemProperties;
 import com.helger.peppol.utils.ConfigFile;
 import com.helger.photon.jetty.JettyStarter;
 
@@ -39,11 +42,12 @@ public final class RunInJettyPP
   public static void main (final String [] args) throws Exception
   {
     // Proxy configuration is simply applied by setting system properties
-    final ConfigFile aCF = new ConfigFile ("private-configProxy.properties", "configProxy.properties");
-    for (final String sKey : aCF.getAllKeys ())
+    final ConfigFile aCF = ConfigFile.create ("private-configProxy.properties", "configProxy.properties");
+    for (final Map.Entry <String, Object> aEntry : aCF.getAllEntries ().entrySet ())
     {
-      final String sValue = aCF.getString (sKey);
-      System.setProperty (sKey, sValue);
+      final String sKey = aEntry.getKey ();
+      final String sValue = String.valueOf (aEntry.getValue ());
+      SystemProperties.setPropertyValue (sKey, sValue);
       s_aLogger.info ("Setting Proxy property " + sKey + "=" + sValue);
     }
 
