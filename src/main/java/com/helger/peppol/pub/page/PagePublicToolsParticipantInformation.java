@@ -53,7 +53,6 @@ import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.jquery.JQuery;
 import com.helger.html.js.EJSEvent;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -72,7 +71,7 @@ import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.ui.SMLSelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.CertificateHelper;
@@ -101,7 +100,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_SML = "sml";
 
   public static final ISMLInfo DEFAULT_SML = ESML.DIGIT_PRODUCTION;
-  private static final IPeppolURLProvider URL_PROVIDER = new BDXURLProvider ();
+  private static final IPeppolURLProvider URL_PROVIDER = new PeppolURLProvider ();
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
@@ -255,7 +254,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   for (final ProcessType aProcess : aSM.getServiceInformation ().getProcessList ().getProcess ())
                   {
                     final IHCLI <?> aLIProcessID = aULProcessID.addAndReturnItem (new HCDiv ().addChild ("Process ID: ")
-                                                                                              .addChild (new HCCode ().addChild (IdentifierHelper.getIdentifierURIEncoded (aProcess.getProcessIdentifier ()))));
+                                                                                              .addChild (new HCCode ().addChild (aProcess.getProcessIdentifier ()
+                                                                                                                                         .getURIEncoded ())));
                     final HCUL aULEndpoint = new HCUL ();
                     // For all endpoints of the process
                     for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
