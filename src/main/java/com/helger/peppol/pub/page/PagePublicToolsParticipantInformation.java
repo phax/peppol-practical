@@ -71,8 +71,8 @@ import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.ui.SMLSelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.url.IPeppolURLProvider;
+import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.CertificateHelper;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
@@ -100,7 +100,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_SML = "sml";
 
   public static final ISMLInfo DEFAULT_SML = ESML.DIGIT_PRODUCTION;
-  private static final IPeppolURLProvider URL_PROVIDER = new PeppolURLProvider ();
+  private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
