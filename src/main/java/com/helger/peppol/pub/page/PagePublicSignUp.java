@@ -206,12 +206,12 @@ public final class PagePublicSignUp extends AbstractAppWebPage
         bShowForm = false;
       }
       else
-        aNodeList.addChild (createIncorrectInputBox (aWPEC));
+        aNodeList.addChild (getUIHandler ().createIncorrectInputBox (aWPEC));
     }
 
     if (bShowForm)
     {
-      final AbstractHCForm <?> aForm = aNodeList.addAndReturnChild (createFormSelf (aWPEC));
+      final AbstractHCForm <?> aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC));
       showInputForm (aDisplayLocale, aForm, aFormErrors);
 
       final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aWPEC);

@@ -83,7 +83,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
       final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
       final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
       aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
-      final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet<> ();
+      final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
       ICRMSubscriber aSameEmailAddressSubscriber = null;
 
       if (StringHelper.hasNoText (sName))
@@ -143,7 +143,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
       }
       else
       {
-        aNodeList.addChild (createIncorrectInputBox (aWPEC));
+        aNodeList.addChild (getUIHandler ().createIncorrectInputBox (aWPEC));
       }
     }
 

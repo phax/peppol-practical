@@ -258,7 +258,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
-    aForm.addChild (createActionHeader (eFormAction.isEdit () ? "Edit CRM subscriber" : "Create new CRM subscriber"));
+    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM subscriber"
+                                                                              : "Create new CRM subscriber"));
 
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,

@@ -129,7 +129,8 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrors aFormErrors)
   {
-    aForm.addChild (createActionHeader (eFormAction.isEdit () ? "Edit CRM group" : "Create new CRM group"));
+    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM group"
+                                                                              : "Create new CRM group"));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_NAME,
                                                                                          aSelectedObject == null ? null

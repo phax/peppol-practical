@@ -85,7 +85,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
       }
       else
       {
-        aNodeList.addChild (createIncorrectInputBox (aWPEC));
+        aNodeList.addChild (getUIHandler ().createIncorrectInputBox (aWPEC));
       }
     }
 
