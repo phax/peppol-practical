@@ -65,6 +65,7 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
+import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPageActionHandlerDelete;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
@@ -86,6 +87,32 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   public PageSecureCRMSubscriber (@Nonnull @Nonempty final String sID)
   {
     super (sID, "CRM subscribers");
+    setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <ICRMSubscriber, WebPageExecutionContext> ()
+    {
+      @Override
+      protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
+                                      @Nonnull final BootstrapForm aForm,
+                                      @Nonnull final ICRMSubscriber aSelectedObject)
+      {
+        final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+        aForm.addChild (new BootstrapQuestionBox ().addChild ("Should the CRM subscriber '" +
+                                                              aSelectedObject.getDisplayText (aDisplayLocale) +
+                                                              "' really be deleted?"));
+      }
+
+      @Override
+      protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
+                                    @Nonnull final ICRMSubscriber aSelectedObject)
+      {
+        final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+        final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
+
+        if (aCRMSubscriberMgr.deleteCRMSubscriber (aSelectedObject).isChanged ())
+          aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("The CRM subscriber '" +
+                                                                      aSelectedObject.getDisplayText (aDisplayLocale) +
+                                                                      "' was successfully deleted."));
+      }
+    });
   }
 
   @Override
@@ -166,7 +193,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
     final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
     final ICommonsList <String> aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
-    final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet<> ();
+    final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
 
     if (StringHelper.hasNoText (sName))
       aFormErrors.addFieldError (FIELD_NAME, "A name for the CRM subscriber must be provided!");
@@ -269,31 +296,6 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                                    .setCtrl (aGroups)
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_GROUP)));
     }
-  }
-
-  @Override
-  protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
-                                  @Nonnull final BootstrapForm aForm,
-                                  @Nonnull final ICRMSubscriber aSelectedObject)
-  {
-    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    aForm.addChild (new BootstrapQuestionBox ().addChild ("Should the CRM subscriber '" +
-                                                          aSelectedObject.getDisplayText (aDisplayLocale) +
-                                                          "' really be deleted?"));
-  }
-
-  @Override
-  protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
-                                @Nonnull final ICRMSubscriber aSelectedObject)
-  {
-    final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
-
-    if (aCRMSubscriberMgr.deleteCRMSubscriber (aSelectedObject).isChanged ())
-      aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The CRM subscriber '" +
-                                                               aSelectedObject.getDisplayText (aDisplayLocale) +
-                                                               "' was successfully deleted."));
   }
 
   @Nonnull

@@ -60,6 +60,7 @@ import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
+import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPageActionHandlerDelete;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.RequestField;
@@ -83,6 +84,32 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   public PagePublicToolsTestEndpoints (@Nonnull @Nonempty final String sID)
   {
     super (sID, "Test endpoints");
+    setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <TestEndpoint, WebPageExecutionContext> ()
+    {
+      @Override
+      protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
+                                      @Nonnull final BootstrapForm aForm,
+                                      @Nonnull final TestEndpoint aSelectedObject)
+      {
+        aForm.addChild (new BootstrapQuestionBox ().addChild ("Are you sure you want to delete the test endpoint '" +
+                                                              aSelectedObject.getParticipantIDValue () +
+                                                              "' for transport profile '" +
+                                                              AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
+                                                              "'?"));
+      }
+
+      @Override
+      @OverrideOnDemand
+      protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
+                                    @Nonnull final TestEndpoint aSelectedObject)
+      {
+        final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
+        if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
+          aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("The test endpoint was successfully deleted!"));
+        else
+          aWPEC.postRedirectGet (new BootstrapErrorBox ().addChild ("Error deleting the test endpoint!"));
+      }
+    });
   }
 
   @Nonnull
@@ -310,30 +337,6 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                                     sTransportProfileName));
       }
     }
-  }
-
-  @Override
-  protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
-                                  @Nonnull final BootstrapForm aForm,
-                                  @Nonnull final TestEndpoint aSelectedObject)
-  {
-    aForm.addChild (new BootstrapQuestionBox ().addChild ("Are you sure you want to delete the test endpoint '" +
-                                                          aSelectedObject.getParticipantIDValue () +
-                                                          "' for transport profile '" +
-                                                          AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
-                                                          "'?"));
-  }
-
-  @Override
-  @OverrideOnDemand
-  protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
-                                @Nonnull final TestEndpoint aSelectedObject)
-  {
-    final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
-    if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
-      aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("The test endpoint was successfully deleted!"));
-    else
-      aWPEC.postRedirectGet (new BootstrapErrorBox ().addChild ("Error deleting the test endpoint!"));
   }
 
   @Override

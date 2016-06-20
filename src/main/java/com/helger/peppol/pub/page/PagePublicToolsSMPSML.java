@@ -44,7 +44,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
@@ -196,7 +196,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
         aSSLContext.init (aKeyManagerFactory.getKeyManagers (),
                           new TrustManager [] { new TrustManagerTrustAll (false) },
-                          VerySecureRandom.getInstance ());
+                          RandomHelper.getSecureRandom ());
         aSocketFactory = aSSLContext.getSocketFactory ();
       }
       catch (final NoSuchAlgorithmException | KeyManagementException | UnrecoverableKeyException | KeyStoreException ex)
