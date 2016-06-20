@@ -35,12 +35,12 @@ import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
+import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPage;
 import com.helger.photon.core.app.CApplication;
 import com.helger.photon.uicore.css.CPageParam;
-import com.helger.photon.uicore.page.AbstractWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-public final class PageSecureAdminAddons extends AbstractWebPage <WebPageExecutionContext>
+public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPageExecutionContext>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (PageSecureAdminAddons.class);
 
