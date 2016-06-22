@@ -22,7 +22,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.photon.basic.app.dao.impl.AbstractMapBasedWALDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
@@ -91,7 +91,7 @@ public final class CRMGroupManager extends AbstractMapBasedWALDAO <ICRMGroup, CR
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsCollection <? extends ICRMGroup> getAllCRMGroups ()
+  public ICommonsList <? extends ICRMGroup> getAllCRMGroups ()
   {
     return getAll ();
   }

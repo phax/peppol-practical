@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.pub.page;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,6 +24,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.errorlist.FormErrors;
@@ -66,6 +66,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
     super (sID, "Subscribe to newsletter");
   }
 
+  @SuppressWarnings ("null")
   @Override
   protected void fillContent (final WebPageExecutionContext aWPEC)
   {
@@ -83,7 +84,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
       final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
       final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
       aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
-      final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
+      final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet<> ();
       ICRMSubscriber aSameEmailAddressSubscriber = null;
 
       if (StringHelper.hasNoText (sName))
@@ -160,11 +161,11 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL_ADDRESS)))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL_ADDRESS)));
     {
-      final Collection <? extends ICRMGroup> aAllCRMGroups = aCRMGroupMgr.getAllCRMGroups ();
+      final ICommonsList <? extends ICRMGroup> aAllCRMGroups = aCRMGroupMgr.getAllCRMGroups ();
       if (aAllCRMGroups.size () == 1)
       {
         // No need for selection - use hidden field
-        aForm.addChild (new HCHiddenField (FIELD_GROUP, CollectionHelper.getFirstElement (aAllCRMGroups).getID ()));
+        aForm.addChild (new HCHiddenField (FIELD_GROUP, aAllCRMGroups.getFirst ().getID ()));
       }
       else
       {
