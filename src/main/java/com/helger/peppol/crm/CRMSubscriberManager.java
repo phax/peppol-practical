@@ -207,7 +207,7 @@ public final class CRMSubscriberManager extends AbstractMapBasedWALDAO <ICRMSubs
     final CRMSubscriber aRealCRMSubscriber = getOfID (sCRMSubscriberID);
     if (aRealCRMSubscriber == null)
     {
-      AuditHelper.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "id-not-found");
+      AuditHelper.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, "id-not-found", sCRMSubscriberID);
       return EChange.UNCHANGED;
     }
 
@@ -216,7 +216,7 @@ public final class CRMSubscriberManager extends AbstractMapBasedWALDAO <ICRMSubs
     {
       if (ObjectHelper.setDeletionNow (aRealCRMSubscriber).isUnchanged ())
       {
-        AuditHelper.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, sCRMSubscriberID, "already-deleted");
+        AuditHelper.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, "already-deleted", sCRMSubscriberID);
         return EChange.UNCHANGED;
       }
       internalMarkItemDeleted (aRealCRMSubscriber);
