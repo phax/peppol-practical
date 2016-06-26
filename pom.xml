@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.8.4</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>peppol-practical</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -167,6 +167,11 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>peppol-testfiles</artifactId>
