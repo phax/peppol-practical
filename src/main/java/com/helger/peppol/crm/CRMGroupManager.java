@@ -101,9 +101,4 @@ public final class CRMGroupManager extends AbstractMapBasedWALDAO <ICRMGroup, CR
   {
     return getOfID (sID);
   }
-
-  public boolean containsCRMGroupWithID (@Nullable final String sID)
-  {
-    return containsWithID (sID);
-  }
 }

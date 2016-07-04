@@ -174,11 +174,6 @@ public final class CRMSubscriberManager extends AbstractMapBasedWALDAO <ICRMSubs
     return getOfID (sID);
   }
 
-  public boolean containsCRMSubscriberWithID (@Nullable final String sID)
-  {
-    return containsWithID (sID);
-  }
-
   @Nullable
   public ICRMSubscriber getCRMSubscriberOfEmailAddress (@Nullable final String sEmailAddress)
   {
