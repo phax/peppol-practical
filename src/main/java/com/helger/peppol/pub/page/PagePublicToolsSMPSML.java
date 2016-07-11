@@ -63,7 +63,6 @@ import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppol.smlclient.smp.UnauthorizedFault;
 import com.helger.peppol.ui.SMLSelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.peppol.utils.KeyStoreHelper;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
@@ -76,6 +75,7 @@ import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.web.dns.IPV4Addr;
 import com.helger.web.fileupload.IFileItem;
 import com.sun.xml.ws.client.ClientTransportException;
@@ -134,7 +134,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final InputStream aIS = aKeyStoreFile.getInputStream ();
         try
         {
-          aKeyStore = KeyStore.getInstance (KeyStoreHelper.KEYSTORE_TYPE_JKS);
+          aKeyStore = KeyStoreHelper.getJKSKeyStore ();
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
           // Get all aliases
