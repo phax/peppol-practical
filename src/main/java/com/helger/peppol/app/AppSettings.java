@@ -21,10 +21,11 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.settings.ISettings;
-import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
+import com.helger.settings.exchange.configfile.ConfigFile;
+import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
 /**
  * This class provides access to the settings as contained in the
@@ -36,11 +37,13 @@ public final class AppSettings extends AbstractGlobalSingleton
 {
   /** The name of the file containing the settings */
   public static final String FILENAME = "webapp.properties";
-  private static final ISettings s_aSettings;
+  private static final ConfigFile s_aCF;
 
   static
   {
-    s_aSettings = new SettingsPersistenceProperties ().readSettings (new ClassPathResource (FILENAME));
+    s_aCF = new ConfigFileBuilder ().addPath ("private-webapp.properties").addPath (FILENAME).build ();
+    if (!s_aCF.isRead ())
+      throw new InitializationException ("Failed to init properties");
   }
 
   @Deprecated
@@ -51,39 +54,39 @@ public final class AppSettings extends AbstractGlobalSingleton
   @Nonnull
   public static ISettings getSettingsObject ()
   {
-    return s_aSettings;
+    return s_aCF.getSettings ();
   }
 
   @Nullable
   public static String getGlobalDebug ()
   {
-    return s_aSettings.getAsString ("global.debug");
+    return s_aCF.getAsString ("global.debug");
   }
 
   @Nullable
   public static String getGlobalProduction ()
   {
-    return s_aSettings.getAsString ("global.production");
+    return s_aCF.getAsString ("global.production");
   }
 
   @Nullable
   public static String getDataPath ()
   {
-    return s_aSettings.getAsString ("webapp.datapath");
+    return s_aCF.getAsString ("webapp.datapath");
   }
 
   public static boolean isCheckFileAccess ()
   {
-    return s_aSettings.getAsBoolean ("webapp.checkfileaccess", true);
+    return s_aCF.getAsBoolean ("webapp.checkfileaccess", true);
   }
 
   public static boolean isTestVersion ()
   {
-    return s_aSettings.getAsBoolean ("webapp.testversion", GlobalDebug.isDebugMode ());
+    return s_aCF.getAsBoolean ("webapp.testversion", GlobalDebug.isDebugMode ());
   }
 
   public static boolean isWebPageCommentingEnabled ()
   {
-    return s_aSettings.getAsBoolean ("webapp.pagecomments.enabled", false);
+    return s_aCF.getAsBoolean ("webapp.pagecomments.enabled", false);
   }
 }
