@@ -293,6 +293,8 @@
             <xjcArg>-Xph-tostring</xjcArg>
             <xjcArg>-Xph-list-extension</xjcArg>
             <xjcArg>-Xph-csu</xjcArg>
+            <xjcArg>-b</xjcArg>
+            <xjcArg>src/main/jaxb/peppol-commons.episode</xjcArg>
           </xjcArgs>
           <!-- Required to work with a JDK 1.8 JVM! -->
           <vmArgs>
