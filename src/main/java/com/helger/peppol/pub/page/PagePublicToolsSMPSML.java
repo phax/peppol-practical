@@ -54,6 +54,7 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.network.dns.IPV4Addr;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
@@ -76,7 +77,6 @@ import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.security.keystore.KeyStoreHelper;
-import com.helger.web.dns.IPV4Addr;
 import com.helger.web.fileupload.IFileItem;
 import com.sun.xml.ws.client.ClientTransportException;
 
