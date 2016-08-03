@@ -27,6 +27,7 @@ import javax.xml.transform.dom.DOMSource;
 import org.w3c.dom.Node;
 
 import com.helger.commons.error.IResourceError;
+import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -90,14 +91,16 @@ public final class ValidationPyramidHelper
     final ValidationPyramidResult aResult = aPyramid.applyValidation (new DOMSource (aXMLNode));
     final long nMillis = aSW.stopAndGetMillis ();
     s_aStatsDuration.addTime (nMillis);
+
+    final IResourceErrorGroup aAggregated = aResult.getAggregatedResults ();
     AuditHelper.onAuditExecuteSuccess ("validation-pyramid",
                                        eSyntaxBinding.getID (),
                                        eDocType.getID (),
                                        eTransaction.getID (),
                                        aCountry,
                                        Boolean.valueOf (bIndustrySpecificRules),
-                                       Integer.valueOf (aResult.getAggregatedResults ().getFailureCount ()),
-                                       Integer.valueOf (aResult.getAggregatedResults ().getErrorCount ()));
+                                       Integer.valueOf (aAggregated.getFailureCount ()),
+                                       Integer.valueOf (aAggregated.getErrorCount ()));
     return aResult;
   }
 
