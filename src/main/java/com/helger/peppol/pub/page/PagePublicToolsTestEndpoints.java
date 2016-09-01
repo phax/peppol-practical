@@ -105,9 +105,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       {
         final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
         if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
-          aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("The test endpoint was successfully deleted!"));
+          aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("The test endpoint was successfully deleted!"));
         else
-          aWPEC.postRedirectGet (new BootstrapErrorBox ().addChild ("Error deleting the test endpoint!"));
+          aWPEC.postRedirectGetInternal (new BootstrapErrorBox ().addChild ("Error deleting the test endpoint!"));
       }
     });
   }
@@ -314,12 +314,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                              sParticipantIDValue,
                                              eTransportProfile,
                                              aSML);
-        aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("Successfully edited the test endpoint for " +
-                                                                    sParticipantIDISO6523 +
-                                                                    ":" +
-                                                                    sParticipantIDValue +
-                                                                    " with transport profile " +
-                                                                    sTransportProfileName));
+        aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("Successfully edited the test endpoint for " +
+                                                                            sParticipantIDISO6523 +
+                                                                            ":" +
+                                                                            sParticipantIDValue +
+                                                                            " with transport profile " +
+                                                                            sTransportProfileName));
       }
       else
       {
@@ -329,12 +329,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                              sParticipantIDValue,
                                              eTransportProfile,
                                              aSML);
-        aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("Successfully added the new test endpoint for " +
-                                                                    sParticipantIDISO6523 +
-                                                                    ":" +
-                                                                    sParticipantIDValue +
-                                                                    " with transport profile " +
-                                                                    sTransportProfileName));
+        aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("Successfully added the new test endpoint for " +
+                                                                            sParticipantIDISO6523 +
+                                                                            ":" +
+                                                                            sParticipantIDValue +
+                                                                            " with transport profile " +
+                                                                            sTransportProfileName));
       }
     }
   }

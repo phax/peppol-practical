@@ -108,9 +108,9 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
         final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
 
         if (aCRMSubscriberMgr.deleteCRMSubscriber (aSelectedObject).isChanged ())
-          aWPEC.postRedirectGet (new BootstrapSuccessBox ().addChild ("The CRM subscriber '" +
-                                                                      aSelectedObject.getDisplayText (aDisplayLocale) +
-                                                                      "' was successfully deleted."));
+          aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("The CRM subscriber '" +
+                                                                              aSelectedObject.getDisplayText (aDisplayLocale) +
+                                                                              "' was successfully deleted."));
       }
     });
   }
@@ -193,7 +193,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
     final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
     final ICommonsList <String> aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
-    final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
+    final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet<> ();
 
     if (StringHelper.hasNoText (sName))
       aFormErrors.addFieldError (FIELD_NAME, "A name for the CRM subscriber must be provided!");
