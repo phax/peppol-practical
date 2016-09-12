@@ -41,7 +41,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.string.ToStringGenerator;
 
 import eu.europa.ec.cipa.validation.generic.EXMLValidationType;
@@ -49,7 +49,7 @@ import eu.europa.ec.cipa.validation.rules.IValidationLevel;
 
 /**
  * Represents a single result layer of the validation pyramid.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
@@ -58,11 +58,11 @@ public class ValidationPyramidResultLayer
   private final IValidationLevel m_aValidationLevel;
   private final EXMLValidationType m_eXMLValidationType;
   private final boolean m_bStopValidatingOnError;
-  private final IResourceErrorGroup m_aValidationErrors;
+  private final IErrorList m_aValidationErrors;
 
   /**
    * Constructor.
-   * 
+   *
    * @param aValidationLevel
    *        The validation level. May not be <code>null</code>.
    * @param eXMLValidationType
@@ -77,7 +77,7 @@ public class ValidationPyramidResultLayer
   public ValidationPyramidResultLayer (@Nonnull final IValidationLevel aValidationLevel,
                                        @Nonnull final EXMLValidationType eXMLValidationType,
                                        final boolean bStopValidatingOnError,
-                                       @Nonnull final IResourceErrorGroup aValidationErrors)
+                                       @Nonnull final IErrorList aValidationErrors)
   {
     ValueEnforcer.notNull (aValidationLevel, "ValidationLevel");
     ValueEnforcer.notNull (eXMLValidationType, "ValidationType");
@@ -119,7 +119,7 @@ public class ValidationPyramidResultLayer
    * @return The collected validation errors. Never <code>null</code>.
    */
   @Nonnull
-  public IResourceErrorGroup getValidationErrors ()
+  public IErrorList getValidationErrors ()
   {
     return m_aValidationErrors;
   }

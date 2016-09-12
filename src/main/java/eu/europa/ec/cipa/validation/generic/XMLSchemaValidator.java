@@ -44,11 +44,10 @@ import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IResourceErrorGroup;
-import com.helger.commons.error.ResourceError;
-import com.helger.commons.error.ResourceErrorGroup;
-import com.helger.commons.error.ResourceLocation;
+import com.helger.commons.error.SingleError;
+import com.helger.commons.error.list.ErrorList;
+import com.helger.commons.error.list.IErrorList;
+import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.schema.XMLSchemaCache;
@@ -56,7 +55,7 @@ import com.helger.xml.schema.XMLSchemaValidationHelper;
 
 /**
  * Implementation of the {@link IXMLValidator} for XML Schema.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public class XMLSchemaValidator extends AbstractXMLValidator
@@ -65,7 +64,7 @@ public class XMLSchemaValidator extends AbstractXMLValidator
 
   /**
    * Constructor for schema validation based on a single resources.
-   * 
+   *
    * @param aXSD
    *        The resource where the XSD file can be found. May not be
    *        <code>null</code>.
@@ -79,7 +78,7 @@ public class XMLSchemaValidator extends AbstractXMLValidator
   /**
    * Constructor for schema validation based on the given resources (order is
    * important).
-   * 
+   *
    * @param aXSDs
    *        The resources where the XSD files can be found. May neither be
    *        <code>null</code> nor empty.
@@ -92,7 +91,7 @@ public class XMLSchemaValidator extends AbstractXMLValidator
 
   /**
    * Constructor for a pre-built {@link Schema} object.
-   * 
+   *
    * @param aSchema
    *        The schema to be used for validation. May not be <code>null</code>.
    */
@@ -117,7 +116,7 @@ public class XMLSchemaValidator extends AbstractXMLValidator
   }
 
   @Nonnull
-  public IResourceErrorGroup validateXMLInstance (@Nullable final String sResourceName, @Nonnull final Source aXML)
+  public IErrorList validateXMLInstance (@Nullable final String sResourceName, @Nonnull final Source aXML)
   {
     try
     {
@@ -127,9 +126,10 @@ public class XMLSchemaValidator extends AbstractXMLValidator
     {
       // Failed to read/parse XML
       final String sErrMsg = ex.getCause () != null ? ex.getCause ().getMessage () : "Failed to read/parse XML";
-      return new ResourceErrorGroup (new ResourceError (new ResourceLocation (sResourceName),
-                                                        EErrorLevel.FATAL_ERROR,
-                                                        sErrMsg));
+      return new ErrorList (SingleError.builderFatalError ()
+                                       .setErrorLocation (new ErrorLocation (sResourceName))
+                                       .setErrorText (sErrMsg)
+                                       .build ());
     }
   }
 

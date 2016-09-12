@@ -58,7 +58,7 @@ import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.ext.ICommonsSortedSet;
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.regex.RegExHelper;

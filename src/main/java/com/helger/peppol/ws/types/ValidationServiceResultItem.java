@@ -22,24 +22,24 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
 
 import eu.europa.ec.cipa.validation.generic.EXMLValidationType;
 import eu.europa.ec.cipa.validation.rules.EValidationLevel;
 
 /**
  * Represents a single result item.
- * 
+ *
  * @author philip
  */
 @XmlAccessorType (XmlAccessType.FIELD)
 @XmlType (name = "ValidationServiceResultItemType", propOrder = { "m_eValidationLevel",
-                                                                 "m_eValidationType",
-                                                                 "m_eErrorLevel",
-                                                                 "m_sLocation",
-                                                                 "m_sSVRLTest",
-                                                                 "m_sErrorText",
-                                                                 "m_sExceptionMessage" })
+                                                                  "m_eValidationType",
+                                                                  "m_eErrorLevel",
+                                                                  "m_sLocation",
+                                                                  "m_sSVRLTest",
+                                                                  "m_sErrorText",
+                                                                  "m_sExceptionMessage" })
 public final class ValidationServiceResultItem
 {
   @XmlElement (name = "ValidationLevel", required = true)

@@ -46,11 +46,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IResourceErrorGroup;
-import com.helger.commons.error.ResourceError;
-import com.helger.commons.error.ResourceErrorGroup;
-import com.helger.commons.error.ResourceLocation;
+import com.helger.commons.error.SingleError;
+import com.helger.commons.error.list.ErrorList;
+import com.helger.commons.error.list.IErrorList;
+import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.schematron.ISchematronResource;
@@ -95,7 +94,7 @@ public class XMLSchematronValidator extends AbstractXMLValidator
   }
 
   @Nonnull
-  public IResourceErrorGroup validateXMLInstance (@Nullable final String sResourceName, @Nonnull final Source aXML)
+  public IErrorList validateXMLInstance (@Nullable final String sResourceName, @Nonnull final Source aXML)
   {
     SchematronOutputType aSVRL = null;
     String sErrorMsg = "Internal error";
@@ -110,12 +109,13 @@ public class XMLSchematronValidator extends AbstractXMLValidator
       sErrorMsg += ": resolve any previous errors and try again";
     }
     if (aSVRL == null)
-      return new ResourceErrorGroup (new ResourceError (new ResourceLocation (sResourceName),
-                                                        EErrorLevel.FATAL_ERROR,
-                                                        sErrorMsg));
+      return new ErrorList (SingleError.builderFatalError ()
+                                       .setErrorLocation (new ErrorLocation (sResourceName))
+                                       .setErrorText (sErrorMsg)
+                                       .build ());
 
     // Returns a list of SVRLResourceError objects!
-    return SchematronHelper.convertToResourceErrorGroup (aSVRL, sResourceName);
+    return SchematronHelper.convertToErrorList (aSVRL, sResourceName);
   }
 
   @Override

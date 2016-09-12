@@ -29,14 +29,12 @@ import javax.xml.bind.annotation.XmlType;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
 
 @XmlRootElement
 @XmlAccessorType (XmlAccessType.FIELD)
-@XmlType (name = "ValidationServiceResultType", propOrder = { "m_eReturnCode",
-                                                              "m_bValidationInterrupted",
-                                                              "m_eMostSeverErrorLevel",
-                                                              "m_aItems" })
+@XmlType (name = "ValidationServiceResultType",
+          propOrder = { "m_eReturnCode", "m_bValidationInterrupted", "m_eMostSeverErrorLevel", "m_aItems" })
 public final class ValidationServiceResult
 {
   @XmlElement (name = "ReturnCode", required = true)

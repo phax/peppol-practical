@@ -26,14 +26,12 @@ import javax.xml.transform.dom.DOMSource;
 
 import org.w3c.dom.Node;
 
-import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.IResourceErrorGroup;
-import com.helger.commons.error.IResourceLocation;
+import com.helger.commons.error.IError;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.datetime.util.PDTWebDateHelper;
 import com.helger.photon.basic.audit.AuditHelper;
@@ -92,7 +90,7 @@ public final class ValidationPyramidHelper
     final long nMillis = aSW.stopAndGetMillis ();
     s_aStatsDuration.addTime (nMillis);
 
-    final IResourceErrorGroup aAggregated = aResult.getAggregatedResults ();
+    final IErrorList aAggregated = aResult.getAggregatedResults ();
     AuditHelper.onAuditExecuteSuccess ("validation-pyramid",
                                        eSyntaxBinding.getID (),
                                        eDocType.getID (),
@@ -135,23 +133,23 @@ public final class ValidationPyramidHelper
       final IMicroElement eLayer = eResult.appendElement ("layer");
       eLayer.setAttribute ("level", aResultLayer.getValidationLevel ().getID ());
       eLayer.setAttribute ("type", aResultLayer.getXMLValidationType ().getID ());
-      for (final IResourceError aError : aResultLayer.getValidationErrors ())
+      for (final IError aError : aResultLayer.getValidationErrors ())
       {
         final IMicroElement eError = eLayer.appendElement ("error");
         // error location
         final IMicroElement eLocation = eError.appendElement ("location");
-        if (StringHelper.hasText (aError.getLocation ().getResourceID ()))
-          eLocation.setAttribute ("resourceid", aError.getLocation ().getResourceID ());
-        if (aError.getLocation ().getLineNumber () != IResourceLocation.ILLEGAL_NUMBER)
-          eLocation.setAttribute ("linenum", aError.getLocation ().getLineNumber ());
-        if (aError.getLocation ().getColumnNumber () != IResourceLocation.ILLEGAL_NUMBER)
-          eLocation.setAttribute ("colnum", aError.getLocation ().getColumnNumber ());
-        if (StringHelper.hasText (aError.getLocation ().getField ()))
-          eLocation.setAttribute ("field", aError.getLocation ().getField ());
+        if (aError.getErrorLocation ().hasResourceID ())
+          eLocation.setAttribute ("resourceid", aError.getErrorLocation ().getResourceID ());
+        if (aError.getErrorLocation ().hasLineNumber ())
+          eLocation.setAttribute ("linenum", aError.getErrorLocation ().getLineNumber ());
+        if (aError.getErrorLocation ().hasColumnNumber ())
+          eLocation.setAttribute ("colnum", aError.getErrorLocation ().getColumnNumber ());
+        if (aError.hasErrorFieldName ())
+          eLocation.setAttribute ("field", aError.getErrorFieldName ());
         // error other fields
         eError.appendElement ("level").appendText (aError.getErrorLevel ().getID ());
-        eError.appendElement ("text").appendText (aError.getDisplayText (aDisplayLocale));
-        if (aError.getLinkedException () != null)
+        eError.appendElement ("text").appendText (aError.getErrorText (aDisplayLocale));
+        if (aError.hasLinkedException ())
         {
           final IMicroElement eException = eError.appendElement ("exception");
           eException.appendElement ("message", aError.getLinkedException ().getMessage ());

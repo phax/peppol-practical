@@ -40,19 +40,19 @@ package eu.europa.ec.cipa.validation.generic;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.xml.transform.TransformSourceFactory;
 
 /**
  * Abstract implementation of the {@link IXMLValidator}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public abstract class AbstractXMLValidator implements IXMLValidator
 {
   @Nonnull
-  public final IResourceErrorGroup validateXMLInstance (@Nonnull final IReadableResource aXML)
+  public final IErrorList validateXMLInstance (@Nonnull final IReadableResource aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 

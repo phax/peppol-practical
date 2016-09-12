@@ -53,7 +53,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.serialize.read.DOMReader;
@@ -182,7 +182,7 @@ public abstract class AbstractValidationPyramid implements IValidationPyramid
       final IXMLValidator aValidator = aValidationLayer.getValidator ();
 
       // Perform the validation
-      final IResourceErrorGroup aErrors = aValidator.validateXMLInstance (sResourceName, aXML);
+      final IErrorList aErrors = aValidator.validateXMLInstance (sResourceName, aXML);
 
       // Add the single result to the validation pyramid
       ret.addValidationResultLayer (new ValidationPyramidResultLayer (aValidationLayer.getValidationLevel (),

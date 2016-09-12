@@ -84,7 +84,6 @@ import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.bootstrap3.grid.BootstrapRow;
 import com.helger.photon.core.app.error.InternalErrorBuilder;
 import com.helger.photon.core.form.RequestField;
@@ -385,9 +384,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
     if (bShowInput)
     {
-      final BootstrapForm aForm = aNodeList.addAndReturnChild (new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ())
-                                                                                                                .setMethod (EHCFormMethod.GET)
-                                                                                                                .setLeft (3));
+      final BootstrapForm aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC)
+                                                                              .setMethod (EHCFormMethod.GET)
+                                                                              .setLeft (3));
       aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Show all processes, document types and endpoints of a participant."),
                                                            new HCDiv ().addChild ("You may want to try scheme ")
                                                                        .addChild (new HCCode ().addChild ("9915"))

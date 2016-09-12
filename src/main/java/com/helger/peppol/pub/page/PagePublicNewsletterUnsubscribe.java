@@ -35,7 +35,6 @@ import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
@@ -89,7 +88,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
       }
     }
 
-    final BootstrapForm aForm = new BootstrapForm (aWPEC.getSelfHref (), EBootstrapFormType.HORIZONTAL);
+    final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
     aForm.setLeft (4);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Your email address")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL_ADDRESS)))

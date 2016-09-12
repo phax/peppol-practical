@@ -21,10 +21,10 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.IResourceErrorGroup;
-import com.helger.commons.error.IResourceLocation;
+import com.helger.commons.error.IError;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.list.IErrorList;
+import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.IHCNode;
@@ -51,7 +51,6 @@ import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
 import com.helger.photon.core.form.RequestField;
@@ -108,7 +107,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         for (final ValidationLayerResult aValidationResultItem : aValidationResultList)
         {
           final IValidationArtefact aValidationArtefact = aValidationResultItem.getValidationArtefact ();
-          final IResourceErrorGroup aItemErrors = aValidationResultItem.getResourceErrorGroup ();
+          final IErrorList aItemErrors = aValidationResultItem.getResourceErrorGroup ();
 
           final HCDiv aDiv = new HCDiv ();
           aDiv.addChild (aValidationArtefact.getValidationArtefactType ().getName ());
@@ -125,7 +124,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
               aUL.addItem (new BootstrapLabel (EBootstrapLabelType.SUCCESS).addChild ("All fine on this level"));
             }
             else
-              for (final IResourceError aError : aItemErrors)
+              for (final IError aError : aItemErrors)
               {
                 IHCNode aErrorLevel;
                 if (aError.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.ERROR))
@@ -142,7 +141,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                   else
                     aErrorLevel = new BootstrapLabel ().addChild ("undefined");
 
-                final IResourceLocation aLocation = aError.getLocation ();
+                final IErrorLocation aLocation = aError.getErrorLocation ();
                 final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
                                                                                          : null;
                 final IHCLI <?> aItem = aUL.addItem ();
@@ -152,7 +151,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                 if (aSVRLError != null)
                   aItem.addChild (new HCDiv ().addChild ("XPath test: ")
                                               .addChild (new HCCode ().addChild (aSVRLError.getTest ())));
-                aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getDisplayText (aDisplayLocale)));
+                aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getErrorText (aDisplayLocale)));
               }
           aDetails.addChild (aUL);
         }
@@ -210,7 +209,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 
     if (bShowInput)
     {
-      final BootstrapForm aForm = aNodeList.addAndReturnChild (new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ()));
+      final BootstrapForm aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC));
       aForm.setEncTypeFileUpload ();
       aForm.addChild (new BootstrapInfoBox ().addChild ("Select the PEPPOL UBL file for validation and upload it"));
 

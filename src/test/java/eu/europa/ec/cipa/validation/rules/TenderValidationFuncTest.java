@@ -44,7 +44,7 @@ import org.junit.Test;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
 import com.helger.peppol.testfiles.ubl.PeppolBISV1TestFiles;
@@ -83,7 +83,8 @@ public final class TenderValidationFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T44));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
+                                                                             aTestFile);
         assertNotNull (aSVRL);
 
         if (DEBUG)
@@ -119,7 +120,8 @@ public final class TenderValidationFuncTest
         final IReadableResource aXSLT = eArtefact.getValidationXSLTResource (ValidationTransaction.createUBLTransaction (ETransaction.T44));
 
         // And now run the main "Schematron" validation
-        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT), aTestFile);
+        final SchematronOutputType aSVRL = SchematronHelper.applySchematron (new SchematronResourceXSLT (aXSLT),
+                                                                             aTestFile);
         assertNotNull (aSVRL);
 
         if (DEBUG)

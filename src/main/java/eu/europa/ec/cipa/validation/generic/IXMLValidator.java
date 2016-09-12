@@ -41,12 +41,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.transform.Source;
 
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.IReadableResource;
 
 /**
  * Base interface for an XML validator.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public interface IXMLValidator
@@ -61,17 +61,17 @@ public interface IXMLValidator
   /**
    * Validate the passed XML. This is a shortcut for
    * <code>validateXMLInstance (aXML.getPath (), TransformSourceFactory.create (aXML))</code>
-   * 
+   *
    * @param aXML
    *        The XML to be validated. May not be <code>null</code>.
    * @return A non-<code>null</code> error group.
    */
   @Nonnull
-  IResourceErrorGroup validateXMLInstance (@Nonnull IReadableResource aXML);
+  IErrorList validateXMLInstance (@Nonnull IReadableResource aXML);
 
   /**
    * Validate the passed XML
-   * 
+   *
    * @param sPath
    *        The path to the XML source. May be <code>null</code>.
    * @param aXML
@@ -79,5 +79,5 @@ public interface IXMLValidator
    * @return A non-<code>null</code> error group.
    */
   @Nonnull
-  IResourceErrorGroup validateXMLInstance (@Nullable String sPath, @Nonnull Source aXML);
+  IErrorList validateXMLInstance (@Nullable String sPath, @Nonnull Source aXML);
 }

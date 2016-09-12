@@ -29,9 +29,9 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.w3c.dom.Document;
 
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.IError;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -136,7 +136,7 @@ public class WSDocumentValidation implements IDocumentValidation
                                                                                                         aCountry,
                                                                                                         bIndustrySpecificRules,
                                                                                                         aXMLDoc);
-                  final IResourceErrorGroup aAggResults = res.getAggregatedResults ();
+                  final IErrorList aAggResults = res.getAggregatedResults ();
 
                   ret.setValidationInterrupted (res.isValidationInterrupted ());
                   ret.setMostSevereErrorLevel ((EErrorLevel) aAggResults.getMostSevereErrorLevel ());
@@ -145,16 +145,15 @@ public class WSDocumentValidation implements IDocumentValidation
                   for (final ValidationPyramidResultLayer aResLayer : res.getAllValidationResultLayers ())
                   {
                     // For all errors in current layer
-                    for (final IResourceError aError : aResLayer.getValidationErrors ())
+                    for (final IError aError : aResLayer.getValidationErrors ())
                     {
                       final ValidationServiceResultItem aItem = new ValidationServiceResultItem ();
                       aItem.setValidationLevel ((EValidationLevel) aResLayer.getValidationLevel ());
                       aItem.setValidationType (aResLayer.getXMLValidationType ());
                       aItem.setErrorLevel ((EErrorLevel) aError.getErrorLevel ());
-                      aItem.setLocation (aError.getLocation ().getAsString ());
-                      aItem.setErrorText (aError.getDisplayText (aDisplayLocale));
-                      if (aError.getLinkedException () != null)
-                        aItem.setExceptionMessage (aError.getLinkedException ().getMessage ());
+                      aItem.setLocation (aError.getErrorLocation ().getAsString ());
+                      aItem.setErrorText (aError.getErrorText (aDisplayLocale));
+                      aItem.setExceptionMessage (aError.getLinkedExceptionMessage ());
                       if (aError instanceof SVRLResourceError)
                         aItem.setSVRLTest (((SVRLResourceError) aError).getTest ());
                       ret.getItems ().add (aItem);

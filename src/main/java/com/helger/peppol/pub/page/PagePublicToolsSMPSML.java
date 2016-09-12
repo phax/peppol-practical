@@ -71,7 +71,6 @@ import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.EBootstrapFormType;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
@@ -550,7 +549,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
       // Register SMP at SML
       {
-        final BootstrapForm aForm = new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ());
+        final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
         aForm.setEncTypeFileUpload ().setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Register a new SMP to the SML. This must only be done once per SMP!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
@@ -588,7 +587,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
       // Update SMP at SML
       {
-        final BootstrapForm aForm = new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ());
+        final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
         aForm.setEncTypeFileUpload ().setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
@@ -626,8 +625,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
       // Delete SMP from SML
       {
-        final BootstrapForm aForm = new BootstrapForm (EBootstrapFormType.HORIZONTAL).setAction (aWPEC.getSelfHref ());
-        aForm.setEncTypeFileUpload ().setLeft (3);
+        final BootstrapForm aForm = getUIHandler ().createFormFileUploadSelf (aWPEC);
+        aForm.setLeft (3);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Delete an existing SMP from the SML."));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML,

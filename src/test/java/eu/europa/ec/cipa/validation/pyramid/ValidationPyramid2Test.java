@@ -48,7 +48,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.error.IResourceError;
+import com.helger.commons.error.IError;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
@@ -78,7 +78,7 @@ public final class ValidationPyramid2Test
     {
       for (final ValidationPyramidResultLayer aResultLayer : vp.applyValidation (aTestFile)
                                                                .getAllValidationResultLayers ())
-        for (final IResourceError aError : aResultLayer.getValidationErrors ())
+        for (final IError aError : aResultLayer.getValidationErrors ())
           s_aLogger.info (aResultLayer.getValidationLevel () + " " + aError.getAsString (Locale.US));
     }
   }
@@ -100,7 +100,8 @@ public final class ValidationPyramid2Test
     catch (final IllegalArgumentException ex)
     {}
 
-    for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.INVOICE, aCountry))
+    for (final IReadableResource aTestFile : PeppolBISV1TestFiles.getSuccessFiles (EPeppolUBLTestFileType.INVOICE,
+                                                                                   aCountry))
     {
       // Do validation
       final ValidationPyramidResult aResult = vp.applyValidation (aTestFile);
@@ -123,7 +124,7 @@ public final class ValidationPyramid2Test
         assertNotNull (aResultLayer.getXMLValidationType ());
         assertNotNull (aResultLayer.getValidationErrors ());
 
-        for (final IResourceError aError : aResultLayer.getValidationErrors ())
+        for (final IError aError : aResultLayer.getValidationErrors ())
         {
           s_aLogger.info (aResultLayer.getValidationLevel () + " " + aError.getAsString (Locale.US));
           nItems++;

@@ -47,8 +47,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.error.IResourceErrorGroup;
-import com.helger.commons.error.ResourceErrorGroup;
+import com.helger.commons.error.list.ErrorList;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.string.ToStringGenerator;
 
 import eu.europa.ec.cipa.validation.rules.IValidationDocumentType;
@@ -223,11 +223,11 @@ public class ValidationPyramidResult
    */
   @Nonnull
   @ReturnsMutableCopy
-  public IResourceErrorGroup getAggregatedResults ()
+  public IErrorList getAggregatedResults ()
   {
-    final ResourceErrorGroup aAggregatedResults = new ResourceErrorGroup ();
+    final ErrorList aAggregatedResults = new ErrorList ();
     for (final ValidationPyramidResultLayer aValidationResultLayer : m_aValidationResultLayers)
-      aAggregatedResults.addResourceErrorGroup (aValidationResultLayer.getValidationErrors ());
+      aAggregatedResults.addAll (aValidationResultLayer.getValidationErrors ());
     return aAggregatedResults;
   }
 
