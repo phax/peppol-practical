@@ -34,7 +34,6 @@ import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.property.CCSSProperties;
@@ -86,6 +85,7 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.grid.BootstrapRow;
 import com.helger.photon.core.app.error.InternalErrorBuilder;
+import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -111,7 +111,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final FormErrors aFormErrors = new FormErrors ();
+    final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))

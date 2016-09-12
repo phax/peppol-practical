@@ -31,7 +31,6 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.email.EmailAddressHelper;
-import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.string.StringHelper;
@@ -68,6 +67,7 @@ import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap3.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
 import com.helger.photon.uicore.html.select.HCSalutationSelect;
@@ -181,7 +181,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   @Override
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
                                                  @Nullable final ICRMSubscriber aSelectedObject,
-                                                 @Nonnull final FormErrors aFormErrors,
+                                                 @Nonnull final FormErrorList aFormErrors,
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
@@ -253,7 +253,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                 @Nullable final ICRMSubscriber aSelectedObject,
                                 @Nonnull final BootstrapForm aForm,
                                 @Nonnull final EWebPageFormAction eFormAction,
-                                @Nonnull final FormErrors aFormErrors)
+                                @Nonnull final FormErrorList aFormErrors)
   {
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();

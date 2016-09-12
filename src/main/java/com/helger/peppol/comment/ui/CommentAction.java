@@ -20,11 +20,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.errorlist.FormErrors;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
+import com.helger.photon.core.form.FormErrorList;
 
-public final class CommentAction extends FormErrors
+public final class CommentAction extends FormErrorList
 {
   private final ECommentAction m_eCommentAction;
   private final ICommentThread m_aCommentThread;

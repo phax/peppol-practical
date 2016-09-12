@@ -26,7 +26,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCExtHelper;
@@ -44,6 +43,7 @@ import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.security.mgr.PhotonSecurityManager;
 import com.helger.photon.security.password.GlobalPasswordSettings;
@@ -69,7 +69,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
   }
 
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
-                                                 @Nonnull final FormErrors aFormErrors)
+                                                 @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -155,7 +155,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
 
   protected void showInputForm (@Nonnull final Locale aDisplayLocale,
                                 @Nonnull final AbstractHCForm <?> aForm,
-                                @Nonnull final FormErrors aFormErrors)
+                                @Nonnull final FormErrorList aFormErrors)
   {
     final List <IHCNode> aPasswordHelpText = HCExtHelper.list2divList (GlobalPasswordSettings.getPasswordConstraintList ()
                                                                                              .getAllPasswordConstraintDescriptions (aDisplayLocale));
@@ -193,7 +193,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final FormErrors aFormErrors = new FormErrors ();
+    final FormErrorList aFormErrors = new FormErrorList ();
     boolean bShowForm = true;
 
     if (aWPEC.hasSubAction (CPageParam.ACTION_SAVE))

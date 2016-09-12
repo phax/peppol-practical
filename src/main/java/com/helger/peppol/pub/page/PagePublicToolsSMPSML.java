@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.random.RandomHelper;
@@ -72,6 +71,7 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
+import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -117,7 +117,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   @Nullable
   private SSLSocketFactory _loadKeyStoreAndCreateSSLSocketFactory (@Nullable final IFileItem aKeyStoreFile,
                                                                    @Nullable final String sKeyStorePassword,
-                                                                   @Nonnull final FormErrors aFormErrors)
+                                                                   @Nonnull final FormErrorList aFormErrors)
   {
     KeyStore aKeyStore = null;
     if (aKeyStoreFile == null || aKeyStoreFile.getSize () == 0L)
@@ -208,7 +208,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     return aSocketFactory;
   }
 
-  private void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrors aFormErrors)
+  private void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                  @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
@@ -337,7 +338,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     }
   }
 
-  private void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrors aFormErrors)
+  private void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
@@ -466,7 +467,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     }
   }
 
-  private void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrors aFormErrors)
+  private void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                  @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
@@ -528,7 +530,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final FormErrors aFormErrors = new FormErrors ();
+    final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))

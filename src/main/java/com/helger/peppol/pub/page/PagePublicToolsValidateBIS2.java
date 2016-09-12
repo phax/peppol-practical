@@ -25,7 +25,6 @@ import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.error.location.IErrorLocation;
-import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCEditFile;
@@ -53,6 +52,7 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
+import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -75,7 +75,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final FormErrors aFormErrors = new FormErrors ();
+    final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))

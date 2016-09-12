@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.email.EmailAddressHelper;
-import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.html.hc.html.forms.HCEdit;
@@ -45,6 +44,7 @@ import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.form.BootstrapViewForm;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -86,7 +86,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
   @Override
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
                                                  @Nullable final ICRMGroup aSelectedObject,
-                                                 @Nonnull final FormErrors aFormErrors,
+                                                 @Nonnull final FormErrorList aFormErrors,
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
@@ -127,7 +127,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
                                 @Nullable final ICRMGroup aSelectedObject,
                                 @Nonnull final BootstrapForm aForm,
                                 @Nonnull final EWebPageFormAction eFormAction,
-                                @Nonnull final FormErrors aFormErrors)
+                                @Nonnull final FormErrorList aFormErrors)
   {
     aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM group"
                                                                               : "Create new CRM group"));

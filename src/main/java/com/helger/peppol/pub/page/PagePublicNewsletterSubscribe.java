@@ -27,7 +27,6 @@ import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.email.EmailAddressHelper;
-import com.helger.commons.errorlist.FormErrors;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
@@ -46,6 +45,7 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
 import com.helger.photon.uicore.css.CPageParam;
@@ -73,7 +73,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
-    final FormErrors aFormErrors = new FormErrors ();
+    final FormErrorList aFormErrors = new FormErrorList ();
     List <String> aSelectedCRMGroupIDs = null;
 
     if (aWPEC.hasAction (CPageParam.ACTION_SAVE))
