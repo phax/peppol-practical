@@ -295,9 +295,9 @@ public final class CommentUI
               aCommentPanel.getBody ().addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
 
               // Always put the text as the first part of the body
-              aCommentPanel.getBody ().addChild (0,
-                                                 new HCDiv ().addChildren (HCExtHelper.nl2brList (aComment.getText ()))
-                                                             .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
+              aCommentPanel.getBody ().addChildAt (0,
+                                                   new HCDiv ().addChildren (HCExtHelper.nl2brList (aComment.getText ()))
+                                                               .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
               // the dummy container for new comment form
               aCommentPanel.getBody ().addChild (aCommentResponseContainer);
 
