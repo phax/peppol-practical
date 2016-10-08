@@ -20,6 +20,43 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2016-10-05</h3>
+
+<p>
+  OpenPEPPOL PoACC fall release published for review.
+  They get manadatory by 2016-11-15 (12:00 CET).<br/>
+  In this version OpenPEPPOL decided to no longer maintain the ODS files, and instead 
+    directly work on the Schematron files - what a pitty.
+  <ul>
+    <li><a href="http://www.peppol.eu/news/OpenPEPPOLPoACCfallreleasepublishedforreview">Download artifacts 3.3.0-RC1</a></li>
+  </ul>
+</p>
+
+<h3>2016-09-19</h3>
+
+<p>
+  OpenPEPPOL planing to switch to AS4.<br />
+  In a Letter of Understanding (LoU) signed between the Commission and OpenPEPPOL, 
+  the parties agree a plan for the transition from AS2 to AS4 in the PEPPOL profile 
+  of CEF eDelivery. As part of this, support for SMP/SML lookup and PKI specifications 
+  as used in the PEPPOL eDelivery network will continue in the CEF eDelivery architecture. 
+  <ul>
+    <li><a href="http://www.peppol.eu/news/NewAgreemen%20betweenEuropeanCommissionandOpenPEPPOL">Read more</a></li>
+    <li><a href="https://ec.europa.eu/cefdigital/wiki/download/attachments/33817810/20160629%20Letter%20of%20understanding%20v1.00.pdf?version=2&amp;modificationDate=1474278156735&amp;api=v2">Read the whole agreement</a></li>
+  </ul>
+</p>
+
+<h3>2016-08-06</h3>
+
+<p>
+  PEPPOL SMP Server v5 Beta 1 is out.
+  It improves integration with PEPPOL Directory as well as customizability in general.
+  Look on <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">GitHub Wiki</a> for further details.
+  <ul>
+    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/5.0.0-b1/">Download binary 5.0.0-Beta1 release</a></li>
+  </ul>
+</p>
+
 <h3>2016-06-16</h3>
 
 <p>
