@@ -32,6 +32,19 @@
   </ul>
 </p>
 
+<h3>2016-09-19 - OASIS SMP Spec 1.0 CS 03 release</h3>
+
+<p>
+  OASIS is pleased to announce the approval and publication of a new Committee Specification 
+  by the members of the OASIS Business Document Exchange (BDXR) TC:<br/>
+  Service Metadata Publishing (SMP) Version 1.0, Committee Specification 03<br />
+  Note: my SMP Server 5.0.0-Beta1 already supports this specification version!
+  <ul>
+    <li><a href="https://www.oasis-open.org/committees/bdxr/">OASIS Business Document Exchange (BDXR) TC</a></li>
+    <li><a href="http://docs.oasis-open.org/bdxr/bdx-smp/v1.0/cs03/bdx-smp-v1.0-cs03.zip">Download the full ZIP package</a></li>
+  </ul>
+</p>
+
 <h3>2016-09-19 - OpenPEPPOL planing to switch to AS4</h3>
 
 <p>
@@ -42,6 +55,15 @@
   <ul>
     <li><a href="http://www.peppol.eu/news/NewAgreemen%20betweenEuropeanCommissionandOpenPEPPOL">Read more</a></li>
     <li><a href="https://ec.europa.eu/cefdigital/wiki/download/attachments/33817810/20160629%20Letter%20of%20understanding%20v1.00.pdf?version=2&amp;modificationDate=1474278156735&amp;api=v2">Read the whole agreement</a></li>
+  </ul>
+</p>
+
+<h3>2016-09-19 - SML 3.0 deployed</h3>
+
+<p>
+  Finally the production SML was updated to version 3.
+  <ul>
+    <li><a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/SML+-+v3.0">Read more</a></li>
   </ul>
 </p>
 
