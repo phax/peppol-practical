@@ -38,6 +38,7 @@
   OASIS is pleased to announce the approval and publication of a new Committee Specification 
   by the members of the OASIS Business Document Exchange (BDXR) TC:<br/>
   Service Metadata Publishing (SMP) Version 1.0, Committee Specification 03<br />
+  Note: this SMP specification is not yet used in OpenPEPPOL, but there are plans to do so in the future.<br />
   Note: my SMP Server 5.0.0-Beta1 already supports this specification version!
   <ul>
     <li><a href="https://www.oasis-open.org/committees/bdxr/">OASIS Business Document Exchange (BDXR) TC</a></li>
