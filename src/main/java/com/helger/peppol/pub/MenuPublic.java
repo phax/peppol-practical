@@ -131,6 +131,6 @@ public final class MenuPublic
     }
 
     // Set default
-    aMenuTree.setDefaultMenuItemID (CMenuPublic.MENU_INDEX);
+    aMenuTree.setDefaultMenuItemID (CMenuPublic.MENU_NEWS);
   }
 }

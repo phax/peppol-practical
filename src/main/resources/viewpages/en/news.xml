@@ -20,6 +20,16 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2016-10-13 - PEPPOL SMP Server 5.0.0-RC1</h3>
+
+<p>
+  Update to my PEPPOL SMP Server.<br/>
+  Once the conformance test with CEF is finished, version 5.0.0 will be released!
+  <ul>
+    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc1">Download SMP Server 5.0.0-RC1</a></li>
+  </ul>
+</p>
+
 <h3>2016-10-05 - Validation artefacts 3.3.0-RC1</h3>
 
 <p>
