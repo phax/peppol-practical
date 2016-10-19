@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.peppol.pub.page.PagePublicContact;
 import com.helger.peppol.pub.page.PagePublicLogin;
 import com.helger.peppol.pub.page.PagePublicNewsletterSubscribe;
 import com.helger.peppol.pub.page.PagePublicNewsletterUnsubscribe;
@@ -112,6 +113,12 @@ public final class MenuPublic
       aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
       aMenuTree.createRootItem (new PagePublicNewsletterUnsubscribe (CMenuPublic.MENU_NEWSLETTER_UNSUBSCRIBE))
                .setAttribute (CMenuPublic.FLAG_FOOTER_COL1, true);
+    }
+
+    // Contact form
+    {
+      aMenuTree.createRootSeparator ();
+      aMenuTree.createRootItem (new PagePublicContact (CMenuPublic.MENU_CONTACT));
     }
 
     aMenuTree.createRootSeparator ();

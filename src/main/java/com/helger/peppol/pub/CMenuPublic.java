@@ -45,6 +45,7 @@ public final class CMenuPublic
   public static final String MENU_SIGN_UP = "signup";
   public static final String MENU_CHANGE_PASSWORD = "changepassword";
   public static final String MENU_NEWSLETTER_SUBSCRIBE = "newsletter-subscribe";
+  public static final String MENU_CONTACT = "contact";
 
   // footer
   public static final String MENU_NEWSLETTER_UNSUBSCRIBE = "newsletter-unsubscribe";
