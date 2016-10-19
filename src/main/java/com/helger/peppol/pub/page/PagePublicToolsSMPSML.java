@@ -47,11 +47,13 @@ import com.helger.commons.random.RandomHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
+import com.helger.commons.url.SimpleURL;
 import com.helger.commons.url.URLHelper;
 import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.forms.HCEditPassword;
+import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.network.dns.IPV4Addr;
 import com.helger.peppol.app.CApp;
@@ -67,6 +69,7 @@ import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
@@ -532,6 +535,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
+
+    aNodeList.addChild (new BootstrapWarnBox ().addChild ("Note: as of ")
+                                               .addChild (new HCA (new SimpleURL ("https://github.com/phax/peppol-smp-server")).addChild ("SMP server 5.0.0 beta 1"))
+                                               .addChild (" this registration feature is contained directly in the SMP software! So you don't need to send your certificates over the Internet anymore!"));
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {

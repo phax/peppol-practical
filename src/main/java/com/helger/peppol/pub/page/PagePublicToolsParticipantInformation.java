@@ -392,18 +392,21 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                        .addChild (new HCCode ().addChild ("9915"))
                                                                        .addChild ("and value ")
                                                                        .addChild (new HCCode ().addChild ("test"))
-                                                                       .addChild (" as an example.")));
+                                                                       .addChild (" as an example."),
+                                                           new HCDiv ().addChild ("Note: this page currently only works with the ")
+                                                                       .addChild (new HCCode ().addChild ("iso6523-actorid-upis"))
+                                                                       .addChild (" meta scheme!")));
       {
         final IdentifierIssuingAgencySelect aSelect = new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523_PREDEF),
                                                                                          aDisplayLocale);
         final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
                                                                              .setPlaceholder ("Identifier value");
         // In case something is selected, put it in the edit
-        aSelect.setEventHandler (EJSEvent.CHANGE, JQuery.idRef (aEdit).val (JQuery.jQueryThis ().val ()));
+        aSelect.addEventHandler (EJSEvent.CHANGE, JQuery.idRef (aEdit).val (JQuery.jQueryThis ().val ()).change ());
 
         final BootstrapRow aRow = new BootstrapRow ();
-        aRow.createColumn (6).addChild (aSelect);
-        aRow.createColumn (6).addChild (aEdit);
+        aRow.createColumn (4).addChild (aSelect);
+        aRow.createColumn (8).addChild (aEdit);
 
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
                                                      .setCtrl (aRow)
