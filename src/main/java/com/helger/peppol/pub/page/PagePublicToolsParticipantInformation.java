@@ -28,7 +28,6 @@ import java.util.TreeMap;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -53,11 +52,12 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.jquery.JQuery;
 import com.helger.html.js.EJSEvent;
 import com.helger.network.dns.IPV4Addr;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.factory.IIdentifierFactory;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -113,6 +113,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
@@ -144,7 +145,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
-        final IParticipantIdentifier aParticipantID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantIdentifierValue);
+        final IParticipantIdentifier aParticipantID = aIF.createParticipantIdentifierWithDefaultScheme (sParticipantIdentifierValue);
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aParticipantID, aSML);
         try
         {
@@ -162,7 +163,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
-          final ICommonsList <SimpleDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList<> ();
+          final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList<> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
 
@@ -197,7 +198,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
                 try
                 {
-                  final SimpleDocumentTypeIdentifier aDocType = SimpleDocumentTypeIdentifier.createFromURIPart (sDocType);
+                  final IDocumentTypeIdentifier aDocType = aIF.parseDocumentTypeIdentifier (sDocType);
                   aDocTypeIDs.add (aDocType);
                   aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" " + aDocType.getURIEncoded ()));
@@ -236,7 +237,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();
-            for (final SimpleDocumentTypeIdentifier aDocTypeID : CollectionHelper.getSorted (aDocTypeIDs))
+            for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
             {
               final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (aDocTypeID.getURIEncoded ())));
               final SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
