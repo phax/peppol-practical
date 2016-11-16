@@ -23,15 +23,19 @@
 <h3>2016-11-15 - phoss SMP 5.0.0</h3>
 
 <p>
+  <img src="https://raw.githubusercontent.com/phax/peppol-smp-server/peppol-smp-server-parent-pom-5.0.0/docs/logo/logo-gradient-446-100.png" width="446" height="100" alt="phoss logo"/>
+</p>
+
+<p>
   Finally the CEF conformance testing was finished successfully so I'm proud to present to you 
   <strong>phoss SMP</strong>.
   This is now the official project name of the previous "ph-peppol-smp-server".
   Compared to RC2 no functional changes were performed - just UI beautifications.
   To see version 5.0 in action have a look at <a href="http://smp.helger.com">http://smp.helger.com</a>.
-  If you want to learn more about phoss SMP features, just request a demo user (via email or the contact form). 
+  If you want to learn more about phoss SMP features, just request a demo user (via email or the contact form).
   
   <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0">Download SMP Server 5.0.0-RC1</a></li>
+    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0">Download phoss SMP 5.0.0</a></li>
   </ul>
 </p>
 
@@ -52,7 +56,7 @@
   Includes some functional improvements. Read more at
   
   <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc2">Download SMP Server 5.0.0-RC1</a></li>
+    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc2">Download SMP Server 5.0.0-RC2</a></li>
   </ul>
 </p>
 
