@@ -159,7 +159,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new HCDiv ().addChild ("PEPPOL name: ")
                                           .addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
           aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
-                                          .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ())));
+                                          .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ()))
+                                          .addChild (" (determined by reverse DNS lookup! This is potentially not the URL you registered your SMP for!"));
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
