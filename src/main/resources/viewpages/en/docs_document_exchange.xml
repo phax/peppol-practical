@@ -22,16 +22,20 @@
   play in it.
 </p>
 
+<h2>Prerequisites</h2>
+
 <p>
   To start a document exchange in PEPPOL, you need to have the following information
   before you can start submitting anything:
   <ul>
-    <li>The PEPPOL Participant Identifier (PPID) of the recipient (currently this must be exchanged out-of-band but with the upcoming PEPPOL Directory there is help in sight)</li>
-    <li>On which SML is the PPID registered (production SML or test SMK)</li>
-    <li>The document type ID and the process ID to be used</li>
-    <li>The business document to be exchanged is of course needed</li>
+    <li>The <strong>PEPPOL Participant Identifier</strong> (PPID) of the recipient (currently this must be exchanged out-of-band but with the upcoming PEPPOL Directory there is help in sight)</li>
+    <li>On which <strong>SML</strong> is the PPID registered (production SML or test SMK)</li>
+    <li>The <strong>document type ID</strong> and the <strong>process ID</strong> to be used</li>
+    <li>The <strong>business document to be exchanged</strong> is of course needed</li>
   </ul>
 </p>
+
+<h2>Software components</h2>
 
 <p>
   Involved PEPPOL software components are at least the following:
@@ -43,11 +47,70 @@
   on the effective setup but I wont cover them in this article. 
 </p>
 
+<h2>How it works</h2>
+
 <p>
   Lets start at the beginning. The first thing you need to do, is to find the SMP where the
   document receiver has registered its endpoints. Therefore the PPID and the SML information are required.
+  <ul>
+    <li>
+      PPID with scheme <code>iso6523-actorid-upis</code> and value <code>9915:test</code>
+    </li>
+    <li>
+      SML to use = DG DIGIT SMK (= the Test SML). The DNS zone for the SMK is 
+      <code>acc.edelivery.tech.ec.europa.eu.</code>
+    </li>
+  </ul>
 </p>
 
 <ol>
-  <li></li>
+  <li>
+    <p>
+      First thing that happens, is that the dynamic URL is assembled.
+      The algorithm that is used is the following:
+    </p>
+    <p>
+      <code>"http://B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
+    </p>
+    <p>
+      <code>ID-SCHEME</code> and <code>ID-VALUE</code> are taken from the PPID 
+      and the <code>SML-ZONE-NAME</code> is taken from the SMP.
+      That implies that a different identifier (as good as MD5 can do it) will create a different
+      DNS name.
+    </p>
+    <p>
+      For the identifier <code>iso6523-actorid-upis::9915:test</code> and the <code>SMK</code> the created URL is
+      <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code>
+    </p>
+  </li>
+  <li>
+    <p>
+      This URL is resolved via the Domain Name System (DNS) to the server <code>http://test-infra.peppol.at</code>.
+      This is exactly the server name that was used when registering the SMP to the SMK.
+      See below for details on what happens on SMP to SML registration.
+    </p>
+  </li>
+  <li>
+    <p>
+      So the <code>B-8500....</code> URL is already the URL to the SMP and all that is left to do, is to append
+      the participant identifier to the URL to get all supported document types.
+      For the example the URL would be 
+      <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis::9915:test</code>.
+      The reason why the participant identifier needs to be appended again is solely than an SMP can host multiple
+      participants on the same server.
+    </p>
+    <p>
+      To see that this is just a DNS forward you can compare the results of
+      <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis::9915:test</code>
+      and
+      <code>http://test-infra.peppol.at/iso6523-actorid-upis::9915:test</code>
+      and see that there is no difference in the responses.
+    </p>
+  </li>
+  <li>
+    <p>
+      And how was the SML involved in all of this? Not at all! Only the Domain Name System is queried upon a d</p>
+  </li>
 </ol>
+
+<h2>Appendix - Registering an SMP to an SML</h2>

@@ -72,6 +72,10 @@ public final class MenuPublic
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_SUPPORT,
                                                      "SML support",
                                                      new ClassPathResource ("viewpages/en/docs_sml_support.xml")));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_DOC_EXCHANGE,
+                                                     "Document exchange explained",
+                                                     new ClassPathResource ("viewpages/en/docs_document_exchange.xml")));
 
       // Not needed any more
       if (false)
