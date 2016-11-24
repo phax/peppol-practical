@@ -1,0 +1,53 @@
+<!--
+
+    Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<p>
+  This page explains one of the biggest mysteries in PEPPOL: how does the 
+  document exchange work and what roles does the SML (Service Metadata Locator) 
+  play in it.
+</p>
+
+<p>
+  To start a document exchange in PEPPOL, you need to have the following information
+  before you can start submitting anything:
+  <ul>
+    <li>The PEPPOL Participant Identifier (PPID) of the recipient (currently this must be exchanged out-of-band but with the upcoming PEPPOL Directory there is help in sight)</li>
+    <li>On which SML is the PPID registered (production SML or test SMK)</li>
+    <li>The document type ID and the process ID to be used</li>
+    <li>The business document to be exchanged is of course needed</li>
+  </ul>
+</p>
+
+<p>
+  Involved PEPPOL software components are at least the following:
+  <ul>
+    <li>PEPPOL AccessPoint client (the sender)</li>
+    <li>PEPPOL SMP client (for the lookup)</li>
+  </ul>
+  Additionally components like special validation services etc. may be used depending 
+  on the effective setup but I wont cover them in this article. 
+</p>
+
+<p>
+  Lets start at the beginning. The first thing you need to do, is to find the SMP where the
+  document receiver has registered its endpoints. Therefore the PPID and the SML information are required.
+</p>
+
+<ol>
+  <li></li>
+</ol>
