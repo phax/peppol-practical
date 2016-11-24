@@ -61,21 +61,24 @@ public final class MenuPublic
                                                      "Setup PEPPOL AP",
                                                      new ClassPathResource ("viewpages/en/docs_setup_ap.xml")));
       aMenuTree.createItem (aSetup,
-                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_CIPA,
-                                                     "Setup PEPPOL SMP - CIPA",
-                                                     new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
-      aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_PH,
-                                                     "Setup PEPPOL SMP - ph",
+                                                     "Setup phoss SMP",
                                                      new ClassPathResource ("viewpages/en/docs_setup_smp_ph.xml")));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_CIPA,
+                                                     "Setup CIPA SMP",
+                                                     new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_SUPPORT,
                                                      "SML support",
                                                      new ClassPathResource ("viewpages/en/docs_sml_support.xml")));
-      aMenuTree.createItem (aSetup,
-                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_MIGRATION,
-                                                     "SML migration information",
-                                                     new ClassPathResource ("viewpages/en/docs_sml_migration.xml")));
+
+      // Not needed any more
+      if (false)
+        aMenuTree.createItem (aSetup,
+                              new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_MIGRATION,
+                                                       "SML migration information",
+                                                       new ClassPathResource ("viewpages/en/docs_sml_migration.xml")));
     }
 
     // News stuff

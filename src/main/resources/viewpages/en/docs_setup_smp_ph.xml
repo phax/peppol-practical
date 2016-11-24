@@ -27,7 +27,7 @@
 </p>
 
 <p>
-  My implementation is a fork of the CIPA e-Delivery SMP components on version 2.2.3.
+  phoss SMP is a fork of the CIPA e-Delivery SMP components on version 2.2.3.
   The goal is to keep the implementation simple and provide publicly available PEPPOL components
   to the world. An additional goal was to make the configuration as simple as possible.
   Please read the official <a href="https://github.com/phax/peppol-smp-server/wiki">SMP Server Wiki</a> for
