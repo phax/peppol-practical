@@ -69,7 +69,7 @@
       It is important to understand that the specifications only specify the reading access
       to an SMP but not the writing access. Nevertheless the implementation discussed here
       also contains the possibility to write new entries.</li>
-  <li>You should be familiar with Java 1.6+</li>
+  <li>You should be familiar with Java 1.8+</li>
   <li>When using the SMP server implementation with a database backend
       basic knowledge of a relational database (e.g. MySQL) is required</li>
   <li>Basic knowledge about Apache Tomcat or Jetty (and optionally a web server) should be present</li>    
@@ -79,7 +79,7 @@
 <h2>Technical resources</h2>
 
 <p>
-  My SMP server implementation is located on GitHub at
+  My phoss SMP server implementation is located on GitHub at
   <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>. It contains
   the source code and a 
   <a href="https://github.com/phax/peppol-smp-server/wiki">Wiki</a>
@@ -89,17 +89,16 @@
   benefits of the management GUI. The backend can now be chosen via a configuration file
   property.
   The SMP servers uses shared components also available on GitHub:
-  <a href="https://github.com/phax/peppol-commons">peppol-commons</a> (a common library with shared PEPPOL components),
-  <a href="https://github.com/phax/peppol-smp-client">peppol-smp-client</a> (an SMP client library) and
-  <a href="https://github.com/phax/peppol-sml-client">peppol-sml-client</a> (an SML client library).
+  <a href="https://github.com/phax/peppol-commons">peppol-commons</a> 
+  - a common library with shared PEPPOL components containing an SMP client library
+  and an SML client library.
 </p>
 
 <p>
-  The <strong>sources</strong> reside in a publicly accessible 
-  GitHub repository (see above)
-  whereas the <strong>binary resources</strong> can be obtained from Maven Central:
+  The <strong>sources</strong> and the <strong>binary resources</strong> are
+  available on GitHub: 
   <ul>
-    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.0/</a></li>
+    <li><a href="https://github.com/phax/peppol-smp-server/releases">https://github.com/phax/peppol-smp-server/releases</a></li>
   </ul> 
 </p>
 
@@ -269,18 +268,22 @@
 </p>
 <p>
   <pre>
-// ServiceGroup = participant identifier; GLN = 0088
-final ParticipantIdentifierType aServiceGroupID = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("5798000000001");
-// Document type identifier from enumeration
-final DocumentIdentifierType aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20.getAsDocumentTypeIdentifier ();
-// Main call to the SMP client with the correct SML to use
-final SignedServiceMetadataType aMetadata = new SMPClientReadonly (aServiceGroupID, ESMP.PRODUCTION).getServiceRegistrationOrNull (aServiceGroupID, aDocumentTypeID);
-if (aMetadata == null)
-{
-  // No such metadata
-}
-else
-{
-  // Evaluate metadata
-}</pre>
+    // ServiceGroup = participant identifier; GLN = 0088
+    final IParticipantIdentifier aServiceGroupID = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("5798000000001");
+    // Document type identifier from enumeration
+    final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A.getAsDocumentTypeIdentifier ();
+    // Main call to the SMP client with the correct SML to use
+    final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (PeppolURLProvider.INSTANCE,
+                                                                                               ESML.DIGIT_TEST,
+                                                                                               aServiceGroupID,
+                                                                                               aDocumentTypeID);
+    if (aMetadata == null)
+    {
+      // No such metadata
+    }
+    else
+    {
+      // Evaluate metadata
+    }
+  </pre>
 </p>

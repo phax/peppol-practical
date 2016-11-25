@@ -20,6 +20,16 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2016-11-25</h3>
+
+<p>
+  I added a new page that explains the <strong>document exchange</strong>.
+  It shows how the PEPPOL participant ID, the DNS and the SMP work together.
+  <ul>
+    <li><a href="/public/menuitem-docs-doc-exchange">Read the whole story</a></li>
+  </ul>  
+</p>
+
 <h3>2016-11-15 - phoss SMP 5.0.0</h3>
 
 <p>

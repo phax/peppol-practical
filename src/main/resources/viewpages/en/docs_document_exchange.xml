@@ -17,7 +17,7 @@
 
 -->
 <p>
-  This page explains one of the biggest mysteries in PEPPOL: how does the 
+  This article explains one of the biggest mysteries in PEPPOL: how does the 
   document exchange work and what roles does the SML (Service Metadata Locator) 
   play in it.
 </p>
@@ -33,18 +33,6 @@
     <li>The <strong>document type ID</strong> and the <strong>process ID</strong> to be used</li>
     <li>The <strong>business document to be exchanged</strong> is of course needed</li>
   </ul>
-</p>
-
-<h2>Software components</h2>
-
-<p>
-  Involved PEPPOL software components are at least the following:
-  <ul>
-    <li>PEPPOL AccessPoint client (the sender)</li>
-    <li>PEPPOL SMP client (for the lookup)</li>
-  </ul>
-  Additionally components like special validation services etc. may be used depending 
-  on the effective setup but I wont cover them in this article. 
 </p>
 
 <h2>How it works</h2>
@@ -70,7 +58,7 @@
       The algorithm that is used is the following:
     </p>
     <p>
-      <code>"http://B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
+      <code>"http://B-" + hexstring(md5(lowercase(ID-VALUE))) + "." + ID-SCHEME + "." + SML-ZONE-NAME</code>
     </p>
     <p>
       <code>ID-SCHEME</code> and <code>ID-VALUE</code> are taken from the PPID 
@@ -85,7 +73,8 @@
   </li>
   <li>
     <p>
-      This URL is resolved via the Domain Name System (DNS) to the server <code>http://test-infra.peppol.at</code>.
+      This URL is resolved via the Domain Name System (DNS) to the IP address <code>85.158.224.220</code> which 
+      is the IP of the server <code>http://test-infra.peppol.at</code>.
       This is exactly the server name that was used when registering the SMP to the SMK.
       See below for details on what happens on SMP to SML registration.
     </p>
@@ -109,8 +98,86 @@
   </li>
   <li>
     <p>
-      And how was the SML involved in all of this? Not at all! Only the Domain Name System is queried upon a d</p>
+      Now that the SMP URL is known, the SMP query with the document type 
+      (following the schema <code>http://<i>smp.url</i>/<i>participant</i>/services/<i>documenttype</i></code>)
+      can be performed).
+      The resulting signed document must be parsed so that the endpoint
+      matching the desired process ID and transport protocol can be retrieved.
+      This is finally the URL to which the business document is to be send. 
+    </p>
+    <p>
+      All the above mentioned steps are usually handled by the SMP client software.
+    </p>
+  </li>
+  <li>
+    <p>
+      The last step is the transmission of the business document to the endpoint URL
+      determined in the previous step.
+      Additionally components like special validation services etc. may be used depending 
+      on the effective setup but I wont cover them in this article.
+    </p>
+    <p>  
+      This is the task of the AccessPoint client.
+    </p>
   </li>
 </ol>
 
-<h2>Appendix - Registering an SMP to an SML</h2>
+<p>
+  And how was the SML involved in all of this? Not at all!
+  Only the Domain Name System is queried upon a document exchange.
+  And if the DNS fails, there are more severe issues than not being able to send documents via PEPPOL.
+  And that is one of the intelligent parts of the PEPPOL network:
+  no central single point of failure that can stop the document exchange for everybody. 
+</p>
+
+<h2>Appendix - SMP/SML interaction</h2>
+
+<p>
+  The SMP has the following interactions with the SML and is responsible for telling the SML what to do.
+</p>
+
+<ol>
+  <li>
+    <p>
+      When an SMP enters the PEPPOL network, it needs to be registered to the SML.
+      This is where the SMP-ID comes into play.
+      For the registration the SML creates a DNS entry with the name 
+      <code>SMP-ID + ".publisher." + SML-ZONE-NAME</code>
+      which is a CNAME entry (alias) to the hostname provided for registration.
+      This is the so called <strong>publisher</strong> entry.
+    </p>
+    <p>
+      Example: an SMP with SMP-ID <code>TEST-SMP</code> and host name <code>smp.example.org</code>
+      should be registered at the SMK (with DNS zone name <code>acc.edelivery.tech.ec.europa.eu.</code>).
+      Therefore the DNS name <code>TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu</code> pointing 
+      to <code>smp.example.org</code> is created. 
+    </p>
+    <p>
+      Note: this publisher entry is the reason, why the SMP-ID can only used a limited character set.
+    </p>
+  </li>
+  <li>
+    <p>
+      If the host name of an SMP entry changes, the SMP-ID and the new host name are send to the
+      SML and the SML updates the publisher entry in the DNS. That means that all existing
+      participant DNS entries (see below) don't need to be modified.  
+    </p>
+  </li>
+  <li>
+    <p>
+      When an SMP leaves the PEPPOL network, the publisher entry and all entries referencing
+      this publisher entry will be removed.
+    </p>
+  </li>
+  <li>
+    <p>
+      Each time a service group (participant) is added to an SMP that is registered to an SML,
+      the SML creates a CNAME entry (according to the algorithm explained above - "B-...")
+      that in turn points to the publisher entry.
+    </p>
+    <p>
+      So upon name resolution, the service group DNS entry is resolved to the publisher entry
+      which in turn is resolved to the SMP host name.
+    </p>
+  </li>
+</ol>
