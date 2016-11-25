@@ -36,6 +36,7 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppol.pub.testendpoint.TestEndpoint;
@@ -76,7 +77,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
 {
   private static final String FIELD_COMPANY_NAME = "companyname";
   private static final String FIELD_CONTACT_PERSON = "contactperson";
-  private static final String FIELD_PARTICIPANT_ID_ISO6523 = "participantidscheme";
+  private static final String FIELD_PARTICIPANT_ID_ISSUER = "participantidissuer";
   private static final String FIELD_PARTICIPANT_ID_VALUE = "participantidvalue";
   private static final String FIELD_TRANSPORT_PROFILE = "transportprofile";
   private static final String FIELD_SML = "sml";
@@ -118,8 +119,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   {
     return aWPEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO)
                 .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM)
-                .add (PagePublicToolsParticipantInformation.FIELD_ID_ISO6523, aTestEndpoint.getParticipantIDScheme ())
-                .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantIDValue ())
+                .add (PagePublicToolsParticipantInformation.FIELD_ID_SCHEME,
+                      PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME)
+                .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantID ())
                 .add (PagePublicToolsParticipantInformation.FIELD_SML, aTestEndpoint.getSML ().getID ());
   }
 
@@ -192,7 +194,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                    .setCtrl (aSelectedObject.getContactPerson ()));
     }
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Participant information")
-                                                 .setCtrl (aSelectedObject.getParticipantIDScheme () +
+                                                 .setCtrl (aSelectedObject.getParticipantIDIssuer () +
                                                            ":" +
                                                            aSelectedObject.getParticipantIDValue ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Transport profile")
@@ -224,12 +226,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                                                                                      : aSelectedObject.getContactPerson ())))
                                                      .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
-    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
-                                                     .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_PARTICIPANT_ID_ISO6523,
+    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier issuing agency")
+                                                     .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_PARTICIPANT_ID_ISSUER,
                                                                                                                     aSelectedObject == null ? null
-                                                                                                                                            : aSelectedObject.getParticipantIDScheme ()),
+                                                                                                                                            : aSelectedObject.getParticipantIDIssuer ()),
                                                                                                   aDisplayLocale))
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISO6523)));
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISSUER)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE,
                                                                                              aSelectedObject == null ? null
@@ -259,8 +261,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
 
     final String sCompanyName = aWPEC.getAttributeAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.getAttributeAsString (FIELD_CONTACT_PERSON);
-    final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_ISO6523);
-    final EPredefinedIdentifierIssuingAgency eAgency = AppHelper.getIdentifierIssuingAgencyOfID (sParticipantIDISO6523);
+    final String sParticipantIDIssuer = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_ISSUER);
+    final EPredefinedIdentifierIssuingAgency eAgency = AppHelper.getIdentifierIssuingAgencyOfID (sParticipantIDIssuer);
     final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_VALUE);
     final String sTransportProfile = aWPEC.getAttributeAsString (FIELD_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
@@ -271,11 +273,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     if (StringHelper.hasNoText (sCompanyName))
       aFormErrors.addFieldError (FIELD_COMPANY_NAME, "Please provide the company name");
 
-    if (StringHelper.hasNoText (sParticipantIDISO6523))
-      aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISO6523, "Please select a participant identifier scheme");
+    if (StringHelper.hasNoText (sParticipantIDIssuer))
+      aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER, "Please select a participant identifier issuing agency");
     else
       if (eAgency == null)
-        aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISO6523, "Please select a valid participant identifier scheme");
+        aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER,
+                                   "Please select a valid participant identifier issuing agency");
 
     if (StringHelper.hasNoText (sParticipantIDValue))
       aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_VALUE, "Please provide a participant identifier value");
@@ -289,13 +292,13 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     if (aFormErrors.isEmpty ())
     {
       // Check if participant ID and transport profile are already registered
-      final TestEndpoint aSameIDTestEndpoint = aTestEndpointMgr.getTestEndpoint (sParticipantIDISO6523,
+      final TestEndpoint aSameIDTestEndpoint = aTestEndpointMgr.getTestEndpoint (sParticipantIDIssuer,
                                                                                  sParticipantIDValue,
                                                                                  eTransportProfile);
       if (aSameIDTestEndpoint != null && !aSameIDTestEndpoint.equals (aSelectedObject))
         aFormErrors.addFieldError (FIELD_TRANSPORT_PROFILE,
                                    "Another test endpoint for " +
-                                                            sParticipantIDISO6523 +
+                                                            sParticipantIDIssuer +
                                                             ":" +
                                                             sParticipantIDValue +
                                                             " and transport profile " +
@@ -310,12 +313,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
         aTestEndpointMgr.updateTestEndpoint (aSelectedObject.getID (),
                                              sCompanyName,
                                              sContactPerson,
-                                             sParticipantIDISO6523,
+                                             sParticipantIDIssuer,
                                              sParticipantIDValue,
                                              eTransportProfile,
                                              aSML);
         aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("Successfully edited the test endpoint for " +
-                                                                            sParticipantIDISO6523 +
+                                                                            sParticipantIDIssuer +
                                                                             ":" +
                                                                             sParticipantIDValue +
                                                                             " with transport profile " +
@@ -325,12 +328,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       {
         aTestEndpointMgr.createTestEndpoint (sCompanyName,
                                              sContactPerson,
-                                             sParticipantIDISO6523,
+                                             sParticipantIDIssuer,
                                              sParticipantIDValue,
                                              eTransportProfile,
                                              aSML);
         aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("Successfully added the new test endpoint for " +
-                                                                            sParticipantIDISO6523 +
+                                                                            sParticipantIDIssuer +
                                                                             ":" +
                                                                             sParticipantIDValue +
                                                                             " with transport profile " +

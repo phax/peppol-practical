@@ -48,8 +48,15 @@ public final class MenuPublic
   {
     // Common stuff
     aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_INDEX,
-                                                       "Index",
+                                                       "Overview",
                                                        new ClassPathResource ("viewpages/en/index.xml")));
+
+    // News stuff
+    {
+      aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_NEWS,
+                                                         "News",
+                                                         new ClassPathResource ("viewpages/en/news.xml")));
+    }
 
     // Setup stuff
     {
@@ -83,13 +90,6 @@ public final class MenuPublic
                               new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_MIGRATION,
                                                        "SML migration information",
                                                        new ClassPathResource ("viewpages/en/docs_sml_migration.xml")));
-    }
-
-    // News stuff
-    {
-      aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_NEWS,
-                                                         "News",
-                                                         new ClassPathResource ("viewpages/en/news.xml")));
     }
 
     // Tools stuff

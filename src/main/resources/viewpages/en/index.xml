@@ -31,13 +31,16 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
   This page is currently divided into the following sections:
 </p>
 <ul>
+  <li>
+    A <a href="/public/menuitem-news">news section</a> which tries to collect PEPPOL technology relevant stuff.
+  </li>   
   <li>Technical documentation for PEPPOL software components:
     <ul>
       <li><a href="/public/menuitem-docs-setup-ap">AP setup guide</a></li>
-      <li><a href="/public/menuitem-docs-setup-smp">SMP setup guide - CIPA</a></li> 
-      <li><a href="/public/menuitem-docs-setup-smp-ph">SMP setup guide - ph</a></li> 
+      <li><a href="/public/menuitem-docs-setup-smp-ph">phoss SMP setup guide</a></li> 
+      <li><a href="/public/menuitem-docs-setup-smp">CIPA SMP setup guide</a></li> 
       <li><a href="/public/menuitem-docs-sml-support">SML support guide</a></li> 
-      <li><a href="/public/menuitem-docs-sml-migration">SML migration guide (obsolete)</a></li> 
+      <li><a href="/public/menuitem-docs-doc-exchange">Document exchange explained</a></li> 
     </ul>
   </li>  
   <li>
@@ -48,9 +51,6 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
       <li><a href="/public/menuitem-tools-test-endpoints">Test endpoints</a></li> 
     </ul>
   </li>
-  <li>
-    A <a href="/public/menuitem-news">news section</a> which tries to collect PEPPOL technology relevant stuff.
-  </li>   
   <li>Clarification and tools in the area of document validation:
     <ul>
       <li><a href="/public/menuitem-validation-bis2">BIS2 Document validation</a></li> 

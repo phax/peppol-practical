@@ -49,8 +49,6 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.html.jquery.JQuery;
-import com.helger.html.js.EJSEvent;
 import com.helger.network.dns.IPV4Addr;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
@@ -68,7 +66,6 @@ import com.helger.peppol.smp.ServiceMetadataReferenceType;
 import com.helger.peppol.smp.ServiceMetadataType;
 import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
-import com.helger.peppol.ui.IdentifierIssuingAgencySelect;
 import com.helger.peppol.ui.SMLSelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.url.IPeppolURLProvider;
@@ -83,7 +80,6 @@ import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.grid.BootstrapRow;
 import com.helger.photon.core.app.error.InternalErrorBuilder;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
@@ -93,9 +89,9 @@ import com.helger.security.certificate.CertificateHelper;
 
 public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 {
-  public static final String FIELD_ID_ISO6523_PREDEF = "idschemepredef";
-  public static final String FIELD_ID_ISO6523 = "idscheme";
-  public static final String FIELD_ID_VALUE = "idvalue";
+  public static final String DEFAULT_ID_SCHEME = PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME;
+  public static final String FIELD_ID_SCHEME = "scheme";
+  public static final String FIELD_ID_VALUE = "value";
   public static final String FIELD_SML = "sml";
 
   public static final ISMLInfo DEFAULT_SML = ESML.DIGIT_PRODUCTION;
@@ -115,37 +111,44 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     final boolean bShowInput = true;
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
 
+    String sParticipantIDScheme = DEFAULT_ID_SCHEME;
+    String sParticipantIDValue = null;
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
       // Validate fields
-      final String sParticipantIDISO6523 = aWPEC.getAttributeAsString (FIELD_ID_ISO6523);
-      final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
+      sParticipantIDScheme = aWPEC.getAttributeAsString (FIELD_ID_SCHEME);
+      sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
       final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
       final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
 
-      if (StringHelper.hasNoText (sParticipantIDISO6523))
-        aFormErrors.addFieldError (FIELD_ID_ISO6523, "Please select an identifier scheme");
+      // Legacy URL params?
+      if (aWPEC.containsAttribute ("idscheme") && aWPEC.containsAttribute ("idvalue"))
+      {
+        sParticipantIDScheme = DEFAULT_ID_SCHEME;
+        sParticipantIDValue = aWPEC.getAttributeAsString ("idscheme") + ":" + aWPEC.getAttributeAsString ("idvalue");
+      }
+
+      if (StringHelper.hasNoText (sParticipantIDScheme))
+        aFormErrors.addFieldError (FIELD_ID_SCHEME, "Please provide an identifier scheme");
+      else
+        if (!IPeppolParticipantIdentifier.isValidScheme (sParticipantIDScheme))
+          aFormErrors.addFieldError (FIELD_ID_SCHEME,
+                                     "The participant identifier scheme '" + sParticipantIDScheme + "' is not valid!");
 
       if (StringHelper.hasNoText (sParticipantIDValue))
         aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
-
-      String sParticipantIdentifierValue = null;
-      if (aFormErrors.isEmpty ())
-      {
-        sParticipantIdentifierValue = sParticipantIDISO6523 + ":" + sParticipantIDValue;
-        if (!IPeppolParticipantIdentifier.isValidValue (sParticipantIdentifierValue))
+      else
+        if (!IPeppolParticipantIdentifier.isValidValue (sParticipantIDValue))
           aFormErrors.addFieldError (FIELD_ID_VALUE,
-                                     "The resulting participant identifier value '" +
-                                                     sParticipantIdentifierValue +
-                                                     "' is not valid!");
-      }
+                                     "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
 
       if (aSML == null)
         aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
       if (aFormErrors.isEmpty ())
       {
-        final IParticipantIdentifier aParticipantID = aIF.createParticipantIdentifierWithDefaultScheme (sParticipantIdentifierValue);
+        final IParticipantIdentifier aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme,
+                                                                                       sParticipantIDValue);
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aParticipantID, aSML);
         try
         {
@@ -160,7 +163,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                           .addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
           aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
                                           .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ()))
-                                          .addChild (" (determined by reverse DNS lookup! This is potentially not the URL you registered your SMP for!"));
+                                          .addChild (" (determined by reverse DNS lookup - this is potentially not the URL you registered your SMP for!)"));
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
@@ -391,32 +394,21 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                               .setLeft (3));
       aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Show all processes, document types and endpoints of a participant."),
                                                            new HCDiv ().addChild ("You may want to try scheme ")
-                                                                       .addChild (new HCCode ().addChild ("9915"))
+                                                                       .addChild (new HCCode ().addChild (DEFAULT_ID_SCHEME))
                                                                        .addChild ("and value ")
-                                                                       .addChild (new HCCode ().addChild ("test"))
-                                                                       .addChild (" as an example."),
-                                                           new HCDiv ().addChild ("Note: this page currently only works with the ")
-                                                                       .addChild (new HCCode ().addChild ("iso6523-actorid-upis"))
-                                                                       .addChild (" meta scheme!")));
-      {
-        final IdentifierIssuingAgencySelect aSelect = new IdentifierIssuingAgencySelect (new RequestField (FIELD_ID_ISO6523_PREDEF),
-                                                                                         aDisplayLocale);
-        final HCEdit aEdit = new HCEdit (new RequestField (FIELD_ID_ISO6523)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
-                                                                             .setPlaceholder ("Identifier value");
-        // In case something is selected, put it in the edit
-        aSelect.addEventHandler (EJSEvent.CHANGE, JQuery.idRef (aEdit).val (JQuery.jQueryThis ().val ()).change ());
-
-        final BootstrapRow aRow = new BootstrapRow ();
-        aRow.createColumn (4).addChild (aSelect);
-        aRow.createColumn (8).addChild (aEdit);
-
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
-                                                     .setCtrl (aRow)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_ID_ISO6523)));
-      }
+                                                                       .addChild (new HCCode ().addChild ("9915:test"))
+                                                                       .addChild (" on ")
+                                                                       .addChild (new HCCode ().addChild ("SMK"))
+                                                                       .addChild (" as an example.")));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_SCHEME,
+                                                                                           sParticipantIDScheme)).setMaxLength (PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH)
+                                                                                                                 .setPlaceholder ("Identifier scheme"))
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_ID_SCHEME)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
-                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
-                                                                                                           .setPlaceholder ("Identifier value"))
+                                                   .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE,
+                                                                                           sParticipantIDValue)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
+                                                                                                                .setPlaceholder ("Identifier value"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
                                                    .setCtrl (new SMLSelect (new RequestField (FIELD_SML, DEFAULT_SML)))

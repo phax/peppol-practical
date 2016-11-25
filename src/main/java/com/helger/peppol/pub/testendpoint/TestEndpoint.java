@@ -44,7 +44,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
 
   private String m_sCompanyName;
   private String m_sContactPerson;
-  private String m_sParticipantIDScheme;
+  private String m_sParticipantIDIssuer;
   private String m_sParticipantIDValue;
   private ISMPTransportProfile m_aTransportProfile;
   private ISMLInfo m_aSML;
@@ -56,8 +56,8 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
    *        User provided company name.
    * @param sContactPerson
    *        Optional contact person.
-   * @param sParticipantIDScheme
-   *        Test endpoint participant ID scheme (e.g. 9915).
+   * @param sParticipantIDIssuer
+   *        Test endpoint participant ID issuing agency (e.g. 9915).
    * @param sParticipantIDValue
    *        Test endpoint participant ID value (e.g. 123456).
    * @param aTransportProfile
@@ -67,7 +67,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
    */
   public TestEndpoint (@Nonnull @Nonempty final String sCompanyName,
                        @Nullable final String sContactPerson,
-                       @Nonnull @Nonempty final String sParticipantIDScheme,
+                       @Nonnull @Nonempty final String sParticipantIDIssuer,
                        @Nonnull @Nonempty final String sParticipantIDValue,
                        @Nonnull final ISMPTransportProfile aTransportProfile,
                        @Nonnull final ISMLInfo eSML)
@@ -75,7 +75,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
     this (StubObject.createForCurrentUser (),
           sCompanyName,
           sContactPerson,
-          sParticipantIDScheme,
+          sParticipantIDIssuer,
           sParticipantIDValue,
           aTransportProfile,
           eSML);
@@ -90,8 +90,8 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
    *        User provided company name.
    * @param sContactPerson
    *        Optional contact person.
-   * @param sParticipantIDScheme
-   *        Test endpoint participant ID scheme (e.g. 9915).
+   * @param sParticipantIDIssuer
+   *        Test endpoint participant ID issuing agency (e.g. 9915).
    * @param sParticipantIDValue
    *        Test endpoint participant ID value (e.g. 123456).
    * @param aTransportProfile
@@ -102,7 +102,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   TestEndpoint (@Nonnull final StubObject aObject,
                 @Nonnull @Nonempty final String sCompanyName,
                 @Nullable final String sContactPerson,
-                @Nonnull @Nonempty final String sParticipantIDScheme,
+                @Nonnull @Nonempty final String sParticipantIDIssuer,
                 @Nonnull @Nonempty final String sParticipantIDValue,
                 @Nonnull final ISMPTransportProfile aTransportProfile,
                 @Nonnull final ISMLInfo eSML)
@@ -110,7 +110,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
     super (aObject);
     setCompanyName (sCompanyName);
     setContactPerson (sContactPerson);
-    setParticipantIDScheme (sParticipantIDScheme);
+    setParticipantIDIssuer (sParticipantIDIssuer);
     setParticipantIDValue (sParticipantIDValue);
     setTransportProfile (aTransportProfile);
     setSML (eSML);
@@ -157,28 +157,28 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   }
 
   /**
-   * @return The test endpoint participant ID scheme (e.g. 9915)
+   * @return The test endpoint participant ID type (e.g. 9915)
    */
   @Nonnull
   @Nonempty
-  public String getParticipantIDScheme ()
+  public String getParticipantIDIssuer ()
   {
-    return m_sParticipantIDScheme;
+    return m_sParticipantIDIssuer;
   }
 
   @Nonnull
-  public EChange setParticipantIDScheme (@Nonnull @Nonempty final String sParticipantIDScheme)
+  public EChange setParticipantIDIssuer (@Nonnull @Nonempty final String sParticipantIDIssuer)
   {
-    ValueEnforcer.notEmpty (sParticipantIDScheme, "ParticipantIDScheme");
-    if (sParticipantIDScheme.equals (m_sParticipantIDScheme))
+    ValueEnforcer.notEmpty (sParticipantIDIssuer, "ParticipantIDIssuer");
+    if (sParticipantIDIssuer.equals (m_sParticipantIDIssuer))
       return EChange.UNCHANGED;
 
-    m_sParticipantIDScheme = sParticipantIDScheme;
+    m_sParticipantIDIssuer = sParticipantIDIssuer;
     return EChange.CHANGED;
   }
 
   /**
-   * @return The test endpoint participant ID value (e.g. 9915)
+   * @return The test endpoint participant ID value (e.g. test)
    */
   @Nonnull
   @Nonempty
@@ -196,6 +196,16 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
 
     m_sParticipantIDValue = sParticipantIDValue;
     return EChange.CHANGED;
+  }
+
+  /**
+   * @return The full test endpoint participant ID value (e.g. 9915:test)
+   */
+  @Nonnull
+  @Nonempty
+  public String getParticipantID ()
+  {
+    return m_sParticipantIDIssuer + ":" + m_sParticipantIDValue;
   }
 
   @Nonnull
@@ -232,13 +242,13 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
     return EChange.CHANGED;
   }
 
-  public boolean hasSameIdentifier (@Nullable final String sParticipantIDScheme,
+  public boolean hasSameIdentifier (@Nullable final String sParticipantIDIssuer,
                                     @Nullable final String sParticipantIDValue,
                                     @Nullable final ISMPTransportProfile aTransportProfile)
   {
-    if (sParticipantIDScheme == null || sParticipantIDValue == null || aTransportProfile == null)
+    if (sParticipantIDIssuer == null || sParticipantIDValue == null || aTransportProfile == null)
       return false;
-    return m_sParticipantIDScheme.equals (sParticipantIDScheme) &&
+    return m_sParticipantIDIssuer.equals (sParticipantIDIssuer) &&
            m_sParticipantIDValue.equals (sParticipantIDValue) &&
            m_aTransportProfile.equals (aTransportProfile);
   }
@@ -247,7 +257,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
   @Nonempty
   public String getDisplayName ()
   {
-    return m_sParticipantIDScheme + ":" + m_sParticipantIDValue;
+    return m_sParticipantIDIssuer + ":" + m_sParticipantIDValue;
   }
 
   @Override
@@ -256,7 +266,7 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("CompanyName", m_sCompanyName)
                             .appendIfNotNull ("ContactPerson", m_sContactPerson)
-                            .append ("ParticipantIDScheme", m_sParticipantIDScheme)
+                            .append ("ParticipantIDIssuer", m_sParticipantIDIssuer)
                             .append ("ParticipantIDValue", m_sParticipantIDValue)
                             .append ("TransportProfile", m_aTransportProfile)
                             .append ("SML", m_aSML)

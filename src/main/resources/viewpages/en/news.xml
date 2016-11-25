@@ -27,7 +27,10 @@
   It shows how the PEPPOL participant ID, the DNS and the SMP work together.
   <ul>
     <li><a href="/public/menuitem-docs-doc-exchange">Read the whole story</a></li>
-  </ul>  
+  </ul>
+  
+  Additionally the <a href="/public/menuitem-tools-participant">participant information</a>
+  page was changed so that arbitrary participant identifier schemes can be tested.
 </p>
 
 <h3>2016-11-15 - phoss SMP 5.0.0</h3>

@@ -143,7 +143,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       // client ID cannot be changed!
       eChange = eChange.or (aTestEndpoint.setCompanyName (sCompanyName));
       eChange = eChange.or (aTestEndpoint.setContactPerson (sContactPerson));
-      eChange = eChange.or (aTestEndpoint.setParticipantIDScheme (sParticipantIDScheme));
+      eChange = eChange.or (aTestEndpoint.setParticipantIDIssuer (sParticipantIDScheme));
       eChange = eChange.or (aTestEndpoint.setParticipantIDValue (sParticipantIDValue));
       eChange = eChange.or (aTestEndpoint.setTransportProfile (aTransportProfile));
       eChange = eChange.or (aTestEndpoint.setSML (aSML));
@@ -249,11 +249,11 @@ public final class TestEndpointManager extends AbstractSimpleDAO
   }
 
   @Nullable
-  public TestEndpoint getTestEndpoint (@Nullable final String sParticipantIDScheme,
+  public TestEndpoint getTestEndpoint (@Nullable final String sParticipantIDIssuer,
                                        @Nullable final String sParticipantIDValue,
                                        @Nullable final ISMPTransportProfile aTransportProfile)
   {
-    if (StringHelper.hasText (sParticipantIDScheme) &&
+    if (StringHelper.hasText (sParticipantIDIssuer) &&
         StringHelper.hasText (sParticipantIDValue) &&
         aTransportProfile != null)
     {
@@ -261,7 +261,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       try
       {
         for (final TestEndpoint aTestEndpoint : m_aMap.values ())
-          if (aTestEndpoint.hasSameIdentifier (sParticipantIDScheme, sParticipantIDValue, aTransportProfile))
+          if (aTestEndpoint.hasSameIdentifier (sParticipantIDIssuer, sParticipantIDValue, aTransportProfile))
             return aTestEndpoint;
       }
       finally
@@ -272,10 +272,10 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     return null;
   }
 
-  public boolean containsTestEndpoint (@Nullable final String sParticipantIDScheme,
+  public boolean containsTestEndpoint (@Nullable final String sParticipantIDIssuer,
                                        @Nullable final String sParticipantIDValue,
                                        @Nullable final ISMPTransportProfile aTransportProfile)
   {
-    return getTestEndpoint (sParticipantIDScheme, sParticipantIDValue, aTransportProfile) != null;
+    return getTestEndpoint (sParticipantIDIssuer, sParticipantIDValue, aTransportProfile) != null;
   }
 }

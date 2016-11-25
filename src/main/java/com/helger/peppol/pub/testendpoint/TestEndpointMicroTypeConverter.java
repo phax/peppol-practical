@@ -34,7 +34,8 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
 {
   private static final String ATTR_COMPANY_NAME = "companyname";
   private static final String ATTR_CONTACT_PERSON = "contactperson";
-  private static final String ATTR_PARTICIPANT_ID_SCHEME = "participantidscheme";
+  // Legacy name
+  private static final String ATTR_PARTICIPANT_ID_ISSUER = "participantidscheme";
   private static final String ATTR_PARTICIPANT_ID_VALUE = "participantidvalue";
   private static final String ATTR_TRANSPORT_PROFILE = "transportprofile";
   private static final String ATTR_SML = "sml";
@@ -50,7 +51,7 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
     setObjectFields (aValue, eValue);
     eValue.setAttribute (ATTR_COMPANY_NAME, aValue.getCompanyName ());
     eValue.setAttribute (ATTR_CONTACT_PERSON, aValue.getContactPerson ());
-    eValue.setAttribute (ATTR_PARTICIPANT_ID_SCHEME, aValue.getParticipantIDScheme ());
+    eValue.setAttribute (ATTR_PARTICIPANT_ID_ISSUER, aValue.getParticipantIDIssuer ());
     eValue.setAttribute (ATTR_PARTICIPANT_ID_VALUE, aValue.getParticipantIDValue ());
     eValue.setAttribute (ATTR_TRANSPORT_PROFILE, aValue.getTransportProfile ().getID ());
     eValue.setAttribute (ATTR_SML, aValue.getSML ().getID ());
@@ -66,7 +67,7 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
 
     final String sCompanyName = eValue.getAttributeValue (ATTR_COMPANY_NAME);
     final String sContactPerson = eValue.getAttributeValue (ATTR_CONTACT_PERSON);
-    final String sParticipantIDScheme = eValue.getAttributeValue (ATTR_PARTICIPANT_ID_SCHEME);
+    final String sParticipantIDScheme = eValue.getAttributeValue (ATTR_PARTICIPANT_ID_ISSUER);
     final String sParticipantIDValue = eValue.getAttributeValue (ATTR_PARTICIPANT_ID_VALUE);
 
     final String sTransportProfile = eValue.getAttributeValue (ATTR_TRANSPORT_PROFILE);
@@ -75,6 +76,8 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
     final String sSML = eValue.getAttributeValue (ATTR_SML);
     // Soft migration
     final ISMLInfo aSML = sSML == null ? ESML.DIGIT_PRODUCTION : ESML.getFromIDOrNull (sSML);
+    if (aSML == null)
+      throw new IllegalStateException ("Failed to resolve SML with ID '" + sSML + "'");
 
     // Create object
     return new TestEndpoint (aStubObject,
