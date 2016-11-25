@@ -19,6 +19,7 @@ package com.helger.peppol.ui;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.html.root.HCHtml;
 import com.helger.peppol.app.AppHelper;
 import com.helger.photon.basic.app.request.IRequestManager;
@@ -58,6 +59,14 @@ public class AppLayoutHTMLProvider extends AbstractLayoutManagerBasedLayoutHTMLP
   protected void fillHead (@Nonnull final ISimpleWebExecutionContext aSWEC, @Nonnull final HCHtml aHtml)
   {
     super.fillHead (aSWEC, aHtml);
-    aHtml.getHead ().setPageTitle (AppHelper.getApplicationTitle ());
+  }
+
+  @Override
+  @OverrideOnDemand
+  protected void prepareBodyAfterAreas (@Nonnull final LayoutExecutionContext aLEC, @Nonnull final HCHtml aHtml)
+  {
+    final String sPageTitle = aLEC.getSelectedMenuItem ().getDisplayText (aLEC.getDisplayLocale ());
+    aHtml.getHead ()
+         .setPageTitle (StringHelper.getConcatenatedOnDemand (AppHelper.getApplicationTitle (), " - ", sPageTitle));
   }
 }

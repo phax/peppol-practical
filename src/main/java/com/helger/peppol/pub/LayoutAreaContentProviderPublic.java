@@ -54,6 +54,7 @@ import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.CAppCSS;
+import com.helger.peppol.ui.HCTweet;
 import com.helger.photon.basic.app.menu.ApplicationMenuTree;
 import com.helger.photon.basic.app.menu.IMenuItemExternal;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
@@ -113,9 +114,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
   private static final ICSSClassProvider CSS_CLASS_PAYPAL = DefaultCSSClassProvider.create ("paypal");
   private static final ICSSClassProvider CSS_CLASS_FOOTER_LINKS = DefaultCSSClassProvider.create ("footer-links");
 
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol1 = new CommonsArrayList <> ();
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol2 = new CommonsArrayList <> ();
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol3 = new CommonsArrayList <> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol1 = new CommonsArrayList<> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol2 = new CommonsArrayList<> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol3 = new CommonsArrayList<> ();
   private final int m_nFooterRowCount;
 
   public LayoutAreaContentProviderPublic ()
@@ -301,7 +302,12 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     }
 
     final String sHeaderText = aDisplayPage.getHeaderText (aWPEC);
-    aPageContainer.addChild (BootstrapWebPageUIHandler.INSTANCE.createPageHeader (sHeaderText));
+    {
+      final BootstrapRow aRow = new BootstrapRow ();
+      aRow.createColumn (10).addChild (BootstrapWebPageUIHandler.INSTANCE.createPageHeader (sHeaderText));
+      aRow.createColumn (2).addChild (HCTweet.createShareButton ());
+      aPageContainer.addChild (aRow);
+    }
 
     // Main fill content
     aDisplayPage.getContent (aWPEC);
