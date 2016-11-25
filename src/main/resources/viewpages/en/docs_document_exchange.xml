@@ -179,5 +179,12 @@
       So upon name resolution, the service group DNS entry is resolved to the publisher entry
       which in turn is resolved to the SMP host name.
     </p>
+    <p>
+      <strong>Note:</strong> the latest version of the SML not only creates a CNAME record for
+      each participant but also a <a href="https://en.wikipedia.org/wiki/NAPTR_record" target="_blank">DNS NAPTR</a>
+      record pointing to the publisher entry.
+      For the NAPTR records, the e-SENS algorithm for creating DNS names is used instead:
+      <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))), "=") + "." + ID-SCHEME + "." + SML-ZONE-NAME</code>
+    </p>
   </li>
 </ol>
