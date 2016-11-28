@@ -64,11 +64,7 @@ public final class MenuSecure
                                                                                                                  aMenuTree))
                                             .setDisplayFilter (aFilterAdministrators);
       aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS));
-      BootstrapPagesMenuConfigurator.addSecurityItems (aMenuTree, aAdmin, aFilterAdministrators, CApp.DEFAULT_LOCALE);
-      BootstrapPagesMenuConfigurator.addMonitoringItems (aMenuTree, aAdmin, aFilterAdministrators);
-      BootstrapPagesMenuConfigurator.addSysInfoItems (aMenuTree, aAdmin, aFilterAdministrators);
-      BootstrapPagesMenuConfigurator.addDataItems (aMenuTree, aAdmin, aFilterAdministrators);
-      BootstrapPagesMenuConfigurator.addSettingsItems (aMenuTree, aAdmin, aFilterAdministrators);
+      BootstrapPagesMenuConfigurator.addAllItems (aMenuTree, aAdmin, aFilterAdministrators, CApp.DEFAULT_LOCALE);
     }
 
     // Default menu item
