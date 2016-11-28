@@ -2,6 +2,7 @@ package com.helger.peppol.ui;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.SimpleURL;
 import com.helger.html.css.DefaultCSSClassProvider;
@@ -32,12 +33,20 @@ public class HCTweet extends AbstractHCA <HCTweet>
   {}
 
   @Override
+  public boolean canConvertToMicroNode (@Nonnull final IHCConversionSettingsToNode aConversionSettings)
+  {
+    // Render "tweet" nodes only in production mode
+    return GlobalDebug.isProductionMode ();
+  }
+
+  @Override
   protected void onRegisterExternalResources (@Nonnull final IHCConversionSettingsToNode aConversionSettings,
                                               final boolean bForceRegistration)
   {
     super.onRegisterExternalResources (aConversionSettings, bForceRegistration);
-    PhotonJS.registerJSIncludeForThisRequest (new ConstantJSPathProvider ("//platform.twitter.com/widgets.js",
-                                                                          "//platform.twitter.com/widgets.js",
+    // TODO ph-html > 6.0.5 use .createExternal (String)
+    PhotonJS.registerJSIncludeForThisRequest (new ConstantJSPathProvider ("https://platform.twitter.com/widgets.js",
+                                                                          "https://platform.twitter.com/widgets.js",
                                                                           null,
                                                                           false));
   }
