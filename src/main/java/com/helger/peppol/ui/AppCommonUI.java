@@ -50,8 +50,8 @@ import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.photon.basic.app.menu.IMenuObject;
-import com.helger.photon.basic.app.request.ApplicationRequestManager;
 import com.helger.photon.basic.app.request.RequestParameterHandlerURLPathNamed;
+import com.helger.photon.basic.app.request.RequestParameterManager;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.button.EBootstrapButtonType;
@@ -93,7 +93,7 @@ public final class AppCommonUI
 
   public static void init ()
   {
-    ApplicationRequestManager.getRequestMgr ().setParameterHandler (new RequestParameterHandlerURLPathNamed ());
+    RequestParameterManager.getInstance ().setParameterHandler (new RequestParameterHandlerURLPathNamed ());
 
     BootstrapDataTables.setConfigurator ( (aLEC, aTable, aDataTables) -> {
       final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
