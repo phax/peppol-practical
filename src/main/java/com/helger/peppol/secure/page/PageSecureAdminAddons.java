@@ -28,7 +28,6 @@ import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.basic.app.menu.ApplicationMenuTree;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
@@ -39,6 +38,7 @@ import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPage;
 import com.helger.photon.core.app.CApplication;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uicore.page.external.IWebPageResourceContent;
 
 public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPageExecutionContext>
 {
@@ -66,9 +66,9 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
         if (aMenuObj instanceof IMenuItemPage)
         {
           final IMenuItemPage aMenuItemPage = (IMenuItemPage) aMenuObj;
-          if (aMenuItemPage.getPage () instanceof AppPageViewExternal)
+          if (aMenuItemPage.getPage () instanceof IWebPageResourceContent)
           {
-            final AppPageViewExternal aPageViewExternal = (AppPageViewExternal) aMenuItemPage.getPage ();
+            final IWebPageResourceContent aPageViewExternal = (IWebPageResourceContent) aMenuItemPage.getPage ();
             if (aPageViewExternal.isReadEveryTime ())
               aCounterNoNeed.inc ();
             else
