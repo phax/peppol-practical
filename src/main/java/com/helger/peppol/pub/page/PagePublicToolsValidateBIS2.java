@@ -20,9 +20,24 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+import com.helger.bdve.EValidationType;
+import com.helger.bdve.ValidationArtefactKey;
+import com.helger.bdve.artefact.IValidationArtefact;
+import com.helger.bdve.artefact.ValidationArtefact;
+import com.helger.bdve.execute.IValidationExecutor;
+import com.helger.bdve.execute.ValidationExecutionManager;
+import com.helger.bdve.result.ValidationResult;
+import com.helger.bdve.result.ValidationResultList;
+import com.helger.bdve.source.ValidationSource;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IError;
+import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.string.StringHelper;
@@ -37,11 +52,6 @@ import com.helger.peppol.pub.validation.bis2.ExtValidationKey;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeyRegistry;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.peppol.validation.api.ValidationKey;
-import com.helger.peppol.validation.api.artefact.IValidationArtefact;
-import com.helger.peppol.validation.api.result.ValidationLayerResult;
-import com.helger.peppol.validation.api.result.ValidationLayerResultList;
-import com.helger.peppol.validation.engine.UBLDocumentValidator;
 import com.helger.peppol.validation.engine.peppol.PeppolValidationConfiguration;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
@@ -59,6 +69,7 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.fileupload.FileItemResource;
 import com.helger.web.fileupload.IFileItem;
+import com.helger.xml.sax.AbstractSAXErrorHandler;
 
 public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 {
@@ -94,20 +105,41 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         // Start validation
-        final ValidationKey aVK = aExtValidationKey.getValidationKey ();
-        final UBLDocumentValidator aValidator = new UBLDocumentValidator (PeppolValidationConfiguration.createDefault (aVK));
+        final ValidationArtefactKey aVK = aExtValidationKey.getValidationKey ();
+        final ICommonsList <IValidationExecutor> aExecutors = PeppolValidationConfiguration.createDefault (aVK);
+        final ValidationExecutionManager aValidator = new ValidationExecutionManager (aExecutors);
 
         // Perform the validation
-        final ValidationLayerResultList aValidationResultList = aValidator.applyCompleteValidation (new FileItemResource (aFileItem));
+        final FileItemResource aXMLRes = new FileItemResource (aFileItem);
+        final ValidationResultList aValidationResultList = new ValidationResultList ();
+        try
+        {
+          final ValidationSource aSource = ValidationSource.createXMLSource (aXMLRes);
+          aValidator.executeValidation (aSource, aValidationResultList);
+        }
+        catch (final SAXParseException ex)
+        {
+          aValidationResultList.add (new ValidationResult (new ValidationArtefact (EValidationType.XML, aXMLRes, aVK),
+                                                           new ErrorList (AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.FATAL_ERROR,
+                                                                                                                    ex))));
+        }
+        catch (final SAXException ex)
+        {
+          aValidationResultList.add (new ValidationResult (new ValidationArtefact (EValidationType.XML, aXMLRes, aVK),
+                                                           new ErrorList (SingleError.builderError ()
+                                                                                     .setLinkedException (ex)
+                                                                                     .setErrorText ("Failed to parse file as XML")
+                                                                                     .build ())));
+        }
 
         // Show results per layer
         int nWarnings = 0;
         int nErrors = 0;
         final HCNodeList aDetails = new HCNodeList ();
-        for (final ValidationLayerResult aValidationResultItem : aValidationResultList)
+        for (final ValidationResult aValidationResultItem : aValidationResultList)
         {
           final IValidationArtefact aValidationArtefact = aValidationResultItem.getValidationArtefact ();
-          final IErrorList aItemErrors = aValidationResultItem.getResourceErrorGroup ();
+          final IErrorList aItemErrors = aValidationResultItem.getErrorList ();
 
           final HCDiv aDiv = new HCDiv ();
           aDiv.addChild (aValidationArtefact.getValidationArtefactType ().getName ());
@@ -146,7 +178,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                                                                                          : null;
                 final IHCLI <?> aItem = aUL.addItem ();
                 aItem.addChild (new HCDiv ().addChild (aErrorLevel));
-                aItem.addChild (new HCDiv ().addChild ("Field: ")
+                aItem.addChild (new HCDiv ().addChild ("Location: ")
                                             .addChild (new HCCode ().addChild (aLocation.getAsString ())));
                 if (aSVRLError != null)
                   aItem.addChild (new HCDiv ().addChild ("XPath test: ")
@@ -197,7 +229,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         AuditHelper.onAuditExecuteSuccess ("validation-bis2-upload",
                                            sFileName,
                                            aVK.getBusinessSpecification ().getID (),
-                                           aVK.getTransaction ().getTransactionKey (),
+                                           aVK.getTransaction ().getID (),
                                            aVK.getCountryCode (),
                                            aVK.getSectorKey () == null ? null : aVK.getSectorKey ().getID (),
                                            aVK.getPrerequisiteXPath (),

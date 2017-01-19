@@ -21,21 +21,21 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
+import com.helger.bdve.ValidationArtefactKey;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.peppol.validation.api.ValidationKey;
 
 public final class ExtValidationKey implements Serializable, Comparable <ExtValidationKey>
 {
-  private final ValidationKey m_aValidationKey;
+  private final ValidationArtefactKey m_aValidationKey;
 
-  public ExtValidationKey (@Nonnull final ValidationKey aValidationKey)
+  public ExtValidationKey (@Nonnull final ValidationArtefactKey aValidationKey)
   {
     m_aValidationKey = ValueEnforcer.notNull (aValidationKey, "ValidationKey");
   }
 
   @Nonnull
-  public ValidationKey getValidationKey ()
+  public ValidationArtefactKey getValidationKey ()
   {
     return m_aValidationKey;
   }
@@ -46,7 +46,7 @@ public final class ExtValidationKey implements Serializable, Comparable <ExtVali
   {
     String ret = m_aValidationKey.getBusinessSpecification ().getID () +
                  "-" +
-                 m_aValidationKey.getTransaction ().getTransactionKey ();
+                 m_aValidationKey.getTransaction ().getID ();
     if (m_aValidationKey.isCountrySpecific ())
       ret += "-" + m_aValidationKey.getCountryCode ();
     if (m_aValidationKey.isSectorSpecific ())
@@ -59,9 +59,7 @@ public final class ExtValidationKey implements Serializable, Comparable <ExtVali
   public String getDisplayName (@Nonnull final Locale aDisplayLocale)
   {
     String ret = m_aValidationKey.getBusinessSpecification ().getDisplayName () +
-                 "; transaction T" +
-                 m_aValidationKey.getTransaction ().getNumber () +
-                 " " +
+                 "; transaction " +
                  m_aValidationKey.getTransaction ().getName ();
     if (m_aValidationKey.isCountrySpecific ())
       ret += "; Country " + m_aValidationKey.getCountryLocale ().getDisplayCountry (aDisplayLocale);

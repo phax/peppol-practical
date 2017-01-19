@@ -20,11 +20,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.bdve.ValidationArtefactKey;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
-import com.helger.peppol.validation.api.ValidationKey;
 import com.helger.peppol.validation.engine.peppol.EPeppolStandardValidationSchematronArtefact;
 import com.helger.peppol.validation.engine.peppol.EPeppolThirdPartyValidationSchematronArtefact;
 
@@ -35,13 +35,13 @@ public final class ExtValidationKeyRegistry
 
   static
   {
-    final ICommonsOrderedMap <String, ExtValidationKey> aKeys = new CommonsLinkedHashMap <> ();
-    for (final ValidationKey aKey : EPeppolStandardValidationSchematronArtefact.getAllValidationKeys ())
+    final ICommonsOrderedMap <String, ExtValidationKey> aKeys = new CommonsLinkedHashMap<> ();
+    for (final ValidationArtefactKey aKey : EPeppolStandardValidationSchematronArtefact.getTotalValidationKeys ())
     {
       final ExtValidationKey aItem = new ExtValidationKey (aKey);
       aKeys.put (aItem.getID (), aItem);
     }
-    for (final ValidationKey aKey : EPeppolThirdPartyValidationSchematronArtefact.getAllValidationKeys ())
+    for (final ValidationArtefactKey aKey : EPeppolThirdPartyValidationSchematronArtefact.getTotalValidationKeys ())
     {
       final ExtValidationKey aItem = new ExtValidationKey (aKey);
       aKeys.put (aItem.getID (), aItem);
