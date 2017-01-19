@@ -23,28 +23,22 @@ import javax.jws.WebService;
 
 import com.helger.peppol.ws.types.ValidationServiceResult;
 
-import eu.europa.ec.cipa.commons.cenbii.profiles.ETransaction;
-import eu.europa.ec.cipa.validation.rules.EValidationDocumentType;
-import eu.europa.ec.cipa.validation.rules.EValidationSyntaxBinding;
-
-@WebService (targetNamespace = "http://peppol.phloc.com/ws/documentvalidationservice/20110915/")
+@WebService (targetNamespace = "http://peppol.helger.com/ws/documentvalidationservice/201701/")
 public interface IDocumentValidation2
 {
   /**
-   * Execute the validation pyramid.<br>
+   * Execute the BIS2 validation.<br>
    * Because of JAXB dependencies, @XmlElement (required = true) cannot be put
    * on all required parameters even though it makes sense.
    *
-   * @param eSyntaxBinding
-   *        Syntax binding to use. Required.
-   * @param eDocType
-   *        Document type to use. Required.
-   * @param eTransaction
-   *        Transaction to use. Required.
+   * @param sBusinessSpecID
+   *        Business specification ID to use. Required.
+   * @param sTransactionID
+   *        Transaction ID to use. Defines the document type. Required.
    * @param sCountry
    *        Country specific rule locale. Optional.
-   * @param bIndustrySpecificRules
-   *        Use industry specific rules? Required.
+   * @param sSectorKey
+   *        Sector specific rule ID. Optional.
    * @param sXMLDoc
    *        The XML content to be validated. Required.
    * @param sDisplayLocale
@@ -52,11 +46,10 @@ public interface IDocumentValidation2
    * @return The non-<code>null</code> validation result.
    */
   @Nonnull
-  ValidationServiceResult executeValidationPyramid (@Nonnull @WebParam (name = "SyntaxBinding") EValidationSyntaxBinding eSyntaxBinding,
-                                                    @Nonnull @WebParam (name = "DocumentType") EValidationDocumentType eDocType,
-                                                    @Nonnull @WebParam (name = "Transaction") ETransaction eTransaction,
-                                                    @Nullable @WebParam (name = "Country") String sCountry,
-                                                    @WebParam (name = "IndustrySpecificRules") boolean bIndustrySpecificRules,
-                                                    @Nonnull @WebParam (name = "Document") String sXMLDoc,
-                                                    @Nullable @WebParam (name = "DisplayLocale") String sDisplayLocale);
+  ValidationServiceResult executeValidation (@Nonnull @WebParam (name = "SpecificationID") String sBusinessSpecID,
+                                             @Nonnull @WebParam (name = "TransactionID") String sTransactionID,
+                                             @Nullable @WebParam (name = "Country") String sCountry,
+                                             @Nullable @WebParam (name = "SectorKey") String sSectorKey,
+                                             @Nonnull @WebParam (name = "Document") String sXMLDoc,
+                                             @Nullable @WebParam (name = "DisplayLocale") String sDisplayLocale);
 }

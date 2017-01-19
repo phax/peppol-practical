@@ -30,7 +30,7 @@ public final class ExtValidationKeySelect extends HCExtSelect
   {
     super (aRF);
     for (final Map.Entry <String, ExtValidationKey> aEntry : ExtValidationKeyRegistry.getAllSorted ().entrySet ())
-      addOption (aEntry.getKey (), aEntry.getValue ().getDisplayName (aDisplayLocale));
+      addOption (aEntry.getKey (), aEntry.getValue ().getDisplayText (aDisplayLocale));
     addOptionPleaseSelect (aDisplayLocale);
   }
 }

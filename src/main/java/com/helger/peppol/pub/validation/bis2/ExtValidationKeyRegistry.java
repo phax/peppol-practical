@@ -16,13 +16,14 @@
  */
 package com.helger.peppol.pub.validation.bis2;
 
+import java.util.Comparator;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.bdve.ValidationArtefactKey;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.peppol.validation.engine.peppol.EPeppolStandardValidationSchematronArtefact;
@@ -48,7 +49,7 @@ public final class ExtValidationKeyRegistry
     }
 
     // Sort only once
-    s_aKeys = CollectionHelper.getSortedByValue (aKeys);
+    s_aKeys = aKeys.getSortedByValue (Comparator.naturalOrder ());
   }
 
   private ExtValidationKeyRegistry ()

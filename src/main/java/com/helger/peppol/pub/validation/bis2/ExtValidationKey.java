@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.pub.validation.bis2;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -24,8 +23,10 @@ import javax.annotation.Nonnull;
 import com.helger.bdve.ValidationArtefactKey;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.text.display.IHasDisplayText;
 
-public final class ExtValidationKey implements Serializable, Comparable <ExtValidationKey>
+public final class ExtValidationKey implements Comparable <ExtValidationKey>, IHasID <String>, IHasDisplayText
 {
   private final ValidationArtefactKey m_aValidationKey;
 
@@ -56,7 +57,7 @@ public final class ExtValidationKey implements Serializable, Comparable <ExtVali
 
   @Nonnull
   @Nonempty
-  public String getDisplayName (@Nonnull final Locale aDisplayLocale)
+  public String getDisplayText (@Nonnull final Locale aDisplayLocale)
   {
     String ret = m_aValidationKey.getBusinessSpecification ().getDisplayName () +
                  "; transaction " +
