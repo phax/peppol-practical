@@ -55,12 +55,14 @@ import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.core.form.RequestFieldBoolean;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.schematron.svrl.SVRLResourceError;
@@ -70,8 +72,10 @@ import com.helger.xml.sax.AbstractSAXErrorHandler;
 
 public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 {
+  private static final boolean DEFAULT_SHOW_WARNINGS = true;
   private static final String FIELD_VALIDATION_KEY = "validationkey";
   private static final String FIELD_FILE = "file";
+  private static final String FIELD_SHOW_WARNINGS = "showwarnings";
 
   public PagePublicToolsValidateBIS2 (@Nonnull @Nonempty final String sID)
   {
@@ -93,6 +97,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       final ValidationArtefactKey aVK = ExtValidationKeyRegistry.getFromIDOrNull (sValidationKey);
       final IFileItem aFileItem = aWPEC.getFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
+      final boolean bShowWarnings = aWPEC.getCheckBoxAttr (FIELD_SHOW_WARNINGS, DEFAULT_SHOW_WARNINGS);
 
       if (aVK == null)
         aFormErrors.addFieldError (FIELD_VALIDATION_KEY, "Please select a valid rule set.");
@@ -163,6 +168,9 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                 else
                   if (aError.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN))
                   {
+                    if (!bShowWarnings)
+                      continue;
+
                     nWarnings++;
                     aErrorLevel = new BootstrapLabel (EBootstrapLabelType.WARNING).addChild ("Warning");
                   }
@@ -258,6 +266,10 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("UBL file")
                                                    .setCtrl (new HCEditFile (FIELD_FILE))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_FILE)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Show warnings?")
+                                                   .setCtrl (new BootstrapCheckBox (new RequestFieldBoolean (FIELD_SHOW_WARNINGS,
+                                                                                                             DEFAULT_SHOW_WARNINGS)).setInline (true))
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_SHOW_WARNINGS)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
