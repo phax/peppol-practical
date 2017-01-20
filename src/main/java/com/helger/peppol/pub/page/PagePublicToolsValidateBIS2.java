@@ -39,7 +39,6 @@ import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
-import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCEditFile;
@@ -171,13 +170,14 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                   else
                     aErrorLevel = new BootstrapLabel ().addChild ("undefined");
 
-                final IErrorLocation aLocation = aError.getErrorLocation ();
                 final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
                                                                                          : null;
                 final IHCLI <?> aItem = aUL.addItem ();
                 aItem.addChild (new HCDiv ().addChild (aErrorLevel));
-                aItem.addChild (new HCDiv ().addChild ("Location: ")
-                                            .addChild (new HCCode ().addChild (aLocation.getAsString ())));
+
+                final String sLocation = aError.getErrorLocation ().getAsString ();
+                if (StringHelper.hasText (sLocation))
+                  aItem.addChild (new HCDiv ().addChild ("Location: ").addChild (new HCCode ().addChild (sLocation)));
                 if (aSVRLError != null)
                   aItem.addChild (new HCDiv ().addChild ("XPath test: ")
                                               .addChild (new HCCode ().addChild (aSVRLError.getTest ())));
