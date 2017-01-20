@@ -40,9 +40,19 @@ public final class ExtValidationKeyRegistry
   {
     final ICommonsOrderedMap <String, ValidationArtefactKey> aKeys = new CommonsLinkedHashMap<> ();
     for (final ValidationArtefactKey aKey : EPeppolStandardValidationSchematronArtefact.getTotalValidationKeys ())
-      aKeys.put (aKey.getID (), aKey);
+    {
+      final String sID = aKey.getID ();
+      if (aKeys.containsKey (sID))
+        throw new IllegalStateException ("Key '" + sID + "' is already contained!");
+      aKeys.put (sID, aKey);
+    }
     for (final ValidationArtefactKey aKey : EPeppolThirdPartyValidationSchematronArtefact.getTotalValidationKeys ())
-      aKeys.put (aKey.getID (), aKey);
+    {
+      final String sID = aKey.getID ();
+      if (aKeys.containsKey (sID))
+        throw new IllegalStateException ("Key '" + sID + "' is already contained!");
+      aKeys.put (sID, aKey);
+    }
 
     // Sort only once
     s_aKeys = aKeys.getSortedByValue (Comparator.naturalOrder ());
@@ -59,15 +69,14 @@ public final class ExtValidationKeyRegistry
   }
 
   @Nullable
-  public static ValidationArtefactKey getFromID (@Nullable final String sID)
+  public static ValidationArtefactKey getFromIDOrNull (@Nullable final String sID)
   {
     return s_aKeys.get (sID);
   }
 
   @Nonnull
   @Nonempty
-  public static String getDisplayText (@Nonnull final ValidationArtefactKey aVK,
-                                       @Nonnull final Locale aDisplayLocale)
+  public static String getDisplayText (@Nonnull final ValidationArtefactKey aVK, @Nonnull final Locale aDisplayLocale)
   {
     String ret = aVK.getBusinessSpecification ().getDisplayName () +
                  "; transaction " +

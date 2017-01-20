@@ -90,7 +90,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
     {
       // Validate fields
       final String sValidationKey = aWPEC.getAttributeAsString (FIELD_VALIDATION_KEY);
-      final ValidationArtefactKey aVK = ExtValidationKeyRegistry.getFromID (sValidationKey);
+      final ValidationArtefactKey aVK = ExtValidationKeyRegistry.getFromIDOrNull (sValidationKey);
       final IFileItem aFileItem = aWPEC.getFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
 
@@ -177,6 +177,12 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                 final String sLocation = aError.getErrorLocation ().getAsString ();
                 if (StringHelper.hasText (sLocation))
                   aItem.addChild (new HCDiv ().addChild ("Location: ").addChild (new HCCode ().addChild (sLocation)));
+
+                final String sFieldName = aError.getErrorFieldName ();
+                if (StringHelper.hasText (sFieldName))
+                  aItem.addChild (new HCDiv ().addChild ("Element/context: ")
+                                              .addChild (new HCCode ().addChild (sFieldName)));
+
                 if (aSVRLError != null)
                   aItem.addChild (new HCDiv ().addChild ("XPath test: ")
                                               .addChild (new HCCode ().addChild (aSVRLError.getTest ())));
