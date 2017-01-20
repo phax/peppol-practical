@@ -110,6 +110,8 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
     // Setup error handler
     AppInternalErrorHandler.doSetup ();
 
-    ValidationBootstraper.run ();
+    // Put bound schemas with wrong error listeners into memory :(
+    if (false)
+      ValidationBootstraper.run ();
   }
 }

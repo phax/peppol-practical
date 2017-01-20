@@ -17,12 +17,14 @@
 package com.helger.peppol.pub.validation.bis2;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.bdve.ValidationArtefactKey;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
@@ -32,21 +34,15 @@ import com.helger.peppol.validation.engine.peppol.EPeppolThirdPartyValidationSch
 @Immutable
 public final class ExtValidationKeyRegistry
 {
-  private static ICommonsOrderedMap <String, ExtValidationKey> s_aKeys;
+  private static ICommonsOrderedMap <String, ValidationArtefactKey> s_aKeys;
 
   static
   {
-    final ICommonsOrderedMap <String, ExtValidationKey> aKeys = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, ValidationArtefactKey> aKeys = new CommonsLinkedHashMap<> ();
     for (final ValidationArtefactKey aKey : EPeppolStandardValidationSchematronArtefact.getTotalValidationKeys ())
-    {
-      final ExtValidationKey aItem = new ExtValidationKey (aKey);
-      aKeys.put (aItem.getID (), aItem);
-    }
+      aKeys.put (aKey.getID (), aKey);
     for (final ValidationArtefactKey aKey : EPeppolThirdPartyValidationSchematronArtefact.getTotalValidationKeys ())
-    {
-      final ExtValidationKey aItem = new ExtValidationKey (aKey);
-      aKeys.put (aItem.getID (), aItem);
-    }
+      aKeys.put (aKey.getID (), aKey);
 
     // Sort only once
     s_aKeys = aKeys.getSortedByValue (Comparator.naturalOrder ());
@@ -57,14 +53,29 @@ public final class ExtValidationKeyRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <String, ExtValidationKey> getAllSorted ()
+  public static ICommonsOrderedMap <String, ValidationArtefactKey> getAllSorted ()
   {
     return s_aKeys.getClone ();
   }
 
   @Nullable
-  public static ExtValidationKey getFromID (@Nullable final String sID)
+  public static ValidationArtefactKey getFromID (@Nullable final String sID)
   {
     return s_aKeys.get (sID);
+  }
+
+  @Nonnull
+  @Nonempty
+  public static String getDisplayText (@Nonnull final ValidationArtefactKey aVK,
+                                       @Nonnull final Locale aDisplayLocale)
+  {
+    String ret = aVK.getBusinessSpecification ().getDisplayName () +
+                 "; transaction " +
+                 aVK.getTransaction ().getName ();
+    if (aVK.isCountrySpecific ())
+      ret += "; Country " + aVK.getCountryLocale ().getDisplayCountry (aDisplayLocale);
+    if (aVK.isSectorSpecific ())
+      ret += "; Sector: " + aVK.getSectorKey ().getDisplayName ();
+    return ret;
   }
 }

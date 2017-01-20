@@ -48,7 +48,6 @@ import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.pub.validation.bis2.ExtValidationKey;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeyRegistry;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
@@ -93,11 +92,11 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
     {
       // Validate fields
       final String sValidationKey = aWPEC.getAttributeAsString (FIELD_VALIDATION_KEY);
-      final ExtValidationKey aExtValidationKey = ExtValidationKeyRegistry.getFromID (sValidationKey);
+      final ValidationArtefactKey aVK = ExtValidationKeyRegistry.getFromID (sValidationKey);
       final IFileItem aFileItem = aWPEC.getFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
 
-      if (aExtValidationKey == null)
+      if (aVK == null)
         aFormErrors.addFieldError (FIELD_VALIDATION_KEY, "Please select a valid rule set.");
       if (StringHelper.hasNoText (sFileName))
         aFormErrors.addFieldError (FIELD_FILE, "Please select a file to be validated.");
@@ -105,7 +104,6 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         // Start validation
-        final ValidationArtefactKey aVK = aExtValidationKey.getValidationKey ();
         final ICommonsList <IValidationExecutor> aExecutors = PeppolValidationConfiguration.createDefault (aVK);
         final ValidationExecutionManager aValidator = new ValidationExecutionManager (aExecutors);
 
@@ -184,6 +182,9 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                   aItem.addChild (new HCDiv ().addChild ("XPath test: ")
                                               .addChild (new HCCode ().addChild (aSVRLError.getTest ())));
                 aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getErrorText (aDisplayLocale)));
+                if (aError.hasLinkedException ())
+                  aItem.addChild (new HCDiv ().addChild ("Technical details: ")
+                                              .addChild (new HCCode ().addChild (aError.getLinkedExceptionMessage ())));
               }
           aDetails.addChild (aUL);
         }
