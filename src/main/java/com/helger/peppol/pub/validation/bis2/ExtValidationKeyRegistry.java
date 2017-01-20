@@ -28,8 +28,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
-import com.helger.peppol.validation.engine.peppol.EPeppolStandardValidationSchematronArtefact;
-import com.helger.peppol.validation.engine.peppol.EPeppolThirdPartyValidationSchematronArtefact;
+import com.helger.peppol.validation.EPeppolStandardValidationSchematronArtefact;
+import com.helger.peppol.validation.EPeppolThirdPartyValidationSchematronArtefact;
 
 @Immutable
 public final class ExtValidationKeyRegistry

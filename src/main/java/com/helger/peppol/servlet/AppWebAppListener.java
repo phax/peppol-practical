@@ -32,7 +32,7 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.pub.InitializerPublic;
 import com.helger.peppol.secure.InitializerSecure;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.peppol.validation.engine.ValidationBootstraper;
+import com.helger.peppol.validation.PeppolValidationBootstraper;
 import com.helger.photon.bootstrap3.servlet.AbstractWebAppListenerMultiAppBootstrap;
 import com.helger.photon.core.app.CApplication;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
@@ -111,6 +111,6 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
     AppInternalErrorHandler.doSetup ();
 
     // Preload what can be preload
-    ValidationBootstraper.run ();
+    PeppolValidationBootstraper.run ();
   }
 }

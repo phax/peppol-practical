@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.helger.bdve.EValidationType;
 import com.helger.bdve.ValidationArtefactKey;
 import com.helger.bdve.artefact.IValidationArtefact;
 import com.helger.bdve.artefact.ValidationArtefact;
@@ -50,7 +49,7 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeyRegistry;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.peppol.validation.engine.peppol.PeppolValidationConfiguration;
+import com.helger.peppol.validation.PeppolValidationConfiguration;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
@@ -116,13 +115,13 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         }
         catch (final SAXParseException ex)
         {
-          aValidationResultList.add (new ValidationResult (new ValidationArtefact (EValidationType.XML, aXMLRes, aVK),
+          aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes, aVK),
                                                            new ErrorList (AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.FATAL_ERROR,
                                                                                                                     ex))));
         }
         catch (final SAXException ex)
         {
-          aValidationResultList.add (new ValidationResult (new ValidationArtefact (EValidationType.XML, aXMLRes, aVK),
+          aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes, aVK),
                                                            new ErrorList (SingleError.builderError ()
                                                                                      .setLinkedException (ex)
                                                                                      .setErrorText ("Failed to parse file as XML")
