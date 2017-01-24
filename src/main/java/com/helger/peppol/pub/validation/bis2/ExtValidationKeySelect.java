@@ -21,7 +21,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.helger.bdve.key.ValidationArtefactKey;
+import com.helger.bdve.execute.IValidationExecutorSet;
 import com.helger.html.request.IHCRequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
@@ -30,8 +30,9 @@ public final class ExtValidationKeySelect extends HCExtSelect
   public ExtValidationKeySelect (@Nonnull final IHCRequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
-    for (final Map.Entry <String, ValidationArtefactKey> aEntry : ExtValidationKeyRegistry.getAllSorted ().entrySet ())
-      addOption (aEntry.getKey (), ExtValidationKeyRegistry.getDisplayText (aEntry.getValue (), aDisplayLocale));
+    for (final Map.Entry <String, IValidationExecutorSet> aEntry : ExtValidationKeyRegistry.getAllSorted (aDisplayLocale)
+                                                                                           .entrySet ())
+      addOption (aEntry.getKey (), aEntry.getValue ().getDisplayName ());
     addOptionPleaseSelect (aDisplayLocale);
   }
 }

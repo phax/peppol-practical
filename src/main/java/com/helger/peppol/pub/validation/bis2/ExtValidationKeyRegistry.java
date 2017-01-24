@@ -16,46 +16,29 @@
  */
 package com.helger.peppol.pub.validation.bis2;
 
-import java.util.Comparator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.bdve.key.ValidationArtefactKey;
-import com.helger.commons.annotation.Nonempty;
+import com.helger.bdve.execute.IValidationExecutorSet;
+import com.helger.bdve.execute.ValidationExecutorSetRegistry;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
-import com.helger.peppol.validation.EVAPeppolStandard;
-import com.helger.peppol.validation.EVAPeppolThirdParty;
+import com.helger.commons.name.IHasDisplayName;
+import com.helger.peppol.validation.CPeppolValidation;
 
 @Immutable
 public final class ExtValidationKeyRegistry
 {
-  private static ICommonsOrderedMap <String, ValidationArtefactKey> s_aKeys;
-
+  public static final ValidationExecutorSetRegistry VES_REGISTRY = new ValidationExecutorSetRegistry ();
   static
   {
-    final ICommonsOrderedMap <String, ValidationArtefactKey> aKeys = new CommonsLinkedHashMap<> ();
-    for (final ValidationArtefactKey aKey : EVAPeppolStandard.getTotalValidationKeys ())
-    {
-      final String sID = aKey.getID ();
-      if (aKeys.containsKey (sID))
-        throw new IllegalStateException ("Key '" + sID + "' is already contained!");
-      aKeys.put (sID, aKey);
-    }
-    for (final ValidationArtefactKey aKey : EVAPeppolThirdParty.getTotalValidationKeys ())
-    {
-      final String sID = aKey.getID ();
-      if (aKeys.containsKey (sID))
-        throw new IllegalStateException ("Key '" + sID + "' is already contained!");
-      aKeys.put (sID, aKey);
-    }
-
-    // Sort only once
-    s_aKeys = aKeys.getSortedByValue (Comparator.naturalOrder ());
+    CPeppolValidation.initStandard (VES_REGISTRY);
+    CPeppolValidation.initThirdParty (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
@@ -63,28 +46,17 @@ public final class ExtValidationKeyRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <String, ValidationArtefactKey> getAllSorted ()
+  public static ICommonsOrderedMap <String, IValidationExecutorSet> getAllSorted (@Nonnull final Locale aDisplayLocale)
   {
-    return s_aKeys.getClone ();
+    final ICommonsMap <String, IValidationExecutorSet> aMap = new CommonsHashMap<> (VES_REGISTRY.getAll (),
+                                                                                    x -> x.getID (),
+                                                                                    x -> x);
+    return aMap.getSortedByValue (IHasDisplayName.getComparatorCollating (aDisplayLocale));
   }
 
   @Nullable
-  public static ValidationArtefactKey getFromIDOrNull (@Nullable final String sID)
+  public static IValidationExecutorSet getFromIDOrNull (@Nullable final String sID)
   {
-    return s_aKeys.get (sID);
-  }
-
-  @Nonnull
-  @Nonempty
-  public static String getDisplayText (@Nonnull final ValidationArtefactKey aVK, @Nonnull final Locale aDisplayLocale)
-  {
-    String ret = aVK.getBusinessSpecification ().getDisplayName () +
-                 "; transaction " +
-                 aVK.getTransaction ().getName ();
-    if (aVK.isCountrySpecific ())
-      ret += "; Country " + aVK.getCountryLocale ().getDisplayCountry (aDisplayLocale);
-    if (aVK.isSectorSpecific ())
-      ret += "; Sector: " + aVK.getSectorKey ().getDisplayName ();
-    return ret;
+    return VES_REGISTRY.getOfID (sID);
   }
 }

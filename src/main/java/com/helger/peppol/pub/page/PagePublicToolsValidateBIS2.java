@@ -25,14 +25,12 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.bdve.artefact.IValidationArtefact;
 import com.helger.bdve.artefact.ValidationArtefact;
-import com.helger.bdve.execute.IValidationExecutor;
+import com.helger.bdve.execute.IValidationExecutorSet;
 import com.helger.bdve.execute.ValidationExecutionManager;
-import com.helger.bdve.key.ValidationArtefactKey;
 import com.helger.bdve.result.ValidationResult;
 import com.helger.bdve.result.ValidationResultList;
 import com.helger.bdve.source.ValidationSource;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
@@ -49,7 +47,6 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeyRegistry;
 import com.helger.peppol.pub.validation.bis2.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.peppol.validation.PeppolValidationConfiguration;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
@@ -73,7 +70,7 @@ import com.helger.xml.sax.AbstractSAXErrorHandler;
 public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 {
   private static final boolean DEFAULT_SHOW_WARNINGS = true;
-  private static final String FIELD_VALIDATION_KEY = "validationkey";
+  private static final String FIELD_VES = "ves";
   private static final String FIELD_FILE = "file";
   private static final String FIELD_SHOW_WARNINGS = "showwarnings";
 
@@ -93,22 +90,21 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
       // Validate fields
-      final String sValidationKey = aWPEC.getAttributeAsString (FIELD_VALIDATION_KEY);
-      final ValidationArtefactKey aVK = ExtValidationKeyRegistry.getFromIDOrNull (sValidationKey);
+      final String sValidationKey = aWPEC.getAttributeAsString (FIELD_VES);
+      final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (sValidationKey);
       final IFileItem aFileItem = aWPEC.getFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
       final boolean bShowWarnings = aWPEC.getCheckBoxAttr (FIELD_SHOW_WARNINGS, DEFAULT_SHOW_WARNINGS);
 
-      if (aVK == null)
-        aFormErrors.addFieldError (FIELD_VALIDATION_KEY, "Please select a valid rule set.");
+      if (aVES == null)
+        aFormErrors.addFieldError (FIELD_VES, "Please select a valid rule set.");
       if (StringHelper.hasNoText (sFileName))
         aFormErrors.addFieldError (FIELD_FILE, "Please select a file to be validated.");
 
       if (aFormErrors.isEmpty ())
       {
         // Start validation
-        final ICommonsList <IValidationExecutor> aExecutors = PeppolValidationConfiguration.createDefault (aVK);
-        final ValidationExecutionManager aValidator = new ValidationExecutionManager (aExecutors);
+        final ValidationExecutionManager aValidator = aVES.getExecutorManager ();
 
         // Perform the validation
         final FileItemResource aXMLRes = new FileItemResource (aFileItem);
@@ -120,13 +116,15 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         }
         catch (final SAXParseException ex)
         {
-          aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes, aVK),
+          aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
+                                                                                         aVES.getValidationArtefactKey ()),
                                                            new ErrorList (AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.FATAL_ERROR,
                                                                                                                     ex))));
         }
         catch (final SAXException ex)
         {
-          aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes, aVK),
+          aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
+                                                                                         aVES.getValidationArtefactKey ()),
                                                            new ErrorList (SingleError.builderError ()
                                                                                      .setLinkedException (ex)
                                                                                      .setErrorText ("Failed to parse file as XML")
@@ -242,11 +240,8 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         // Audit execution
         AuditHelper.onAuditExecuteSuccess ("validation-bis2-upload",
                                            sFileName,
-                                           aVK.getBusinessSpecification ().getID (),
-                                           aVK.getTransaction ().getID (),
-                                           aVK.getCountryCode (),
-                                           aVK.getSectorKey () == null ? null : aVK.getSectorKey ().getID (),
-                                           aVK.getPrerequisiteXPath (),
+                                           aVES.getID (),
+                                           aVES.getValidationArtefactKey (),
                                            Integer.valueOf (aValidationResultList.getSize ()),
                                            Integer.valueOf (nErrors),
                                            Integer.valueOf (nWarnings));
@@ -260,9 +255,9 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       aForm.addChild (new BootstrapInfoBox ().addChild ("Select the PEPPOL UBL file for validation and upload it"));
 
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Rule set")
-                                                   .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VALIDATION_KEY),
+                                                   .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VES),
                                                                                          aDisplayLocale))
-                                                   .setErrorList (aFormErrors.getListOfField (FIELD_VALIDATION_KEY)));
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_VES)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("UBL file")
                                                    .setCtrl (new HCEditFile (FIELD_FILE))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_FILE)));
