@@ -21,7 +21,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.helger.bdve.ValidationArtefactKey;
+import com.helger.bdve.key.ValidationArtefactKey;
 import com.helger.html.request.IHCRequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 

@@ -32,7 +32,6 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.pub.InitializerPublic;
 import com.helger.peppol.secure.InitializerSecure;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.peppol.validation.PeppolValidationBootstraper;
 import com.helger.photon.bootstrap3.servlet.AbstractWebAppListenerMultiAppBootstrap;
 import com.helger.photon.core.app.CApplication;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
@@ -75,7 +74,7 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
   @Nonempty
   protected ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> getAllInitializers ()
   {
-    final ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> ret = new CommonsHashMap<> ();
+    final ICommonsMap <String, IApplicationInitializer <LayoutExecutionContext>> ret = new CommonsHashMap <> ();
     ret.put (CApplication.APP_ID_SECURE, new InitializerSecure ());
     ret.put (CApplication.APP_ID_PUBLIC, new InitializerPublic ());
     return ret;
@@ -109,8 +108,5 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
 
     // Setup error handler
     AppInternalErrorHandler.doSetup ();
-
-    // Preload what can be preload
-    PeppolValidationBootstraper.run ();
   }
 }

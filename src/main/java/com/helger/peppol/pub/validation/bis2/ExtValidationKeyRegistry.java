@@ -23,13 +23,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.bdve.ValidationArtefactKey;
+import com.helger.bdve.key.ValidationArtefactKey;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
-import com.helger.peppol.validation.EPeppolStandardValidationSchematronArtefact;
-import com.helger.peppol.validation.EPeppolThirdPartyValidationSchematronArtefact;
+import com.helger.peppol.validation.EVAPeppolStandard;
+import com.helger.peppol.validation.EVAPeppolThirdParty;
 
 @Immutable
 public final class ExtValidationKeyRegistry
@@ -39,14 +39,14 @@ public final class ExtValidationKeyRegistry
   static
   {
     final ICommonsOrderedMap <String, ValidationArtefactKey> aKeys = new CommonsLinkedHashMap<> ();
-    for (final ValidationArtefactKey aKey : EPeppolStandardValidationSchematronArtefact.getTotalValidationKeys ())
+    for (final ValidationArtefactKey aKey : EVAPeppolStandard.getTotalValidationKeys ())
     {
       final String sID = aKey.getID ();
       if (aKeys.containsKey (sID))
         throw new IllegalStateException ("Key '" + sID + "' is already contained!");
       aKeys.put (sID, aKey);
     }
-    for (final ValidationArtefactKey aKey : EPeppolThirdPartyValidationSchematronArtefact.getTotalValidationKeys ())
+    for (final ValidationArtefactKey aKey : EVAPeppolThirdParty.getTotalValidationKeys ())
     {
       final String sID = aKey.getID ();
       if (aKeys.containsKey (sID))
