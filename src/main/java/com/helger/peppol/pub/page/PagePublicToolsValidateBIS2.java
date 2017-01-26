@@ -253,13 +253,13 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
     {
       final BootstrapForm aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC));
       aForm.setEncTypeFileUpload ();
-      aForm.addChild (new BootstrapInfoBox ().addChild ("Select the PEPPOL UBL file for validation and upload it"));
+      aForm.addChild (new BootstrapInfoBox ().addChild ("Select the rule set and the XML file for validation and upload it"));
 
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Rule set")
                                                    .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VES),
                                                                                          aDisplayLocale))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_VES)));
-      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("UBL file")
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("XML file")
                                                    .setCtrl (new HCEditFile (FIELD_FILE))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_FILE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Show warnings?")

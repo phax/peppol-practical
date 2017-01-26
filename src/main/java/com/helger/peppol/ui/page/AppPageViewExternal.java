@@ -31,8 +31,6 @@ import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.external.BasePageViewExternal;
-import com.helger.photon.uicore.page.external.PageViewExternalHTMLCleanser;
-import com.helger.xml.microdom.util.MicroVisitor;
 
 public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionContext>
 {
@@ -40,7 +38,8 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
                               @Nonnull final String sName,
                               @Nonnull final IReadableResource aResource)
   {
-    super (sID, sName, aResource, aCont -> MicroVisitor.visit (aCont, new PageViewExternalHTMLCleanser ()));
+    // No custom cleaner!
+    super (sID, sName, aResource, null);
   }
 
   @Override
