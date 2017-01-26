@@ -24,12 +24,13 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.bdve.execute.IValidationExecutorSet;
 import com.helger.bdve.execute.ValidationExecutorSetRegistry;
+import com.helger.bdve.peppol.PeppolValidation;
+import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.name.IHasDisplayName;
-import com.helger.peppol.validation.CPeppolValidation;
 
 @Immutable
 public final class ExtValidationKeyRegistry
@@ -37,8 +38,9 @@ public final class ExtValidationKeyRegistry
   public static final ValidationExecutorSetRegistry VES_REGISTRY = new ValidationExecutorSetRegistry ();
   static
   {
-    CPeppolValidation.initStandard (VES_REGISTRY);
-    CPeppolValidation.initThirdParty (VES_REGISTRY);
+    PeppolValidation.initStandard (VES_REGISTRY);
+    PeppolValidation.initThirdParty (VES_REGISTRY);
+    SimplerInvoicingValidation.initSimplerInvoicing (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
