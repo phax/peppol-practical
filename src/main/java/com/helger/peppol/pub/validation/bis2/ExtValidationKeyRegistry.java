@@ -22,8 +22,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.bdve.execute.IValidationExecutorSet;
-import com.helger.bdve.execute.ValidationExecutorSetRegistry;
+import com.helger.bdve.executorset.IValidationExecutorSet;
+import com.helger.bdve.executorset.VESID;
+import com.helger.bdve.executorset.ValidationExecutorSetRegistry;
 import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -48,17 +49,17 @@ public final class ExtValidationKeyRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <String, IValidationExecutorSet> getAllSorted (@Nonnull final Locale aDisplayLocale)
+  public static ICommonsOrderedMap <VESID, IValidationExecutorSet> getAllSorted (@Nonnull final Locale aDisplayLocale)
   {
-    final ICommonsMap <String, IValidationExecutorSet> aMap = new CommonsHashMap<> (VES_REGISTRY.getAll (),
-                                                                                    x -> x.getID (),
-                                                                                    x -> x);
+    final ICommonsMap <VESID, IValidationExecutorSet> aMap = new CommonsHashMap<> (VES_REGISTRY.getAll (),
+                                                                                   x -> x.getID (),
+                                                                                   x -> x);
     return aMap.getSortedByValue (IHasDisplayName.getComparatorCollating (aDisplayLocale));
   }
 
   @Nullable
-  public static IValidationExecutorSet getFromIDOrNull (@Nullable final String sID)
+  public static IValidationExecutorSet getFromIDOrNull (@Nullable final VESID aID)
   {
-    return VES_REGISTRY.getOfID (sID);
+    return VES_REGISTRY.getOfID (aID);
   }
 }

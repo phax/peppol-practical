@@ -21,7 +21,8 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.helger.bdve.execute.IValidationExecutorSet;
+import com.helger.bdve.executorset.IValidationExecutorSet;
+import com.helger.bdve.executorset.VESID;
 import com.helger.html.request.IHCRequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
@@ -30,9 +31,9 @@ public final class ExtValidationKeySelect extends HCExtSelect
   public ExtValidationKeySelect (@Nonnull final IHCRequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
-    for (final Map.Entry <String, IValidationExecutorSet> aEntry : ExtValidationKeyRegistry.getAllSorted (aDisplayLocale)
-                                                                                           .entrySet ())
-      addOption (aEntry.getKey (), aEntry.getValue ().getDisplayName ());
+    for (final Map.Entry <VESID, IValidationExecutorSet> aEntry : ExtValidationKeyRegistry.getAllSorted (aDisplayLocale)
+                                                                                          .entrySet ())
+      addOption (aEntry.getKey ().getAsSingleID (), aEntry.getValue ().getDisplayName ());
     addOptionPleaseSelect (aDisplayLocale);
   }
 }
