@@ -20,6 +20,14 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2017-01-26 - Validation updated</h3>
+
+<p>
+  Finally the BIS2 document validation with OpenPEPPOL validation artefacts 3.3.0 is available.
+  Additionally support for Simplerinvoicing 1.1 was added.
+  <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
+</p>
+
 <h3>2016-11-25 - London F2F slides available</h3>
 
 <p>
@@ -242,7 +250,6 @@
 <p>
   Finally a first version of the BIS2 document validation is available on this page.
   <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
-  A respective WebService will follow soon.
 </p>
 
 <h3>2015-10-27</h3>
