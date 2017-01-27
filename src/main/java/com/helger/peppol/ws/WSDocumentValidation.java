@@ -37,7 +37,7 @@ import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.text.util.TextHelper;
+import com.helger.peppol.app.CApp;
 import com.helger.peppol.pub.validation.bis1.ValidationPyramidHelper;
 import com.helger.peppol.ws.types.EValidationServiceReturnCode;
 import com.helger.peppol.ws.types.ValidationServiceResult;
@@ -97,7 +97,7 @@ public class WSDocumentValidation implements IDocumentValidation
                                                               : null;
       final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ()
                                                                                        .getLocale (sDisplayLocale)
-                                                                          : TextHelper.EN;
+                                                                          : CApp.DEFAULT_LOCALE;
       Document aXMLDoc = null;
       try
       {

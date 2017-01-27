@@ -48,7 +48,8 @@ public interface IDocumentValidation
    * @param sXMLDoc
    *        The XML content to be validated. Required.
    * @param sDisplayLocale
-   *        The display locale to use. Optional.
+   *        The display locale to use. Optional. If none is provided, the
+   *        default locale "en_US" is used.
    * @return The non-<code>null</code> validation result.
    */
   @Nonnull
