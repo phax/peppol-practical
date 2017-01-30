@@ -47,7 +47,7 @@ Must use the same character set as the surrounding SOAP envelope.</xs:documentat
             </xs:annotation>
           </xs:element>
         </xs:sequence>
-        <xs:attribute name="vesID" type="xs:string" use="required">
+        <xs:attribute name="VESID" type="xs:string" use="required">
           <xs:annotation>
             <xs:documentation>The ID of the 'validation executor set' to be used for validation.
 Defines the validation rules to be applied.</xs:documentation>

@@ -16,18 +16,15 @@
     limitations under the License.
 
 -->
-<div class="alert alert-warning">
+<div class="alert alert-info">
   <div>
-    This site offers a WebService to automatically validate your PEPPOL documents according to the OLD PEPPOL rules.
+    This site offers a WebService to automatically validate your PEPPOL documents according to the latest PEPPOL rules.
     The validation service requires UBL files and cannot handle StandardBusinessDocuments.
-  </div>
-  <div>
-    <strong>This Webservice will be shut down at the beginning of 2016! The old BIS are too old.</strong>
   </div>
 </div>
 <p>
-The WSDL file can be found at <a class="external_href" href="http://peppol.helger.com/wsdocumentvalidation?wsdl">http://peppol.helger.com/wsdocumentvalidation?wsdl</a>.
-The endpoint URL for this WebService is <code>http://peppol.helger.com/wsdocumentvalidation</code>. 
+The WSDL file can be found at <a class="external_href" href="http://peppol.helger.com/wsdvs?wsdl">http://peppol.helger.com/wsdvs?wsdl</a>.
+The endpoint URL for this WebService is <code>http://peppol.helger.com/wsdvs</code>. 
 </p>
 
 <!--
@@ -44,7 +41,7 @@ A very small Java WS client is available for
    <em>philip[at]helger[dot]com</em> for support.</p>
 
 <h2>Input parameters</h2>
-<p>It offers one method called "executeValidationPyramid" that takes the following arguments:</p>
+<p>It offers one method called "validate" that takes the following arguments:</p>
 <div class="table-responsive">
   <table class="table table-bordered">
     <tbody>
@@ -55,66 +52,37 @@ A very small Java WS client is available for
         <th>Notes</th>
       </tr>
       <tr>
-        <td><code>SyntaxBindung</code></td>
-        <td>enumeration</td>
-        <td>required</td>
-        <td>Only <code>UBL</code> is supported</td>
-      </tr>
-      <tr>
-        <td><code>DocumentType</code></td>
-        <td>enumeration</td>
-        <td>required</td>
-        <td>
-          <p>Should be one of <code>CATALOGUE</code>, <code>ORDER</code>, <code>ORDERRESPONSE</code>, <code>CREDITNOTE</code> or <code>INVOICE</code>.</p>
-          <p>At the moment no rules for <code>TENDERING_CATALOGUE</code> are present.</p>
-        </td>
-      </tr>
-      <tr>
-        <td><code>Transaction</code></td>
-        <td>enumeration</td>
-        <td>required</td>
-        <td>Depending on the DocumentType parameter, different values are allowed:<br />
-          <ul>
-            <li>For <code>CATALOGUE</code> use <code>T19</code></li>
-            <li>For <code>ORDER</code> use <code>T01</code></li>
-            <li>For <code>ORDERRESPONSE</code> use <code>T02</code> or <code>T03</code></li>
-            <li>For <code>CREDITNOTE</code> use <code>T14</code></li>
-            <li>For <code>INVOICE</code> use <code>T10</code>, <code>T15</code> or <code>T17</code></li>
-          </ul>
-          <p>The available enumeration of transactions is based on the overall transaction list of the CEN/BII workshop. The other available transactions are currently not in scope of PEPPOL or no validation rules are present.</p>
-        </td>
-      </tr>
-      <tr>
-        <td><code>Country</code></td>
-        <td>string</td>
-        <td>optional</td>
-        <td>
-          <p>This specifies the country who's national rules should be applied. It must be stated in the format ISO-3166 ALPHA 2.</p>
-          <p>At the moment national rules are available for the following countries:</p>
-          <ul>
-            <li><code>AT</code> - Austria</li>
-            <li><code>DK</code> - Denmark</li>
-            <li><code>IT</code> - Italy</li>
-            <li><code>NO</code> - Norway</li>
-          </ul>
-          <p>Passing in any other valid country code will do no harm but has no additional effect.</p>
-          <p>Not passing a country code has the effect, that</p>
-        </td>
-      </tr>
-      <tr>
-        <td><code>IndustrySpecificRules</code></td>
-        <td>boolean</td>
-        <td>required</td>
-        <td>
-          <p>Indicates whether the industry specific validation rules should be applied or not. Industry specific rules can also be rules that are specific for a government.</p>
-          <p>Industry specific rules are only available if national rules are available. Passing "true" but no country code means, that no industry specific rules are applied.</p>
-        </td>
-      </tr>
-      <tr>
-        <td><code>Document</code></td>
+        <td><code>XML</code></td>
         <td>string</td>
         <td>required</td>
-        <td>This is the main XML document to be validated. For simplicity it must be provided as an inline string.</td>
+        <td>This is the main XML document to be validated.
+            For simplicity it must be provided as an inline string.
+            Must use the same character set as the surrounding SOAP envelope.</td>
+      </tr>
+      <tr>
+        <td><code>VESID</code></td>
+        <td>string</td>
+        <td>required</td>
+        <td>The <code>Validation Executor Set ID</code> to be used. 
+            This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
+            Supported VES IDs are:
+            <ul>
+              <li><code>eu.peppol.bis2:t19:3.3.0</code> - OpenPEPPOL Catalogue</li>
+              <li><code>eu.peppol.bis2:t58:3.3.0</code> - OpenPEPPOL Catalogue Response</li>
+              <li><code>eu.peppol.bis2:t14:3.3.0</code> - OpenPEPPOL Credit Note</li>
+              <li><code>eu.peppol.bis2:t14:5:at</code> - OpenPEPPOL Credit Note (Austria)</li>
+              <li><code>eu.peppol.bis2:t14:7:at-gov</code> - OpenPEPPOL Credit Note (Austrian Government)</li>
+              <li><code>eu.peppol.bis2:t16:3.3.0</code> - OpenPEPPOL Despatch Advice</li>
+              <li><code>eu.peppol.bis2:t10:3.3.0</code> - OpenPEPPOL Invoice</li>
+              <li><code>eu.peppol.bis2:t10:5:at</code> - OpenPEPPOL Invoice (Austria)</li>
+              <li><code>eu.peppol.bis2:t10:7:at-gov</code> - OpenPEPPOL Invoice (Austrian Government)</li>
+              <li><code>eu.peppol.bis2:t71:3.3.0</code> - OpenPEPPOL MLR</li>
+              <li><code>eu.peppol.bis2:t01:3.3.0</code> - OpenPEPPOL Order</li>
+              <li><code>eu.peppol.bis2:t76:3.3.0</code> - OpenPEPPOL Order Response</li>
+              <li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing 1.1</li>
+              <li><code>org.simplerinvoicing:invoice:1.1:strict</code> - Simplerinvoicing 1.1 (strict)</li>
+            </ul>
+        </td>
       </tr>
       <tr>
         <td><code>DisplayLocale</code></td>
@@ -183,7 +151,7 @@ A very small Java WS client is available for
       </tr>
     </tbody>
   </table>
-</div>>
+</div>
 
 <p>Each Item in the <code>Items</code> list has the following semantics:</p>
 <div class="table-responsive">

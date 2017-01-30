@@ -54,7 +54,7 @@ public final class MainWSDVSClient
 
     s_aLogger.info ("Starting validation process");
     final RequestType aRequest = new RequestType ();
-    aRequest.setVesID (PeppolValidation330.VID_OPENPEPPOL_T10_V2.getAsSingleID ());
+    aRequest.setVESID (PeppolValidation330.VID_OPENPEPPOL_T10_V2.getAsSingleID ());
     aRequest.setXML (sXML);
     aRequest.setDisplayLocale ("en");
     final ResponseType aResponse = aPort.validate (aRequest);

@@ -42,7 +42,7 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.app.CApp;
-import com.helger.peppol.pub.validation.bis2.ExtValidationKeyRegistry;
+import com.helger.peppol.pub.validation.ExtValidationKeyRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
 import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;
@@ -103,7 +103,7 @@ public class WSDVS implements WSDVSPort
       s_aCounterTotal.increment ();
 
       // Interpret parameters
-      final VESID aVESID = VESID.parseIDOrNull (aRequest.getVesID ());
+      final VESID aVESID = VESID.parseIDOrNull (aRequest.getVESID ());
       if (aVESID == null)
         _throw ("Syntactically invalid VESID provided!");
       final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);

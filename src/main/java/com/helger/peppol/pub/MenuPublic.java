@@ -110,9 +110,9 @@ public final class MenuPublic
                                                                                                                       aMenuTree));
       aMenuTree.createItem (aValidation, new PagePublicToolsValidateBIS2 (CMenuPublic.MENU_VALIDATION_BIS2));
       aMenuTree.createItem (aValidation,
-                            new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_WS1,
-                                                     "BIS1 Validation WebService",
-                                                     new ClassPathResource ("viewpages/en/validation_ws1.xml")));
+                            new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_DVS,
+                                                     "Document Validation Service",
+                                                     new ClassPathResource ("viewpages/en/validation_dvs.xml")));
     }
 
     // Newsletter stuff

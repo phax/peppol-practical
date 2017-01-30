@@ -291,19 +291,6 @@
         <version>${jaxws-plugin.version}</version>
         <executions>
           <execution>
-            <id>wsimport1</id>
-            <goals>
-              <goal>wsimport</goal>
-            </goals>
-            <configuration>
-              <packageName>com.helger.peppol.wsclient</packageName>
-              <wsdlDirectory>notExisting</wsdlDirectory>
-              <wsdlUrls>
-                <wsdlUrl>http://peppol.helger.com/wsdocumentvalidation?wsdl</wsdlUrl>  
-              </wsdlUrls>
-            </configuration>
-          </execution>
-          <execution>
             <id>wsimport2</id>
             <goals>
               <goal>wsimport</goal>

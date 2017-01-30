@@ -18,9 +18,6 @@
 
 -->
 <endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
-  <endpoint name='DocumentValidation' 
-            implementation='com.helger.peppol.ws.WSDocumentValidation'
-            url-pattern='/wsdocumentvalidation' />
   <endpoint name='DVS' 
             implementation='com.helger.peppol.ws.WSDVS'
             url-pattern='/wsdvs' />
