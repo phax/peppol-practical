@@ -21,4 +21,7 @@
   <endpoint name='DocumentValidation' 
             implementation='com.helger.peppol.ws.WSDocumentValidation'
             url-pattern='/wsdocumentvalidation' />
+  <endpoint name='DocumentValidation2' 
+            implementation='com.helger.peppol.ws2.DocumentValidationService'
+            url-pattern='/wsdocumentvalidation2' />
 </endpoints>

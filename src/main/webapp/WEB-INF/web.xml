@@ -110,4 +110,8 @@
     <servlet-name>WSServlet</servlet-name>
     <url-pattern>/wsdocumentvalidation</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WSServlet</servlet-name>
+    <url-pattern>/wsdocumentvalidation2</url-pattern>
+  </servlet-mapping>
 </web-app>

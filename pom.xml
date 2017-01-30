@@ -303,6 +303,20 @@
               </wsdlUrls>
             </configuration>
           </execution>
+          <execution>
+            <id>wsimport2</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlDirectory>src/main/webapp/WEB-INF/wsdl</wsdlDirectory>
+              <wsdlFiles>
+                <wsdlFile>pp-validate-bis2.wsdl</wsdlFile>
+              </wsdlFiles>
+              <wsdlLocation>/WEB-INF/wsdl/pp-validate-bis2.wsdl</wsdlLocation>
+              <packageName>com.helger.peppol.wsclient2</packageName>
+            </configuration>
+          </execution>
         </executions>
         <configuration>
           <xjcArgs>
