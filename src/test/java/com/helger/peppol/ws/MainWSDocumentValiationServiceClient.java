@@ -30,14 +30,14 @@ import com.helger.peppol.wsclient.ValidationServiceResultItemType;
 import com.helger.peppol.wsclient.ValidationServiceResultType;
 import com.helger.peppol.wsclient.WSDocumentValidationService;
 
-public final class WSDocumentValiationServiceTester
+public final class MainWSDocumentValiationServiceClient
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WSDocumentValiationServiceTester.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainWSDocumentValiationServiceClient.class);
 
   public static void main (final String [] args)
   {
     s_aLogger.info ("Starting the engines");
-    final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("invoice1.xml"),
+    final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("ws/invoice1.xml"),
                                                           CCharset.CHARSET_UTF_8_OBJ);
 
     final WSDocumentValidationService aService = new WSDocumentValidationService ();

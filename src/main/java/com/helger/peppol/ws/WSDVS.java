@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.ws2;
+package com.helger.peppol.ws;
 
 import java.util.Locale;
 
@@ -48,33 +48,33 @@ import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;
 import com.helger.peppol.wsclient2.ResponseType;
 import com.helger.peppol.wsclient2.TriStateType;
-import com.helger.peppol.wsclient2.ValidateBusinessDocumentFaultError;
+import com.helger.peppol.wsclient2.ValidateFaultError;
 import com.helger.peppol.wsclient2.ValidationResultType;
-import com.helger.peppol.wsclient2.WSDocumentValidationBIS2Port;
+import com.helger.peppol.wsclient2.WSDVSPort;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.scope.mgr.WebScopeManager;
 import com.helger.xml.serialize.read.DOMReader;
 
-@WebService (endpointInterface = "com.helger.peppol.wsclient2.WSDocumentValidationBIS2Port")
-public class DocumentValidationService implements WSDocumentValidationBIS2Port
+@WebService (endpointInterface = "com.helger.peppol.wsclient2.WSDVSPort")
+public class WSDVS implements WSDVSPort
 {
-  private static final IMutableStatisticsHandlerCounter s_aCounterTotal = StatisticsManager.getCounterHandler (DocumentValidationService.class.getName () +
+  private static final IMutableStatisticsHandlerCounter s_aCounterTotal = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                "$total");
-  private static final IMutableStatisticsHandlerCounter s_aCounterAPISuccess = StatisticsManager.getCounterHandler (DocumentValidationService.class.getName () +
+  private static final IMutableStatisticsHandlerCounter s_aCounterAPISuccess = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                     "$api-success");
-  private static final IMutableStatisticsHandlerCounter s_aCounterAPIError = StatisticsManager.getCounterHandler (DocumentValidationService.class.getName () +
+  private static final IMutableStatisticsHandlerCounter s_aCounterAPIError = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                   "$api-error");
-  private static final IMutableStatisticsHandlerCounter s_aCounterValidationSuccess = StatisticsManager.getCounterHandler (DocumentValidationService.class.getName () +
+  private static final IMutableStatisticsHandlerCounter s_aCounterValidationSuccess = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                            "$validation-success");
-  private static final IMutableStatisticsHandlerCounter s_aCounterValidationError = StatisticsManager.getCounterHandler (DocumentValidationService.class.getName () +
+  private static final IMutableStatisticsHandlerCounter s_aCounterValidationError = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                          "$validation-error");
 
   @Resource
   private WebServiceContext m_aWSContext;
 
-  private static void _throw (@Nonnull final String s) throws ValidateBusinessDocumentFaultError
+  private static void _throw (@Nonnull final String s) throws ValidateFaultError
   {
-    throw new ValidateBusinessDocumentFaultError (s, s);
+    throw new ValidateFaultError (s, s);
   }
 
   @Nonnull
@@ -87,7 +87,8 @@ public class DocumentValidationService implements WSDocumentValidationBIS2Port
     return ErrorLevelType.SUCCESS;
   }
 
-  public ResponseType validateBusinessDocument (final RequestType aRequest) throws ValidateBusinessDocumentFaultError
+  @Nonnull
+  public ResponseType validate (@Nonnull final RequestType aRequest) throws ValidateFaultError
   {
     final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ()
                                                                              .get (MessageContext.SERVLET_REQUEST);

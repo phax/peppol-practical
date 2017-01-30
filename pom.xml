@@ -311,9 +311,9 @@
             <configuration>
               <wsdlDirectory>src/main/webapp/WEB-INF/wsdl</wsdlDirectory>
               <wsdlFiles>
-                <wsdlFile>pp-validate-bis2.wsdl</wsdlFile>
+                <wsdlFile>pp-dvs.wsdl</wsdlFile>
               </wsdlFiles>
-              <wsdlLocation>/WEB-INF/wsdl/pp-validate-bis2.wsdl</wsdlLocation>
+              <wsdlLocation>/WEB-INF/wsdl/pp-dvs.wsdl</wsdlLocation>
               <packageName>com.helger.peppol.wsclient2</packageName>
             </configuration>
           </execution>
