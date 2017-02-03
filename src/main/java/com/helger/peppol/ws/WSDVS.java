@@ -131,7 +131,7 @@ public class WSDVS implements WSDVSPort
 
       // All input parameters are valid!
       // Start validating
-      final ValidationResultList aVRL = aVES.getExecutorManager ()
+      final ValidationResultList aVRL = aVES.createExecutionManager ()
                                             .executeValidation (ValidationSource.create ("uploaded-file", aXMLDoc));
 
       // Result object

@@ -105,7 +105,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         // Start validation
-        final ValidationExecutionManager aValidator = aVES.getExecutorManager ();
+        final ValidationExecutionManager aValidator = aVES.createExecutionManager ();
 
         // Perform the validation
         final FileItemResource aXMLRes = new FileItemResource (aFileItem);
