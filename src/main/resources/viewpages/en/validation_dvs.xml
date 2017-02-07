@@ -100,6 +100,20 @@ A very small Java WS client is available for
     </tbody>
   </table>
 </div>
+
+<h3>Example request</h3>
+<code>&lt;?xml version="1.0"?&gt;<br/>
+&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;<br/>
+  &lt;S:Body&gt;<br/>
+    &lt;validateRequestInput xmlns="http://peppol.helger.com/ws/documentvalidationservice/201701/" VESID="eu.peppol.bis2:t10:3.3.0" displayLocale="en"&gt;<br/>
+      &lt;XML>&amp;lt;?xml version="1.0" encoding="UTF-8"?&amp;gt;<br/>
+&amp;lt;Invoice:Invoice xmlns:Invoice="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"&amp;gt;<br/>
+...<br/>
+&amp;lt;/Invoice:Invoice&amp;gt;<br/>
+&lt;/XML&gt;<br/>
+    &lt;/validateRequestInput&gt;<br/>
+  &lt;/S:Body&gt;<br/>
+&lt;/S:Envelope&gt;</code>
   
 <h2>Return value</h2>
 <p>The response of calling this service is a complex structure with the following items:</p>
