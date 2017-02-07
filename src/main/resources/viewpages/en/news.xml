@@ -20,6 +20,19 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
+<h3>2017-02-07 - Document Validation Service updated</h3>
+
+<p>
+  Finally the new Document Validation Webservice is provided.
+  <a href="/public/menuitem-validation-ws2">Click here for Webservice details</a>.
+  This Webservice allows you to use all validations also available on the manual validation page.
+</p>
+
+<p>
+  Additionally the CEN/TC 434 / EN 16931 validation artefact drafts (!) as of today are available
+  for usage in validation!
+</p>
+
 <h3>2017-01-26 - Validation updated</h3>
 
 <p>
