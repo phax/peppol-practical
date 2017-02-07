@@ -28,6 +28,7 @@ import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.url.URLHelper;
 import com.helger.commons.ws.WSClientConfig;
+import com.helger.commons.ws.WSHelper;
 import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;
 import com.helger.peppol.wsclient2.ResponseType;
@@ -42,6 +43,8 @@ public final class MainWSDVSClient
 
   public static void main (final String [] args) throws ValidateFaultError
   {
+    WSHelper.enableSoapLogging (true);
+
     s_aLogger.info ("Starting the engines");
     final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("ws/invoice1.xml"),
                                                           CCharset.CHARSET_UTF_8_OBJ);
