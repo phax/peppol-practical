@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.bdve.en16931.EN16931Validation;
 import com.helger.bdve.executorset.IValidationExecutorSet;
 import com.helger.bdve.executorset.VESID;
 import com.helger.bdve.executorset.ValidationExecutorSetRegistry;
@@ -42,6 +43,7 @@ public final class ExtValidationKeyRegistry
     PeppolValidation.initStandard (VES_REGISTRY);
     PeppolValidation.initThirdParty (VES_REGISTRY);
     SimplerInvoicingValidation.initSimplerInvoicing (VES_REGISTRY);
+    EN16931Validation.initEN16931 (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
@@ -51,9 +53,9 @@ public final class ExtValidationKeyRegistry
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <VESID, IValidationExecutorSet> getAllSorted (@Nonnull final Locale aDisplayLocale)
   {
-    final ICommonsMap <VESID, IValidationExecutorSet> aMap = new CommonsHashMap<> (VES_REGISTRY.getAll (),
-                                                                                   x -> x.getID (),
-                                                                                   x -> x);
+    final ICommonsMap <VESID, IValidationExecutorSet> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
+                                                                                    x -> x.getID (),
+                                                                                    x -> x);
     return aMap.getSortedByValue (IHasDisplayName.getComparatorCollating (aDisplayLocale));
   }
 

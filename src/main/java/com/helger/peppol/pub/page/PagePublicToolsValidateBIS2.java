@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -67,6 +68,9 @@ import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.fileupload.FileItemResource;
 import com.helger.web.fileupload.IFileItem;
 import com.helger.xml.sax.AbstractSAXErrorHandler;
+import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
+import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xml.serialize.read.DOMReaderSettings;
 
 public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 {
@@ -110,27 +114,37 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         // Perform the validation
         final FileItemResource aXMLRes = new FileItemResource (aFileItem);
         final ValidationResultList aValidationResultList = new ValidationResultList ();
+        final ErrorList aXMLErrors = new ErrorList ();
         try
         {
-          final ValidationSource aSource = ValidationSource.createXMLSource (aXMLRes);
+
+          final Document aDoc = DOMReader.readXMLDOM (aXMLRes,
+                                                      new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors)));
+          final ValidationSource aSource = ValidationSource.create (aXMLRes.getPath (), aDoc);
           aValidator.executeValidation (aSource, aValidationResultList);
         }
         catch (final SAXParseException ex)
         {
-          aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
-                                                                                         aVES.getValidationArtefactKey ()),
-                                                           new ErrorList (AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.FATAL_ERROR,
-                                                                                                                    ex))));
+          if (false)
+            aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
+                                                                                           aVES.getValidationArtefactKey ()),
+                                                             new ErrorList (AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.FATAL_ERROR,
+                                                                                                                      ex))));
         }
         catch (final SAXException ex)
         {
+          if (false)
+            aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
+                                                                                           aVES.getValidationArtefactKey ()),
+                                                             new ErrorList (SingleError.builderError ()
+                                                                                       .setLinkedException (ex)
+                                                                                       .setErrorText ("Failed to parse file as XML")
+                                                                                       .build ())));
+        }
+        if (aXMLErrors.containsAtLeastOneFailure ())
           aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
                                                                                          aVES.getValidationArtefactKey ()),
-                                                           new ErrorList (SingleError.builderError ()
-                                                                                     .setLinkedException (ex)
-                                                                                     .setErrorText ("Failed to parse file as XML")
-                                                                                     .build ())));
-        }
+                                                           aXMLErrors));
 
         // Show results per layer
         int nWarnings = 0;
