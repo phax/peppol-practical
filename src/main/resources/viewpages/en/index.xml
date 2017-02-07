@@ -54,7 +54,7 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
   <li>Clarification and tools in the area of document validation:
     <ul>
       <li><a href="/public/menuitem-validation-bis2">BIS2 Document validation</a></li> 
-      <li><a href="/public/menuitem-validation-ws1">Webservice for BIS1 document validation</a></li> 
+      <li><a href="/public/menuitem-validation-ws2">Webservice for Business Document Validation</a></li> 
     </ul>
   </li>
 </ul>
