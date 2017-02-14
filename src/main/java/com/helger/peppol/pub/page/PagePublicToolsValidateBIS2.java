@@ -120,8 +120,11 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
 
           final Document aDoc = DOMReader.readXMLDOM (aXMLRes,
                                                       new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors)));
-          final ValidationSource aSource = ValidationSource.create (aXMLRes.getPath (), aDoc);
-          aValidator.executeValidation (aSource, aValidationResultList);
+          if (aDoc != null)
+          {
+            final ValidationSource aSource = ValidationSource.create (aXMLRes.getPath (), aDoc);
+            aValidator.executeValidation (aSource, aValidationResultList);
+          }
         }
         catch (final SAXParseException ex)
         {
