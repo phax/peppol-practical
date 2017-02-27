@@ -93,6 +93,6 @@ public class CRMGroup extends AbstractObject implements ICRMGroup
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("DisplayName", m_sDisplayName)
                             .append ("SenderEmailAddress", m_sSenderEmailAddress)
-                            .toString ();
+                            .getToString ();
   }
 }

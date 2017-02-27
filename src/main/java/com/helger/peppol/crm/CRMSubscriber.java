@@ -179,6 +179,6 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
                             .append ("Name", m_sName)
                             .append ("EmailAddress", m_sEmailAddress)
                             .append ("AssignedGroups", m_aAssignedGroups)
-                            .toString ();
+                            .getToString ();
   }
 }

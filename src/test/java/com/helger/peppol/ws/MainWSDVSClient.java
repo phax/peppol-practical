@@ -16,13 +16,14 @@
  */
 package com.helger.peppol.ws;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.xml.ws.BindingProvider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.bdve.peppol.PeppolValidation330;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -47,7 +48,7 @@ public final class MainWSDVSClient
 
     s_aLogger.info ("Starting the engines");
     final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("ws/invoice1.xml"),
-                                                          CCharset.CHARSET_UTF_8_OBJ);
+                                                          StandardCharsets.UTF_8);
 
     final WSDVSService aService = new WSDVSService (new FileSystemResource ("src/main/webapp/WEB-INF/wsdl/pp-dvs.wsdl").getAsURL ());
     final WSDVSPort aPort = aService.getWSDVSPort ();

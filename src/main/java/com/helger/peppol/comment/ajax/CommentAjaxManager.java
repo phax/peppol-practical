@@ -96,6 +96,6 @@ public final class CommentAjaxManager extends AbstractGlobalWebSingleton impleme
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("invoker", m_aInvoker).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("invoker", m_aInvoker).getToString ();
   }
 }

@@ -270,6 +270,6 @@ public class TestEndpoint extends AbstractBaseObject implements IHasDisplayName
                             .append ("ParticipantIDValue", m_sParticipantIDValue)
                             .append ("TransportProfile", m_aTransportProfile)
                             .append ("SML", m_aSML)
-                            .toString ();
+                            .getToString ();
   }
 }
