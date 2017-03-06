@@ -34,7 +34,7 @@ import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapSubmitButton;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.core.app.error.InternalErrorHandler;
+import com.helger.photon.core.app.error.InternalErrorSettings;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
@@ -102,7 +102,7 @@ public final class PagePublicContact extends AbstractAppWebPage
         aSB.append ("--\nPEPPOL practical\nhttp://peppol.helger.com");
         aEmailData.setBody (aSB.toString ());
 
-        ScopedMailAPI.getInstance ().queueMail (InternalErrorHandler.getSMTPSettings (), aEmailData);
+        ScopedMailAPI.getInstance ().queueMail (InternalErrorSettings.getSMTPSettings (), aEmailData);
 
         aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Thank you for your message. Please note that I run this page on a voluntary basis on my expenses - you may consider a donation :)"));
         bShowForm = false;

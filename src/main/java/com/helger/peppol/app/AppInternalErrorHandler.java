@@ -27,7 +27,7 @@ import com.helger.commons.email.EmailAddress;
 import com.helger.commons.url.SMap;
 import com.helger.photon.basic.longrun.ILongRunningJob;
 import com.helger.photon.core.app.error.InternalErrorBuilder;
-import com.helger.photon.core.app.error.InternalErrorHandler;
+import com.helger.photon.core.app.error.InternalErrorSettings;
 import com.helger.photon.core.app.error.callback.AbstractErrorCallback;
 import com.helger.photon.core.mgr.PhotonCoreManager;
 import com.helger.photon.core.smtp.CNamedSMTPSettings;
@@ -77,8 +77,9 @@ public final class AppInternalErrorHandler extends AbstractErrorCallback impleme
     final NamedSMTPSettings aNamedSettings = PhotonCoreManager.getSMTPSettingsMgr ()
                                                               .getSettings (CNamedSMTPSettings.NAMED_SMTP_SETTINGS_DEFAULT_ID);
     final ISMTPSettings aSMTPSettings = aNamedSettings == null ? null : aNamedSettings.getSMTPSettings ();
-    InternalErrorHandler.setSMTPSenderAddress (new EmailAddress ("peppol@helger.com", "peppol.helger.com application"));
-    InternalErrorHandler.setSMTPReceiverAddress (new EmailAddress ("philip@helger.com", "Philip"));
-    InternalErrorHandler.setSMTPSettings (aSMTPSettings);
+    InternalErrorSettings.setSMTPSenderAddress (new EmailAddress ("peppol@helger.com",
+                                                                  "peppol.helger.com application"));
+    InternalErrorSettings.setSMTPReceiverAddress (new EmailAddress ("philip@helger.com", "Philip"));
+    InternalErrorSettings.setSMTPSettings (aSMTPSettings);
   }
 }
