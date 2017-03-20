@@ -120,18 +120,18 @@
     <a href="http://bouncycastle.org/">The Legion of the Bouncy Castle</a> 
     provides tools for it.
     It is <a href="http://bouncycastle.org/licence.html">licensed under an MIT-like license</a>.
-    The latest version 1.52 is used within <em>as2-lib</em> for S/MIME handling.
+    The latest version 1.56 is used within <em>as2-lib</em> for S/MIME handling.
     The relevant Maven artefacts are:
     <pre>
     &lt;dependency&gt;
       &lt;groupId&gt;org.bouncycastle&lt;/groupId&gt;
       &lt;artifactId&gt;bcmail-jdk15on&lt;/artifactId&gt;
-      &lt;version&gt;1.52&lt;/version&gt;
+      &lt;version&gt;1.56&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
       &lt;artifactId&gt;javax.mail&lt;/artifactId&gt;
-      &lt;version&gt;1.5.2&lt;/version&gt;
+      &lt;version&gt;1.5.6&lt;/version&gt;
       &lt;exclusions&gt;
         &lt;exclusion&gt;
           &lt;groupId&gt;javax.activation&lt;/groupId&gt;
@@ -145,7 +145,7 @@
   <li>
     <strong>SBDH</strong>: to read an write SBDH messages I created a Java library called
     <a href="https://github.com/phax/ph-sbdh">ph-sbdh</a> which uses JAXB generated objects.
-    Additionally the Java library <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a>
+    Additionally the Java library <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a>
     can be used on top of <em>ph-sbdh</em> as it adds the PEPPOL specific requirements. 
     Both libraries are licensed under the Apache 2.0 license.
     The relevant Maven artefacts are:
@@ -153,12 +153,12 @@
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;ph-sbdh&lt;/artifactId&gt;
-      &lt;version&gt;1.1.1&lt;/version&gt;
+      &lt;version&gt;3.0.2&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;peppol-sbdh&lt;/artifactId&gt;
-      &lt;version&gt;1.0.1&lt;/version&gt;
+      &lt;version&gt;5.2.4&lt;/version&gt;
     &lt;/dependency&gt;</pre>
   </li>
   <li>
@@ -169,23 +169,9 @@
     <pre>
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
-      &lt;artifactId&gt;ph-ubl&lt;/artifactId&gt;
-      &lt;version&gt;3.3.1&lt;/version&gt;
-      &lt;exclusions&gt;
-        &lt;exclusion&gt;
-          &lt;groupId&gt;com.helger&lt;/groupId&gt;
-          &lt;artifactId&gt;ph-ubl20&lt;/artifactId&gt;
-        &lt;/exclusion&gt;
-        &lt;exclusion&gt;
-          &lt;groupId&gt;com.helger&lt;/groupId&gt;
-          &lt;artifactId&gt;ph-ubl20-codelists&lt;/artifactId&gt;
-        &lt;/exclusion&gt;
-      &lt;/exclusions&gt;
+      &lt;artifactId&gt;ph-ubl21&lt;/artifactId&gt;
+      &lt;version&gt;5.1.0&lt;/version&gt;
     &lt;/dependency&gt;</pre>
-    Note: the <code>ph-ubl20</code> and <code>ph-ubl20-codelists</code> artefacts 
-    can be excluded from <code>ph-ubl</code> because OpenPEPPOL only deals with
-    UBL 2.1 artefacts. If you also want to deal with UBL 2.0 files, remove everything
-    from <code>&lt;exclusions&gt;</code> until <code>&lt;/exclusions&gt;</code>.
   </li>
 </ul>
 
@@ -196,7 +182,7 @@
   in the <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong> project.
   It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
   <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
-  <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> to receive messages from arbitrary
+  <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> to receive messages from arbitrary
   PEPPOL AS2 receivers. It requires <strong>no external AS2 handler</strong> (like Mendelson) and 
   no mandatory database setup. 
   <em>as2-peppol-server</em> is a Java 1.6+ project and licensed under Apache 2.0 license.
@@ -215,9 +201,9 @@
   in the <strong><a href="https://github.com/phax/as2-peppol-client">as2-peppol-client</a></strong> project.
   It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
   <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
-  <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> to send messages to arbitrary
+  <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> to send messages to arbitrary
   PEPPOL AS2 receivers.
-  <em>as2-peppol-client</em> is a Java 1.6+ project and licensed under Apache 2.0 license.
+  <em>as2-peppol-client</em> is a Java 1.8+ project and licensed under Apache 2.0 license.
 </p>
 
 <p>
