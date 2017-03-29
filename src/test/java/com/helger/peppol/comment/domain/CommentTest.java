@@ -54,7 +54,7 @@ public final class CommentTest
     assertEquals ("text", aComment.getText ());
 
     if (false)
-      System.out.println (MicroWriter.getXMLString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
+      System.out.println (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
 
     CommonsTestHelper.testDefaultSerialization (aComment);
     XMLTestHelper.testMicroTypeConversion (aComment);

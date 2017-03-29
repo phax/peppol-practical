@@ -84,8 +84,8 @@ public final class CommentThreadTest
     assertSame (aComment3, aCommentThread.getCommentOfID (aComment3.getID ()));
 
     if (false)
-      System.out.println (MicroWriter.getXMLString (MicroTypeConverter.convertToMicroElement (aCommentThread,
-                                                                                              "commentthread")));
+      System.out.println (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aCommentThread,
+                                                                                                 "commentthread")));
 
     XMLTestHelper.testMicroTypeConversion (aCommentThread);
   }
