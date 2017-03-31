@@ -77,7 +77,7 @@
       <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">official PEPPOL Envelope specification</a>
       (SBDH).
   </li>
-  <li>You should be familiar with Java 1.6+</li>
+  <li>You should be familiar with Java</li>
   <li>Basic knowledge about Apache Tomcat (and optionally a web server) should be present</li>
 </ol>
 
@@ -140,7 +140,7 @@
       &lt;/exclusions&gt;
     &lt;/dependency&gt;</pre>
     Note: the <code>activation</code> artefact is excluded from <code>javax.mail</code> because
-    when using JDK 6 the activation package is already contained in the Java runtime.
+    when using JDK 6 (or higher) the activation package is already contained in the Java runtime.
   </li>
   <li>
     <strong>SBDH</strong>: to read an write SBDH messages I created a Java library called

@@ -97,4 +97,11 @@
       </li>
     </ul>
   </li>
+  <li>
+    <strong>SMK/SML</strong>
+    <ul>
+      <li>The SMK requires requests to contain an SMP Pilot Certificate to perform writing operations</li>
+      <li>The SML requires requests to contain an SMP Production Certificate to perform writing operations</li>
+    </ul>
+  </li>
 </ul>
