@@ -16,6 +16,15 @@
     limitations under the License.
 
 -->
+
+<div class="alert alert-danger">
+  <div>
+    This page is out of date and will <strong>NOT</strong> be maintained any further.<br />
+    The notes for the <a href="/public/menuitem-docs-setup-smp-ph">phoss SMP server</a>
+    will be kept up-to-date as it is an evolving implementation.
+  </div>
+</div>
+
 <p>
 This page explains how to setup an OpenPEPPOL CIPA SMP from scratch.
 SMP is the abbreviation for <em>Service Metadata Publisher</em> which is the decentralized

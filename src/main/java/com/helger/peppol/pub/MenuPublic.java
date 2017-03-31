@@ -84,9 +84,13 @@ public final class MenuPublic
                                                      "Document exchange explained",
                                                      new ClassPathResource ("viewpages/en/docs_document_exchange.xml")));
       aMenuTree.createItem (aSetup,
-                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PKI,
-                                                     "PEPPOL PKI",
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_PKI,
+                                                     "PEPPOL PKI explained",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_pki.xml")));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_DICT,
+                                                     "PEPPOL Dictionary/Abbreviations",
+                                                     new ClassPathResource ("viewpages/en/docs_peppol_dict.xml")));
 
       // Not needed any more
       if (false)

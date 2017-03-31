@@ -1,0 +1,239 @@
+<p>
+  This page lists some of the terms and abbreviations often used in PEPPOL.
+  If you are missing a term <a href="/public/menuitem-contact">drop me a note</a>.
+</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Meaning</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AP</td>
+      <td>AccessPoint</td>
+      <td>The technical connector of a software solution that is capable of sending and/or receiving PEPPOL business documents</td>
+    </tr>
+    <tr>
+      <td>AS2</td>
+      <td>Application Statement 2</td>
+      <td>Transport protocol specified in <a href="http://www.ietf.org/rfc/rfc4130.txt">RFC 4130</a>.</td>
+    </tr>
+    <tr>
+      <td>
+        AS4
+        <br/><em><small>in progress</small></em>
+      </td>
+      <td>Application Statement 4</td>
+      <td>
+        Transport protocol specified by <em>OASIS</em>.
+        It was used in the eSENS project and adopted by <em>CEF</em>.
+        PEPPOL is currently investigating a transition to AS4.
+      </td>
+    </tr>
+    <tr>
+      <td>BIS</td>
+      <td>Business Interoperability Specification</td>
+      <td>A PEPPOL created specification that define how a business document exchange should take place and how the UBL elements are bound to semantical elements.</td>
+    </tr>
+    <tr>
+      <td>BLR</td>
+      <td>Business Level Response</td>
+      <td>
+        Business document to be exchanged stating business level validation results (see also <em>MLR</em>).
+        PEPPOL does not contain a single BLR - it contains an Order Response and an Invoice Response.
+      </td>
+    </tr>
+    <tr>
+      <td>Business Card</td>
+      <td></td>
+      <td>The document type for describing the non-functional aspects of a PEPPOL participant for listing in the <em>PD</em>.</td>
+    </tr>
+    <tr>
+      <td>CEF</td>
+      <td>Connecting Europe Facility</td>
+      <td>
+        An instrument of the <em>EC</em> for funding and informing about e-Delivery, e-Invoicing etc. solutions.
+        See <a href="https://ec.europa.eu/digital-single-market/en/connecting-europe-facility">https://ec.europa.eu/digital-single-market/en/connecting-europe-facility</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>CII</td>
+      <td>UN/CEFACT Cross Industry Invoice</td>
+      <td>One of the two formats identified by the <em>EN</em> to be supported.</td>
+    </tr>
+    <tr>
+      <td>
+        CIPA
+        <br/><em><small>deprecated</small></em>
+      </td>
+      <td></td>
+      <td>
+        The previous PEPPOL reference implementation now maintained by <em>EC</em>.
+        See <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">https://joinup.ec.europa.eu/software/cipaedelivery/description</a>.
+        Superseded by <em>CEF</em> - 
+        <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery">https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        CIUS
+        <br/><em><small>in progress</small></em>
+      </td>
+      <td>Core Invoice User Specification</td>
+      <td>Defines how to adopt the <em>EN</em> to local requirements.</td>
+    </tr>
+    <tr>
+      <td>DNS</td>
+      <td>Domain Name System</td>
+      <td>
+        Basic part of Internet technology that maps domain names to IP addresses for technical routing.
+        Used by <em>SML</em>.
+      </td>
+    </tr>
+    <tr>
+      <td>EC</td>
+      <td>European Commission</td>
+      <td>Generic term for all entities directly or indirectly related to them (DG DIGIT etc.).</td>
+    </tr>
+    <tr>
+      <td>
+        EN
+        <br/><em><small>in progress</small></em>
+      </td>
+      <td>European Norm</td>
+      <td>Usually this refers to the EN 16931-1, the European Norm on e-Invoicing.</td>
+    </tr>
+    <tr>
+      <td>
+        IRM
+        <br/><em><small>in progress</small></em>
+      </td>
+      <td>Invoice Response Message</td>
+      <td>
+        Special <em>BLR</em> for invoices.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        LIME
+        <br/><em><small>deprecated</small></em>
+      </td>
+      <td>Lightweight Message Exchange</td>
+      <td>Legacy PEPPOL transport protocol for pulling messages. Has been discontinued.</td>
+    </tr>
+    <tr>
+      <td>MDN</td>
+      <td>Message Disposition Notification</td>
+      <td>
+        The technical receipt of acknowledgment for AS2 transmissions defined in 
+        <a href="http://www.ietf.org/rfc/rfc3798.txt">RFC 3798</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>MLR</td>
+      <td>Message Level Response</td>
+      <td>Business document to be exchanged stating technical validation results (see also <em>BLR</em>)</td>
+    </tr>
+    <tr>
+      <td>OASIS</td>
+      <td>Organization for the Advancement of Structured Information Standards</td>
+      <td>
+        International standardization organisation.
+        See <a href="https://www.oasis-open.org/">https://www.oasis-open.org/</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>OpenPEPPOL AISBL</td>
+      <td></td>
+      <td>
+        The organisation responsible for maintaining PEPPOL standards and running the transport infrastructure.
+        See <a href="http://www.peppol.eu/">http://www.peppol.eu/</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        PD
+        <br/><em><small>in progress</small></em>
+      </td>
+      <td>PEPPOL Directory</td>
+      <td>
+        A central PEPPOL service that should help in mapping PEPPOL participant IDs to the participant names and countries.  
+      </td>
+    </tr>
+    <tr>
+      <td>PEPPOL</td>
+      <td>Pan European Public Procurement On-Line</td>
+      <td>Started as a European Large Scale Pilot and is now maintained by OpenPEPPOL</td>
+    </tr>
+    <tr>
+      <td>PoACC</td>
+      <td>Post-Award Coordinating Community</td>
+      <td>
+        PEPPOL internal team to manage the post-award assets.
+        See <a href="http://www.peppol.eu/about_peppol/openpeppol-communities">http://www.peppol.eu/about_peppol/openpeppol-communities</a> 
+      </td>
+    </tr>
+    <tr>
+      <td>PrACC</td>
+      <td>Pre-Award Coordinating Community</td>
+      <td>
+        PEPPOL internal team to manage the pre-award assets.
+        See <a href="http://www.peppol.eu/about_peppol/openpeppol-communities">http://www.peppol.eu/about_peppol/openpeppol-communities</a> 
+      </td>
+    </tr>
+    <tr>
+      <td>SMK</td>
+      <td></td>
+      <td>
+        Test version of the <em>SML</em> ('K' comes before 'L').
+        Currently operated by <em>CEF</em>.
+      </td>
+    </tr>
+    <tr>
+      <td>SML</td>
+      <td>Service Metadata Locator</td>
+      <td>
+        Central PEPPOL service that modifies the <em>DNS</em>.
+        Currently operated by <em>CEF</em>.
+      </td>
+    </tr>
+    <tr>
+      <td>SMP</td>
+      <td>Service Metadata Publisher</td>
+      <td>
+        Distributed PEPPOL registry. Used to lookup participant endpoint URLs.
+        See <a href="https://github.com/phax/peppol-smp-server">https://github.com/phax/peppol-smp-server</a> for an Open Source implementation.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        START
+        <br/><em><small>deprecated</small></em>
+      </td>
+      <td>Secure Trusted Asynchronous Reliable Transport</td>
+      <td>Legacy PEPPOL transport protocol, based on the Webservice stack. Was superseded by <em>AS2</em>.</td>
+    </tr>
+    <tr>
+      <td>TIA</td>
+      <td>Transport Infrastructure Agreement</td>
+      <td>The contract between the PEPPOL user and the PEPPOL Authority</td>
+    </tr>
+    <tr>
+      <td>TICC</td>
+      <td>Transport Infrastructure Coordinating Community</td>
+      <td>
+        PEPPOL internal team to manage the technical assets.
+        See <a href="http://www.peppol.eu/about_peppol/openpeppol-communities">http://www.peppol.eu/about_peppol/openpeppol-communities</a> 
+      </td>
+    </tr>
+    <tr>
+      <td>UBL</td>
+      <td>Universal Business Language</td>
+      <td>An <em>OASIS</em> standard that defines certain XML based document types used in PEPPOL and the <em>EN</em>.</td>
+    </tr>
+  </tbody>
+</table>
