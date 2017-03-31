@@ -33,7 +33,7 @@ public final class CMenuPublic
   public static final String MENU_DOCS_SETUP_SMP_PH = "docs-setup-smp-ph";
   public static final String MENU_DOCS_SML_SUPPORT = "docs-sml-support";
   public static final String MENU_DOCS_DOC_EXCHANGE = "docs-doc-exchange";
-  public static final String MENU_DOCS_SML_MIGRATION = "docs-sml-migration";
+  public static final String MENU_DOCS_PKI = "docs-peppol-pki";
   public static final String MENU_NEWS = "news";
   public static final String MENU_TOOLS = "tools";
   public static final String MENU_TOOLS_PARTICIPANT_INFO = "tools-participant";

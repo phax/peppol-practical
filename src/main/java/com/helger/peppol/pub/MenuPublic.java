@@ -83,11 +83,15 @@ public final class MenuPublic
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_DOC_EXCHANGE,
                                                      "Document exchange explained",
                                                      new ClassPathResource ("viewpages/en/docs_document_exchange.xml")));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PKI,
+                                                     "PEPPOL PKI",
+                                                     new ClassPathResource ("viewpages/en/docs_peppol_pki.xml")));
 
       // Not needed any more
       if (false)
         aMenuTree.createItem (aSetup,
-                              new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_MIGRATION,
+                              new AppPageViewExternal ("docs-sml-migration",
                                                        "SML migration information",
                                                        new ClassPathResource ("viewpages/en/docs_sml_migration.xml")));
     }
