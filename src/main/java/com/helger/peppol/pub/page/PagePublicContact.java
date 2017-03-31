@@ -123,6 +123,7 @@ public final class PagePublicContact extends AbstractAppWebPage
       aSelect.addOption ("AccessPoint (AP)");
       aSelect.addOption ("AS2");
       aSelect.addOption ("AS4");
+      aSelect.addOption ("Dictionary");
       aSelect.addOption ("CEF");
       aSelect.addOption ("General question");
       aSelect.addOptionPleaseSelect (aDisplayLocale);
@@ -131,7 +132,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_TOPIC)));
 
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Your message")
-                                                   .setCtrl (new HCTextAreaAutosize (new RequestField (FIELD_TEXT)))
+                                                   .setCtrl (new HCTextAreaAutosize (new RequestField (FIELD_TEXT)).setRows (5))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_TEXT)));
 
       aForm.addChild (new HCHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM));

@@ -110,7 +110,9 @@
   <li><code>peppol-smp-server-library</code> - A common used library with everything needed for an SMP server except the backend and the GUI.</li>
   <li><code>peppol-smp-server-sql</code> - The SQL backend implementation. Tested with MySQL 5.x</li>
   <li><code>peppol-smp-server-xml</code> - The XML backend implementation.</li>
-  <li><code>peppol-smp-server-webapp</code> - The main web application. It provides the GUI and assembles everything together.</li>
+  <li><code>peppol-smp-server-webapp</code> - The common parts for the web application.</li>
+  <li><code>peppol-smp-server-webapp-sql</code> - The main web application with an SQL backend. It provides the GUI and assembles everything together.</li>
+  <li><code>peppol-smp-server-webapp-xml</code> - The main web application with an XML backend. It provides the GUI and assembles everything together.</li>
   <li><code>peppol-smp-client</code> - An SMP client library to be used to access any SMP server.</li>
 </ul>
 
