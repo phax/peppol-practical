@@ -90,7 +90,7 @@ public final class PagePublicContact extends AbstractAppWebPage
         aEmailData.setFrom (new EmailAddress ("peppol-practical@helger.com"));
         aEmailData.setTo (new EmailAddress ("ph@helger.com"));
         aEmailData.setReplyTo (new EmailAddress (sEmail, sName));
-        aEmailData.setSubject ("[PEPPOL Practical] Contact Form");
+        aEmailData.setSubject ("[PEPPOL Practical] Contact Form - " + sName);
 
         final StringBuilder aSB = new StringBuilder ();
         aSB.append ("Contact form from PEPPOL practical was filled out.\n\n");
@@ -98,8 +98,6 @@ public final class PagePublicContact extends AbstractAppWebPage
         aSB.append ("Email: ").append (sEmail).append ("\n");
         aSB.append ("Topic: ").append (sTopic).append ("\n");
         aSB.append ("Text:\n").append (sText).append ("\n");
-        aSB.append ("\nThis is an automatically generated email.\nBR, Philip\n");
-        aSB.append ("--\nPEPPOL practical\nhttp://peppol.helger.com");
         aEmailData.setBody (aSB.toString ());
 
         ScopedMailAPI.getInstance ().queueMail (InternalErrorSettings.getSMTPSettings (), aEmailData);
