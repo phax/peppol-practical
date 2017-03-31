@@ -105,6 +105,11 @@
       <td>Defines how to adopt the <em>EN</em> to local requirements.</td>
     </tr>
     <tr>
+      <td>CMB</td>
+      <td>Change Management Board</td>
+      <td>The PEPPOL internal team that makes decisions. There is one CMB for TICC, PoACC and PrACC.</td>
+    </tr>
+    <tr>
       <td>DNS</td>
       <td>Domain Name System</td>
       <td>
@@ -142,6 +147,11 @@
       </td>
       <td>Lightweight Message Exchange</td>
       <td>Legacy PEPPOL transport protocol for pulling messages. Has been discontinued.</td>
+    </tr>
+    <tr>
+      <td>MC</td>
+      <td>Managing Committee</td>
+      <td>The PEPPOL managing board.</td>
     </tr>
     <tr>
       <td>MDN</td>
@@ -201,6 +211,20 @@
       <td>
         PEPPOL internal team to manage the pre-award assets.
         See <a href="http://www.peppol.eu/about_peppol/openpeppol-communities">http://www.peppol.eu/about_peppol/openpeppol-communities</a> 
+      </td>
+    </tr>
+    <tr>
+      <td>SBD</td>
+      <td>Standard Business Document</td>
+      <td>
+        A generic XML envelope structure. See also <em>SBDH</em>.
+      </td>
+    </tr>
+    <tr>
+      <td>SBDH</td>
+      <td>Standard Business Document Header</td>
+      <td>
+        The header part inside the <em>SBD</em>.
       </td>
     </tr>
     <tr>
