@@ -114,7 +114,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
     {
       final TypedObject <String> aTO = TypedObject.create (new ObjectType (sSelectedObjectType),
                                                            sSelectedOwningObjectID);
-      final List <ICommentThread> aCommentThreads = aCommentThreadMgr.getCommentThreadsOfObject (aTO);
+      final List <ICommentThread> aCommentThreads = aCommentThreadMgr.getAllCommentThreadsOfObject (aTO);
       if (!aCommentThreads.isEmpty ())
       {
         // Don't allow comment creation

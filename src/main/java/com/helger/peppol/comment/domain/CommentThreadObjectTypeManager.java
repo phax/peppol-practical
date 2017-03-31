@@ -26,7 +26,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -41,6 +40,7 @@ import com.helger.commons.type.ObjectType;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 import com.helger.photon.basic.audit.AuditHelper;
+import com.helger.photon.core.app.error.InternalErrorBuilder;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -152,6 +152,13 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       m_aRWLock.writeLock ().unlock ();
     }
     AuditHelper.onAuditCreateSuccess (CommentThread.TYPE_COMMENT_THREAD, sOwningObjectID, aCommentThread.getID ());
+
+    // Inform me if something happens
+    new InternalErrorBuilder ().addErrorMessage ("CommentThread created")
+                               .addCustomData ("Thread ID", aCommentThread.getID ())
+                               .setAddClassPath (false)
+                               .setInvokeCustomExceptionHandler (false)
+                               .handle ();
     return aCommentThread;
   }
 
@@ -188,6 +195,13 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
                                       sCommentThreadID,
                                       sParentCommentID,
                                       aNewComment.getID ());
+    // Inform me if something happens
+    new InternalErrorBuilder ().addErrorMessage ("Comment created")
+                               .addCustomData ("Thread ID", aCommentThread.getID ())
+                               .addCustomData ("Comment ID", aNewComment.getID ())
+                               .setAddClassPath (false)
+                               .setInvokeCustomExceptionHandler (false)
+                               .handle ();
     return ESuccess.SUCCESS;
   }
 
@@ -216,7 +230,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       {
         final ICommonsList <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
         if (ret != null)
-          return CollectionHelper.newList (ret);
+          return ret.getClone ();
       }
       finally
       {

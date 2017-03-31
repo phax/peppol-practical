@@ -16,9 +16,6 @@
  */
 package com.helger.peppol.comment.domain;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -29,7 +26,9 @@ import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
@@ -41,7 +40,9 @@ import com.helger.commons.type.ObjectType;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 
 /**
- * Main manager class for comments
+ * Main manager class for comments. Manages the
+ * {@link CommentThreadObjectTypeManager} per {@link ObjectType} so that
+ * different object types can be commented on.
  *
  * @author Philip Helger
  */
@@ -100,7 +101,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <ObjectType> getAllRegisteredObjectTypes ()
+  public ICommonsSet <ObjectType> getAllRegisteredObjectTypes ()
   {
     return m_aRWLock.readLocked ( () -> m_aMap.copyOfKeySet ());
   }
@@ -176,7 +177,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
    */
   @Nullable
   @ReturnsImmutableObject
-  public List <ICommentThread> getCommentThreadsOfObject (@Nullable final ITypedObject <String> aObject)
+  public ICommonsList <ICommentThread> getAllCommentThreadsOfObject (@Nullable final ITypedObject <String> aObject)
   {
     if (aObject != null)
     {

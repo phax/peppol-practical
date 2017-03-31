@@ -104,7 +104,7 @@ public final class CommentUI
     final boolean bUserCanCreateComments = CommentSecurity.canCurrentUserPostComments ();
 
     // Get all existing comments
-    final List <ICommentThread> aComments = CommentThreadManager.getInstance ().getCommentThreadsOfObject (aObject);
+    final List <ICommentThread> aComments = CommentThreadManager.getInstance ().getAllCommentThreadsOfObject (aObject);
     if (CollectionHelper.isNotEmpty (aComments))
     {
       final UserManager aUserMgr = PhotonSecurityManager.getUserMgr ();
