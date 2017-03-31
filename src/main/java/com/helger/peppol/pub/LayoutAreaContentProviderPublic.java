@@ -230,7 +230,8 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     final IHCElement <?> aMenu = BootstrapMenuItemRenderer.createSideBarMenu (aLEC, aCallback);
 
     // Add PayPal
-    HCForm aPayPal;
+    HCForm aPayPal = null;
+    if (!GlobalDebug.isDebugMode ())
     {
       aPayPal = new HCForm (new SimpleURL ("https://www.paypal.com/cgi-bin/webscr")).setTarget (HC_Target.TOP)
                                                                                     .addClass (CSS_CLASS_PAYPAL);
