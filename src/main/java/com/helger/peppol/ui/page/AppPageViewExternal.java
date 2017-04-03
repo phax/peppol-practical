@@ -17,6 +17,7 @@
 package com.helger.peppol.ui.page;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.resource.IReadableResource;
@@ -30,6 +31,7 @@ import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentFormErrors;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
+import com.helger.photon.bootstrap3.pages.BootstrapWebPageUIHandler;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.external.BasePageViewExternal;
 import com.helger.photon.uicore.page.external.PageViewExternalHTMLCleanser;
@@ -51,6 +53,14 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
   {
     // Special content cleaner
     super (sID, sName, aResource, AppPageViewExternal::_cleanCode);
+  }
+
+  @Override
+  @Nullable
+  public IHCNode getHeaderNode (@Nonnull final WebPageExecutionContext aWPEC)
+  {
+    final String sHeaderText = getHeaderText (aWPEC);
+    return BootstrapWebPageUIHandler.INSTANCE.createPageHeader (sHeaderText);
   }
 
   @Override
