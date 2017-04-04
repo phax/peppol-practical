@@ -20,455 +20,476 @@
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
 
-<h3>2017-03-31 - PEPPOL PKI explained</h3>
-
-<p>
-  A documentation on the PEPPOL PKI was started.
-  <a href="/public/menuitem-docs-peppol-pki">Click here to read the details</a>.
-</p>
-
-<p>
-  Additionally a new page called <emph>PEPPOL Dictionary</emph> was started.
-  It tries to collect all the terms and abbreviations commonly used in PEPPOL.
-  Check the <a href="/public/menuitem-docs-peppol-dict">PEPPOL Dictionary</a>.
-</p>
-
-<h3>2017-03-21 - 8<sup>th</sup> PEPPOL General Assembly</h3>
-
-<ul>
-  <li>
-    Hans Berg from Tickstar was elected the new TICC (Transport Infrastructure Coordinating Community) leader.
-  </li>
-  <li>
-    Sören Pedersen was re-elected as POACC (Post Award Coordinating Community) leader.
-  </li>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#tabs-news" data-toggle="tab">2017</a></li>
+  <li role="presentation"><a href="#tabs-archive" data-toggle="tab">Archive</a></li>
 </ul>
 
-<h3>2017-03-17 - EN 16931-1 has been approved unanimously</h3>
-
-<p>
-  The first parts of the European Norm for e-Invoicing have been finally approved. 
-</p>
-
-<ul>
-  <li>The EN 16931-1 (invoice model) has been approved with 25 positive votes, no negative votes (100%)</li> 
-  <li>The CEN/TS 16931-2 (list of syntaxes) has been approved with 24 positive votes, no negative votes (100%)</li>
-</ul>
-
-<p>
-  Now PEPPOL can move forward on adopting the EN in their BIS.
-</p>
-
-<h3>2017-02-07 - Document Validation Service updated</h3>
-
-<p>
-  Finally the new Document Validation Webservice is provided.
-  <a href="/public/menuitem-validation-ws2">Click here for Webservice details</a>.
-  This Webservice allows you to use all validations also available on the manual validation page.
-</p>
-
-<p>
-  Additionally the CEN/TC 434 / EN 16931 validation artefact drafts (!) as of today are available
-  for usage in validation!
-</p>
-
-<h3>2017-01-26 - Validation updated</h3>
-
-<p>
-  Finally the BIS2 document validation with OpenPEPPOL validation artefacts 3.3.0 is available.
-  Additionally support for Simplerinvoicing 1.1 was added.
-  <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
-</p>
-
-<h3>2016-11-25 - London F2F slides available</h3>
-
-<p>
-  The slides of the presentations from the London face to face meeting are
-  now available:
-  <ul>
-    <li><a href="https://joinup.ec.europa.eu/svn/peppol/F2F%20meetings/CC%20member%20meetings%20London%20November%202016/">Download directory</a></li>
-  </ul>
-</p>
-
-<h3>2016-11-25</h3>
-
-<p>
-  I added a new page that explains the <strong>document exchange</strong>.
-  It shows how the PEPPOL participant ID, the DNS and the SMP work together.
-  <ul>
-    <li><a href="/public/menuitem-docs-doc-exchange">Read the whole story</a></li>
-  </ul>
-  
-  Additionally the <a href="/public/menuitem-tools-participant">participant information</a>
-  page was changed so that arbitrary participant identifier schemes can be tested.
-</p>
-
-<h3>2016-11-15 - phoss SMP 5.0.0</h3>
-
-<p>
-  <img src="https://raw.githubusercontent.com/phax/peppol-smp-server/peppol-smp-server-parent-pom-5.0.0/docs/logo/logo-gradient-446-100.png" width="446" height="100" alt="phoss logo"/>
-</p>
-
-<p>
-  Finally the CEF conformance testing was finished successfully so I'm proud to present to you 
-  <strong>phoss SMP</strong>.
-  This is now the official project name of the previous "ph-peppol-smp-server".
-  Compared to RC2 no functional changes were performed - just UI beautifications.
-  To see version 5.0 in action have a look at <a href="http://smp.helger.com">http://smp.helger.com</a>.
-  If you want to learn more about phoss SMP features, just request a demo user (via email or the contact form).
-  
-  <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0">Download phoss SMP 5.0.0</a></li>
-  </ul>
-</p>
-
-<h3>2016-11-14 - Validation artefacts 3.3.0</h3>
-
-<p>
-  OpenPEPPOL PoACC fall release published.
-  They get mandatory by 2016-11-15 (12:00 CET).
-  <ul>
-    <li><a href="http://www.peppol.eu/news/FallreleaseofOpenPEPPOLPost-Awardartefactspublishedforreleaseandmandator%20use">Download artifacts 3.3.0</a></li>
-  </ul>
-</p>
-
-<h3>2016-11-07 - PEPPOL SMP Server 5.0.0-RC2</h3>
-
-<p>
-  Update to my PEPPOL SMP Server.<br/>
-  Includes some functional improvements. Read more at
-  
-  <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc2">Download SMP Server 5.0.0-RC2</a></li>
-  </ul>
-</p>
-
-<h3>2016-10-13 - PEPPOL SMP Server 5.0.0-RC1</h3>
-
-<p>
-  Update to my PEPPOL SMP Server.<br/>
-  Once the conformance test with CEF is finished, version 5.0.0 will be released!
-  <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc1">Download SMP Server 5.0.0-RC1</a></li>
-  </ul>
-</p>
-
-<h3>2016-10-05 - Validation artefacts 3.3.0-RC1</h3>
-
-<p>
-  OpenPEPPOL PoACC fall release published for review.
-  They get manadatory by 2016-11-15 (12:00 CET).<br/>
-  In this version OpenPEPPOL decided to no longer maintain the ODS files, and instead 
-    directly work on the Schematron files - what a pitty.
-  <ul>
-    <li><a href="http://www.peppol.eu/news/OpenPEPPOLPoACCfallreleasepublishedforreview">Download artifacts 3.3.0-RC1</a></li>
-  </ul>
-</p>
-
-<h3>2016-09-20 - OASIS SMP Spec 1.0 CS 03 release</h3>
-
-<p>
-  OASIS is pleased to announce the approval and publication of a new Committee Specification 
-  by the members of the OASIS Business Document Exchange (BDXR) TC:<br/>
-  Service Metadata Publishing (SMP) Version 1.0, Committee Specification 03<br />
-  Note: this SMP specification is not yet used in OpenPEPPOL, but there are plans to do so in the future.<br />
-  Note: my SMP Server 5.0.0-Beta1 already supports this specification version!
-  <ul>
-    <li><a href="https://www.oasis-open.org/committees/bdxr/">OASIS Business Document Exchange (BDXR) TC</a></li>
-    <li><a href="http://docs.oasis-open.org/bdxr/bdx-smp/v1.0/cs03/bdx-smp-v1.0-cs03.zip">Download the full ZIP package</a></li>
-  </ul>
-</p>
-
-<h3>2016-09-19 - OpenPEPPOL planing to switch to AS4</h3>
-
-<p>
-  In a Letter of Understanding (LoU) signed between the Commission and OpenPEPPOL, 
-  the parties agree a plan for the transition from AS2 to AS4 in the PEPPOL profile 
-  of CEF eDelivery. As part of this, support for SMP/SML lookup and PKI specifications 
-  as used in the PEPPOL eDelivery network will continue in the CEF eDelivery architecture. 
-  <ul>
-    <li><a href="http://www.peppol.eu/news/NewAgreemen%20betweenEuropeanCommissionandOpenPEPPOL">Read more</a></li>
-    <li><a href="https://ec.europa.eu/cefdigital/wiki/download/attachments/33817810/20160629%20Letter%20of%20understanding%20v1.00.pdf?version=2&amp;modificationDate=1474278156735&amp;api=v2">Read the whole agreement</a></li>
-  </ul>
-</p>
-
-<h3>2016-09-19 - SML 3.0 deployed</h3>
-
-<p>
-  Finally the production SML was updated to version 3.
-  <ul>
-    <li><a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/SML+-+v3.0">Read more</a></li>
-  </ul>
-</p>
-
-<h3>2016-08-06 - PEPPOL SMP Server v5 Beta 1 is out.</h3>
-
-<p>
-  It improves integration with PEPPOL Directory as well as customizability in general.
-  Look on <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">GitHub Wiki</a> for further details.
-  <ul>
-    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/5.0.0-b1/">Download binary 5.0.0-Beta1 release</a></li>
-  </ul>
-</p>
-
-<h3>2016-06-16</h3>
-
-<p>
-  PEPPOL SMP Server v5 is approaching.
-  It improves integration with PEPPOL Directory as well as customizability in general.
-  Compared to previous versions, this version needs a JDK 8 to run.
-  Look on <a href="https://github.com/phax/peppol-smp-server">GitHub</a> for further details.
-  <ul>
-    <li><a href="https://oss.sonatype.org/content/repositories/snapshots/com/helger/peppol-smp-server-webapp/5.0.0-SNAPSHOT/">Latest binary SNAPSHOT release</a></li>
-  </ul>
-</p>
-
-<h3>2016-05-20 - Validation artefacts 3.2.0</h3>
-
-<p>
-  PEPPOL Validation Artefacts 3.2.0 were released.
-  The latest version can be found at 
-  <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/">https://joinup.ec.europa.eu/svn/peppol/Validation Resources/BIS v2/</a>
-</p>
-
-<h3>2016-03-20 - SMP Server 4.1.2 release</h3>
-
-<p>
-  <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.2 is out.
-  Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
-  <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.2">Source release</a></li>
-    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.2/">Binary release</a></li>
-  </ul>
-</p>
-
-<h3>2015-12-07 - SMP Server 4.1.0 release</h3>
-
-<p>
-  <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.0 is out.
-  Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
-  <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.0">Source release</a></li>
-    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.0/">Binary release</a></li>
-  </ul>
-</p>
-
-<h3>2015-11-09 - SMP Server 4.0.3 release</h3>
-
-<p>
-  <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.0.3 is out.
-  It fixes the problem that service group deletions were not propagated to the SML when
-  using the SQL backend and adds an overview page with all tasks and action items.
-  <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.3">Source release</a></li>
-    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.3/">Binary release</a></li>
-  </ul>
-</p>
-
-<h3>2015-11-06</h3>
-
-<p>
-  The SMK release was updated to version 3.0.1 which fixes most of the mentioned
-  problems.
-</p>
-
-<h3>2015-11-05</h3>
-
-<p>
-  My <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> 4.0.2 was 
-  released. It fixes the compatibility problems introduced by the SMK 3.0.0 release.
-  If you are only using the SML client library, please make sure to use at least
-  version 4.3.1.
-  <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.2">Source release</a></li>
-    <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.2/">Binary release</a></li>
-  </ul>
-</p>
-
-<h3>2015-11-03</h3>
-
-<p>
-  Here is a list of issues I've identified with the new SMK 3.0.0:
-</p>
-<ul>
-  <li>The handling of participant IDs is now case-sensitive (this is not compliant with the BusDox spec)</li>
-  <li>The name of the list DNS servlet changed from "listdns" to "listDNS"</li>
-  <li>The "delete participant" API now requires a valid SMP-ID to be provided (this is incompatible with existing SML client solutions) - the respective changes are contained in my peppol-sml-client as of version 4.3.1</li>
-  <li>The SMK now accepts any participant identifier schemes that are incompatible to the BusDox specs</li>
-</ul>
-
-<h3>2015-10-29</h3>
-
-<p>
-  Finally a first version of the BIS2 document validation is available on this page.
-  <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
-</p>
-
-<h3>2015-10-27</h3>
-
-<p>
-  A new version (3.0.0) of the SMK (not SML) was deployed by DIGIT. It contains the following new features:
-</p>
-<ul>
-  <li>Enhances compliance with SML specification</li>
-  <li>Adds support for Oasis BDXL specification</li>
-  <li>U-NAPTR and CNAME records</li>
-  <li>Adds service to allow SMP to change their certificate</li>
-  <li>Support for multiple business domains</li>
-  <li>Support for DNSSEC</li>
-  <li>Enhances logging</li>
-  <li>Enhances users and roles management</li>
-  <li>Enhances unit and integration testing</li>
-  <li>Enhances database versioning with Liquibase</li>
-  <li>Adds support for certificate revocation check (CRL)</li>
-  <li>Work managers to limit the load on servers for guaranteed performance (Weblogic only)</li>
-  <li>Fixes EDELIVERY-294: Improve the signature of the SML Read Service Metadata service</li>
-  <li>New monitoring service</li>
-  <li>New service to list all participants (PEPPOL Yellow Pages)</li>  
-</ul>
-
-<h3>2015-10-09</h3>
-
-<p>
-  If you are still using PEPPOL LIME there is good news for you. I grabbed the deprecated CIPA
-  component and am providing a LIME server and client based on AS2. Have a look at it at
-  <a href="https://github.com/phax/peppol-lime">https://github.com/phax/peppol-lime</a>.
-</p>
-
-<h3>2015-10-05</h3>
-
-<p>
-  Added information about my new SMP release 4.0.0. It includes a management GUI for easily 
-  creating service groups, endpoints and redirects. 
-  <a href="/public/menuitem-docs-setup-smp-ph">Read all the details</a> or quick start at
-  <a href="https://github.com/phax/peppol-smp-server">https://github.com/phax/peppol-smp-server</a>.
-</p>
-
-<h3>2015-09-17</h3>
-
-<p>
-  Added information about the SML support since these information are hard to find if
-  you can't find the original email anymore.
-  <a href="/public/menuitem-docs-sml-support">Read all the details</a>.
-</p>
-
-<p>
-  New versions of my SMP server will be released soon. Version 4 of 
-  <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>
-  ships with a brand new administration interface that gives you the possibility to manage
-  your endpoints with nice forms directly in the browser.
-</p>
-
-<p>
-  The development of the PEPPOL Yellow Pages progresses. Follow the development on GitHub
-  at <a href="https://github.com/phax/peppol-yellow-pages">peppol-yellow-pages</a>.
-  Helping hands are always welcome.
-</p>
-
-<h3>2015-09-09</h3>
-
-<p>
-  New PEPPOL validation artefacts are out for review.
-  The <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/BIS2.0-VA-V3.1.0_RC1.zip">ZIP file</a>
-  with the Schematron and XSLT files can be downloaded.
-  <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/Release%20notes%20for%20openPEPPOL-VA-V3%201%200_RC1.pdf">Release notes</a>
-  are also available.<br />
-  Deadline for submitting comments to <a href="mailto:rfc@peppol.eu">rfc@peppol.eu</a> is October 1<sup>st</sup> 2015.
-</p>
-
-<h3>2015-06-09</h3>
-
-<p>
-  On June 9<sup>th</sup> the SML migration from BRZ to the EC took place.
-  <a href="/public/menuitem-docs-sml-migration">Read this page for all the details!</a>
-</p>
-
-<h3>2015-04-02 - New PEPPOL SMP server implementation available</h3>
-
-<p>
-  Based on the CIPA SMP server 2.2.3 I decided to fork my own clone of a PEPPOL
-  SMP. It is available in 2 different versions:
-  <ul>
-    <li>
+<div class="tab-content">
+  <div id="tabs-news" class="tab-pane active">
+    <h3>2017-04-04 - phoss SMP 5.0.2</h3>
+    
+    <p>
+      phoss SMP 5.0.2 was released. 
+      This is a maintenance release with PEPPOL Directory API support.
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.2">Download phoss SMP 5.0.2</a></li>
+      </ul>
+    </p>
+    
+    <h3>2017-03-31 - PEPPOL PKI explained</h3>
+    
+    <p>
+      A documentation on the PEPPOL PKI was started.
+      <a href="/public/menuitem-docs-peppol-pki">Click here to read the details</a>.
+    </p>
+    
+    <p>
+      Additionally a new page called <emph>PEPPOL Dictionary</emph> was started.
+      It tries to collect all the terms and abbreviations commonly used in PEPPOL.
+      Check the <a href="/public/menuitem-docs-peppol-dict">PEPPOL Dictionary</a>.
+    </p>
+    
+    <h3>2017-03-21 - 8<sup>th</sup> PEPPOL General Assembly</h3>
+    
+    <ul>
+      <li>
+        Hans Berg from Tickstar was elected the new TICC (Transport Infrastructure Coordinating Community) leader.
+      </li>
+      <li>
+        Sören Pedersen was re-elected as POACC (Post Award Coordinating Community) leader.
+      </li>
+    </ul>
+    
+    <h3>2017-03-17 - EN 16931-1 has been approved unanimously</h3>
+    
+    <p>
+      The first parts of the European Norm for e-Invoicing have been finally approved. 
+    </p>
+    
+    <ul>
+      <li>The EN 16931-1 (invoice model) has been approved with 25 positive votes, no negative votes (100%)</li> 
+      <li>The CEN/TS 16931-2 (list of syntaxes) has been approved with 24 positive votes, no negative votes (100%)</li>
+    </ul>
+    
+    <p>
+      Now PEPPOL can move forward on adopting the EN in their BIS.
+    </p>
+    
+    <h3>2017-02-07 - Document Validation Service updated</h3>
+    
+    <p>
+      Finally the new Document Validation Webservice is provided.
+      <a href="/public/menuitem-validation-ws2">Click here for Webservice details</a>.
+      This Webservice allows you to use all validations also available on the manual validation page.
+    </p>
+    
+    <p>
+      Additionally the CEN/TC 434 / EN 16931 validation artefact drafts (!) as of today are available
+      for usage in validation!
+    </p>
+    
+    <h3>2017-01-26 - Validation updated</h3>
+    
+    <p>
+      Finally the BIS2 document validation with OpenPEPPOL validation artefacts 3.3.0 is available.
+      Additionally support for Simplerinvoicing 1.1 was added.
+      <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
+    </p>
+  </div>
+  <!--  Archive: -->
+  <div id="tabs-archive" class="tab-pane">
+    <h3>2016-11-25 - London F2F slides available</h3>
+    
+    <p>
+      The slides of the presentations from the London face to face meeting are
+      now available:
+      <ul>
+        <li><a href="https://joinup.ec.europa.eu/svn/peppol/F2F%20meetings/CC%20member%20meetings%20London%20November%202016/">Download directory</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-11-25</h3>
+    
+    <p>
+      I added a new page that explains the <strong>document exchange</strong>.
+      It shows how the PEPPOL participant ID, the DNS and the SMP work together.
+      <ul>
+        <li><a href="/public/menuitem-docs-doc-exchange">Read the whole story</a></li>
+      </ul>
+      
+      Additionally the <a href="/public/menuitem-tools-participant">participant information</a>
+      page was changed so that arbitrary participant identifier schemes can be tested.
+    </p>
+    
+    <h3>2016-11-15 - phoss SMP 5.0.0</h3>
+    
+    <p>
+      <img src="https://raw.githubusercontent.com/phax/peppol-smp-server/peppol-smp-server-parent-pom-5.0.0/docs/logo/logo-gradient-446-100.png" width="446" height="100" alt="phoss logo"/>
+    </p>
+    
+    <p>
+      Finally the CEF conformance testing was finished successfully so I'm proud to present to you 
+      <strong>phoss SMP</strong>.
+      This is now the official project name of the previous "ph-peppol-smp-server".
+      Compared to RC2 no functional changes were performed - just UI beautifications.
+      To see version 5.0 in action have a look at <a href="http://smp.helger.com">http://smp.helger.com</a>.
+      If you want to learn more about phoss SMP features, just request a demo user (via email or the contact form).
+      
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0">Download phoss SMP 5.0.0</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-11-14 - Validation artefacts 3.3.0</h3>
+    
+    <p>
+      OpenPEPPOL PoACC fall release published.
+      They get mandatory by 2016-11-15 (12:00 CET).
+      <ul>
+        <li><a href="http://www.peppol.eu/news/FallreleaseofOpenPEPPOLPost-Awardartefactspublishedforreleaseandmandator%20use">Download artifacts 3.3.0</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-11-07 - PEPPOL SMP Server 5.0.0-RC2</h3>
+    
+    <p>
+      Update to my PEPPOL SMP Server.<br/>
+      Includes some functional improvements. Read more at
+      
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc2">Download SMP Server 5.0.0-RC2</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-10-13 - PEPPOL SMP Server 5.0.0-RC1</h3>
+    
+    <p>
+      Update to my PEPPOL SMP Server.<br/>
+      Once the conformance test with CEF is finished, version 5.0.0 will be released!
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc1">Download SMP Server 5.0.0-RC1</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-10-05 - Validation artefacts 3.3.0-RC1</h3>
+    
+    <p>
+      OpenPEPPOL PoACC fall release published for review.
+      They get manadatory by 2016-11-15 (12:00 CET).<br/>
+      In this version OpenPEPPOL decided to no longer maintain the ODS files, and instead 
+        directly work on the Schematron files - what a pitty.
+      <ul>
+        <li><a href="http://www.peppol.eu/news/OpenPEPPOLPoACCfallreleasepublishedforreview">Download artifacts 3.3.0-RC1</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-09-20 - OASIS SMP Spec 1.0 CS 03 release</h3>
+    
+    <p>
+      OASIS is pleased to announce the approval and publication of a new Committee Specification 
+      by the members of the OASIS Business Document Exchange (BDXR) TC:<br/>
+      Service Metadata Publishing (SMP) Version 1.0, Committee Specification 03<br />
+      Note: this SMP specification is not yet used in OpenPEPPOL, but there are plans to do so in the future.<br />
+      Note: my SMP Server 5.0.0-Beta1 already supports this specification version!
+      <ul>
+        <li><a href="https://www.oasis-open.org/committees/bdxr/">OASIS Business Document Exchange (BDXR) TC</a></li>
+        <li><a href="http://docs.oasis-open.org/bdxr/bdx-smp/v1.0/cs03/bdx-smp-v1.0-cs03.zip">Download the full ZIP package</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-09-19 - OpenPEPPOL planing to switch to AS4</h3>
+    
+    <p>
+      In a Letter of Understanding (LoU) signed between the Commission and OpenPEPPOL, 
+      the parties agree a plan for the transition from AS2 to AS4 in the PEPPOL profile 
+      of CEF eDelivery. As part of this, support for SMP/SML lookup and PKI specifications 
+      as used in the PEPPOL eDelivery network will continue in the CEF eDelivery architecture. 
+      <ul>
+        <li><a href="http://www.peppol.eu/news/NewAgreemen%20betweenEuropeanCommissionandOpenPEPPOL">Read more</a></li>
+        <li><a href="https://ec.europa.eu/cefdigital/wiki/download/attachments/33817810/20160629%20Letter%20of%20understanding%20v1.00.pdf?version=2&amp;modificationDate=1474278156735&amp;api=v2">Read the whole agreement</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-09-19 - SML 3.0 deployed</h3>
+    
+    <p>
+      Finally the production SML was updated to version 3.
+      <ul>
+        <li><a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/SML+-+v3.0">Read more</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-08-06 - PEPPOL SMP Server v5 Beta 1 is out.</h3>
+    
+    <p>
+      It improves integration with PEPPOL Directory as well as customizability in general.
+      Look on <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">GitHub Wiki</a> for further details.
+      <ul>
+        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/5.0.0-b1/">Download binary 5.0.0-Beta1 release</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-06-16</h3>
+    
+    <p>
+      PEPPOL SMP Server v5 is approaching.
+      It improves integration with PEPPOL Directory as well as customizability in general.
+      Compared to previous versions, this version needs a JDK 8 to run.
+      Look on <a href="https://github.com/phax/peppol-smp-server">GitHub</a> for further details.
+      <ul>
+        <li><a href="https://oss.sonatype.org/content/repositories/snapshots/com/helger/peppol-smp-server-webapp/5.0.0-SNAPSHOT/">Latest binary SNAPSHOT release</a></li>
+      </ul>
+    </p>
+    
+    <h3>2016-05-20 - Validation artefacts 3.2.0</h3>
+    
+    <p>
+      PEPPOL Validation Artefacts 3.2.0 were released.
+      The latest version can be found at 
+      <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/">https://joinup.ec.europa.eu/svn/peppol/Validation Resources/BIS v2/</a>
+    </p>
+    
+    <h3>2016-03-20 - SMP Server 4.1.2 release</h3>
+    
+    <p>
+      <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.2 is out.
+      Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.2">Source release</a></li>
+        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.2/">Binary release</a></li>
+      </ul>
+    </p>
+    
+    <h3>2015-12-07 - SMP Server 4.1.0 release</h3>
+    
+    <p>
+      <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.0 is out.
+      Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.0">Source release</a></li>
+        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.0/">Binary release</a></li>
+      </ul>
+    </p>
+    
+    <h3>2015-11-09 - SMP Server 4.0.3 release</h3>
+    
+    <p>
+      <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.0.3 is out.
+      It fixes the problem that service group deletions were not propagated to the SML when
+      using the SQL backend and adds an overview page with all tasks and action items.
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.3">Source release</a></li>
+        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.3/">Binary release</a></li>
+      </ul>
+    </p>
+    
+    <h3>2015-11-06</h3>
+    
+    <p>
+      The SMK release was updated to version 3.0.1 which fixes most of the mentioned
+      problems.
+    </p>
+    
+    <h3>2015-11-05</h3>
+    
+    <p>
+      My <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> 4.0.2 was 
+      released. It fixes the compatibility problems introduced by the SMK 3.0.0 release.
+      If you are only using the SML client library, please make sure to use at least
+      version 4.3.1.
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.2">Source release</a></li>
+        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.2/">Binary release</a></li>
+      </ul>
+    </p>
+    
+    <h3>2015-11-03</h3>
+    
+    <p>
+      Here is a list of issues I've identified with the new SMK 3.0.0:
+    </p>
+    <ul>
+      <li>The handling of participant IDs is now case-sensitive (this is not compliant with the BusDox spec)</li>
+      <li>The name of the list DNS servlet changed from "listdns" to "listDNS"</li>
+      <li>The "delete participant" API now requires a valid SMP-ID to be provided (this is incompatible with existing SML client solutions) - the respective changes are contained in my peppol-sml-client as of version 4.3.1</li>
+      <li>The SMK now accepts any participant identifier schemes that are incompatible to the BusDox specs</li>
+    </ul>
+    
+    <h3>2015-10-29</h3>
+    
+    <p>
+      Finally a first version of the BIS2 document validation is available on this page.
+      <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
+    </p>
+    
+    <h3>2015-10-27</h3>
+    
+    <p>
+      A new version (3.0.0) of the SMK (not SML) was deployed by DIGIT. It contains the following new features:
+    </p>
+    <ul>
+      <li>Enhances compliance with SML specification</li>
+      <li>Adds support for Oasis BDXL specification</li>
+      <li>U-NAPTR and CNAME records</li>
+      <li>Adds service to allow SMP to change their certificate</li>
+      <li>Support for multiple business domains</li>
+      <li>Support for DNSSEC</li>
+      <li>Enhances logging</li>
+      <li>Enhances users and roles management</li>
+      <li>Enhances unit and integration testing</li>
+      <li>Enhances database versioning with Liquibase</li>
+      <li>Adds support for certificate revocation check (CRL)</li>
+      <li>Work managers to limit the load on servers for guaranteed performance (Weblogic only)</li>
+      <li>Fixes EDELIVERY-294: Improve the signature of the SML Read Service Metadata service</li>
+      <li>New monitoring service</li>
+      <li>New service to list all participants (PEPPOL Yellow Pages)</li>  
+    </ul>
+    
+    <h3>2015-10-09</h3>
+    
+    <p>
+      If you are still using PEPPOL LIME there is good news for you. I grabbed the deprecated CIPA
+      component and am providing a LIME server and client based on AS2. Have a look at it at
+      <a href="https://github.com/phax/peppol-lime">https://github.com/phax/peppol-lime</a>.
+    </p>
+    
+    <h3>2015-10-05</h3>
+    
+    <p>
+      Added information about my new SMP release 4.0.0. It includes a management GUI for easily 
+      creating service groups, endpoints and redirects. 
+      <a href="/public/menuitem-docs-setup-smp-ph">Read all the details</a> or quick start at
+      <a href="https://github.com/phax/peppol-smp-server">https://github.com/phax/peppol-smp-server</a>.
+    </p>
+    
+    <h3>2015-09-17</h3>
+    
+    <p>
+      Added information about the SML support since these information are hard to find if
+      you can't find the original email anymore.
+      <a href="/public/menuitem-docs-sml-support">Read all the details</a>.
+    </p>
+    
+    <p>
+      New versions of my SMP server will be released soon. Version 4 of 
       <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>
-      - an SMP server that uses a relational database (like MySQL) as the backend.
-    </li>
-    <li>
-      <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
-      - an SMP server that uses a file-based backend and keeps all information in main memory for
-      performance reasons. Additionally it includes a small management UI. 
-    </li>
-  </ul>
-  Both SMP servers use shared components also available on GitHub:
-  <a href="https://github.com/phax/peppol-commons">peppol-commons</a>,
-  <a href="https://github.com/phax/peppol-smp-client">peppol-smp-client</a> and
-  <a href="https://github.com/phax/peppol-sml-client">peppol-sml-client</a>.
-</p>
-
-<ul>
-  <li>
-    Binary releases:
+      ships with a brand new administration interface that gives you the possibility to manage
+      your endpoints with nice forms directly in the browser.
+    </p>
+    
+    <p>
+      The development of the PEPPOL Yellow Pages progresses. Follow the development on GitHub
+      at <a href="https://github.com/phax/peppol-yellow-pages">peppol-yellow-pages</a>.
+      Helping hands are always welcome.
+    </p>
+    
+    <h3>2015-09-09</h3>
+    
+    <p>
+      New PEPPOL validation artefacts are out for review.
+      The <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/BIS2.0-VA-V3.1.0_RC1.zip">ZIP file</a>
+      with the Schematron and XSLT files can be downloaded.
+      <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/Release%20notes%20for%20openPEPPOL-VA-V3%201%200_RC1.pdf">Release notes</a>
+      are also available.<br />
+      Deadline for submitting comments to <a href="mailto:rfc@peppol.eu">rfc@peppol.eu</a> is October 1<sup>st</sup> 2015.
+    </p>
+    
+    <h3>2015-06-09</h3>
+    
+    <p>
+      On June 9<sup>th</sup> the SML migration from BRZ to the EC took place.
+      <a href="/public/menuitem-docs-sml-migration">Read this page for all the details!</a>
+    </p>
+    
+    <h3>2015-04-02 - New PEPPOL SMP server implementation available</h3>
+    
+    <p>
+      Based on the CIPA SMP server 2.2.3 I decided to fork my own clone of a PEPPOL
+      SMP. It is available in 2 different versions:
+      <ul>
+        <li>
+          <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>
+          - an SMP server that uses a relational database (like MySQL) as the backend.
+        </li>
+        <li>
+          <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
+          - an SMP server that uses a file-based backend and keeps all information in main memory for
+          performance reasons. Additionally it includes a small management UI. 
+        </li>
+      </ul>
+      Both SMP servers use shared components also available on GitHub:
+      <a href="https://github.com/phax/peppol-commons">peppol-commons</a>,
+      <a href="https://github.com/phax/peppol-smp-client">peppol-smp-client</a> and
+      <a href="https://github.com/phax/peppol-sml-client">peppol-sml-client</a>.
+    </p>
+    
     <ul>
-      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/</a></li>
-      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/</a></li>
-    </ul> 
-  </li>
-  <li>
-    Source releases:
+      <li>
+        Binary releases:
+        <ul>
+          <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server/3.1.0/</a></li>
+          <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/">http://repo2.maven.org/maven2/com/helger/peppol-smp-server-lightweight/3.1.0/</a></li>
+        </ul> 
+      </li>
+      <li>
+        Source releases:
+        <ul>
+          <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0">https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0</a></li>
+          <li><a href="https://github.com/phax/peppol-smp-server-lightweight/releases/tag/peppol-smp-server-lightweight-3.1.0">https://github.com/phax/peppol-smp-server-lightweight/releases/tag/peppol-smp-server-lightweight-3.1.0</a></li>
+        </ul> 
+      </li>
+    </ul>
+    
+    
+    <h3>2014-11-13 - <em>as2-peppol-server</em> released</h3>
+    
+    <p>
+      Based on my previous projects <a href="https://github.com/phax/as2-lib">as2-lib</a>, 
+      <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a> and
+      <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
+      <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> I created a minimal
+      PEPPOL AS2 server for receiving PEPPOL AS2 messages. The project 
+      <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong>
+      is located on GitHub and available as OSS under the Apache 2.0 license.
+    </p>
+    
+    <h3>2014-11-05 - CIPA 2.2.3 released</h3>
+    
+    <p>
+      CIPA 2.2.3 is a minor update that basically extends the SMP client and the SML
+      client library functionality. Additionally the class <code>ConfiguredDNSMapper</code>
+      got deprecated because I assume it is of no further need as the original author (BRZ)
+      no longer needs it (for quite some time now).
+    </p>
+    
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0">https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0</a></li>
-      <li><a href="https://github.com/phax/peppol-smp-server-lightweight/releases/tag/peppol-smp-server-lightweight-3.1.0">https://github.com/phax/peppol-smp-server-lightweight/releases/tag/peppol-smp-server-lightweight-3.1.0</a></li>
-    </ul> 
-  </li>
-</ul>
-
-
-<h3>2014-11-13 - <em>as2-peppol-server</em> released</h3>
-
-<p>
-  Based on my previous projects <a href="https://github.com/phax/as2-lib">as2-lib</a>, 
-  <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a> and
-  <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
-  <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> I created a minimal
-  PEPPOL AS2 server for receiving PEPPOL AS2 messages. The project 
-  <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong>
-  is located on GitHub and available as OSS under the Apache 2.0 license.
-</p>
-
-<h3>2014-11-05 - CIPA 2.2.3 released</h3>
-
-<p>
-  CIPA 2.2.3 is a minor update that basically extends the SMP client and the SML
-  client library functionality. Additionally the class <code>ConfiguredDNSMapper</code>
-  got deprecated because I assume it is of no further need as the original author (BRZ)
-  no longer needs it (for quite some time now).
-</p>
-
-<ul>
-  <li>Binary release: <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/">https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/</a></li>
-  <li>Source release: <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3">https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3</a></li>
-</ul>
-
-<h3>2014-10-20 - SSL 3.0 vulnerability - POODLE</h3>
-
-<p>
-  Because of the SSL 3.0 vulnerability called POODLE 
-  (see <a href="http://en.wikipedia.org/wiki/POODLE">http://en.wikipedia.org/wiki/POODLE</a>) 
-  certain PEPPOL APs may disable SSL 3.0 on their systems.
-</p>
-<p>
-  For the Oracle Java Runtime the code of the <code>AccessPointClient</code> is fine. 
-  So when you are using the Oracle JDK no further actions need to be taken.
-  But when using the <strong>IBM Java Runtime</strong> please make sure that you 
-  set the constant <code>SSL_PROTOCOL</code> in class <code>AccessPointClient</code> 
-  from <code>SSL</code> to <code>TLS</code>.
-</p>
-
-<p>
-  A new release of the <code>cipa-start-client</code> was build, which fixes this problem for IBM JDKs. 
-  The version number of the fix release is <strong>2.2.2-1</strong> and it can be found in the 
-  Joinup Nexus (binary format - 
-  <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/cipa-start-client/2.2.2-1/">https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/cipa-start-client/2.2.2-1/</a>) 
-  and in the CIPA SVN (sources - 
-  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2-1">https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2-1</a>).
-</p>
+      <li>Binary release: <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/">https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/</a></li>
+      <li>Source release: <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3">https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3</a></li>
+    </ul>
+    
+    <h3>2014-10-20 - SSL 3.0 vulnerability - POODLE</h3>
+    
+    <p>
+      Because of the SSL 3.0 vulnerability called POODLE 
+      (see <a href="http://en.wikipedia.org/wiki/POODLE">http://en.wikipedia.org/wiki/POODLE</a>) 
+      certain PEPPOL APs may disable SSL 3.0 on their systems.
+    </p>
+    <p>
+      For the Oracle Java Runtime the code of the <code>AccessPointClient</code> is fine. 
+      So when you are using the Oracle JDK no further actions need to be taken.
+      But when using the <strong>IBM Java Runtime</strong> please make sure that you 
+      set the constant <code>SSL_PROTOCOL</code> in class <code>AccessPointClient</code> 
+      from <code>SSL</code> to <code>TLS</code>.
+    </p>
+    
+    <p>
+      A new release of the <code>cipa-start-client</code> was build, which fixes this problem for IBM JDKs. 
+      The version number of the fix release is <strong>2.2.2-1</strong> and it can be found in the 
+      Joinup Nexus (binary format - 
+      <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/cipa-start-client/2.2.2-1/">https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/cipa-start-client/2.2.2-1/</a>) 
+      and in the CIPA SVN (sources - 
+      <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2-1">https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.2-1</a>).
+    </p>
+  </div>
+</div>
