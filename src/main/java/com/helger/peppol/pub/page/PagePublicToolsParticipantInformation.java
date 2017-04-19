@@ -167,7 +167,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
-          final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList<> ();
+          final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
 
@@ -178,7 +178,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
-            final Map <String, String> aSGHrefs = new TreeMap<> ();
+            final Map <String, String> aSGHrefs = new TreeMap <> ();
             if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
               for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                                 .getServiceMetadataReference ())
@@ -237,7 +237,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (!aDocTypeIDs.isEmpty ())
           {
             final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
-            final ICommonsOrderedSet <String> aAllUsedCertifiactes = new CommonsLinkedHashSet<> ();
+            final ICommonsOrderedSet <String> aAllUsedCertifiactes = new CommonsLinkedHashSet <> ();
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();
@@ -395,7 +395,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Show all processes, document types and endpoints of a participant."),
                                                            new HCDiv ().addChild ("You may want to try scheme ")
                                                                        .addChild (new HCCode ().addChild (DEFAULT_ID_SCHEME))
-                                                                       .addChild ("and value ")
+                                                                       .addChild (" and value ")
                                                                        .addChild (new HCCode ().addChild ("9915:test"))
                                                                        .addChild (" on ")
                                                                        .addChild (new HCCode ().addChild ("SMK"))
