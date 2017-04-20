@@ -24,6 +24,7 @@ import com.helger.peppol.secure.page.PageSecureAdminAddons;
 import com.helger.peppol.secure.page.PageSecureCRMGroup;
 import com.helger.peppol.secure.page.PageSecureCRMSubscriber;
 import com.helger.peppol.secure.page.PageSecureCommentAdmin;
+import com.helger.peppol.secure.page.PageSecureSchematronTools;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.bootstrap3.pages.BootstrapPagesMenuConfigurator;
@@ -55,6 +56,11 @@ public final class MenuSecure
     // Comments
     {
       aMenuTree.createRootItem (new PageSecureCommentAdmin (CMenuSecure.MENU_COMMENTS));
+    }
+
+    // Schematron tools
+    {
+      aMenuTree.createRootItem (new PageSecureSchematronTools (CMenuSecure.MENU_SCH_TOOLS));
     }
 
     // Administrator
