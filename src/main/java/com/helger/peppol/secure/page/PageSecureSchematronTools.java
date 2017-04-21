@@ -62,7 +62,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
 
 public final class PageSecureSchematronTools extends AbstractAppWebPage
 {
-  private static final String ACTION_SHOW_BOUND = "showbound";
+  private static final String ACTION_SHOW_PREPROCESSED_SCHEMA = "showpps";
   private static final String FIELD_VESID = "vesid";
 
   public PageSecureSchematronTools (@Nonnull @Nonempty final String sID)
@@ -75,8 +75,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     public ActionSelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
     {
       super (aRF);
-      addOption (ACTION_SHOW_BOUND, "Show bound schema");
-      addOptionPleaseSelect (aDisplayLocale);
+      addOption (ACTION_SHOW_PREPROCESSED_SCHEMA, "Show preprocessed schema");
     }
   }
 
@@ -93,7 +92,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                                                                                          aDisplayLocale)));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ActionSelect (new RequestField (CPageParam.PARAM_ACTION),
                                                                                aDisplayLocale)));
-      aForm.addChild (new BootstrapSubmitButton ().addChild ("Run"));
+      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new BootstrapSubmitButton ().addChild ("Run")));
       aNodeList.addChild (aToolbar);
     }
 
@@ -103,7 +102,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
 
     if (aVES != null)
     {
-      if (aWPEC.hasAction (ACTION_SHOW_BOUND))
+      if (aWPEC.hasAction (ACTION_SHOW_PREPROCESSED_SCHEMA))
       {
         final IXMLWriterSettings XWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN);
 
