@@ -72,7 +72,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
 
   private static final class ActionSelect extends HCExtSelect
   {
-    public ActionSelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
+    public ActionSelect (@Nonnull final RequestField aRF)
     {
       super (aRF);
       addOption (ACTION_SHOW_PREPROCESSED_SCHEMA, "Show preprocessed schema");
@@ -90,8 +90,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
       final BootstrapForm aForm = aToolbar.addAndReturnChild (new BootstrapForm (aWPEC).setFormType (EBootstrapFormType.INLINE));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VESID),
                                                                                          aDisplayLocale)));
-      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ActionSelect (new RequestField (CPageParam.PARAM_ACTION),
-                                                                               aDisplayLocale)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ActionSelect (new RequestField (CPageParam.PARAM_ACTION))));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new BootstrapSubmitButton ().addChild ("Run")));
       aNodeList.addChild (aToolbar);
     }
