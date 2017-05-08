@@ -177,7 +177,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
           aRow.addCell (Integer.toString (aEntry.getValue ().size ()));
 
           int nActiveComments = 0;
-          final ICommonsList <IComment> aAllComments = new CommonsArrayList<> ();
+          final ICommonsList <IComment> aAllComments = new CommonsArrayList <> ();
           for (final ICommentThread aCommentThread : aEntry.getValue ())
           {
             aAllComments.addAll (aCommentThread.getAllComments ());
@@ -198,7 +198,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
         final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
         aTab.addChild (aDataTables);
 
-        aTabBox.addTab (aOT.getName (), aTab, aOT.getName ().equals (sSelectedObjectType));
+        aTabBox.addTab (aOT.getName (), aOT.getName (), aTab, aOT.getName ().equals (sSelectedObjectType));
       }
 
       aNodeList.addChild (aTabBox);
