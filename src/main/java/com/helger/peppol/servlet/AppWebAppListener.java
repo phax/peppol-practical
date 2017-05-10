@@ -24,6 +24,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.system.SystemProperties;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
@@ -84,6 +85,10 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
   protected void initGlobals ()
   {
     // Internal stuff:
+    SystemProperties.setPropertyValue ("networkaddress.cache.ttl", 0);
+    SystemProperties.setPropertyValue ("networkaddress.cache.negative.ttl", 0);
+    SystemProperties.setPropertyValue ("sun.net.inetaddr.ttl", 0);
+    SystemProperties.setPropertyValue ("sun.net.inetaddr.negative.ttl", 0);
 
     // JUL to SLF4J
     SLF4JBridgeHandler.removeHandlersForRootLogger ();
