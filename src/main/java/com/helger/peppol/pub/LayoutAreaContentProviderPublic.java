@@ -43,9 +43,6 @@ import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.grouping.HCP;
 import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.metadata.HCHead;
-import com.helger.html.hc.html.tabular.HCCol;
-import com.helger.html.hc.html.tabular.HCRow;
-import com.helger.html.hc.html.tabular.HCTable;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.html.textlevel.HCStrong;
@@ -114,9 +111,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
   private static final ICSSClassProvider CSS_CLASS_PAYPAL = DefaultCSSClassProvider.create ("paypal");
   private static final ICSSClassProvider CSS_CLASS_FOOTER_LINKS = DefaultCSSClassProvider.create ("footer-links");
 
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol1 = new CommonsArrayList<> ();
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol2 = new CommonsArrayList<> ();
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol3 = new CommonsArrayList<> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol1 = new CommonsArrayList <> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol2 = new CommonsArrayList <> ();
+  private final ICommonsList <IMenuObject> m_aFooterObjectsCol3 = new CommonsArrayList <> ();
   private final int m_nFooterRowCount;
 
   public LayoutAreaContentProviderPublic ()
@@ -392,14 +389,17 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       if (m_nFooterRowCount > 0)
       {
         final BootstrapMenuItemRendererHorz aRenderer = new BootstrapMenuItemRendererHorz (aDisplayLocale);
-        final HCTable aTable = new HCTable (HCCol.star (), HCCol.star (), HCCol.star ());
+        final HCDiv aTable = new HCDiv ();
         aTable.addClass (CSS_CLASS_FOOTER_LINKS);
         for (int i = 0; i < m_nFooterRowCount; ++i)
         {
-          final HCRow aRow = aTable.addBodyRow ();
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol1.getAtIndex (i)));
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol2.getAtIndex (i)));
-          aRow.addCell (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol3.getAtIndex (i)));
+          final BootstrapRow aRow = aTable.addAndReturnChild (new BootstrapRow ());
+          aRow.createColumn (4)
+              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol1.getAtIndex (i)));
+          aRow.createColumn (4)
+              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol2.getAtIndex (i)));
+          aRow.createColumn (4)
+              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol3.getAtIndex (i)));
         }
         aDiv.addChild (aTable);
       }

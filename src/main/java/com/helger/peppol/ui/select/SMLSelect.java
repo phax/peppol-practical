@@ -14,24 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.ui;
-
-import java.util.Locale;
+package com.helger.peppol.ui.select;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.sml.ESML;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
-public class IdentifierIssuingAgencySelect extends HCExtSelect
+public class SMLSelect extends HCExtSelect
 {
-  public IdentifierIssuingAgencySelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
+  public SMLSelect (@Nonnull final RequestField aRF)
   {
     super (aRF);
-    addOptionPleaseSelect (aDisplayLocale);
-    for (final EPredefinedIdentifierIssuingAgency eIIA : EPredefinedIdentifierIssuingAgency.values ())
-      if (!eIIA.isDeprecated ())
-        addOption (eIIA.getISO6523Code (), eIIA.getISO6523Code () + " - " + eIIA.getSchemeID ());
+    for (final ESML eSML : ESML.values ())
+      if (eSML.isClientCertificateRequired ())
+        addOption (eSML.getID (), "[" + eSML.getDisplayName () + "] " + eSML.getManagementServiceURL ());
   }
 }
