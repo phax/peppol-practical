@@ -19,6 +19,10 @@
 <p>
   This page tries to collect the technology relevant things happening in PEPPOL.
 </p>
+<p>
+  <strong>Note:</strong> this is not an official "News" page.
+  This is just what I'm collecting...
+</p>
 
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="#tabs-news" data-toggle="tab">2017</a></li>
@@ -27,6 +31,35 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
+    <h3>2017-05-15 - PEPPOL Practical update</h3>
+    
+    <p>
+      As the new validation rules take effect today, I added them right away.
+      Additionally the <a href="/public/menuitem-docs-peppol-dict">PEPPOL Dictionary</a> was updated.
+    </p>
+    
+    <h3>2017-05-12 - Spring release - validation artefacts 3.4.0</h3>
+    
+    <p>
+      The BIS2 document validation with OpenPEPPOL validation artefacts 3.4.0 was released.
+    </p>
+    
+    <ul>
+      <li><a href="http://peppol.eu/downloads/?rel=tab404">Download from the PEPPOL site</a></li>
+      <li><a href="/files/validation/Release_pkg_spring2017.zip">Download from this site</a></li>
+    </ul>
+    
+    <h3>2017-05-08/09 - OpenPEPPOL F2F meeting in Vienna</h3>
+    
+    <p>
+      We had a lovely two day F2F meeting hosted by BRZ.
+      Approx. 70 people were attending.
+      The first day started with an introduction section for newcomers and continued with
+        a lot of presentation on what's going on.
+      The second day had more of a workshop character with interactive sessions and that
+        was highly appreciated by the attendees.
+    </p>
+    
     <h3>2017-04-07 - New PEPPOL website online</h3>
     
     <p>

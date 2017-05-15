@@ -31,14 +31,29 @@
   </thead>
   <tbody>
     <tr>
+      <td>AISBL</td>
+      <td>Association internationale sans but lucratif</td>
+      <td>
+        A non-profit origanisation under Belgium law. See
+        <a href="https://justice.belgium.be/fr/themes_et_dossiers/associations_et_fondations/aisbl">this page</a>
+        for details (in French). 
+      </td>
+    </tr>
+    <tr>
       <td>AP</td>
       <td>AccessPoint</td>
-      <td>The technical connector of a software solution that is capable of sending and/or receiving PEPPOL business documents</td>
+      <td>
+        The technical connector of a software solution that is capable of
+        sending and/or receiving PEPPOL business documents
+      </td>
     </tr>
     <tr>
       <td>AS2</td>
       <td>Application Statement 2</td>
-      <td>Transport protocol specified in <a href="http://www.ietf.org/rfc/rfc4130.txt">RFC 4130</a>.</td>
+      <td>
+        Transport protocol specified in
+        <a href="http://www.ietf.org/rfc/rfc4130.txt">RFC 4130</a>.
+      </td>
     </tr>
     <tr>
       <td>
@@ -131,6 +146,14 @@
       <td>Usually this refers to the EN 16931-1, the European Norm on e-Invoicing.</td>
     </tr>
     <tr>
+      <td>F2F</td>
+      <td>Face to face</td>
+      <td>
+        This defines an event where people are meeting in real (face to face) and not just
+        virtually in telephone conferences.
+      </td>
+    </tr>
+    <tr>
       <td>
         IRM
         <br/><em><small>in progress</small></em>
@@ -180,6 +203,7 @@
       <td>
         The organisation responsible for maintaining PEPPOL standards and running the transport infrastructure.
         See <a href="http://www.peppol.eu/">http://www.peppol.eu/</a>.
+        See also <em>AISBL</em>.
       </td>
     </tr>
     <tr>
@@ -195,7 +219,10 @@
     <tr>
       <td>PEPPOL</td>
       <td>Pan European Public Procurement On-Line</td>
-      <td>Started as a European Large Scale Pilot and is now maintained by OpenPEPPOL</td>
+      <td>
+        This is the European project that initiated all this.
+        Started as a European Large Scale Pilot and is now maintained by OpenPEPPOL AISBL.
+      </td>
     </tr>
     <tr>
       <td>PoACC</td>
@@ -203,6 +230,14 @@
       <td>
         PEPPOL internal team to manage the post-award assets.
         See <a href="http://www.peppol.eu/about_peppol/openpeppol-communities">http://www.peppol.eu/about_peppol/openpeppol-communities</a> 
+      </td>
+    </tr>
+    <tr>
+      <td>PID</td>
+      <td>Participant identifier</td>
+      <td>
+        This is the technical identifier for the sender and receiver of a document exchange.
+        This is also used in an SMP as a so called "service group".  
       </td>
     </tr>
     <tr>
@@ -217,7 +252,8 @@
       <td>SBD</td>
       <td>Standard Business Document</td>
       <td>
-        A generic XML envelope structure. See also <em>SBDH</em>.
+        A generic XML envelope structure that defines a header and a payload.
+        See also <em>SBDH</em>.
       </td>
     </tr>
     <tr>
