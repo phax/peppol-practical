@@ -30,6 +30,7 @@ import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.name.IHasDisplayName;
@@ -63,5 +64,12 @@ public final class ExtValidationKeyRegistry
   public static IValidationExecutorSet getFromIDOrNull (@Nullable final VESID aID)
   {
     return VES_REGISTRY.getOfID (aID);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ICommonsList <IValidationExecutorSet> getAll ()
+  {
+    return VES_REGISTRY.getAll ();
   }
 }
