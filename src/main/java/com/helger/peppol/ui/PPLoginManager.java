@@ -17,7 +17,7 @@
 package com.helger.peppol.ui;
 
 import com.helger.peppol.app.AppHelper;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.photon.bootstrap3.uictrls.ext.BootstrapLoginManager;
 
 public final class PPLoginManager extends BootstrapLoginManager
@@ -25,6 +25,6 @@ public final class PPLoginManager extends BootstrapLoginManager
   public PPLoginManager ()
   {
     super (AppHelper.getApplicationTitle () + " Administration - Login");
-    setRequiredRoleIDs (CApp.REQUIRED_ROLE_IDS_CONFIG);
+    setRequiredRoleIDs (CPPApp.REQUIRED_ROLE_IDS_CONFIG);
   }
 }

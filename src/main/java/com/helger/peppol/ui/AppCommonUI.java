@@ -44,7 +44,7 @@ import com.helger.html.jscode.JSAssocArray;
 import com.helger.html.jscode.JSPackage;
 import com.helger.html.jscode.JSVar;
 import com.helger.html.jscode.html.JSHtml;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.AjaxExecutorPublicLogin;
 import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.peppol.comment.domain.CommentThreadManager;
@@ -109,7 +109,7 @@ public final class AppCommonUI
     });
 
     // Register comment handlers
-    CommentThreadManager.getInstance ().registerObjectType (CApp.OT_PAGE);
+    CommentThreadManager.getInstance ().registerObjectType (CPPApp.OT_PAGE);
 
     BootstrapSystemMessage.setDefaultUseMarkdown (true);
   }

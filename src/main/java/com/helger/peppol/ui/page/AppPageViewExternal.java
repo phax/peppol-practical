@@ -26,7 +26,7 @@ import com.helger.html.EHTMLVersion;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppSettings;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentFormErrors;
 import com.helger.peppol.comment.ui.CommentUI;
@@ -72,7 +72,7 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
     {
       // Show comments and "add comment"
       final HCNodeList aNodeList = aWPEC.getNodeList ();
-      final TypedObject <String> aTO = TypedObject.create (CApp.OT_PAGE, getID ());
+      final TypedObject <String> aTO = TypedObject.create (CPPApp.OT_PAGE, getID ());
       aNodeList.addChild (CommentUI.getCommentList (aWPEC,
                                                     aTO,
                                                     CommentAction.createGeneric (ECommentAction.NONE),

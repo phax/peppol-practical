@@ -18,7 +18,7 @@ package com.helger.peppol.app.ajax;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
 import com.helger.photon.core.ajax.decl.PublicApplicationAjaxFunctionDeclaration;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTables;
@@ -35,7 +35,7 @@ public final class CAjaxPublic
   public static final IAjaxFunctionDeclaration DATATABLES = new PublicApplicationAjaxFunctionDeclaration ("dataTables",
                                                                                                           AjaxExecutorDataTables.class);
   public static final IAjaxFunctionDeclaration DATATABLES_I18N = new PublicApplicationAjaxFunctionDeclaration ("datatables-i18n",
-                                                                                                               new AjaxExecutorDataTablesI18N (CApp.DEFAULT_LOCALE));
+                                                                                                               new AjaxExecutorDataTablesI18N (CPPApp.DEFAULT_LOCALE));
   public static final IAjaxFunctionDeclaration LOGIN = new PublicApplicationAjaxFunctionDeclaration ("login",
                                                                                                      AjaxExecutorPublicLogin.class);
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW = new PublicApplicationAjaxFunctionDeclaration ("updateMenuView",

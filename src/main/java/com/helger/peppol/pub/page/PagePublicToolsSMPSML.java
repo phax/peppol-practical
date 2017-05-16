@@ -56,7 +56,7 @@ import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.network.dns.IPV4Addr;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
@@ -229,10 +229,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CApp.PATTERN_SMP_ID);
+                                                 CPPApp.PATTERN_SMP_ID);
 
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
@@ -358,10 +358,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CApp.PATTERN_SMP_ID);
+                                                 CPPApp.PATTERN_SMP_ID);
 
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
@@ -486,10 +486,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CApp.PATTERN_SMP_ID);
+                                                 CPPApp.PATTERN_SMP_ID);
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (aKeyStoreFile,
                                                                                     sKeyStorePassword,

@@ -59,6 +59,6 @@ public final class AppInternalErrorHandler extends AbstractErrorCallback
                                                                   "peppol.helger.com application"));
     InternalErrorSettings.setSMTPReceiverAddress (new EmailAddress ("philip@helger.com", "Philip"));
     InternalErrorSettings.setSMTPSettings (aSMTPSettings);
-    InternalErrorSettings.setFallbackLocale (CApp.DEFAULT_LOCALE);
+    InternalErrorSettings.setFallbackLocale (CPPApp.DEFAULT_LOCALE);
   }
 }

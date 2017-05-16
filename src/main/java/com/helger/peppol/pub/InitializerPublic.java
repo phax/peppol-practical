@@ -18,7 +18,7 @@ package com.helger.peppol.pub;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.CAjaxPublic;
 import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.basic.app.menu.IMenuTree;
@@ -38,9 +38,9 @@ public final class InitializerPublic implements IApplicationInitializer <LayoutE
   @Override
   public void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
   {
-    aLocaleMgr.registerLocale (CApp.LOCALE_DE);
-    aLocaleMgr.registerLocale (CApp.LOCALE_EN);
-    aLocaleMgr.setDefaultLocale (CApp.DEFAULT_LOCALE);
+    aLocaleMgr.registerLocale (CPPApp.LOCALE_DE);
+    aLocaleMgr.registerLocale (CPPApp.LOCALE_EN);
+    aLocaleMgr.setDefaultLocale (CPPApp.DEFAULT_LOCALE);
   }
 
   @Override

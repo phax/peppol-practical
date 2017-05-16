@@ -19,7 +19,7 @@ package com.helger.peppol.secure;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.secure.page.PageSecureAdminAddons;
 import com.helger.peppol.secure.page.PageSecureCRMGroup;
 import com.helger.peppol.secure.page.PageSecureCRMSubscriber;
@@ -42,7 +42,7 @@ public final class MenuSecure
   {
     // We need this additional indirection layer, as the pages are initialized
     // statically!
-    final MenuObjectFilterUserAssignedToUserGroup aFilterAdministrators = new MenuObjectFilterUserAssignedToUserGroup (CApp.USERGROUP_ADMINISTRATORS_ID);
+    final MenuObjectFilterUserAssignedToUserGroup aFilterAdministrators = new MenuObjectFilterUserAssignedToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID);
 
     // CRM
     {
@@ -70,7 +70,7 @@ public final class MenuSecure
                                                                                                                  aMenuTree))
                                             .setDisplayFilter (aFilterAdministrators);
       aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS));
-      BootstrapPagesMenuConfigurator.addAllItems (aMenuTree, aAdmin, aFilterAdministrators, CApp.DEFAULT_LOCALE);
+      BootstrapPagesMenuConfigurator.addAllItems (aMenuTree, aAdmin, aFilterAdministrators, CPPApp.DEFAULT_LOCALE);
     }
 
     // Default menu item

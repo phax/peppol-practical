@@ -34,7 +34,7 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
@@ -139,7 +139,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
       else
       {
         // Assign new user to user group
-        if (aUserGroupMgr.assignUserToUserGroup (CApp.USERGROUP_VIEW_ID, aCreatedUser.getID ()).isUnchanged ())
+        if (aUserGroupMgr.assignUserToUserGroup (CPPApp.USERGROUP_VIEW_ID, aCreatedUser.getID ()).isUnchanged ())
           aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error assigning the user to the user group!"));
         else
         {

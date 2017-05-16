@@ -27,7 +27,7 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.render.HCRenderer;
 import com.helger.json.JsonObject;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
@@ -60,7 +60,7 @@ public final class AjaxExecutorPublicLogin extends AbstractAjaxExecutor
     // Main login
     final ELoginResult eLoginResult = LoggedInUserManager.getInstance ().loginUser (sLoginName,
                                                                                     sPassword,
-                                                                                    CApp.REQUIRED_ROLE_IDS_VIEW);
+                                                                                    CPPApp.REQUIRED_ROLE_IDS_VIEW);
     if (eLoginResult.isSuccess ())
       return AjaxJsonResponse.createSuccess (new JsonObject ().add (JSON_LOGGEDIN, true));
 

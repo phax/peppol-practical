@@ -41,7 +41,7 @@ import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.pub.validation.ExtValidationKeyRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
 import com.helger.peppol.wsclient2.ItemType;
@@ -125,7 +125,7 @@ public class WSDVS implements WSDVSPort
       final String sDisplayLocale = aRequest.getDisplayLocale ();
       final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ()
                                                                                        .getLocale (sDisplayLocale)
-                                                                          : CApp.DEFAULT_LOCALE;
+                                                                          : CPPApp.DEFAULT_LOCALE;
       if (aDisplayLocale == null)
         _throw ("Invalid display locale provided!");
 

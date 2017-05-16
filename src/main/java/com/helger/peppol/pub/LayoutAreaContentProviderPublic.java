@@ -48,7 +48,7 @@ import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
-import com.helger.peppol.app.CApp;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.CAppCSS;
 import com.helger.peppol.ui.HCTweet;
@@ -147,7 +147,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                  .addChild ("Logged in as ")
                                  .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser,
                                                                                                          aDisplayLocale))));
-      if (SecurityHelper.hasUserRole (aUser.getID (), CApp.ROLE_CONFIG_ID))
+      if (SecurityHelper.hasUserRole (aUser.getID (), CPPApp.ROLE_CONFIG_ID))
       {
         final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
         aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH))

@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import com.helger.commons.regex.RegExHelper;
 
-public final class CAppTest
+public final class CPPAppTest
 {
   @Test
   public void testSMPIDPattern ()
@@ -35,6 +35,6 @@ public final class CAppTest
                                           "IBM.ECSCTEST",
                                           "smp.difi.no",
                                           "SMP123" })
-      assertTrue (s + " failed!", RegExHelper.stringMatchesPattern (CApp.PATTERN_SMP_ID, s));
+      assertTrue (s + " failed!", RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, s));
   }
 }
