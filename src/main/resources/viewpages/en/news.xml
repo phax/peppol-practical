@@ -31,6 +31,18 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
+    <h3>2017-05-17 - Spring release Update</h3>
+    
+    <p>
+      Because some changes from RC1 to final were missing, the artefacts were re-released.
+      PEPPOL Practical was using the correct artefacts from the beginning!
+    </p>
+    
+    <ul>
+      <li><a href="http://peppol.eu/downloads/?rel=tab404">Download from the PEPPOL site</a></li>
+      <li><a href="/files/validation/Release_pkg_spring2017.zip">Download from this site (updated)</a></li>
+    </ul>
+
     <h3>2017-05-15 - PEPPOL Practical update</h3>
     
     <p>
@@ -43,11 +55,6 @@
     <p>
       The BIS2 document validation with OpenPEPPOL validation artefacts 3.4.0 was released.
     </p>
-    
-    <ul>
-      <li><a href="http://peppol.eu/downloads/?rel=tab404">Download from the PEPPOL site</a></li>
-      <li><a href="/files/validation/Release_pkg_spring2017.zip">Download from this site</a></li>
-    </ul>
     
     <h3>2017-05-08/09 - OpenPEPPOL F2F meeting in Vienna</h3>
     
