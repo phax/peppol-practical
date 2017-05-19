@@ -80,9 +80,9 @@ public class WSDVS implements WSDVSPort
   @Nonnull
   private static ErrorLevelType _convert (@Nonnull final IErrorLevel aEL)
   {
-    if (aEL.isMoreOrEqualSevereThan (EErrorLevel.ERROR))
+    if (aEL.isGE (EErrorLevel.ERROR))
       return ErrorLevelType.ERROR;
-    if (aEL.isMoreOrEqualSevereThan (EErrorLevel.WARN))
+    if (aEL.isGE (EErrorLevel.WARN))
       return ErrorLevelType.WARN;
     return ErrorLevelType.SUCCESS;
   }
@@ -156,7 +156,7 @@ public class WSDVS implements WSDVSPort
 
         for (final IError aError : aVR.getErrorList ())
         {
-          if (aError.getErrorLevel ().isMoreSevereThan (aMostSevere))
+          if (aError.getErrorLevel ().isGE (aMostSevere))
             aMostSevere = aError.getErrorLevel ();
 
           final ItemType aItem = new ItemType ();

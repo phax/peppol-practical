@@ -176,13 +176,13 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
               for (final IError aError : aItemErrors)
               {
                 IHCNode aErrorLevel;
-                if (aError.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.ERROR))
+                if (aError.getErrorLevel ().isGE (EErrorLevel.ERROR))
                 {
                   nErrors++;
                   aErrorLevel = new BootstrapLabel (EBootstrapLabelType.DANGER).addChild ("Error");
                 }
                 else
-                  if (aError.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN))
+                  if (aError.getErrorLevel ().isGE (EErrorLevel.WARN))
                   {
                     if (!bShowWarnings)
                       continue;

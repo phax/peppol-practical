@@ -81,10 +81,10 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
       });
       final String sMsg = aCounterUpdated.intValue () +
                           " pages were reloaded." +
-                          (aCounterNoNeed.isGreater0 () ? " On " +
-                                                          aCounterNoNeed.intValue () +
-                                                          " pages no action was necessary because they are set to reload every time."
-                                                        : "");
+                          (aCounterNoNeed.isGT0 () ? " On " +
+                                                     aCounterNoNeed.intValue () +
+                                                     " pages no action was necessary because they are set to reload every time."
+                                                   : "");
       s_aLogger.info (sMsg);
       AuditHelper.onAuditExecuteSuccess ("page-reload",
                                          aCounterUpdated.getAsInteger (),
