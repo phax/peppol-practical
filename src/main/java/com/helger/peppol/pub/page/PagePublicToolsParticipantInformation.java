@@ -195,7 +195,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
           aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
                                           .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ()))
-                                          .addChild (" (determined by reverse DNS lookup - this is potentially not the URL you registered your SMP for!)"));
+                                          .addChild (" (determined by reverse name lookup - this is potentially not the URL you registered your SMP for!)"));
 
           final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPHostURI);
           final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();

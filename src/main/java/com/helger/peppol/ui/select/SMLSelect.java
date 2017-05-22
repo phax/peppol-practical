@@ -35,7 +35,7 @@ public class SMLSelect extends HCExtSelect
   {
     super (aRF);
     if (bAddAutoDetect)
-      addOption (FIELD_AUTO_SELECT, "Autodetect SML");
+      addOption (FIELD_AUTO_SELECT, "Auto-detect SML");
     for (final ESML eSML : ESML.values ())
       if (eSML.isClientCertificateRequired ())
         addOption (eSML.getID (), "[" + eSML.getDisplayName () + "] " + eSML.getManagementServiceURL ());

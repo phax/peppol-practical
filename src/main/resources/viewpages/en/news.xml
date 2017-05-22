@@ -31,6 +31,14 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
+  <!--  
+    <h3>2017-05-22 - Participant information tool improved</h3>
+    
+    <p>
+      The participant information tool now has an "Auto-detect SML" feature and also
+      tries to print a few information even if a request fails. 
+    </p>
+-->
     <h3>2017-05-19 - TICC Codelist Team (TCT) founded</h3>
     
     <p>
