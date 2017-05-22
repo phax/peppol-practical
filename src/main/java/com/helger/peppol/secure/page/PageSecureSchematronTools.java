@@ -114,16 +114,20 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
             IHCNode aTabContent;
             try
             {
+              // Read Schematron
               final PSSchema aSchema = new PSReader (aArtefact.getRuleResource (), null, null).readSchema ();
               final IPSQueryBinding aQueryBinding = PSQueryBindingRegistry.getQueryBindingOfNameOrThrow (aSchema.getQueryBinding ());
               final PSPreprocessor aPreprocessor = PSPreprocessor.createPreprocessorWithoutInformationLoss (aQueryBinding);
+              // Pre-process
               final PSSchema aPreprocessedSchema = aPreprocessor.getAsPreprocessedSchema (aSchema);
               if (aPreprocessedSchema == null)
                 throw new SchematronPreprocessException ("Failed to preprocess schema " +
                                                          aSchema +
                                                          " with query binding " +
                                                          aQueryBinding);
+              // Convert to XML string
               final String sXML = MicroWriter.getNodeAsString (aPreprocessedSchema.getAsMicroElement (), XWS);
+              // Highlight
               final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (EPrismPlugin.LINE_NUMBERS)
                                                                             .addChild (sXML);
 
