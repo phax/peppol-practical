@@ -24,9 +24,18 @@ import com.helger.photon.uicore.html.select.HCExtSelect;
 
 public class SMLSelect extends HCExtSelect
 {
+  public static final String FIELD_AUTO_SELECT = "auto";
+
   public SMLSelect (@Nonnull final RequestField aRF)
   {
+    this (aRF, false);
+  }
+
+  public SMLSelect (@Nonnull final RequestField aRF, final boolean bAddAutoDetect)
+  {
     super (aRF);
+    if (bAddAutoDetect)
+      addOption (FIELD_AUTO_SELECT, "Autodetect SML");
     for (final ESML eSML : ESML.values ())
       if (eSML.isClientCertificateRequired ())
         addOption (eSML.getID (), "[" + eSML.getDisplayName () + "] " + eSML.getManagementServiceURL ());

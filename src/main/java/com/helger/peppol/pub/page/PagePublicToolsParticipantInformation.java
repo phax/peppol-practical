@@ -17,6 +17,7 @@
 package com.helger.peppol.pub.page;
 
 import java.net.InetAddress;
+import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
@@ -94,7 +95,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_ID_VALUE = "value";
   public static final String FIELD_SML = "sml";
 
-  public static final ISMLInfo DEFAULT_SML = ESML.DIGIT_PRODUCTION;
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
@@ -118,8 +118,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       // Validate fields
       sParticipantIDScheme = aWPEC.getAttributeAsString (FIELD_ID_SCHEME);
       sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_ID_VALUE);
-      final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
-      final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
+      final String sSMLID = aWPEC.getAttributeAsString (FIELD_SML);
+      ISMLInfo aSML = ESML.getFromIDOrNull (sSMLID);
+      final boolean bSMLAutoDetect = SMLSelect.FIELD_AUTO_SELECT.equals (sSMLID);
 
       // Legacy URL params?
       if (aWPEC.containsAttribute ("idscheme") && aWPEC.containsAttribute ("idvalue"))
@@ -142,31 +143,61 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aFormErrors.addFieldError (FIELD_ID_VALUE,
                                      "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
 
-      if (aSML == null)
+      if (aSML == null && !bSMLAutoDetect)
         aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
       if (aFormErrors.isEmpty ())
       {
+        // Try to print the basic information before an error occurs
         final IParticipantIdentifier aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme,
                                                                                        sParticipantIDValue);
-        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aParticipantID, aSML);
+        aNodeList.addChild (new HCDiv ().addChild ("Querying the following SMP for ")
+                                        .addChild (new HCCode ().addChild (aParticipantID.getURIEncoded ()))
+                                        .addChild (":"));
+
+        URI aSMPHostURI = null;
+        if (bSMLAutoDetect)
+        {
+          for (final ESML eSML : ESML.values ())
+          {
+            aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, eSML);
+            aSML = eSML;
+            try
+            {
+              InetAddress.getByName (aSMPHostURI.getHost ());
+              // Found it
+              break;
+            }
+            catch (final UnknownHostException ex)
+            {
+              // continue
+            }
+          }
+        }
+        else
+          aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSML);
+
+        aNodeList.addChild (new HCDiv ().addChild ("SML used: ")
+                                        .addChild (new HCCode ().addChild (aSML.getDisplayName () +
+                                                                           " / " +
+                                                                           aSML.getDNSZone ())));
+
         try
         {
-          // URL always with a trailing slash
-          final URL aSMPHost = new URL (aSMPClient.getSMPHostURI ());
-          final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
-          final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
-          aNodeList.addChild (new HCDiv ().addChild ("Querying the following SMP for ")
-                                          .addChild (new HCCode ().addChild (aParticipantID.getURIEncoded ()))
-                                          .addChild (":"));
+          final URL aSMPHost = aSMPHostURI.toURL ();
           aNodeList.addChild (new HCDiv ().addChild ("PEPPOL name: ")
                                           .addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
-          aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
-                                          .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ()))
-                                          .addChild (" (determined by reverse DNS lookup - this is potentially not the URL you registered your SMP for!)"));
+
+          final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
           aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
                                           .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
 
+          final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
+          aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
+                                          .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ()))
+                                          .addChild (" (determined by reverse DNS lookup - this is potentially not the URL you registered your SMP for!)"));
+
+          final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPHostURI);
           final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();
           {
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
@@ -360,7 +391,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                         aParticipantID.getURIEncoded () +
                                                                                         " is not registered to the PEPPOL network."))
                                                       .addChild (new HCDiv ().addChild ("Technical details: unknown host " +
-                                                                                        ex.getMessage ())));
+                                                                                        ex.getMessage ()))
+                                                      .addChild (new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
@@ -411,7 +443,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                                                 .setPlaceholder ("Identifier value"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
-                                                   .setCtrl (new SMLSelect (new RequestField (FIELD_SML, DEFAULT_SML)))
+                                                   .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
+                                                                                              SMLSelect.FIELD_AUTO_SELECT),
+                                                                            true))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
