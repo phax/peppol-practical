@@ -296,6 +296,14 @@
       <td>Legacy PEPPOL transport protocol, based on the Webservice stack. Was superseded by <em>AS2</em>.</td>
     </tr>
     <tr>
+      <td>TCT</td>
+      <td><em>TICC</em> Codelist Team</td>
+      <td>
+        Special team that takes care of the "PEPPOL Policy for the use of identifiers" as well as the codelists
+        required for document exchange.
+      </td>
+    </tr>
+    <tr>
       <td>TIA</td>
       <td>Transport Infrastructure Agreement</td>
       <td>The contract between the PEPPOL user and the PEPPOL Authority</td>

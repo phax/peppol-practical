@@ -31,7 +31,16 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
-    <h3>2017-05-17 - Spring release Update</h3>
+    <h3>2017-05-19 - TICC Codelist Team (TCT) founded</h3>
+    
+    <p>
+      A new PEPPOL TICC team was founded to take care of the "PEPPOL Policy for the use of identifiers"
+      as well the basic codelists for transmission (identifier issuing agencies, document type, processes
+      and transport protocols).
+      The new team is lead by me and if you want to actively participate, please drop me a note. 
+    </p>
+
+   <h3>2017-05-17 - Spring release Update</h3>
     
     <p>
       Because some changes from RC1 to final were missing, the artefacts were re-released.
