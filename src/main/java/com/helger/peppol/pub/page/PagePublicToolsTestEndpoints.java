@@ -179,7 +179,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                                                        aSelectedObject.getLastModificationDateTime (),
                                                                                        aSelectedObject.getLastModificationUserID ())));
     }
-    if (aSelectedObject.getLastModificationDateTime () != null)
+    if (aSelectedObject.getDeletionDateTime () != null)
     {
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Deletion")
                                                    .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
@@ -202,6 +202,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                            " (" +
                                                            aSelectedObject.getTransportProfile ().getID () +
                                                            ")"));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SML")
+                                                 .setCtrl (aSelectedObject.getSML ().getDisplayName ()));
   }
 
   @Override
