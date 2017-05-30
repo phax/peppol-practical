@@ -128,6 +128,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         }
         catch (final SAXParseException ex)
         {
+          // Already captured in ErrorList
           if (false)
             aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
                                                                                            aVES.getValidationArtefactKey ()),
@@ -136,6 +137,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         }
         catch (final SAXException ex)
         {
+          // Already captured in ErrorList
           if (false)
             aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
                                                                                            aVES.getValidationArtefactKey ()),
@@ -145,9 +147,12 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                                                                                        .build ())));
         }
         if (aXMLErrors.containsAtLeastOneFailure ())
+        {
+          // Add all XML parsing errors
           aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
                                                                                          aVES.getValidationArtefactKey ()),
                                                            aXMLErrors));
+        }
 
         // Show results per layer
         int nWarnings = 0;
@@ -222,27 +227,34 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
         if (nErrors == 0)
         {
           if (nWarnings == 0)
+          {
             aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Congratulations - the file '" +
                                                                      sFileName +
                                                                      "' is valid. No warnings and no errors."));
+          }
           else
+          {
             aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Congratulations - the file '" +
                                                                      sFileName +
                                                                      "' is valid but it contains " +
                                                                      nWarnings +
                                                                      (nWarnings == 1 ? " warning" : " warnings") +
                                                                      "."));
+          }
         }
         else
         {
           if (nWarnings == 0)
+          {
             aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
                                                                    sFileName +
                                                                    "' is invalid. It contains " +
                                                                    nErrors +
                                                                    (nErrors == 1 ? " error" : " errors") +
                                                                    "."));
+          }
           else
+          {
             aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
                                                                    sFileName +
                                                                    "' is invalid. It contains " +
@@ -252,6 +264,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                                                                    nWarnings +
                                                                    (nWarnings == 1 ? " warning" : " warnings") +
                                                                    "."));
+          }
         }
         aNodeList.addChild (aDetails);
 

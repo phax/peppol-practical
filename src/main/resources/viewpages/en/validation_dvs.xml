@@ -93,7 +93,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis2:t76:3.3.0</code> - OpenPEPPOL Order Response (3.3.0)</li>
 <li><code>eu.peppol.bis2:t76:3.4.0</code> - OpenPEPPOL Order Response (3.4.0)</li>
 <li><code>eu.peppol.bis2:t77:3.4.0</code> - OpenPEPPOL Punch Out (3.4.0)</li>
-<li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing 1.1</li>
+<li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1</li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2</li>
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2</li>
           </ul>
