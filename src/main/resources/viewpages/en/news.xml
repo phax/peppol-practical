@@ -31,21 +31,40 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
-  <!--  
+  
+    <h3>2017-06-01 - PP update</h3>
+    
+    <p>
+      Todays PEPPOL practical update is mainly for improved Simplerinvoicing validation.
+      The version 1.1 was restored and 1.2 validation was fixed.
+    </p>
+
+    <h3>2017-05-31 - CIPA SMP 3.0 announcement</h3>
+    
+    <p>
+      As announced today the CIPA SMP 3.0 which will be released soon
+      will only comply to the OASIS SMP specification but <strong>NOT</strong>
+      to the PEPPOL SMP specification.
+      So from a PEPPOL perspective there's currently no need to plan an update.
+      But that may of course trigger a quicker transition of PEPPOL from the
+      PEPPOL SMP specification to the OASIS SMP specification... another TICC todo. 
+    </p>
+
     <h3>2017-05-22 - Participant information tool improved</h3>
     
     <p>
       The participant information tool now has an "Auto-detect SML" feature and also
       tries to print a few information even if a request fails. 
     </p>
--->
+
     <h3>2017-05-19 - TICC Codelist Team (TCT) founded</h3>
     
     <p>
       A new PEPPOL TICC team was founded to take care of the "PEPPOL Policy for the use of identifiers"
       as well the basic codelists for transmission (identifier issuing agencies, document type, processes
       and transport protocols).
-      The new team is lead by me and if you want to actively participate, please drop me a note. 
+      The new team is lead by me and if you want to actively participate, please drop me a note.
+      The initial telephone conference is planned for June 8<sup>th</sup> or 9<sup>th</sup>.
     </p>
 
    <h3>2017-05-17 - Spring release Update</h3>
