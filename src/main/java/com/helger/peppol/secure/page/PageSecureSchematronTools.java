@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
+import com.helger.bdve.EValidationType;
 import com.helger.bdve.artefact.IValidationArtefact;
 import com.helger.bdve.execute.IValidationExecutor;
 import com.helger.bdve.executorset.IValidationExecutorSet;
@@ -108,7 +109,8 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
         aNodeList.addChild (new BootstrapInfoBox ().addChild ("Showing details of " + aVESID.getAsSingleID ()));
         final BootstrapTabBox aTabBox = new BootstrapTabBox ();
         for (final IValidationExecutor aVE : aVES.getAllExecutors ())
-          if (aVE.getValidationType ().isSchematronBased ())
+          if (aVE.getValidationType () == EValidationType.SCHEMATRON_PURE ||
+              aVE.getValidationType () == EValidationType.SCHEMATRON_SCH)
           {
             final IValidationArtefact aArtefact = aVE.getValidationArtefact ();
             IHCNode aTabContent;
