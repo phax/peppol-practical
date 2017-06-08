@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.servlet;
 
+import java.security.Security;
+
 import javax.annotation.Nonnull;
 import javax.servlet.ServletContext;
 
@@ -81,14 +83,19 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
     return ret;
   }
 
+  public static void setDNSCacheTime (final int nSeconds)
+  {
+    final String sValue = Integer.toString (nSeconds);
+    Security.setProperty ("networkaddress.cache.ttl", sValue);
+    Security.setProperty ("networkaddress.cache.negative.ttl", sValue);
+    SystemProperties.setPropertyValue ("disableWSAddressCaching", nSeconds == 0);
+  }
+
   @Override
   protected void initGlobals ()
   {
-    // Internal stuff:
-    SystemProperties.setPropertyValue ("networkaddress.cache.ttl", 0);
-    SystemProperties.setPropertyValue ("networkaddress.cache.negative.ttl", 0);
-    SystemProperties.setPropertyValue ("sun.net.inetaddr.ttl", 0);
-    SystemProperties.setPropertyValue ("sun.net.inetaddr.negative.ttl", 0);
+    // Disable DNS caching
+    setDNSCacheTime (0);
 
     // JUL to SLF4J
     SLF4JBridgeHandler.removeHandlersForRootLogger ();
