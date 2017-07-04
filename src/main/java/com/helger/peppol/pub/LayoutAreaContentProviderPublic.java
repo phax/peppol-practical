@@ -143,23 +143,19 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       // aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
 
       final BootstrapNav aNav = new BootstrapNav ();
-      aNav.addItem (new HCSpan ().addClass (CBootstrapCSS.NAVBAR_TEXT)
-                                 .addChild ("Logged in as ")
+      aNav.addText (new HCSpan ().addChild ("Logged in as ")
                                  .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser,
                                                                                                          aDisplayLocale))));
       if (SecurityHelper.hasUserRole (aUser.getID (), CPPApp.ROLE_CONFIG_ID))
       {
-        final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-        aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH))
+        aNav.addButton (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH))
                                               .addChild ("Administration"));
-        aNav.addItem (aForm);
       }
+
       {
-        final HCForm aForm = new HCForm ().addClass (CBootstrapCSS.NAVBAR_FORM);
-        aForm.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (aRequestScope,
+        aNav.addButton (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (aRequestScope,
                                                                                          LogoutServlet.SERVLET_DEFAULT_PATH))
                                               .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
-        aNav.addItem (aForm);
       }
       aNavbar.addNav (EBootstrapNavbarPosition.COLLAPSIBLE_RIGHT, aNav);
     }
