@@ -72,6 +72,7 @@ import com.helger.photon.security.usergroup.IUserGroup;
 import com.helger.photon.security.util.SecurityHelper;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
+import com.helger.photon.uicore.js.JSJQueryHelper;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTablesLengthMenu;
 import com.helger.photon.uictrls.datatables.EDataTablesFilterType;
@@ -163,7 +164,7 @@ public final class AppCommonUI
                                                                             JQuery.idRef (sIDUserName).val ())
                                                                       .add (CLogin.REQUEST_ATTR_PASSWORD,
                                                                             JQuery.idRef (sIDPassword).val ()))
-                                            .success (aJSSuccess)
+                                            .success (JSJQueryHelper.jqueryAjaxSuccessHandler (aJSSuccess, null))
                                             .build ());
       aOnClick._return (false);
       aToolbar.addSubmitButton (EPhotonCoreText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale),
