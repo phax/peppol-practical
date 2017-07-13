@@ -108,11 +108,11 @@ public final class AppCommonUI
                                      AjaxExecutorDataTablesI18N.LANGUAGE_ID)
                  .addPlugin (new DataTablesPluginSearchHighlight ());
     });
+    // By default allow markdown in system message
+    BootstrapSystemMessage.setDefaultUseMarkdown (true);
 
     // Register comment handlers
     CommentThreadManager.getInstance ().registerObjectType (CPPApp.OT_PAGE);
-
-    BootstrapSystemMessage.setDefaultUseMarkdown (true);
   }
 
   @Nonnull
