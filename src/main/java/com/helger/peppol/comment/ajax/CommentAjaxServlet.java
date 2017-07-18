@@ -35,14 +35,12 @@ public class CommentAjaxServlet extends AbstractAjaxServlet
   public static final String SERVLET_DEFAULT_NAME = "comment";
   public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
 
-  private static final boolean s_bIsRegistered = ServletStatusManager.isServletRegistered (CommentAjaxServlet.class);
-
   public CommentAjaxServlet ()
   {}
 
   public static boolean isServletRegisteredInServletContext ()
   {
-    return s_bIsRegistered;
+    return ServletStatusManager.getInstance ().isServletRegistered (CommentAjaxServlet.class);
   }
 
   @Override
