@@ -31,6 +31,17 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
+    
+    <h3>2017-07-21 - phoss SMP 5.0.3</h3>
+    
+    <p>
+      phoss SMP 5.0.3 was released. 
+      This is a maintenance release with some bug fixes.
+      <ul>
+        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.3">Download phoss SMP 5.0.3</a></li>
+        <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
+      </ul>
+    </p>
   
     <h3>2017-06-01 - PP update</h3>
     
