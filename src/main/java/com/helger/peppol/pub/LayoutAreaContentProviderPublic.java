@@ -83,7 +83,6 @@ import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.layout.CLayout;
 import com.helger.photon.core.app.layout.ILayoutAreaContentProvider;
-import com.helger.photon.core.app.redirect.ForcedRedirectManager;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.photon.core.servlet.LogoutServlet;
 import com.helger.photon.core.url.LinkHelper;
@@ -93,6 +92,7 @@ import com.helger.photon.security.util.SecurityHelper;
 import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
 import com.helger.photon.uicore.page.IWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.xservlet.forcedredirect.ForcedRedirectManager;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 /**
