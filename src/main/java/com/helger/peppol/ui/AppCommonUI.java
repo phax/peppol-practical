@@ -25,11 +25,11 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.css.property.CCSSProperties;
-import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;

@@ -28,6 +28,7 @@ import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.photon.basic.app.CApplicationID;
 import com.helger.photon.basic.app.menu.ApplicationMenuTree;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
@@ -35,7 +36,6 @@ import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap3.button.BootstrapButton;
 import com.helger.photon.bootstrap3.pages.AbstractBootstrapWebPage;
-import com.helger.photon.core.app.CApplication;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.external.IWebPageResourceContent;
@@ -56,7 +56,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
   {
     if (ACTION_EXPIRE_PAGE_CACHE.equals (sAction))
     {
-      final IMenuTree aPublicMenuTree = ApplicationMenuTree.getInstanceOfScope (CApplication.APP_ID_PUBLIC)
+      final IMenuTree aPublicMenuTree = ApplicationMenuTree.getInstanceOfScope (CApplicationID.APP_ID_PUBLIC)
                                                            .getInstanceTree ();
 
       // Bulk modify
@@ -104,9 +104,9 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
     aNodeList.addChild (_handleAction (aWPEC.getAction ()));
 
     aNodeList.addChild (new HCH2 ().addChild ("Cache handling"));
-    aNodeList.addChild (new HCDiv ().addChild (new BootstrapButton ().setOnClick (aWPEC.getSelfHref ().add (
-                                                                                                            CPageParam.PARAM_ACTION,
-                                                                                                            ACTION_EXPIRE_PAGE_CACHE))
+    aNodeList.addChild (new HCDiv ().addChild (new BootstrapButton ().setOnClick (aWPEC.getSelfHref ()
+                                                                                       .add (CPageParam.PARAM_ACTION,
+                                                                                             ACTION_EXPIRE_PAGE_CACHE))
                                                                      .addChild ("Expire static page cache")));
   }
 }

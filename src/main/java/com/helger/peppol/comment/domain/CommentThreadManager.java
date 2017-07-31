@@ -25,11 +25,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.ext.ICommonsSet;
-import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -38,6 +37,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.ObjectType;
 import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.scope.singleton.AbstractGlobalSingleton;
 
 /**
  * Main manager class for comments. Manages the

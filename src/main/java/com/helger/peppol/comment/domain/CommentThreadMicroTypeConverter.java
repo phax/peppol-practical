@@ -29,32 +29,30 @@ import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
 @Immutable
-public final class CommentThreadMicroTypeConverter implements IMicroTypeConverter
+public final class CommentThreadMicroTypeConverter implements IMicroTypeConverter <CommentThread>
 {
   private static final String ELEMENT_COMMENT = "comment";
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final CommentThread aValue,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final ICommentThread aCommentThread = (ICommentThread) aObject;
-
     final IMicroElement eCommentThread = new MicroElement (sNamespaceURI, sTagName);
 
-    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML<> (sNamespaceURI,
-                                                                                        ELEMENT_COMMENT,
-                                                                                        Comment.class);
-    eCommentThread.appendChild (TreeXMLConverter.getTreeWithStringIDAsXML (aCommentThread.getTree (), aXMLConverter));
+    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <> (sNamespaceURI,
+                                                                                         ELEMENT_COMMENT,
+                                                                                         Comment.class);
+    eCommentThread.appendChild (TreeXMLConverter.getTreeWithStringIDAsXML (aValue.getTree (), aXMLConverter));
     return eCommentThread;
   }
 
   @Nonnull
   public CommentThread convertToNative (@Nonnull final IMicroElement eCommentThread)
   {
-    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML<> (eCommentThread.getNamespaceURI (),
-                                                                                        ELEMENT_COMMENT,
-                                                                                        Comment.class);
+    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <> (eCommentThread.getNamespaceURI (),
+                                                                                         ELEMENT_COMMENT,
+                                                                                         Comment.class);
     final DefaultTreeWithGlobalUniqueID <String, IComment> aTree = TreeXMLConverter.getXMLAsTreeWithUniqueStringID (eCommentThread.getFirstChildElement (),
                                                                                                                     aXMLConverter);
 

@@ -23,12 +23,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.exception.InitializationException;
-import com.helger.commons.scope.IScope;
-import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.pub.testendpoint.TestEndpointManager;
 import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.scope.IScope;
+import com.helger.scope.singleton.AbstractGlobalSingleton;
 
 /**
  * Central manager for all sub managers

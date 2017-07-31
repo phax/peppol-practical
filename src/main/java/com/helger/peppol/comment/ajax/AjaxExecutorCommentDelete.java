@@ -64,10 +64,10 @@ public final class AjaxExecutorCommentDelete extends AbstractAjaxExecutor
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
-    final String sObjectType = aRequestScope.getAttributeAsString (PARAM_OBJECT_TYPE);
-    final String sObjectID = aRequestScope.getAttributeAsString (PARAM_OBJECT_ID);
-    final String sCommentThreadID = aRequestScope.getAttributeAsString (PARAM_COMMENT_THREAD_ID);
-    final String sCommentID = aRequestScope.getAttributeAsString (PARAM_COMMENT_ID);
+    final String sObjectType = aRequestScope.params ().getAsString (PARAM_OBJECT_TYPE);
+    final String sObjectID = aRequestScope.params ().getAsString (PARAM_OBJECT_ID);
+    final String sCommentThreadID = aRequestScope.params ().getAsString (PARAM_COMMENT_THREAD_ID);
+    final String sCommentID = aRequestScope.params ().getAsString (PARAM_COMMENT_ID);
 
     if (StringHelper.hasText (sObjectType) &&
         StringHelper.hasText (sObjectID) &&

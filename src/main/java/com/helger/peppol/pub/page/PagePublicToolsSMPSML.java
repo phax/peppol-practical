@@ -220,7 +220,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
-    final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
+    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
 
     if (aSML == null)
@@ -349,7 +349,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
-    final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
+    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
 
     if (aSML == null)
@@ -477,7 +477,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
     final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
-    final IFileItem aKeyStoreFile = aWPEC.getFileItem (FIELD_KEYSTORE);
+    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
 
     if (aSML == null)

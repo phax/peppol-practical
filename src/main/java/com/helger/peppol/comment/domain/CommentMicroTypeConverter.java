@@ -30,7 +30,7 @@ import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @Immutable
-public final class CommentMicroTypeConverter implements IMicroTypeConverter
+public final class CommentMicroTypeConverter implements IMicroTypeConverter <Comment>
 {
   private static final String ATTR_ID = "id";
   private static final String ATTR_CREATIONLDT = "creationldt";
@@ -44,24 +44,22 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_TITLE = "title";
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final Comment aValue,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final IComment aComment = (IComment) aObject;
-
     final IMicroElement eComment = new MicroElement (sNamespaceURI, sTagName);
-    eComment.setAttribute (ATTR_ID, aComment.getID ());
-    eComment.setAttributeWithConversion (ATTR_CREATIONLDT, aComment.getCreationDateTime ());
-    eComment.setAttributeWithConversion (ATTR_LASTMODLDT, aComment.getLastModificationDateTime ());
-    eComment.setAttribute (ATTR_HOST, aComment.getHost ());
-    eComment.setAttribute (ATTR_STATE, aComment.getState ().getID ());
-    eComment.setAttribute (ATTR_EDITCOUNT, aComment.getEditCount ());
-    eComment.setAttribute (ATTR_SPAMREPORTCOUNT, aComment.getSpamReportCount ());
-    eComment.setAttribute (ATTR_USERID, aComment.getUserID ());
-    eComment.setAttribute (ATTR_CREATORNAME, aComment.getCreatorName ());
-    eComment.setAttribute (ATTR_TITLE, aComment.getTitle ());
-    eComment.appendText (aComment.getText ());
+    eComment.setAttribute (ATTR_ID, aValue.getID ());
+    eComment.setAttributeWithConversion (ATTR_CREATIONLDT, aValue.getCreationDateTime ());
+    eComment.setAttributeWithConversion (ATTR_LASTMODLDT, aValue.getLastModificationDateTime ());
+    eComment.setAttribute (ATTR_HOST, aValue.getHost ());
+    eComment.setAttribute (ATTR_STATE, aValue.getState ().getID ());
+    eComment.setAttribute (ATTR_EDITCOUNT, aValue.getEditCount ());
+    eComment.setAttribute (ATTR_SPAMREPORTCOUNT, aValue.getSpamReportCount ());
+    eComment.setAttribute (ATTR_USERID, aValue.getUserID ());
+    eComment.setAttribute (ATTR_CREATORNAME, aValue.getCreatorName ());
+    eComment.setAttribute (ATTR_TITLE, aValue.getTitle ());
+    eComment.appendText (aValue.getText ());
     return eComment;
   }
 

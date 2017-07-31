@@ -67,11 +67,11 @@ public final class AjaxExecutorCommentCreateThread extends AbstractAjaxExecutor
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
-    final String sObjectType = aRequestScope.getAttributeAsString (PARAM_OBJECT_TYPE);
-    final String sObjectID = aRequestScope.getAttributeAsString (PARAM_OBJECT_ID);
-    String sAuthor = aRequestScope.getAttributeAsString (PARAM_AUTHOR);
-    final String sTitle = aRequestScope.getAttributeAsString (PARAM_TITLE);
-    final String sText = aRequestScope.getAttributeAsString (PARAM_TEXT);
+    final String sObjectType = aRequestScope.params ().getAsString (PARAM_OBJECT_TYPE);
+    final String sObjectID = aRequestScope.params ().getAsString (PARAM_OBJECT_ID);
+    String sAuthor = aRequestScope.params ().getAsString (PARAM_AUTHOR);
+    final String sTitle = aRequestScope.params ().getAsString (PARAM_TITLE);
+    final String sText = aRequestScope.params ().getAsString (PARAM_TEXT);
 
     // Get info on current user
     final IUser aCurrentUser = LoggedInUserManager.getInstance ().getCurrentUser ();

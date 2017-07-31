@@ -29,16 +29,16 @@ import java.util.TreeMap;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsOrderedSet;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
-import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.html.forms.EHCFormMethod;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCTextArea;
@@ -123,7 +123,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final boolean bSMLAutoDetect = SMLSelect.FIELD_AUTO_SELECT.equals (sSMLID);
 
       // Legacy URL params?
-      if (aWPEC.containsAttribute ("idscheme") && aWPEC.containsAttribute ("idvalue"))
+      if (aWPEC.params ().containsKey ("idscheme") && aWPEC.params ().containsKey ("idvalue"))
       {
         sParticipantIDScheme = DEFAULT_ID_SCHEME;
         sParticipantIDValue = aWPEC.getAttributeAsString ("idscheme") + ":" + aWPEC.getAttributeAsString ("idvalue");

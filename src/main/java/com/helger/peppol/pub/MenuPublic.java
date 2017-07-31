@@ -127,7 +127,8 @@ public final class MenuPublic
     {
       aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
       aMenuTree.createRootItem (new PagePublicNewsletterUnsubscribe (CMenuPublic.MENU_NEWSLETTER_UNSUBSCRIBE))
-               .setAttribute (CMenuPublic.FLAG_FOOTER_COL2, true);
+               .attrs ()
+               .putIn (CMenuPublic.FLAG_FOOTER_COL2, true);
     }
 
     // Contact form

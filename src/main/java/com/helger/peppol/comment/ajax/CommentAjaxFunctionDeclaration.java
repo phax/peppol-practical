@@ -20,8 +20,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.factory.IFactory;
-import com.helger.commons.filter.IFilter;
+import com.helger.commons.functional.IPredicate;
+import com.helger.commons.functional.ISupplier;
 import com.helger.photon.core.ajax.IAjaxExecutor;
 import com.helger.photon.core.ajax.decl.AbstractAjaxFunctionDeclaration;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
@@ -46,8 +46,8 @@ public class CommentAjaxFunctionDeclaration extends AbstractAjaxFunctionDeclarat
   }
 
   public CommentAjaxFunctionDeclaration (@Nonnull @Nonempty final String sFunctionName,
-                                         @Nonnull final IFactory <? extends IAjaxExecutor> aExecutorFactory,
-                                         @Nullable final IFilter <IRequestWebScopeWithoutResponse> aExecutionFilter)
+                                         @Nonnull final ISupplier <? extends IAjaxExecutor> aExecutorFactory,
+                                         @Nullable final IPredicate <IRequestWebScopeWithoutResponse> aExecutionFilter)
   {
     super (sFunctionName, aExecutorFactory, aExecutionFilter);
   }

@@ -22,7 +22,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.photon.core.ajax.AjaxInvoker;
 import com.helger.photon.core.ajax.IAjaxExecutor;

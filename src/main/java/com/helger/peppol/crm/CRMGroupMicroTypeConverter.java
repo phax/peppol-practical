@@ -23,17 +23,16 @@ import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-public class CRMGroupMicroTypeConverter extends AbstractObjectMicroTypeConverter
+public class CRMGroupMicroTypeConverter extends AbstractObjectMicroTypeConverter <CRMGroup>
 {
   private static final String ATTR_DISPLAY_NAME = "displayname";
   private static final String ATTR_SENDER_EMAIL_ADDRESS = "senderemailaddress";
 
   @Nullable
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final CRMGroup aValue,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final ICRMGroup aValue = (ICRMGroup) aObject;
     final MicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     setObjectFields (aValue, aElement);
     aElement.setAttribute (ATTR_DISPLAY_NAME, aValue.getDisplayName ());

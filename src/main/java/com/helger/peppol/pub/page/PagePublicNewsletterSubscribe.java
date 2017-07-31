@@ -23,9 +23,9 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.string.StringHelper;
@@ -82,8 +82,8 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
       final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
       final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
       final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
-      aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
-      final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet<> ();
+      aSelectedCRMGroupIDs = aWPEC.params ().getAsStringList (FIELD_GROUP);
+      final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
       ICRMSubscriber aSameEmailAddressSubscriber = null;
 
       if (StringHelper.hasNoText (sName))

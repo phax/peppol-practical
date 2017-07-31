@@ -29,10 +29,10 @@ import com.helger.bdve.executorset.ValidationExecutorSetRegistry;
 import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.name.IHasDisplayName;
 
 @Immutable

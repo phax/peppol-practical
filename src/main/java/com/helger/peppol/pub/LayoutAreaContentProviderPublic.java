@@ -21,8 +21,8 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
@@ -119,11 +119,11 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
   public LayoutAreaContentProviderPublic ()
   {
     ApplicationMenuTree.getTree ().iterateAllMenuObjects ( (aCurrentObject) -> {
-      if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER_COL1))
+      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1))
         m_aFooterObjectsCol1.add (aCurrentObject);
-      if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER_COL2))
+      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2))
         m_aFooterObjectsCol2.add (aCurrentObject);
-      if (aCurrentObject.containsAttribute (CMenuPublic.FLAG_FOOTER_COL3))
+      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
         m_aFooterObjectsCol3.add (aCurrentObject);
     });
     m_nFooterRowCount = MathHelper.getMaxInt (m_aFooterObjectsCol1.size (),
@@ -211,9 +211,9 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
       protected boolean isMenuItemValidToBeDisplayed (@Nonnull final IMenuObject aMenuObj)
       {
         // Don't show items that belong to the footer
-        if (aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER_COL1) ||
-            aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER_COL2) ||
-            aMenuObj.containsAttribute (CMenuPublic.FLAG_FOOTER_COL3))
+        if (aMenuObj.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1) ||
+            aMenuObj.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2) ||
+            aMenuObj.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
           return false;
 
         // Use default code
@@ -274,11 +274,11 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     aPageContainer.addChild (BootstrapSystemMessage.createDefault ());
 
     // Handle 404 case here (see error404.jsp)
-    if (VALUE_HTTP_ERROR.equals (aRequestScope.getAttributeAsString (PARAM_HTTP_ERROR)))
+    if (VALUE_HTTP_ERROR.equals (aRequestScope.params ().getAsString (PARAM_HTTP_ERROR)))
     {
-      final String sHttpStatusCode = aRequestScope.getAttributeAsString (PARAM_HTTP_STATUS_CODE);
-      final String sHttpStatusMessage = aRequestScope.getAttributeAsString (PARAM_HTTP_STATUS_MESSAGE);
-      final String sHttpRequestURI = aRequestScope.getAttributeAsString (PARAM_HTTP_REQUEST_URI);
+      final String sHttpStatusCode = aRequestScope.params ().getAsString (PARAM_HTTP_STATUS_CODE);
+      final String sHttpStatusMessage = aRequestScope.params ().getAsString (PARAM_HTTP_STATUS_MESSAGE);
+      final String sHttpRequestURI = aRequestScope.params ().getAsString (PARAM_HTTP_REQUEST_URI);
       aPageContainer.addChild (new BootstrapErrorBox ().addChild ("HTTP error " +
                                                                   sHttpStatusCode +
                                                                   " (" +
@@ -291,7 +291,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     else
     {
       // Add the forced redirect content here
-      if (aWPEC.containsAttribute (ForcedRedirectManager.REQUEST_PARAMETER_PRG_ACTIVE))
+      if (aWPEC.params ().containsKey (ForcedRedirectManager.REQUEST_PARAMETER_PRG_ACTIVE))
         aPageContainer.addChild (ForcedRedirectManager.getLastForcedRedirectContent (aDisplayPage.getID ()));
     }
 

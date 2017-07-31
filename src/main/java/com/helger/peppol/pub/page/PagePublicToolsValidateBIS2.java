@@ -97,9 +97,9 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
       // Validate fields
       final VESID aVESID = VESID.parseIDOrNull (aWPEC.getAttributeAsString (FIELD_VES));
       final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
-      final IFileItem aFileItem = aWPEC.getFileItem (FIELD_FILE);
+      final IFileItem aFileItem = aWPEC.params ().getAsFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
-      final boolean bShowWarnings = aWPEC.getCheckBoxAttr (FIELD_SHOW_WARNINGS, DEFAULT_SHOW_WARNINGS);
+      final boolean bShowWarnings = aWPEC.params ().isCheckBoxChecked (FIELD_SHOW_WARNINGS, DEFAULT_SHOW_WARNINGS);
 
       if (aVES == null)
         aFormErrors.addFieldError (FIELD_VES, "Please select a valid rule set.");

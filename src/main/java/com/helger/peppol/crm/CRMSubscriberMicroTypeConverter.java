@@ -20,8 +20,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.string.StringHelper;
 import com.helger.masterdata.person.ESalutation;
@@ -30,7 +30,7 @@ import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConverter
+public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConverter <CRMSubscriber>
 {
   private static final String ATTR_SALUTATION = "salutation";
   private static final String ATTR_NAME = "name";
@@ -38,11 +38,10 @@ public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConv
   private static final String ELEMENT_ASSIGNED_GROUP = "assignedgroup";
 
   @Nullable
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final CRMSubscriber aValue,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final ICRMSubscriber aValue = (ICRMSubscriber) aObject;
     final MicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     setObjectFields (aValue, aElement);
     aElement.setAttribute (ATTR_SALUTATION, aValue.getSalutationID ());
@@ -67,7 +66,7 @@ public class CRMSubscriberMicroTypeConverter extends AbstractObjectMicroTypeConv
     final String sName = aElement.getAttributeValue (ATTR_NAME);
     final String sEmailAddress = aElement.getAttributeValue (ATTR_EMAIL_ADDRESS);
 
-    final ICommonsSet <ICRMGroup> aGroups = new CommonsHashSet<> ();
+    final ICommonsSet <ICRMGroup> aGroups = new CommonsHashSet <> ();
     for (final IMicroElement eGroup : aElement.getAllChildElements (ELEMENT_ASSIGNED_GROUP))
     {
       final String sCRMGroupID = eGroup.getAttributeValue (ATTR_ID);

@@ -30,7 +30,7 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
 @Immutable
-public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTypeConverter
+public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTypeConverter <TestEndpoint>
 {
   private static final String ATTR_COMPANY_NAME = "companyname";
   private static final String ATTR_CONTACT_PERSON = "contactperson";
@@ -41,12 +41,10 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
   private static final String ATTR_SML = "sml";
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final TestEndpoint aValue,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final TestEndpoint aValue = (TestEndpoint) aObject;
-
     final IMicroElement eValue = new MicroElement (sNamespaceURI, sTagName);
     setObjectFields (aValue, eValue);
     eValue.setAttribute (ATTR_COMPANY_NAME, aValue.getCompanyName ());
@@ -55,7 +53,6 @@ public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTyp
     eValue.setAttribute (ATTR_PARTICIPANT_ID_VALUE, aValue.getParticipantIDValue ());
     eValue.setAttribute (ATTR_TRANSPORT_PROFILE, aValue.getTransportProfile ().getID ());
     eValue.setAttribute (ATTR_SML, aValue.getSML ().getID ());
-
     return eValue;
   }
 

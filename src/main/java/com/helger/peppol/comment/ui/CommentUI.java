@@ -25,11 +25,11 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.NonBlockingStack;
+import com.helger.commons.collection.NonBlockingStack;
+import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.css.property.CCSSProperties;
-import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.HCEdit;

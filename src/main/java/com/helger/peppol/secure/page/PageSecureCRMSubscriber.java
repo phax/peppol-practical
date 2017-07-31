@@ -26,9 +26,9 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.compare.ESortOrder;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.name.IHasDisplayName;
@@ -192,8 +192,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
     final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
     final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
-    final ICommonsList <String> aSelectedCRMGroupIDs = aWPEC.getAttributeAsList (FIELD_GROUP);
-    final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet<> ();
+    final ICommonsList <String> aSelectedCRMGroupIDs = aWPEC.params ().getAsStringList (FIELD_GROUP);
+    final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
 
     if (StringHelper.hasNoText (sName))
       aFormErrors.addFieldError (FIELD_NAME, "A name for the CRM subscriber must be provided!");
@@ -330,10 +330,9 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                new HCTextNode (" "),
                                createCopyLink (aWPEC, aCurObject),
                                new HCTextNode (" "));
-      aActionCell.addChild (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject)
-                                                                                           ? createDeleteLink (aWPEC,
-                                                                                                               aCurObject)
-                                                                                           : createEmptyAction ());
+      aActionCell.addChild (isActionAllowed (aWPEC,
+                                             EWebPageFormAction.DELETE,
+                                             aCurObject) ? createDeleteLink (aWPEC, aCurObject) : createEmptyAction ());
     }
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
