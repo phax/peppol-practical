@@ -19,11 +19,11 @@ package com.helger.peppol.crm;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
+import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-public class CRMGroupMicroTypeConverter extends AbstractObjectMicroTypeConverter <CRMGroup>
+public class CRMGroupMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <CRMGroup>
 {
   private static final String ATTR_DISPLAY_NAME = "displayname";
   private static final String ATTR_SENDER_EMAIL_ADDRESS = "senderemailaddress";

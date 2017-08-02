@@ -24,13 +24,13 @@ import com.helger.commons.annotation.ContainsSoftMigration;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.photon.security.object.AbstractObjectMicroTypeConverter;
+import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.photon.security.object.StubObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
 @Immutable
-public final class TestEndpointMicroTypeConverter extends AbstractObjectMicroTypeConverter <TestEndpoint>
+public final class TestEndpointMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <TestEndpoint>
 {
   private static final String ATTR_COMPANY_NAME = "companyname";
   private static final String ATTR_CONTACT_PERSON = "contactperson";

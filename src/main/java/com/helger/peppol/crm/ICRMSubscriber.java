@@ -27,7 +27,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.masterdata.person.ESalutation;
-import com.helger.photon.basic.object.IObject;
+import com.helger.photon.basic.object.IBusinessObject;
 
 /**
  * The read-only interface for a single CRM subscriber, that is subscribed to
@@ -35,7 +35,7 @@ import com.helger.photon.basic.object.IObject;
  *
  * @author Philip Helger
  */
-public interface ICRMSubscriber extends IObject, IHasDisplayText
+public interface ICRMSubscriber extends IBusinessObject, IHasDisplayText
 {
   /**
    * Create a unified, all lowercase email address for easy comparison

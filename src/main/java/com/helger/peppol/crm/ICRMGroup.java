@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.name.IHasDisplayName;
-import com.helger.photon.basic.object.IObject;
+import com.helger.photon.basic.object.IBusinessObject;
 
 /**
  * The read-only interface for a single CRM group.
  * 
  * @author Philip Helger
  */
-public interface ICRMGroup extends IObject, IHasDisplayName
+public interface ICRMGroup extends IBusinessObject, IHasDisplayName
 {
   /**
    * @return The default sender email address for this group.

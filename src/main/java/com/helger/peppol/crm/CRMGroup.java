@@ -23,10 +23,10 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
-import com.helger.photon.basic.object.AbstractObject;
+import com.helger.photon.basic.object.AbstractBusinessObject;
 import com.helger.photon.security.object.StubObject;
 
-public class CRMGroup extends AbstractObject implements ICRMGroup
+public class CRMGroup extends AbstractBusinessObject implements ICRMGroup
 {
   public static final ObjectType OT_CRM_GROUP = new ObjectType ("crm-group");
 

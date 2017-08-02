@@ -35,7 +35,7 @@ import com.helger.masterdata.person.ESalutation;
 import com.helger.photon.basic.app.dao.impl.AbstractMapBasedWALDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 import com.helger.photon.basic.audit.AuditHelper;
-import com.helger.photon.security.object.ObjectHelper;
+import com.helger.photon.security.object.BusinessObjectHelper;
 
 /**
  * Manager for {@link CRMSubscriber} instances.
@@ -97,7 +97,7 @@ public final class CRMSubscriberManager extends AbstractMapBasedWALDAO <ICRMSubs
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
-      ObjectHelper.setLastModificationNow (aCRMSubscriber);
+      BusinessObjectHelper.setLastModificationNow (aCRMSubscriber);
       internalUpdateItem (aCRMSubscriber);
     }
     finally
@@ -133,7 +133,7 @@ public final class CRMSubscriberManager extends AbstractMapBasedWALDAO <ICRMSubs
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
-      ObjectHelper.setLastModificationNow (aCRMSubscriber);
+      BusinessObjectHelper.setLastModificationNow (aCRMSubscriber);
       internalUpdateItem (aCRMSubscriber);
     }
     finally
@@ -209,7 +209,7 @@ public final class CRMSubscriberManager extends AbstractMapBasedWALDAO <ICRMSubs
     m_aRWLock.writeLock ().lock ();
     try
     {
-      if (ObjectHelper.setDeletionNow (aRealCRMSubscriber).isUnchanged ())
+      if (BusinessObjectHelper.setDeletionNow (aRealCRMSubscriber).isUnchanged ())
       {
         AuditHelper.onAuditDeleteFailure (CRMSubscriber.OT_CRM_SUBSCRIBER, "already-deleted", sCRMSubscriberID);
         return EChange.UNCHANGED;

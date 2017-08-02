@@ -35,7 +35,7 @@ import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 import com.helger.photon.basic.audit.AuditHelper;
-import com.helger.photon.security.object.ObjectHelper;
+import com.helger.photon.security.object.BusinessObjectHelper;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -150,7 +150,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
-      ObjectHelper.setLastModificationNow (aTestEndpoint);
+      BusinessObjectHelper.setLastModificationNow (aTestEndpoint);
       markAsChanged ();
     }
     finally
@@ -181,7 +181,7 @@ public final class TestEndpointManager extends AbstractSimpleDAO
     m_aRWLock.writeLock ().lock ();
     try
     {
-      if (ObjectHelper.setDeletionNow (aTestEndpoint).isUnchanged ())
+      if (BusinessObjectHelper.setDeletionNow (aTestEndpoint).isUnchanged ())
       {
         AuditHelper.onAuditDeleteFailure (TestEndpoint.OT, "already-deleted", aTestEndpoint.getID ());
         return EChange.UNCHANGED;

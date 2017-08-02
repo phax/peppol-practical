@@ -34,10 +34,10 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
 import com.helger.masterdata.person.ESalutation;
-import com.helger.photon.basic.object.AbstractObject;
+import com.helger.photon.basic.object.AbstractBusinessObject;
 import com.helger.photon.security.object.StubObject;
 
-public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
+public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscriber
 {
   public static final ObjectType OT_CRM_SUBSCRIBER = new ObjectType ("crm-subscriber");
 
@@ -158,7 +158,7 @@ public class CRMSubscriber extends AbstractObject implements ICRMSubscriber
   public EChange setAssignedGroups (@Nullable final Set <ICRMGroup> aAssignedGroups)
   {
     // Ensure same implementation type and non-null
-    final ICommonsSet <ICRMGroup> aRealAssignedGroups = new CommonsHashSet<> (aAssignedGroups);
+    final ICommonsSet <ICRMGroup> aRealAssignedGroups = new CommonsHashSet <> (aAssignedGroups);
     if (aRealAssignedGroups.equals (m_aAssignedGroups))
       return EChange.UNCHANGED;
     m_aAssignedGroups = aRealAssignedGroups;

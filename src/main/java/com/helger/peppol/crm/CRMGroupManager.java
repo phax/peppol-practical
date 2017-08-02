@@ -27,7 +27,7 @@ import com.helger.commons.state.EChange;
 import com.helger.photon.basic.app.dao.impl.AbstractMapBasedWALDAO;
 import com.helger.photon.basic.app.dao.impl.DAOException;
 import com.helger.photon.basic.audit.AuditHelper;
-import com.helger.photon.security.object.ObjectHelper;
+import com.helger.photon.security.object.BusinessObjectHelper;
 
 /**
  * Manager for {@link CRMGroup} instances.
@@ -78,7 +78,7 @@ public final class CRMGroupManager extends AbstractMapBasedWALDAO <ICRMGroup, CR
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
-      ObjectHelper.setLastModificationNow (aCRMGroup);
+      BusinessObjectHelper.setLastModificationNow (aCRMGroup);
       internalUpdateItem (aCRMGroup);
     }
     finally
