@@ -119,7 +119,7 @@ public final class CommentUI
         // Container for this thread
         final HCDiv aThreadContainer = new HCDiv ();
         aThreadContainer.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
-        final NonBlockingStack <HCDiv> aStack = new NonBlockingStack<> ();
+        final NonBlockingStack <HCDiv> aStack = new NonBlockingStack <> ();
         aStack.push (aThreadContainer);
 
         aCommentThread.iterateAllComments (new ICommentIterationCallback ()
@@ -214,11 +214,11 @@ public final class CommentUI
                   // Add the JS to show the input form
                   final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
                   final JSVar aJSData = aOnSuccess.param ("data");
-                  aOnSuccess.body ().add (JQuery.idRef (aCommentResponseContainer)
-                                                .empty ()
-                                                .append (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
-                  final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().cache (false)
-                                                                                   .url (CAjaxComment.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
+                  aOnSuccess.body ()
+                            .add (JQuery.idRef (aCommentResponseContainer)
+                                        .empty ()
+                                        .append (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
+                  final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().url (CAjaxComment.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
                                                                                    .data (new JSAssocArray ().add (AjaxExecutorCommentShowInput.PARAM_OBJECT_TYPE,
                                                                                                                    aObject.getObjectType ()
                                                                                                                           .getName ())
@@ -253,8 +253,7 @@ public final class CommentUI
                   final JSVar aJSData = aOnSuccess.param ("data");
                   aOnSuccess.body ().add (JQuery.idRef (sResultDivID)
                                                 .replaceWith (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
-                  final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().cache (false)
-                                                                                 .url (CAjaxComment.COMMENT_DELETE.getInvocationURL (aRequestScope))
+                  final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().url (CAjaxComment.COMMENT_DELETE.getInvocationURL (aRequestScope))
                                                                                  .data (new JSAssocArray ().add (AjaxExecutorCommentDelete.PARAM_OBJECT_TYPE,
                                                                                                                  aObject.getObjectType ()
                                                                                                                         .getName ())
@@ -295,9 +294,10 @@ public final class CommentUI
               aCommentPanel.getBody ().addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
 
               // Always put the text as the first part of the body
-              aCommentPanel.getBody ().addChildAt (0,
-                                                   new HCDiv ().addChildren (HCExtHelper.nl2brList (aComment.getText ()))
-                                                               .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
+              aCommentPanel.getBody ()
+                           .addChildAt (0,
+                                        new HCDiv ().addChildren (HCExtHelper.nl2brList (aComment.getText ()))
+                                                    .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
               // the dummy container for new comment form
               aCommentPanel.getBody ().addChild (aCommentResponseContainer);
 
@@ -414,8 +414,7 @@ public final class CommentUI
       if (bIsCreateNewThread)
       {
         // Create a new thread
-        aSaveAction = new JQueryAjaxBuilder ().cache (false)
-                                              .url (CAjaxComment.COMMENT_CREATE_THREAD.getInvocationURL (aRequestScope))
+        aSaveAction = new JQueryAjaxBuilder ().url (CAjaxComment.COMMENT_CREATE_THREAD.getInvocationURL (aRequestScope))
                                               .data (new JSAssocArray ().add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_TYPE,
                                                                               aObject.getObjectType ().getName ())
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_ID,
@@ -434,8 +433,7 @@ public final class CommentUI
       else
       {
         // Reply to a previous comment
-        aSaveAction = new JQueryAjaxBuilder ().cache (false)
-                                              .url (CAjaxComment.COMMENT_ADD.getInvocationURL (aRequestScope))
+        aSaveAction = new JQueryAjaxBuilder ().url (CAjaxComment.COMMENT_ADD.getInvocationURL (aRequestScope))
                                               .data (new JSAssocArray ().add (AjaxExecutorCommentAdd.PARAM_OBJECT_TYPE,
                                                                               aObject.getObjectType ().getName ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_OBJECT_ID,
