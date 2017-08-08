@@ -95,7 +95,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
       // Validate fields
-      final VESID aVESID = VESID.parseIDOrNull (aWPEC.getAttributeAsString (FIELD_VES));
+      final VESID aVESID = VESID.parseIDOrNull (aWPEC.params ().getAsString (FIELD_VES));
       final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
       final IFileItem aFileItem = aWPEC.params ().getAsFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();

@@ -58,7 +58,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
 
     if (aWPEC.hasAction (CPageParam.ACTION_SAVE))
     {
-      final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
+      final String sEmailAddress = aWPEC.params ().getAsString (FIELD_EMAIL_ADDRESS);
       ICRMSubscriber aCRMSubscriber = null;
 
       if (StringHelper.hasNoText (sEmailAddress))

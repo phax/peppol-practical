@@ -92,8 +92,8 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
 
-    final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
-    final String sSenderEmailAddress = aWPEC.getAttributeAsString (FIELD_SENDER_EMAIL_ADDRESS);
+    final String sName = aWPEC.params ().getAsString (FIELD_NAME);
+    final String sSenderEmailAddress = aWPEC.params ().getAsString (FIELD_SENDER_EMAIL_ADDRESS);
 
     if (StringHelper.hasNoText (sName))
       aFormErrors.addFieldError (FIELD_NAME, "A name for the CRM group must be provided!");

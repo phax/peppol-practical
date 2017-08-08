@@ -188,10 +188,10 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
 
-    final String sSalutationID = aWPEC.getAttributeAsString (FIELD_SALUTATION);
+    final String sSalutationID = aWPEC.params ().getAsString (FIELD_SALUTATION);
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
-    final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
-    final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
+    final String sName = aWPEC.params ().getAsString (FIELD_NAME);
+    final String sEmailAddress = aWPEC.params ().getAsString (FIELD_EMAIL_ADDRESS);
     final ICommonsList <String> aSelectedCRMGroupIDs = aWPEC.params ().getAsStringList (FIELD_GROUP);
     final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
 

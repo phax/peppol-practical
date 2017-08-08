@@ -76,12 +76,12 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     final UserManager aUserMgr = PhotonSecurityManager.getUserMgr ();
     final UserGroupManager aUserGroupMgr = PhotonSecurityManager.getUserGroupMgr ();
 
-    final String sFirstName = aWPEC.getAttributeAsString (FIELD_FIRSTNAME);
-    final String sLastName = aWPEC.getAttributeAsString (FIELD_LASTNAME);
-    final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL1);
-    final String sEmailAddressConfirm = aWPEC.getAttributeAsString (FIELD_EMAIL2);
-    final String sPlainTextPassword = aWPEC.getAttributeAsString (FIELD_PASSWORD);
-    final String sPlainTextPasswordConfirm = aWPEC.getAttributeAsString (FIELD_PASSWORD_CONFIRM);
+    final String sFirstName = aWPEC.params ().getAsString (FIELD_FIRSTNAME);
+    final String sLastName = aWPEC.params ().getAsString (FIELD_LASTNAME);
+    final String sEmailAddress = aWPEC.params ().getAsString (FIELD_EMAIL1);
+    final String sEmailAddressConfirm = aWPEC.params ().getAsString (FIELD_EMAIL2);
+    final String sPlainTextPassword = aWPEC.params ().getAsString (FIELD_PASSWORD);
+    final String sPlainTextPasswordConfirm = aWPEC.params ().getAsString (FIELD_PASSWORD_CONFIRM);
 
     if (StringHelper.hasNoText (sFirstName))
       aFormErrors.addFieldError (FIELD_FIRSTNAME, "A first name must be provded!!");

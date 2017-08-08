@@ -215,13 +215,13 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                   @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
+    final String sSML = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
-    final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
-    final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
-    final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
+    final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
+    final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
+    final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
-    final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
+    final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
 
     if (aSML == null)
       aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
@@ -344,13 +344,13 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
+    final String sSML = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
-    final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
-    final String sPhysicalAddress = aWPEC.getAttributeAsString (FIELD_PHYSICAL_ADDRESS);
-    final String sLogicalAddress = aWPEC.getAttributeAsString (FIELD_LOGICAL_ADDRESS);
+    final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
+    final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
+    final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
-    final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
+    final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
 
     if (aSML == null)
       aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
@@ -474,11 +474,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                   @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
+    final String sSML = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
-    final String sSMPID = aWPEC.getAttributeAsString (FIELD_SMP_ID);
+    final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
-    final String sKeyStorePassword = aWPEC.getAttributeAsString (FIELD_KEYSTORE_PW);
+    final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
 
     if (aSML == null)
       aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");

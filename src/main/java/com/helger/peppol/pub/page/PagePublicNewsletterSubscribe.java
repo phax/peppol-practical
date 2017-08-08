@@ -78,10 +78,10 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
 
     if (aWPEC.hasAction (CPageParam.ACTION_SAVE))
     {
-      final String sSalutationID = aWPEC.getAttributeAsString (FIELD_SALUTATION);
+      final String sSalutationID = aWPEC.params ().getAsString (FIELD_SALUTATION);
       final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
-      final String sName = aWPEC.getAttributeAsString (FIELD_NAME);
-      final String sEmailAddress = aWPEC.getAttributeAsString (FIELD_EMAIL_ADDRESS);
+      final String sName = aWPEC.params ().getAsString (FIELD_NAME);
+      final String sEmailAddress = aWPEC.params ().getAsString (FIELD_EMAIL_ADDRESS);
       aSelectedCRMGroupIDs = aWPEC.params ().getAsStringList (FIELD_GROUP);
       final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
       ICRMSubscriber aSameEmailAddressSubscriber = null;

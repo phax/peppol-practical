@@ -261,15 +261,15 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   {
     final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
 
-    final String sCompanyName = aWPEC.getAttributeAsString (FIELD_COMPANY_NAME);
-    final String sContactPerson = aWPEC.getAttributeAsString (FIELD_CONTACT_PERSON);
-    final String sParticipantIDIssuer = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_ISSUER);
+    final String sCompanyName = aWPEC.params ().getAsString (FIELD_COMPANY_NAME);
+    final String sContactPerson = aWPEC.params ().getAsString (FIELD_CONTACT_PERSON);
+    final String sParticipantIDIssuer = aWPEC.params ().getAsString (FIELD_PARTICIPANT_ID_ISSUER);
     final EPredefinedIdentifierIssuingAgency eAgency = AppHelper.getIdentifierIssuingAgencyOfID (sParticipantIDIssuer);
-    final String sParticipantIDValue = aWPEC.getAttributeAsString (FIELD_PARTICIPANT_ID_VALUE);
-    final String sTransportProfile = aWPEC.getAttributeAsString (FIELD_TRANSPORT_PROFILE);
+    final String sParticipantIDValue = aWPEC.params ().getAsString (FIELD_PARTICIPANT_ID_VALUE);
+    final String sTransportProfile = aWPEC.params ().getAsString (FIELD_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
     final String sTransportProfileName = AppHelper.getSMPTransportProfileShortName (eTransportProfile);
-    final String sSML = aWPEC.getAttributeAsString (FIELD_SML);
+    final String sSML = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
 
     if (StringHelper.hasNoText (sCompanyName))

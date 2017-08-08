@@ -96,7 +96,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
       aNodeList.addChild (aToolbar);
     }
 
-    final String sVESID = aWPEC.getAttributeAsString (FIELD_VESID);
+    final String sVESID = aWPEC.params ().getAsString (FIELD_VESID);
     final VESID aVESID = VESID.parseIDOrNull (sVESID);
     final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
 

@@ -105,8 +105,8 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CommentThreadManager aCommentThreadMgr = CommentThreadManager.getInstance ();
     boolean bShowList = true;
-    final String sSelectedObjectType = aWPEC.getAttributeAsString (PARAM_TYPE);
-    final String sSelectedOwningObjectID = aWPEC.getAttributeAsString (CPageParam.PARAM_OBJECT);
+    final String sSelectedObjectType = aWPEC.params ().getAsString (PARAM_TYPE);
+    final String sSelectedOwningObjectID = aWPEC.params ().getAsString (CPageParam.PARAM_OBJECT);
 
     if (aWPEC.hasAction (CPageParam.ACTION_VIEW) &&
         StringHelper.hasText (sSelectedObjectType) &&
