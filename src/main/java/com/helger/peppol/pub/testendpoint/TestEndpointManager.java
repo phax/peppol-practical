@@ -30,10 +30,10 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
+import com.helger.dao.DAOException;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
-import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
-import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.photon.basic.app.dao.AbstractPhotonSimpleDAO;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.security.object.BusinessObjectHelper;
 import com.helger.xml.microdom.IMicroDocument;
@@ -41,7 +41,7 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
-public final class TestEndpointManager extends AbstractSimpleDAO
+public final class TestEndpointManager extends AbstractPhotonSimpleDAO
 {
   private static final String ELEMENT_ROOT = "testendpoints";
   private static final String ELEMENT_ITEM = "testendpoint";

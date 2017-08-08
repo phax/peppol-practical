@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.type.ObjectType;
-import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.dao.DAOException;
 import com.helger.photon.basic.mock.PhotonBasicWebTestRule;
 
 /**

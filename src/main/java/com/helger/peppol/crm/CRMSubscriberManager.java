@@ -31,9 +31,9 @@ import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
+import com.helger.dao.DAOException;
 import com.helger.masterdata.person.ESalutation;
-import com.helger.photon.basic.app.dao.impl.AbstractMapBasedWALDAO;
-import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.photon.basic.app.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.security.object.BusinessObjectHelper;
 
@@ -44,7 +44,7 @@ import com.helger.photon.security.object.BusinessObjectHelper;
  * @see com.helger.peppol.app.mgr.PPMetaManager
  */
 @ThreadSafe
-public final class CRMSubscriberManager extends AbstractMapBasedWALDAO <ICRMSubscriber, CRMSubscriber>
+public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <ICRMSubscriber, CRMSubscriber>
 {
   public CRMSubscriberManager (@Nonnull @Nonempty final String sFilename) throws DAOException
   {

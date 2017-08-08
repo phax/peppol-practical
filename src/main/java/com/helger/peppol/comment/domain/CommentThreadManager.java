@@ -36,7 +36,7 @@ import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.ObjectType;
-import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.dao.DAOException;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
 
 /**
@@ -57,7 +57,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
                                                                                                                             "$commentRemove");
 
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <ObjectType, CommentThreadObjectTypeManager> m_aMap = new CommonsHashMap<> ();
+  private final ICommonsMap <ObjectType, CommentThreadObjectTypeManager> m_aMap = new CommonsHashMap <> ();
 
   @Deprecated
   @UsedViaReflection

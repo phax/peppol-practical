@@ -37,8 +37,8 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ObjectType;
-import com.helger.photon.basic.app.dao.impl.AbstractSimpleDAO;
-import com.helger.photon.basic.app.dao.impl.DAOException;
+import com.helger.dao.DAOException;
+import com.helger.photon.basic.app.dao.AbstractPhotonSimpleDAO;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.core.app.error.InternalErrorBuilder;
 import com.helger.xml.microdom.IMicroDocument;
@@ -52,7 +52,7 @@ import com.helger.xml.microdom.convert.MicroTypeConverter;
  * @author Philip Helger
  */
 @ThreadSafe
-public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
+public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDAO
 {
   private static final String ELEMENT_ROOT = "objects";
   private static final String ATTR_OBJECT_TYPE = "objecttype";
@@ -63,10 +63,10 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
   private final ObjectType m_aObjectType;
 
   // multi map from owning object to list <ICommentThread>
-  private final IMultiMapListBased <String, ICommentThread> m_aObjectToCommentThreads = new MultiHashMapArrayListBased<> ();
+  private final IMultiMapListBased <String, ICommentThread> m_aObjectToCommentThreads = new MultiHashMapArrayListBased <> ();
 
   // Status map from comment thread ID to comment thread
-  private final ICommonsMap <String, ICommentThread> m_aAllCommentThreads = new CommonsHashMap<> ();
+  private final ICommonsMap <String, ICommentThread> m_aAllCommentThreads = new CommonsHashMap <> ();
 
   public CommentThreadObjectTypeManager (@Nonnull final ObjectType aObjectType) throws DAOException
   {
@@ -216,7 +216,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
   @ReturnsMutableCopy
   public IMultiMapListBased <String, ICommentThread> getAllCommentThreads ()
   {
-    return m_aRWLock.readLocked ( () -> new MultiHashMapArrayListBased<> (m_aObjectToCommentThreads));
+    return m_aRWLock.readLocked ( () -> new MultiHashMapArrayListBased <> (m_aObjectToCommentThreads));
   }
 
   @Nonnull
@@ -238,7 +238,7 @@ public final class CommentThreadObjectTypeManager extends AbstractSimpleDAO
       }
     }
 
-    return new CommonsArrayList<> ();
+    return new CommonsArrayList <> ();
   }
 
   @Nullable

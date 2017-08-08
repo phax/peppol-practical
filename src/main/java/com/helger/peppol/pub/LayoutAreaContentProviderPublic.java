@@ -92,8 +92,8 @@ import com.helger.photon.security.util.SecurityHelper;
 import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
 import com.helger.photon.uicore.page.IWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.photon.xservlet.forcedredirect.ForcedRedirectManager;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.xservlet.forcedredirect.ForcedRedirectManager;
 
 /**
  * The viewport renderer (menu + content area)
@@ -292,7 +292,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
     {
       // Add the forced redirect content here
       if (aWPEC.params ().containsKey (ForcedRedirectManager.REQUEST_PARAMETER_PRG_ACTIVE))
-        aPageContainer.addChild (ForcedRedirectManager.getLastForcedRedirectContent (aDisplayPage.getID ()));
+        aPageContainer.addChild ((IHCNode) ForcedRedirectManager.getLastForcedRedirectContent (aDisplayPage.getID ()));
     }
 
     final String sHeaderText = aDisplayPage.getHeaderText (aWPEC);

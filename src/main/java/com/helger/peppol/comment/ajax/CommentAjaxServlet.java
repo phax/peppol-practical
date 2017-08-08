@@ -22,8 +22,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.photon.basic.app.CApplicationID;
 import com.helger.photon.core.ajax.IAjaxInvoker;
 import com.helger.photon.core.ajax.servlet.AbstractAjaxServlet;
-import com.helger.photon.xservlet.servletstatus.ServletStatusManager;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.xservlet.servletstatus.ServletStatusManager;
 
 /**
  * Servlet that handles comment AJAX calls
