@@ -24,14 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.render.HCRenderer;
 import com.helger.json.JsonObject;
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
-import com.helger.photon.core.ajax.response.AjaxJsonResponse;
+import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.login.CLogin;
 import com.helger.photon.security.login.ELoginResult;
@@ -51,7 +49,7 @@ public final class AjaxExecutorPublicLogin extends AbstractAjaxExecutor
 
   @Override
   @Nonnull
-  protected AjaxJsonResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
+  protected AjaxHtmlResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final String sLoginName = aRequestScope.params ().getAsString (CLogin.REQUEST_ATTR_USERID);
@@ -62,20 +60,18 @@ public final class AjaxExecutorPublicLogin extends AbstractAjaxExecutor
                                                                                     sPassword,
                                                                                     CPPApp.REQUIRED_ROLE_IDS_VIEW);
     if (eLoginResult.isSuccess ())
-      return AjaxJsonResponse.createSuccess (new JsonObject ().add (JSON_LOGGEDIN, true));
+      return AjaxHtmlResponse.createSuccessExt (aRequestScope, null, new JsonObject ().add (JSON_LOGGEDIN, true));
 
     // Get the rendered content of the menu area
     if (GlobalDebug.isDebugMode ())
       s_aLogger.warn ("Login of '" + sLoginName + "' failed because " + eLoginResult);
 
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
-    final IHCNode aRoot = new BootstrapErrorBox ().addChild (EPhotonCoreText.LOGIN_ERROR_MSG.getDisplayText (aDisplayLocale) +
-                                                             " " +
-                                                             eLoginResult.getDisplayText (aDisplayLocale));
+    final BootstrapErrorBox aRoot = new BootstrapErrorBox ().addChild (EPhotonCoreText.LOGIN_ERROR_MSG.getDisplayText (aDisplayLocale) +
+                                                                       " " +
+                                                                       eLoginResult.getDisplayText (aDisplayLocale));
 
     // Set as result property
-    return AjaxJsonResponse.createSuccess (new JsonObject ().add (JSON_LOGGEDIN, false)
-                                                            .add (JSON_HTML,
-                                                                  HCRenderer.getAsHTMLStringWithoutNamespaces (aRoot)));
+    return AjaxHtmlResponse.createSuccessExt (aRequestScope, aRoot, new JsonObject ().add (JSON_LOGGEDIN, false));
   }
 }
