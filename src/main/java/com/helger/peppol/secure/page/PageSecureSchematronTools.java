@@ -150,8 +150,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
             {
               aTabContent = new BootstrapErrorBox ().addChild ("Error parsing Schematron: " + ex.getMessage ());
             }
-            aTabBox.addTab ("t" +
-                            aTabBox.getTabCount (),
+            aTabBox.addTab ("t" + aTabBox.getTabCount (),
                             FilenameHelper.getBaseName (aArtefact.getRuleResource ().getPath ()),
                             aTabContent);
           }
@@ -162,7 +161,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
       }
       else
       {
-        // TODO
+        // TODO other action when necessary
       }
     }
   }
