@@ -29,6 +29,7 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.type.ITypedObject;
 import com.helger.datetime.domain.IHasCreationDateTime;
 import com.helger.datetime.domain.IHasLastModificationDateTime;
+import com.helger.security.authentication.subject.user.IHasUserID;
 
 /**
  * Interface for a single comment object. It is not directly linked to the
@@ -38,7 +39,12 @@ import com.helger.datetime.domain.IHasLastModificationDateTime;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IComment extends ITypedObject <String>, IHasCreationDateTime, IHasLastModificationDateTime, Serializable
+public interface IComment extends
+                          ITypedObject <String>,
+                          IHasCreationDateTime,
+                          IHasLastModificationDateTime,
+                          Serializable,
+                          IHasUserID
 {
   // status vars
 
