@@ -16,45 +16,33 @@
  */
 package com.helger.peppol.comment.ajax;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.http.EHttpMethod;
 import com.helger.photon.basic.app.CApplicationID;
 import com.helger.photon.core.ajax.IAjaxInvoker;
-import com.helger.photon.core.ajax.servlet.AbstractAjaxServlet;
+import com.helger.photon.core.ajax.servlet.AjaxXServletHandler;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
-import com.helger.xservlet.servletstatus.ServletStatusManager;
+import com.helger.xservlet.AbstractXServlet;
 
 /**
  * Servlet that handles comment AJAX calls
  *
  * @author Philip Helger
  */
-public class CommentAjaxServlet extends AbstractAjaxServlet
+public final class CommentAjaxServlet extends AbstractXServlet
 {
   public static final String SERVLET_DEFAULT_NAME = "comment";
   public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
 
   public CommentAjaxServlet ()
-  {}
-
-  public static boolean isServletRegisteredInServletContext ()
   {
-    return ServletStatusManager.getInstance ().isServletRegistered (CommentAjaxServlet.class);
-  }
-
-  @Override
-  @Nonnull
-  @Nonempty
-  protected String getApplicationID ()
-  {
-    return CApplicationID.APP_ID_PUBLIC;
-  }
-
-  @Override
-  @Nonnull
-  protected final IAjaxInvoker getAjaxInvoker (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope)
-  {
-    return CommentAjaxManager.getInstance ();
+    super ( () -> CApplicationID.APP_ID_PUBLIC);
+    handlerRegistry ().registerHandler (EHttpMethod.GET, new AjaxXServletHandler ()
+    {
+      @Override
+      protected IAjaxInvoker getAjaxInvoker (final IRequestWebScopeWithoutResponse aRequestScope)
+      {
+        return CommentAjaxManager.getInstance ();
+      }
+    });
   }
 }
