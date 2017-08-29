@@ -273,7 +273,7 @@ public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
                                            sFileName,
                                            aVES.getID (),
                                            aVES.getValidationArtefactKey (),
-                                           Integer.valueOf (aValidationResultList.getSize ()),
+                                           Integer.valueOf (aValidationResultList.size ()),
                                            Integer.valueOf (nErrors),
                                            Integer.valueOf (nWarnings));
       }
