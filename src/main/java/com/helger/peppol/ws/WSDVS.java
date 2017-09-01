@@ -52,7 +52,7 @@ import com.helger.peppol.wsclient2.ValidateFaultError;
 import com.helger.peppol.wsclient2.ValidationResultType;
 import com.helger.peppol.wsclient2.WSDVSPort;
 import com.helger.schematron.svrl.SVRLResourceError;
-import com.helger.web.scope.mgr.WebScopeManager;
+import com.helger.web.scope.mgr.WebScoped;
 import com.helger.xml.serialize.read.DOMReader;
 
 @WebService (endpointInterface = "com.helger.peppol.wsclient2.WSDVSPort")
@@ -96,8 +96,7 @@ public class WSDVS implements WSDVSPort
                                                                                 .get (MessageContext.SERVLET_RESPONSE);
 
     // Start request scope
-    WebScopeManager.onRequestBegin (getClass ().getName (), aHttpRequest, aHttpResponse);
-    try
+    try (final WebScoped aWebScoped = new WebScoped (aHttpRequest, aHttpResponse))
     {
       // Track total invocation
       s_aCounterTotal.increment ();
@@ -196,10 +195,6 @@ public class WSDVS implements WSDVSPort
         s_aCounterAPIError.increment ();
 
       return ret;
-    }
-    finally
-    {
-      WebScopeManager.onRequestEnd ();
     }
   }
 }
