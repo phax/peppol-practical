@@ -25,6 +25,8 @@ import static org.junit.Assert.assertSame;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.photon.basic.mock.PhotonBasicTestRule;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
@@ -38,6 +40,7 @@ import com.helger.xml.mock.XMLTestHelper;
  */
 public final class CommentThreadTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CommentThreadTest.class);
   @Rule
   public TestRule m_aRule = new PhotonBasicTestRule ();
 
@@ -84,8 +87,8 @@ public final class CommentThreadTest
     assertSame (aComment3, aCommentThread.getCommentOfID (aComment3.getID ()));
 
     if (false)
-      System.out.println (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aCommentThread,
-                                                                                                 "commentthread")));
+      s_aLogger.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aCommentThread,
+                                                                                             "commentthread")));
 
     XMLTestHelper.testMicroTypeConversion (aCommentThread);
   }

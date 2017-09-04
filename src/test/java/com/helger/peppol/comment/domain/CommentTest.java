@@ -24,6 +24,8 @@ import static org.junit.Assert.assertNull;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.photon.basic.mock.PhotonBasicTestRule;
@@ -38,6 +40,7 @@ import com.helger.xml.mock.XMLTestHelper;
  */
 public final class CommentTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CommentTest.class);
   @Rule
   public TestRule m_aRule = new PhotonBasicTestRule ();
 
@@ -54,7 +57,7 @@ public final class CommentTest
     assertEquals ("text", aComment.getText ());
 
     if (false)
-      System.out.println (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
+      s_aLogger.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
 
     CommonsTestHelper.testDefaultSerialization (aComment);
     XMLTestHelper.testMicroTypeConversion (aComment);
