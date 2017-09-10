@@ -29,8 +29,8 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
-import com.helger.photon.basic.object.AbstractBusinessObject;
 import com.helger.photon.security.object.StubObject;
+import com.helger.tenancy.AbstractBusinessObject;
 
 /**
  * Represents a single test endpoint.

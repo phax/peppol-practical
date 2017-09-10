@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.name.IHasDisplayName;
-import com.helger.photon.basic.object.IBusinessObject;
+import com.helger.tenancy.IBusinessObject;
 
 /**
  * The read-only interface for a single CRM group.

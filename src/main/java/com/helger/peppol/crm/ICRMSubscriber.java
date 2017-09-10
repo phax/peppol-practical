@@ -27,7 +27,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.masterdata.person.ESalutation;
-import com.helger.photon.basic.object.IBusinessObject;
+import com.helger.tenancy.IBusinessObject;
 
 /**
  * The read-only interface for a single CRM subscriber, that is subscribed to
