@@ -28,14 +28,14 @@ import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
 @Immutable
 public final class CAjaxComment
 {
-  public static final IAjaxFunctionDeclaration COMMENT_ADD = new CommentAjaxFunctionDeclaration ("addComment",
-                                                                                                 AjaxExecutorCommentAdd.class);
-  public static final IAjaxFunctionDeclaration COMMENT_CREATE_THREAD = new CommentAjaxFunctionDeclaration ("createThread",
-                                                                                                           AjaxExecutorCommentCreateThread.class);
-  public static final IAjaxFunctionDeclaration COMMENT_DELETE = new CommentAjaxFunctionDeclaration ("deleteComment",
-                                                                                                    AjaxExecutorCommentDelete.class);
-  public static final IAjaxFunctionDeclaration COMMENT_SHOW_INPUT = new CommentAjaxFunctionDeclaration ("showInputForm",
-                                                                                                        AjaxExecutorCommentShowInput.class);
+  public static final IAjaxFunctionDeclaration COMMENT_ADD = new CommentAjaxFunctionDeclarationBuilder ("addComment").withExecutor (AjaxExecutorCommentAdd.class)
+                                                                                                                     .build ();
+  public static final IAjaxFunctionDeclaration COMMENT_CREATE_THREAD = new CommentAjaxFunctionDeclarationBuilder ("createThread").withExecutor (AjaxExecutorCommentCreateThread.class)
+                                                                                                                                 .build ();
+  public static final IAjaxFunctionDeclaration COMMENT_DELETE = new CommentAjaxFunctionDeclarationBuilder ("deleteComment").withExecutor (AjaxExecutorCommentDelete.class)
+                                                                                                                           .build ();
+  public static final IAjaxFunctionDeclaration COMMENT_SHOW_INPUT = new CommentAjaxFunctionDeclarationBuilder ("showInputForm").withExecutor (AjaxExecutorCommentShowInput.class)
+                                                                                                                               .build ();
 
   private CAjaxComment ()
   {}

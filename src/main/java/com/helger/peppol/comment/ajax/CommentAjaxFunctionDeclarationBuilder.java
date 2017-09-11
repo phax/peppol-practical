@@ -16,25 +16,21 @@
  */
 package com.helger.peppol.comment.ajax;
 
-import com.helger.commons.http.EHttpMethod;
-import com.helger.photon.basic.app.CApplicationID;
-import com.helger.photon.core.ajax.servlet.AjaxXServletHandler;
-import com.helger.xservlet.AbstractXServlet;
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.Nonempty;
+import com.helger.photon.core.ajax.decl.AjaxFunctionDeclaration;
 
 /**
- * Servlet that handles comment AJAX calls
+ * Ajax function declaration for the public application
  *
  * @author Philip Helger
  */
-public final class CommentAjaxServlet extends AbstractXServlet
+public class CommentAjaxFunctionDeclarationBuilder extends AjaxFunctionDeclaration.Builder
 {
-  public static final String SERVLET_DEFAULT_NAME = "comment";
-  public static final String SERVLET_DEFAULT_PATH = '/' + SERVLET_DEFAULT_NAME;
-
-  public CommentAjaxServlet ()
+  public CommentAjaxFunctionDeclarationBuilder (@Nonnull @Nonempty final String sFunctionName)
   {
-    super ( () -> CApplicationID.APP_ID_PUBLIC);
-    handlerRegistry ().registerHandler (EHttpMethod.GET,
-                                        new AjaxXServletHandler ( () -> CommentAjaxManager.getInstance ()));
+    super (sFunctionName);
+    withServletPath (CommentAjaxServlet.SERVLET_DEFAULT_PATH + '/');
   }
 }

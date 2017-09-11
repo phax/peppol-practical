@@ -18,11 +18,7 @@ package com.helger.peppol.secure;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.app.ajax.CAjaxSecure;
-import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.basic.app.menu.IMenuTree;
-import com.helger.photon.core.ajax.IAjaxInvoker;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.init.IApplicationInitializer;
 import com.helger.photon.core.app.layout.CLayout;
@@ -36,14 +32,6 @@ import com.helger.photon.core.app.layout.ILayoutManager;
 public final class InitializerSecure implements IApplicationInitializer <LayoutExecutionContext>
 {
   @Override
-  public void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
-  {
-    aLocaleMgr.registerLocale (CPPApp.LOCALE_DE);
-    aLocaleMgr.registerLocale (CPPApp.LOCALE_EN);
-    aLocaleMgr.setDefaultLocale (CPPApp.DEFAULT_LOCALE);
-  }
-
-  @Override
   public void initLayout (@Nonnull final ILayoutManager <LayoutExecutionContext> aLayoutMgr)
   {
     aLayoutMgr.registerAreaContentProvider (CLayout.LAYOUT_AREAID_VIEWPORT, new LayoutAreaContentProviderSecure ());
@@ -54,15 +42,4 @@ public final class InitializerSecure implements IApplicationInitializer <LayoutE
   {
     MenuSecure.init (aMenuTree);
   }
-
-  @Override
-  public void initAjax (@Nonnull final IAjaxInvoker aAjaxInvoker)
-  {
-    aAjaxInvoker.registerFunction (CAjaxSecure.SAVE_FORM_STATE);
-    aAjaxInvoker.registerFunction (CAjaxSecure.UPDATE_MENU_VIEW);
-  }
-
-  @Override
-  public void initRest ()
-  {}
 }

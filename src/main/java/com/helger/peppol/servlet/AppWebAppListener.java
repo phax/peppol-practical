@@ -31,12 +31,16 @@ import com.helger.commons.vendor.VendorInfo;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
 import com.helger.peppol.app.AppSettings;
+import com.helger.peppol.app.CPPApp;
+import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.pub.InitializerPublic;
 import com.helger.peppol.secure.InitializerSecure;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.basic.app.CApplicationID;
+import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.bootstrap3.servlet.AbstractWebAppListenerMultiAppBootstrap;
+import com.helger.photon.core.ajax.IAjaxInvoker;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.init.IApplicationInitializer;
 
@@ -120,5 +124,23 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
 
     // Setup error handler
     AppInternalErrorHandler.doSetup ();
+  }
+
+  @Override
+  public void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
+  {
+    aLocaleMgr.registerLocale (CPPApp.LOCALE_DE);
+    aLocaleMgr.registerLocale (CPPApp.LOCALE_EN);
+    aLocaleMgr.setDefaultLocale (CPPApp.DEFAULT_LOCALE);
+  }
+
+  @Override
+  public void initAjax (@Nonnull final IAjaxInvoker aAjaxInvoker)
+  {
+    aAjaxInvoker.registerFunction (CAjax.DATATABLES);
+    aAjaxInvoker.registerFunction (CAjax.DATATABLES_I18N);
+    aAjaxInvoker.registerFunction (CAjax.LOGIN);
+    aAjaxInvoker.registerFunction (CAjax.UPDATE_MENU_VIEW_PUB);
+    aAjaxInvoker.registerFunction (CAjax.UPDATE_MENU_VIEW_SEC);
   }
 }
