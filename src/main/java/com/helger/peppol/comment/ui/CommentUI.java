@@ -66,7 +66,6 @@ import com.helger.photon.bootstrap3.panel.EBootstrapPanelType;
 import com.helger.photon.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.ajax.AjaxResponse;
-import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.security.login.LoggedInUserManager;
@@ -253,7 +252,7 @@ public final class CommentUI
                   final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
                   final JSVar aJSData = aOnSuccess.param ("data");
                   aOnSuccess.body ().add (JQuery.idRef (sResultDivID)
-                                                .replaceWith (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
+                                                .replaceWith (aJSData.ref (AjaxResponse.HtmlHelper.PROPERTY_HTML)));
                   final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().url (CAjax.COMMENT_DELETE.getInvocationURL (aRequestScope))
                                                                                  .data (new JSAssocArray ().add (AjaxExecutorCommentDelete.PARAM_OBJECT_TYPE,
                                                                                                                  aObject.getObjectType ()
