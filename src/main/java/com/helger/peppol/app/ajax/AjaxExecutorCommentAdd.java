@@ -42,7 +42,7 @@ import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.core.ajax.AjaxResponse;
+import com.helger.photon.core.PhotonUnifiedResponse;
 import com.helger.photon.core.ajax.IAjaxExecutor;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.security.login.LoggedInUserManager;
@@ -66,7 +66,7 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor
   private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorCommentAdd.class);
 
   public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                             @Nonnull final AjaxResponse aAjaxResponse) throws Exception
+                             @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();

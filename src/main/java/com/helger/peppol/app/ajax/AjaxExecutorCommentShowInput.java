@@ -31,7 +31,7 @@ import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
-import com.helger.photon.core.ajax.AjaxResponse;
+import com.helger.photon.core.PhotonUnifiedResponse;
 import com.helger.photon.core.ajax.IAjaxExecutor;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
@@ -51,7 +51,7 @@ public final class AjaxExecutorCommentShowInput implements IAjaxExecutor
   private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorCommentShowInput.class);
 
   public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                             @Nonnull final AjaxResponse aAjaxResponse) throws Exception
+                             @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final String sObjectType = aRequestScope.params ().getAsString (PARAM_OBJECT_TYPE);

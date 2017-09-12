@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.html.hc.IHCNode;
 import com.helger.peppol.secure.LayoutAreaContentProviderSecure;
-import com.helger.photon.core.ajax.AjaxResponse;
+import com.helger.photon.core.PhotonUnifiedResponse;
 import com.helger.photon.core.ajax.IAjaxExecutor;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
@@ -33,7 +33,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 public final class AjaxExecutorSecureUpdateMenuView implements IAjaxExecutor
 {
   public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                             @Nonnull final AjaxResponse aAjaxResponse) throws Exception
+                             @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
 
