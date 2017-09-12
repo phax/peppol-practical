@@ -142,5 +142,9 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
     aAjaxInvoker.registerFunction (CAjax.LOGIN);
     aAjaxInvoker.registerFunction (CAjax.UPDATE_MENU_VIEW_PUB);
     aAjaxInvoker.registerFunction (CAjax.UPDATE_MENU_VIEW_SEC);
+    aAjaxInvoker.registerFunction (CAjax.COMMENT_ADD);
+    aAjaxInvoker.registerFunction (CAjax.COMMENT_CREATE_THREAD);
+    aAjaxInvoker.registerFunction (CAjax.COMMENT_DELETE);
+    aAjaxInvoker.registerFunction (CAjax.COMMENT_SHOW_INPUT);
   }
 }

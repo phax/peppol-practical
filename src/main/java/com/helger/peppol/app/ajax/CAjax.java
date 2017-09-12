@@ -18,12 +18,15 @@ package com.helger.peppol.app.ajax;
 
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.functional.IPredicate;
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.basic.app.CApplicationID;
 import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
 import com.helger.photon.core.ajax.decl.AjaxFunctionDeclaration;
+import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTables;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTablesI18N;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 /**
  * This class defines the available ajax functions for the view application.
@@ -46,10 +49,29 @@ public final class CAjax
                                                                                              .withExecutor (AjaxExecutorPublicUpdateMenuView.class)
                                                                                              .withApplicationID (CApplicationID.APP_ID_PUBLIC)
                                                                                              .build ();
+  private static final IPredicate <? super IRequestWebScopeWithoutResponse> FILTER_LOGIN = x -> LoggedInUserManager.getInstance ()
+                                                                                                                   .isUserLoggedInInCurrentSession ();
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW_SEC = AjaxFunctionDeclaration.builder ("updateMenuViewSec")
                                                                                              .withExecutor (AjaxExecutorSecureUpdateMenuView.class)
+                                                                                             .withFilter (FILTER_LOGIN)
                                                                                              .withApplicationID (CApplicationID.APP_ID_SECURE)
                                                                                              .build ();
+  public static final IAjaxFunctionDeclaration COMMENT_ADD = AjaxFunctionDeclaration.builder ("addComment")
+                                                                                    .withExecutor (AjaxExecutorCommentAdd.class)
+                                                                                    .withFilter (FILTER_LOGIN)
+                                                                                    .build ();
+  public static final IAjaxFunctionDeclaration COMMENT_CREATE_THREAD = AjaxFunctionDeclaration.builder ("createThread")
+                                                                                              .withExecutor (AjaxExecutorCommentCreateThread.class)
+                                                                                              .withFilter (FILTER_LOGIN)
+                                                                                              .build ();
+  public static final IAjaxFunctionDeclaration COMMENT_DELETE = AjaxFunctionDeclaration.builder ("deleteComment")
+                                                                                       .withExecutor (AjaxExecutorCommentDelete.class)
+                                                                                       .withFilter (FILTER_LOGIN)
+                                                                                       .build ();
+  public static final IAjaxFunctionDeclaration COMMENT_SHOW_INPUT = AjaxFunctionDeclaration.builder ("showInputForm")
+                                                                                           .withExecutor (AjaxExecutorCommentShowInput.class)
+                                                                                           .withFilter (FILTER_LOGIN)
+                                                                                           .build ();
 
   private CAjax ()
   {}

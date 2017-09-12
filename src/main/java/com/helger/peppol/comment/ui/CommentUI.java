@@ -44,11 +44,11 @@ import com.helger.html.jscode.JSAssocArray;
 import com.helger.html.jscode.JSExpr;
 import com.helger.html.jscode.JSStatementList;
 import com.helger.html.jscode.JSVar;
-import com.helger.peppol.comment.ajax.AjaxExecutorCommentAdd;
-import com.helger.peppol.comment.ajax.AjaxExecutorCommentCreateThread;
-import com.helger.peppol.comment.ajax.AjaxExecutorCommentDelete;
-import com.helger.peppol.comment.ajax.AjaxExecutorCommentShowInput;
-import com.helger.peppol.comment.ajax.CAjaxComment;
+import com.helger.peppol.app.ajax.AjaxExecutorCommentAdd;
+import com.helger.peppol.app.ajax.AjaxExecutorCommentCreateThread;
+import com.helger.peppol.app.ajax.AjaxExecutorCommentDelete;
+import com.helger.peppol.app.ajax.AjaxExecutorCommentShowInput;
+import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
@@ -65,6 +65,7 @@ import com.helger.photon.bootstrap3.panel.BootstrapPanel;
 import com.helger.photon.bootstrap3.panel.EBootstrapPanelType;
 import com.helger.photon.bootstrap3.tooltip.BootstrapTooltip;
 import com.helger.photon.core.EPhotonCoreText;
+import com.helger.photon.core.ajax.AjaxResponse;
 import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
 import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
@@ -217,8 +218,8 @@ public final class CommentUI
                   aOnSuccess.body ()
                             .add (JQuery.idRef (aCommentResponseContainer)
                                         .empty ()
-                                        .append (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
-                  final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().url (CAjaxComment.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
+                                        .append (aJSData.ref (AjaxResponse.HtmlHelper.PROPERTY_HTML)));
+                  final JQueryInvocation aResponseAction = new JQueryAjaxBuilder ().url (CAjax.COMMENT_SHOW_INPUT.getInvocationURL (aRequestScope))
                                                                                    .data (new JSAssocArray ().add (AjaxExecutorCommentShowInput.PARAM_OBJECT_TYPE,
                                                                                                                    aObject.getObjectType ()
                                                                                                                           .getName ())
@@ -253,7 +254,7 @@ public final class CommentUI
                   final JSVar aJSData = aOnSuccess.param ("data");
                   aOnSuccess.body ().add (JQuery.idRef (sResultDivID)
                                                 .replaceWith (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
-                  final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().url (CAjaxComment.COMMENT_DELETE.getInvocationURL (aRequestScope))
+                  final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().url (CAjax.COMMENT_DELETE.getInvocationURL (aRequestScope))
                                                                                  .data (new JSAssocArray ().add (AjaxExecutorCommentDelete.PARAM_OBJECT_TYPE,
                                                                                                                  aObject.getObjectType ()
                                                                                                                         .getName ())
@@ -409,12 +410,13 @@ public final class CommentUI
     {
       final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
       final JSVar aJSData = aOnSuccess.param ("data");
-      aOnSuccess.body ().add (JQuery.idRef (sResultDivID).replaceWith (aJSData.ref (AjaxHtmlResponse.PROPERTY_HTML)));
+      aOnSuccess.body ()
+                .add (JQuery.idRef (sResultDivID).replaceWith (aJSData.ref (AjaxResponse.HtmlHelper.PROPERTY_HTML)));
       JQueryInvocation aSaveAction;
       if (bIsCreateNewThread)
       {
         // Create a new thread
-        aSaveAction = new JQueryAjaxBuilder ().url (CAjaxComment.COMMENT_CREATE_THREAD.getInvocationURL (aRequestScope))
+        aSaveAction = new JQueryAjaxBuilder ().url (CAjax.COMMENT_CREATE_THREAD.getInvocationURL (aRequestScope))
                                               .data (new JSAssocArray ().add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_TYPE,
                                                                               aObject.getObjectType ().getName ())
                                                                         .add (AjaxExecutorCommentCreateThread.PARAM_OBJECT_ID,
@@ -433,7 +435,7 @@ public final class CommentUI
       else
       {
         // Reply to a previous comment
-        aSaveAction = new JQueryAjaxBuilder ().url (CAjaxComment.COMMENT_ADD.getInvocationURL (aRequestScope))
+        aSaveAction = new JQueryAjaxBuilder ().url (CAjax.COMMENT_ADD.getInvocationURL (aRequestScope))
                                               .data (new JSAssocArray ().add (AjaxExecutorCommentAdd.PARAM_OBJECT_TYPE,
                                                                               aObject.getObjectType ().getName ())
                                                                         .add (AjaxExecutorCommentAdd.PARAM_OBJECT_ID,

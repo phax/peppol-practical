@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.comment.ajax;
+package com.helger.peppol.app.ajax;
 
 import java.util.Locale;
 
@@ -42,8 +42,8 @@ import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.core.ajax.executor.AbstractAjaxExecutor;
-import com.helger.photon.core.ajax.response.AjaxHtmlResponse;
+import com.helger.photon.core.ajax.AjaxResponse;
+import com.helger.photon.core.ajax.IAjaxExecutor;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
@@ -54,7 +54,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
+public final class AjaxExecutorCommentAdd implements IAjaxExecutor
 {
   public static final String PARAM_OBJECT_TYPE = "objectType";
   public static final String PARAM_OBJECT_ID = "objectID";
@@ -65,9 +65,8 @@ public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
   public static final String PARAM_TEXT = "text";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorCommentAdd.class);
 
-  @Override
-  @Nonnull
-  protected AjaxHtmlResponse mainHandleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope) throws Exception
+  public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                             @Nonnull final AjaxResponse aAjaxResponse) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
@@ -136,15 +135,15 @@ public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
           }
 
           // List of exiting comments + message box
-          return AjaxHtmlResponse.createSuccess (aRequestScope,
-                                                 CommentUI.getCommentList (aLEC,
-                                                                           aOwner,
-                                                                           CommentAction.createForComment (ECommentAction.ADD_COMMENT,
-                                                                                                           aCommentThread,
-                                                                                                           aParentComment),
-                                                                           aFormErrors,
-                                                                           aMessageBox,
-                                                                           true));
+          aAjaxResponse.html (CommentUI.getCommentList (aLEC,
+                                                        aOwner,
+                                                        CommentAction.createForComment (ECommentAction.ADD_COMMENT,
+                                                                                        aCommentThread,
+                                                                                        aParentComment),
+                                                        aFormErrors,
+                                                        aMessageBox,
+                                                        true));
+          return;
         }
       }
     }
@@ -159,6 +158,6 @@ public final class AjaxExecutorCommentAdd extends AbstractAjaxExecutor
                     "' in thread '" +
                     sCommentThreadID +
                     "'");
-    return AjaxHtmlResponse.createError ("Missing required parameters");
+    aAjaxResponse.createNotFound ();
   }
 }
