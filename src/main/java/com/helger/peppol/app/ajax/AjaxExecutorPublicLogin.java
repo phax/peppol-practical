@@ -30,7 +30,7 @@ import com.helger.peppol.app.CPPApp;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.PhotonUnifiedResponse;
-import com.helger.photon.core.ajax.IAjaxExecutor;
+import com.helger.photon.core.ajax.executor.IAjaxExecutor;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.login.CLogin;
 import com.helger.photon.security.login.ELoginResult;

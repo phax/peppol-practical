@@ -20,9 +20,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.functional.IPredicate;
 import com.helger.peppol.app.CPPApp;
-import com.helger.photon.basic.app.CApplicationID;
-import com.helger.photon.core.ajax.IAjaxFunctionDeclaration;
 import com.helger.photon.core.ajax.decl.AjaxFunctionDeclaration;
+import com.helger.photon.core.ajax.decl.IAjaxFunctionDeclaration;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTables;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTablesI18N;
@@ -47,14 +46,12 @@ public final class CAjax
                                                                               .build ();
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW_PUB = AjaxFunctionDeclaration.builder ("updateMenuViewPub")
                                                                                              .withExecutor (AjaxExecutorPublicUpdateMenuView.class)
-                                                                                             .withApplicationID (CApplicationID.APP_ID_PUBLIC)
                                                                                              .build ();
   private static final IPredicate <? super IRequestWebScopeWithoutResponse> FILTER_LOGIN = x -> LoggedInUserManager.getInstance ()
                                                                                                                    .isUserLoggedInInCurrentSession ();
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW_SEC = AjaxFunctionDeclaration.builder ("updateMenuViewSec")
                                                                                              .withExecutor (AjaxExecutorSecureUpdateMenuView.class)
                                                                                              .withFilter (FILTER_LOGIN)
-                                                                                             .withApplicationID (CApplicationID.APP_ID_SECURE)
                                                                                              .build ();
   public static final IAjaxFunctionDeclaration COMMENT_ADD = AjaxFunctionDeclaration.builder ("addComment")
                                                                                     .withExecutor (AjaxExecutorCommentAdd.class)

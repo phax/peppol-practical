@@ -51,7 +51,8 @@ import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.CAppCSS;
-import com.helger.photon.basic.app.menu.ApplicationMenuTree;
+import com.helger.photon.basic.app.appid.CApplicationID;
+import com.helger.photon.basic.app.appid.PhotonGlobalState;
 import com.helger.photon.basic.app.menu.IMenuItemExternal;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuObject;
@@ -118,14 +119,17 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
 
   public LayoutAreaContentProviderPublic ()
   {
-    ApplicationMenuTree.getTree ().iterateAllMenuObjects ( (aCurrentObject) -> {
-      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1))
-        m_aFooterObjectsCol1.add (aCurrentObject);
-      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2))
-        m_aFooterObjectsCol2.add (aCurrentObject);
-      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
-        m_aFooterObjectsCol3.add (aCurrentObject);
-    });
+    PhotonGlobalState.getInstance ()
+                     .state (CApplicationID.APP_ID_PUBLIC)
+                     .getMenuTree ()
+                     .iterateAllMenuObjects ( (aCurrentObject) -> {
+                       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1))
+                         m_aFooterObjectsCol1.add (aCurrentObject);
+                       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2))
+                         m_aFooterObjectsCol2.add (aCurrentObject);
+                       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
+                         m_aFooterObjectsCol3.add (aCurrentObject);
+                     });
     m_nFooterRowCount = MathHelper.getMaxInt (m_aFooterObjectsCol1.size (),
                                               m_aFooterObjectsCol2.size (),
                                               m_aFooterObjectsCol3.size ());

@@ -37,7 +37,7 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.pub.InitializerPublic;
 import com.helger.peppol.secure.InitializerSecure;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.photon.basic.app.CApplicationID;
+import com.helger.photon.basic.app.appid.CApplicationID;
 import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.bootstrap3.servlet.AbstractWebAppListenerMultiAppBootstrap;
 import com.helger.photon.core.ajax.IAjaxInvoker;
@@ -96,7 +96,7 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
   }
 
   @Override
-  protected void initGlobals ()
+  protected void initGlobalSettings ()
   {
     // Disable DNS caching
     setDNSCacheTime (0);
@@ -111,7 +111,7 @@ public final class AppWebAppListener extends AbstractWebAppListenerMultiAppBoots
     VendorInfo.setVendorLocation ("Vienna, Austria");
     VendorInfo.setInceptionYear (2014);
 
-    super.initGlobals ();
+    super.initGlobalSettings ();
 
     // UI stuff
     AppCommonUI.init ();

@@ -22,11 +22,12 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.html.root.HCHtml;
 import com.helger.peppol.app.AppHelper;
+import com.helger.photon.basic.app.appid.PhotonGlobalState;
+import com.helger.photon.basic.app.appid.RequestSettings;
 import com.helger.photon.basic.app.request.IRequestParameterManager;
 import com.helger.photon.core.app.context.ISimpleWebExecutionContext;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.layout.AbstractLayoutManagerBasedLayoutHTMLProvider;
-import com.helger.photon.core.app.layout.ApplicationLayoutManager;
 
 /**
  * Main class for creating HTML output
@@ -35,9 +36,9 @@ import com.helger.photon.core.app.layout.ApplicationLayoutManager;
  */
 public class AppLayoutHTMLProvider extends AbstractLayoutManagerBasedLayoutHTMLProvider <LayoutExecutionContext>
 {
-  public AppLayoutHTMLProvider ()
+  public AppLayoutHTMLProvider (final String sAppID)
   {
-    super (ApplicationLayoutManager.<LayoutExecutionContext> getInstance ());
+    super (PhotonGlobalState.getInstance ().state (sAppID).getCustom ("lm"));
     setCreateLayoutAreaSpan (false);
   }
 
@@ -45,20 +46,7 @@ public class AppLayoutHTMLProvider extends AbstractLayoutManagerBasedLayoutHTMLP
   protected LayoutExecutionContext createLayoutExecutionContext (@Nonnull final ISimpleWebExecutionContext aSWEC,
                                                                  @Nonnull final IRequestParameterManager aRequestManager)
   {
-    return new LayoutExecutionContext (aSWEC, aRequestManager.getRequestMenuItem ());
-  }
-
-  /**
-   * Fill the HTML HEAD element.
-   *
-   * @param aHtml
-   *        The HTML object to be filled.
-   */
-  @Override
-  @OverrideOnDemand
-  protected void fillHead (@Nonnull final ISimpleWebExecutionContext aSWEC, @Nonnull final HCHtml aHtml)
-  {
-    super.fillHead (aSWEC, aHtml);
+    return new LayoutExecutionContext (aSWEC, RequestSettings.getMenuItem (aSWEC.getRequestScope ()));
   }
 
   @Override

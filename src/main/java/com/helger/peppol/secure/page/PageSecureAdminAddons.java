@@ -28,8 +28,8 @@ import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.photon.basic.app.CApplicationID;
-import com.helger.photon.basic.app.menu.ApplicationMenuTree;
+import com.helger.photon.basic.app.appid.CApplicationID;
+import com.helger.photon.basic.app.appid.PhotonGlobalState;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.basic.audit.AuditHelper;
@@ -56,8 +56,9 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
   {
     if (ACTION_EXPIRE_PAGE_CACHE.equals (sAction))
     {
-      final IMenuTree aPublicMenuTree = ApplicationMenuTree.getInstanceOfScope (CApplicationID.APP_ID_PUBLIC)
-                                                           .getInstanceTree ();
+      final IMenuTree aPublicMenuTree = PhotonGlobalState.getInstance ()
+                                                         .state (CApplicationID.APP_ID_PUBLIC)
+                                                         .getMenuTree ();
 
       // Bulk modify
       final MutableInt aCounterUpdated = new MutableInt (0);
