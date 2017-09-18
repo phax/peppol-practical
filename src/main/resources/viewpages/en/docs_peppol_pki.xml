@@ -64,6 +64,10 @@
         Requires the public part of the PEPPOL AP certificate for usage in the public
         endpoints (the information that is queried from the outside).
       </li>
+      <li>
+        Optionally uses the PEPPOL SMP certificate as a client certificate when communicating with the 
+        PEPPOL Directory (for business card updates and deletions) 
+      </li>
     </ul>
   </li>
   <li>
@@ -102,6 +106,13 @@
     <ul>
       <li>The SMK requires requests to contain an SMP Pilot Certificate to perform writing operations</li>
       <li>The SML requires requests to contain an SMP Production Certificate to perform writing operations</li>
+    </ul>
+  </li>
+  <li>
+    <strong>PEPPOL Directory</strong>
+    <ul>
+      <li>The test PEPPOL Directory requires requests to contain an SMP Pilot Certificate to perform writing operations</li>
+      <li>The production PEPPOL Directory requires requests to contain an SMP Production Certificate to perform writing operations</li>
     </ul>
   </li>
 </ul>

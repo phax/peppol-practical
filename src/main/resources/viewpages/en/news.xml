@@ -32,10 +32,20 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
     
+    <h3>2017-09-01 - PEPPOL Directory news</h3>
+    
+    <p>
+      The PEPPOL Directory test version was shut down and there are now two official PEPPOL Directory sites available: 
+    </p>
+    <ul>
+      <li><a href="http://directory.peppol.eu">http://directory.peppol.eu</a></li>
+      <li><a href="http://test-directory.peppol.eu">http://test-directory.peppol.eu</a></li>
+    </ul>
+  
     <h3>2017-07-27 - ublready.com</h3>
     
     <p>
-      Check out who's UBL already @ <a href="http://ublready.com/">ublready.com</a> 
+      Check out who's UBL ready @ <a href="http://ublready.com/">ublready.com</a> 
     </p>
   
     <h3>2017-07-21 - phoss SMP 5.0.3</h3>
@@ -43,11 +53,11 @@
     <p>
       phoss SMP 5.0.3 was released. 
       This is a maintenance release with some bug fixes.
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.3">Download phoss SMP 5.0.3</a></li>
-        <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.3">Download phoss SMP 5.0.3</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
+    </ul>
   
     <h3>2017-06-01 - PP update</h3>
     
@@ -133,10 +143,10 @@
     <p>
       phoss SMP 5.0.2 was released. 
       This is a maintenance release with PEPPOL Directory API support.
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.2">Download phoss SMP 5.0.2</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.2">Download phoss SMP 5.0.2</a></li>
+    </ul>
     
     <h3>2017-03-31 - PEPPOL PKI explained</h3>
     
@@ -205,20 +215,21 @@
     <p>
       The slides of the presentations from the London face to face meeting are
       now available:
-      <ul>
-        <li><a href="https://joinup.ec.europa.eu/svn/peppol/F2F%20meetings/CC%20member%20meetings%20London%20November%202016/">Download directory</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://joinup.ec.europa.eu/svn/peppol/F2F%20meetings/CC%20member%20meetings%20London%20November%202016/">Download directory</a></li>
+    </ul>
     
     <h3>2016-11-25</h3>
     
     <p>
       I added a new page that explains the <strong>document exchange</strong>.
       It shows how the PEPPOL participant ID, the DNS and the SMP work together.
-      <ul>
-        <li><a href="/public/menuitem-docs-doc-exchange">Read the whole story</a></li>
-      </ul>
-      
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-docs-doc-exchange">Read the whole story</a></li>
+    </ul>
+    <p>
       Additionally the <a href="/public/menuitem-tools-participant">participant information</a>
       page was changed so that arbitrary participant identifier schemes can be tested.
     </p>
@@ -236,42 +247,42 @@
       Compared to RC2 no functional changes were performed - just UI beautifications.
       To see version 5.0 in action have a look at <a href="http://smp.helger.com">http://smp.helger.com</a>.
       If you want to learn more about phoss SMP features, just request a demo user (via email or the contact form).
-      
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0">Download phoss SMP 5.0.0</a></li>
-      </ul>
     </p>
+      
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0">Download phoss SMP 5.0.0</a></li>
+    </ul>
     
     <h3>2016-11-14 - Validation artefacts 3.3.0</h3>
     
     <p>
       OpenPEPPOL PoACC fall release published.
       They get mandatory by 2016-11-15 (12:00 CET).
-      <ul>
-        <li><a href="http://www.peppol.eu/news/FallreleaseofOpenPEPPOLPost-Awardartefactspublishedforreleaseandmandator%20use">Download artifacts 3.3.0</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="http://www.peppol.eu/news/FallreleaseofOpenPEPPOLPost-Awardartefactspublishedforreleaseandmandator%20use">Download artifacts 3.3.0</a></li>
+    </ul>
     
     <h3>2016-11-07 - PEPPOL SMP Server 5.0.0-RC2</h3>
     
     <p>
       Update to my PEPPOL SMP Server.<br/>
       Includes some functional improvements. Read more at
-      
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc2">Download SMP Server 5.0.0-RC2</a></li>
-      </ul>
     </p>
+      
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc2">Download SMP Server 5.0.0-RC2</a></li>
+    </ul>
     
     <h3>2016-10-13 - PEPPOL SMP Server 5.0.0-RC1</h3>
     
     <p>
       Update to my PEPPOL SMP Server.<br/>
       Once the conformance test with CEF is finished, version 5.0.0 will be released!
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc1">Download SMP Server 5.0.0-RC1</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc1">Download SMP Server 5.0.0-RC1</a></li>
+    </ul>
     
     <h3>2016-10-05 - Validation artefacts 3.3.0-RC1</h3>
     
@@ -280,10 +291,10 @@
       They get manadatory by 2016-11-15 (12:00 CET).<br/>
       In this version OpenPEPPOL decided to no longer maintain the ODS files, and instead 
         directly work on the Schematron files - what a pitty.
-      <ul>
-        <li><a href="http://www.peppol.eu/news/OpenPEPPOLPoACCfallreleasepublishedforreview">Download artifacts 3.3.0-RC1</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="http://www.peppol.eu/news/OpenPEPPOLPoACCfallreleasepublishedforreview">Download artifacts 3.3.0-RC1</a></li>
+    </ul>
     
     <h3>2016-09-20 - OASIS SMP Spec 1.0 CS 03 release</h3>
     
@@ -293,11 +304,11 @@
       Service Metadata Publishing (SMP) Version 1.0, Committee Specification 03<br />
       Note: this SMP specification is not yet used in OpenPEPPOL, but there are plans to do so in the future.<br />
       Note: my SMP Server 5.0.0-Beta1 already supports this specification version!
-      <ul>
-        <li><a href="https://www.oasis-open.org/committees/bdxr/">OASIS Business Document Exchange (BDXR) TC</a></li>
-        <li><a href="http://docs.oasis-open.org/bdxr/bdx-smp/v1.0/cs03/bdx-smp-v1.0-cs03.zip">Download the full ZIP package</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://www.oasis-open.org/committees/bdxr/">OASIS Business Document Exchange (BDXR) TC</a></li>
+      <li><a href="http://docs.oasis-open.org/bdxr/bdx-smp/v1.0/cs03/bdx-smp-v1.0-cs03.zip">Download the full ZIP package</a></li>
+    </ul>
     
     <h3>2016-09-19 - OpenPEPPOL planing to switch to AS4</h3>
     
@@ -306,30 +317,30 @@
       the parties agree a plan for the transition from AS2 to AS4 in the PEPPOL profile 
       of CEF eDelivery. As part of this, support for SMP/SML lookup and PKI specifications 
       as used in the PEPPOL eDelivery network will continue in the CEF eDelivery architecture. 
-      <ul>
-        <li><a href="http://www.peppol.eu/news/NewAgreemen%20betweenEuropeanCommissionandOpenPEPPOL">Read more</a></li>
-        <li><a href="https://ec.europa.eu/cefdigital/wiki/download/attachments/33817810/20160629%20Letter%20of%20understanding%20v1.00.pdf?version=2&amp;modificationDate=1474278156735&amp;api=v2">Read the whole agreement</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="http://www.peppol.eu/news/NewAgreemen%20betweenEuropeanCommissionandOpenPEPPOL">Read more</a></li>
+      <li><a href="https://ec.europa.eu/cefdigital/wiki/download/attachments/33817810/20160629%20Letter%20of%20understanding%20v1.00.pdf?version=2&amp;modificationDate=1474278156735&amp;api=v2">Read the whole agreement</a></li>
+    </ul>
     
     <h3>2016-09-19 - SML 3.0 deployed</h3>
     
     <p>
       Finally the production SML was updated to version 3.
-      <ul>
-        <li><a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/SML+-+v3.0">Read more</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/SML+-+v3.0">Read more</a></li>
+    </ul>
     
     <h3>2016-08-06 - PEPPOL SMP Server v5 Beta 1 is out.</h3>
     
     <p>
       It improves integration with PEPPOL Directory as well as customizability in general.
       Look on <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">GitHub Wiki</a> for further details.
-      <ul>
-        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/5.0.0-b1/">Download binary 5.0.0-Beta1 release</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/5.0.0-b1/">Download binary 5.0.0-Beta1 release</a></li>
+    </ul>
     
     <h3>2016-06-16</h3>
     
@@ -338,10 +349,10 @@
       It improves integration with PEPPOL Directory as well as customizability in general.
       Compared to previous versions, this version needs a JDK 8 to run.
       Look on <a href="https://github.com/phax/peppol-smp-server">GitHub</a> for further details.
-      <ul>
-        <li><a href="https://oss.sonatype.org/content/repositories/snapshots/com/helger/peppol-smp-server-webapp/5.0.0-SNAPSHOT/">Latest binary SNAPSHOT release</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://oss.sonatype.org/content/repositories/snapshots/com/helger/peppol-smp-server-webapp/5.0.0-SNAPSHOT/">Latest binary SNAPSHOT release</a></li>
+    </ul>
     
     <h3>2016-05-20 - Validation artefacts 3.2.0</h3>
     
@@ -356,22 +367,22 @@
     <p>
       <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.2 is out.
       Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.2">Source release</a></li>
-        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.2/">Binary release</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.2">Source release</a></li>
+      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.2/">Binary release</a></li>
+    </ul>
     
     <h3>2015-12-07 - SMP Server 4.1.0 release</h3>
     
     <p>
       <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.0 is out.
       Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.0">Source release</a></li>
-        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.0/">Binary release</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.0">Source release</a></li>
+      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.0/">Binary release</a></li>
+    </ul>
     
     <h3>2015-11-09 - SMP Server 4.0.3 release</h3>
     
@@ -379,11 +390,11 @@
       <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.0.3 is out.
       It fixes the problem that service group deletions were not propagated to the SML when
       using the SQL backend and adds an overview page with all tasks and action items.
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.3">Source release</a></li>
-        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.3/">Binary release</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.3">Source release</a></li>
+      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.3/">Binary release</a></li>
+    </ul>
     
     <h3>2015-11-06</h3>
     
@@ -399,11 +410,11 @@
       released. It fixes the compatibility problems introduced by the SMK 3.0.0 release.
       If you are only using the SML client library, please make sure to use at least
       version 4.3.1.
-      <ul>
-        <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.2">Source release</a></li>
-        <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.2/">Binary release</a></li>
-      </ul>
     </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.2">Source release</a></li>
+      <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.2/">Binary release</a></li>
+    </ul>
     
     <h3>2015-11-03</h3>
     
@@ -508,17 +519,19 @@
     <p>
       Based on the CIPA SMP server 2.2.3 I decided to fork my own clone of a PEPPOL
       SMP. It is available in 2 different versions:
-      <ul>
-        <li>
-          <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>
-          - an SMP server that uses a relational database (like MySQL) as the backend.
-        </li>
-        <li>
-          <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
-          - an SMP server that uses a file-based backend and keeps all information in main memory for
-          performance reasons. Additionally it includes a small management UI. 
-        </li>
-      </ul>
+    </p>
+    <ul>
+      <li>
+        <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>
+        - an SMP server that uses a relational database (like MySQL) as the backend.
+      </li>
+      <li>
+        <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
+        - an SMP server that uses a file-based backend and keeps all information in main memory for
+        performance reasons. Additionally it includes a small management UI. 
+      </li>
+    </ul>
+    <p>
       Both SMP servers use shared components also available on GitHub:
       <a href="https://github.com/phax/peppol-commons">peppol-commons</a>,
       <a href="https://github.com/phax/peppol-smp-client">peppol-smp-client</a> and
