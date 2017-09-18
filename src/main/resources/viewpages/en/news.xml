@@ -31,6 +31,17 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
+
+   <h3>2017-09-15 - Fall release RC1</h3>
+    
+    <p>
+      The 2017 Fall release of the PEPPOL Post Award validation artefacts is available.
+      The review deadline is 2017-10-15 12:00 CEST.
+    </p>
+    <ul>
+      <li><a href="http://peppol.eu/downloads/post-award/">Download from the PEPPOL site</a></li>
+      <li><a href="/files/validation/BIS2.0-VA-V3.5.0_RC1.zip">Download from this site</a></li>
+    </ul>
     
     <h3>2017-09-01 - PEPPOL Directory news</h3>
     
@@ -38,8 +49,8 @@
       The PEPPOL Directory test version was shut down and there are now two official PEPPOL Directory sites available: 
     </p>
     <ul>
-      <li><a href="http://directory.peppol.eu">http://directory.peppol.eu</a></li>
-      <li><a href="http://test-directory.peppol.eu">http://test-directory.peppol.eu</a></li>
+      <li><a href="http://directory.peppol.eu">http://directory.peppol.eu</a> (Production)</li>
+      <li><a href="http://test-directory.peppol.eu">http://test-directory.peppol.eu</a> (Test)</li>
     </ul>
   
     <h3>2017-07-27 - ublready.com</h3>
