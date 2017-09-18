@@ -85,6 +85,10 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     SystemProperties.setPropertyValue ("disableWSAddressCaching", nSeconds == 0);
   }
 
+  /**
+   * @param aLocaleMgr
+   *        Locale manager
+   */
   protected void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
   {
     aLocaleMgr.registerLocale (CPPApp.LOCALE_DE);
@@ -92,6 +96,10 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     aLocaleMgr.setDefaultLocale (CPPApp.DEFAULT_LOCALE);
   }
 
+  /**
+   * @param aAjaxInvoker
+   *        Ajax invoker
+   */
   protected void initAjax (@Nonnull final IAjaxInvoker aAjaxInvoker)
   {
     aAjaxInvoker.registerFunction (CAjax.DATATABLES);
@@ -105,10 +113,12 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     aAjaxInvoker.registerFunction (CAjax.COMMENT_SHOW_INPUT);
   }
 
+  /**
+   * @param aAPIInvoker
+   *        API invoker
+   */
   protected void initAPI (@Nonnull final IAPIInvoker aAPIInvoker)
-  {
-    aAPIInvoker.hashCode ();
-  }
+  {}
 
   @Override
   protected void initGlobalSettings ()
