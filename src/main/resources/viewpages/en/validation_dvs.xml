@@ -68,31 +68,41 @@ A very small Java WS client is available for
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->            
             <ul>
-<li><code>eu.cen.en16931:cii:1.0.0.20170421</code> - EN 16931 CII (2017-04-21)</li>
-<li><code>eu.cen.en16931:edifact:1.0.0.20170421</code> - EN 16931 EDIFACT/ISO 20625 (2017-04-21)</li>
-<li><code>eu.cen.en16931:ubl:1.0.0.20170421</code> - EN 16931 UBL (2017-04-21)</li>
-<li><code>eu.peppol.bis2:t19:3.3.0</code> - OpenPEPPOL Catalogue (3.3.0)</li>
+<li><code>eu.cen.en16931:cii:1.0.0.20170915</code> - EN 16931 CII (2017-09-15)</li>
+<li><code>eu.cen.en16931:edifact:1.0.0.20170915</code> - EN 16931 EDIFACT/ISO 20625 (2017-09-15)</li>
+<li><code>eu.cen.en16931:ubl:1.0.0.20170915</code> - EN 16931 UBL (2017-09-15)</li>
+<li><code>eu.peppol.bis2:t19:3.3.0</code> - OpenPEPPOL Catalogue (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t19:3.4.0</code> - OpenPEPPOL Catalogue (3.4.0)</li>
-<li><code>eu.peppol.bis2:t58:3.3.0</code> - OpenPEPPOL Catalogue Response (3.3.0)</li>
+<li><code>eu.peppol.bis2:t19:3.5.0.RC1</code> - OpenPEPPOL Catalogue (3.5.0.RC1)</li>
+<li><code>eu.peppol.bis2:t58:3.3.0</code> - OpenPEPPOL Catalogue Response (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t58:3.4.0</code> - OpenPEPPOL Catalogue Response (3.4.0)</li>
-<li><code>eu.peppol.bis2:t14:3.3.0</code> - OpenPEPPOL Credit Note (3.3.0)</li>
+<li><code>eu.peppol.bis2:t58:3.5.0.RC1</code> - OpenPEPPOL Catalogue Response (3.5.0.RC1)</li>
+<li><code>eu.peppol.bis2:t14:3.3.0</code> - OpenPEPPOL Credit Note (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t14:3.4.0</code> - OpenPEPPOL Credit Note (3.4.0)</li>
+<li><code>eu.peppol.bis2:t14:3.5.0.RC1</code> - OpenPEPPOL Credit Note (3.5.0.RC1)</li>
 <li><code>eu.peppol.bis2:t14:5:at</code> - OpenPEPPOL Credit Note (Austria)</li>
 <li><code>eu.peppol.bis2:t14:7:at-gov</code> - OpenPEPPOL Credit Note (Austrian Government)</li>
-<li><code>eu.peppol.bis2:t16:3.3.0</code> - OpenPEPPOL Despatch Advice (3.3.0)</li>
+<li><code>eu.peppol.bis2:t16:3.3.0</code> - OpenPEPPOL Despatch Advice (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t16:3.4.0</code> - OpenPEPPOL Despatch Advice (3.4.0)</li>
-<li><code>eu.peppol.bis2:t10:3.3.0</code> - OpenPEPPOL Invoice (3.3.0)</li>
+<li><code>eu.peppol.bis2:t16:3.5.0.RC1</code> - OpenPEPPOL Despatch Advice (3.5.0.RC1)</li>
+<li><code>eu.peppol.bis2:t10:3.3.0</code> - OpenPEPPOL Invoice (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t10:3.4.0</code> - OpenPEPPOL Invoice (3.4.0)</li>
+<li><code>eu.peppol.bis2:t10:3.5.0.RC1</code> - OpenPEPPOL Invoice (3.5.0.RC1)</li>
 <li><code>eu.peppol.bis2:t10:5:at</code> - OpenPEPPOL Invoice (Austria)</li>
 <li><code>eu.peppol.bis2:t10:7:at-gov</code> - OpenPEPPOL Invoice (Austrian Government)</li>
-<li><code>eu.peppol.bis2:t71:3.3.0</code> - OpenPEPPOL MLR (3.3.0)</li>
+<li><code>eu.peppol.bis2:t71:3.3.0</code> - OpenPEPPOL MLR (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t71:3.4.0</code> - OpenPEPPOL MLR (3.4.0)</li>
-<li><code>eu.peppol.bis2:t01:3.3.0</code> - OpenPEPPOL Order (3.3.0)</li>
+<li><code>eu.peppol.bis2:t71:3.5.0.RC1</code> - OpenPEPPOL MLR (3.5.0.RC1)</li>
+<li><code>eu.peppol.bis2:t01:3.3.0</code> - OpenPEPPOL Order (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.4.0</code> - OpenPEPPOL Order (3.4.0)</li>
+<li><code>eu.peppol.bis2:t01:3.5.0.RC1</code> - OpenPEPPOL Order (3.5.0.RC1)</li>
 <li><code>eu.peppol.bis2:t110:3.4.0</code> - OpenPEPPOL Order Agreement (3.4.0)</li>
-<li><code>eu.peppol.bis2:t76:3.3.0</code> - OpenPEPPOL Order Response (3.3.0)</li>
+<li><code>eu.peppol.bis2:t110:3.5.0.RC1</code> - OpenPEPPOL Order Agreement (3.5.0.RC1)</li>
+<li><code>eu.peppol.bis2:t76:3.3.0</code> - OpenPEPPOL Order Response (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t76:3.4.0</code> - OpenPEPPOL Order Response (3.4.0)</li>
+<li><code>eu.peppol.bis2:t76:3.5.0.RC1</code> - OpenPEPPOL Order Response (3.5.0.RC1)</li>
 <li><code>eu.peppol.bis2:t77:3.4.0</code> - OpenPEPPOL Punch Out (3.4.0)</li>
+<li><code>eu.peppol.bis2:t77:3.5.0.RC1</code> - OpenPEPPOL Punch Out (3.5.0.RC1)</li>
 <li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1</li>
 <li><code>org.simplerinvoicing:invoice:1.1:strict</code> - Simplerinvoicing Invoice 1.1 (strict)</li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2</li>

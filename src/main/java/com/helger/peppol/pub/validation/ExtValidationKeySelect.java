@@ -33,7 +33,8 @@ public final class ExtValidationKeySelect extends HCExtSelect
     super (aRF);
     for (final Map.Entry <VESID, IValidationExecutorSet> aEntry : ExtValidationKeyRegistry.getAllSorted (aDisplayLocale)
                                                                                           .entrySet ())
-      addOption (aEntry.getKey ().getAsSingleID (), aEntry.getValue ().getDisplayName ());
+      addOption (aEntry.getKey ().getAsSingleID (),
+                 aEntry.getValue ().getDisplayName () + (aEntry.getValue ().isDeprecated () ? " (deprecated!)" : ""));
     addOptionPleaseSelect (aDisplayLocale);
   }
 }

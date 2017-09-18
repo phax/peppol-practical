@@ -35,6 +35,7 @@ public class MainListVESIDs
                           aEntry.getKey ().getAsSingleID () +
                           "</code> - " +
                           aEntry.getValue ().getDisplayName () +
+                          (aEntry.getValue ().isDeprecated () ? " <strong>(Deprecated)</strong>" : "") +
                           "</li>");
     }
   }
