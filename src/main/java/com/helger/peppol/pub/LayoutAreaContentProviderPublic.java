@@ -42,7 +42,6 @@ import com.helger.html.hc.html.forms.HCInput;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.grouping.HCP;
 import com.helger.html.hc.html.grouping.IHCLI;
-import com.helger.html.hc.html.metadata.HCHead;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.html.textlevel.HCStrong;
@@ -82,7 +81,6 @@ import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.app.context.ILayoutExecutionContext;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.app.layout.CLayout;
-import com.helger.photon.core.app.layout.ILayoutAreaContentProvider;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.photon.core.servlet.LogoutServlet;
 import com.helger.photon.core.url.LinkHelper;
@@ -101,7 +99,7 @@ import com.helger.xservlet.forcedredirect.ForcedRedirectManager;
  *
  * @author Philip Helger
  */
-public final class LayoutAreaContentProviderPublic implements ILayoutAreaContentProvider <LayoutExecutionContext>
+public final class LayoutAreaContentProviderPublic
 {
   private static final String PARAM_HTTP_ERROR = "httpError";
   private static final String VALUE_HTTP_ERROR = "true";
@@ -112,28 +110,31 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
   private static final ICSSClassProvider CSS_CLASS_PAYPAL = DefaultCSSClassProvider.create ("paypal");
   private static final ICSSClassProvider CSS_CLASS_FOOTER_LINKS = DefaultCSSClassProvider.create ("footer-links");
 
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol1 = new CommonsArrayList <> ();
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol2 = new CommonsArrayList <> ();
-  private final ICommonsList <IMenuObject> m_aFooterObjectsCol3 = new CommonsArrayList <> ();
-  private final int m_nFooterRowCount;
+  private static final ICommonsList <IMenuObject> s_aFooterObjectsCol1 = new CommonsArrayList <> ();
+  private static final ICommonsList <IMenuObject> s_aFooterObjectsCol2 = new CommonsArrayList <> ();
+  private static final ICommonsList <IMenuObject> s_aFooterObjectsCol3 = new CommonsArrayList <> ();
+  private static final int s_nFooterRowCount;
 
-  public LayoutAreaContentProviderPublic ()
+  static
   {
     PhotonGlobalState.getInstance ()
                      .state (CApplicationID.APP_ID_PUBLIC)
                      .getMenuTree ()
                      .iterateAllMenuObjects ( (aCurrentObject) -> {
                        if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1))
-                         m_aFooterObjectsCol1.add (aCurrentObject);
+                         s_aFooterObjectsCol1.add (aCurrentObject);
                        if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2))
-                         m_aFooterObjectsCol2.add (aCurrentObject);
+                         s_aFooterObjectsCol2.add (aCurrentObject);
                        if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
-                         m_aFooterObjectsCol3.add (aCurrentObject);
+                         s_aFooterObjectsCol3.add (aCurrentObject);
                      });
-    m_nFooterRowCount = MathHelper.getMaxInt (m_aFooterObjectsCol1.size (),
-                                              m_aFooterObjectsCol2.size (),
-                                              m_aFooterObjectsCol3.size ());
+    s_nFooterRowCount = MathHelper.getMaxInt (s_aFooterObjectsCol1.size (),
+                                              s_aFooterObjectsCol2.size (),
+                                              s_aFooterObjectsCol3.size ());
   }
+
+  private LayoutAreaContentProviderPublic ()
+  {}
 
   private static void _addNavbarLoginLogout (@Nonnull final LayoutExecutionContext aLEC,
                                              @Nonnull final BootstrapNavbar aNavbar)
@@ -342,7 +343,7 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
   }
 
   @Nonnull
-  public IHCNode getContent (@Nonnull final LayoutExecutionContext aLEC, @Nonnull final HCHead aHead)
+  public static IHCNode getContent (@Nonnull final LayoutExecutionContext aLEC)
   {
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
     final HCNodeList ret = new HCNodeList ();
@@ -386,20 +387,20 @@ public final class LayoutAreaContentProviderPublic implements ILayoutAreaContent
                                .addChild (" - Twitter: ")
                                .addChild (new HCA (new SimpleURL ("https://twitter.com/philiphelger")).addChild ("@philiphelger")));
 
-      if (m_nFooterRowCount > 0)
+      if (s_nFooterRowCount > 0)
       {
         final BootstrapMenuItemRendererHorz aRenderer = new BootstrapMenuItemRendererHorz (aDisplayLocale);
         final HCDiv aTable = new HCDiv ();
         aTable.addClass (CSS_CLASS_FOOTER_LINKS);
-        for (int i = 0; i < m_nFooterRowCount; ++i)
+        for (int i = 0; i < s_nFooterRowCount; ++i)
         {
           final BootstrapRow aRow = aTable.addAndReturnChild (new BootstrapRow ());
           aRow.createColumn (4)
-              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol1.getAtIndex (i)));
+              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol1.getAtIndex (i)));
           aRow.createColumn (4)
-              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol2.getAtIndex (i)));
+              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol2.getAtIndex (i)));
           aRow.createColumn (4)
-              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, m_aFooterObjectsCol3.getAtIndex (i)));
+              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol3.getAtIndex (i)));
         }
         aDiv.addChild (aTable);
       }

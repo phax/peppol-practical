@@ -16,8 +16,8 @@
  */
 package com.helger.peppol.servlet;
 
+import com.helger.peppol.secure.LayoutAreaContentProviderSecure;
 import com.helger.peppol.ui.AppLayoutHTMLProvider;
-import com.helger.photon.basic.app.appid.CApplicationID;
 import com.helger.photon.core.app.html.IHTMLProvider;
 import com.helger.photon.core.servlet.AbstractApplicationXServletHandler;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
@@ -37,7 +37,7 @@ public class SecureApplicationServlet extends AbstractSecureApplicationServlet
       @Override
       protected IHTMLProvider createHTMLProvider (final IRequestWebScopeWithoutResponse aRequestScope)
       {
-        return new AppLayoutHTMLProvider (CApplicationID.APP_ID_SECURE);
+        return new AppLayoutHTMLProvider (LayoutAreaContentProviderSecure::getContent);
       }
     });
   }

@@ -16,45 +16,53 @@
  */
 package com.helger.peppol.ui;
 
-import javax.annotation.Nonnull;
+import java.util.Locale;
+import java.util.function.Function;
 
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.StringHelper;
+import com.helger.html.hc.IHCNode;
+import com.helger.html.hc.html.metadata.HCHead;
 import com.helger.html.hc.html.root.HCHtml;
+import com.helger.html.hc.html.sections.HCBody;
 import com.helger.peppol.app.AppHelper;
-import com.helger.photon.basic.app.appid.PhotonGlobalState;
 import com.helger.photon.basic.app.appid.RequestSettings;
-import com.helger.photon.basic.app.request.IRequestParameterManager;
+import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.core.app.context.ISimpleWebExecutionContext;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
-import com.helger.photon.core.app.layout.AbstractLayoutManagerBasedLayoutHTMLProvider;
+import com.helger.photon.core.app.html.AbstractHTMLProvider;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.xservlet.forcedredirect.ForcedRedirectException;
 
 /**
  * Main class for creating HTML output
  *
  * @author Philip Helger
  */
-public class AppLayoutHTMLProvider extends AbstractLayoutManagerBasedLayoutHTMLProvider <LayoutExecutionContext>
+public class AppLayoutHTMLProvider extends AbstractHTMLProvider
 {
-  public AppLayoutHTMLProvider (final String sAppID)
+  private final Function <LayoutExecutionContext, IHCNode> m_aFactory;
+
+  public AppLayoutHTMLProvider (final Function <LayoutExecutionContext, IHCNode> aFactory)
   {
-    super (PhotonGlobalState.getInstance ().state (sAppID).getCustom ("lm"));
-    setCreateLayoutAreaSpan (false);
+    m_aFactory = aFactory;
   }
 
   @Override
-  protected LayoutExecutionContext createLayoutExecutionContext (@Nonnull final ISimpleWebExecutionContext aSWEC,
-                                                                 @Nonnull final IRequestParameterManager aRequestManager)
+  protected void fillBody (final ISimpleWebExecutionContext aSWEC, final HCHtml aHtml) throws ForcedRedirectException
   {
-    return new LayoutExecutionContext (aSWEC, RequestSettings.getMenuItem (aSWEC.getRequestScope ()));
-  }
+    final IRequestWebScopeWithoutResponse aRequestScope = aSWEC.getRequestScope ();
+    final Locale aDisplayLocale = aSWEC.getDisplayLocale ();
+    final IMenuItemPage aMenuItem = RequestSettings.getMenuItem (aRequestScope);
+    final LayoutExecutionContext aLEC = new LayoutExecutionContext (aSWEC, aMenuItem);
+    final HCHead aHead = aHtml.getHead ();
+    final HCBody aBody = aHtml.getBody ();
 
-  @Override
-  @OverrideOnDemand
-  protected void prepareBodyAfterAreas (@Nonnull final LayoutExecutionContext aLEC, @Nonnull final HCHtml aHtml)
-  {
-    final String sPageTitle = aLEC.getSelectedMenuItem ().getDisplayText (aLEC.getDisplayLocale ());
-    aHtml.getHead ()
-         .setPageTitle (StringHelper.getConcatenatedOnDemand (AppHelper.getApplicationTitle (), " - ", sPageTitle));
+    // Add menu item in page title
+    aHead.setPageTitle (StringHelper.getConcatenatedOnDemand (AppHelper.getApplicationTitle (),
+                                                              " - ",
+                                                              aMenuItem.getDisplayText (aDisplayLocale)));
+
+    final IHCNode aNode = m_aFactory.apply (aLEC);
+    aBody.addChild (aNode);
   }
 }
