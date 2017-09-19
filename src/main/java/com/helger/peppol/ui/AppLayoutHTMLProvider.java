@@ -44,7 +44,7 @@ public class AppLayoutHTMLProvider extends AbstractHTMLProvider
 {
   private final IFunction <LayoutExecutionContext, IHCNode> m_aFactory;
 
-  public AppLayoutHTMLProvider (final IFunction <LayoutExecutionContext, IHCNode> aFactory)
+  public AppLayoutHTMLProvider (@Nonnull final IFunction <LayoutExecutionContext, IHCNode> aFactory)
   {
     m_aFactory = aFactory;
   }
