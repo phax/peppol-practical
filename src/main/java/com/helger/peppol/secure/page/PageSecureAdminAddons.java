@@ -56,9 +56,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
   {
     if (ACTION_EXPIRE_PAGE_CACHE.equals (sAction))
     {
-      final IMenuTree aPublicMenuTree = PhotonGlobalState.getInstance ()
-                                                         .state (CApplicationID.APP_ID_PUBLIC)
-                                                         .getMenuTree ();
+      final IMenuTree aPublicMenuTree = PhotonGlobalState.state (CApplicationID.APP_ID_PUBLIC).getMenuTree ();
 
       // Bulk modify
       final MutableInt aCounterUpdated = new MutableInt (0);

@@ -117,17 +117,14 @@ public final class LayoutAreaContentProviderPublic
 
   static
   {
-    PhotonGlobalState.getInstance ()
-                     .state (CApplicationID.APP_ID_PUBLIC)
-                     .getMenuTree ()
-                     .iterateAllMenuObjects ( (aCurrentObject) -> {
-                       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1))
-                         s_aFooterObjectsCol1.add (aCurrentObject);
-                       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2))
-                         s_aFooterObjectsCol2.add (aCurrentObject);
-                       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
-                         s_aFooterObjectsCol3.add (aCurrentObject);
-                     });
+    PhotonGlobalState.state (CApplicationID.APP_ID_PUBLIC).getMenuTree ().iterateAllMenuObjects ( (aCurrentObject) -> {
+      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1))
+        s_aFooterObjectsCol1.add (aCurrentObject);
+      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2))
+        s_aFooterObjectsCol2.add (aCurrentObject);
+      if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
+        s_aFooterObjectsCol3.add (aCurrentObject);
+    });
     s_nFooterRowCount = MathHelper.getMaxInt (s_aFooterObjectsCol1.size (),
                                               s_aFooterObjectsCol2.size (),
                                               s_aFooterObjectsCol3.size ());
