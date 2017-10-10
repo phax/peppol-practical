@@ -68,9 +68,9 @@ A very small Java WS client is available for
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->            
             <ul>
-<li><code>eu.cen.en16931:cii:1.0.0.20170921</code> - EN 16931 CII (2017-09-21)</li>
-<li><code>eu.cen.en16931:edifact:1.0.0.20170921</code> - EN 16931 EDIFACT/ISO 20625 (2017-09-21)</li>
-<li><code>eu.cen.en16931:ubl:1.0.0.20170921</code> - EN 16931 UBL (2017-09-21)</li>
+<li><code>eu.cen.en16931:cii:1.0.0.20171004</code> - EN 16931 CII (2017-10-04)</li>
+<li><code>eu.cen.en16931:edifact:1.0.0.20171004</code> - EN 16931 EDIFACT/ISO 20625 (2017-10-04)</li>
+<li><code>eu.cen.en16931:ubl:1.0.0.20171004</code> - EN 16931 UBL (2017-10-04)</li>
 <li><code>eu.peppol.bis2:t19:3.3.0</code> - OpenPEPPOL Catalogue (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t19:3.4.0</code> - OpenPEPPOL Catalogue (3.4.0)</li>
 <li><code>eu.peppol.bis2:t19:3.5.0.RC1</code> - OpenPEPPOL Catalogue (3.5.0.RC1)</li>
