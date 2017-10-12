@@ -1,0 +1,90 @@
+<!--
+
+    Copyright (C) 2014-2017 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<div class="alert alert-info">
+<p>
+  This page tries to give a rough overview on CEN/TC 434 an EN 16931, how it belongs together and where to find what.
+</p>
+<p>
+  <strong>Note:</strong> this is not an official page. This is just what I'm collecting...
+</p>
+</div>
+
+<h2>Introduction</h2>
+
+<p>
+In the beginning was EN/2014/55. Article 3 starts with:
+</p>
+<blockquote>
+  The Commission shall request that the relevant European standardisation organisation draft a European 
+  standard for the semantic data model of the core elements of an electronic invoice
+  (the ‘European standard on electronic invoicing’).
+</blockquote>
+
+<p>
+This lead CEN to start PC 434 (Project Committee) which was later transfered to a TC (Technical Committee). 
+</p>
+
+<h2>Glossary</h2>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>Term</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>CEN</td>
+    <td>Comité Européen de Normalisation - European Committee for Standardization</td>
+  </tr>
+  <tr>
+    <td>CEN/TC</td>
+    <td>CEN Technical Committee - working group</td>
+  </tr>
+  <tr>
+    <td>EN</td>
+    <td>European Norm - has tighter binding than TR and TS</td>
+  </tr>
+  <tr>
+    <td>EN 16931</td>
+    <td>European Norm instance with ID 16931 - this is the EN that contains the semantic data model for electronic invoices in Europe</td>
+  </tr>
+  <tr>
+    <td>TR</td>
+    <td>Technical Recommendation - has lower binding than EN and TS</td>
+  </tr>
+  <tr>
+    <td>TS</td>
+    <td>Technical Specification - binding between EN and TR</td>
+  </tr>
+</tbody>
+</table>
+
+<h2>Links</h2>
+
+<p>
+This chapter contains some external links that you might consider helpful:
+</p>
+
+<ul>
+  <li><a href="http://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A32014L0055">Official EN/2014/55 documents</a></li>
+  <li><a href="https://standards.cen.eu/dyn/www/f?p=204:7:0::::FSP_ORG_ID:1883209&amp;cs=1E81C9C833655EEDC7010C8D0A2FB786C">Official CEN/TC 434 page</a></li>
+  <li><a href="https://github.com/CenPC434">CEN/TC 434 Open Source components on GitHub</a></li>
+</ul>
