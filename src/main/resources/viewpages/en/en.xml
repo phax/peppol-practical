@@ -17,18 +17,46 @@
 
 -->
 <div class="alert alert-info">
-<p>
-  This page tries to give a rough overview on CEN/TC 434 an EN 16931, how it belongs together and where to find what.
-</p>
+  This page tries to give a rough overview on CEN/TC 434 and EN 16931, how it belongs together and where to find what.
+</div>
+
 <p>
   <strong>Note:</strong> this is not an official page. This is just what I'm collecting...
 </p>
+
+<div class="alert alert-success">
+  The <strong>EN 16931-1:2017</strong> was published on October 17<sup>th</sup> 2017 in the OJ.
+  That means that from <strong>April 18<sup>th</sup> 2019</strong> most public procuring entities must be able
+  to accept e-Invoices complying to the UBL and CII syntax requirements defined in <strong>CEN/TS 16931-3-2</strong>
+  and <strong>CEN/TS 16931-3-3</strong>! 
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Table of contents</h3>
+  </div>
+  <div class="panel-body">
+    <ol>
+      <li><a href="#intro">Introduction</a></li>
+      <li><a href="#struct">Structure of work</a></li>
+      <li><a href="#working">Working with the EN 16931</a>
+        <ol>
+          <li><a href="#get">How to get the norm?</a></li>
+          <li><a href="#tec">Technical requirements</a></li>
+          <li><a href="#open">Open issues</a></li>
+        </ol>
+      </li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#links">External links</a></li>
+    </ol>
+  </div>
+</div>
+
+<a name="intro"></a>
 <h2>Introduction</h2>
 
 <p>
-In the beginning was EN/2014/55. Article 3 starts with:
+In the beginning was directive 2014/55/EU. Article 3 starts with:
 </p>
 <blockquote>
   The Commission shall request that the relevant European standardisation organisation draft a European 
@@ -37,9 +65,130 @@ In the beginning was EN/2014/55. Article 3 starts with:
 </blockquote>
 
 <p>
-This lead CEN to start PC 434 (Project Committee) which was later transfered to a TC (Technical Committee). 
+This lead CEN to start PC 434 (Project Committee) which was later transfered to a TC (Technical Committee) &rarr; <code>CEN/TC 434</code>.
 </p>
 
+<a name="struct"></a>
+<h2>Structure of work</h2>
+
+<!-- Source: N028 -->
+<p>
+The TC had 6 working groups concerning with the following topics: 
+</p>
+<ol>
+  <li>
+    <p>A European standard (EN) on the semantic data model for the core elements of an electronic invoice</p>
+    <p>Created: <strong>EN 16931-1:2017</strong> Part 1: Semantic data model of the core elements of an electronic invoice</p>
+  </li>
+  <li>
+    <p>A Technical Specification (TS) on a limited number of invoice syntaxes (formats) which fully comply with the EN</p>
+    <p>Created: <strong>CEN/TS 16931-2:2017</strong> Part 2: List of syntaxes that comply with EN 16931-1</p>
+  </li>
+  <li>
+    <p>A Technical Specification (TS) on the syntax bindings, i.e. information specifying how the semantic data model could be represented in the listed syntaxes (formats) and their automatic validation artefacts</p>
+    <p>Created: 
+      <ul>
+        <li><strong>CEN/TS 16931-3-1:2017</strong> Part 3-1: Methodology for syntax bindings of the core elements of an electronic invoice</li>  
+        <li><strong>CEN/TS 16931-3-2:2017</strong> Part 3-2: Syntax binding for ISO/IEC 19845 (UBL 2.1) invoice and credit note</li>
+        <li><strong>CEN/TS 16931-3-3:2017</strong> Part 3-3: Syntax binding for UN/CEFACT XML Industry Invoice D16B</li>
+        <li><strong>CEN/TS 16931-3-4:2017</strong> Part 3-4: Syntax binding for UN/EDIFACT INVOIC D16B</li>
+      </ul>
+    </p>
+  </li>
+  <li>
+    <p>A Technical Report (TR) covering the guidelines on interoperability of electronic invoices at the transmission level, taking into account the need of ensuring the authenticity of the origin and the integrity of the electronic invoices’ content</p>
+    <p>Created: <strong>CEN/TR 16931-4:2017</strong> Part 4: Guidelines on interoperability of electronic invoices at the transmission level</p>
+  </li>
+  <li>
+    <p>A Technical Report (TR) covering the guidelines on the use of sector or country extensions (as described in the Recommendation of the European Multi-stakeholder Forum on e-Invoicing) in conjunction with the European standard, including a methodology to be applied in the real environment</p>
+    <p>Created: <strong>CEN/TR 16931-5:2017</strong> Part 5: Guidelines on the use of sector or country extensions in conjunction with EN 16931-1, methodology to be applied in the real environment</p>
+  </li>
+  <li>
+    <p>A Technical Report (TR) covering the result of the test of the European standard with respect to its practical application for an end user</p>
+    <p>Created: <strong>CEN/TR 16931-6:2017</strong> Part 6: Result of the test of EN 16931-1 with respect to its practical application for an end user</p>
+  </li>
+</ol>
+
+<a name="working"></a>
+<h2>Working with the EN 16931</h2>
+
+<p>
+  From a practical point of view this norm means, that all public entities performing public procurement cannot reject
+  electronic invoices from April 18<sup>th</sup> 2019 if they are retrieved in UBL or CII formats complying to the norm.
+  Certain receivers have an additional 12 month to comply to the requirements, ending up on April 18<sup>th</sup> 2020.
+</p>
+
+<p>
+  Because life would be too easy if EN 16931 was a "one size fits all" solution, there are already a lot of 
+  so called CIUSs developed. A CIUS is an additional specification on top of <strong>EN 16931-1:2017</strong> that
+  narrows certain fields for certain use cases.
+  The methodology how a CIUS is defined, can be found in <strong>CEN/TR 16931-5:2017</strong>.
+</p>
+<p>
+  An unofficial self-declaration based list of CIUSs is provided by
+  <a href="https://ec.europa.eu/cefdigital/wiki/display/EINVCOMMUNITY/Community-driven+Registry+of+CIUS+%28Core+Invoice+Usage+Specifications%29+and+Extensions">CEF</a>.
+  One upcoming task of CEN/TC 434 is to establish an official registry of CIUSs.  
+</p>
+
+<a name="get"></a>
+<h3>How to get the norm?</h3>
+<p>
+  Good question. Currently you need to consult your 
+  <a href="https://standards.cen.eu/dyn/www/f?p=CENWEB:5">local standardization body</a>
+  and BUY the standard documents.
+  CEN/TC 434 is heavily trying to make the norm available for free, but they haven't succeeded so far.
+</p>
+<p>
+  If you are impatient and would ask me what documents to buy I would suggest the following ones:
+</p>
+<ul>
+  <li><strong>EN 16931-1:2017</strong></li>
+  <li><strong>CEN/TS 16931-3-1:2017</strong></li>
+  <li>One or more of <strong>CEN/TS 16931-3-2:2017</strong>, <strong>CEN/TS 16931-3-2:2017</strong> or <strong>CEN/TS 16931-3-3:2017</strong> - depending on what you want to implement</li>
+  <li><strong>CEN/TR 16931-5:2017</strong></li>
+</ul>
+
+<a name="tec"></a>
+<h3>Technical requirements</h3>
+
+<p>
+  Mostly it is about validating, if a UBL or CII documents fulfills all the requirements from the norm.
+  Therefore the following steps need to be performed:
+</p>
+<ol>
+  <li>Validate the e-Invoice against the XML Schema of UBL 2.1 or CII D16B - depending on the namespace URI of the XML root element</li>
+  <li>
+    Apply the Schematron rules for the correct syntax.
+    Schematrons are currently available from <a href="https://github.com/CenPC434/validation">GitHub</a> but the licensing of these artefacts is still under discussion.
+    A fully working open source validation engine is available at <a href="https://github.com/phax/peppol-validation-engine/">https://github.com/phax/peppol-validation-engine/</a> 
+    licensed under the business friendly Apache 2 license.
+    It supports UBL, CII and additionally XML EDIFACT invoices.
+  </li>
+  <li>
+    If you need to follow a certain CIUS, apply the Schematrons of the CIUS in the correct order as well.
+    As there are currently no published CIUSs, there is also no predefined tool support for this.
+  </li>
+</ol>
+
+<a name="open"></a>
+<h3>Open issues per 2017-10-17</h3>
+
+<p>
+  CEN/TC 434 is a pilot project, because it is the first CEN TC that is mandated by law and therefore certain things need to be clarified inside CEN before they are resolved for the users.
+</p>
+
+<p>
+  The biggest discussion points are currently the costs for the norm (too much) as well as the IPR (Intellectual Property Rights) issues concerning the
+  copying and reusing of the norm documents or of parts of these documents.
+  E.g. you are not allowed to reuse a document on different devices or outside the country you purchased it in.
+</p>
+
+<p>
+  Also the licensing of the Validation Artefacts is currently unclear.
+  Are they part of the norm or not?
+</p>
+
+<a name="glossary"></a>
 <h2>Glossary</h2>
 
 <table class="table">
@@ -59,6 +208,14 @@ This lead CEN to start PC 434 (Project Committee) which was later transfered to 
     <td>CEN Technical Committee - working group</td>
   </tr>
   <tr>
+    <td>CII</td>
+    <td>UN/CEFACT Cross Industry Invoice - XML representation of an invoice</td>
+  </tr>
+  <tr>
+    <td>CIUS</td>
+    <td>Core Invoice User Specification - A specification based on <strong>EN 16931-1:2017</strong> that defines certain elements more narrow</td>
+  </tr>
+  <tr>
     <td>EN</td>
     <td>European Norm - has tighter binding than TR and TS</td>
   </tr>
@@ -74,17 +231,28 @@ This lead CEN to start PC 434 (Project Committee) which was later transfered to 
     <td>TS</td>
     <td>Technical Specification - binding between EN and TR</td>
   </tr>
+  <tr>
+    <td>UBL</td>
+    <td>ISO/IEC 19845 Universal Business Language - XML representation of an invoice</td>
+  </tr>
 </tbody>
 </table>
 
-<h2>Links</h2>
+<a name="links"></a>
+<h2>External Links</h2>
 
 <p>
 This chapter contains some external links that you might consider helpful:
 </p>
 
 <ul>
-  <li><a href="http://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A32014L0055">Official EN/2014/55 documents</a></li>
-  <li><a href="https://standards.cen.eu/dyn/www/f?p=204:7:0::::FSP_ORG_ID:1883209&amp;cs=1E81C9C833655EEDC7010C8D0A2FB786C">Official CEN/TC 434 page</a></li>
-  <li><a href="https://github.com/CenPC434">CEN/TC 434 Open Source components on GitHub</a></li>
+  <li><a target="_blank" href="http://eur-lex.europa.eu/legal-content/EN/TXT/?uri=COM:2017:590:FIN">Assessment of the European Standard on electronic invoicing, according to Directive 2014/55/EU</a></li>
+  <li><a target="_blank" href="http://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A32014L0055">Official EN/2014/55 documents</a></li>
+  <li><a target="_blank" href="https://standards.cen.eu/dyn/www/f?p=204:7:0::::FSP_ORG_ID:1883209&amp;cs=1E81C9C833655EEDC7010C8D0A2FB786C">Official CEN/TC 434 page</a></li>
+  <li><a target="_blank" href="https://github.com/CenPC434">CEN/TC 434 Open Source components on GitHub</a></li>
+  <li><a target="_blank" href="http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.html">OASIS UBL 2.1</a></li>
+  <li><a target="_blank" href="http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.zip">Complete OASIS UBL 2.1 download package</a></li>
+  <li><a target="_blank" href="http://www.unece.org/cefact/xml_schemas/index">CII schemas page</a></li>
+  <li><a target="_blank" href="http://www.unece.org/fileadmin/DAM/cefact/xml_schemas/D16B_SCRDM__Subset__CII.zip">Complete XML Schemas 16B (SCRDM - CII)</a></li>
+  <li><a target="_blank" href="https://github.com/phax/peppol-validation-engine/">ph-bdve - Java Open Source Business Document Validation Engine</a></li>
 </ul>

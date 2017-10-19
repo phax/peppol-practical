@@ -125,7 +125,7 @@ public final class MenuPublic
 
     {
       aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_EN,
-                                                         "CEN/TC 434 - EN16931",
+                                                         "EN 16931 - CEN/TC 434",
                                                          new ClassPathResource ("viewpages/en/en.xml")));
     }
 

@@ -32,7 +32,38 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
-   <h3>2017-09-15 - Fall release RC1</h3>
+    <h3>2017-10-23 - eInvoicing Standard Launch Event</h3>
+    
+    <p>
+      On 23 October 2017, the European Committee for Standardization (CEN), in close collaboration with CEF eInvoicing, 
+      will host an event around the publication of the EN eInvoicing standard in Brussels.
+    </p>  
+
+    <p>
+      The objective of this launch event is to celebrate the official publication of the standard and to provide a 
+      platform for the public and private sector to exchange views and expertise with regard to approaches for 
+      the implementation of the Directive and conformance to the standard to reap the benefits of electronic invoicing.
+    </p>
+
+    <p>
+      More details can be found on the <a href="https://ec.europa.eu/cefdigital/wiki/pages/viewpage.action?pageId=48765749">registration page</a>
+      - participation is free of charge! 
+    </p>
+
+    <h3>2017-10-17 - EN 16931 officially published in the OJ</h3>
+    
+    <p>
+      Read more about EN 16931, CEN/TC 434 and all the fuzz around it at a <a href="/public/menuitem-en">special page</a> 
+    </p>
+
+    <h3>2017-10-13 - invoice.fans</h3>
+    
+    <p>
+      A new page on e-Invoicing started: <a href="https://invoice.fans">https://invoice.fans</a> powered by GEFEG.
+      Articles on e-Invoicing in German, French and English. Enjoy reading. 
+    </p>
+
+    <h3>2017-09-15 - Fall release RC1</h3>
     
     <p>
       The 2017 Fall release of the PEPPOL Post Award validation artefacts is available.
