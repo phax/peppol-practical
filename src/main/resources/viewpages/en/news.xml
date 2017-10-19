@@ -259,7 +259,7 @@
       now available:
     </p>
     <ul>
-      <li><a href="https://joinup.ec.europa.eu/svn/peppol/F2F%20meetings/CC%20member%20meetings%20London%20November%202016/">Download directory</a></li>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/tree/master/F2F%20meetings/CC%20member%20meetings%20London%20November%202016/">Download directory</a></li>
     </ul>
     
     <h3>2016-11-25</h3>
@@ -401,7 +401,7 @@
     <p>
       PEPPOL Validation Artefacts 3.2.0 were released.
       The latest version can be found at 
-      <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/">https://joinup.ec.europa.eu/svn/peppol/Validation Resources/BIS v2/</a>
+      <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Validation%20Resources/BIS%20v2/">https://github.com/OpenPEPPOL/documentation/tree/master/Validation Resources/BIS v2/</a>
     </p>
     
     <h3>2016-03-20 - SMP Server 4.1.2 release</h3>
@@ -542,9 +542,9 @@
     
     <p>
       New PEPPOL validation artefacts are out for review.
-      The <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/BIS2.0-VA-V3.1.0_RC1.zip">ZIP file</a>
+      The <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Validation%20Resources/BIS%20v2/Deprecated/BIS2.0-VA-V3.1.0_RC1.zip">ZIP file</a>
       with the Schematron and XSLT files can be downloaded.
-      <a href="https://joinup.ec.europa.eu/svn/peppol/Validation%20Resources/BIS%20v2/Release%20notes%20for%20openPEPPOL-VA-V3%201%200_RC1.pdf">Release notes</a>
+      <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Validation%20Resources/BIS%20v2/Deprecated/Release%20notes%20for%20openPEPPOL-VA-V3%201%200_RC1.pdf">Release notes</a>
       are also available.<br />
       Deadline for submitting comments to <a href="mailto:rfc@peppol.eu">rfc@peppol.eu</a> is October 1<sup>st</sup> 2015.
     </p>
@@ -613,16 +613,11 @@
     <h3>2014-11-05 - CIPA 2.2.3 released</h3>
     
     <p>
-      CIPA 2.2.3 is a minor update that basically extends the SMP client and the SML
+      <a href="https://joinup.ec.europa.eu/release/cipa-e-delivery/223">CIPA 2.2.3</a> is a minor update that basically extends the SMP client and the SML
       client library functionality. Additionally the class <code>ConfiguredDNSMapper</code>
       got deprecated because I assume it is of no further need as the original author (BRZ)
       no longer needs it (for quite some time now).
     </p>
-    
-    <ul>
-      <li>Binary release: <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/">https://joinup.ec.europa.eu/nexus/content/repositories/releases/eu/europa/ec/cipa/</a></li>
-      <li>Source release: <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3">https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3</a></li>
-    </ul>
     
     <h3>2014-10-20 - SSL 3.0 vulnerability - POODLE</h3>
     

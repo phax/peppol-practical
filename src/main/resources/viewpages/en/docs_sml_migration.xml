@@ -20,7 +20,7 @@
   This page explains what needs to be done to migrate the SML from the old 
   BRZ operated domain to the new DG DIGIT operated domain.
   This document tries to explain the requirements in a general manner but will focus on the 
-  <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
+  <a href="https://joinup.ec.europa.eu/solution/cipa-e-delivery">CIPA e-Delivery</a>
   implementation for the technical details.
 </p>
 

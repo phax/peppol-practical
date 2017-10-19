@@ -92,13 +92,12 @@ The information within the SMP is structured by participant ID, document type ID
 <h2>Technical resources</h2>
 <p>
   The SMP software to be used can be obtained from the 
-  <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
+  <a href="https://joinup.ec.europa.eu/solution/cipa-e-delivery">CIPA e-Delivery</a>
   project maintained by the European Commission and hosted on
   <a href="https://joinup.ec.europa.eu/">joinup</a>.
   The <strong>sources</strong> reside in a publicly accessible 
-  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/">Subversion repository</a>
-  whereas the <strong>binary resources</strong> can be obtained from a
-  <a href="https://joinup.ec.europa.eu/nexus/content/repositories/releases/">Nexus instance</a>.
+  <a href="https://ec.europa.eu/cefdigital/code/projects/EDELIVERY/repos/smp/browse">git repository</a>.
+  The old Subversion repository is no longer available, because the Joinup relaunch removed this feature,
 </p>
 
 <p>
@@ -130,8 +129,8 @@ The information within the SMP is structured by participant ID, document type ID
   in an application server like Apache Tomcat or Jetty.
   This section assumes that you are using the complete SMP with read and write API.
   The respective CIPA project is called <code>cipa-smp-full-webapp</code>.
-  The latest version 2.2.3 can be found in the Joinup Subversion repository at
-  <a href="https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3/cipa-smp-full-webapp"><code>https://joinup.ec.europa.eu/svn/cipaedelivery/tags/2.2.3/cipa-smp-full-webapp</code></a>. 
+  Version 2.2.3 can be found on 
+  <a href="https://joinup.ec.europa.eu/release/cipa-e-delivery/223">Joinup</a>. 
 </p>
 
 <p>

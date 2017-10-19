@@ -25,7 +25,7 @@
 <p>
   There are three known possibilities (I'm aware of) on how to build an AS2 AccessPoint.
   The first one is using the <em>cipa-dispatcher</em> project which is part of the
-  <a href="https://joinup.ec.europa.eu/software/cipaedelivery/description">CIPA e-Delivery</a>
+  <a href="https://joinup.ec.europa.eu/solution/cipa-e-delivery">CIPA e-Delivery</a>
   project maintained by the European Commission. It is a Mendelson frontend and therefore
   requires Mendelson to be setup besides CIPA.
   The second possibility is to use <a href="https://github.com/difi/oxalis">Oxalis</a> as the
