@@ -123,10 +123,11 @@ public final class MenuPublic
                                                      new ClassPathResource ("viewpages/en/validation_dvs.xml")));
     }
 
+    // EN 16931 - CEN/TC 434
     {
-      aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_EN,
+      aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_EN16931,
                                                          "EN 16931 - CEN/TC 434",
-                                                         new ClassPathResource ("viewpages/en/en.xml")));
+                                                         new ClassPathResource ("viewpages/en/en16931.xml")));
     }
 
     // Newsletter stuff
