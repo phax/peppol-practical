@@ -78,7 +78,8 @@ import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.security.keystore.KeyStoreHelper;
+import com.helger.security.keystore.EKeyStoreType;
+import com.helger.security.keystore.IKeyStoreType;
 import com.helger.web.fileupload.IFileItem;
 import com.sun.xml.ws.client.ClientTransportException;
 
@@ -118,7 +119,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   }
 
   @Nullable
-  private SSLSocketFactory _loadKeyStoreAndCreateSSLSocketFactory (@Nullable final IFileItem aKeyStoreFile,
+  private SSLSocketFactory _loadKeyStoreAndCreateSSLSocketFactory (@Nonnull final IKeyStoreType aKeyStoreType,
+                                                                   @Nullable final IFileItem aKeyStoreFile,
                                                                    @Nullable final String sKeyStorePassword,
                                                                    @Nonnull final FormErrorList aFormErrors)
   {
@@ -136,7 +138,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final InputStream aIS = aKeyStoreFile.getInputStream ();
         try
         {
-          aKeyStore = KeyStoreHelper.getJKSKeyStore ();
+          aKeyStore = aKeyStoreType.getKeyStore ();
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
           // Get all aliases
@@ -289,7 +291,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       }
     }
 
-    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (aKeyStoreFile,
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+                                                                                    aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors);
 
@@ -418,7 +421,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       }
     }
 
-    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (aKeyStoreFile,
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+                                                                                    aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors);
 
@@ -491,7 +495,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
                                                  CPPApp.PATTERN_SMP_ID);
 
-    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (aKeyStoreFile,
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+                                                                                    aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors);
 
