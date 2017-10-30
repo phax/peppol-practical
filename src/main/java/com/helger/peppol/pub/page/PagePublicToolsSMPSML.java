@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.random.RandomHelper;
 import com.helger.commons.regex.RegExHelper;
@@ -135,8 +134,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       else
       {
         // Try to load the key store
-        final InputStream aIS = aKeyStoreFile.getInputStream ();
-        try
+        try (final InputStream aIS = aKeyStoreFile.getInputStream ())
         {
           aKeyStore = aKeyStoreType.getKeyStore ();
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
@@ -181,10 +179,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           s_aLogger.error (sMsg, ex);
           aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + _getTechnicalDetails (ex));
           aKeyStore = null;
-        }
-        finally
-        {
-          StreamHelper.close (aIS);
         }
       }
 
