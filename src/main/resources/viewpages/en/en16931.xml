@@ -254,5 +254,5 @@ This chapter contains some external links that you might consider helpful:
   <li><a target="_blank" href="http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.zip">Complete OASIS UBL 2.1 download package</a></li>
   <li><a target="_blank" href="http://www.unece.org/cefact/xml_schemas/index">CII schemas page</a></li>
   <li><a target="_blank" href="http://www.unece.org/fileadmin/DAM/cefact/xml_schemas/D16B_SCRDM__Subset__CII.zip">Complete XML Schemas 16B (SCRDM - CII)</a></li>
-  <li><a target="_blank" href="https://github.com/phax/peppol-validation-engine/">ph-bdve - Java Open Source Business Document Validation Engine</a></li>
+  <li><a target="_blank" href="https://github.com/phax/ph-bdve/">ph-bdve - Java Open Source Business Document Validation Engine</a></li>
 </ul>
