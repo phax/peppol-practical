@@ -63,18 +63,20 @@ public final class AjaxExecutorPublicLogin implements IAjaxExecutor
     {
       aAjaxResponse.json (new JsonObject ().add (JSON_LOGGEDIN, true));
     }
+    else
+    {
+      // Get the rendered content of the menu area
+      if (GlobalDebug.isDebugMode ())
+        s_aLogger.warn ("Login of '" + sLoginName + "' failed because " + eLoginResult);
 
-    // Get the rendered content of the menu area
-    if (GlobalDebug.isDebugMode ())
-      s_aLogger.warn ("Login of '" + sLoginName + "' failed because " + eLoginResult);
+      final Locale aDisplayLocale = aLEC.getDisplayLocale ();
+      final BootstrapErrorBox aRoot = new BootstrapErrorBox ().addChild (EPhotonCoreText.LOGIN_ERROR_MSG.getDisplayText (aDisplayLocale) +
+                                                                         " " +
+                                                                         eLoginResult.getDisplayText (aDisplayLocale));
 
-    final Locale aDisplayLocale = aLEC.getDisplayLocale ();
-    final BootstrapErrorBox aRoot = new BootstrapErrorBox ().addChild (EPhotonCoreText.LOGIN_ERROR_MSG.getDisplayText (aDisplayLocale) +
-                                                                       " " +
-                                                                       eLoginResult.getDisplayText (aDisplayLocale));
-
-    // Set as result property
-    aAjaxResponse.json (new JsonObject ().add (JSON_LOGGEDIN, false)
-                                         .add (JSON_HTML, HCRenderer.getAsHTMLStringWithoutNamespaces (aRoot)));
+      // Set as result property
+      aAjaxResponse.json (new JsonObject ().add (JSON_LOGGEDIN, false)
+                                           .add (JSON_HTML, HCRenderer.getAsHTMLStringWithoutNamespaces (aRoot)));
+    }
   }
 }
