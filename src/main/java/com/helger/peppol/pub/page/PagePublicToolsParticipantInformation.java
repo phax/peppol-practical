@@ -259,7 +259,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               }
             }
             if (!aUL.hasChildren ())
-              aUL.addItem (new BootstrapWarnBox ().addChild ("No service group entries where found for " +
+              aUL.addItem (new BootstrapWarnBox ().addChild ("No service group entries were found for " +
                                                              aParticipantID.getURIEncoded ()));
             aNodeList.addChild (aUL);
           }
