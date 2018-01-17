@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.supplementary.tools;
 
-import java.util.Locale;
 import java.util.Map;
 
 import com.helger.bdve.executorset.IValidationExecutorSet;
@@ -27,8 +26,7 @@ public class MainListVESIDs
 {
   public static void main (final String [] args)
   {
-    final Locale aDisplayLocale = new Locale ("de_AT");
-    for (final Map.Entry <VESID, IValidationExecutorSet> aEntry : ExtValidationKeyRegistry.getAllSorted (aDisplayLocale)
+    for (final Map.Entry <VESID, IValidationExecutorSet> aEntry : ExtValidationKeyRegistry.getAllSortedByID ()
                                                                                           .entrySet ())
     {
       System.out.println ("<li><code>" +

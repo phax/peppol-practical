@@ -72,16 +72,16 @@ import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
 
-public class PagePublicToolsValidateBIS2 extends AbstractAppWebPage
+public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 {
   private static final boolean DEFAULT_SHOW_WARNINGS = true;
   private static final String FIELD_VES = "ves";
   private static final String FIELD_FILE = "file";
   private static final String FIELD_SHOW_WARNINGS = "showwarnings";
 
-  public PagePublicToolsValidateBIS2 (@Nonnull @Nonempty final String sID)
+  public PagePublicToolsDocumentValidation (@Nonnull @Nonempty final String sID)
   {
-    super (sID, "BIS2 Document Validation");
+    super (sID, "Business Document Validation");
   }
 
   @Override

@@ -28,7 +28,7 @@ import com.helger.peppol.pub.page.PagePublicSignUp;
 import com.helger.peppol.pub.page.PagePublicToolsParticipantInformation;
 import com.helger.peppol.pub.page.PagePublicToolsSMPSML;
 import com.helger.peppol.pub.page.PagePublicToolsTestEndpoints;
-import com.helger.peppol.pub.page.PagePublicToolsValidateBIS2;
+import com.helger.peppol.pub.page.PagePublicToolsDocumentValidation;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
@@ -116,7 +116,7 @@ public final class MenuPublic
       final IMenuItemPage aValidation = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
                                                                                                                       "Validation",
                                                                                                                       aMenuTree));
-      aMenuTree.createItem (aValidation, new PagePublicToolsValidateBIS2 (CMenuPublic.MENU_VALIDATION_BIS2));
+      aMenuTree.createItem (aValidation, new PagePublicToolsDocumentValidation (CMenuPublic.MENU_VALIDATION_BIS2));
       aMenuTree.createItem (aValidation,
                             new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_DVS,
                                                      "Document Validation WebService",

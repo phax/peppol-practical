@@ -31,7 +31,7 @@ public final class ExtValidationKeySelect extends HCExtSelect
   public ExtValidationKeySelect (@Nonnull final IHCRequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
-    for (final Map.Entry <VESID, IValidationExecutorSet> aEntry : ExtValidationKeyRegistry.getAllSorted (aDisplayLocale)
+    for (final Map.Entry <VESID, IValidationExecutorSet> aEntry : ExtValidationKeyRegistry.getAllSortedByDisplayName (aDisplayLocale)
                                                                                           .entrySet ())
       addOption (aEntry.getKey ().getAsSingleID (),
                  aEntry.getValue ().getDisplayName () + (aEntry.getValue ().isDeprecated () ? " (deprecated!)" : ""));
