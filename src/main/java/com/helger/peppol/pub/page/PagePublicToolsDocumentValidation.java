@@ -81,7 +81,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 
   public PagePublicToolsDocumentValidation (@Nonnull @Nonempty final String sID)
   {
-    super (sID, "Business Document Validation");
+    super (sID, "Document Validation (Upload)");
   }
 
   @Override
