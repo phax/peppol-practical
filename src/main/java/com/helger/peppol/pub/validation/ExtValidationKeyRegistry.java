@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.bdve.cii.CIIValidation;
 import com.helger.bdve.ehf.EHFValidation;
 import com.helger.bdve.en16931.EN16931Validation;
 import com.helger.bdve.executorset.IValidationExecutorSet;
@@ -50,6 +51,7 @@ public final class ExtValidationKeyRegistry
     EN16931Validation.initEN16931 (VES_REGISTRY);
     EHFValidation.initEHF (VES_REGISTRY);
     UBLValidation.initUBL21 (VES_REGISTRY);
+    CIIValidation.initCIID16B (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
