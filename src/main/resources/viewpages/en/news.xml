@@ -35,8 +35,9 @@
     <h3>2018-01-17 - Document validation extended</h3>
     
     <p>´
-      Now also EHF Invoices and Creditnotes can be validated.
-      The respective VESIDs are <code>no.ehf:invoice:2.0.12</code> and <code>no.ehf:creditnote:2.0.12</code>.
+      Now also some EHF documents types can be validated.
+      The respective VESIDs all start with <code>no.ehf</code>.
+      Additionally validation rule sets for "pure" UBL validation were added.
     </p>
 
     <h3>2017-12-20 - PEPPOL AS4 profile published</h3>

@@ -30,6 +30,7 @@ import com.helger.bdve.executorset.VESID;
 import com.helger.bdve.executorset.ValidationExecutorSetRegistry;
 import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
+import com.helger.bdve.ubl.UBLValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -48,6 +49,7 @@ public final class ExtValidationKeyRegistry
     SimplerInvoicingValidation.initSimplerInvoicing (VES_REGISTRY);
     EN16931Validation.initEN16931 (VES_REGISTRY);
     EHFValidation.initEHF (VES_REGISTRY);
+    UBLValidation.initUBL21 (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
