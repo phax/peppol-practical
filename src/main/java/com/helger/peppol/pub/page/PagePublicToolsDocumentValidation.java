@@ -20,6 +20,8 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -39,6 +41,7 @@ import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.timing.StopWatch;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.grouping.HCDiv;
@@ -74,6 +77,7 @@ import com.helger.xml.serialize.read.DOMReaderSettings;
 
 public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PagePublicToolsDocumentValidation.class);
   private static final boolean DEFAULT_SHOW_WARNINGS = true;
   private static final String FIELD_VES = "ves";
   private static final String FIELD_FILE = "file";
@@ -109,6 +113,9 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         // Start validation
+        s_aLogger.info ("Validating " + sFileName + " using " + aVESID.getAsSingleID ());
+        final StopWatch aSW = StopWatch.createdStarted ();
+
         final ValidationExecutionManager aValidator = aVES.createExecutionManager ();
 
         // Perform the validation
@@ -267,6 +274,13 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           }
         }
         aNodeList.addChild (aDetails);
+        s_aLogger.info ("Finished validation after " +
+                        aSW.stopAndGetMillis () +
+                        "ms; " +
+                        nWarnings +
+                        " warns; " +
+                        nErrors +
+                        " errors");
 
         // Audit execution
         AuditHelper.onAuditExecuteSuccess ("validation-bis2-upload",
@@ -274,6 +288,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                                            aVES.getID (),
                                            aVES.getValidationArtefactKey (),
                                            Integer.valueOf (aValidationResultList.size ()),
+                                           Long.valueOf (aSW.getMillis ()),
                                            Integer.valueOf (nErrors),
                                            Integer.valueOf (nWarnings));
       }
