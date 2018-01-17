@@ -176,6 +176,7 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:invoice:1.1:strict</code> - Simplerinvoicing Invoice 1.1 (strict)</li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2</li>
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2</li>
+<li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
           </ul>
         </td>
       </tr>

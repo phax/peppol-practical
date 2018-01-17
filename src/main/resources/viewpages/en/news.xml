@@ -37,8 +37,11 @@
     <p>´
       Now also some EHF documents types can be validated.
       The respective VESIDs all start with <code>no.ehf</code>.
-      Additionally validation rule sets for "pure" UBL validation were added.
+      Additionally validation rule sets for "pure UBL" and "pure CII" validation were added.
     </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
 
     <h3>2017-12-20 - PEPPOL AS4 profile published</h3>
     
