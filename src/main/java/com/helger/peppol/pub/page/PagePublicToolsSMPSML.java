@@ -27,7 +27,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,6 +40,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.random.RandomHelper;
 import com.helger.commons.regex.RegExHelper;
@@ -140,8 +140,12 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
           // Get all aliases
-          final List <String> aAllAliases = CollectionHelper.newList (aKeyStore.aliases ());
-          s_aLogger.info ("Successfully loaded key store containing " + aAllAliases.size () + " aliases");
+          final ICommonsList <String> aAllAliases = CollectionHelper.newList (aKeyStore.aliases ());
+          s_aLogger.info ("Successfully loaded key store of type " +
+                          aKeyStoreType.getID () +
+                          " containing " +
+                          aAllAliases.size () +
+                          " aliases");
 
           // Check key and certificate count
           int nKeyCount = 0;
@@ -196,6 +200,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                           new TrustManager [] { new TrustManagerTrustAll (false) },
                           RandomHelper.getSecureRandom ());
         aSocketFactory = aSSLContext.getSocketFactory ();
+        s_aLogger.info ("Successfully created TLS socket factory with the provided keystore password!");
       }
       catch (final NoSuchAlgorithmException | KeyManagementException | UnrecoverableKeyException | KeyStoreException ex)
       {
@@ -444,7 +449,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            sLogicalAddress,
                                            aSML.getManagementServiceURL ());
       }
-      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
+      catch (final BadRequestFault
+                   | InternalErrorFault
+                   | UnauthorizedFault
+                   | NotFoundFault
+                   | ClientTransportException ex)
       {
         final String sMsg = "Error updating SMP '" +
                             sSMPID +
@@ -510,7 +519,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSML.getManagementServiceURL ());
       }
-      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault ex)
+      catch (final BadRequestFault
+                   | InternalErrorFault
+                   | UnauthorizedFault
+                   | NotFoundFault
+                   | ClientTransportException ex)
       {
         final String sMsg = "Error deleting SMP '" +
                             sSMPID +
