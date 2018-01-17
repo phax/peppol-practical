@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 import com.helger.bdve.executorset.IValidationExecutorSet;
@@ -39,8 +41,10 @@ import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.timing.StopWatch;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.pub.validation.ExtValidationKeyRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
@@ -58,6 +62,7 @@ import com.helger.xml.serialize.read.DOMReader;
 @WebService (endpointInterface = "com.helger.peppol.wsclient2.WSDVSPort")
 public class WSDVS implements WSDVSPort
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (WSDVS.class);
   private static final IMutableStatisticsHandlerCounter s_aCounterTotal = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                "$total");
   private static final IMutableStatisticsHandlerCounter s_aCounterAPISuccess = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
@@ -68,6 +73,7 @@ public class WSDVS implements WSDVSPort
                                                                                                                            "$validation-success");
   private static final IMutableStatisticsHandlerCounter s_aCounterValidationError = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                          "$validation-error");
+  private static final IMutableStatisticsHandlerTimer s_aTimer = StatisticsManager.getTimerHandler (WSDVS.class);
 
   @Resource
   private WebServiceContext m_aWSContext;
@@ -129,6 +135,10 @@ public class WSDVS implements WSDVSPort
         _throw ("Invalid display locale provided!");
 
       // All input parameters are valid!
+
+      s_aLogger.info ("Validating by VS using " + aVESID.getAsSingleID ());
+      final StopWatch aSW = StopWatch.createdStarted ();
+
       // Start validating
       final ValidationResultList aVRL = aVES.createExecutionManager ()
                                             .executeValidation (ValidationSource.create ("uploaded-file", aXMLDoc));
@@ -136,6 +146,8 @@ public class WSDVS implements WSDVSPort
       // Result object
       final ResponseType ret = new ResponseType ();
 
+      int nWarnings = 0;
+      int nErrors = 0;
       boolean bValidationInterrupted = false;
       IErrorLevel aMostSevere = EErrorLevel.LOWEST;
       for (final ValidationResult aVR : aVRL)
@@ -157,6 +169,12 @@ public class WSDVS implements WSDVSPort
         {
           if (aError.getErrorLevel ().isGE (aMostSevere))
             aMostSevere = aError.getErrorLevel ();
+
+          if (aError.getErrorLevel ().isGE (EErrorLevel.ERROR))
+            nErrors++;
+          else
+            if (aError.getErrorLevel ().isGE (EErrorLevel.WARN))
+              nWarnings++;
 
           final ItemType aItem = new ItemType ();
           aItem.setErrorLevel (_convert (aError.getErrorLevel ()));
@@ -181,6 +199,15 @@ public class WSDVS implements WSDVSPort
       ret.setSuccess (aMostSevere.isSuccess ());
       ret.setInterrupted (bValidationInterrupted);
       ret.setMostSevereErrorLevel (_convert (aMostSevere));
+
+      s_aLogger.info ("Finished validation after " +
+                      aSW.stopAndGetMillis () +
+                      "ms; " +
+                      nWarnings +
+                      " warns; " +
+                      nErrors +
+                      " errors");
+      s_aTimer.addTime (aSW.getMillis ());
 
       // Track validation result
       if (ret.getMostSevereErrorLevel ().equals (ErrorLevelType.ERROR))

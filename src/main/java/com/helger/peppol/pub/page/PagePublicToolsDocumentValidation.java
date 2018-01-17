@@ -40,6 +40,8 @@ import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
+import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.html.hc.IHCNode;
@@ -78,6 +80,7 @@ import com.helger.xml.serialize.read.DOMReaderSettings;
 public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (PagePublicToolsDocumentValidation.class);
+  private static final IMutableStatisticsHandlerTimer s_aTimer = StatisticsManager.getTimerHandler (PagePublicToolsDocumentValidation.class);
   private static final boolean DEFAULT_SHOW_WARNINGS = true;
   private static final String FIELD_VES = "ves";
   private static final String FIELD_FILE = "file";
@@ -281,6 +284,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                         " warns; " +
                         nErrors +
                         " errors");
+        s_aTimer.addTime (aSW.getMillis ());
 
         // Audit execution
         AuditHelper.onAuditExecuteSuccess ("validation-bis2-upload",
