@@ -335,9 +335,6 @@
       OpenPEPPOL PoACC fall release published.
       They get mandatory by 2016-11-15 (12:00 CET).
     </p>
-    <ul>
-      <li><a href="http://www.peppol.eu/news/FallreleaseofOpenPEPPOLPost-Awardartefactspublishedforreleaseandmandator%20use">Download artifacts 3.3.0</a></li>
-    </ul>
     
     <h3>2016-11-07 - PEPPOL SMP Server 5.0.0-RC2</h3>
     
@@ -364,13 +361,10 @@
     
     <p>
       OpenPEPPOL PoACC fall release published for review.
-      They get manadatory by 2016-11-15 (12:00 CET).<br/>
+      They get mandatory by 2016-11-15 (12:00 CET).<br/>
       In this version OpenPEPPOL decided to no longer maintain the ODS files, and instead 
         directly work on the Schematron files - what a pitty.
     </p>
-    <ul>
-      <li><a href="http://www.peppol.eu/news/OpenPEPPOLPoACCfallreleasepublishedforreview">Download artifacts 3.3.0-RC1</a></li>
-    </ul>
     
     <h3>2016-09-20 - OASIS SMP Spec 1.0 CS 03 release</h3>
     
@@ -395,7 +389,7 @@
       as used in the PEPPOL eDelivery network will continue in the CEF eDelivery architecture. 
     </p>
     <ul>
-      <li><a href="http://www.peppol.eu/news/NewAgreemen%20betweenEuropeanCommissionandOpenPEPPOL">Read more</a></li>
+      <li><a href="https://peppol.eu/as4-now-optional-message-exchange-protocol-in-peppol-edelivery-network/">Read more</a></li>
       <li><a href="https://ec.europa.eu/cefdigital/wiki/download/attachments/33817810/20160629%20Letter%20of%20understanding%20v1.00.pdf?version=2&amp;modificationDate=1474278156735&amp;api=v2">Read the whole agreement</a></li>
     </ul>
     
@@ -426,9 +420,6 @@
       Compared to previous versions, this version needs a JDK 8 to run.
       Look on <a href="https://github.com/phax/peppol-smp-server">GitHub</a> for further details.
     </p>
-    <ul>
-      <li><a href="https://oss.sonatype.org/content/repositories/snapshots/com/helger/peppol-smp-server-webapp/5.0.0-SNAPSHOT/">Latest binary SNAPSHOT release</a></li>
-    </ul>
     
     <h3>2016-05-20 - Validation artefacts 3.2.0</h3>
     
@@ -602,7 +593,7 @@
         - an SMP server that uses a relational database (like MySQL) as the backend.
       </li>
       <li>
-        <a href="https://github.com/phax/peppol-smp-server-lightweight">peppol-smp-server-lightweight</a>
+        <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server-lightweight</a>
         - an SMP server that uses a file-based backend and keeps all information in main memory for
         performance reasons. Additionally it includes a small management UI. 
       </li>
@@ -610,8 +601,8 @@
     <p>
       Both SMP servers use shared components also available on GitHub:
       <a href="https://github.com/phax/peppol-commons">peppol-commons</a>,
-      <a href="https://github.com/phax/peppol-smp-client">peppol-smp-client</a> and
-      <a href="https://github.com/phax/peppol-sml-client">peppol-sml-client</a>.
+      <a href="https://github.com/phax/peppol-commons">peppol-smp-client</a> and
+      <a href="https://github.com/phax/peppol-commons">peppol-sml-client</a>.
     </p>
     
     <ul>
@@ -626,7 +617,6 @@
         Source releases:
         <ul>
           <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0">https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0</a></li>
-          <li><a href="https://github.com/phax/peppol-smp-server-lightweight/releases/tag/peppol-smp-server-lightweight-3.1.0">https://github.com/phax/peppol-smp-server-lightweight/releases/tag/peppol-smp-server-lightweight-3.1.0</a></li>
         </ul> 
       </li>
     </ul>
@@ -638,7 +628,7 @@
       Based on my previous projects <a href="https://github.com/phax/as2-lib">as2-lib</a>, 
       <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a> and
       <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
-      <a href="https://github.com/phax/peppol-sbdh">peppol-sbdh</a> I created a minimal
+      <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> I created a minimal
       PEPPOL AS2 server for receiving PEPPOL AS2 messages. The project 
       <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong>
       is located on GitHub and available as OSS under the Apache 2.0 license.
