@@ -62,19 +62,19 @@
 </p>
 <ol>
   <li>As the very first step you need to sign the TIAs (Transport Infrastructure Agreements) with 
-      <a href="http://www.peppol.eu/about_peppol/copy_of_how-to-join">OpenPEPPOL AISBL</a></li>
+      <a href="https://peppol.eu/get-involved/join-openpeppol/">OpenPEPPOL AISBL</a></li>
   <li>Afterwards you need to apply for an <em>AP certificate</em> at OpenPEPPOL. 
       This certificate is required to run the AP.</li>
   <li>At least one of the default PEPPOL BIS v2 (processes) must be implemented (according to the TIAs).
       A list of
-      <a href="http://www.peppol.eu/ressource-library/technical-specifications/post-award/mandatory">all available BISs</a>
+      <a href="https://peppol.eu/downloads/post-award/">all available BISs</a>
       is available on the PEPPOL website.  
   </li>
   <li>You should have a look at the 
-      <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">official PEPPOL AS2 specification</a>.
+      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official PEPPOL AS2 specification</a>.
   </li>
   <li>You should have a look at the 
-      <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">official PEPPOL Envelope specification</a>
+      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official PEPPOL Envelope specification</a>
       (SBDH).
   </li>
   <li>You should be familiar with Java</li>
@@ -100,7 +100,7 @@
   (SBDH).
   It is a UN/CEFACT standard for merging XML documents with relevant metadata into a single XML document.
   PEPPOL maintains its own 
-  <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">Envelope specification</a>
+  <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">Envelope specification</a>
   that is based on SBDH.
   Finally inside the SBDH the main UBL business document is contained.
   The complete <a href="http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.zip">UBL 2.1</a> specifications
@@ -222,8 +222,8 @@
         Your <strong>PEPPOL sender participant ID</strong>. There is no fixed way how to determine this.
         If you are registered as a PEPPOL recipient, than please use your recipient ID as your
         sender ID. If you are not registered as a sender have a look at the 
-        <a href="http://www.peppol.eu/ressource-library/technical-specifications/infrastructure-resources">PEPPOL policy for use of identifiers</a>
-        beneath <em>POLICY 8</em> and search the VAT scheme suitable for your country (at the end of the list).
+        <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">PEPPOL policy for use of identifiers</a>
+        3.0 beneath <em>POLICY 8</em> and search the VAT scheme suitable for your country (at the end of the list).
         Assuming you are from San Marino and your VAT number is <em>123456</em> than use the following 
         sender ID: <code>9951:123456</code>.   
       </li>
