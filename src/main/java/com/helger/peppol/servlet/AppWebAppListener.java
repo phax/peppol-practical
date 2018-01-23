@@ -30,6 +30,7 @@ import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.pub.MenuPublic;
+import com.helger.peppol.pub.validation.ExtValidationKeyRegistry;
 import com.helger.peppol.secure.MenuSecure;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.basic.app.appid.CApplicationID;
@@ -148,5 +149,11 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
 
     // Setup error handler
     AppInternalErrorHandler.doSetup ();
+  }
+
+  @Override
+  protected void beforeContextDestroyed (@Nonnull final ServletContext aSC)
+  {
+    ExtValidationKeyRegistry.cleanupOnShutdown ();
   }
 }

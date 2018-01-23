@@ -206,6 +206,10 @@
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
+      <artifactId>ph-bdve-energieefactuur</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
       <artifactId>ph-jaxws</artifactId>
       <version>1.0.4</version>
       <type>pom</type>

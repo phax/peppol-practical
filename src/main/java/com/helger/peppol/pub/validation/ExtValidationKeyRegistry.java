@@ -26,6 +26,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.bdve.cii.CIIValidation;
 import com.helger.bdve.ehf.EHFValidation;
 import com.helger.bdve.en16931.EN16931Validation;
+import com.helger.bdve.energieefactuur.EnergieEFactuurValidation;
 import com.helger.bdve.executorset.IValidationExecutorSet;
 import com.helger.bdve.executorset.VESID;
 import com.helger.bdve.executorset.ValidationExecutorSetRegistry;
@@ -52,6 +53,7 @@ public final class ExtValidationKeyRegistry
     EHFValidation.initEHF (VES_REGISTRY);
     UBLValidation.initUBL21 (VES_REGISTRY);
     CIIValidation.initCIID16B (VES_REGISTRY);
+    EnergieEFactuurValidation.initEnergieEFactuur (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
@@ -88,5 +90,10 @@ public final class ExtValidationKeyRegistry
   public static ICommonsList <IValidationExecutorSet> getAll ()
   {
     return VES_REGISTRY.getAll ();
+  }
+
+  public static void cleanupOnShutdown ()
+  {
+    VES_REGISTRY.removeAll ();
   }
 }
