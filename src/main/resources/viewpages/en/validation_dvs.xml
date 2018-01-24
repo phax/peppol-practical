@@ -104,9 +104,15 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis2:t77:3.4.0</code> - OpenPEPPOL Punch Out (3.4.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t77:3.5.0</code> - OpenPEPPOL Punch Out (3.5.0)</li>
 <li><code>no.ehf:catalogue:1.0.10</code> - EHF Catalogue 1.0.10</li>
+<li><code>no.ehf:catalogue-response:1.0.10</code> - EHF Catalogue Response 1.0.10</li>
 <li><code>no.ehf:creditnote:2.0.12</code> - EHF Creditnote 2.0.12</li>
 <li><code>no.ehf:despatch-advice:1.0.8</code> - EHF Catalogue 1.0.8</li>
 <li><code>no.ehf:invoice:2.0.12</code> - EHF Invoice 2.0.12</li>
+<li><code>no.ehf:order:1.0.9</code> - EHF Ordering 1.0.9</li>
+<li><code>no.ehf:order-agreement:1.0.0</code> - EHF Order Agreement 1.0.0</li>
+<li><code>no.ehf:order-response:1.0.9</code> - EHF Order Response 1.0.9</li>
+<li><code>no.ehf:punch-out:1.0.0</code> - EHF Punch Out 1.0.0</li>
+<li><code>no.ehf:reminder:1.1.0</code> - EHF Reminder 1.1.0</li>
 <li><code>org.oasis-open:applicationresponse:2.1</code> - UBL ApplicationResponse 2.1</li>
 <li><code>org.oasis-open:attacheddocument:2.1</code> - UBL AttachedDocument 2.1</li>
 <li><code>org.oasis-open:awardednotification:2.1</code> - UBL AwardedNotification 2.1</li>

@@ -49,6 +49,7 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.prism.EPrismLanguage;
 import com.helger.photon.uictrls.prism.EPrismPlugin;
 import com.helger.photon.uictrls.prism.HCPrismJS;
+import com.helger.schematron.CSchematron;
 import com.helger.schematron.pure.binding.IPSQueryBinding;
 import com.helger.schematron.pure.binding.PSQueryBindingRegistry;
 import com.helger.schematron.pure.errorhandler.CollectingPSErrorHandler;
@@ -57,6 +58,7 @@ import com.helger.schematron.pure.model.PSSchema;
 import com.helger.schematron.pure.preprocess.PSPreprocessor;
 import com.helger.schematron.pure.preprocess.SchematronPreprocessException;
 import com.helger.xml.microdom.serialize.MicroWriter;
+import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
@@ -104,7 +106,11 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     {
       if (aWPEC.hasAction (ACTION_SHOW_PREPROCESSED_SCHEMA))
       {
-        final IXMLWriterSettings XWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN);
+        final MapBasedNamespaceContext aNSCtx = new MapBasedNamespaceContext ();
+        aNSCtx.addDefaultNamespaceURI (CSchematron.NAMESPACE_SCHEMATRON);
+        aNSCtx.addMapping ("xslt", "http://www.w3.org/1999/XSL/Transform");
+        final IXMLWriterSettings XWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
+                                                               .setNamespaceContext (aNSCtx);
 
         aNodeList.addChild (new BootstrapInfoBox ().addChild ("Showing details of " + aVESID.getAsSingleID ()));
         final BootstrapTabBox aTabBox = new BootstrapTabBox ();
