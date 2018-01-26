@@ -132,7 +132,7 @@ public class WSDVS implements WSDVSPort
                                                                                        .getLocale (sDisplayLocale)
                                                                           : CPPApp.DEFAULT_LOCALE;
       if (aDisplayLocale == null)
-        _throw ("Invalid display locale provided!");
+        _throw ("Invalid display locale '" + sDisplayLocale + "' provided!");
 
       // All input parameters are valid!
 
