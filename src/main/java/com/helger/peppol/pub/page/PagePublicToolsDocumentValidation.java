@@ -133,7 +133,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           if (aDoc != null)
           {
             final ValidationSource aSource = ValidationSource.create (aXMLRes.getPath (), aDoc);
-            aValidator.executeValidation (aSource, aValidationResultList);
+            aValidator.executeValidation (aSource, aValidationResultList, aDisplayLocale);
           }
         }
         catch (final SAXParseException ex)

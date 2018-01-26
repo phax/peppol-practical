@@ -141,7 +141,8 @@ public class WSDVS implements WSDVSPort
 
       // Start validating
       final ValidationResultList aVRL = aVES.createExecutionManager ()
-                                            .executeValidation (ValidationSource.create ("uploaded-file", aXMLDoc));
+                                            .executeValidation (ValidationSource.create ("uploaded-file", aXMLDoc),
+                                                                aDisplayLocale);
 
       // Result object
       final ResponseType ret = new ResponseType ();
