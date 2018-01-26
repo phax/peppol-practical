@@ -129,7 +129,8 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         {
 
           final Document aDoc = DOMReader.readXMLDOM (aXMLRes,
-                                                      new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors)));
+                                                      new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors))
+                                                                              .setLocale (aDisplayLocale));
           if (aDoc != null)
           {
             final ValidationSource aSource = ValidationSource.create (aXMLRes.getPath (), aDoc);
