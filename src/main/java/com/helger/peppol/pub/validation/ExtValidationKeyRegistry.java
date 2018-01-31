@@ -53,8 +53,7 @@ public final class ExtValidationKeyRegistry
     EHFValidation.initEHF (VES_REGISTRY);
     UBLValidation.initUBL21 (VES_REGISTRY);
     CIIValidation.initCIID16B (VES_REGISTRY);
-    if (false)
-      EnergieEFactuurValidation.initEnergieEFactuur (VES_REGISTRY);
+    EnergieEFactuurValidation.initEnergieEFactuur (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
