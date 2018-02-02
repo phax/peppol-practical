@@ -32,10 +32,20 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-02-02 - Document validation extended</h3>
+    
+    <p>
+      Dutch Energie eFactuur Invoices can now be validated.
+      Additionally a bug concerning the CII validation of EN 16931 documents was fixed.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
     <h3>2018-01-17 - Document validation extended</h3>
     
-    <p>´
-      Now also some EHF documents types can be validated.
+    <p>
+      Now also EHF documents types can be validated.
       The respective VESIDs all start with <code>no.ehf</code>.
       Additionally validation rule sets for "pure UBL" and "pure CII" validation were added.
     </p>
@@ -45,7 +55,7 @@
 
     <h3>2017-12-20 - PEPPOL AS4 profile published</h3>
     
-    <p>´
+    <p>
       Version 1.0 of the PEPPOL AS4 profile was published.
       It is meant to be used for pre- and post-award document exchange.
       Currently there is not fixed plan on when (and if) the format becomes mandatory to be used in the PEPPOL network.
