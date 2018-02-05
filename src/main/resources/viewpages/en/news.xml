@@ -32,6 +32,14 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-02-05 - Validation Webservice changed</h3>
+    
+    <p>
+      The semantics of the WebService response slightly changed.
+      The <code>success</code> attribute is now also set to <code>true</code> if only warnings occur.
+      So now it is consistent with the upload validation.
+    </p>
+
     <h3>2018-02-02 - Document validation extended</h3>
     
     <p>

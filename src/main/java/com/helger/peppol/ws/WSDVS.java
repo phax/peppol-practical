@@ -168,7 +168,7 @@ public class WSDVS implements WSDVSPort
 
         for (final IError aError : aVR.getErrorList ())
         {
-          if (aError.getErrorLevel ().isGE (aMostSevere))
+          if (aError.getErrorLevel ().isGT (aMostSevere))
             aMostSevere = aError.getErrorLevel ();
 
           if (aError.getErrorLevel ().isGE (EErrorLevel.ERROR))
@@ -197,7 +197,8 @@ public class WSDVS implements WSDVSPort
         }
         ret.addResult (aVRT);
       }
-      ret.setSuccess (aMostSevere.isSuccess ());
+      // Success if the worst that happened is a warning
+      ret.setSuccess (aMostSevere.isLE (EErrorLevel.WARN));
       ret.setInterrupted (bValidationInterrupted);
       ret.setMostSevereErrorLevel (_convert (aMostSevere));
 
