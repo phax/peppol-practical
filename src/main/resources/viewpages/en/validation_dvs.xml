@@ -68,9 +68,24 @@ A very small Java WS client is available for
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->            
             <ul>
-<li><code>eu.cen.en16931:cii:1.0.0.20180201</code> - EN 16931 CII (2018-02-01)</li>
-<li><code>eu.cen.en16931:edifact:1.0.0.20180201</code> - EN 16931 EDIFACT/ISO 20625 (2018-02-01)</li>
-<li><code>eu.cen.en16931:ubl:1.0.0.20180201</code> - EN 16931 UBL (2018-02-01)</li>
+<li><code>dk.oioubl:application-response:2.0.2</code> - OIOUBL Application Response 2.0.2</li>
+<li><code>dk.oioubl:catalogue:2.0.2</code> - OIOUBL Catalogue 2.0.2</li>
+<li><code>dk.oioubl:catalogue-deletion:2.0.2</code> - OIOUBL Catalogue Deletion 2.0.2</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:2.0.2</code> - OIOUBL Catalogue Item Specification Update 2.0.2</li>
+<li><code>dk.oioubl:catalogue-pricing-update:2.0.2</code> - OIOUBL Catalogue Pricing Update 2.0.2</li>
+<li><code>dk.oioubl:catalogue-request:2.0.2</code> - OIOUBL Catalogue Request 2.0.2</li>
+<li><code>dk.oioubl:credit-note:2.0.2</code> - OIOUBL Credit Note 2.0.2</li>
+<li><code>dk.oioubl:invoice:2.0.2</code> - OIOUBL Invoice 2.0.2</li>
+<li><code>dk.oioubl:order:2.0.2</code> - OIOUBL Order 2.0.2</li>
+<li><code>dk.oioubl:order-cancellation:2.0.2</code> - OIOUBL Order Cancellation 2.0.2</li>
+<li><code>dk.oioubl:order-change:2.0.2</code> - OIOUBL Order Change 2.0.2</li>
+<li><code>dk.oioubl:order-response:2.0.2</code> - OIOUBL Order Response 2.0.2</li>
+<li><code>dk.oioubl:order-response-simple:2.0.2</code> - OIOUBL Order Response Simple 2.0.2</li>
+<li><code>dk.oioubl:reminder:2.0.2</code> - OIOUBL Reminder 2.0.2</li>
+<li><code>dk.oioubl:statement:2.0.2</code> - OIOUBL Statement 2.0.2</li>
+<li><code>eu.cen.en16931:cii:1.0.0.20180206</code> - EN 16931 CII (2018-02-06)</li>
+<li><code>eu.cen.en16931:edifact:1.0.0.20180206</code> - EN 16931 EDIFACT/ISO 20625 (2018-02-06)</li>
+<li><code>eu.cen.en16931:ubl:1.0.0.20180206</code> - EN 16931 UBL (2018-02-06)</li>
 <li><code>eu.peppol.bis2:t01:3.3.0</code> - OpenPEPPOL Order (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.4.0</code> - OpenPEPPOL Order (3.4.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.5.0</code> - OpenPEPPOL Order (3.5.0)</li>

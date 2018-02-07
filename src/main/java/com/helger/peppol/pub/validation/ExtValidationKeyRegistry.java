@@ -30,6 +30,7 @@ import com.helger.bdve.energieefactuur.EnergieEFactuurValidation;
 import com.helger.bdve.executorset.IValidationExecutorSet;
 import com.helger.bdve.executorset.VESID;
 import com.helger.bdve.executorset.ValidationExecutorSetRegistry;
+import com.helger.bdve.oioubl.OIOUBLValidation;
 import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.bdve.ubl.UBLValidation;
@@ -54,6 +55,7 @@ public final class ExtValidationKeyRegistry
     UBLValidation.initUBL21 (VES_REGISTRY);
     CIIValidation.initCIID16B (VES_REGISTRY);
     EnergieEFactuurValidation.initEnergieEFactuur (VES_REGISTRY);
+    OIOUBLValidation.initOIOUBL (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
