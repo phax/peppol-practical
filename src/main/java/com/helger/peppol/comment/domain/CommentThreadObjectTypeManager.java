@@ -158,6 +158,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
                                .addCustomData ("Thread ID", aCommentThread.getID ())
                                .setAddClassPath (false)
                                .setInvokeCustomExceptionHandler (false)
+                               .setDuplicateEliminiationCounter (0)
                                .handle ();
     return aCommentThread;
   }
@@ -201,6 +202,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
                                .addCustomData ("Comment ID", aNewComment.getID ())
                                .setAddClassPath (false)
                                .setInvokeCustomExceptionHandler (false)
+                               .setDuplicateEliminiationCounter (0)
                                .handle ();
     return ESuccess.SUCCESS;
   }
