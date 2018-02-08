@@ -96,6 +96,7 @@ public class WSDVS implements WSDVSPort
   @Nonnull
   public ResponseType validate (@Nonnull final RequestType aRequest) throws ValidateFaultError
   {
+    s_aLogger.info ("Start validating business document");
     final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ()
                                                                              .get (MessageContext.SERVLET_REQUEST);
     final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
@@ -135,7 +136,6 @@ public class WSDVS implements WSDVSPort
         _throw ("Invalid display locale '" + sDisplayLocale + "' provided!");
 
       // All input parameters are valid!
-
       s_aLogger.info ("Validating by VS using " + aVESID.getAsSingleID ());
       final StopWatch aSW = StopWatch.createdStarted ();
 
@@ -224,6 +224,10 @@ public class WSDVS implements WSDVSPort
         s_aCounterAPIError.increment ();
 
       return ret;
+    }
+    finally
+    {
+      s_aLogger.info ("Finished validating business document");
     }
   }
 }
