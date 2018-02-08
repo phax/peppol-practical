@@ -40,6 +40,8 @@ import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
@@ -80,7 +82,11 @@ import com.helger.xml.serialize.read.DOMReaderSettings;
 public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (PagePublicToolsDocumentValidation.class);
-  private static final IMutableStatisticsHandlerTimer s_aTimer = StatisticsManager.getTimerHandler (PagePublicToolsDocumentValidation.class);
+  private static final IMutableStatisticsHandlerCounter s_aStatsCounter = StatisticsManager.getCounterHandler (PagePublicToolsDocumentValidation.class.getName () +
+                                                                                                               "$count");
+  private static final IMutableStatisticsHandlerKeyedCounter s_aStatsCounterVESID = StatisticsManager.getKeyedCounterHandler (PagePublicToolsDocumentValidation.class.getName () +
+                                                                                                                              "vesid");
+  private static final IMutableStatisticsHandlerTimer s_aStatsTimer = StatisticsManager.getTimerHandler (PagePublicToolsDocumentValidation.class);
   private static final boolean DEFAULT_SHOW_WARNINGS = true;
   private static final String FIELD_VES = "ves";
   private static final String FIELD_FILE = "file";
@@ -115,10 +121,13 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
-        // Start validation
-        s_aLogger.info ("Validating " + sFileName + " using " + aVESID.getAsSingleID ());
+        s_aStatsCounter.increment ();
+        s_aStatsCounterVESID.increment (aVESID.getAsSingleID ());
         final StopWatch aSW = StopWatch.createdStarted ();
 
+        s_aLogger.info ("Validating " + sFileName + " using " + aVESID.getAsSingleID ());
+
+        // Start validation
         final ValidationExecutionManager aValidator = aVES.createExecutionManager ();
 
         // Perform the validation
@@ -285,7 +294,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                         " warns; " +
                         nErrors +
                         " errors");
-        s_aTimer.addTime (aSW.getMillis ());
+        s_aStatsTimer.addTime (aSW.getMillis ());
 
         // Audit execution
         AuditHelper.onAuditExecuteSuccess ("validation-bis2-upload",
