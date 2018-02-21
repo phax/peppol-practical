@@ -83,9 +83,9 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:order-response-simple:2.0.2</code> - OIOUBL Order Response Simple 2.0.2</li>
 <li><code>dk.oioubl:reminder:2.0.2</code> - OIOUBL Reminder 2.0.2</li>
 <li><code>dk.oioubl:statement:2.0.2</code> - OIOUBL Statement 2.0.2</li>
-<li><code>eu.cen.en16931:cii:1.0.0.20180206</code> - EN 16931 CII (2018-02-06)</li>
-<li><code>eu.cen.en16931:edifact:1.0.0.20180206</code> - EN 16931 EDIFACT/ISO 20625 (2018-02-06)</li>
-<li><code>eu.cen.en16931:ubl:1.0.0.20180206</code> - EN 16931 UBL (2018-02-06)</li>
+<li><code>eu.cen.en16931:cii:1.0.0</code> - EN 16931 CII 1.0.0</li>
+<li><code>eu.cen.en16931:edifact:1.0.0</code> - EN 16931 EDIFACT/ISO 20625 1.0.0</li>
+<li><code>eu.cen.en16931:ubl:1.0.0</code> - EN 16931 UBL 1.0.0</li>
 <li><code>eu.peppol.bis2:t01:3.3.0</code> - OpenPEPPOL Order (3.3.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.4.0</code> - OpenPEPPOL Order (3.4.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.5.0</code> - OpenPEPPOL Order (3.5.0)</li>
@@ -118,6 +118,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis2:t76:3.5.0</code> - OpenPEPPOL Order Response (3.5.0)</li>
 <li><code>eu.peppol.bis2:t77:3.4.0</code> - OpenPEPPOL Punch Out (3.4.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t77:3.5.0</code> - OpenPEPPOL Punch Out (3.5.0)</li>
+<li><code>nl.energie-efactuur:energie-efactuur:1.0.0</code> - Energie eFactuur 1.0.0</li>
+<li><code>nl.energie-efactuur:energie-efactuur:1.0.1</code> - Energie eFactuur 1.0.1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2.0.0</code> - Energie eFactuur 2.0.0</li>
 <li><code>no.ehf:catalogue:1.0.10</code> - EHF Catalogue 1.0.10</li>
 <li><code>no.ehf:catalogue-response:1.0.10</code> - EHF Catalogue Response 1.0.10</li>
