@@ -46,7 +46,7 @@ import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.pub.validation.ExtValidationKeyRegistry;
+import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
 import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;

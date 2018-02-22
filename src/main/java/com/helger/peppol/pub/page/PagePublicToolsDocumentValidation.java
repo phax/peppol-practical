@@ -53,8 +53,8 @@ import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.pub.validation.ExtValidationKeyRegistry;
-import com.helger.peppol.pub.validation.ExtValidationKeySelect;
+import com.helger.peppol.bdve.ExtValidationKeyRegistry;
+import com.helger.peppol.bdve.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
@@ -190,14 +190,18 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           final HCUL aUL = new HCUL ();
           if (aValidationResultItem.isIgnored ())
           {
+            // Ignored layer?
             aUL.addItem (new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("This layer was not executed because the prerequisite is not fulfilled"));
           }
           else
             if (aItemErrors.isEmpty ())
             {
+              // No warnings, no errors
               aUL.addItem (new BootstrapLabel (EBootstrapLabelType.SUCCESS).addChild ("All fine on this level"));
             }
             else
+            {
+              int nItemsAdded = 0;
               for (final IError aError : aItemErrors)
               {
                 IHCNode aErrorLevel;
@@ -220,6 +224,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 
                 final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
                                                                                          : null;
+                nItemsAdded++;
                 final IHCLI <?> aItem = aUL.addItem ();
                 aItem.addChild (new HCDiv ().addChild (aErrorLevel));
 
@@ -240,6 +245,13 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                   aItem.addChild (new HCDiv ().addChild ("Technical details: ")
                                               .addChild (new HCCode ().addChild (aError.getLinkedExceptionMessage ())));
               }
+
+              if (nItemsAdded == 0)
+              {
+                // Only warnings but warnings are disabled
+                aUL.addItem (new BootstrapLabel (EBootstrapLabelType.SUCCESS).addChild ("All fine on this level - only suppressed warnings are contained"));
+              }
+            }
           aDetails.addChild (aUL);
         }
 

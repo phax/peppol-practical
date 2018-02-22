@@ -20,7 +20,7 @@ import java.util.Map;
 
 import com.helger.bdve.executorset.IValidationExecutorSet;
 import com.helger.bdve.executorset.VESID;
-import com.helger.peppol.pub.validation.ExtValidationKeyRegistry;
+import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 
 public class MainListVESIDs
 {
