@@ -32,6 +32,18 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-02-28 - PEPPOL BIS Billing 3.0 published</h3>
+    
+    <p>
+      OpenPEPPOL published their EN16931 CIUS for PEPPOL invoices as version 3.0.
+      By 2019-04-18 every PEPPOL member receiving invoices according to BIS 4A or BIS 5A must support this new BIS.
+      Starting with 2019-12-31 only BIS 3.0 documents may be circulated.
+    </p>
+    <ul>
+      <li><a href="https://peppol.eu/peppol-bis-billing-3-0/">Click here to read more</a></li>
+      <li><a href="http://docs.peppol.eu/poacc/billing/3.0/migration/">See the migration plan to BIS Billing 3.0</a></li>
+    </ul>
+
     <h3>2018-02-21 - Document validation extended - again</h3>
     
     <p>
