@@ -24,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 import com.helger.bdve.artefact.IValidationArtefact;
 import com.helger.bdve.artefact.ValidationArtefact;
@@ -36,7 +35,6 @@ import com.helger.bdve.result.ValidationResultList;
 import com.helger.bdve.source.ValidationSource;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.IError;
-import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
@@ -51,12 +49,16 @@ import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.grouping.IHCLI;
+import com.helger.html.hc.html.sections.HCH2;
+import com.helger.html.hc.html.tabular.HCRow;
 import com.helger.html.hc.html.textlevel.HCCode;
+import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.bdve.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.basic.audit.AuditHelper;
+import com.helger.photon.bootstrap3.CBootstrapCSS;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
@@ -66,6 +68,7 @@ import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.label.BootstrapLabel;
 import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
+import com.helger.photon.bootstrap3.table.BootstrapTable;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBoolean;
@@ -74,7 +77,6 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.fileupload.FileItemResource;
 import com.helger.web.fileupload.IFileItem;
-import com.helger.xml.sax.AbstractSAXErrorHandler;
 import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
@@ -131,61 +133,93 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         final ValidationExecutionManager aValidator = aVES.createExecutionManager ();
 
         // Perform the validation
-        final FileItemResource aXMLRes = new FileItemResource (aFileItem);
         final ValidationResultList aValidationResultList = new ValidationResultList ();
-        final ErrorList aXMLErrors = new ErrorList ();
-        try
         {
-
-          final Document aDoc = DOMReader.readXMLDOM (aXMLRes,
-                                                      new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors))
-                                                                              .setLocale (aDisplayLocale));
-          if (aDoc != null)
+          final FileItemResource aXMLRes = new FileItemResource (aFileItem);
+          final ErrorList aXMLErrors = new ErrorList ();
+          try
           {
-            final ValidationSource aSource = ValidationSource.create (aXMLRes.getPath (), aDoc);
-            aValidator.executeValidation (aSource, aValidationResultList, aDisplayLocale);
+            final Document aDoc = DOMReader.readXMLDOM (aXMLRes,
+                                                        new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors))
+                                                                                .setLocale (aDisplayLocale));
+            if (aDoc != null)
+            {
+              final ValidationSource aSource = ValidationSource.create (aXMLRes.getPath (), aDoc);
+              aValidator.executeValidation (aSource, aValidationResultList, aDisplayLocale);
+            }
           }
-        }
-        catch (final SAXParseException ex)
-        {
-          // Already captured in ErrorList
-          if (false)
-            aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
-                                                                                           aVES.getValidationArtefactKey ()),
-                                                             new ErrorList (AbstractSAXErrorHandler.getSaxParseError (EErrorLevel.FATAL_ERROR,
-                                                                                                                      ex))));
-        }
-        catch (final SAXException ex)
-        {
-          // Already captured in ErrorList
-          if (false)
-            aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
-                                                                                           aVES.getValidationArtefactKey ()),
-                                                             new ErrorList (SingleError.builderError ()
-                                                                                       .setLinkedException (ex)
-                                                                                       .setErrorText ("Failed to parse file as XML")
-                                                                                       .build ())));
-        }
-        if (aXMLErrors.containsAtLeastOneFailure ())
-        {
-          // Add all XML parsing errors
-          aValidationResultList.add (new ValidationResult (ValidationArtefact.createXML (aXMLRes,
+          catch (final SAXException ex)
+          {
+            // Errors already captured in ErrorList
+          }
+
+          // Add all XML parsing stuff - always first item
+          // Also add if no error is present to have it shown in the list
+          aValidationResultList.add (0,
+                                     new ValidationResult (ValidationArtefact.createXML (aXMLRes,
                                                                                          aVES.getValidationArtefactKey ()),
                                                            aXMLErrors));
         }
 
+        // Show summary
+        final HCNodeList aSummary = new HCNodeList ();
+
+        {
+          aSummary.addChild (new HCH2 ().addChild ("Summary"));
+
+          final BootstrapTable aTable = new BootstrapTable ();
+          final HCRow aHeaderRow = aTable.addHeaderRow ();
+          aHeaderRow.addCell ("Validation type");
+          aHeaderRow.addCell ("Validation artefact");
+          aHeaderRow.addAndReturnCell ("Warnings").addClass (CSS_CLASS_RIGHT);
+          aHeaderRow.addAndReturnCell ("Errors").addClass (CSS_CLASS_RIGHT);
+
+          for (final ValidationResult aValidationResultItem : aValidationResultList)
+          {
+            final HCRow aRow = aTable.addBodyRow ();
+            final IValidationArtefact aValidationArtefact = aValidationResultItem.getValidationArtefact ();
+            final IErrorList aItemErrors = aValidationResultItem.getErrorList ();
+            final int nErrors = aItemErrors.getErrorCount ();
+            final int nWarnings = aItemErrors.getCount (x -> x.getErrorLevel ().isEQ (EErrorLevel.WARN));
+            if (nErrors > 0)
+              aRow.addClass (CBootstrapCSS.DANGER);
+            else
+              if (nWarnings > 0)
+                aRow.addClass (CBootstrapCSS.WARNING);
+              else
+                aRow.addClass (CBootstrapCSS.SUCCESS);
+
+            // Validation type
+            aRow.addCell (aValidationArtefact.getValidationArtefactType ().getName ());
+
+            // Validation artefact
+            aRow.addCell (aValidationArtefact.getRuleResource ().getPath ());
+
+            // Warnings on this level
+            aRow.addAndReturnCell (Integer.toString (nWarnings)).addClass (CSS_CLASS_RIGHT);
+
+            // Warnings on this error
+            aRow.addAndReturnCell (Integer.toString (nErrors)).addClass (CSS_CLASS_RIGHT);
+          }
+          aSummary.addChild (aTable);
+        }
+
+        final HCNodeList aDetails = new HCNodeList ();
+        aDetails.addChild (new HCH2 ().addChild ("Details"));
+
         // Show results per layer
         int nWarnings = 0;
         int nErrors = 0;
-        final HCNodeList aDetails = new HCNodeList ();
         for (final ValidationResult aValidationResultItem : aValidationResultList)
         {
           final IValidationArtefact aValidationArtefact = aValidationResultItem.getValidationArtefact ();
           final IErrorList aItemErrors = aValidationResultItem.getErrorList ();
 
+          // Header for level
           final HCDiv aDiv = new HCDiv ();
-          aDiv.addChild (aValidationArtefact.getValidationArtefactType ().getName ());
-          aDiv.addChild (" - " + aValidationArtefact.getRuleResource ().getPath ());
+          aDiv.addChild (new HCStrong ().addChild (aValidationArtefact.getValidationArtefactType ().getName () +
+                                                   " - " +
+                                                   aValidationArtefact.getRuleResource ().getPath ()));
           aDetails.addChild (aDiv);
           final HCUL aUL = new HCUL ();
           if (aValidationResultItem.isIgnored ())
@@ -298,6 +332,8 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                                                                    "."));
           }
         }
+
+        aNodeList.addChild (aSummary);
         aNodeList.addChild (aDetails);
         s_aLogger.info ("Finished validation after " +
                         aSW.stopAndGetMillis () +
