@@ -175,32 +175,33 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           aHeaderRow.addAndReturnCell ("Errors").addClass (CSS_CLASS_RIGHT);
 
           for (final ValidationResult aValidationResultItem : aValidationResultList)
-          {
-            final HCRow aRow = aTable.addBodyRow ();
-            final IValidationArtefact aValidationArtefact = aValidationResultItem.getValidationArtefact ();
-            final IErrorList aItemErrors = aValidationResultItem.getErrorList ();
-            final int nErrors = aItemErrors.getErrorCount ();
-            final int nWarnings = aItemErrors.getCount (x -> x.getErrorLevel ().isEQ (EErrorLevel.WARN));
-            if (nErrors > 0)
-              aRow.addClass (CBootstrapCSS.DANGER);
-            else
-              if (nWarnings > 0)
-                aRow.addClass (CBootstrapCSS.WARNING);
+            if (!aValidationResultItem.isIgnored ())
+            {
+              final HCRow aRow = aTable.addBodyRow ();
+              final IValidationArtefact aValidationArtefact = aValidationResultItem.getValidationArtefact ();
+              final IErrorList aItemErrors = aValidationResultItem.getErrorList ();
+              final int nErrors = aItemErrors.getErrorCount ();
+              final int nWarnings = aItemErrors.getCount (x -> x.getErrorLevel ().isEQ (EErrorLevel.WARN));
+              if (nErrors > 0)
+                aRow.addClass (CBootstrapCSS.DANGER);
               else
-                aRow.addClass (CBootstrapCSS.SUCCESS);
+                if (nWarnings > 0)
+                  aRow.addClass (CBootstrapCSS.WARNING);
+                else
+                  aRow.addClass (CBootstrapCSS.SUCCESS);
 
-            // Validation type
-            aRow.addCell (aValidationArtefact.getValidationArtefactType ().getName ());
+              // Validation type
+              aRow.addCell (aValidationArtefact.getValidationArtefactType ().getName ());
 
-            // Validation artefact
-            aRow.addCell (aValidationArtefact.getRuleResource ().getPath ());
+              // Validation artefact
+              aRow.addCell (aValidationArtefact.getRuleResource ().getPath ());
 
-            // Warnings on this level
-            aRow.addAndReturnCell (Integer.toString (nWarnings)).addClass (CSS_CLASS_RIGHT);
+              // Warnings on this level
+              aRow.addAndReturnCell (Integer.toString (nWarnings)).addClass (CSS_CLASS_RIGHT);
 
-            // Warnings on this error
-            aRow.addAndReturnCell (Integer.toString (nErrors)).addClass (CSS_CLASS_RIGHT);
-          }
+              // Warnings on this error
+              aRow.addAndReturnCell (Integer.toString (nErrors)).addClass (CSS_CLASS_RIGHT);
+            }
           aSummary.addChild (aTable);
         }
 
