@@ -115,6 +115,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
       final IFileItem aFileItem = aWPEC.params ().getAsFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
       final boolean bShowWarnings = aWPEC.params ().isCheckBoxChecked (FIELD_SHOW_WARNINGS, DEFAULT_SHOW_WARNINGS);
+      final boolean bShowInfos = true;
 
       if (aVES == null)
         aFormErrors.addFieldError (FIELD_VES, "Please select a valid rule set.");
@@ -209,6 +210,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         aDetails.addChild (new HCH2 ().addChild ("Details"));
 
         // Show results per layer
+        int nInfos = 0;
         int nWarnings = 0;
         int nErrors = 0;
         for (final ValidationResult aValidationResultItem : aValidationResultList)
@@ -255,7 +257,16 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                     aErrorLevel = new BootstrapLabel (EBootstrapLabelType.WARNING).addChild ("Warning");
                   }
                   else
-                    aErrorLevel = new BootstrapLabel ().addChild ("undefined");
+                    if (aError.getErrorLevel ().isGE (EErrorLevel.INFO))
+                    {
+                      if (!bShowInfos)
+                        continue;
+
+                      nInfos++;
+                      aErrorLevel = new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("Information");
+                    }
+                    else
+                      aErrorLevel = new BootstrapLabel ().addChild ("undefined");
 
                 final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
                                                                                          : null;
@@ -339,6 +350,8 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         s_aLogger.info ("Finished validation after " +
                         aSW.stopAndGetMillis () +
                         "ms; " +
+                        nInfos +
+                        " information; " +
                         nWarnings +
                         " warns; " +
                         nErrors +
@@ -352,8 +365,9 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                                            aVES.getValidationArtefactKey (),
                                            Integer.valueOf (aValidationResultList.size ()),
                                            Long.valueOf (aSW.getMillis ()),
-                                           Integer.valueOf (nErrors),
-                                           Integer.valueOf (nWarnings));
+                                           Integer.valueOf (nInfos),
+                                           Integer.valueOf (nWarnings),
+                                           Integer.valueOf (nErrors));
       }
     }
 
