@@ -32,6 +32,29 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-03-27 - phoss SMP 5.0.4</h3>
+    
+    <p>
+      phoss SMP 5.0.4 was released. 
+      This is a maintenance release with some bug fixes and additional customizing possibilities.
+      This is the first release that supports the new OpenPEPPOL v3 PKI.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.4">Download phoss SMP 5.0.4</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
+    </ul>
+
+    <h3>2018-03-21 - 9<sup>th</sup> OpenPEPPOL General Assembly</h3>
+    
+    <p>
+      The 9<sup>th</sup> GA was held in Brussels.
+      Unfortunately not enough members were present to make statute changes (would have required 2/3 present or proxied).
+    </p>
+    <ul>
+      <li><a href="https://peppol.eu/event/9th-openpeppol-general-assembly-brussels-wednesday-march-21st-2018/">peppol.eu news item</a></li>
+      <li><a href="https://openpeppol.atlassian.net/wiki/spaces/Public/pages/163217421/9th+OpenPEPPOL+General+Assembly+-+Invitation+and+background+documents">Details and background information in PEPPOL Confluence</a></li>
+    </ul>
+  
     <h3>2018-02-28 - PEPPOL BIS Billing 3.0 published</h3>
     
     <p>
