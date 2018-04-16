@@ -32,6 +32,36 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-04-16 - phoss SMP 5.0.5</h3>
+    
+    <p>
+      phoss SMP 5.0.5 was released. 
+      This is a maintenance release with some bug fixes in the area of PEPPOL Directory.
+      This release is compliant with the new OpenPEPPOL v3 PKI.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.5">Download phoss SMP 5.0.5</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
+    </ul>
+    
+    <h3>2018-04-11 - OpenPEPPOL Newsletter</h3>
+    
+    <p>
+      PEPPOL Members should be able to see it in
+      <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/339869706/Newsletter+11.04.2018+-+PKI+Migration+Statutes+Changes+Additional+GA+etc.">Confluence</a>.
+      All others can download and read the <a href="/files/peppol/OpenPEPPOL Newsletter 2018-04-11.pdf">PDF version</a>.
+    </p>
+    
+    <p>
+      Important <strong>timeline for the PKI migration</strong>:
+    </p>
+    <ul>
+      <li>16 April 2018: the certificate issuing process will begin and members are urged to request their PKI v3 certificate</li>
+      <li>31 August 2018: OpenPEPPOL will no longer issue the old certificate types</li> 
+      <li>3 September 2018: the new certificates can be used in production</li>
+      <li>30 November 2018: the old certificates will be revoked and cannot be used in the PEPPOL eDelivery Network</li>
+    </ul>
+
     <h3>2018-03-27 - phoss SMP 5.0.4</h3>
     
     <p>
