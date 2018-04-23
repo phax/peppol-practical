@@ -21,7 +21,12 @@
   It shows how the PKI is structured and where it is used.
 </p>
 
-<h2>Introduction to the PEPPOL PKI</h2>
+<h2>Introduction to the PEPPOL PKI (v2)</h2>
+
+<div class="alert alert-danger">
+  All PEPPOL PKI v2 will revoked on November 30<sup>th</sup> 2018, as new certificate are rolled out! Read details below.
+</div>
+
 <p>
   The PEPPOL PKI (Public Key Infrastructure) is an integral part of the
   PEPPOL security model. It consists of two separate trees - one for pilot/test usage and one
@@ -30,7 +35,7 @@
 </p>
 
 <p>
-  <img src="../imgs/pki-structure.png" alt="PEPPOL PKI structure" />
+  <img src="../imgs/pki-structure.png" alt="PEPPOL PKI v2 structure" />
 </p>
 
 <p>
@@ -40,6 +45,80 @@
   Each AP and SMP certificate used in practice is based on the respective AP or SMP ROOT certificate
   (see the red boxes ).
 </p>
+
+<h2>OpenPEPPOL PKI v3 - Migration 2018</h2>
+
+<p>
+  During 2018 all PEPPOL certificates must be replaced, because the underlying root certificate is about to expire in January 2020.
+  The new PKI is called "OpenPEPPOL PKI v3" and the root certificates are valid from 2018 to 2028.
+  The structure is very similar to the old one, but the STS CA is not present any more. So this is how it looks like:
+</p>
+
+<p>
+  <img src="../imgs/pki-structure-v3.png" alt="PEPPOL PKI v3 structure" />
+</p>
+
+<p>
+  The migration process is planned as follows:
+</p>
+
+<ul>
+  <li>
+    <div><span class="label label-success">Done</span></div>
+    <div>
+    February 2018: the new root certificates are available for download in 
+      <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/193069072/Introduction+to+the+revised+PKI+Certificate+infrastructure+and+issuing+process">Confluence</a>
+      and from
+      <a href="https://github.com/OpenPEPPOL/documentation/tree/master/TransportInfrastructure/RootCertificates%202018">GitHub</a>
+    </div>
+    <div>
+      Complete JKS files with all of the new root certificates are available at 
+      <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>.
+      The recommended one is <code>complete-truststore.jks</code> as it contains all certificates - both for PKI v2 and PKI v3.
+    </div>
+  </li>
+  <li>
+    <div><span class="label label-success">Started</span></div>
+    16 April 2018: the certificate issuing process will begin and members are urged to request their PKI v3 certificate
+  </li>
+  <li>
+    <div><span class="label label-default">Information</span></div>
+    31 August 2018: OpenPEPPOL will no longer issue the old certificate types
+  </li>
+  <li>
+    <div><span class="label label-warning">Important</span></div>
+    3 September 2018: the new certificates can be used in production
+  </li>
+  <li>
+    <div><span class="label label-danger">Attention</span></div>
+    30 November 2018: the old (PKI v2) certificates will be revoked and cannot be used in the PEPPOL eDelivery Network anymore
+  </li>
+</ul>
+
+<p>
+  For details and further information, please see the 
+  <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/193069072/DRAFT+-+Introduction+to+the+revised+PKI+Certificate+infrastructure+and+issuing+process">DRAFT - Introduction to the revised PKI Certificate infrastructure and issuing process</a>
+  and the 
+  <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/189530542/PKI+Certificate+Migration+2018">PKI Certificate Migration 2018</a>
+  pages.
+</p> 
+
+<p>
+  The following list contains the migration status of the different software components I'm aware of.
+  Please send additional information to me, so I can add it here.
+</p>
+
+<ul>
+  <li>
+    PEPPOL Directory <span class="label label-success">done</span>:
+    Supports both PKIs in parallel - both in test and production.
+  </li>
+  <li>
+    phoss SMP <span class="label label-success">done</span>:
+    version 5.0.4 and later do support both PKI v2 and PKI v3 in parallel. 
+  </li>
+</ul>
+
 
 <h2>Certificate usage in PEPPOL</h2>
 
