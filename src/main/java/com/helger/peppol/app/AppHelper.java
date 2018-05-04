@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.peppol.smp.ISMPTransportProfile;
 
 /**
@@ -44,10 +44,10 @@ public final class AppHelper
   }
 
   @Nullable
-  public static EPredefinedIdentifierIssuingAgency getIdentifierIssuingAgencyOfID (@Nullable final String sSchemeID)
+  public static EPredefinedParticipantIdentifierScheme getParticipantIdentifierSchemeOfID (@Nullable final String sSchemeID)
   {
     if (StringHelper.hasText (sSchemeID))
-      for (final EPredefinedIdentifierIssuingAgency eAgency : EPredefinedIdentifierIssuingAgency.values ())
+      for (final EPredefinedParticipantIdentifierScheme eAgency : EPredefinedParticipantIdentifierScheme.values ())
         if (eAgency.getISO6523Code ().equals (sSchemeID) || eAgency.getSchemeID ().equals (sSchemeID))
           return eAgency;
     return null;

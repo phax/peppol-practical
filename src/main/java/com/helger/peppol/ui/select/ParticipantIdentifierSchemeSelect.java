@@ -20,17 +20,17 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
-public class IdentifierIssuingAgencySelect extends HCExtSelect
+public class ParticipantIdentifierSchemeSelect extends HCExtSelect
 {
-  public IdentifierIssuingAgencySelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
+  public ParticipantIdentifierSchemeSelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
     addOptionPleaseSelect (aDisplayLocale);
-    for (final EPredefinedIdentifierIssuingAgency eIIA : EPredefinedIdentifierIssuingAgency.values ())
+    for (final EPredefinedParticipantIdentifierScheme eIIA : EPredefinedParticipantIdentifierScheme.values ())
       if (!eIIA.isDeprecated ())
         addOption (eIIA.getISO6523Code (), eIIA.getISO6523Code () + " - " + eIIA.getSchemeID ());
   }

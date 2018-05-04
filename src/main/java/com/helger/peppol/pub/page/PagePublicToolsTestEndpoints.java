@@ -37,7 +37,7 @@ import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppol.pub.testendpoint.TestEndpoint;
 import com.helger.peppol.pub.testendpoint.TestEndpointManager;
@@ -46,7 +46,7 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPageForm;
-import com.helger.peppol.ui.select.IdentifierIssuingAgencySelect;
+import com.helger.peppol.ui.select.ParticipantIdentifierSchemeSelect;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.peppol.ui.select.SMPTransportProfileSelect;
 import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
@@ -229,7 +229,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                      .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier issuing agency")
-                                                     .setCtrl (new IdentifierIssuingAgencySelect (new RequestField (FIELD_PARTICIPANT_ID_ISSUER,
+                                                     .setCtrl (new ParticipantIdentifierSchemeSelect (new RequestField (FIELD_PARTICIPANT_ID_ISSUER,
                                                                                                                     aSelectedObject == null ? null
                                                                                                                                             : aSelectedObject.getParticipantIDIssuer ()),
                                                                                                   aDisplayLocale))
@@ -264,7 +264,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final String sCompanyName = aWPEC.params ().getAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.params ().getAsString (FIELD_CONTACT_PERSON);
     final String sParticipantIDIssuer = aWPEC.params ().getAsString (FIELD_PARTICIPANT_ID_ISSUER);
-    final EPredefinedIdentifierIssuingAgency eAgency = AppHelper.getIdentifierIssuingAgencyOfID (sParticipantIDIssuer);
+    final EPredefinedParticipantIdentifierScheme eScheme = AppHelper.getParticipantIdentifierSchemeOfID (sParticipantIDIssuer);
     final String sParticipantIDValue = aWPEC.params ().getAsString (FIELD_PARTICIPANT_ID_VALUE);
     final String sTransportProfile = aWPEC.params ().getAsString (FIELD_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
@@ -278,7 +278,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     if (StringHelper.hasNoText (sParticipantIDIssuer))
       aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER, "Please select a participant identifier issuing agency");
     else
-      if (eAgency == null)
+      if (eScheme == null)
         aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER,
                                    "Please select a valid participant identifier issuing agency");
 
