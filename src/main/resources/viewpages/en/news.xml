@@ -32,6 +32,17 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-05-08 - Spring release artefacts are final</h3>
+    
+    <p>
+      The 2018 Spring release of the PEPPOL Post Award validation artefacts is available (v3.6.0).
+      They will be mandatory from 2018-05-14 12:00 CEST.
+    </p>
+    <ul>
+      <li><a href="http://peppol.eu/downloads/post-award/">Download from the PEPPOL site</a></li>
+      <li><a href="/files/validation/BIS2.0-VA-Spring2018.20180508.zip">Download from this site</a></li>
+    </ul>
+
     <h3>2018-04-23 - PEPPOL PKI v3 explained</h3>
     
     <p>
