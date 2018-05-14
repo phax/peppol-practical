@@ -23,7 +23,7 @@ import javax.xml.ws.BindingProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.bdve.peppol.PeppolValidation350;
+import com.helger.bdve.peppol.PeppolValidation360;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -58,7 +58,7 @@ public final class MainWSDVSClient
 
     s_aLogger.info ("Starting validation process");
     final RequestType aRequest = new RequestType ();
-    aRequest.setVESID (PeppolValidation350.VID_OPENPEPPOL_T10_V2.getAsSingleID ());
+    aRequest.setVESID (PeppolValidation360.VID_OPENPEPPOL_T10_V2.getAsSingleID ());
     aRequest.setXML (sXML);
     aRequest.setDisplayLocale ("en");
     final ResponseType aResponse = aPort.validate (aRequest);
