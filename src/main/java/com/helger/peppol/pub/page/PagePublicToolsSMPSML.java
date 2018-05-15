@@ -21,12 +21,10 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.security.KeyManagementException;
+import java.security.GeneralSecurityException;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
+import java.time.LocalDate;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,6 +39,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.PDTFromString;
+import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.random.RandomHelper;
 import com.helger.commons.regex.RegExHelper;
@@ -52,12 +53,14 @@ import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.forms.HCEditPassword;
+import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.network.dns.IPV4Addr;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
 import com.helger.peppol.smlclient.smp.InternalErrorFault;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
@@ -73,10 +76,13 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
+import com.helger.photon.bootstrap3.uictrls.datetimepicker.BootstrapDateTimePicker;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.core.form.RequestFieldDate;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.IKeyStoreType;
 import com.helger.web.fileupload.IFileItem;
@@ -92,6 +98,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String FIELD_LOGICAL_ADDRESS = "logicaladdr";
   private static final String FIELD_KEYSTORE = "keystore";
   private static final String FIELD_KEYSTORE_PW = "keystorepw";
+  private static final String FIELD_PM_MIGRATION_DATE = "pmmigdate";
+  private static final String FIELD_PM_PUBLIC_KEY = "pmpubkey";
 
   private static final String HELPTEXT_SMP_ID = "This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!";
   private static final String HELPTEXT_PHYSICAL_ADDRESS = "This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!";
@@ -102,6 +110,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String SUBACTION_SMP_REGISTER = "smpregister";
   private static final String SUBACTION_SMP_UPDATE = "smpupdate";
   private static final String SUBACTION_SMP_DELETE = "smpdelete";
+  private static final String SUBACTION_SMP_UPDATE_CERT = "smpupdatecert";
 
   private static final ISMLInfo DEFAULT_SML = ESML.DIGIT_PRODUCTION;
 
@@ -118,10 +127,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   }
 
   @Nullable
-  private SSLSocketFactory _loadKeyStoreAndCreateSSLSocketFactory (@Nonnull final IKeyStoreType aKeyStoreType,
-                                                                   @Nullable final IFileItem aKeyStoreFile,
-                                                                   @Nullable final String sKeyStorePassword,
-                                                                   @Nonnull final FormErrorList aFormErrors)
+  private static SSLSocketFactory _loadKeyStoreAndCreateSSLSocketFactory (@Nonnull final IKeyStoreType aKeyStoreType,
+                                                                          @Nullable final IFileItem aKeyStoreFile,
+                                                                          @Nullable final String sKeyStorePassword,
+                                                                          @Nonnull final FormErrorList aFormErrors)
   {
     KeyStore aKeyStore = null;
     if (aKeyStoreFile == null || aKeyStoreFile.getSize () == 0L)
@@ -177,7 +186,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
             aKeyStore = null;
           }
         }
-        catch (final KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException ex)
+        catch (final GeneralSecurityException | IOException ex)
         {
           final String sMsg = "The key store could not be loaded with the provided password.";
           s_aLogger.error (sMsg, ex);
@@ -202,7 +211,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aSocketFactory = aSSLContext.getSocketFactory ();
         s_aLogger.info ("Successfully created TLS socket factory with the provided keystore password!");
       }
-      catch (final NoSuchAlgorithmException | KeyManagementException | UnrecoverableKeyException | KeyStoreException ex)
+      catch (final GeneralSecurityException ex)
       {
         final String sMsg = "Failed to use the provided key store for TLS connection.";
         s_aLogger.error (sMsg, ex);
@@ -212,8 +221,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     return aSocketFactory;
   }
 
-  private void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                  @Nonnull final FormErrorList aFormErrors)
+  private static void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                         @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.params ().getAsString (FIELD_SML);
@@ -343,7 +352,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     }
   }
 
-  private void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrorList aFormErrors)
+  private static void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                       @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.params ().getAsString (FIELD_SML);
@@ -477,8 +487,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     }
   }
 
-  private void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                  @Nonnull final FormErrorList aFormErrors)
+  private static void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                         @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final String sSML = aWPEC.params ().getAsString (FIELD_SML);
@@ -541,15 +551,93 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     }
   }
 
+  private static void _updateSMPCertAtSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                           @Nonnull final FormErrorList aFormErrors)
+  {
+    final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final String sSML = aWPEC.params ().getAsString (FIELD_SML);
+    final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
+    final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
+    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
+    final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
+    final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
+    final LocalDate aMigrationDate = PDTFromString.getLocalDateFromString (sMigrationDate, aDisplayLocale);
+    final String sMigrationPublicKey = aWPEC.params ().getAsString (FIELD_PM_PUBLIC_KEY);
+
+    if (aSML == null)
+      aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
+
+    if (StringHelper.hasNoText (sSMPID))
+      aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
+    else
+      if (!RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, sSMPID))
+        aFormErrors.addFieldError (FIELD_SMP_ID,
+                                   "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
+                                                 CPPApp.PATTERN_SMP_ID);
+
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+                                                                                    aKeyStoreFile,
+                                                                                    sKeyStorePassword,
+                                                                                    aFormErrors);
+
+    if (aFormErrors.isEmpty ())
+    {
+      final BDMSLClient aCaller = new BDMSLClient (aSML);
+      aCaller.setSSLSocketFactory (aSocketFactory);
+      try
+      {
+        aCaller.prepareChangeCertificate (sMigrationPublicKey, aMigrationDate);
+
+        final String sMsg = "Successfully prepared migration of certificate of SMP '" +
+                            sSMPID +
+                            "' at SML '" +
+                            aSML.getManagementServiceURL () +
+                            "'" +
+                            (aMigrationDate == null ? ""
+                                                    : " to be exchanged at " +
+                                                      PDTToString.getAsString (aMigrationDate, aDisplayLocale)) +
+                            ".";
+        s_aLogger.info (sMsg);
+        aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
+        AuditHelper.onAuditExecuteSuccess ("smp-sml-update-cert",
+                                           sSMPID,
+                                           aSML.getManagementServiceURL (),
+                                           sMigrationPublicKey,
+                                           aMigrationDate);
+      }
+      catch (final com.helger.peppol.smlclient.bdmsl.BadRequestFault
+                   | com.helger.peppol.smlclient.bdmsl.InternalErrorFault
+                   | com.helger.peppol.smlclient.bdmsl.NotFoundFault
+                   | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault
+                   | ClientTransportException ex)
+      {
+        final String sMsg = "Error deleting SMP '" +
+                            sSMPID +
+                            "' from the SML '" +
+                            aSML.getManagementServiceURL () +
+                            "'.";
+        s_aLogger.error (sMsg, ex);
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
+        AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
+                                           sSMPID,
+                                           aSML.getManagementServiceURL (),
+                                           ex.getClass (),
+                                           ex.getMessage ());
+      }
+    }
+  }
+
   @Override
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
 
     aNodeList.addChild (new BootstrapWarnBox ().addChild ("Note: as of ")
-                                               .addChild (new HCA (new SimpleURL ("https://github.com/phax/peppol-smp-server")).addChild ("SMP server 5.0.0 beta 1"))
+                                               .addChild (new HCA (new SimpleURL ("https://github.com/phax/peppol-smp-server")).addChild ("phoss SMP server 5.0.0 beta 1"))
                                                .addChild (" this registration feature is contained directly in the SMP software! So you don't need to send your certificates over the Internet anymore!"));
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
@@ -562,16 +650,20 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         else
           if (aWPEC.hasSubAction (SUBACTION_SMP_DELETE))
             _deleteSMPfromSML (aWPEC, aFormErrors);
+          else
+            if (aWPEC.hasSubAction (SUBACTION_SMP_UPDATE_CERT))
+              _updateSMPCertAtSML (aWPEC, aFormErrors);
     }
 
     if (bShowInput)
     {
+      final int nLeft = 3;
       final BootstrapTabBox aTabBox = new BootstrapTabBox ();
 
       // Register SMP at SML
       {
         final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
-        aForm.setEncTypeFileUpload ().setLeft (3);
+        aForm.setEncTypeFileUpload ().setLeft (nLeft);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Register a new SMP to the SML. This must only be done once per SMP!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
@@ -609,7 +701,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       // Update SMP at SML
       {
         final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
-        aForm.setEncTypeFileUpload ().setLeft (3);
+        aForm.setEncTypeFileUpload ().setLeft (nLeft);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
@@ -647,7 +739,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       // Delete SMP from SML
       {
         final BootstrapForm aForm = getUIHandler ().createFormFileUploadSelf (aWPEC);
-        aForm.setLeft (3);
+        aForm.setLeft (nLeft);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Delete an existing SMP from the SML."));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
@@ -672,6 +764,52 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aToolbar.addSubmitButton ("Delete SMP from SML");
 
         aTabBox.addTab ("delete", "Delete SMP from SML", aForm, aWPEC.hasSubAction (SUBACTION_SMP_DELETE));
+      }
+
+      // Update SMP certificate in SML
+      {
+        final BootstrapForm aForm = getUIHandler ().createFormFileUploadSelf (aWPEC);
+        aForm.setLeft (nLeft);
+        aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Prepare the update of your PEPPOL SMP certificate in the future."),
+                                                             new HCDiv ().addChild ("This works only if your SMP certificate is NOT expired yet." +
+                                                                                    " If your SMP certificate is already expired contact CEF-EDELIVERY-SUPPORT@ec.europa.eu with your SMP ID, the new certificate and the requested exchange date!"),
+                                                             new HCDiv ().addChild ("Note: this is a custom extension that only works with the CEF SML instances!")));
+        aForm.addChild (new BootstrapWarnBox ().addChild ("It is your responsibility to update the PEPPOL certificate in your SMP at the specified time!"));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
+                                                                                                DEFAULT_SML)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
+                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
+                                                     .setHelpText (HELPTEXT_SMP_ID)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing SMP key store")
+                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE))
+                                                     .setHelpText (HELPTEXT_KEYSTORE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Existing SMP key store password")
+                                                     .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the existing SMP keystore. May be empty."))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_PW)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Certificate exchange date")
+                                                     .setCtrl (new BootstrapDateTimePicker (new RequestFieldDate (FIELD_PM_MIGRATION_DATE,
+                                                                                                                  aDisplayLocale)).setStartDate (PDTFactory.getCurrentLocalDate ()))
+                                                     .setHelpText ("The SML will replace the certificate at this date. It must be in the future and within the validity period of the provided new public key. If not provided, the 'valid from' part of the certificate is used.")
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PM_MIGRATION_DATE)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("New public key")
+                                                     .setCtrl (new HCTextAreaAutosize (FIELD_PM_PUBLIC_KEY))
+                                                     .setHelpText ("Paste the public part of your new certificate here. Do NOT paste your new private key here.")
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PM_PUBLIC_KEY)));
+
+        final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
+        aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
+        aToolbar.addHiddenField (CPageParam.PARAM_SUBACTION, SUBACTION_SMP_UPDATE_CERT);
+        aToolbar.addSubmitButton ("Prepare certificate update");
+
+        aTabBox.addTab ("updatecert",
+                        "Update SMP certificate at SML",
+                        aForm,
+                        aWPEC.hasSubAction (SUBACTION_SMP_UPDATE_CERT));
       }
 
       aNodeList.addChild (aTabBox);
