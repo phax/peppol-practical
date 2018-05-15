@@ -39,6 +39,17 @@
       <a href="/public/menuitem-tools-smp-sml#tab_updatecert">SMP - SML tools</a>
       now has a possibility to prepare the update of a PEPPOL SMP certificate in the SMK/SML.
     </p>
+
+    <h3>2018-05-15 - PEPPOL AS2 specification 1.01</h3>
+    
+    <p>
+      The updated PEPPOL AS2 specification 1.01 will be in effect by June 1<sup>st</sup>.
+      The sole difference compared to the old version is the mandatory usage of TLS 1.2 for communication.
+    </p>
+    <ul>
+      <li><a href="https://peppol.eu/updated-peppol-as2-specification/">peppol.eu News item</a></li>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-AS2_Service_Specification-1.01-2018-02-09.pdf">PEPPOL AS2 Specification 1.01</a></li>
+    </ul>
     
     <h3>2018-05-08 - Spring release artefacts are final</h3>
     
