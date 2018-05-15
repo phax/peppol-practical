@@ -200,7 +200,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                   {
                     final X509Certificate aX509Cert = (X509Certificate) aCert;
                     final LocalDate aNotBefore = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
-                    final LocalDate aNotAfter = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
+                    final LocalDate aNotAfter = PDTFactory.createLocalDate (aX509Cert.getNotAfter ());
                     if (aNow.isBefore (aNotBefore))
                     {
                       final String sMsg = "The key '" +
