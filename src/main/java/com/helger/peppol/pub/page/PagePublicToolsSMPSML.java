@@ -23,6 +23,10 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateNotYetValidException;
+import java.security.cert.X509Certificate;
 import java.time.LocalDate;
 import java.util.Locale;
 
@@ -61,6 +65,7 @@ import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
+import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
 import com.helger.peppol.smlclient.smp.InternalErrorFault;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
@@ -76,6 +81,7 @@ import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap3.form.BootstrapForm;
 import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
+import com.helger.photon.bootstrap3.pages.BootstrapWebPageUIHandler;
 import com.helger.photon.bootstrap3.uictrls.datetimepicker.BootstrapDateTimePicker;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
@@ -83,6 +89,7 @@ import com.helger.photon.core.form.RequestFieldDate;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
+import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.IKeyStoreType;
 import com.helger.web.fileupload.IFileItem;
@@ -113,6 +120,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String SUBACTION_SMP_UPDATE_CERT = "smpupdatecert";
 
   private static final ISMLInfo DEFAULT_SML = ESML.DIGIT_PRODUCTION;
+  private static final String SECURITY_PROVIDER = null;
 
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
   {
@@ -128,6 +136,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
   @Nullable
   private static SSLSocketFactory _loadKeyStoreAndCreateSSLSocketFactory (@Nonnull final IKeyStoreType aKeyStoreType,
+                                                                          @Nullable final String sSecurityProvider,
                                                                           @Nullable final IFileItem aKeyStoreFile,
                                                                           @Nullable final String sKeyStorePassword,
                                                                           @Nonnull final FormErrorList aFormErrors)
@@ -145,7 +154,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         // Try to load the key store
         try (final InputStream aIS = aKeyStoreFile.getInputStream ())
         {
-          aKeyStore = aKeyStoreType.getKeyStore ();
+          aKeyStore = StringHelper.hasText (sSecurityProvider) ? aKeyStoreType.getKeyStore (sSecurityProvider)
+                                                               : aKeyStoreType.getKeyStore ();
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
           // Get all aliases
@@ -219,6 +229,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       }
     }
     return aSocketFactory;
+  }
+
+  @Nonnull
+  private static ManageServiceMetadataServiceCaller _create (@Nonnull final ISMLInfo aSML,
+                                                             @Nonnull final SSLSocketFactory aSocketFactory)
+  {
+    final ManageServiceMetadataServiceCaller ret = new ManageServiceMetadataServiceCaller (aSML);
+    ret.setSSLSocketFactory (aSocketFactory);
+    return ret;
   }
 
   private static void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC,
@@ -300,13 +319,14 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     }
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+                                                                                    SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors);
 
     if (aFormErrors.isEmpty ())
     {
-      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (aSML, aSocketFactory);
+      final ManageServiceMetadataServiceCaller aCaller = _create (aSML, aSocketFactory);
       try
       {
         aCaller.create (sSMPID, sPhysicalAddress, sLogicalAddress);
@@ -350,6 +370,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            ex.getMessage ());
       }
     }
+    else
+      aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
   private static void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC,
@@ -431,13 +453,14 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     }
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+                                                                                    SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors);
 
     if (aFormErrors.isEmpty ())
     {
-      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (aSML, aSocketFactory);
+      final ManageServiceMetadataServiceCaller aCaller = _create (aSML, aSocketFactory);
       try
       {
         aCaller.update (sSMPID, sPhysicalAddress, sLogicalAddress);
@@ -485,6 +508,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            ex.getMessage ());
       }
     }
+    else
+      aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
   private static void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC,
@@ -509,13 +534,14 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                  CPPApp.PATTERN_SMP_ID);
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+                                                                                    SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors);
 
     if (aFormErrors.isEmpty ())
     {
-      final SecuredSMPSMLClient aCaller = new SecuredSMPSMLClient (aSML, aSocketFactory);
+      final ManageServiceMetadataServiceCaller aCaller = _create (aSML, aSocketFactory);
       try
       {
         aCaller.delete (sSMPID);
@@ -549,6 +575,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            ex.getMessage ());
       }
     }
+    else
+      aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
   private static void _updateSMPCertAtSML (@Nonnull final WebPageExecutionContext aWPEC,
@@ -556,27 +584,100 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
     final String sSML = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
-    final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
     final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
     final LocalDate aMigrationDate = PDTFromString.getLocalDateFromString (sMigrationDate, aDisplayLocale);
     final String sMigrationPublicKey = aWPEC.params ().getAsString (FIELD_PM_PUBLIC_KEY);
+    X509Certificate aMigrationPublicKey = null;
 
     if (aSML == null)
       aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
-    if (StringHelper.hasNoText (sSMPID))
-      aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
+    if (StringHelper.hasText (sMigrationDate))
+    {
+      if (aMigrationDate == null)
+        aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE,
+                                   "The provided certificate migration date '" + sMigrationDate + "' is invalid!");
+      else
+        if (aMigrationDate.compareTo (aNow) <= 0)
+          aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE, "The certificate migration date must be in the future!");
+    }
+
+    if (StringHelper.hasNoText (sMigrationPublicKey))
+    {
+      aFormErrors.addFieldError (FIELD_PM_PUBLIC_KEY, "A new public key must be provided.");
+    }
     else
-      if (!RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, sSMPID))
-        aFormErrors.addFieldError (FIELD_SMP_ID,
-                                   "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CPPApp.PATTERN_SMP_ID);
+    {
+      try
+      {
+        aMigrationPublicKey = CertificateHelper.convertStringToCertficate (sMigrationPublicKey);
+      }
+      catch (final CertificateException ex)
+      {
+        // Fall through
+      }
+
+      if (aMigrationPublicKey == null)
+        aFormErrors.addFieldError (FIELD_PM_PUBLIC_KEY,
+                                   "The provided public key cannot be parsed as a X.509 certificate.");
+      else
+      {
+        try
+        {
+          aMigrationPublicKey.checkValidity ();
+        }
+        catch (final CertificateExpiredException ex)
+        {
+          aFormErrors.addFieldError (FIELD_PM_PUBLIC_KEY, "The provided public key is already expired!");
+          aMigrationPublicKey = null;
+        }
+        catch (final CertificateNotYetValidException ex)
+        {
+          // That's okay
+        }
+      }
+    }
+
+    if (aMigrationPublicKey != null)
+    {
+      final LocalDate aNotBefore = PDTFactory.createLocalDate (aMigrationPublicKey.getNotBefore ());
+      final LocalDate aNotAfter = PDTFactory.createLocalDate (aMigrationPublicKey.getNotAfter ());
+
+      if (aMigrationDate != null)
+      {
+        if (aMigrationDate.isBefore (aNotBefore))
+          aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE,
+                                     "The provided certificate migration date " +
+                                                              PDTToString.getAsString (aMigrationDate, aDisplayLocale) +
+                                                              " must not be before the certificate NotBefore date " +
+                                                              PDTToString.getAsString (aNotBefore, aDisplayLocale) +
+                                                              "!");
+
+        if (aMigrationDate.isAfter (aNotAfter))
+          aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE,
+                                     "The provided certificate migration date " +
+                                                              PDTToString.getAsString (aMigrationDate, aDisplayLocale) +
+                                                              " must not be after the certificate NotAfter date " +
+                                                              PDTToString.getAsString (aNotAfter, aDisplayLocale) +
+                                                              "!");
+      }
+      else
+      {
+        if (aNotBefore.compareTo (aNow) <= 0)
+          aFormErrors.addFieldError (FIELD_PM_PUBLIC_KEY,
+                                     "The effective certificate migration date (" +
+                                                          PDTToString.getAsString (aNotBefore, aDisplayLocale) +
+                                                          " - taken from the new public key) must be in the future!");
+      }
+    }
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+                                                                                    SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors);
@@ -585,23 +686,33 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     {
       final BDMSLClient aCaller = new BDMSLClient (aSML);
       aCaller.setSSLSocketFactory (aSocketFactory);
+
       try
       {
-        aCaller.prepareChangeCertificate (sMigrationPublicKey, aMigrationDate);
+        if (false)
+          aCaller.prepareChangeCertificate (sMigrationPublicKey, aMigrationDate);
 
-        final String sMsg = "Successfully prepared migration of certificate of SMP '" +
-                            sSMPID +
-                            "' at SML '" +
+        final LocalDate aNotBefore = PDTFactory.createLocalDate (aMigrationPublicKey.getNotBefore ());
+        final LocalDate aNotAfter = PDTFactory.createLocalDate (aMigrationPublicKey.getNotAfter ());
+
+        final LocalDate aEffectiveMigrationDate = aMigrationDate != null ? aMigrationDate : aNotBefore;
+        final String sMsg = "Successfully prepared migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
                             "'" +
-                            (aMigrationDate == null ? ""
-                                                    : " to be exchanged at " +
-                                                      PDTToString.getAsString (aMigrationDate, aDisplayLocale)) +
+                            " to be exchanged at " +
+                            PDTToString.getAsString (aEffectiveMigrationDate, aDisplayLocale) +
                             ".";
         s_aLogger.info (sMsg);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
+
+        final BootstrapSuccessBox aBox = new BootstrapSuccessBox ();
+        aBox.addChild (new HCDiv ().addChild (sMsg));
+        aBox.addChild (new HCDiv ().addChild ("Issuer: " + aMigrationPublicKey.getIssuerDN ().toString ()));
+        aBox.addChild (new HCDiv ().addChild ("Subject: " + aMigrationPublicKey.getSubjectDN ().toString ()));
+        aBox.addChild (new HCDiv ().addChild ("Not before: " + PDTToString.getAsString (aNotBefore, aDisplayLocale)));
+        aBox.addChild (new HCDiv ().addChild ("Not after: " + PDTToString.getAsString (aNotAfter, aDisplayLocale)));
+        aNodeList.addChild (aBox);
+
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update-cert",
-                                           sSMPID,
                                            aSML.getManagementServiceURL (),
                                            sMigrationPublicKey,
                                            aMigrationDate);
@@ -612,20 +723,19 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                    | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault
                    | ClientTransportException ex)
       {
-        final String sMsg = "Error deleting SMP '" +
-                            sSMPID +
-                            "' from the SML '" +
+        final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
                             "'.";
         s_aLogger.error (sMsg, ex);
         aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
-        AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
-                                           sSMPID,
+        AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
                                            ex.getClass (),
                                            ex.getMessage ());
       }
     }
+    else
+      aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
   @Override
@@ -779,10 +889,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
                                                                                                 DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
-                                                     .setHelpText (HELPTEXT_SMP_ID)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing SMP key store")
                                                      .setCtrl (new HCEditFile (FIELD_KEYSTORE))
                                                      .setHelpText (HELPTEXT_KEYSTORE)
@@ -791,13 +897,14 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the existing SMP keystore. May be empty."))
                                                      .setHelpText (HELPTEXT_KEYSTORE_PW)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Certificate exchange date")
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Certificate migration date")
                                                      .setCtrl (new BootstrapDateTimePicker (new RequestFieldDate (FIELD_PM_MIGRATION_DATE,
-                                                                                                                  aDisplayLocale)).setStartDate (PDTFactory.getCurrentLocalDate ()))
+                                                                                                                  aDisplayLocale)).setStartDate (PDTFactory.getCurrentLocalDate ()
+                                                                                                                                                           .plusDays (1)))
                                                      .setHelpText ("The SML will replace the certificate at this date. It must be in the future and within the validity period of the provided new public key. If not provided, the 'valid from' part of the certificate is used.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PM_MIGRATION_DATE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("New public key")
-                                                     .setCtrl (new HCTextAreaAutosize (FIELD_PM_PUBLIC_KEY))
+                                                     .setCtrl (new HCTextAreaAutosize (FIELD_PM_PUBLIC_KEY).setRows (5))
                                                      .setHelpText ("Paste the public part of your new certificate here. Do NOT paste your new private key here.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PM_PUBLIC_KEY)));
 
