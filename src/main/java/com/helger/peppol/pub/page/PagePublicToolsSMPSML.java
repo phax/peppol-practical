@@ -23,6 +23,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
@@ -139,7 +140,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                           @Nullable final String sSecurityProvider,
                                                                           @Nullable final IFileItem aKeyStoreFile,
                                                                           @Nullable final String sKeyStorePassword,
-                                                                          @Nonnull final FormErrorList aFormErrors)
+                                                                          @Nonnull final FormErrorList aFormErrors,
+                                                                          @Nonnull final Locale aDisplayLocale)
   {
     KeyStore aKeyStore = null;
     if (aKeyStoreFile == null || aKeyStoreFile.getSize () == 0L)
@@ -167,34 +169,86 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                           " aliases");
 
           // Check key and certificate count
+          final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
           int nKeyCount = 0;
           int nCertificateCount = 0;
+          int nInvalidKeyCount = 0;
           for (final String sAlias : aAllAliases)
           {
             final boolean bIsKeyEntry = aKeyStore.isKeyEntry (sAlias);
             final boolean bIsCertificateEntry = aKeyStore.isCertificateEntry (sAlias);
+            if (bIsKeyEntry)
+              ++nKeyCount;
+            if (bIsCertificateEntry)
+              ++nCertificateCount;
             s_aLogger.info ("  Alias '" +
                             sAlias +
                             "'" +
                             (bIsKeyEntry ? " [key entry]" : "") +
                             (bIsCertificateEntry ? " [certificate]" : ""));
+
             if (bIsKeyEntry)
-              ++nKeyCount;
-            if (bIsCertificateEntry)
-              ++nCertificateCount;
+              try
+              {
+                // Read key and check for validity
+                final KeyStore.ProtectionParameter aProtection = new KeyStore.PasswordProtection (sKeyStorePassword.toCharArray ());
+                final KeyStore.Entry aEntry = aKeyStore.getEntry (sAlias, aProtection);
+                if (aEntry instanceof KeyStore.PrivateKeyEntry)
+                {
+                  final Certificate aCert = ((KeyStore.PrivateKeyEntry) aEntry).getCertificate ();
+                  if (aCert instanceof X509Certificate)
+                  {
+                    final X509Certificate aX509Cert = (X509Certificate) aCert;
+                    final LocalDate aNotBefore = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
+                    final LocalDate aNotAfter = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
+                    if (aNow.isBefore (aNotBefore))
+                    {
+                      final String sMsg = "The key '" +
+                                          sAlias +
+                                          "' in the keystore is not valid before " +
+                                          PDTToString.getAsString (aNotBefore, aDisplayLocale) +
+                                          "!";
+                      s_aLogger.error (sMsg);
+                      aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
+                      nInvalidKeyCount++;
+                    }
+                    if (aNow.isAfter (aNotAfter))
+                    {
+                      final String sMsg = "The key '" +
+                                          sAlias +
+                                          "' in the keystore is not valid after " +
+                                          PDTToString.getAsString (aNotAfter, aDisplayLocale) +
+                                          "!";
+                      s_aLogger.error (sMsg);
+                      aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
+                      nInvalidKeyCount++;
+                    }
+                  }
+                }
+              }
+              catch (final Exception ex)
+              {
+                // Ignore
+              }
           }
 
-          if (nKeyCount != 1)
+          if (nInvalidKeyCount > 0)
           {
-            final String sMsg = "The keystore must contain exactly one key entry but " +
-                                nKeyCount +
-                                " key entries and " +
-                                nCertificateCount +
-                                " certificate entries were found!";
-            s_aLogger.error (sMsg);
-            aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg);
+            // Error messages are already displayed
             aKeyStore = null;
           }
+          else
+            if (nKeyCount != 1)
+            {
+              final String sMsg = "The keystore must contain exactly one key entry but " +
+                                  nKeyCount +
+                                  " key entries and " +
+                                  nCertificateCount +
+                                  " certificate entries were found!";
+              s_aLogger.error (sMsg);
+              aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
+              aKeyStore = null;
+            }
         }
         catch (final GeneralSecurityException | IOException ex)
         {
@@ -244,6 +298,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                          @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final String sSML = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -322,7 +377,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
-                                                                                    aFormErrors);
+                                                                                    aFormErrors,
+                                                                                    aDisplayLocale);
 
     if (aFormErrors.isEmpty ())
     {
@@ -378,6 +434,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                        @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final String sSML = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -456,7 +513,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
-                                                                                    aFormErrors);
+                                                                                    aFormErrors,
+                                                                                    aDisplayLocale);
 
     if (aFormErrors.isEmpty ())
     {
@@ -516,6 +574,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                          @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
+    final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final String sSML = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -537,7 +596,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
-                                                                                    aFormErrors);
+                                                                                    aFormErrors,
+                                                                                    aDisplayLocale);
 
     if (aFormErrors.isEmpty ())
     {
@@ -680,7 +740,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
-                                                                                    aFormErrors);
+                                                                                    aFormErrors,
+                                                                                    aDisplayLocale);
 
     if (aFormErrors.isEmpty ())
     {
@@ -730,6 +791,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
+                                           sMigrationPublicKey,
+                                           aMigrationDate,
                                            ex.getClass (),
                                            ex.getMessage ());
       }
@@ -904,8 +967,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setHelpText ("The SML will replace the certificate at this date. It must be in the future and within the validity period of the provided new public key. If not provided, the 'valid from' part of the certificate is used.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PM_MIGRATION_DATE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("New public key")
-                                                     .setCtrl (new HCTextAreaAutosize (FIELD_PM_PUBLIC_KEY).setRows (5))
-                                                     .setHelpText ("Paste the public part of your new certificate here. Do NOT paste your new private key here.")
+                                                     .setCtrl (new HCTextAreaAutosize (new RequestField (FIELD_PM_PUBLIC_KEY)).setRows (5))
+                                                     .setHelpText ("Paste the public part of your new certificate here (using PEM encoding). Do NOT paste your new private key here.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PM_PUBLIC_KEY)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
