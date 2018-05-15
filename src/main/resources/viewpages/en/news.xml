@@ -32,6 +32,14 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-05-15 - Introducing SMP Certificate update tool</h3>
+    
+    <p>
+      The page with
+      <a href="/public/menuitem-tools-smp-sml#tab_updatecert">SMP - SML tools</a>
+      now has a possibility to prepare the update of a PEPPOL SMP certificate in the SMK/SML.
+    </p>
+    
     <h3>2018-05-08 - Spring release artefacts are final</h3>
     
     <p>
