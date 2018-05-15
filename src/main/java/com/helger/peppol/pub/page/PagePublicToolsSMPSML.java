@@ -951,11 +951,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID,
                                                                                                 DEFAULT_SML)))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing SMP key store")
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing/old SMP key store")
                                                      .setCtrl (new HCEditFile (FIELD_KEYSTORE))
                                                      .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Existing SMP key store password")
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Existing/old SMP key store password")
                                                      .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the existing SMP keystore. May be empty."))
                                                      .setHelpText (HELPTEXT_KEYSTORE_PW)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
