@@ -750,8 +750,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
       try
       {
-        if (false)
-          aCaller.prepareChangeCertificate (sMigrationPublicKey, aMigrationDate);
+        aCaller.prepareChangeCertificate (sMigrationPublicKey, aMigrationDate);
 
         final LocalDate aNotBefore = PDTFactory.createLocalDate (aMigrationPublicKey.getNotBefore ());
         final LocalDate aNotAfter = PDTFactory.createLocalDate (aMigrationPublicKey.getNotAfter ());
