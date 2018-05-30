@@ -42,6 +42,22 @@
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
     </ul>
 
+    <h3>2018-05-21 - New OpenPEPPOL Support Process</h3>
+    
+    <p>
+      <strong>Important note:</strong> the existing email addresses <strong>rfc@peppol.eu</strong> and <strong>support@peppol.eu</strong>
+      will be <strong>DISCONTINUED</strong>. Instead a new support website was created:
+      <a href="https://openpeppol.atlassian.net/servicedesk/customer/portal/1">https://openpeppol.atlassian.net/servicedesk/customer/portal/1</a>.
+      It currently allows to perform the following actions:
+    </p>
+    <ul>
+      <li>PKI Certificate Request</li>
+      <li>Request for Change (RFC)</li>
+      <li>General support</li>
+      <li>Report a bug</li>
+      <li>Compliance Issue - the denunciation tool</li>
+    </ul>
+
     <h3>2018-05-15 - Introducing SMP Certificate update tool</h3>
     
     <p>
