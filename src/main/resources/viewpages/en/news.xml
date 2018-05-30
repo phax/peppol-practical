@@ -32,6 +32,16 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-05-30 - Document validation extended</h3>
+    
+    <p>
+      Tieto TEAPPS 2.7.2 and 3.0 documents can now be validated.
+      Additionally Austrian ebInterface documents can now be validated as well. 
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
     <h3>2018-05-15 - Introducing SMP Certificate update tool</h3>
     
     <p>

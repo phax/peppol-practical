@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.bdve.cii.CIIValidation;
+import com.helger.bdve.ebinterface.EbInterfaceValidation;
 import com.helger.bdve.ehf.EHFValidation;
 import com.helger.bdve.en16931.EN16931Validation;
 import com.helger.bdve.energieefactuur.EnergieEFactuurValidation;
@@ -33,6 +34,7 @@ import com.helger.bdve.executorset.ValidationExecutorSetRegistry;
 import com.helger.bdve.oioubl.OIOUBLValidation;
 import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
+import com.helger.bdve.teapps.TEAPPSValidation;
 import com.helger.bdve.ubl.UBLValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsHashMap;
@@ -56,6 +58,8 @@ public final class ExtValidationKeyRegistry
     CIIValidation.initCIID16B (VES_REGISTRY);
     EnergieEFactuurValidation.initEnergieEFactuur (VES_REGISTRY);
     OIOUBLValidation.initOIOUBL (VES_REGISTRY);
+    EbInterfaceValidation.initEbInterface (VES_REGISTRY);
+    TEAPPSValidation.initTEAPPS (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()

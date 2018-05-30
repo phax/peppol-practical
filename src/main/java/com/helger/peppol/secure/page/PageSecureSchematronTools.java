@@ -24,12 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.helger.bdve.artefact.IValidationArtefact;
 import com.helger.bdve.execute.IValidationExecutor;
 import com.helger.bdve.executorset.IValidationExecutorSet;
 import com.helger.bdve.executorset.VESID;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.file.FilenameHelper;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.grouping.HCPre;
 import com.helger.html.hc.html.grouping.HCUL;
@@ -139,7 +139,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
         final BootstrapTabBox aTabBox = new BootstrapTabBox ();
         for (final IValidationExecutor aVE : aVES.getAllExecutors ())
         {
-          final IValidationArtefact aArtefact = aVE.getValidationArtefact ();
+          final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
           switch (aVE.getValidationType ())
           {
             case SCHEMATRON_PURE:
@@ -149,7 +149,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
               try
               {
                 // Read Schematron
-                final PSSchema aSchema = new PSReader (aArtefact.getRuleResource (), null, null).readSchema ();
+                final PSSchema aSchema = new PSReader (aRes, null, null).readSchema ();
                 final IPSQueryBinding aQueryBinding = PSQueryBindingRegistry.getQueryBindingOfNameOrThrow (aSchema.getQueryBinding ());
                 final PSPreprocessor aPreprocessor = PSPreprocessor.createPreprocessorWithoutInformationLoss (aQueryBinding);
                 // Pre-process
@@ -191,17 +191,13 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
               {
                 aTabContent = new BootstrapErrorBox ().addChild ("Error parsing Schematron: " + ex.getMessage ());
               }
-              aTabBox.addTab ("t" + aTabBox.getTabCount (),
-                              FilenameHelper.getBaseName (aArtefact.getRuleResource ().getPath ()),
-                              aTabContent);
+              aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
               break;
             }
             case SCHEMATRON_XSLT:
             {
               final IHCNode aTabContent = new BootstrapInfoBox ().addChild ("This is already XSLT");
-              aTabBox.addTab ("t" + aTabBox.getTabCount (),
-                              FilenameHelper.getBaseName (aArtefact.getRuleResource ().getPath ()),
-                              aTabContent);
+              aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
               break;
             }
           }
@@ -227,7 +223,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
           final BootstrapTabBox aTabBox = new BootstrapTabBox ();
           for (final IValidationExecutor aVE : aVES.getAllExecutors ())
           {
-            final IValidationArtefact aArtefact = aVE.getValidationArtefact ();
+            final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
             switch (aVE.getValidationType ())
             {
               case SCHEMATRON_PURE:
@@ -237,7 +233,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                 try
                 {
                   // Read Schematron
-                  final SchematronResourceSCH aSch = new SchematronResourceSCH (aArtefact.getRuleResource ());
+                  final SchematronResourceSCH aSch = new SchematronResourceSCH (aRes);
                   if (!aSch.isValidSchematron ())
                     throw new SchematronPreprocessException ("Invalid Schematron!");
                   final Document aXSLT = aSch.getXSLTProvider ().getXSLTDocument ();
@@ -261,7 +257,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                   aTabContent = new BootstrapErrorBox ().addChild ("Error parsing Schematron: " + ex.getMessage ());
                 }
                 aTabBox.addTab ("t" + aTabBox.getTabCount (),
-                                FilenameHelper.getBaseName (aArtefact.getRuleResource ().getPath ()),
+                                FilenameHelper.getBaseName (aRes.getPath ()),
                                 aTabContent);
                 break;
               }
@@ -269,7 +265,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
               {
                 final IHCNode aTabContent = new BootstrapInfoBox ().addChild ("This is already XSLT");
                 aTabBox.addTab ("t" + aTabBox.getTabCount (),
-                                FilenameHelper.getBaseName (aArtefact.getRuleResource ().getPath ()),
+                                FilenameHelper.getBaseName (aRes.getPath ()),
                                 aTabContent);
                 break;
               }

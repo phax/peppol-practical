@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import com.helger.bdve.EValidationType;
 import com.helger.bdve.artefact.IValidationArtefact;
 import com.helger.bdve.artefact.ValidationArtefact;
 import com.helger.bdve.execute.ValidationExecutionManager;
@@ -157,8 +158,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           // Add all XML parsing stuff - always first item
           // Also add if no error is present to have it shown in the list
           aValidationResultList.add (0,
-                                     new ValidationResult (ValidationArtefact.createXML (aXMLRes,
-                                                                                         aVES.getValidationArtefactKey ()),
+                                     new ValidationResult (new ValidationArtefact (EValidationType.XML, null, aXMLRes),
                                                            aXMLErrors));
         }
 
@@ -362,7 +362,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         AuditHelper.onAuditExecuteSuccess ("validation-bis2-upload",
                                            sFileName,
                                            aVES.getID (),
-                                           aVES.getValidationArtefactKey (),
+                                           aVES.getDisplayName (),
                                            Integer.valueOf (aValidationResultList.size ()),
                                            Long.valueOf (aSW.getMillis ()),
                                            Integer.valueOf (nInfos),

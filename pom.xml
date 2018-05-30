@@ -140,7 +140,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-bdve-parent-pom</artifactId>
-        <version>4.0.5</version>
+        <version>5.0.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -215,6 +215,14 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-bdve-oioubl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-bdve-ebinterface</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-bdve-teapps</artifactId>
     </dependency>
     
     <dependency>
