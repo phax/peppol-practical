@@ -146,7 +146,10 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                                                                                 .setLocale (aDisplayLocale));
             if (aDoc != null)
             {
-              final ValidationSource aSource = ValidationSource.create (aXMLRes.getPath (), aDoc);
+              // First options reads XML again but provides line numbers
+              // Second option uses prebuild Node but has no line numbers
+              final ValidationSource aSource = true ? ValidationSource.createXMLSource (aXMLRes)
+                                                    : ValidationSource.create (aXMLRes.getPath (), aDoc);
               aValidator.executeValidation (aSource, aValidationResultList, aDisplayLocale);
             }
           }
