@@ -32,6 +32,18 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-06-04 - phoss SMP 5.0.6</h3>
+    
+    <p>
+      phoss SMP 5.0.6 was released. 
+      This is a maintenance release with some bug fixes and a new 
+      <a href="https://github.com/phax/peppol-smp-server/wiki/Status-API">Status API</a>.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.6">Download phoss SMP 5.0.6</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
+    </ul>
+    
     <h3>2018-05-30 - Document validation extended</h3>
     
     <p>
