@@ -141,7 +141,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                           @Nullable final IFileItem aKeyStoreFile,
                                                                           @Nullable final String sKeyStorePassword,
                                                                           @Nonnull final FormErrorList aFormErrors,
-                                                                          @Nonnull final Locale aDisplayLocale)
+                                                                          @Nonnull final Locale aDisplayLocale,
+                                                                          final boolean bAllowExpiredCert)
   {
     KeyStore aKeyStore = null;
     if (aKeyStoreFile == null || aKeyStoreFile.getSize () == 0L)
@@ -196,7 +197,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                 if (aEntry instanceof KeyStore.PrivateKeyEntry)
                 {
                   final Certificate aCert = ((KeyStore.PrivateKeyEntry) aEntry).getCertificate ();
-                  if (aCert instanceof X509Certificate)
+                  if (!bAllowExpiredCert && aCert instanceof X509Certificate)
                   {
                     final X509Certificate aX509Cert = (X509Certificate) aCert;
                     final LocalDate aNotBefore = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
@@ -378,7 +379,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors,
-                                                                                    aDisplayLocale);
+                                                                                    aDisplayLocale,
+                                                                                    false);
 
     if (aFormErrors.isEmpty ())
     {
@@ -514,7 +516,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors,
-                                                                                    aDisplayLocale);
+                                                                                    aDisplayLocale,
+                                                                                    false);
 
     if (aFormErrors.isEmpty ())
     {
@@ -597,7 +600,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors,
-                                                                                    aDisplayLocale);
+                                                                                    aDisplayLocale,
+                                                                                    CPPApp.SML_DELETE_ALLOW_EXPIRED_CERT);
 
     if (aFormErrors.isEmpty ())
     {
@@ -741,7 +745,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors,
-                                                                                    aDisplayLocale);
+                                                                                    aDisplayLocale,
+                                                                                    false);
 
     if (aFormErrors.isEmpty ())
     {
@@ -923,7 +928,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
                                                      .setCtrl (new HCEditFile (FIELD_KEYSTORE))
-                                                     .setHelpText (HELPTEXT_KEYSTORE)
+                                                     .setHelpText (HELPTEXT_KEYSTORE +
+                                                                   (CPPApp.SML_DELETE_ALLOW_EXPIRED_CERT ? " Note: upon deletion you may use an expired certificate as well!"
+                                                                                                         : ""))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
                                                      .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."))
