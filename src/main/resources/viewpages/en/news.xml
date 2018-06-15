@@ -31,6 +31,32 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
+    
+    <h3>2018-06-15 - Document validation extended</h3>
+    
+    <p>
+      PEPPOL Billing BIS 3 Invoice and CreditNote can be validated.
+      Additionally EN 16931 UBL CreditNotes can now also be validated. 
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
+    <h3>2018-06-14 - PEPPOL Policy for the use of identifiers 3.1 release</h3>
+    
+    <p>
+      The new PEPPOL Policy for the use of identifiers version 3.1 was released.
+      Note: the main purpose was only to separate the content from the code list documents.
+      No content changes were performed.
+    </p>  
+    <ul>
+      <li>The new policy can be found at: 
+        <a href="https://github.com/OpenPEPPOL/documentation/raw/master/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-310.pdf">https://github.com/OpenPEPPOL/documentation/raw/master/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-310.pdf</a></li>
+      <li>
+        The code list files can be found at:
+        <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists">https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists</a>
+      </li>  
+    </ul>
 
     <h3>2018-06-04 - phoss SMP 5.0.6</h3>
     
