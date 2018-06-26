@@ -114,10 +114,12 @@
     <tr>
       <td>
         CIUS
-        <br/><em><small>in progress</small></em>
       </td>
       <td>Core Invoice User Specification</td>
-      <td>Defines how to adopt the <em>EN</em> to local requirements.</td>
+      <td>
+        Defines how to adopt the <em>EN</em> to local requirements.
+        Billing BIS 3 is a CIUS of the <em>EN</em>.
+      </td>
     </tr>
     <tr>
       <td>CMB</td>

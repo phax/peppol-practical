@@ -32,6 +32,17 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
     
+    <h3>2018-06-26 - Document validation extended</h3>
+    
+    <p>
+      <a href="https://github.com/CenPC434/validation/releases/tag/validation-1.1.0">EN 16931 1.1.0 validation artefacts</a> are now supported. 
+      The old EN 16931 1.0.0 validation artefacts are now deprecated.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
+    
     <h3>2018-06-15 - Document validation extended</h3>
     
     <p>

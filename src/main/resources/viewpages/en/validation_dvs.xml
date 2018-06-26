@@ -92,10 +92,13 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:order-response-simple:2.0.2</code> - OIOUBL Order Response Simple 2.0.2</li>
 <li><code>dk.oioubl:reminder:2.0.2</code> - OIOUBL Reminder 2.0.2</li>
 <li><code>dk.oioubl:statement:2.0.2</code> - OIOUBL Statement 2.0.2</li>
-<li><code>eu.cen.en16931:cii:1.0.0</code> - EN 16931 CII 1.0.0</li>
+<li><code>eu.cen.en16931:cii:1.0.0</code> - EN 16931 CII 1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:cii:1.1.0</code> - EN 16931 CII 1.1.0</li>
 <li><code>eu.cen.en16931:edifact:1.0.0</code> - EN 16931 EDIFACT/ISO 20625 1.0.0</li>
-<li><code>eu.cen.en16931:ubl:1.0.0</code> - EN 16931 UBL Invoice 1.0.0</li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.0.0</code> - EN 16931 UBL CreditNote 1.0.0</li>
+<li><code>eu.cen.en16931:ubl:1.0.0</code> - EN 16931 UBL Invoice 1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl:1.1.0</code> - EN 16931 UBL Invoice 1.1.0</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.0.0</code> - EN 16931 UBL CreditNote 1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.1.0</code> - EN 16931 UBL CreditNote 1.1.0</li>
 <li><code>eu.peppol.bis2:t01:3.4.0</code> - OpenPEPPOL Order (3.4.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.5.0</code> - OpenPEPPOL Order (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.6.0</code> - OpenPEPPOL Order (3.6.0)</li>
