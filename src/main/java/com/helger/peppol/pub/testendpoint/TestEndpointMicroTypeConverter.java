@@ -20,8 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotation.ContainsSoftMigration;
-import com.helger.peppol.sml.ESML;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
@@ -57,7 +56,6 @@ public final class TestEndpointMicroTypeConverter extends AbstractBusinessObject
   }
 
   @Nonnull
-  @ContainsSoftMigration
   public TestEndpoint convertToNative (@Nonnull final IMicroElement eValue)
   {
     final StubObject aStubObject = getStubObject (eValue);
@@ -70,11 +68,10 @@ public final class TestEndpointMicroTypeConverter extends AbstractBusinessObject
     final String sTransportProfile = eValue.getAttributeValue (ATTR_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
 
-    final String sSML = eValue.getAttributeValue (ATTR_SML);
-    // Soft migration
-    final ISMLInfo aSML = sSML == null ? ESML.DIGIT_PRODUCTION : ESML.getFromIDOrNull (sSML);
+    final String sSMLID = eValue.getAttributeValue (ATTR_SML);
+    final ISMLInfo aSML = PPMetaManager.getSMLInfoMgr ().getSMLInfoOfID (sSMLID);
     if (aSML == null)
-      throw new IllegalStateException ("Failed to resolve SML with ID '" + sSML + "'");
+      throw new IllegalStateException ("Failed to resolve SML with ID '" + sSMLID + "'");
 
     // Create object
     return new TestEndpoint (aStubObject,

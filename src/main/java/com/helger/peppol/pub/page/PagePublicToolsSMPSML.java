@@ -63,7 +63,8 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.network.dns.IPV4Addr;
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.sml.ESML;
+import com.helger.peppol.app.mgr.ISMLInfoManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
@@ -120,7 +121,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String SUBACTION_SMP_DELETE = "smpdelete";
   private static final String SUBACTION_SMP_UPDATE_CERT = "smpupdatecert";
 
-  private static final ISMLInfo DEFAULT_SML = ESML.DIGIT_PRODUCTION;
   private static final String SECURITY_PROVIDER = null;
 
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
@@ -300,8 +300,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLInfo aSMLInfo = ESML.getFromIDOrNull (sSMLID);
+    final ISMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
@@ -437,8 +438,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLInfo aSMLInfo = ESML.getFromIDOrNull (sSMLID);
+    final ISMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
@@ -578,8 +580,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLInfo aSMLInfo = ESML.getFromIDOrNull (sSMLID);
+    final ISMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
@@ -648,9 +651,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
-    final String sSML = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
+    final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
+    final ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
     final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
@@ -843,8 +847,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setEncTypeFileUpload ().setLeft (nLeft);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Register a new SMP to the SML. This must only be done once per SMP!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID,
-                                                                                                DEFAULT_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -881,8 +884,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setEncTypeFileUpload ().setLeft (nLeft);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID,
-                                                                                                DEFAULT_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -919,8 +921,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setLeft (nLeft);
         aForm.addChild (new BootstrapInfoBox ().addChild ("Delete an existing SMP from the SML."));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID,
-                                                                                                DEFAULT_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -955,8 +956,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                              new HCDiv ().addChild ("Note: this is a custom extension that only works with the CEF SML instances!")));
         aForm.addChild (new BootstrapWarnBox ().addChild ("It is your responsibility to update the PEPPOL certificate in your SMP at the specified time!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID,
-                                                                                                DEFAULT_SML)))
+                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing/old SMP key store")
                                                      .setCtrl (new HCEditFile (FIELD_KEYSTORE))

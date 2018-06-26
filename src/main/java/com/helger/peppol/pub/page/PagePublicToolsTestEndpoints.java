@@ -35,13 +35,13 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppHelper;
+import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppol.pub.testendpoint.TestEndpoint;
 import com.helger.peppol.pub.testendpoint.TestEndpointManager;
-import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.ui.AppCommonUI;
@@ -230,9 +230,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier issuing agency")
                                                      .setCtrl (new ParticipantIdentifierSchemeSelect (new RequestField (FIELD_PARTICIPANT_ID_ISSUER,
-                                                                                                                    aSelectedObject == null ? null
-                                                                                                                                            : aSelectedObject.getParticipantIDIssuer ()),
-                                                                                                  aDisplayLocale))
+                                                                                                                        aSelectedObject == null ? null
+                                                                                                                                                : aSelectedObject.getParticipantIDIssuer ()),
+                                                                                                      aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISSUER)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE,
@@ -248,8 +248,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
-                                                                                                aSelectedObject == null ? ESML.DIGIT_PRODUCTION
-                                                                                                                        : aSelectedObject.getSML ())))
+                                                                                                aSelectedObject == null ? null
+                                                                                                                        : aSelectedObject.getSML ()),
+                                                                              false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
   }
 
@@ -260,6 +261,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
+    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
 
     final String sCompanyName = aWPEC.params ().getAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.params ().getAsString (FIELD_CONTACT_PERSON);
@@ -269,8 +271,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final String sTransportProfile = aWPEC.params ().getAsString (FIELD_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
     final String sTransportProfileName = AppHelper.getSMPTransportProfileShortName (eTransportProfile);
-    final String sSML = aWPEC.params ().getAsString (FIELD_SML);
-    final ISMLInfo aSML = ESML.getFromIDOrNull (sSML);
+    final String sSMLID = aWPEC.params ().getAsString (FIELD_SML);
+    final ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
 
     if (StringHelper.hasNoText (sCompanyName))
       aFormErrors.addFieldError (FIELD_COMPANY_NAME, "Please provide the company name");

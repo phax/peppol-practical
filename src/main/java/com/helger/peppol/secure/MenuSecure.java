@@ -24,6 +24,7 @@ import com.helger.peppol.secure.page.PageSecureAdminAddons;
 import com.helger.peppol.secure.page.PageSecureCRMGroup;
 import com.helger.peppol.secure.page.PageSecureCRMSubscriber;
 import com.helger.peppol.secure.page.PageSecureCommentAdmin;
+import com.helger.peppol.secure.page.PageSecureSMLConfiguration;
 import com.helger.peppol.secure.page.PageSecureSchematronTools;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
@@ -70,6 +71,7 @@ public final class MenuSecure
                                                                                                                  aMenuTree))
                                             .setDisplayFilter (aFilterAdministrators);
       aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS));
+      aMenuTree.createItem (aAdmin, new PageSecureSMLConfiguration (CMenuSecure.MENU_SML_CONFIGURATION));
       BootstrapPagesMenuConfigurator.addAllItems (aMenuTree, aAdmin, aFilterAdministrators, CPPApp.DEFAULT_LOCALE);
     }
 

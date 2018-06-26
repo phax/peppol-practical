@@ -40,12 +40,14 @@ public final class PPMetaManager extends AbstractGlobalSingleton
   public static final String CRMGROUP_XML = "crm/group.xml";
   public static final String CRMSUBSCRIBER_XML = "crm/subscriber.xml";
   public static final String TEST_ENDPOINT_XML = "test-endpoint.xml";
+  private static final String SML_INFO_XML = "sml-info.xml";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (PPMetaManager.class);
 
   private CRMGroupManager m_aCRMGroupMgr;
   private CRMSubscriberManager m_aCRMSubscriberMgr;
   private TestEndpointManager m_aTestEndpointMgr;
+  private SMLInfoManager m_aSMLInfoMgr;
 
   @Deprecated
   @UsedViaReflection
@@ -60,6 +62,7 @@ public final class PPMetaManager extends AbstractGlobalSingleton
       m_aCRMGroupMgr = new CRMGroupManager (CRMGROUP_XML);
       m_aCRMSubscriberMgr = new CRMSubscriberManager (CRMSUBSCRIBER_XML);
       m_aTestEndpointMgr = new TestEndpointManager (TEST_ENDPOINT_XML);
+      m_aSMLInfoMgr = new SMLInfoManager (SML_INFO_XML);
 
       s_aLogger.info ("MetaManager was initialized");
     }
@@ -91,5 +94,11 @@ public final class PPMetaManager extends AbstractGlobalSingleton
   public static TestEndpointManager getTestEndpointMgr ()
   {
     return getInstance ().m_aTestEndpointMgr;
+  }
+
+  @Nonnull
+  public static ISMLInfoManager getSMLInfoMgr ()
+  {
+    return getInstance ().m_aSMLInfoMgr;
   }
 }

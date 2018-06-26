@@ -51,13 +51,14 @@ import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.network.dns.IPV4Addr;
+import com.helger.peppol.app.mgr.ISMLInfoManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
-import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
@@ -107,6 +108,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
@@ -119,7 +121,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       sParticipantIDScheme = aWPEC.params ().getAsString (FIELD_ID_SCHEME);
       sParticipantIDValue = aWPEC.params ().getAsString (FIELD_ID_VALUE);
       final String sSMLID = aWPEC.params ().getAsString (FIELD_SML);
-      ISMLInfo aSML = ESML.getFromIDOrNull (sSMLID);
+      ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
       final boolean bSMLAutoDetect = SMLSelect.FIELD_AUTO_SELECT.equals (sSMLID);
 
       // Legacy URL params?
@@ -158,10 +160,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         URI aSMPHostURI = null;
         if (bSMLAutoDetect)
         {
-          for (final ESML eSML : ESML.values ())
+          for (final ISMLInfo aSMLInfo : aSMLInfoMgr.getAllSMLInfos ())
           {
-            aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, eSML);
-            aSML = eSML;
+            aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSMLInfo);
+            aSML = aSMLInfo;
             try
             {
               InetAddress.getByName (aSMPHostURI.getHost ());

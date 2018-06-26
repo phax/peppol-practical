@@ -36,6 +36,7 @@ public final class CMenuSecure
 
   public static final String MENU_ADMIN = "admin";
   public static final String MENU_ADMIN_ADDONS = "admin-addons";
+  public static final String MENU_SML_CONFIGURATION = "sml_configuration";
 
   private CMenuSecure ()
   {}
