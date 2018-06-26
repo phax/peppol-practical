@@ -46,8 +46,8 @@ public final class PPMetaManager extends AbstractGlobalSingleton
 
   private CRMGroupManager m_aCRMGroupMgr;
   private CRMSubscriberManager m_aCRMSubscriberMgr;
-  private TestEndpointManager m_aTestEndpointMgr;
   private SMLInfoManager m_aSMLInfoMgr;
+  private TestEndpointManager m_aTestEndpointMgr;
 
   @Deprecated
   @UsedViaReflection
@@ -61,8 +61,9 @@ public final class PPMetaManager extends AbstractGlobalSingleton
     {
       m_aCRMGroupMgr = new CRMGroupManager (CRMGROUP_XML);
       m_aCRMSubscriberMgr = new CRMSubscriberManager (CRMSUBSCRIBER_XML);
-      m_aTestEndpointMgr = new TestEndpointManager (TEST_ENDPOINT_XML);
+      // Before TestEndpoint manager!
       m_aSMLInfoMgr = new SMLInfoManager (SML_INFO_XML);
+      m_aTestEndpointMgr = new TestEndpointManager (TEST_ENDPOINT_XML);
 
       s_aLogger.info ("MetaManager was initialized");
     }
@@ -91,14 +92,14 @@ public final class PPMetaManager extends AbstractGlobalSingleton
   }
 
   @Nonnull
-  public static TestEndpointManager getTestEndpointMgr ()
-  {
-    return getInstance ().m_aTestEndpointMgr;
-  }
-
-  @Nonnull
   public static ISMLInfoManager getSMLInfoMgr ()
   {
     return getInstance ().m_aSMLInfoMgr;
+  }
+
+  @Nonnull
+  public static TestEndpointManager getTestEndpointMgr ()
+  {
+    return getInstance ().m_aTestEndpointMgr;
   }
 }
