@@ -15,3 +15,6 @@ target/
 /.apt_generated/
 /**/.pmd
 **/*.iml
+/.settings/ 
+/.project 
+/.classpath 
