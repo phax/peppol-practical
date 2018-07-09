@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.crm;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnegative;
@@ -27,7 +26,6 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -149,21 +147,14 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsCollection <? extends ICRMSubscriber> getAllCRMSubscribers ()
-  {
-    return getAll ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <? extends ICRMSubscriber> getAllActiveCRMSubscribers ()
+  public ICommonsList <ICRMSubscriber> getAllActiveCRMSubscribers ()
   {
     return getAll (c -> !c.isDeleted ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <? extends ICRMSubscriber> getAllDeletedCRMSubscribers ()
+  public ICommonsList <ICRMSubscriber> getAllDeletedCRMSubscribers ()
   {
     return getAll (c -> c.isDeleted ());
   }

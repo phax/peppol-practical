@@ -159,7 +159,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
                                         new DTCol ("Sender email address"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
 
-    for (final ICRMGroup aCurObject : aCRMGroupMgr.getAllCRMGroups ())
+    for (final ICRMGroup aCurObject : aCRMGroupMgr.getAll ())
     {
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 

@@ -160,7 +160,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL_ADDRESS)))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL_ADDRESS)));
     {
-      final ICommonsList <? extends ICRMGroup> aAllCRMGroups = aCRMGroupMgr.getAllCRMGroups ();
+      final ICommonsList <? extends ICRMGroup> aAllCRMGroups = aCRMGroupMgr.getAll ();
       if (aAllCRMGroups.size () == 1)
       {
         // No need for selection - use hidden field

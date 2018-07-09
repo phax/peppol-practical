@@ -21,8 +21,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.dao.DAOException;
 import com.helger.photon.basic.app.dao.AbstractPhotonMapBasedWALDAO;
@@ -87,13 +85,6 @@ public final class CRMGroupManager extends AbstractPhotonMapBasedWALDAO <ICRMGro
     }
     AuditHelper.onAuditModifySuccess (CRMGroup.OT_CRM_GROUP, "all", sCRMGroupID, sDisplayName, sSenderEmailAddress);
     return EChange.CHANGED;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <? extends ICRMGroup> getAllCRMGroups ()
-  {
-    return getAll ();
   }
 
   @Nullable

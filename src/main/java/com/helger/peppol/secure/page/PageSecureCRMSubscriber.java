@@ -282,8 +282,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
 
     {
       final HCNodeList aGroups = new HCNodeList ();
-      for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aCRMGroupMgr.getAllCRMGroups (),
-                                                                   IHasDisplayName.getComparatorCollating (aDisplayLocale)))
+      for (final ICRMGroup aCRMGroup : aCRMGroupMgr.getAll ()
+                                                   .getSortedInline (IHasDisplayName.getComparatorCollating (aDisplayLocale)))
       {
         final String sCRMGroupID = aCRMGroup.getID ();
         final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
@@ -346,8 +346,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final StringBuilder aSB = new StringBuilder ();
     final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
     int nCount = 0;
-    for (final ICRMSubscriber aSubscriber : CollectionHelper.getSorted (aCRMSubscriberMgr.getAllActiveCRMSubscribers (),
-                                                                        Comparator.comparing (ICRMSubscriber::getEmailAddress)))
+    for (final ICRMSubscriber aSubscriber : aCRMSubscriberMgr.getAllActiveCRMSubscribers ()
+                                                             .getSortedInline (Comparator.comparing (ICRMSubscriber::getEmailAddress)))
     {
       if (aSB.length () > 0)
         aSB.append ("\n");
