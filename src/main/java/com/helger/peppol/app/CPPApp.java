@@ -87,7 +87,6 @@ public final class CPPApp
   public static final ObjectType OT_PAGE = new ObjectType ("webpage");
 
   public static final String PATTERN_SMP_ID = "[a-zA-Z0-9\\-\\.]+";
-  public static final boolean SML_DELETE_ALLOW_EXPIRED_CERT = true;
 
   private CPPApp ()
   {}

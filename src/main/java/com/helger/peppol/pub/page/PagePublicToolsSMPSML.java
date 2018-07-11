@@ -141,8 +141,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                           @Nullable final IFileItem aKeyStoreFile,
                                                                           @Nullable final String sKeyStorePassword,
                                                                           @Nonnull final FormErrorList aFormErrors,
-                                                                          @Nonnull final Locale aDisplayLocale,
-                                                                          final boolean bAllowExpiredCert)
+                                                                          @Nonnull final Locale aDisplayLocale)
   {
     KeyStore aKeyStore = null;
     if (aKeyStoreFile == null || aKeyStoreFile.getSize () == 0L)
@@ -197,7 +196,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                 if (aEntry instanceof KeyStore.PrivateKeyEntry)
                 {
                   final Certificate aCert = ((KeyStore.PrivateKeyEntry) aEntry).getCertificate ();
-                  if (!bAllowExpiredCert && aCert instanceof X509Certificate)
+                  if (aCert instanceof X509Certificate)
                   {
                     final X509Certificate aX509Cert = (X509Certificate) aCert;
                     final LocalDate aNotBefore = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
@@ -380,8 +379,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors,
-                                                                                    aDisplayLocale,
-                                                                                    false);
+                                                                                    aDisplayLocale);
 
     if (aFormErrors.isEmpty ())
     {
@@ -518,8 +516,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors,
-                                                                                    aDisplayLocale,
-                                                                                    false);
+                                                                                    aDisplayLocale);
 
     if (aFormErrors.isEmpty ())
     {
@@ -545,11 +542,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            sLogicalAddress,
                                            aSMLInfo.getManagementServiceURL ());
       }
-      catch (final BadRequestFault
-                   | InternalErrorFault
-                   | UnauthorizedFault
-                   | NotFoundFault
-                   | ClientTransportException ex)
+      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault
+          | ClientTransportException ex)
       {
         final String sMsg = "Error updating SMP '" +
                             sSMPID +
@@ -603,8 +597,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors,
-                                                                                    aDisplayLocale,
-                                                                                    CPPApp.SML_DELETE_ALLOW_EXPIRED_CERT);
+                                                                                    aDisplayLocale);
 
     if (aFormErrors.isEmpty ())
     {
@@ -622,11 +615,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSMLInfo.getManagementServiceURL ());
       }
-      catch (final BadRequestFault
-                   | InternalErrorFault
-                   | UnauthorizedFault
-                   | NotFoundFault
-                   | ClientTransportException ex)
+      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault
+          | ClientTransportException ex)
       {
         final String sMsg = "Error deleting SMP '" +
                             sSMPID +
@@ -749,8 +739,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
                                                                                     aFormErrors,
-                                                                                    aDisplayLocale,
-                                                                                    false);
+                                                                                    aDisplayLocale);
 
     if (aFormErrors.isEmpty ())
     {
@@ -787,10 +776,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            aMigrationDate);
       }
       catch (final com.helger.peppol.smlclient.bdmsl.BadRequestFault
-                   | com.helger.peppol.smlclient.bdmsl.InternalErrorFault
-                   | com.helger.peppol.smlclient.bdmsl.NotFoundFault
-                   | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault
-                   | ClientTransportException ex)
+          | com.helger.peppol.smlclient.bdmsl.InternalErrorFault | com.helger.peppol.smlclient.bdmsl.NotFoundFault
+          | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault | ClientTransportException ex)
       {
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
@@ -929,9 +916,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
                                                      .setCtrl (new HCEditFile (FIELD_KEYSTORE))
-                                                     .setHelpText (HELPTEXT_KEYSTORE +
-                                                                   (CPPApp.SML_DELETE_ALLOW_EXPIRED_CERT ? " Note: upon deletion you may use an expired certificate as well!"
-                                                                                                         : ""))
+                                                     .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
                                                      .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."))
