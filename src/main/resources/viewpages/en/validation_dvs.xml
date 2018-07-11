@@ -138,11 +138,11 @@ A very small Java WS client is available for
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.0</code> - Energie eFactuur 1.0.0</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.1</code> - Energie eFactuur 1.0.1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2.0.0</code> - Energie eFactuur 2.0.0</li>
-<li><code>no.ehf:catalogue:1.0.10</code> - EHF Catalogue 1.0.10</li>
+<li><code>no.ehf:catalogue:1.0.11</code> - EHF Catalogue 1.0.11</li>
 <li><code>no.ehf:catalogue-response:1.0.10</code> - EHF Catalogue Response 1.0.10</li>
-<li><code>no.ehf:creditnote:2.0.12</code> - EHF Creditnote 2.0.12</li>
+<li><code>no.ehf:creditnote:2.0.13</code> - EHF Creditnote 2.0.13</li>
 <li><code>no.ehf:despatch-advice:1.0.8</code> - EHF Catalogue 1.0.8</li>
-<li><code>no.ehf:invoice:2.0.12</code> - EHF Invoice 2.0.12</li>
+<li><code>no.ehf:invoice:2.0.13</code> - EHF Invoice 2.0.13</li>
 <li><code>no.ehf:order:1.0.9</code> - EHF Ordering 1.0.9</li>
 <li><code>no.ehf:order-agreement:1.0.0</code> - EHF Order Agreement 1.0.0</li>
 <li><code>no.ehf:order-response:1.0.9</code> - EHF Order Response 1.0.9</li>
