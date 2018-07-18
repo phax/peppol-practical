@@ -54,7 +54,9 @@ public final class ExtValidationKeyRegistry
     SimplerInvoicingValidation.initSimplerInvoicing (VES_REGISTRY);
     EN16931Validation.initEN16931 (VES_REGISTRY);
     EHFValidation.initEHF (VES_REGISTRY);
+    UBLValidation.initUBL20 (VES_REGISTRY);
     UBLValidation.initUBL21 (VES_REGISTRY);
+    UBLValidation.initUBL22 (VES_REGISTRY);
     CIIValidation.initCIID16B (VES_REGISTRY);
     EnergieEFactuurValidation.initEnergieEFactuur (VES_REGISTRY);
     OIOUBLValidation.initOIOUBL (VES_REGISTRY);
