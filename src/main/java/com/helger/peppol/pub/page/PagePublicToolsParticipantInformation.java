@@ -118,9 +118,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
       // Validate fields
-      sParticipantIDScheme = aWPEC.params ().getAsString (FIELD_ID_SCHEME);
-      sParticipantIDValue = aWPEC.params ().getAsString (FIELD_ID_VALUE);
-      final String sSMLID = aWPEC.params ().getAsString (FIELD_SML);
+      sParticipantIDScheme = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_SCHEME));
+      sParticipantIDValue = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_VALUE));
+      final String sSMLID = StringHelper.trim (aWPEC.params ().getAsString (FIELD_SML));
       ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
       final boolean bSMLAutoDetect = SMLSelect.FIELD_AUTO_SELECT.equals (sSMLID);
 
@@ -128,7 +128,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (aWPEC.params ().containsKey ("idscheme") && aWPEC.params ().containsKey ("idvalue"))
       {
         sParticipantIDScheme = DEFAULT_ID_SCHEME;
-        sParticipantIDValue = aWPEC.params ().getAsString ("idscheme") + ":" + aWPEC.params ().getAsString ("idvalue");
+        sParticipantIDValue = StringHelper.trim (aWPEC.params ().getAsString ("idscheme")) +
+                              ":" +
+                              StringHelper.trim (aWPEC.params ().getAsString ("idvalue"));
       }
 
       if (StringHelper.hasNoText (sParticipantIDScheme))
