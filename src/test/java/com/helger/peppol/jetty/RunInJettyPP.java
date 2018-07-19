@@ -38,7 +38,7 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 @Immutable
 public final class RunInJettyPP
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (RunInJettyPP.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (RunInJettyPP.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -51,7 +51,7 @@ public final class RunInJettyPP
       final String sKey = aEntry.getKey ();
       final String sValue = String.valueOf (aEntry.getValue ());
       SystemProperties.setPropertyValue (sKey, sValue);
-      s_aLogger.info ("Setting Proxy property " + sKey + "=" + sValue);
+      LOGGER.info ("Setting Proxy property " + sKey + "=" + sValue);
     }
 
     new JettyStarter (RunInJettyPP.class).run ();

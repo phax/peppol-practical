@@ -62,7 +62,7 @@ import com.helger.xml.serialize.read.DOMReader;
 @WebService (endpointInterface = "com.helger.peppol.wsclient2.WSDVSPort")
 public class WSDVS implements WSDVSPort
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WSDVS.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (WSDVS.class);
   private static final IMutableStatisticsHandlerCounter s_aCounterTotal = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                "$total");
   private static final IMutableStatisticsHandlerCounter s_aCounterAPISuccess = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
@@ -96,7 +96,7 @@ public class WSDVS implements WSDVSPort
   @Nonnull
   public ResponseType validate (@Nonnull final RequestType aRequest) throws ValidateFaultError
   {
-    s_aLogger.info ("Start validating business document");
+    LOGGER.info ("Start validating business document");
     final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ()
                                                                              .get (MessageContext.SERVLET_REQUEST);
     final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
@@ -136,7 +136,7 @@ public class WSDVS implements WSDVSPort
         _throw ("Invalid display locale '" + sDisplayLocale + "' provided!");
 
       // All input parameters are valid!
-      s_aLogger.info ("Validating by VS using " + aVESID.getAsSingleID ());
+      LOGGER.info ("Validating by VS using " + aVESID.getAsSingleID ());
       final StopWatch aSW = StopWatch.createdStarted ();
 
       // Start validating
@@ -202,7 +202,7 @@ public class WSDVS implements WSDVSPort
       ret.setInterrupted (bValidationInterrupted);
       ret.setMostSevereErrorLevel (_convert (aMostSevere));
 
-      s_aLogger.info ("Finished validation after " +
+      LOGGER.info ("Finished validation after " +
                       aSW.stopAndGetMillis () +
                       "ms; " +
                       nWarnings +
@@ -227,7 +227,7 @@ public class WSDVS implements WSDVSPort
     }
     finally
     {
-      s_aLogger.info ("Finished validating business document");
+      LOGGER.info ("Finished validating business document");
     }
   }
 }

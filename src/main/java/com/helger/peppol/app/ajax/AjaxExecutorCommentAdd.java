@@ -63,7 +63,7 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor
   public static final String PARAM_AUTHOR = "author";
   public static final String PARAM_TITLE = "title";
   public static final String PARAM_TEXT = "text";
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorCommentAdd.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AjaxExecutorCommentAdd.class);
 
   public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
                              @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
@@ -149,7 +149,7 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor
     }
 
     // Somebody played around with the API
-    s_aLogger.warn ("Failed to resolve comment object type '" +
+    LOGGER.warn ("Failed to resolve comment object type '" +
                     sObjectType +
                     "' and/or object ID '" +
                     sObjectID +

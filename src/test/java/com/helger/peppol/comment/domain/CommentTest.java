@@ -40,7 +40,7 @@ import com.helger.xml.mock.XMLTestHelper;
  */
 public final class CommentTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CommentTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CommentTest.class);
   @Rule
   public TestRule m_aRule = new PhotonBasicTestRule ();
 
@@ -57,7 +57,7 @@ public final class CommentTest
     assertEquals ("text", aComment.getText ());
 
     if (false)
-      s_aLogger.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
+      LOGGER.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
 
     CommonsTestHelper.testDefaultSerialization (aComment);
     XMLTestHelper.testMicroTypeConversion (aComment);

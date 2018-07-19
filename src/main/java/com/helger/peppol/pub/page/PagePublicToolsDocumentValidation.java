@@ -84,7 +84,7 @@ import com.helger.xml.serialize.read.DOMReaderSettings;
 
 public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PagePublicToolsDocumentValidation.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsDocumentValidation.class);
   private static final IMutableStatisticsHandlerCounter s_aStatsCounter = StatisticsManager.getCounterHandler (PagePublicToolsDocumentValidation.class.getName () +
                                                                                                                "$count");
   private static final IMutableStatisticsHandlerKeyedCounter s_aStatsCounterVESID = StatisticsManager.getKeyedCounterHandler (PagePublicToolsDocumentValidation.class.getName () +
@@ -129,7 +129,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         s_aStatsCounterVESID.increment (aVESID.getAsSingleID ());
         final StopWatch aSW = StopWatch.createdStarted ();
 
-        s_aLogger.info ("Validating " + sFileName + " using " + aVESID.getAsSingleID ());
+        LOGGER.info ("Validating " + sFileName + " using " + aVESID.getAsSingleID ());
 
         // Start validation
         final ValidationExecutionManager aValidator = aVES.createExecutionManager ();
@@ -350,7 +350,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 
         aNodeList.addChild (aSummary);
         aNodeList.addChild (aDetails);
-        s_aLogger.info ("Finished validation after " +
+        LOGGER.info ("Finished validation after " +
                         aSW.stopAndGetMillis () +
                         "ms; " +
                         nInfos +

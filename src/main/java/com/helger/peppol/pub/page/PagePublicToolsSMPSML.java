@@ -99,7 +99,7 @@ import com.sun.xml.ws.client.ClientTransportException;
 
 public class PagePublicToolsSMPSML extends AbstractAppWebPage
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PagePublicToolsSMPSML.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsSMPSML.class);
 
   private static final String FIELD_SML_ID = "sml";
   private static final String FIELD_SMP_ID = "smpid";
@@ -162,7 +162,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
           // Get all aliases
           final ICommonsList <String> aAllAliases = CollectionHelper.newList (aKeyStore.aliases ());
-          s_aLogger.info ("Successfully loaded key store of type " +
+          LOGGER.info ("Successfully loaded key store of type " +
                           aKeyStoreType.getID () +
                           " containing " +
                           aAllAliases.size () +
@@ -181,7 +181,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
               ++nKeyCount;
             if (bIsCertificateEntry)
               ++nCertificateCount;
-            s_aLogger.info ("  Alias '" +
+            LOGGER.info ("  Alias '" +
                             sAlias +
                             "'" +
                             (bIsKeyEntry ? " [key entry]" : "") +
@@ -208,7 +208,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                           "' in the keystore is not valid before " +
                                           PDTToString.getAsString (aNotBefore, aDisplayLocale) +
                                           "!";
-                      s_aLogger.error (sMsg);
+                      LOGGER.error (sMsg);
                       aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
                       nInvalidKeyCount++;
                     }
@@ -219,7 +219,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                           "' in the keystore is not valid after " +
                                           PDTToString.getAsString (aNotAfter, aDisplayLocale) +
                                           "!";
-                      s_aLogger.error (sMsg);
+                      LOGGER.error (sMsg);
                       aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
                       nInvalidKeyCount++;
                     }
@@ -245,7 +245,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                   " key entries and " +
                                   nCertificateCount +
                                   " certificate entries were found!";
-              s_aLogger.error (sMsg);
+              LOGGER.error (sMsg);
               aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
               aKeyStore = null;
             }
@@ -253,7 +253,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final GeneralSecurityException | IOException ex)
         {
           final String sMsg = "The key store could not be loaded with the provided password.";
-          s_aLogger.error (sMsg, ex);
+          LOGGER.error (sMsg, ex);
           aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + _getTechnicalDetails (ex));
           aKeyStore = null;
         }
@@ -273,12 +273,12 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                           new TrustManager [] { new TrustManagerTrustAll (false) },
                           RandomHelper.getSecureRandom ());
         aSocketFactory = aSSLContext.getSocketFactory ();
-        s_aLogger.info ("Successfully created TLS socket factory with the provided keystore password!");
+        LOGGER.info ("Successfully created TLS socket factory with the provided keystore password!");
       }
       catch (final GeneralSecurityException ex)
       {
         final String sMsg = "Failed to use the provided key store for TLS connection.";
-        s_aLogger.error (sMsg, ex);
+        LOGGER.error (sMsg, ex);
         aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + _getTechnicalDetails (ex));
       }
     }
@@ -397,7 +397,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        s_aLogger.info (sMsg);
+        LOGGER.info (sMsg);
         aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-create",
                                            sSMPID,
@@ -416,7 +416,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        s_aLogger.error (sMsg, ex);
+        LOGGER.error (sMsg, ex);
         aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
@@ -534,7 +534,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' at the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        s_aLogger.info (sMsg);
+        LOGGER.info (sMsg);
         aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update",
                                            sSMPID,
@@ -554,7 +554,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        s_aLogger.error (sMsg, ex);
+        LOGGER.error (sMsg, ex);
         aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
@@ -611,7 +611,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' from the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        s_aLogger.info (sMsg);
+        LOGGER.info (sMsg);
         aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSMLInfo.getManagementServiceURL ());
       }
@@ -623,7 +623,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' from the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        s_aLogger.error (sMsg, ex);
+        LOGGER.error (sMsg, ex);
         aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
@@ -760,7 +760,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             " to be exchanged at " +
                             PDTToString.getAsString (aEffectiveMigrationDate, aDisplayLocale) +
                             ".";
-        s_aLogger.info (sMsg);
+        LOGGER.info (sMsg);
 
         final BootstrapSuccessBox aBox = new BootstrapSuccessBox ();
         aBox.addChild (new HCDiv ().addChild (sMsg));
@@ -782,7 +782,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
                             "'.";
-        s_aLogger.error (sMsg, ex);
+        LOGGER.error (sMsg, ex);
         aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),

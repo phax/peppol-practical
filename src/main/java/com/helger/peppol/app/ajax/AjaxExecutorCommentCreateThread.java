@@ -59,7 +59,7 @@ public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor
   public static final String PARAM_AUTHOR = "author";
   public static final String PARAM_TITLE = "title";
   public static final String PARAM_TEXT = "text";
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorCommentCreateThread.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AjaxExecutorCommentCreateThread.class);
 
   public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
                              @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
@@ -127,7 +127,7 @@ public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor
     }
 
     // Somebody played around with the API
-    s_aLogger.warn ("Failed to resolve comment object type '" + sObjectType + "' and/or object ID '" + sObjectID + "'");
+    LOGGER.warn ("Failed to resolve comment object type '" + sObjectType + "' and/or object ID '" + sObjectID + "'");
     aAjaxResponse.createNotFound ();
   }
 }

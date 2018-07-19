@@ -56,7 +56,7 @@ public final class AjaxExecutorCommentDelete implements IAjaxExecutor
   public static final String PARAM_OBJECT_ID = "objectID";
   public static final String PARAM_COMMENT_THREAD_ID = "commentThreadID";
   public static final String PARAM_COMMENT_ID = "commentID";
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AjaxExecutorCommentDelete.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AjaxExecutorCommentDelete.class);
 
   public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
                              @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
@@ -111,7 +111,7 @@ public final class AjaxExecutorCommentDelete implements IAjaxExecutor
     }
 
     // Somebody played around with the API
-    s_aLogger.warn ("Failed to resolve comment object type '" +
+    LOGGER.warn ("Failed to resolve comment object type '" +
                     sObjectType +
                     "' and/or object ID '" +
                     sObjectID +

@@ -42,7 +42,7 @@ public final class PPMetaManager extends AbstractGlobalSingleton
   public static final String TEST_ENDPOINT_XML = "test-endpoint.xml";
   private static final String SML_INFO_XML = "sml-info.xml";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PPMetaManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PPMetaManager.class);
 
   private CRMGroupManager m_aCRMGroupMgr;
   private CRMSubscriberManager m_aCRMSubscriberMgr;
@@ -65,7 +65,7 @@ public final class PPMetaManager extends AbstractGlobalSingleton
       m_aSMLInfoMgr = new SMLInfoManager (SML_INFO_XML);
       m_aTestEndpointMgr = new TestEndpointManager (TEST_ENDPOINT_XML);
 
-      s_aLogger.info ("MetaManager was initialized");
+      LOGGER.info ("MetaManager was initialized");
     }
     catch (final DAOException ex)
     {

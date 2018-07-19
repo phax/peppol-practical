@@ -42,7 +42,7 @@ import com.helger.photon.uicore.page.external.IWebPageResourceContent;
 
 public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPageExecutionContext>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PageSecureAdminAddons.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PageSecureAdminAddons.class);
 
   private static final String ACTION_EXPIRE_PAGE_CACHE = "expirePageCache";
 
@@ -84,7 +84,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
                                                      aCounterNoNeed.intValue () +
                                                      " pages no action was necessary because they are set to reload every time."
                                                    : "");
-      s_aLogger.info (sMsg);
+      LOGGER.info (sMsg);
       AuditHelper.onAuditExecuteSuccess ("page-reload",
                                          aCounterUpdated.getAsInteger (),
                                          aCounterNoNeed.getAsInteger ());

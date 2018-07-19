@@ -75,7 +75,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
 
 public final class PageSecureSchematronTools extends AbstractAppWebPage
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PageSecureSchematronTools.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PageSecureSchematronTools.class);
   private static final String FIELD_VESID = "vesid";
   private static final String ACTION_SHOW_PREPROCESSED_SCHEMA = "showpps";
   private static final String ACTION_SHOW_XSLT = "showxslt";
@@ -125,7 +125,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     {
       if (aWPEC.hasAction (ACTION_SHOW_PREPROCESSED_SCHEMA))
       {
-        s_aLogger.info ("Showing preprocessed Schematron of " + aVESID.getAsSingleID ());
+        LOGGER.info ("Showing preprocessed Schematron of " + aVESID.getAsSingleID ());
 
         final MapBasedNamespaceContext aNSCtx = new MapBasedNamespaceContext ();
         aNSCtx.addDefaultNamespaceURI (CSchematron.NAMESPACE_SCHEMATRON);
@@ -210,7 +210,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
       else
         if (aWPEC.hasAction (ACTION_SHOW_XSLT))
         {
-          s_aLogger.info ("Showing XSLT version of " + aVESID.getAsSingleID ());
+          LOGGER.info ("Showing XSLT version of " + aVESID.getAsSingleID ());
 
           final MapBasedNamespaceContext aNSCtx = new MapBasedNamespaceContext ();
           aNSCtx.addDefaultNamespaceURI (CSchematron.NAMESPACE_SCHEMATRON);
@@ -280,7 +280,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
         {
           // TODO other action when necessary
         }
-      s_aLogger.info ("Done");
+      LOGGER.info ("Done");
     }
   }
 }

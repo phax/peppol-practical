@@ -40,7 +40,7 @@ import com.helger.xml.mock.XMLTestHelper;
  */
 public final class CommentThreadTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CommentThreadTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CommentThreadTest.class);
   @Rule
   public TestRule m_aRule = new PhotonBasicTestRule ();
 
@@ -87,7 +87,7 @@ public final class CommentThreadTest
     assertSame (aComment3, aCommentThread.getCommentOfID (aComment3.getID ()));
 
     if (false)
-      s_aLogger.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aCommentThread,
+      LOGGER.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aCommentThread,
                                                                                              "commentthread")));
 
     XMLTestHelper.testMicroTypeConversion (aCommentThread);

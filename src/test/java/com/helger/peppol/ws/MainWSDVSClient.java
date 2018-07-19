@@ -40,13 +40,13 @@ import com.helger.wsclient.WSHelper;
 
 public final class MainWSDVSClient
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainWSDVSClient.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainWSDVSClient.class);
 
   public static void main (final String [] args) throws ValidateFaultError
   {
     WSHelper.enableSoapLogging (true);
 
-    s_aLogger.info ("Starting the engines");
+    LOGGER.info ("Starting the engines");
     final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("ws/invoice1.xml"),
                                                           StandardCharsets.UTF_8);
 
@@ -56,20 +56,20 @@ public final class MainWSDVSClient
     final WSClientConfig aWsClientConfig = new WSClientConfig (URLHelper.getAsURL ("http://localhost:8080/wsdvs"));
     aWsClientConfig.applyWSSettingsToBindingProvider ((BindingProvider) aPort);
 
-    s_aLogger.info ("Starting validation process");
+    LOGGER.info ("Starting validation process");
     final RequestType aRequest = new RequestType ();
     aRequest.setVESID (PeppolValidation360.VID_OPENPEPPOL_T10_V2.getAsSingleID ());
     aRequest.setXML (sXML);
     aRequest.setDisplayLocale ("en");
     final ResponseType aResponse = aPort.validate (aRequest);
-    s_aLogger.info ("Success: " + aResponse.isSuccess ());
-    s_aLogger.info ("Interrupted: " + aResponse.isInterrupted ());
-    s_aLogger.info ("Most severe error level: " + aResponse.getMostSevereErrorLevel ());
+    LOGGER.info ("Success: " + aResponse.isSuccess ());
+    LOGGER.info ("Interrupted: " + aResponse.isInterrupted ());
+    LOGGER.info ("Most severe error level: " + aResponse.getMostSevereErrorLevel ());
     int nPos = 1;
     final int nMaxPos = aResponse.getResultCount ();
     for (final ValidationResultType aResult : aResponse.getResult ())
     {
-      s_aLogger.info ("  [" +
+      LOGGER.info ("  [" +
                       nPos +
                       "/" +
                       nMaxPos +
@@ -79,22 +79,22 @@ public final class MainWSDVSClient
                       aResult.getArtifactPath ());
       ++nPos;
 
-      s_aLogger.info ("  Success: " + aResult.getSuccess ());
+      LOGGER.info ("  Success: " + aResult.getSuccess ());
       for (final ItemType aItem : aResult.getItem ())
       {
-        s_aLogger.info ("    Error Level: " + aItem.getErrorLevel ());
+        LOGGER.info ("    Error Level: " + aItem.getErrorLevel ());
         if (aItem.getErrorID () != null)
-          s_aLogger.info ("    Error ID: " + aItem.getErrorID ());
+          LOGGER.info ("    Error ID: " + aItem.getErrorID ());
         if (aItem.getErrorFieldName () != null)
-          s_aLogger.info ("    Error Field: " + aItem.getErrorFieldName ());
-        s_aLogger.info ("    Error Text: " + aItem.getErrorText ());
+          LOGGER.info ("    Error Field: " + aItem.getErrorFieldName ());
+        LOGGER.info ("    Error Text: " + aItem.getErrorText ());
         if (aItem.getErrorLocation () != null)
-          s_aLogger.info ("    Location: " + aItem.getErrorLocation ());
+          LOGGER.info ("    Location: " + aItem.getErrorLocation ());
         if (aItem.getTest () != null)
-          s_aLogger.info ("    Test: " + aItem.getTest ());
-        s_aLogger.info ("--");
+          LOGGER.info ("    Test: " + aItem.getTest ());
+        LOGGER.info ("--");
       }
     }
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }
