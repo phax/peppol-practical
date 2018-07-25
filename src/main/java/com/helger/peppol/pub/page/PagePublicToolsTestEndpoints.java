@@ -249,7 +249,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
                                                                                                 aSelectedObject == null ? null
-                                                                                                                        : aSelectedObject.getSML ()),
+                                                                                                                        : aSelectedObject.getSML ()
+                                                                                                                                         .getID ()),
                                                                               false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
   }
