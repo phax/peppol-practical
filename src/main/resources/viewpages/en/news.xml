@@ -31,7 +31,21 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
+   
+  
     
+    
+    <h3>2018-07-25 - OASIS BDXR SMP 2.0 Public Review Draft 1</h3>
+    
+    <p>
+      First public review of SMP 2.0 specification has started.
+      The public review starts July 26 at 00:00 UTC and ends August 24, 2018 at 23:59 UTC. 
+    </p>
+    <ul>
+      <li><a href="http://docs.oasis-open.org/bdxr/bdx-smp/v2.0/csprd01/bdx-smp-v2.0-csprd01.zip">Download the specification and the XSDs</a></li>
+      <li><a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=bdxr">Instructions how to comment</a></li>
+    </ul>
+
     <h3>2018-06-26 - Document validation extended</h3>
     
     <p>
@@ -41,7 +55,6 @@
     <ul>
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
     </ul>
-
     
     <h3>2018-06-15 - Document validation extended</h3>
     
