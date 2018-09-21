@@ -31,8 +31,19 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
-   
-  
+
+    <h3>2018-09-18 - OpenPEPPOL Envelope specification 1.1 was release</h3>
+    
+    <p>
+      The new version of the OpenPEPPOL Standard Business Document Header (SBDH) specification was released
+      and is in effect immediately. It is backwards compatible to version 1.0.
+      Major improvements are the explicit provisioning of document type and process identifier schemes
+      as well as the support for custom attributes inside the SBDH. 
+    </p>
+    <ul>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf">Download the specification PDF</a></li>
+      <li><a href="https://peppol.eu/openpeppol-release-of-sbdh1-1/">News item</a></li>
+    </ul>
     
     
     <h3>2018-07-25 - OASIS BDXR SMP 2.0 Public Review Draft 1</h3>
