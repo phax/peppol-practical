@@ -32,6 +32,29 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-10-30 - 10<sup>th</sup> OpenPEPPOL General Assembly in Brussels</h3>
+    
+    <p>
+      The next OpenEPPOL event in Brussels is the 10<sup>th</sup> GA as well as a set of
+      CC meetings. The GA takes place on October 30<sup>th</sup> from 16:00 till 18:00.
+      The rest of Tuesday and Wednesday is filled with CC member meetings.  
+    </p>
+    <ul>
+      <li><a href="https://peppol.eu/event/10th-openpeppol-general-assembly-brussels-30-october-2018/">GA invitation</a></li>
+      <li><a href="https://peppol.eu/event/invitation-to-the-openpeppol-cc-member-meetings-brussels-30-and-31-october-2018/">CC member meetings invitation</a></li>
+    </ul>
+
+    <h3>2018-09-28 - OpenPEPPOL Envelope specification 1.1.1 was released</h3>
+    
+    <p>
+      The new version of the OpenPEPPOL Standard Business Document Header (SBDH) specification was released
+      and is in effect immediately. It fixes a minor glitch in the 1.1 version. 
+    </p>
+    <ul>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-111_2018-09-28.pdf">Download the specification PDF</a></li>
+      <li><a href="https://peppol.eu/release-sbdh-v-1-1-1-specification/">News item</a></li>
+    </ul>
+
     <h3>2018-09-18 - OpenPEPPOL Envelope specification 1.1 was released</h3>
     
     <p>
@@ -44,8 +67,7 @@
       <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf">Download the specification PDF</a></li>
       <li><a href="https://peppol.eu/openpeppol-release-of-sbdh1-1/">News item</a></li>
     </ul>
-    
-    
+  
     <h3>2018-07-25 - OASIS BDXR SMP 2.0 Public Review Draft 1</h3>
     
     <p>
