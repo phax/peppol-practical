@@ -18,7 +18,7 @@ package com.helger.peppol.pub.testendpoint;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -37,7 +37,7 @@ import com.helger.tenancy.AbstractBusinessObject;
  *
  * @author Philip Helger
  */
-@Immutable
+@NotThreadSafe
 public class TestEndpoint extends AbstractBusinessObject implements IHasDisplayName
 {
   public static final ObjectType OT = new ObjectType ("test-endpoint");
