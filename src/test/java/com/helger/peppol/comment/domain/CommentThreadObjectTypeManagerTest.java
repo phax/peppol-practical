@@ -38,7 +38,7 @@ import com.helger.photon.basic.mock.PhotonBasicWebTestRule;
 public final class CommentThreadObjectTypeManagerTest
 {
   @Rule
-  public TestRule m_aRule = new PhotonBasicWebTestRule ();
+  public final TestRule m_aRule = new PhotonBasicWebTestRule ();
 
   @Test
   public void testBasic () throws DAOException

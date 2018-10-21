@@ -36,7 +36,7 @@ import com.helger.xml.mock.XMLTestHelper;
 public final class CRMGroupTest
 {
   @Rule
-  public TestRule m_aRule = new PhotonBasicWebTestRule ();
+  public final TestRule m_aRule = new PhotonBasicWebTestRule ();
 
   @Test
   public void testBasic ()
