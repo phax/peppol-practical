@@ -24,15 +24,16 @@ import java.security.cert.X509Certificate;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.string.StringHelper;
@@ -71,6 +72,7 @@ import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.peppol.url.IPeppolURLProvider;
+import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
@@ -159,35 +161,35 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                         .addChild (new HCCode ().addChild (aParticipantID.getURIEncoded ()))
                                         .addChild (":"));
 
-        URI aSMPHostURI = null;
-        if (bSMLAutoDetect)
-        {
-          for (final ISMLInfo aSMLInfo : aSMLInfoMgr.getAllSorted ())
-          {
-            aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSMLInfo);
-            aSML = aSMLInfo;
-            try
-            {
-              InetAddress.getByName (aSMPHostURI.getHost ());
-              // Found it
-              break;
-            }
-            catch (final UnknownHostException ex)
-            {
-              // continue
-            }
-          }
-        }
-        else
-          aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSML);
-
-        aNodeList.addChild (new HCDiv ().addChild ("SML used: ")
-                                        .addChild (new HCCode ().addChild (aSML.getDisplayName () +
-                                                                           " / " +
-                                                                           aSML.getDNSZone ())));
-
         try
         {
+          URI aSMPHostURI = null;
+          if (bSMLAutoDetect)
+          {
+            for (final ISMLInfo aSMLInfo : aSMLInfoMgr.getAllSorted ())
+            {
+              aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSMLInfo);
+              aSML = aSMLInfo;
+              try
+              {
+                InetAddress.getByName (aSMPHostURI.getHost ());
+                // Found it
+                break;
+              }
+              catch (final UnknownHostException ex)
+              {
+                // continue
+              }
+            }
+          }
+          else
+            aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSML);
+
+          aNodeList.addChild (new HCDiv ().addChild ("SML used: ")
+                                          .addChild (new HCCode ().addChild (aSML.getDisplayName () +
+                                                                             " / " +
+                                                                             aSML.getDNSZone ())));
+
           final URL aSMPHost = aSMPHostURI.toURL ();
           aNodeList.addChild (new HCDiv ().addChild ("PEPPOL name: ")
                                           .addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
@@ -213,7 +215,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // Get all HRefs and sort them by decoded URL
             final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
-            final Map <String, String> aSGHrefs = new TreeMap <> ();
+            final ICommonsSortedMap <String, String> aSGHrefs = new CommonsTreeMap <> ();
             if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
               for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                                 .getServiceMetadataReference ())
@@ -396,12 +398,29 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                         " is not registered to the PEPPOL network."))
                                                       .addChild (new HCDiv ().addChild ("Technical details: unknown host " +
                                                                                         ex.getMessage ()))
-                                                      .addChild (new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
+                                                      .addChild (bSMLAutoDetect ? null
+                                                                                : new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
                                              aParticipantID.getURIEncoded (),
                                              "unknown-host",
+                                             ex.getMessage ());
+        }
+        catch (final PeppolDNSResolutionException ex)
+        {
+          aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
+                                                                                        aParticipantID.getURIEncoded () +
+                                                                                        " is not registered to the PEPPOL network."))
+                                                      .addChild (new HCDiv ().addChild ("Technical details: DNS resolution failed " +
+                                                                                        ex.getMessage ()))
+                                                      .addChild (bSMLAutoDetect ? null
+                                                                                : new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
+
+          // Audit failure
+          AuditHelper.onAuditExecuteFailure ("participant-information",
+                                             aParticipantID.getURIEncoded (),
+                                             "dns-resolution-failed",
                                              ex.getMessage ());
         }
         catch (final Exception ex)
