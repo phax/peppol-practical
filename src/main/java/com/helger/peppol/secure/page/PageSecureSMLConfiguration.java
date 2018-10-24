@@ -209,8 +209,8 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
     final String sDisplayName = aWPEC.params ().getAsString (FIELD_DISPLAY_NAME);
     final String sDNSZone = aWPEC.params ().getAsString (FIELD_DNS_ZONE);
     final String sManagementAddressURL = aWPEC.params ().getAsString (FIELD_MANAGEMENT_ADDRESS_URL);
-    final boolean bClientCertificateRequired = aWPEC.params ().isCheckBoxChecked (FIELD_CLIENT_CERTIFICATE_REQUIRED,
-                                                                                  true);
+    final boolean bClientCertificateRequired = aWPEC.params ()
+                                                    .isCheckBoxChecked (FIELD_CLIENT_CERTIFICATE_REQUIRED, true);
 
     // validations
     if (StringHelper.hasNoText (sDisplayName))
@@ -276,7 +276,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
                                         new DTCol ("Management Service URL"),
                                         new DTCol ("Client Cert?"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
-    for (final ISMLInfo aCurObject : aSMLInfoMgr.getAllSMLInfos ())
+    for (final ISMLInfo aCurObject : aSMLInfoMgr.getAll ())
     {
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 

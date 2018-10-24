@@ -32,7 +32,7 @@ public class SMLSelect extends HCExtSelect
     super (aRF);
     if (bAddAutoDetect)
       addOption (FIELD_AUTO_SELECT, "Auto-detect SML");
-    for (final ISMLInfo aSMLInfo : PPMetaManager.getSMLInfoMgr ().getAllSMLInfos ())
+    for (final ISMLInfo aSMLInfo : PPMetaManager.getSMLInfoMgr ().getAllSorted ())
       if (aSMLInfo.isClientCertificateRequired ())
         addOption (aSMLInfo.getID (), "[" + aSMLInfo.getDisplayName () + "] " + aSMLInfo.getManagementServiceURL ());
   }

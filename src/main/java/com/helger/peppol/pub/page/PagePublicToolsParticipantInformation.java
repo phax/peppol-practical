@@ -162,7 +162,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         URI aSMPHostURI = null;
         if (bSMLAutoDetect)
         {
-          for (final ISMLInfo aSMLInfo : aSMLInfoMgr.getAllSMLInfos ())
+          for (final ISMLInfo aSMLInfo : aSMLInfoMgr.getAllSorted ())
           {
             aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSMLInfo);
             aSML = aSMLInfo;
