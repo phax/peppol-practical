@@ -126,6 +126,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final ICRMGroup aSelectedObject,
                                 @Nonnull final BootstrapForm aForm,
+                                final boolean bFormSubmitted,
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrorList aFormErrors)
   {

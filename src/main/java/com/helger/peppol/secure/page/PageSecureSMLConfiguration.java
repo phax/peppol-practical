@@ -151,6 +151,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final ISMLInfo aSelectedObject,
                                 @Nonnull final BootstrapForm aForm,
+                                final boolean bFormSubmitted,
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrorList aFormErrors)
   {

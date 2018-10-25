@@ -252,6 +252,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final ICRMSubscriber aSelectedObject,
                                 @Nonnull final BootstrapForm aForm,
+                                final boolean bFormSubmitted,
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrorList aFormErrors)
   {

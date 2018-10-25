@@ -210,6 +210,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nullable final TestEndpoint aSelectedObject,
                                 @Nonnull final BootstrapForm aForm,
+                                final boolean bFormSubmitted,
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrorList aFormErrors)
   {
