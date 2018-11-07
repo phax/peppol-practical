@@ -41,6 +41,17 @@
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
     </ul>
 
+    <h3>2018-10-30 - phoss SMP 5.0.8</h3>
+    
+    <p>
+      phoss SMP 5.0.8 was released. 
+      This is a maintenance release with some bug fixes and a security fix as well.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.8">Download phoss SMP 5.0.8</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
+    </ul>
+    
     <h3>2018-10-30 - 10<sup>th</sup> OpenPEPPOL General Assembly in Brussels</h3>
     
     <p>
