@@ -36,6 +36,7 @@ import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.bdve.teapps.TEAPPSValidation;
 import com.helger.bdve.ubl.UBLValidation;
+import com.helger.bdve.ublbe.UBLBEValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -62,6 +63,7 @@ public final class ExtValidationKeyRegistry
     OIOUBLValidation.initOIOUBL (VES_REGISTRY);
     EbInterfaceValidation.initEbInterface (VES_REGISTRY);
     TEAPPSValidation.initTEAPPS (VES_REGISTRY);
+    UBLBEValidation.initUBLBE (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
