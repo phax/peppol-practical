@@ -25,8 +25,11 @@
 </p>
 
 <ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#tabs-news" data-toggle="tab">2017/2018</a></li>
-  <li role="presentation"><a href="#tabs-archive" data-toggle="tab">Archive</a></li>
+  <li role="presentation" class="active"><a href="#tabs-news" data-toggle="tab">2018</a></li>
+  <li role="presentation"><a href="#tabs-2017" data-toggle="tab">2017</a></li>
+  <li role="presentation"><a href="#tabs-2016" data-toggle="tab">2016</a></li>
+  <li role="presentation"><a href="#tabs-2015" data-toggle="tab">2015</a></li>
+  <li role="presentation"><a href="#tabs-2014" data-toggle="tab">2014</a></li>
 </ul>
 
 <div class="tab-content">
@@ -324,7 +327,8 @@
     <ul>
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
     </ul>
-
+  </div>
+  <div id="tabs-2017" class="tab-pane">
     <h3>2017-12-20 - PEPPOL AS4 profile published</h3>
     
     <p>
@@ -566,8 +570,8 @@
       <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
     </p>
   </div>
-  <!--  Archive: -->
-  <div id="tabs-archive" class="tab-pane">
+
+  <div id="tabs-2016" class="tab-pane">
     <h3>2016-11-25 - London F2F slides available</h3>
     
     <p>
@@ -721,7 +725,9 @@
       <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.2">Source release</a></li>
       <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.2/">Binary release</a></li>
     </ul>
-    
+  </div>
+
+  <div id="tabs-2015" class="tab-pane">
     <h3>2015-12-07 - SMP Server 4.1.0 release</h3>
     
     <p>
@@ -902,8 +908,9 @@
         </ul> 
       </li>
     </ul>
-    
-    
+  </div>
+
+  <div id="tabs-2014" class="tab-pane">
     <h3>2014-11-13 - <em>as2-peppol-server</em> released</h3>
     
     <p>
