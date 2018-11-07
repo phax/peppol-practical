@@ -362,7 +362,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             for (final String sCertificate : aAllUsedCertifiactes)
             {
               final IHCLI <?> aLICert = aULCerts.addItem ();
-              final X509Certificate aCert = CertificateHelper.convertStringToCertficate (sCertificate);
+              X509Certificate aCert;
+              try
+              {
+                aCert = CertificateHelper.convertStringToCertficate (sCertificate);
+              }
+              catch (final Exception ex)
+              {
+                aCert = null;
+              }
               if (aCert != null)
               {
                 aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
