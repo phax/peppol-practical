@@ -35,6 +35,16 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-11-09 - Document validation corrected</h3>
+    
+    <p>
+      What I previously UBL.BE 3.0 is in reality e-FFF 3.0. The UBL.BE validations are still work in progress.
+      The changes are reflected also in <a href="https://github.com/phax/ph-bdve/releases/tag/ph-bdve-parent-pom-5.0.6">ph-bdve 5.0.6</a>.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
     <h3>2018-11-07 - Document validation extended</h3>
     
     <p>
