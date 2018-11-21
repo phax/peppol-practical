@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.helger.bdve.EValidationType;
 import com.helger.bdve.artefact.IValidationArtefact;
@@ -139,23 +138,16 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         {
           final FileItemResource aXMLRes = new FileItemResource (aFileItem);
           final ErrorList aXMLErrors = new ErrorList ();
-          try
+          final Document aDoc = DOMReader.readXMLDOM (aXMLRes,
+                                                      new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors))
+                                                                              .setLocale (aDisplayLocale));
+          if (aDoc != null)
           {
-            final Document aDoc = DOMReader.readXMLDOM (aXMLRes,
-                                                        new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors))
-                                                                                .setLocale (aDisplayLocale));
-            if (aDoc != null)
-            {
-              // First options reads XML again but provides line numbers
-              // Second option uses prebuild Node but has no line numbers
-              final ValidationSource aSource = true ? ValidationSource.createXMLSource (aXMLRes)
-                                                    : ValidationSource.create (aXMLRes.getPath (), aDoc);
-              aValidator.executeValidation (aSource, aValidationResultList, aDisplayLocale);
-            }
-          }
-          catch (final SAXException ex)
-          {
-            // Errors already captured in ErrorList
+            // First options reads XML again but provides line numbers
+            // Second option uses prebuild Node but has no line numbers
+            final ValidationSource aSource = true ? ValidationSource.createXMLSource (aXMLRes)
+                                                  : ValidationSource.create (aXMLRes.getPath (), aDoc);
+            aValidator.executeValidation (aSource, aValidationResultList, aDisplayLocale);
           }
 
           // Add all XML parsing stuff - always first item
@@ -351,14 +343,14 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         aNodeList.addChild (aSummary);
         aNodeList.addChild (aDetails);
         LOGGER.info ("Finished validation after " +
-                        aSW.stopAndGetMillis () +
-                        "ms; " +
-                        nInfos +
-                        " information; " +
-                        nWarnings +
-                        " warns; " +
-                        nErrors +
-                        " errors");
+                     aSW.stopAndGetMillis () +
+                     "ms; " +
+                     nInfos +
+                     " information; " +
+                     nWarnings +
+                     " warns; " +
+                     nErrors +
+                     " errors");
         s_aStatsTimer.addTime (aSW.getMillis ());
 
         // Audit execution
