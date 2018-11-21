@@ -3,14 +3,25 @@ language: java
 env:
   global:
     - MAVEN_OPTS=-Xmx1024m
-
-jdk:
-  - oraclejdk8
   
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
   
 cache:
   directories:
-  - $HOME/.m2
-  
+    - $HOME/.m2
+
+jobs:
+  include:
+    - stage: test
+      jdk: oraclejdk8
+      script:
+        - mvn test -B -P coverage
+    - stage: test
+      jdk: oraclejdk11
+      script:
+        - mvn test -B
+    - stage: test
+      jdk: openjdk11
+      script:
+        - mvn test -B
