@@ -35,6 +35,16 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2018-11-22 - Document validation updated</h3>
+    
+    <p>
+      Final PEPPOL 3.7.0 rules are now supported.
+      PEPPOL 3.4.0 and 3.7.0.RC1 rules were removed.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
     <h3>2018-11-09 - Document validation corrected</h3>
     
     <p>
