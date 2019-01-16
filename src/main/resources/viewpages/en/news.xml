@@ -35,6 +35,15 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2019-01-16 - Document validation updated</h3>
+    
+    <p>
+      UBL.BE Invoice and CreditNote 1.0.0 was added.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
     <h3>2018-11-22 - Document validation updated</h3>
     
     <p>

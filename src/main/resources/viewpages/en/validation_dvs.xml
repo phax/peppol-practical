@@ -77,6 +77,8 @@ A very small Java WS client is available for
 <li><code>at.ebinterface:invoice:5.0</code> - ebInterface 5.0</li>
 <li><code>be.efff:credit-note:3.0.0</code> - e-FFF Credit Note 3.0.0</li>
 <li><code>be.efff:invoice:3.0.0</code> - e-FFF Invoice 3.0.0</li>
+<li><code>be.ubl:credit-note:1.0.0</code> - UBL.BE Credit Note 1.0.0</li>
+<li><code>be.ubl:invoice:1.0.0</code> - UBL.BE Invoice 1.0.0</li>
 <li><code>com.tieto:teappsxml:2.7.2</code> - TEAPPSXML 2.7.2</li>
 <li><code>com.tieto:teappsxml:3.0</code> - TEAPPSXML 3.0</li>
 <li><code>dk.oioubl:application-response:2.0.2</code> - OIOUBL Application Response 2.0.2</li>
