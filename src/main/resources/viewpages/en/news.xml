@@ -35,6 +35,25 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active">
 
+    <h3>2019-01-18 - PEPPOL TICC News</h3>
+    
+    <p>
+      TICC CMB decided today to release PEPPOL code lists version 4.
+      This includes the code lists for Participant identifier schemes, Document types, Processes and Transport profiles.
+    </p>
+    <p>
+      Additionally the PEPPOL policy for use of identifiers version 4 Public Review Draft 1 (PRD1) was released.
+      Please provide comments in the Google
+      <a href="https://docs.google.com/spreadsheets/d/1watcMxCHb4NJzkzDADcEeCtsT0hjvQuZZunHZZyVg7M/edit#gid=0">online spreadsheet</a>
+      until Sunday, January 27<sup>th</sup>.
+      It is a major update, with alignment to BIS 3 documents etc.
+      Because of external time constraints we cannot make the review period any longer. 
+    </p>
+    <ul>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists">The folder containing the code list Excel files</a></li>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL%20Policy%20for%20use%20of%20identifiers%20v4.0%20Public%20Review%20Draft%201.pdf">PEPPOL Policy for use of identifier v4 PRD1</a></li>
+    </ul>
+
     <h3>2019-01-16 - Document validation updated</h3>
     
     <p>
