@@ -33,7 +33,7 @@
 </ul>
 
 <div class="tab-content">
-  <div id="tabs-news" class="tab-pane active">
+  <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
     <h3>2019-01-18 - PEPPOL TICC News</h3>
     
@@ -376,7 +376,7 @@
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
     </ul>
   </div>
-  <div id="tabs-2017" class="tab-pane">
+  <div id="tabs-2017" class="tab-pane" role="tabpanel">
     <h3>2017-12-20 - PEPPOL AS4 profile published</h3>
     
     <p>
@@ -619,7 +619,7 @@
     </p>
   </div>
 
-  <div id="tabs-2016" class="tab-pane">
+  <div id="tabs-2016" class="tab-pane" role="tabpanel">
     <h3>2016-11-25 - London F2F slides available</h3>
     
     <p>
@@ -775,7 +775,7 @@
     </ul>
   </div>
 
-  <div id="tabs-2015" class="tab-pane">
+  <div id="tabs-2015" class="tab-pane" role="tabpanel">
     <h3>2015-12-07 - SMP Server 4.1.0 release</h3>
     
     <p>
@@ -958,7 +958,7 @@
     </ul>
   </div>
 
-  <div id="tabs-2014" class="tab-pane">
+  <div id="tabs-2014" class="tab-pane" role="tabpanel">
     <h3>2014-11-13 - <em>as2-peppol-server</em> released</h3>
     
     <p>

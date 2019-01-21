@@ -84,11 +84,13 @@ public final class LayoutAreaContentProviderSecure
                .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser, aDisplayLocale)));
 
     aToggleable.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractPublicApplicationServlet.SERVLET_DEFAULT_PATH))
-                                                .addChild ("Public area"));
+                                                .addChild ("Public area")
+                                                .addClass (CBootstrapCSS.MX_2));
 
     aToggleable.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (aRequestScope,
                                                                                            LogoutServlet.SERVLET_DEFAULT_PATH))
-                                                .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
+                                                .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale))
+                                                .addClass (CBootstrapCSS.MX_2));
 
     return aNavbar;
   }

@@ -153,19 +153,18 @@ public final class LayoutAreaContentProviderPublic
       if (SecurityHelper.hasUserRole (aUser.getID (), CPPApp.ROLE_CONFIG_ID))
       {
         aToggleable.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH))
-                                                    .addChild ("Administration"));
+                                                    .addChild ("Administration")
+                                                    .addClass (CBootstrapCSS.MX_2));
       }
 
       aToggleable.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (aRequestScope,
                                                                                              LogoutServlet.SERVLET_DEFAULT_PATH))
-                                                  .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale)));
+                                                  .addChild (EPhotonCoreText.LOGIN_LOGOUT.getDisplayText (aDisplayLocale))
+                                                  .addClass (CBootstrapCSS.MX_2));
     }
     else
     {
       // show login in Navbar
-      aToggleable.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EPhotonCoreText.BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))
-                                                                              .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_SIGN_UP)));
-
       final BootstrapNavbarNav aNav = aToggleable.addAndReturnNav ();
       final BootstrapDropdownMenu aDropDown = new BootstrapDropdownMenu ();
       {
@@ -175,6 +174,11 @@ public final class LayoutAreaContentProviderPublic
         aDropDown.addChild (aDiv);
       }
       aNav.addItem ().addNavDropDown ("Login", aDropDown);
+
+      aToggleable.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EPhotonCoreText.BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))
+                                                                              .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_SIGN_UP))
+                                                                              .addClass (CBootstrapCSS.ML_AUTO)
+                                                                              .addClass (CBootstrapCSS.MX_2));
     }
     return aNavbar;
   }

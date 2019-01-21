@@ -73,7 +73,7 @@ public final class MenuPublic
                                                      new ClassPathResource ("viewpages/en/docs_setup_smp_ph.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_CIPA,
-                                                     "Setup CIPA SMP",
+                                                     "Setup CIPA SMP (deprecated)",
                                                      new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_SUPPORT,
