@@ -32,7 +32,7 @@ import com.helger.peppol.pub.page.PagePublicToolsTestEndpoints;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.basic.app.menu.IMenuItemPage;
 import com.helger.photon.basic.app.menu.IMenuTree;
-import com.helger.photon.bootstrap3.pages.security.BasePageSecurityChangePassword;
+import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.security.menu.MenuObjectFilterNoUserLoggedIn;
 import com.helger.photon.security.menu.MenuObjectFilterUserLoggedIn;
 import com.helger.photon.uicore.page.WebPageExecutionContext;

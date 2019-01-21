@@ -75,19 +75,19 @@ import com.helger.peppol.smlclient.smp.UnauthorizedFault;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.photon.basic.audit.AuditHelper;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
-import com.helger.photon.bootstrap3.pages.BootstrapWebPageUIHandler;
-import com.helger.photon.bootstrap3.uictrls.datetimepicker.BootstrapDateTimePicker;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.nav.BootstrapTabBox;
+import com.helger.photon.bootstrap4.pages.BootstrapWebPageUIHandler;
+import com.helger.photon.bootstrap4.uictrls.datetimepicker.BootstrapDateTimePicker;
+import com.helger.photon.bootstrap4.uictrls.datetimepicker.EBootstrap4DateTimePickerMode;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
-import com.helger.photon.core.form.RequestFieldDate;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
@@ -163,10 +163,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           // Get all aliases
           final ICommonsList <String> aAllAliases = CollectionHelper.newList (aKeyStore.aliases ());
           LOGGER.info ("Successfully loaded key store of type " +
-                          aKeyStoreType.getID () +
-                          " containing " +
-                          aAllAliases.size () +
-                          " aliases");
+                       aKeyStoreType.getID () +
+                       " containing " +
+                       aAllAliases.size () +
+                       " aliases");
 
           // Check key and certificate count
           final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
@@ -182,10 +182,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
             if (bIsCertificateEntry)
               ++nCertificateCount;
             LOGGER.info ("  Alias '" +
-                            sAlias +
-                            "'" +
-                            (bIsKeyEntry ? " [key entry]" : "") +
-                            (bIsCertificateEntry ? " [certificate]" : ""));
+                         sAlias +
+                         "'" +
+                         (bIsKeyEntry ? " [key entry]" : "") +
+                         (bIsCertificateEntry ? " [certificate]" : ""));
 
             if (bIsKeyEntry)
               try
@@ -952,9 +952,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setHelpText (HELPTEXT_KEYSTORE_PW)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_PW)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Certificate migration date")
-                                                     .setCtrl (new BootstrapDateTimePicker (new RequestFieldDate (FIELD_PM_MIGRATION_DATE,
-                                                                                                                  aDisplayLocale)).setStartDate (PDTFactory.getCurrentLocalDate ()
-                                                                                                                                                           .plusDays (1)))
+                                                     .setCtrl (BootstrapDateTimePicker.create (FIELD_PM_MIGRATION_DATE,
+                                                                                               aDisplayLocale,
+                                                                                               EBootstrap4DateTimePickerMode.DATE)
+                                                                                      .setMinDate (PDTFactory.getCurrentLocalDate ()
+                                                                                                             .plusDays (1)))
                                                      .setHelpText ("The SML will replace the certificate at this date. It must be in the future and within the validity period of the provided new public key. If not provided, the 'valid from' part of the certificate is used.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PM_MIGRATION_DATE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("New public key")

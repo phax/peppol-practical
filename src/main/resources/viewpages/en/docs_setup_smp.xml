@@ -44,11 +44,11 @@ The information within the SMP is structured by participant ID, document type ID
 
 <p><strong>Note:</strong> this page will not be updated to later versions, as my phoss SMP is imho much better</p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Table of contents</h3>
+<div class="card">
+  <div class="card-header">
+    Table of contents
   </div>
-  <div class="panel-body">
+  <div class="card-body">
     <ol>
       <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#technical">Technical resources</a></li>

@@ -34,11 +34,11 @@
   all the details.
 </p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Table of contents</h3>
+<div class="card">
+  <div class="card-header">
+    Table of contents
   </div>
-  <div class="panel-body">
+  <div class="card-body">
     <ol>
       <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#technical">Technical resources</a></li>

@@ -37,12 +37,12 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.security.mgr.PhotonSecurityManager;
@@ -147,7 +147,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
                                                                    sEmailAddress +
                                                                    "' and the selected password."));
           // Show login form
-          aNodeList.addChild (AppCommonUI.createViewLoginForm (aWPEC, sEmailAddress, true, false));
+          aNodeList.addChild (AppCommonUI.createViewLoginForm (aWPEC, sEmailAddress, false));
         }
       }
     }

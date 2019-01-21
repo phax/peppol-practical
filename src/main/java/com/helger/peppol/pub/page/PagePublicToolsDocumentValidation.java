@@ -45,6 +45,7 @@ import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.html.hc.IHCNode;
+import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.grouping.HCUL;
@@ -58,17 +59,16 @@ import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.bdve.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.basic.audit.AuditHelper;
-import com.helger.photon.bootstrap3.CBootstrapCSS;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.label.BootstrapLabel;
-import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
-import com.helger.photon.bootstrap3.table.BootstrapTable;
+import com.helger.photon.bootstrap4.CBootstrapCSS;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.badge.BootstrapBadge;
+import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.table.BootstrapTable;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBoolean;
@@ -179,12 +179,12 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
               final int nErrors = aItemErrors.getErrorCount ();
               final int nWarnings = aItemErrors.getCount (x -> x.getErrorLevel ().isEQ (EErrorLevel.WARN));
               if (nErrors > 0)
-                aRow.addClass (CBootstrapCSS.DANGER);
+                aRow.addClass (CBootstrapCSS.BG_DANGER);
               else
                 if (nWarnings > 0)
-                  aRow.addClass (CBootstrapCSS.WARNING);
+                  aRow.addClass (CBootstrapCSS.BG_WARNING);
                 else
-                  aRow.addClass (CBootstrapCSS.SUCCESS);
+                  aRow.addClass (CBootstrapCSS.BG_SUCCESS);
 
               // Validation type
               aRow.addCell (aValidationArtefact.getValidationArtefactType ().getName ());
@@ -223,13 +223,13 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           if (aValidationResultItem.isIgnored ())
           {
             // Ignored layer?
-            aUL.addItem (new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("This layer was not executed because the prerequisite is not fulfilled"));
+            aUL.addItem (new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("This layer was not executed because the prerequisite is not fulfilled"));
           }
           else
             if (aItemErrors.isEmpty ())
             {
               // No warnings, no errors
-              aUL.addItem (new BootstrapLabel (EBootstrapLabelType.SUCCESS).addChild ("All fine on this level"));
+              aUL.addItem (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild ("All fine on this level"));
             }
             else
             {
@@ -240,7 +240,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                 if (aError.getErrorLevel ().isGE (EErrorLevel.ERROR))
                 {
                   nErrors++;
-                  aErrorLevel = new BootstrapLabel (EBootstrapLabelType.DANGER).addChild ("Error");
+                  aErrorLevel = new BootstrapBadge (EBootstrapBadgeType.DANGER).addChild ("Error");
                 }
                 else
                   if (aError.getErrorLevel ().isGE (EErrorLevel.WARN))
@@ -249,7 +249,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                       continue;
 
                     nWarnings++;
-                    aErrorLevel = new BootstrapLabel (EBootstrapLabelType.WARNING).addChild ("Warning");
+                    aErrorLevel = new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Warning");
                   }
                   else
                     if (aError.getErrorLevel ().isGE (EErrorLevel.INFO))
@@ -258,10 +258,10 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                         continue;
 
                       nInfos++;
-                      aErrorLevel = new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("Information");
+                      aErrorLevel = new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("Information");
                     }
                     else
-                      aErrorLevel = new BootstrapLabel ().addChild ("undefined");
+                      aErrorLevel = new BootstrapBadge ().addChild ("undefined");
 
                 final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
                                                                                          : null;
@@ -290,7 +290,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
               if (nItemsAdded == 0)
               {
                 // Only warnings but warnings are disabled
-                aUL.addItem (new BootstrapLabel (EBootstrapLabelType.SUCCESS).addChild ("All fine on this level - only suppressed warnings are contained"));
+                aUL.addItem (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild ("All fine on this level - only suppressed warnings are contained"));
               }
             }
           aDetails.addChild (aUL);
@@ -380,8 +380,8 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                                                    .setCtrl (new HCEditFile (FIELD_FILE))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_FILE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Show warnings?")
-                                                   .setCtrl (new BootstrapCheckBox (new RequestFieldBoolean (FIELD_SHOW_WARNINGS,
-                                                                                                             DEFAULT_SHOW_WARNINGS)).setInline (true))
+                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_SHOW_WARNINGS,
+                                                                                                      DEFAULT_SHOW_WARNINGS)))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_SHOW_WARNINGS)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));

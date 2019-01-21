@@ -33,6 +33,7 @@ import com.helger.css.property.CCSSProperties;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.HCEdit;
+import com.helger.html.hc.html.grouping.AbstractHCDiv;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.impl.HCNodeList;
@@ -53,17 +54,20 @@ import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentIterationCallback;
 import com.helger.peppol.comment.domain.ICommentThread;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap3.button.BootstrapButton;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.button.EBootstrapButtonSize;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.BootstrapViewForm;
-import com.helger.photon.bootstrap3.label.BootstrapLabel;
-import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
-import com.helger.photon.bootstrap3.panel.BootstrapPanel;
-import com.helger.photon.bootstrap3.panel.EBootstrapPanelType;
-import com.helger.photon.bootstrap3.tooltip.BootstrapTooltip;
+import com.helger.photon.bootstrap4.CBootstrapCSS;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.badge.BootstrapBadge;
+import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
+import com.helger.photon.bootstrap4.button.BootstrapButton;
+import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.card.BootstrapCard;
+import com.helger.photon.bootstrap4.card.BootstrapCardBody;
+import com.helger.photon.bootstrap4.card.BootstrapCardHeader;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.form.BootstrapViewForm;
+import com.helger.photon.bootstrap4.tooltip.BootstrapTooltip;
+import com.helger.photon.bootstrap4.uictrls.ext.BootstrapSimpleTooltip;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.PhotonUnifiedResponse;
 import com.helger.photon.core.app.context.ILayoutExecutionContext;
@@ -119,7 +123,7 @@ public final class CommentUI
         // Container for this thread
         final HCDiv aThreadContainer = new HCDiv ();
         aThreadContainer.addClass (CCommentCSS.CSS_CLASS_COMMENT_THREAD);
-        final NonBlockingStack <HCDiv> aStack = new NonBlockingStack <> ();
+        final NonBlockingStack <AbstractHCDiv <?>> aStack = new NonBlockingStack <> ();
         aStack.push (aThreadContainer);
 
         aCommentThread.iterateAllComments (new ICommentIterationCallback ()
@@ -148,9 +152,11 @@ public final class CommentUI
                 sAuthor = aComment.getCreatorName ();
 
               // Fill panel header
-              final BootstrapPanel aCommentPanel = new BootstrapPanel (bIsApproved ? EBootstrapPanelType.DEFAULT
-                                                                                   : EBootstrapPanelType.DANGER);
-              final HCDiv aHeader = aCommentPanel.getOrCreateHeader ();
+              final BootstrapCard aCommentPanel = new BootstrapCard ();
+              final BootstrapCardHeader aHeader = aCommentPanel.createAndAddHeader ();
+              final BootstrapCardBody aBody = aCommentPanel.createAndAddBody ();
+              if (!bIsApproved)
+                aHeader.addClass (CBootstrapCSS.BG_DANGER);
 
               // Is comment deleted?
               if (aComment.isDeleted ())
@@ -183,7 +189,7 @@ public final class CommentUI
               if (bShowCreateComments && bUserCanCreateComments && !aComment.isDeleted () && nLevel < 6)
               {
                 aCommentResponseContainer = new HCDiv ();
-                final BootstrapButton aResponseButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.ADD);
+                final BootstrapButton aResponseButton = new BootstrapButton (EBootstrapButtonSize.SMALL).setIcon (EDefaultIcon.ADD);
                 aCommentToolbar.addChild (aResponseButton);
                 aCommentToolbar.addChild (new BootstrapTooltip (aResponseButton).setTitle (ECommentText.TOOLTIP_RESPONSE.getDisplayText (aDisplayLocale)));
 
@@ -206,7 +212,7 @@ public final class CommentUI
                   else
                   {
                     // Show the success or error message
-                    aCommentPanel.getBody ().addChild (aMessageBox);
+                    aBody.addChild (aMessageBox);
                   }
                 }
                 else
@@ -240,19 +246,20 @@ public final class CommentUI
               if (bIsCommentModerator)
               {
                 if (aCommentAction.isMatching (ECommentAction.DELETE_COMMENT, aCommentThread, aComment))
-                  aCommentPanel.getBody ().addChild (aMessageBox);
+                  aBody.addChild (aMessageBox);
 
                 // Can the comment be deleted?
                 if (!aComment.isDeleted ())
                 {
-                  final BootstrapButton aDeleteButton = new BootstrapButton (EBootstrapButtonSize.MINI).setIcon (EDefaultIcon.DELETE);
+                  final BootstrapButton aDeleteButton = new BootstrapButton (EBootstrapButtonSize.SMALL).setIcon (EDefaultIcon.DELETE);
                   aCommentToolbar.addChild (aDeleteButton);
                   aCommentToolbar.addChild (new BootstrapTooltip (aDeleteButton).setTitle (ECommentText.TOOLTIP_DELETE.getDisplayText (aDisplayLocale)));
 
                   final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
                   final JSVar aJSData = aOnSuccess.param ("data");
-                  aOnSuccess.body ().add (JQuery.idRef (sResultDivID)
-                                                .replaceWith (aJSData.ref (PhotonUnifiedResponse.HtmlHelper.PROPERTY_HTML)));
+                  aOnSuccess.body ()
+                            .add (JQuery.idRef (sResultDivID)
+                                        .replaceWith (aJSData.ref (PhotonUnifiedResponse.HtmlHelper.PROPERTY_HTML)));
                   final JQueryInvocation aDeleteAction = new JQueryAjaxBuilder ().url (CAjax.COMMENT_DELETE.getInvocationURL (aRequestScope))
                                                                                  .data (new JSAssocArray ().add (AjaxExecutorCommentDelete.PARAM_OBJECT_TYPE,
                                                                                                                  aObject.getObjectType ()
@@ -270,8 +277,8 @@ public final class CommentUI
                 }
 
                 // Show source host and further info
-                aCommentToolbar.addChild (BootstrapTooltip.createSimpleTooltip (ECommentText.TOOLTIP_HOST.getDisplayTextWithArgs (aDisplayLocale,
-                                                                                                                                  aComment.getHost ())));
+                aCommentToolbar.addChild (BootstrapSimpleTooltip.createSimpleTooltip (ECommentText.TOOLTIP_HOST.getDisplayTextWithArgs (aDisplayLocale,
+                                                                                                                                        aComment.getHost ())));
               }
               if (aCommentToolbar.hasChildren ())
                 aHeader.addChild (aCommentToolbar);
@@ -291,18 +298,17 @@ public final class CommentUI
               }
 
               // Show the main comment text
-              aCommentPanel.getBody ().addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
+              aBody.addClass (CCommentCSS.CSS_CLASS_SINGLE_COMMENT);
 
               // Always put the text as the first part of the body
-              aCommentPanel.getBody ()
-                           .addChildAt (0,
-                                        new HCDiv ().addChildren (HCExtHelper.nl2brList (aComment.getText ()))
-                                                    .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
+              aBody.addChildAt (0,
+                                new HCDiv ().addChildren (HCExtHelper.nl2brList (aComment.getText ()))
+                                            .addClass (CCommentCSS.CSS_CLASS_COMMENT_TEXT));
               // the dummy container for new comment form
-              aCommentPanel.getBody ().addChild (aCommentResponseContainer);
+              aBody.addChild (aCommentResponseContainer);
 
               aStack.peek ().addChild (aCommentPanel);
-              aStack.push (aCommentPanel.getBody ());
+              aStack.push (aBody);
             }
             else
             {
@@ -342,7 +348,7 @@ public final class CommentUI
                                         bIsForCreateThread ? aMessageBox : null));
       }
       else
-        ret.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild (ECommentText.MSG_LOGIN_TO_COMMENT.getDisplayText (aDisplayLocale)));
+        ret.addChild (new BootstrapBadge (EBootstrapBadgeType.INFO).addChild (ECommentText.MSG_LOGIN_TO_COMMENT.getDisplayText (aDisplayLocale)));
     }
 
     return ret;
@@ -410,7 +416,8 @@ public final class CommentUI
       final JSAnonymousFunction aOnSuccess = new JSAnonymousFunction ();
       final JSVar aJSData = aOnSuccess.param ("data");
       aOnSuccess.body ()
-                .add (JQuery.idRef (sResultDivID).replaceWith (aJSData.ref (PhotonUnifiedResponse.HtmlHelper.PROPERTY_HTML)));
+                .add (JQuery.idRef (sResultDivID)
+                            .replaceWith (aJSData.ref (PhotonUnifiedResponse.HtmlHelper.PROPERTY_HTML)));
       JQueryInvocation aSaveAction;
       if (bIsCreateNewThread)
       {

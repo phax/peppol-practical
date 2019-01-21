@@ -33,11 +33,11 @@
   are different from the existing ones, so you may need to update your truststore!
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Table of contents</h3>
+<div class="card">
+  <div class="card-header">
+    Table of contents
   </div>
-  <div class="panel-body">
+  <div class="card-body">
     <ol>
       <li><a href="#newnames">Changed domain names</a></li>
       <li><a href="#cipa">Changes for CIPA e-Delivery</a>

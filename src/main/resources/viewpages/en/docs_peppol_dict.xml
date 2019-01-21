@@ -21,7 +21,7 @@
   If you are missing a term <a href="/public/menuitem-contact">drop me a note</a>.
 </p>
 
-<table class="table table-bordered">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Term</th>
@@ -58,7 +58,6 @@
     <tr>
       <td>
         AS4
-        <br/><em><small>in progress</small></em>
       </td>
       <td>Application Statement 4</td>
       <td>
@@ -142,7 +141,6 @@
     <tr>
       <td>
         EN
-        <br/><em><small>in progress</small></em>
       </td>
       <td>European Norm</td>
       <td>Usually this refers to the EN 16931-1, the European Norm on e-Invoicing.</td>
@@ -158,7 +156,6 @@
     <tr>
       <td>
         IRM
-        <br/><em><small>in progress</small></em>
       </td>
       <td>Invoice Response Message</td>
       <td>

@@ -37,6 +37,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCExtHelper;
+import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCTextArea;
 import com.helger.html.hc.html.grouping.HCDiv;
@@ -54,19 +55,18 @@ import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
 import com.helger.peppol.secure.CMenuSecure;
 import com.helger.peppol.ui.page.AbstractAppWebPageForm;
-import com.helger.photon.bootstrap3.alert.BootstrapQuestionBox;
-import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
-import com.helger.photon.bootstrap3.button.BootstrapButton;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.BootstrapViewForm;
-import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
-import com.helger.photon.bootstrap3.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
-import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
-import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.bootstrap4.alert.BootstrapQuestionBox;
+import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
+import com.helger.photon.bootstrap4.button.BootstrapButton;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.form.BootstrapViewForm;
+import com.helger.photon.bootstrap4.nav.BootstrapTabBox;
+import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
+import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDTColAction;
+import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
@@ -291,7 +291,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                                                                       sCRMGroupID,
                                                                                       aSelectedObject != null &&
                                                                                                    aSelectedObject.isAssignedToGroup (aCRMGroup));
-        aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true).setValue (sCRMGroupID))
+        aGroups.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB).setValue (sCRMGroupID))
                                       .addChild (" " + aCRMGroup.getDisplayName ()));
       }
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Assigned groups")

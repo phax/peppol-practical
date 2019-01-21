@@ -53,15 +53,15 @@ import com.helger.peppol.pub.CMenuPublic;
 import com.helger.photon.basic.app.menu.IMenuObject;
 import com.helger.photon.basic.app.request.RequestParameterHandlerURLPathNamed;
 import com.helger.photon.basic.app.request.RequestParameterManager;
-import com.helger.photon.bootstrap3.button.BootstrapButton;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.button.EBootstrapButtonType;
-import com.helger.photon.bootstrap3.ext.BootstrapSystemMessage;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.EBootstrapFormType;
-import com.helger.photon.bootstrap3.pages.BootstrapPagesMenuConfigurator;
-import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.bootstrap4.button.BootstrapButton;
+import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.ext.BootstrapSystemMessage;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.form.EBootstrapFormType;
+import com.helger.photon.bootstrap4.pages.BootstrapPagesMenuConfigurator;
+import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.app.context.LayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
@@ -118,7 +118,6 @@ public final class AppCommonUI
   @Nonnull
   public static BootstrapForm createViewLoginForm (@Nonnull final LayoutExecutionContext aLEC,
                                                    @Nullable final String sPreselectedUserName,
-                                                   final boolean bFullUI,
                                                    final boolean bShowRegistration)
   {
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
@@ -131,8 +130,7 @@ public final class AppCommonUI
     final String sIDErrorField = GlobalIDFactory.getNewStringID ();
 
     final BootstrapForm aForm = new BootstrapForm (aLEC).setAction (aLEC.getSelfHref ())
-                                                        .setFormType (bFullUI ? EBootstrapFormType.HORIZONTAL
-                                                                              : EBootstrapFormType.DEFAULT);
+                                                        .setFormType (EBootstrapFormType.DEFAULT);
     aForm.setLeft (3);
 
     // Placeholder for error message

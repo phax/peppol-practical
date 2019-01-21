@@ -31,11 +31,11 @@
   and <strong>CEN/TS 16931-3-3</strong>! 
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Table of contents</h3>
+<div class="card">
+  <div class="card-header">
+    Table of contents
   </div>
-  <div class="panel-body">
+  <div class="card-body">
     <ol>
       <li><a href="#intro">Introduction</a></li>
       <li><a href="#struct">Structure of work</a></li>

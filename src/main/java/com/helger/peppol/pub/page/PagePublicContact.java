@@ -29,14 +29,14 @@ import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.html.grouping.HCP;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.bootstrap3.EBootstrapIcon;
-import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap3.button.BootstrapSubmitButton;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.core.app.error.InternalErrorSettings;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.icon.fontawesome.EFontAwesome4Icon;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -136,7 +136,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_TEXT)));
 
       aForm.addChild (new HCHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM));
-      aForm.addChild (new BootstrapSubmitButton ().addChild ("Send message").setIcon (EBootstrapIcon.SEND));
+      aForm.addChild (new BootstrapSubmitButton ().addChild ("Send message").setIcon (EFontAwesome4Icon.PAPER_PLANE));
     }
   }
 }

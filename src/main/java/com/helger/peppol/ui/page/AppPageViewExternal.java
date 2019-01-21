@@ -31,7 +31,7 @@ import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentFormErrors;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
-import com.helger.photon.bootstrap3.pages.BootstrapWebPageUIHandler;
+import com.helger.photon.bootstrap4.pages.BootstrapWebPageUIHandler;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.external.BasePageViewExternal;
 import com.helger.photon.uicore.page.external.PageViewExternalHTMLCleanser;

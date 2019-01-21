@@ -49,20 +49,20 @@ import com.helger.peppol.ui.page.AbstractAppWebPageForm;
 import com.helger.peppol.ui.select.ParticipantIdentifierSchemeSelect;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.peppol.ui.select.SMPTransportProfileSelect;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap3.alert.BootstrapQuestionBox;
-import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap3.button.BootstrapButton;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.BootstrapViewForm;
-import com.helger.photon.bootstrap3.label.BootstrapLabel;
-import com.helger.photon.bootstrap3.label.EBootstrapLabelType;
-import com.helger.photon.bootstrap3.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
-import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDTColAction;
-import com.helger.photon.bootstrap3.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap4.alert.BootstrapQuestionBox;
+import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.badge.BootstrapBadge;
+import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
+import com.helger.photon.bootstrap4.button.BootstrapButton;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.form.BootstrapViewForm;
+import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
+import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDTColAction;
+import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.security.login.LoggedInUserManager;
@@ -361,7 +361,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     if (bUserIsLoggedIn)
       aToolbar.addButtonNew ("Create new test endpoint", createCreateURL (aWPEC));
     else
-      aToolbar.addChild (new BootstrapLabel (EBootstrapLabelType.INFO).addChild ("You need to be logged in to create test endpoints."));
+      aToolbar.addChild (new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("You need to be logged in to create test endpoints."));
 
     aNodeList.addChild (new BootstrapInfoBox ().addChild ("Test endpoints are special PEPPOL participant identifiers whose sole purpose is the usage for testing. So if you are an PEPPOL AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients."));
 

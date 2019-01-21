@@ -37,7 +37,7 @@ import com.helger.photon.basic.app.appid.CApplicationID;
 import com.helger.photon.basic.app.appid.PhotonGlobalState;
 import com.helger.photon.basic.app.locale.ILocaleManager;
 import com.helger.photon.basic.app.menu.MenuTree;
-import com.helger.photon.bootstrap3.servlet.WebAppListenerBootstrap;
+import com.helger.photon.bootstrap4.servlet.WebAppListenerBootstrap;
 import com.helger.photon.core.ajax.IAjaxInvoker;
 
 /**

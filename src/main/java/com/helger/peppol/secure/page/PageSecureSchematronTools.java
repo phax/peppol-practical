@@ -31,6 +31,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.html.hc.IHCNode;
+import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.grouping.HCPre;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
@@ -38,16 +39,15 @@ import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.bdve.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.button.BootstrapSubmitButton;
-import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap3.form.EBootstrapFormType;
-import com.helger.photon.bootstrap3.nav.BootstrapTabBox;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
+import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.form.EBootstrapFormType;
+import com.helger.photon.bootstrap4.nav.BootstrapTabBox;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBoolean;
 import com.helger.photon.uicore.css.CPageParam;
@@ -109,8 +109,8 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VESID),
                                                                                          aDisplayLocale)));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ActionSelect (new RequestField (CPageParam.PARAM_ACTION))));
-      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new BootstrapCheckBox (new RequestFieldBoolean (FIELD_STYLE_OUTPUT,
-                                                                                                             DEFAULT_STYLE_OUTPUT)),
+      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_STYLE_OUTPUT,
+                                                                                                      DEFAULT_STYLE_OUTPUT)),
                                                              new HCTextNode (" format?")));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new BootstrapSubmitButton ().addChild ("Run")));
       aNodeList.addChild (aToolbar);

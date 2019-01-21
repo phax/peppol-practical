@@ -78,16 +78,16 @@ import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.photon.basic.audit.AuditHelper;
-import com.helger.photon.bootstrap3.EBootstrapIcon;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap3.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap3.alert.BootstrapWarnBox;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.core.app.error.InternalErrorBuilder;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.icon.fontawesome.EFontAwesome4Icon;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.security.certificate.CertificateHelper;
@@ -242,9 +242,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 {
                   final IDocumentTypeIdentifier aDocType = aIF.parseDocumentTypeIdentifier (sDocType);
                   aDocTypeIDs.add (aDocType);
-                  aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
+                  aLI.addChild (new HCDiv ().addChild (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" " + aDocType.getURIEncoded ()));
-                  aLI.addChild (new HCDiv ().addChild (EBootstrapIcon.ARROW_RIGHT.getAsNode ())
+                  aLI.addChild (new HCDiv ().addChild (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" ")
                                             .addChild (new HCA (new SimpleURL (sOriginalHref)).addChild ("Open in browser")
                                                                                               .setTargetBlank ()));

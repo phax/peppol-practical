@@ -29,6 +29,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.string.StringHelper;
+import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.html.grouping.HCDiv;
@@ -40,11 +41,10 @@ import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.bootstrap3.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap3.button.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap3.form.BootstrapCheckBox;
-import com.helger.photon.bootstrap3.form.BootstrapForm;
-import com.helger.photon.bootstrap3.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap4.form.BootstrapForm;
+import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBooleanMultiValue;
@@ -177,8 +177,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
           final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
                                                                                         sCRMGroupID,
                                                                                         false);
-          aGroups.addChild (new HCDiv ().addChild (new BootstrapCheckBox (aRFB).setInline (true))
-                                        .addChild (" " + aCRMGroup.getDisplayName ()));
+          aGroups.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB)).addChild (" " + aCRMGroup.getDisplayName ()));
         }
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Mailing lists to subscribe to")
                                                      .setCtrl (aGroups)

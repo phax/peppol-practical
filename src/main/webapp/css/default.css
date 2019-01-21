@@ -43,6 +43,10 @@ td {
   margin-right: 0;
 }
 
+#menu {
+  min-width: 15rem;
+}
+
 #menu .nav>li>a {
   color: #716B7A;
   display: block;

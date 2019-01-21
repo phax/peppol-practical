@@ -27,7 +27,7 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.html.hc.render.HCRenderer;
 import com.helger.json.JsonObject;
 import com.helger.peppol.app.CPPApp;
-import com.helger.photon.bootstrap3.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.PhotonUnifiedResponse;
 import com.helger.photon.core.ajax.executor.IAjaxExecutor;

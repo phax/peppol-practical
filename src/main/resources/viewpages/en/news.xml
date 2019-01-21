@@ -25,11 +25,11 @@
 </p>
 
 <ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#tabs-news" data-toggle="tab">2018</a></li>
-  <li role="presentation"><a href="#tabs-2017" data-toggle="tab">2017</a></li>
-  <li role="presentation"><a href="#tabs-2016" data-toggle="tab">2016</a></li>
-  <li role="presentation"><a href="#tabs-2015" data-toggle="tab">2015</a></li>
-  <li role="presentation"><a href="#tabs-2014" data-toggle="tab">2014</a></li>
+  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2018</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2017" data-toggle="tab">2017</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2016" data-toggle="tab">2016</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2015" data-toggle="tab">2015</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2014" data-toggle="tab">2014</a></li>
 </ul>
 
 <div class="tab-content">

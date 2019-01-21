@@ -37,11 +37,11 @@
   This solution is also used by the Austrian government to receive e-Invoices via PEPPOL. 
 </p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Table of contents</h3>
+<div class="card card-default">
+  <div class="card-header">
+    Table of contents
   </div>
-  <div class="panel-body">
+  <div class="card-body">
     <ol>
       <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#messagestructure">AS2 Message structure</a>
