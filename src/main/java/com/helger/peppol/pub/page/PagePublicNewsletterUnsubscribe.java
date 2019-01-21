@@ -89,7 +89,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
     }
 
     final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
-    aForm.setLeft (4);
+    aForm.setLeft (3);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Your email address")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_EMAIL_ADDRESS)))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_EMAIL_ADDRESS)));

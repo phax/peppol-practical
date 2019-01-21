@@ -148,7 +148,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
     }
 
     final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
-    aForm.setLeft (4);
+    aForm.setLeft (3);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Your salutation")
                                                  .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION),
                                                                                    aDisplayLocale))
