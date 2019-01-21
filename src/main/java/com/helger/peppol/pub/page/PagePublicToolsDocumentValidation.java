@@ -46,7 +46,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCCheckBox;
-import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.grouping.IHCLI;
@@ -69,6 +68,7 @@ import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap4.table.BootstrapTable;
+import com.helger.photon.bootstrap4.uictrls.ext.BootstrapFileUpload;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBoolean;
@@ -377,7 +377,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                                                                                          aDisplayLocale))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_VES)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("XML file")
-                                                   .setCtrl (new HCEditFile (FIELD_FILE))
+                                                   .setCtrl (new BootstrapFileUpload (FIELD_FILE, aDisplayLocale))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_FILE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Show warnings?")
                                                    .setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_SHOW_WARNINGS,
