@@ -49,6 +49,7 @@ import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.sections.HCH3;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
+import com.helger.html.hc.html.textlevel.HCEM;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.network.dns.IPV4Addr;
@@ -293,60 +294,62 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   // For all processes
                   final HCUL aULProcessID = new HCUL ();
                   for (final ProcessType aProcess : aSM.getServiceInformation ().getProcessList ().getProcess ())
-                  {
-                    final IHCLI <?> aLIProcessID = aULProcessID.addAndReturnItem (new HCDiv ().addChild ("Process ID: ")
-                                                                                              .addChild (new HCCode ().addChild (aProcess.getProcessIdentifier ()
-                                                                                                                                         .getURIEncoded ())));
-                    final HCUL aULEndpoint = new HCUL ();
-                    // For all endpoints of the process
-                    for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
+                    if (aProcess.getProcessIdentifier () != null)
                     {
-                      // Endpoint URL
-                      final IHCLI <?> aLIEndpoint = aULEndpoint.addAndReturnItem (new HCDiv ().addChild ("Endpoint URL: ")
-                                                                                              .addChild (new HCCode ().addChild (W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ()))));
-
-                      // Valid from
-                      if (aEndpoint.getServiceActivationDate () != null)
+                      final IHCLI <?> aLIProcessID = aULProcessID.addAndReturnItem (new HCDiv ().addChild ("Process ID: ")
+                                                                                                .addChild (new HCCode ().addChild (aProcess.getProcessIdentifier ()
+                                                                                                                                           .getURIEncoded ())));
+                      final HCUL aULEndpoint = new HCUL ();
+                      // For all endpoints of the process
+                      for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                       {
-                        final LocalDate aValidFrom = PDTFactory.createLocalDate (aEndpoint.getServiceActivationDate ());
-                        aLIEndpoint.addChild (new HCDiv ().addChild ("Valid from: " +
-                                                                     PDTToString.getAsString (aValidFrom,
-                                                                                              aDisplayLocale)));
-                        if (aValidFrom.isAfter (aNowDate))
-                          aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is not yet valid!"));
+                        // Endpoint URL
+                        final IHCLI <?> aLIEndpoint = aULEndpoint.addAndReturnItem (new HCDiv ().addChild ("Endpoint URL: ")
+                                                                                                .addChild (aEndpoint.getEndpointReference () == null ? new HCEM ().addChild ("none")
+                                                                                                                                                     : new HCCode ().addChild (W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ()))));
+
+                        // Valid from
+                        if (aEndpoint.getServiceActivationDate () != null)
+                        {
+                          final LocalDate aValidFrom = PDTFactory.createLocalDate (aEndpoint.getServiceActivationDate ());
+                          aLIEndpoint.addChild (new HCDiv ().addChild ("Valid from: " +
+                                                                       PDTToString.getAsString (aValidFrom,
+                                                                                                aDisplayLocale)));
+                          if (aValidFrom.isAfter (aNowDate))
+                            aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is not yet valid!"));
+                        }
+
+                        // Valid to
+                        if (aEndpoint.getServiceExpirationDate () != null)
+                        {
+                          final LocalDate aValidTo = PDTFactory.createLocalDate (aEndpoint.getServiceExpirationDate ());
+                          aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " +
+                                                                       PDTToString.getAsString (aValidTo,
+                                                                                                aDisplayLocale)));
+                          if (aValidTo.isBefore (aNowDate))
+                            aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is no longer valid!"));
+                        }
+
+                        // Transport profile
+                        final String sTransportProfile = aEndpoint.getTransportProfile ();
+                        final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
+                        final String sShortName = eTransportProfile == null ? "unknown" : eTransportProfile.getName ();
+                        aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: " + sTransportProfile + " (")
+                                                          .addChild (new HCStrong ().addChild (sShortName))
+                                                          .addChild (")"));
+
+                        // Technical infos
+                        final String sTecInfo = StringHelper.getImplodedNonEmpty (" / ",
+                                                                                  aEndpoint.getTechnicalInformationUrl (),
+                                                                                  aEndpoint.getTechnicalContactUrl ());
+                        if (StringHelper.hasText (sTecInfo))
+                          aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: " + sTecInfo));
+
+                        // Certificate
+                        aAllUsedCertifiactes.add (aEndpoint.getCertificate ());
                       }
-
-                      // Valid to
-                      if (aEndpoint.getServiceExpirationDate () != null)
-                      {
-                        final LocalDate aValidTo = PDTFactory.createLocalDate (aEndpoint.getServiceExpirationDate ());
-                        aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " +
-                                                                     PDTToString.getAsString (aValidTo,
-                                                                                              aDisplayLocale)));
-                        if (aValidTo.isBefore (aNowDate))
-                          aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is no longer valid!"));
-                      }
-
-                      // Transport profile
-                      final String sTransportProfile = aEndpoint.getTransportProfile ();
-                      final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-                      final String sShortName = eTransportProfile == null ? "unknown" : eTransportProfile.getName ();
-                      aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: " + sTransportProfile + " (")
-                                                        .addChild (new HCStrong ().addChild (sShortName))
-                                                        .addChild (")"));
-
-                      // Technical infos
-                      final String sTecInfo = StringHelper.getImplodedNonEmpty (" / ",
-                                                                                aEndpoint.getTechnicalInformationUrl (),
-                                                                                aEndpoint.getTechnicalContactUrl ());
-                      if (StringHelper.hasText (sTecInfo))
-                        aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: " + sTecInfo));
-
-                      // Certificate
-                      aAllUsedCertifiactes.add (aEndpoint.getCertificate ());
+                      aLIProcessID.addChild (aULEndpoint);
                     }
-                    aLIProcessID.addChild (aULEndpoint);
-                  }
                   aLIDocTypeID.addChild (aULProcessID);
                 }
               }
