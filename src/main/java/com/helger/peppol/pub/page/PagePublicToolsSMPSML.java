@@ -16,15 +16,12 @@
  */
 package com.helger.peppol.pub.page;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
@@ -56,7 +53,6 @@ import com.helger.commons.url.SimpleURL;
 import com.helger.commons.url.URLHelper;
 import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.html.hc.html.forms.HCEdit;
-import com.helger.html.hc.html.forms.HCEditFile;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.textlevel.HCA;
@@ -68,10 +64,6 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
-import com.helger.peppol.smlclient.smp.BadRequestFault;
-import com.helger.peppol.smlclient.smp.InternalErrorFault;
-import com.helger.peppol.smlclient.smp.NotFoundFault;
-import com.helger.peppol.smlclient.smp.UnauthorizedFault;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.photon.basic.audit.AuditHelper;
@@ -86,6 +78,7 @@ import com.helger.photon.bootstrap4.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap4.pages.BootstrapWebPageUIHandler;
 import com.helger.photon.bootstrap4.uictrls.datetimepicker.BootstrapDateTimePicker;
 import com.helger.photon.bootstrap4.uictrls.datetimepicker.EBootstrap4DateTimePickerMode;
+import com.helger.photon.bootstrap4.uictrls.ext.BootstrapFileUpload;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
@@ -250,7 +243,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
               aKeyStore = null;
             }
         }
-        catch (final GeneralSecurityException | IOException ex)
+        catch (final Exception ex)
         {
           final String sMsg = "The key store could not be loaded with the provided password.";
           LOGGER.error (sMsg, ex);
@@ -275,7 +268,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aSocketFactory = aSSLContext.getSocketFactory ();
         LOGGER.info ("Successfully created TLS socket factory with the provided keystore password!");
       }
-      catch (final GeneralSecurityException ex)
+      catch (final Exception ex)
       {
         final String sMsg = "Failed to use the provided key store for TLS connection.";
         LOGGER.error (sMsg, ex);
@@ -405,7 +398,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            sLogicalAddress,
                                            aSMLInfo.getManagementServiceURL ());
       }
-      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | ClientTransportException ex)
+      catch (final Exception ex)
       {
         final String sMsg = "Error registering SMP '" +
                             sSMPID +
@@ -473,7 +466,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         {
           InetAddress.getByAddress (aBytes);
         }
-        catch (final UnknownHostException ex)
+        catch (final Exception ex)
         {
           aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                      "The provided IP address does not resolve to a valid host." +
@@ -542,8 +535,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            sLogicalAddress,
                                            aSMLInfo.getManagementServiceURL ());
       }
-      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault
-          | ClientTransportException ex)
+      catch (final Exception ex)
       {
         final String sMsg = "Error updating SMP '" +
                             sSMPID +
@@ -615,8 +607,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSMLInfo.getManagementServiceURL ());
       }
-      catch (final BadRequestFault | InternalErrorFault | UnauthorizedFault | NotFoundFault
-          | ClientTransportException ex)
+      catch (final Exception ex)
       {
         final String sMsg = "Error deleting SMP '" +
                             sSMPID +
@@ -675,7 +666,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         aMigrationPublicKey = CertificateHelper.convertStringToCertficate (sMigrationPublicKey);
       }
-      catch (final CertificateException ex)
+      catch (final Exception ex)
       {
         // Fall through
       }
@@ -849,7 +840,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setHelpText (HELPTEXT_LOGICAL_ADDRESS)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE))
+                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))
                                                      .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
@@ -886,7 +877,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setHelpText (HELPTEXT_LOGICAL_ADDRESS)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE))
+                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))
                                                      .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
@@ -915,7 +906,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setHelpText (HELPTEXT_SMP_ID)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE))
+                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))
                                                      .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
@@ -944,7 +935,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing/old SMP key store")
-                                                     .setCtrl (new HCEditFile (FIELD_KEYSTORE))
+                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))
                                                      .setHelpText (HELPTEXT_KEYSTORE)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Existing/old SMP key store password")
