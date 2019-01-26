@@ -27,6 +27,10 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+import org.apache.http.client.methods.HttpGet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
@@ -36,14 +40,20 @@ import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
+import com.helger.commons.locale.country.CountryCache;
+import com.helger.commons.locale.language.LanguageCache;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
+import com.helger.html.hc.ext.HCA_MailTo;
+import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.EHCFormMethod;
+import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCTextArea;
 import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.grouping.HCLI;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.sections.HCH3;
@@ -52,7 +62,15 @@ import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.html.textlevel.HCEM;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.httpclient.HttpClientManager;
+import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.network.dns.IPV4Addr;
+import com.helger.pd.businesscard.generic.PDBusinessCard;
+import com.helger.pd.businesscard.generic.PDBusinessEntity;
+import com.helger.pd.businesscard.generic.PDContact;
+import com.helger.pd.businesscard.generic.PDIdentifier;
+import com.helger.pd.businesscard.generic.PDName;
+import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
@@ -84,13 +102,18 @@ import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.form.BootstrapFormHelper;
+import com.helger.photon.bootstrap4.table.BootstrapTable;
 import com.helger.photon.core.app.error.InternalErrorBuilder;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.core.form.RequestFieldBoolean;
 import com.helger.photon.icon.fontawesome.EFontAwesome4Icon;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.famfam.EFamFamFlagIcon;
 import com.helger.security.certificate.CertificateHelper;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 {
@@ -98,8 +121,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_ID_SCHEME = "scheme";
   public static final String FIELD_ID_VALUE = "value";
   public static final String FIELD_SML = "sml";
+  public static final String PARAM_QUERY_BUSINESS_CARD = "querybc";
 
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
+  private static final boolean DEFAULT_QUERY_BUSINESS_CARD = true;
+  private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsParticipantInformation.class);
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
@@ -111,6 +137,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+    final IRequestWebScopeWithoutResponse aRequestScope = aWPEC.getRequestScope ();
     final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
@@ -126,6 +153,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final String sSMLID = StringHelper.trim (aWPEC.params ().getAsString (FIELD_SML));
       ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
       final boolean bSMLAutoDetect = SMLSelect.FIELD_AUTO_SELECT.equals (sSMLID);
+      final boolean bQueryBusinessCard = aWPEC.params ()
+                                              .isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD,
+                                                                  DEFAULT_QUERY_BUSINESS_CARD);
 
       // Legacy URL params?
       if (aWPEC.params ().containsKey ("idscheme") && aWPEC.params ().containsKey ("idvalue"))
@@ -272,7 +302,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
 
           // List document type details
-          if (!aDocTypeIDs.isEmpty ())
+          if (aDocTypeIDs.isNotEmpty ())
           {
             final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
             final ICommonsOrderedSet <String> aAllUsedCertifiactes = new CommonsLinkedHashSet <> ();
@@ -390,13 +420,137 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is no longer valid!"));
               }
               else
+              {
                 aLICert.addChild (new BootstrapErrorBox ().addChild ("Failed to interpret the data as a X509 certificate"));
-              aLICert.addChild (new HCDiv ().addChild (new HCTextArea ().setReadOnly (true)
-                                                                        .setRows (3)
-                                                                        .setValue (sCertificate)
-                                                                        .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE))));
+              }
+              final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
+                                                            .setRows (3)
+                                                            .setValue (sCertificate)
+                                                            .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
+              BootstrapFormHelper.markAsFormControl (aTextArea);
+              aLICert.addChild (new HCDiv ().addChild (aTextArea));
             }
             aNodeList.addChild (aULCerts);
+          }
+
+          if (bQueryBusinessCard)
+          {
+            EFamFamFlagIcon.registerResourcesForThisRequest ();
+            final String sBCURL = aSMPHost.toExternalForm () + "/businesscard/" + aParticipantID.getURIEncoded ();
+            LOGGER.info ("Querying BC from '" + sBCURL + "'");
+            byte [] aData;
+            try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
+            {
+              final HttpGet aGet = new HttpGet (sBCURL);
+              aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
+            }
+            catch (final Exception ex)
+            {
+              aData = null;
+            }
+
+            if (aData == null)
+              aNodeList.addChild (new BootstrapWarnBox ().addChild ("No Business Card is available for that participant."));
+            else
+            {
+              final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
+              if (aBC == null)
+              {
+                aNodeList.addChild (new BootstrapWarnBox ().addChild ("Failed to parse the response data as a Business Card."));
+                LOGGER.error ("Failed to parse BC:\n" + new String (aData));
+              }
+              else
+              {
+                aNodeList.addChild (new HCH3 ().addChild ("Business Card details (" +
+                                                          (aBC.businessEntities ()
+                                                              .size () == 1 ? "1 entity"
+                                                                            : aBC.businessEntities ().size () +
+                                                                              " entities") +
+                                                          ")"));
+                aNodeList.addChild (new HCDiv ().addChild (new HCA (new SimpleURL (sBCURL)).addChild ("Open in browser")
+                                                                                           .setTargetBlank ()));
+
+                final HCUL aUL = new HCUL ();
+                for (final PDBusinessEntity aEntity : aBC.businessEntities ())
+                {
+                  final HCLI aLI = aUL.addItem ();
+
+                  // Name
+                  for (final PDName aName : aEntity.names ())
+                  {
+                    final Locale aLanguage = LanguageCache.getInstance ().getLanguage (aName.getLanguageCode ());
+                    final String sLanguageName = aLanguage == null ? ""
+                                                                   : " (" +
+                                                                     aLanguage.getDisplayLanguage (aDisplayLocale) +
+                                                                     ")";
+                    aLI.addChild (new HCDiv ().addChild (aName.getName () + sLanguageName));
+                  }
+
+                  // Country
+                  {
+                    final String sCountryCode = aEntity.getCountryCode ();
+                    final Locale aCountryCode = CountryCache.getInstance ().getCountry (sCountryCode);
+                    final String sCountryName = aCountryCode == null ? sCountryCode
+                                                                     : aCountryCode.getDisplayCountry (aDisplayLocale) +
+                                                                       " (" +
+                                                                       sCountryCode +
+                                                                       ")";
+                    final EFamFamFlagIcon eIcon = EFamFamFlagIcon.getFromIDOrNull (sCountryCode);
+                    aLI.addChild (new HCDiv ().addChild ("Country: " + sCountryName + " ")
+                                              .addChild (eIcon == null ? null : eIcon.getAsNode ()));
+                  }
+
+                  // Geo info
+                  if (aEntity.hasGeoInfo ())
+                  {
+                    aLI.addChild (new HCDiv ().addChild ("Geographical information: ")
+                                              .addChildren (HCExtHelper.nl2brList (aEntity.getGeoInfo ())));
+                  }
+                  // Additional IDs
+                  if (aEntity.identifiers ().isNotEmpty ())
+                  {
+                    final BootstrapTable aIDTab = new BootstrapTable ().setCondensed (true);
+                    aIDTab.addHeaderRow ().addCells ("Scheme", "Value");
+                    for (final PDIdentifier aItem : aEntity.identifiers ())
+                      aIDTab.addBodyRow ().addCells (aItem.getScheme (), aItem.getValue ());
+                    aLI.addChild (new HCDiv ().addChild ("Additional identifiers: ").addChild (aIDTab));
+                  }
+                  // Website URLs
+                  if (aEntity.websiteURIs ().isNotEmpty ())
+                  {
+                    final HCNodeList aWebsites = new HCNodeList ();
+                    for (final String sItem : aEntity.websiteURIs ())
+                      aWebsites.addChild (new HCDiv ().addChild (HCA.createLinkedWebsite (sItem)));
+                    aLI.addChild (new HCDiv ().addChild ("Website URLs: ").addChild (aWebsites));
+                  }
+                  // Contacts
+                  if (aEntity.contacts ().isNotEmpty ())
+                  {
+                    final BootstrapTable aContactTab = new BootstrapTable ().setCondensed (true);
+                    aContactTab.addHeaderRow ().addCells ("Type", "Name", "Phone", "Email");
+                    for (final PDContact aItem : aEntity.contacts ())
+                      aContactTab.addBodyRow ()
+                                 .addCell (aItem.getType ())
+                                 .addCell (aItem.getName ())
+                                 .addCell (aItem.getPhoneNumber ())
+                                 .addCell (HCA_MailTo.createLinkedEmail (aItem.getEmail ()));
+                    aLI.addChild (new HCDiv ().addChild ("Contact points: ").addChild (aContactTab));
+                  }
+                  if (aEntity.hasAdditionalInfo ())
+                  {
+                    aLI.addChild (new HCDiv ().addChild ("Additional information: ")
+                                              .addChildren (HCExtHelper.nl2brList (aEntity.getAdditionalInfo ())));
+                  }
+                  if (aEntity.hasRegistrationDate ())
+                  {
+                    aLI.addChild (new HCDiv ().addChild ("Registration date: ")
+                                              .addChild (PDTToString.getAsString (aEntity.getRegistrationDate (),
+                                                                                  aDisplayLocale)));
+                  }
+                }
+                aNodeList.addChild (aUL);
+              }
+            }
           }
 
           // Audit success
@@ -436,8 +590,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         }
         catch (final Exception ex)
         {
-          new InternalErrorBuilder ().setRequestScope (aWPEC.getRequestScope ())
-                                     .setDisplayLocale (aWPEC.getDisplayLocale ())
+          new InternalErrorBuilder ().setRequestScope (aRequestScope)
+                                     .setDisplayLocale (aDisplayLocale)
                                      .setThrowable (ex)
                                      .handle ();
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Error querying SMP."))
@@ -481,6 +635,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                               SMLSelect.FIELD_AUTO_SELECT),
                                                                             true))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Query Business Card?")
+                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_QUERY_BUSINESS_CARD,
+                                                                                                      DEFAULT_QUERY_BUSINESS_CARD)))
+                                                   .setErrorList (aFormErrors.getListOfField (PARAM_QUERY_BUSINESS_CARD)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
