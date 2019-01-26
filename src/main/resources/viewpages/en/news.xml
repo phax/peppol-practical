@@ -25,7 +25,8 @@
 </p>
 
 <ul class="nav nav-tabs">
-  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2018</a></li>
+  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2019</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2018" data-toggle="tab">2018</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2017" data-toggle="tab">2017</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2016" data-toggle="tab">2016</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2015" data-toggle="tab">2015</a></li>
@@ -34,6 +35,13 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+
+    <h3>2019-01-26 - Participant Information queries Business Cards</h3>
+    
+    <p>
+      The <a href="/public/menuitem-tools-participant">participant information</a> tool can now
+      optionally query and display the Business Cards from the SMP.
+    </p>
 
     <h3>2019-01-18 - PEPPOL TICC News</h3>
     
@@ -62,7 +70,8 @@
     <ul>
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
     </ul>
-
+  </div>
+  <div id="tabs-2018" class="tab-pane" role="tabpanel">
     <h3>2018-11-22 - Document validation updated</h3>
     
     <p>
