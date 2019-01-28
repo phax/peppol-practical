@@ -88,6 +88,7 @@ import com.helger.peppol.smp.ServiceMetadataReferenceType;
 import com.helger.peppol.smp.ServiceMetadataType;
 import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
+import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.peppol.url.IPeppolURLProvider;
@@ -590,10 +591,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         }
         catch (final Exception ex)
         {
-          new InternalErrorBuilder ().setRequestScope (aRequestScope)
-                                     .setDisplayLocale (aDisplayLocale)
-                                     .setThrowable (ex)
-                                     .handle ();
+          // Don't spam me
+          if (!(ex instanceof SMPClientException))
+          {
+            new InternalErrorBuilder ().setRequestScope (aRequestScope)
+                                       .setDisplayLocale (aDisplayLocale)
+                                       .setThrowable (ex)
+                                       .handle ();
+          }
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Error querying SMP."))
                                                       .addChild (new HCDiv ().addChild ("Technical details: " +
                                                                                         ex.getMessage ())));
