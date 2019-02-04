@@ -138,6 +138,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis2:t77:3.5.0</code> - OpenPEPPOL Punch Out (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t77:3.6.0</code> - OpenPEPPOL Punch Out (3.6.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t77:3.7.0</code> - OpenPEPPOL Punch Out (3.7.0)</li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG PEPPOL BIS3 CreditNote (UBL)</li>
+<li><code>eu.peppol.bis3.sg.ubl:invoice:1</code> - SG PEPPOL BIS3 Invoice (UBL)</li>
 <li><code>eu.peppol.bis3.ubl:creditnote:1</code> - OpenPEPPOL BIS3 CreditNote (UBL)</li>
 <li><code>eu.peppol.bis3.ubl:invoice:1</code> - OpenPEPPOL BIS3 Invoice (UBL)</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.0</code> - Energie eFactuur 1.0.0</li>
@@ -330,9 +332,11 @@ A very small Java WS client is available for
 <li><code>org.oasis-open:waybill:2.1</code> - UBL Waybill 2.1</li>
 <li><code>org.oasis-open:waybill:2.2</code> - UBL Waybill 2.2</li>
 <li><code>org.oasis-open:weightstatement:2.2</code> - UBL WeightStatement 2.2</li>
+<li><code>org.simplerinvoicing:creditnote:2.0:RC1</code> - Simplerinvoicing CreditNote 2.0 RC1</li>
 <li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1</li>
 <li><code>org.simplerinvoicing:invoice:1.1:strict</code> - Simplerinvoicing Invoice 1.1 (strict)</li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2</li>
+<li><code>org.simplerinvoicing:invoice:2.0:RC1</code> - Simplerinvoicing Invoice 2.0 RC1</li>
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
           </ul>

@@ -36,6 +36,36 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2019-02-04 - Document validation updated</h3>
+    
+    <p>
+      PEPPOL.SG Invoice and CrediteNote were added.
+      Additionally SimplerInvoicing 2.0.0 RC1 Invoice and CrediteNote were added.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
+    <h3>2019-01-28 - PEPPOL TICC News</h3>
+    
+    <p>
+      TICC CMB decided today to release the PEPPOL Policy for use of Identifiers v4.
+      The new policy applies to all BIIS v3 and newer only - old BIS should stick with BIS v3.x which was also updated.
+      The difference between policy v3.1 and v3.2 is only the paragraph describing that the policy only applies to old BIS versions.
+    </p>
+    <p>
+      Additionally the new AS2 profile version 1.2 was approved and scheduled for later usage.
+      The new version makes the usage of SHA-256 mandatory compared to the old SHA-1.
+      The policy is <strong>not yet in effect</strong> because a transition period is needed.
+      The details of this transition period are currently worked on.
+    </p>
+    <ul>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf">PEPPOL Policy for use of identifier v3.2</a></li>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf">PEPPOL Policy for use of identifier v4.0</a></li>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-AS2-Profile-1.2-2019-01-28.pdf">AS2 profile 1.2</a> for preparation</li>
+      <li><a href="https://peppol.eu/release-of-peppol-as2-v-1-2-specification-and-peppol-policy-for-use-of-identifiers-v-4/">News item</a></li>
+    </ul>
+
     <h3>2019-01-26 - Participant Information queries Business Cards</h3>
     
     <p>
