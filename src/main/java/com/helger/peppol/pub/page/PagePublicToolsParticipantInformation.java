@@ -193,6 +193,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                         .addChild (new HCCode ().addChild (aParticipantID.getURIEncoded ()))
                                         .addChild (":"));
 
+        LOGGER.info ("Querying the following SMP for '" + aParticipantID.getURIEncoded () + "'");
+
         try
         {
           URI aSMPHostURI = null;
@@ -392,46 +394,55 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aNodeList.addChild (aULDocTypeIDs);
 
             aNodeList.addChild (new HCH3 ().addChild ("Certificate details"));
-            final HCUL aULCerts = new HCUL ();
-            for (final String sCertificate : aAllUsedCertifiactes)
+            if (aAllUsedCertifiactes.isEmpty ())
             {
-              final IHCLI <?> aLICert = aULCerts.addItem ();
-              X509Certificate aCert;
-              try
-              {
-                aCert = CertificateHelper.convertStringToCertficate (sCertificate);
-              }
-              catch (final Exception ex)
-              {
-                aCert = null;
-              }
-              if (aCert != null)
-              {
-                aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
-                aLICert.addChild (new HCDiv ().addChild ("Subject: " + aCert.getSubjectDN ().toString ()));
-                final LocalDate aNotBefore = PDTFactory.createLocalDate (aCert.getNotBefore ());
-                aLICert.addChild (new HCDiv ().addChild ("Not before: " +
-                                                         PDTToString.getAsString (aNotBefore, aDisplayLocale)));
-                if (aNotBefore.isAfter (aNowDate))
-                  aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is not yet valid!"));
-                final LocalDate aNotAfter = PDTFactory.createLocalDate (aCert.getNotAfter ());
-                aLICert.addChild (new HCDiv ().addChild ("Not after: " +
-                                                         PDTToString.getAsString (aNotAfter, aDisplayLocale)));
-                if (aNotAfter.isBefore (aNowDate))
-                  aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is no longer valid!"));
-              }
-              else
-              {
-                aLICert.addChild (new BootstrapErrorBox ().addChild ("Failed to interpret the data as a X509 certificate"));
-              }
-              final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
-                                                            .setRows (3)
-                                                            .setValue (sCertificate)
-                                                            .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
-              BootstrapFormHelper.markAsFormControl (aTextArea);
-              aLICert.addChild (new HCDiv ().addChild (aTextArea));
+              aNodeList.addChild (new BootstrapWarnBox ().addChild ("No certificate information were found."));
             }
-            aNodeList.addChild (aULCerts);
+            else
+            {
+              final HCUL aULCerts = new HCUL ();
+              for (final String sCertificate : aAllUsedCertifiactes)
+              {
+                final IHCLI <?> aLICert = aULCerts.addItem ();
+                X509Certificate aCert;
+                try
+                {
+                  aCert = CertificateHelper.convertStringToCertficate (sCertificate);
+                }
+                catch (final Exception ex)
+                {
+                  aCert = null;
+                }
+                if (aCert != null)
+                {
+                  if (aCert.getIssuerDN () != null)
+                    aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
+                  if (aCert.getSubjectDN () != null)
+                    aLICert.addChild (new HCDiv ().addChild ("Subject: " + aCert.getSubjectDN ().toString ()));
+                  final LocalDate aNotBefore = PDTFactory.createLocalDate (aCert.getNotBefore ());
+                  aLICert.addChild (new HCDiv ().addChild ("Not before: " +
+                                                           PDTToString.getAsString (aNotBefore, aDisplayLocale)));
+                  if (aNotBefore.isAfter (aNowDate))
+                    aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is not yet valid!"));
+                  final LocalDate aNotAfter = PDTFactory.createLocalDate (aCert.getNotAfter ());
+                  aLICert.addChild (new HCDiv ().addChild ("Not after: " +
+                                                           PDTToString.getAsString (aNotAfter, aDisplayLocale)));
+                  if (aNotAfter.isBefore (aNowDate))
+                    aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is no longer valid!"));
+                }
+                else
+                {
+                  aLICert.addChild (new BootstrapErrorBox ().addChild ("Failed to interpret the data as a X509 certificate"));
+                }
+                final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
+                                                              .setRows (3)
+                                                              .setValue (sCertificate)
+                                                              .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
+                BootstrapFormHelper.markAsFormControl (aTextArea);
+                aLICert.addChild (new HCDiv ().addChild (aTextArea));
+              }
+              aNodeList.addChild (aULCerts);
+            }
           }
 
           if (bQueryBusinessCard)
