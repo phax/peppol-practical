@@ -53,10 +53,12 @@ import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCTextArea;
 import com.helger.html.hc.html.grouping.HCDiv;
+import com.helger.html.hc.html.grouping.HCHR;
 import com.helger.html.hc.html.grouping.HCLI;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.sections.HCH3;
+import com.helger.html.hc.html.sections.HCH4;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.html.textlevel.HCEM;
@@ -100,6 +102,9 @@ import com.helger.photon.basic.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
+import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
+import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
+import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -131,6 +136,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
     super (sID, "Participant information");
+  }
+
+  @Nonnull
+  private static BootstrapLinkButton _createOpenInBrowser (@Nonnull final String sURL)
+  {
+    return new BootstrapLinkButton (EBootstrapButtonSize.SMALL).setButtonType (EBootstrapButtonType.OUTLINE_INFO)
+                                                               .setHref (new SimpleURL (sURL))
+                                                               .addChild ("Open in browser")
+                                                               .setTargetBlank ();
   }
 
   @Override
@@ -193,8 +207,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                         .addChild (new HCCode ().addChild (aParticipantID.getURIEncoded ()))
                                         .addChild (":"));
 
-        LOGGER.info ("Querying the following SMP for '" + aParticipantID.getURIEncoded () + "'");
-
         try
         {
           URI aSMPHostURI = null;
@@ -219,23 +231,37 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           else
             aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSML);
 
-          aNodeList.addChild (new HCDiv ().addChild ("SML used: ")
-                                          .addChild (new HCCode ().addChild (aSML.getDisplayName () +
-                                                                             " / " +
-                                                                             aSML.getDNSZone ())));
-
+          LOGGER.info ("Participant information of '" +
+                       aParticipantID.getURIEncoded () +
+                       "' is queried from " +
+                       aSMPHostURI);
           final URL aSMPHost = aSMPHostURI.toURL ();
-          aNodeList.addChild (new HCDiv ().addChild ("PEPPOL name: ")
-                                          .addChild (new HCCode ().addChild (aSMPHost.toExternalForm ())));
 
-          final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
-          aNodeList.addChild (new HCDiv ().addChild ("IP address: ")
-                                          .addChild (new HCCode ().addChild (new IPV4Addr (aInetAddress).getAsString ())));
+          {
+            final HCUL aUL = new HCUL ();
+            aUL.addItem (new HCDiv ().addChild ("SML used: ")
+                                     .addChild (new HCCode ().addChild (aSML.getDisplayName () +
+                                                                        " / " +
+                                                                        aSML.getDNSZone ())));
 
-          final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
-          aNodeList.addChild (new HCDiv ().addChild ("Nice name: ")
-                                          .addChild (new HCCode ().addChild (aNice.getCanonicalHostName ()))
-                                          .addChild (" (determined by reverse name lookup - this is potentially not the URL you registered your SMP for!)"));
+            final String sURL1 = aSMPHost.toExternalForm ();
+            aUL.addItem (new HCDiv ().addChild ("PEPPOL name: ").addChild (new HCCode ().addChild (sURL1)),
+                         new HCDiv ().addChild (_createOpenInBrowser (sURL1)));
+
+            final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
+            final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
+            aUL.addItem (new HCDiv ().addChild ("IP address: ").addChild (new HCCode ().addChild (sURL2)),
+                         new HCDiv ().addChild (_createOpenInBrowser ("http://" + sURL2)));
+
+            final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
+            final String sURL3 = aNice.getCanonicalHostName ();
+            aUL.addItem (new HCDiv ().addChild ("Nice name: ")
+                                     .addChild (new HCCode ().addChild (sURL3))
+                                     .addChild (" (determined by reverse name lookup - this is potentially not the URL you registered your SMP for!)"),
+                         new HCDiv ().addChild (_createOpenInBrowser ("http://" + sURL3)));
+
+            aNodeList.addChild (aUL);
+          }
 
           final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPHostURI);
           final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();
@@ -258,7 +284,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
                   aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
                                                       .addChild (new HCCode ().addChild (sHref)));
+
               }
+            LOGGER.info ("Participant information of '" +
+                         aParticipantID.getURIEncoded () +
+                         "' returned " +
+                         aSGHrefs.size () +
+                         " entries");
 
             // Show all ServiceGroup hrefs
             for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
@@ -279,8 +311,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                             .addChild (" " + aDocType.getURIEncoded ()));
                   aLI.addChild (new HCDiv ().addChild (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" ")
-                                            .addChild (new HCA (new SimpleURL (sOriginalHref)).addChild ("Open in browser")
-                                                                                              .setTargetBlank ()));
+                                            .addChild (_createOpenInBrowser (sOriginalHref)));
                 }
                 catch (final IllegalArgumentException ex)
                 {
@@ -447,6 +478,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
           if (bQueryBusinessCard)
           {
+            aNodeList.addChild (new HCH3 ().addChild ("Business Card details"));
+
             EFamFamFlagIcon.registerResourcesForThisRequest ();
             final String sBCURL = aSMPHost.toExternalForm () + "/businesscard/" + aParticipantID.getURIEncoded ();
             LOGGER.info ("Querying BC from '" + sBCURL + "'");
@@ -473,14 +506,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               }
               else
               {
-                aNodeList.addChild (new HCH3 ().addChild ("Business Card details (" +
+                aNodeList.addChild (new HCH4 ().addChild ("Business Card contains " +
                                                           (aBC.businessEntities ()
                                                               .size () == 1 ? "1 entity"
                                                                             : aBC.businessEntities ().size () +
-                                                                              " entities") +
-                                                          ")"));
-                aNodeList.addChild (new HCDiv ().addChild (new HCA (new SimpleURL (sBCURL)).addChild ("Open in browser")
-                                                                                           .setTargetBlank ()));
+                                                                              " entities")));
+                aNodeList.addChild (new HCDiv ().addChild (_createOpenInBrowser (sBCURL)));
 
                 final HCUL aUL = new HCUL ();
                 for (final PDBusinessEntity aEntity : aBC.businessEntities ())
@@ -620,6 +651,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                              ex.getClass (),
                                              ex.getMessage ());
         }
+
+        aNodeList.addChild (new HCHR ());
       }
     }
 
