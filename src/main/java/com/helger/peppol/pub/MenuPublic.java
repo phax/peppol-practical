@@ -114,7 +114,7 @@ public final class MenuPublic
     // Validation stuff
     {
       final IMenuItemPage aValidation = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
-                                                                                                                      "Validation",
+                                                                                                                      "Document Validation",
                                                                                                                       aMenuTree));
       aMenuTree.createItem (aValidation, new PagePublicToolsDocumentValidation (CMenuPublic.MENU_VALIDATION_BIS2));
       aMenuTree.createItem (aValidation,
