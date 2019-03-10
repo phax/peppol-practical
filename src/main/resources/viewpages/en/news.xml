@@ -36,10 +36,10 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
-    <h3>2019-03-07 - Document validation updated</h3>
+    <h3>2019-03-10 - Document validation updated</h3>
     
     <p>
-      EHF validation was updated to the latest rule set.
+      EHF validation was updated to the latest rule set. Now it is based on the PEPPOL 3.7.0 rule set, so expect slightly different results.
     </p>
     <ul>
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
