@@ -80,6 +80,9 @@ public class WSDVS implements WSDVSPort
 
   private static void _throw (@Nonnull final String s) throws ValidateFaultError
   {
+    if (LOGGER.isErrorEnabled ())
+      LOGGER.error ("Error in WS validation: " + s);
+
     throw new ValidateFaultError (s, s);
   }
 
@@ -96,7 +99,9 @@ public class WSDVS implements WSDVSPort
   @Nonnull
   public ResponseType validate (@Nonnull final RequestType aRequest) throws ValidateFaultError
   {
-    LOGGER.info ("Start validating business document");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Start validating business document via WS");
+
     final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ()
                                                                              .get (MessageContext.SERVLET_REQUEST);
     final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
@@ -136,7 +141,8 @@ public class WSDVS implements WSDVSPort
         _throw ("Invalid display locale '" + sDisplayLocale + "' provided!");
 
       // All input parameters are valid!
-      LOGGER.info ("Validating by VS using " + aVESID.getAsSingleID ());
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Validating by VS using " + aVESID.getAsSingleID ());
       final StopWatch aSW = StopWatch.createdStarted ();
 
       // Start validating
@@ -202,13 +208,14 @@ public class WSDVS implements WSDVSPort
       ret.setInterrupted (bValidationInterrupted);
       ret.setMostSevereErrorLevel (_convert (aMostSevere));
 
-      LOGGER.info ("Finished validation after " +
-                      aSW.stopAndGetMillis () +
-                      "ms; " +
-                      nWarnings +
-                      " warns; " +
-                      nErrors +
-                      " errors");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Finished validation after " +
+                     aSW.stopAndGetMillis () +
+                     "ms; " +
+                     nWarnings +
+                     " warns; " +
+                     nErrors +
+                     " errors");
       s_aTimer.addTime (aSW.getMillis ());
 
       // Track validation result
@@ -227,7 +234,8 @@ public class WSDVS implements WSDVSPort
     }
     finally
     {
-      LOGGER.info ("Finished validating business document");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Finished validating business document via WS");
     }
   }
 }
