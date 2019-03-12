@@ -136,7 +136,7 @@ public class WSDVS implements WSDVSPort
         _throw ("Invalid display locale '" + sDisplayLocale + "' provided!");
 
       // All input parameters are valid!
-      LOGGER.info ("Validating by VS using " + aVESID.getAsSingleID ());
+      LOGGER.info ("Validating by WS using " + aVESID.getAsSingleID ());
       final StopWatch aSW = StopWatch.createdStarted ();
 
       // Start validating
@@ -203,12 +203,12 @@ public class WSDVS implements WSDVSPort
       ret.setMostSevereErrorLevel (_convert (aMostSevere));
 
       LOGGER.info ("Finished validation after " +
-                      aSW.stopAndGetMillis () +
-                      "ms; " +
-                      nWarnings +
-                      " warns; " +
-                      nErrors +
-                      " errors");
+                   aSW.stopAndGetMillis () +
+                   "ms; " +
+                   nWarnings +
+                   " warns; " +
+                   nErrors +
+                   " errors");
       s_aTimer.addTime (aSW.getMillis ());
 
       // Track validation result
