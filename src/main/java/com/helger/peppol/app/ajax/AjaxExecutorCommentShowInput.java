@@ -31,9 +31,9 @@ import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.peppol.comment.ui.CommentSecurity;
 import com.helger.peppol.comment.ui.CommentUI;
-import com.helger.photon.core.PhotonUnifiedResponse;
-import com.helger.photon.core.ajax.executor.IAjaxExecutor;
-import com.helger.photon.core.app.context.LayoutExecutionContext;
+import com.helger.photon.ajax.executor.IAjaxExecutor;
+import com.helger.photon.app.PhotonUnifiedResponse;
+import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 /**

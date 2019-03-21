@@ -34,12 +34,12 @@ import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.secure.MenuSecure;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.photon.basic.app.appid.CApplicationID;
-import com.helger.photon.basic.app.appid.PhotonGlobalState;
-import com.helger.photon.basic.app.locale.ILocaleManager;
-import com.helger.photon.basic.app.menu.MenuTree;
+import com.helger.photon.ajax.IAjaxRegistry;
 import com.helger.photon.bootstrap4.servlet.WebAppListenerBootstrap;
-import com.helger.photon.core.ajax.IAjaxInvoker;
+import com.helger.photon.core.appid.CApplicationID;
+import com.helger.photon.core.appid.PhotonGlobalState;
+import com.helger.photon.core.locale.ILocaleManager;
+import com.helger.photon.core.menu.MenuTree;
 
 /**
  * This listener is invoked during the servlet initialization. This is basically
@@ -100,17 +100,17 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   }
 
   @Override
-  protected void initAjax (@Nonnull final IAjaxInvoker aAjaxInvoker)
+  protected void initAjax (@Nonnull final IAjaxRegistry aAjaxRegistry)
   {
-    aAjaxInvoker.registerFunction (CAjax.DATATABLES);
-    aAjaxInvoker.registerFunction (CAjax.DATATABLES_I18N);
-    aAjaxInvoker.registerFunction (CAjax.LOGIN);
-    aAjaxInvoker.registerFunction (CAjax.UPDATE_MENU_VIEW_PUB);
-    aAjaxInvoker.registerFunction (CAjax.UPDATE_MENU_VIEW_SEC);
-    aAjaxInvoker.registerFunction (CAjax.COMMENT_ADD);
-    aAjaxInvoker.registerFunction (CAjax.COMMENT_CREATE_THREAD);
-    aAjaxInvoker.registerFunction (CAjax.COMMENT_DELETE);
-    aAjaxInvoker.registerFunction (CAjax.COMMENT_SHOW_INPUT);
+    aAjaxRegistry.registerFunction (CAjax.DATATABLES);
+    aAjaxRegistry.registerFunction (CAjax.DATATABLES_I18N);
+    aAjaxRegistry.registerFunction (CAjax.LOGIN);
+    aAjaxRegistry.registerFunction (CAjax.UPDATE_MENU_VIEW_PUB);
+    aAjaxRegistry.registerFunction (CAjax.UPDATE_MENU_VIEW_SEC);
+    aAjaxRegistry.registerFunction (CAjax.COMMENT_ADD);
+    aAjaxRegistry.registerFunction (CAjax.COMMENT_CREATE_THREAD);
+    aAjaxRegistry.registerFunction (CAjax.COMMENT_DELETE);
+    aAjaxRegistry.registerFunction (CAjax.COMMENT_SHOW_INPUT);
   }
 
   @Override

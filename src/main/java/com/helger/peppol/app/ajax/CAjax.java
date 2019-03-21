@@ -20,8 +20,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.functional.IPredicate;
 import com.helger.peppol.app.CPPApp;
-import com.helger.photon.core.ajax.decl.AjaxFunctionDeclaration;
-import com.helger.photon.core.ajax.decl.IAjaxFunctionDeclaration;
+import com.helger.photon.ajax.decl.AjaxFunctionDeclaration;
+import com.helger.photon.ajax.decl.IAjaxFunctionDeclaration;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTables;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTablesI18N;

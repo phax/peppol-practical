@@ -25,7 +25,7 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.photon.basic.mock.PhotonBasicWebTestRule;
+import com.helger.photon.app.mock.PhotonAppWebTestRule;
 import com.helger.xml.mock.XMLTestHelper;
 
 /**
@@ -36,7 +36,7 @@ import com.helger.xml.mock.XMLTestHelper;
 public final class CRMGroupTest
 {
   @Rule
-  public final TestRule m_aRule = new PhotonBasicWebTestRule ();
+  public final TestRule m_aRule = new PhotonAppWebTestRule ();
 
   @Test
   public void testBasic ()

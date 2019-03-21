@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.photon.basic.mock.PhotonBasicTestRule;
+import com.helger.photon.app.mock.PhotonAppTestRule;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.mock.XMLTestHelper;
@@ -42,7 +42,7 @@ public final class CommentTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CommentTest.class);
   @Rule
-  public TestRule m_aRule = new PhotonBasicTestRule ();
+  public TestRule m_aRule = new PhotonAppTestRule ();
 
   @Test
   public void testBasic ()

@@ -57,7 +57,7 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.bdve.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.basic.audit.AuditHelper;
+import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;

@@ -30,11 +30,11 @@ import com.helger.peppol.pub.page.PagePublicToolsParticipantInformation;
 import com.helger.peppol.pub.page.PagePublicToolsSMPSML;
 import com.helger.peppol.pub.page.PagePublicToolsTestEndpoints;
 import com.helger.peppol.ui.page.AppPageViewExternal;
-import com.helger.photon.basic.app.menu.IMenuItemPage;
-import com.helger.photon.basic.app.menu.IMenuTree;
 import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
-import com.helger.photon.security.menu.MenuObjectFilterNoUserLoggedIn;
-import com.helger.photon.security.menu.MenuObjectFilterUserLoggedIn;
+import com.helger.photon.core.menu.IMenuItemPage;
+import com.helger.photon.core.menu.IMenuTree;
+import com.helger.photon.core.menu.filter.MenuObjectFilterNoUserLoggedIn;
+import com.helger.photon.core.menu.filter.MenuObjectFilterUserLoggedIn;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
 

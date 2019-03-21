@@ -18,7 +18,7 @@ package com.helger.peppol.servlet;
 
 import com.helger.peppol.secure.LayoutAreaContentProviderSecure;
 import com.helger.peppol.ui.AppLayoutHTMLProvider;
-import com.helger.photon.core.app.html.IHTMLProvider;
+import com.helger.photon.app.html.IHTMLProvider;
 import com.helger.photon.core.servlet.AbstractApplicationXServletHandler;
 import com.helger.photon.core.servlet.AbstractSecureApplicationServlet;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;

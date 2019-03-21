@@ -66,7 +66,7 @@ import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
-import com.helger.photon.basic.audit.AuditHelper;
+import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
