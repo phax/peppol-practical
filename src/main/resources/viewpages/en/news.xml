@@ -35,6 +35,32 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+   
+    <h3>2019-03-27 - 11<sup>th</sup> OpenPEPPOL General Assembly in Brussels</h3>
+    
+    <p>
+      The GA took place on March 27<sup>th</sup> from 09:00 till 12:30.
+      The rest of Tuesday and Wednesday is filled with CC member meetings.
+      The new PEPPOL Authorities Singapore and Australia were presented, we even had visitors from the US.
+      Additionally OpenPEPPOL and GS1 signed a Memorandum of Understanding to generate further benefits for their users.
+    </p>
+    <ul>
+      <li><a href="https://peppol.eu/event/openpeppol-11th-general-assembly-march-27th-2019/">GA invitation</a></li>
+      <li><a href="https://peppol.eu/event/openpeppol-community-face2face-meetings-march-26-27-2019/">CC member meetings invitation</a></li>
+    </ul>
+
+    <h3>2019-03-20 - phoss SMP 5.1.0</h3>
+    
+    <p>
+      phoss SMP 5.1.0 was released. 
+      This is a security and feature update release.
+      Especially the REST API was improved to be more consistent, robust and configurable. 
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.1.0">Download phoss SMP 5.1.0</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
 
     <h3>2019-03-10 - Document validation updated</h3>
     
