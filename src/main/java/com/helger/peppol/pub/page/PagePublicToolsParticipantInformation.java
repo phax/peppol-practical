@@ -303,9 +303,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               if (nPathStart >= 0)
               {
                 final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
-                try
+                final IDocumentTypeIdentifier aDocType = aIF.parseDocumentTypeIdentifier (sDocType);
+                if (aDocType != null)
                 {
-                  final IDocumentTypeIdentifier aDocType = aIF.parseDocumentTypeIdentifier (sDocType);
                   aDocTypeIDs.add (aDocType);
                   aLI.addChild (new HCDiv ().addChild (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" " + aDocType.getURIEncoded ()));
@@ -313,7 +313,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                             .addChild (" ")
                                             .addChild (_createOpenInBrowser (sOriginalHref)));
                 }
-                catch (final IllegalArgumentException ex)
+                else
                 {
                   aLI.addChild (new BootstrapErrorBox ().addChild ("The document type ")
                                                         .addChild (new HCCode ().addChild (sDocType))
