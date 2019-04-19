@@ -36,6 +36,35 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2019-04-19 - Document validation updated</h3>
+    
+    <p>
+      OIOUBL validation was updated, Energie EFactuur 3.0.0 rules were added, and SimplerInvoicing rules were updated from 2.0-RC1 to 2.0 final.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+
+    <h3>2019-04-18 - EN 16931 is in effect</h3>
+    
+    <p>
+      Today is the day, that the receiving of electronic eInvoices according to the EN 16931 becomes mandatory for certain public entities.
+      The second part of public entities will join in exactly one year, on 2020-04-18.
+    </p>
+
+    <h3>2019-04-18 - PEPPOL Billing BIS v3 is now mandatory</h3>
+    
+    <p>
+      From today on it is mandatory to be able to send and receive Billing BIS v3 documents.
+      The support for Billing BIS v2 documents is now optional.
+      As a document sender it means, you need to perform an SMP lookup with a different document type and your UBL creation need to follow the changed rules.
+      As a document receiver you need to register the endpoint with the new document type and you need to be able to interpret the changed UBL content.  
+    </p>
+    
+    <ul>
+      <li><a href="http://docs.peppol.eu/poacc/billing/3.0/migration/">Official BIS Billing v3 migration plan</a></li>
+    </ul>
+
     <h3>2019-03-27 - 11<sup>th</sup> OpenPEPPOL General Assembly in Brussels</h3>
     
     <p>
