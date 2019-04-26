@@ -36,6 +36,16 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2019-04-26 - Document validation extended</h3>
+    
+    <p>
+      EN 16931 rules v1.2.0 for CII and UBL are now contained.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="https://github.com/CenPC434/validation/#news-and-noteworthy">See EN16931 validation artefacts v1.2.0 changes</a></li>
+    </ul>
+
     <h3>2019-04-19 - Document validation updated</h3>
     
     <p>
