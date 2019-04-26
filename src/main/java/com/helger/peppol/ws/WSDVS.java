@@ -114,12 +114,13 @@ public class WSDVS implements WSDVSPort
       s_aCounterTotal.increment ();
 
       // Interpret parameters
-      final VESID aVESID = VESID.parseIDOrNull (aRequest.getVESID ());
+      final String sVESID = aRequest.getVESID ();
+      final VESID aVESID = VESID.parseIDOrNull (sVESID);
       if (aVESID == null)
-        _throw ("Syntactically invalid VESID provided!");
+        _throw ("Syntactically invalid VESID '" + sVESID + "' provided!");
       final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
       if (aVES == null)
-        _throw ("Unsupported VESID provided!");
+        _throw ("Unsupported VESID " + aVESID.getAsSingleID () + " provided!");
 
       Document aXMLDoc = null;
       try
