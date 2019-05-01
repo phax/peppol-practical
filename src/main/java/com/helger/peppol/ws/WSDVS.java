@@ -81,7 +81,7 @@ public class WSDVS implements WSDVSPort
   private static void _throw (@Nonnull final String s) throws ValidateFaultError
   {
     if (LOGGER.isErrorEnabled ())
-      LOGGER.error ("Error in WS validation: " + s);
+      LOGGER.error ("Error in SOAP WS validation: " + s);
 
     throw new ValidateFaultError (s, s);
   }
@@ -97,10 +97,10 @@ public class WSDVS implements WSDVSPort
   }
 
   @Nonnull
-  public ResponseType validate (@Nonnull final RequestType aRequest) throws ValidateFaultError
+  public ResponseType validate (@Nonnull final RequestType aValidationRequest) throws ValidateFaultError
   {
     if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Start validating business document via WS");
+      LOGGER.info ("Start validating business document with SOAP WS");
 
     final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ()
                                                                              .get (MessageContext.SERVLET_REQUEST);
@@ -114,7 +114,7 @@ public class WSDVS implements WSDVSPort
       s_aCounterTotal.increment ();
 
       // Interpret parameters
-      final String sVESID = aRequest.getVESID ();
+      final String sVESID = aValidationRequest.getVESID ();
       final VESID aVESID = VESID.parseIDOrNull (sVESID);
       if (aVESID == null)
         _throw ("Syntactically invalid VESID '" + sVESID + "' provided!");
@@ -125,7 +125,7 @@ public class WSDVS implements WSDVSPort
       Document aXMLDoc = null;
       try
       {
-        aXMLDoc = DOMReader.readXMLDOM (aRequest.getXML ());
+        aXMLDoc = DOMReader.readXMLDOM (aValidationRequest.getXML ());
       }
       catch (final Exception ex)
       {
@@ -134,7 +134,7 @@ public class WSDVS implements WSDVSPort
       if (aXMLDoc == null)
         _throw ("Invalid XML provided!");
 
-      final String sDisplayLocale = aRequest.getDisplayLocale ();
+      final String sDisplayLocale = aValidationRequest.getDisplayLocale ();
       final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ()
                                                                                        .getLocale (sDisplayLocale)
                                                                           : CPPApp.DEFAULT_LOCALE;
@@ -143,7 +143,7 @@ public class WSDVS implements WSDVSPort
 
       // All input parameters are valid!
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Validating by WS using " + aVESID.getAsSingleID ());
+        LOGGER.info ("Validating by SOAP WS using " + aVESID.getAsSingleID ());
       final StopWatch aSW = StopWatch.createdStarted ();
 
       // Start validating
@@ -236,7 +236,7 @@ public class WSDVS implements WSDVSPort
     finally
     {
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Finished validating business document via WS");
+        LOGGER.info ("Finished validating business document with SOAP WS");
     }
   }
 }
