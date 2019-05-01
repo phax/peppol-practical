@@ -77,6 +77,7 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.fileupload.FileItemResource;
 import com.helger.web.fileupload.IFileItem;
+import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
@@ -140,7 +141,8 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           final ErrorList aXMLErrors = new ErrorList ();
           final Document aDoc = DOMReader.readXMLDOM (aXMLRes,
                                                       new DOMReaderSettings ().setErrorHandler (new WrappedCollectingSAXErrorHandler (aXMLErrors))
-                                                                              .setLocale (aDisplayLocale));
+                                                                              .setLocale (aDisplayLocale)
+                                                                              .setFeatureValues (EXMLParserFeature.AVOID_XML_ATTACKS));
           if (aDoc != null)
           {
             // First options reads XML again but provides line numbers
