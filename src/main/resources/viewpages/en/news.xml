@@ -36,6 +36,34 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2019-05-15 - Document validation extended</h3>
+    
+    <p>
+      PEPPOL v3.8.0 validation rules (Spring release 2019) are now contained.
+      Important note: this is the first release that only contains BIS v3 validation artefacts.
+      T10 and T14 validation artefacts must be taken from Billing BIS v3.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="https://peppol.eu/downloads/post-award/">PEPPOL website where artefacts are referenced</a></li>
+    </ul>
+    <p>
+      New VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.peppol.bis3:creditnote:3.8.0</code> - OpenPEPPOL Credit Note (3.8.0)</li>
+<li><code>eu.peppol.bis3:invoice:3.8.0</code> - OpenPEPPOL Invoice (3.8.0)</li>
+<li><code>eu.peppol.bis3:t01:3.8.0</code> - OpenPEPPOL Order (3.8.0)</li>
+<li><code>eu.peppol.bis3:t110:3.8.0</code> - OpenPEPPOL Order Agreement (3.8.0)</li>
+<li><code>eu.peppol.bis3:t111:3.8.0</code> - OpenPEPPOL Invoice Message Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t16:3.8.0</code> - OpenPEPPOL Despatch Advice (3.8.0)</li>
+<li><code>eu.peppol.bis3:t19:3.8.0</code> - OpenPEPPOL Catalogue (3.8.0)</li>
+<li><code>eu.peppol.bis3:t58:3.8.0</code> - OpenPEPPOL Catalogue Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t71:3.8.0</code> - OpenPEPPOL MLR (3.8.0)</li>
+<li><code>eu.peppol.bis3:t76:3.8.0</code> - OpenPEPPOL Order Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t77:3.8.0</code> - OpenPEPPOL Punch Out (3.8.0)</li>
+    </ul>
+   
     <h3>2019-05-14 - Document validation extended</h3>
     
     <p>
@@ -44,6 +72,14 @@
     <ul>
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
       <li><a href="https://github.com/CenPC434/validation/#news-and-noteworthy">See EN16931 validation artefacts v1.2.1 changes</a></li>
+    </ul>
+    <p>
+      New VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.cen.en16931:cii:1.2.1</code> - EN 16931 CII 1.2.1</li>
+<li><code>eu.cen.en16931:ubl:1.2.1</code> - EN 16931 UBL Invoice 1.2.1</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.2.1</code> - EN 16931 UBL CreditNote 1.2.1</li>   
     </ul>
    
     <h3>2019-04-26 - Document validation extended</h3>
@@ -55,6 +91,14 @@
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
       <li><a href="https://github.com/CenPC434/validation/#news-and-noteworthy">See EN16931 validation artefacts v1.2.0 changes</a></li>
     </ul>
+    <p>
+      New VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.cen.en16931:cii:1.2.0</code> - EN 16931 CII 1.2.0</li>
+<li><code>eu.cen.en16931:ubl:1.2.0</code> - EN 16931 UBL Invoice 1.2.0</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.2.0</code> - EN 16931 UBL CreditNote 1.2.0</li>   
+    </ul>
 
     <h3>2019-04-19 - Document validation updated</h3>
     
@@ -63,6 +107,21 @@
     </p>
     <ul>
       <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+    <p>
+      New VESIDs are:
+    </p>
+    <ul>
+<li><code>nl.energie-efactuur:energie-efactuur:3.0.0</code> - Energie eFactuur 3.0.0</li>
+<li><code>org.simplerinvoicing:creditnote:2.0</code> - Simplerinvoicing CreditNote 2.0</li>
+<li><code>org.simplerinvoicing:invoice:2.0</code> - Simplerinvoicing Invoice 2.0</li>
+    </ul>
+    <p>
+      Removed VESIDs are:
+    </p>
+    <ul>
+<li><code>org.simplerinvoicing:creditnote:2.0:RC1</code> - Simplerinvoicing CreditNote 2.0 RC1</li>
+<li><code>org.simplerinvoicing:invoice:2.0:RC1</code> - Simplerinvoicing Invoice 2.0 RC1</li>
     </ul>
 
     <h3>2019-04-18 - EN 16931 is in effect</h3>
