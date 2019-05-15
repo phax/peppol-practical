@@ -139,6 +139,11 @@
       <td>Generic term for all entities directly or indirectly related to them (DG DIGIT etc.).</td>
     </tr>
     <tr>
+      <td>EDEC</td>
+      <td>eDelivery Community</td>
+      <td>The successor of <em>TICC</em> within OpenPEPPOL</td>
+    </tr>
+    <tr>
       <td>
         EN
       </td>
@@ -295,7 +300,10 @@
       <td>Legacy PEPPOL transport protocol, based on the Webservice stack. Was superseded by <em>AS2</em>.</td>
     </tr>
     <tr>
-      <td>TCT</td>
+      <td>
+        TCT
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td><em>TICC</em> Codelist Team</td>
       <td>
         Special team that takes care of the "PEPPOL Policy for the use of identifiers" as well as the codelists
@@ -308,11 +316,15 @@
       <td>The contract between the PEPPOL user and the PEPPOL Authority</td>
     </tr>
     <tr>
-      <td>TICC</td>
+      <td>
+        TICC
+         <br/><em><small>deprecated</small></em>
+      </td>
       <td>Transport Infrastructure Coordinating Community</td>
       <td>
         PEPPOL internal team to manage the technical assets.
-        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a>.
+        Now called <em>EDEC</em>.
       </td>
     </tr>
     <tr>

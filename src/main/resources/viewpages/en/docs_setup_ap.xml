@@ -16,6 +16,11 @@
     limitations under the License.
 
 -->
+<div class="alert alert-warning">
+  This page is a bit outdated but the general principles still apply.
+</div>
+
+
 <p>
   This page explains how to setup an OpenPEPPOL AS2 AccessPoint from scratch.
   AP is the abbreviation for <em>Access Point</em> which is the technical endpoint for

@@ -26,7 +26,7 @@
 
 <div class="alert alert-success">
   The <strong>EN 16931-1:2017</strong> was published on October 17<sup>th</sup> 2017 in the OJ.
-  That means that from <strong>April 18<sup>th</sup> 2019</strong> most public procuring entities must be able
+  That means that since <strong>April 18<sup>th</sup> 2019</strong> most public procuring entities must be able
   to accept e-Invoices complying to the UBL and CII syntax requirements defined in <strong>CEN/TS 16931-3-2</strong>
   and <strong>CEN/TS 16931-3-3</strong>! 
 </div>
@@ -43,7 +43,6 @@
         <ol>
           <li><a href="#get">How to get the norm?</a></li>
           <li><a href="#tec">Technical requirements</a></li>
-          <li><a href="#open">Open issues</a></li>
         </ol>
       </li>
       <li><a href="#glossary">Glossary</a></li>
@@ -127,16 +126,24 @@ The TC had 6 working groups concerning with the following topics:
 <p>
   An unofficial self-declaration based list of CIUSs is provided by
   <a href="https://ec.europa.eu/cefdigital/wiki/display/EINVCOMMUNITY/Community-driven+Registry+of+CIUS+%28Core+Invoice+Usage+Specifications%29+and+Extensions">CEF</a>.
-  One upcoming task of CEN/TC 434 is to establish an official registry of CIUSs.  
+  One upcoming task of CEN/TC 434 is to establish an official registry of CIUSs.
+</p>
+<p>
+  Another project in CEN/TC 434 tries to setup a more elaborate registry for CIUS, Extension and Code list.
+  The current effort can be seen at <a href="https://www.helger.com/registry434/">https://www.helger.com/registry434/</a>
+  but please bare in mind, that this is work in progress. Details will follow.
 </p>
 
 <a name="get"></a>
 <h3>How to get the norm?</h3>
 <p>
-  Good question. Currently you need to consult your 
-  <a href="https://standards.cen.eu/dyn/www/f?p=CENWEB:5">local standardization body</a>
-  and BUY the standard documents.
-  CEN/TC 434 is heavily trying to make the norm available for free, but they haven't succeeded so far.
+  You should be able to download the standard (at least parts 1 and 2) for free from your
+  <a href="https://standards.cen.eu/dyn/www/f?p=CENWEB:5">local standardization body</a>.
+  E.g. at Austrian Standards (ASI) 
+  <a href="https://shop.austrian-standards.at/action/de/public/details/617473/OENORM_EN_16931-1_2017_11_01">ÖNORM EN 16931-1: 2017 11 01</a>
+  and
+  <a href="https://shop.austrian-standards.at/action/de/public/details/617015/ONR_CEN_TS_16931-2_2017_10_15">ONR CEN/TS 16931-2: 2017 10 15</a>
+  can be downloaded free of charge, whereas parts 3, 4, 5 and 6 are payable documents. 
 </p>
 <p>
   If you are impatient and would ask me what documents to buy I would suggest the following ones:
@@ -160,33 +167,15 @@ The TC had 6 working groups concerning with the following topics:
   <li>
     Apply the Schematron rules for the correct syntax.
     Schematrons are currently available from <a href="https://github.com/CenPC434/validation">GitHub</a> but the licensing of these artefacts is still under discussion.
-    A fully working open source validation engine is available at <a href="https://github.com/phax/peppol-validation-engine/">https://github.com/phax/peppol-validation-engine/</a> 
+    A fully working open source validation engine is available at <a href="https://github.com/phax/phoss-validator/">https://github.com/phax/phoss-validator/</a> 
     licensed under the business friendly Apache 2 license.
-    It supports UBL, CII and additionally XML EDIFACT invoices.
+    It supports the official EN 16931 validation artefacts for UBL, CII and XML EDIFACT invoices besides a lot of different standards.
   </li>
   <li>
     If you need to follow a certain CIUS, apply the Schematrons of the CIUS in the correct order as well.
     As there are currently no published CIUSs, there is also no predefined tool support for this.
   </li>
 </ol>
-
-<a name="open"></a>
-<h3>Open issues per 2017-10-17</h3>
-
-<p>
-  CEN/TC 434 is a pilot project, because it is the first CEN TC that is mandated by law and therefore certain things need to be clarified inside CEN before they are resolved for the users.
-</p>
-
-<p>
-  The biggest discussion points are currently the costs for the norm (too much) as well as the IPR (Intellectual Property Rights) issues concerning the
-  copying and reusing of the norm documents or of parts of these documents.
-  E.g. you are not allowed to reuse a document on different devices or outside the country you purchased it in.
-</p>
-
-<p>
-  Also the licensing of the Validation Artefacts is currently unclear.
-  Are they part of the norm or not?
-</p>
 
 <a name="glossary"></a>
 <h2>Glossary</h2>
