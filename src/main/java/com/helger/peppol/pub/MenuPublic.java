@@ -71,10 +71,11 @@ public final class MenuPublic
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_PH,
                                                      "Setup phoss SMP",
                                                      new ClassPathResource ("viewpages/en/docs_setup_smp_ph.xml")));
-      aMenuTree.createItem (aSetup,
-                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_CIPA,
-                                                     "Setup CIPA SMP (deprecated)",
-                                                     new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
+      if (false)
+        aMenuTree.createItem (aSetup,
+                              new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_CIPA,
+                                                       "Setup CIPA SMP (deprecated)",
+                                                       new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_SUPPORT,
                                                      "SML support",
@@ -87,6 +88,10 @@ public final class MenuPublic
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_PKI,
                                                      "PEPPOL PKI explained",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_pki.xml")));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_CERT_UPDATE,
+                                                     "PEPPOL Certificate update",
+                                                     new ClassPathResource ("viewpages/en/docs_peppol_cert_update.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_DICT,
                                                      "PEPPOL Dictionary/Abbreviations",

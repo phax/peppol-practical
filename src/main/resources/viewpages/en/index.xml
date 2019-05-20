@@ -38,10 +38,13 @@ PEPPOL reference implementation (which is based on my PEPPOL Silicone).
     <ul>
       <li><a href="/public/menuitem-docs-setup-ap">AP setup guide</a></li>
       <li><a href="/public/menuitem-docs-setup-smp-ph">phoss SMP setup guide</a></li> 
-      <li><a href="/public/menuitem-docs-setup-smp">CIPA SMP setup guide</a> (deprecated)</li> 
+      <!--  
+      <li><a href="/public/menuitem-docs-setup-smp">CIPA SMP setup guide</a> (deprecated)</li>
+      --> 
       <li><a href="/public/menuitem-docs-sml-support">SML support guide</a></li> 
       <li><a href="/public/menuitem-docs-doc-exchange">Document exchange explained</a></li> 
       <li><a href="/public/menuitem-docs-peppol-pki">PEPPOL PKI explained</a></li> 
+      <li><a href="/public/menuitem-docs-peppol-cert-update">PEPPOL certificate update process explained</a></li> 
       <li><a href="/public/menuitem-docs-peppol-dict">PEPPOL Dictionary and commonly used terms</a></li> 
     </ul>
   </li>  

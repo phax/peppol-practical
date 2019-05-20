@@ -19,8 +19,24 @@
 <p>
   This article outlines the details of the PEPPOL PKI.
   It shows how the PKI is structured and where it is used.
+  See the page on <a href="/public/menuitem-docs-peppol-cert-update">PEPPOL Certificate update</a> for the specifics on this process.
 </p>
 
+<div class="card">
+  <div class="card-header">
+    Table of contents
+  </div>
+  <div class="card-body">
+    <ol>
+      <li><a href="#pki3">PEPPOL PKI v3</a></li>
+      <li><a href="#pki2">PEPPOL PKI v2 (legacy)</a></li>
+      <li><a href="#usage">Certificate usage in PEPPOL</a></li>
+    </ol>
+  </div>
+</div>
+
+
+<a name="pki3"></a>
 <h2>OpenPEPPOL PKI v3 - since 2018</h2>
 
 <p>
@@ -89,6 +105,7 @@
   </li>
 </ul>
 
+<a name="pki2"></a>
 <h2>Introduction to the PEPPOL PKI (v2, until 2018 - out of date)</h2>
 
 <div class="alert alert-danger">
@@ -114,6 +131,7 @@
   (see the red boxes ).
 </p>
 
+<a name="usage"></a>
 <h2>Certificate usage in PEPPOL</h2>
 
 <p>

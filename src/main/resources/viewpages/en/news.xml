@@ -36,6 +36,16 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2019-05-20 - TOOP integration improved</h3>
+    
+    <p>
+      The participant information tool now also works with the TOOP pilot.
+      Previously requests for TOOP participants were rejected, because the TOOP SMP certificate was not in the truststore. 
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-tools-participant">Participant information tool</a></li>
+    </ul>
+   
     <h3>2019-05-15 - Document validation extended</h3>
     
     <p>
