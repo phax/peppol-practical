@@ -30,7 +30,7 @@
   phoss SMP is a fork of the CIPA e-Delivery SMP components on version 2.2.3.
   The goal is to keep the implementation simple and provide publicly available PEPPOL components
   to the world. An additional goal was to make the configuration as simple as possible.
-  Please read the official <a href="https://github.com/phax/peppol-smp-server/wiki">SMP Server Wiki</a> for
+  Please read the official <a href="https://github.com/phax/phoss-smp/wiki">SMP Server Wiki</a> for
   all the details.
 </p>
 
@@ -82,7 +82,7 @@
   My phoss SMP server implementation is located on GitHub at
   <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>. It contains
   the source code and a 
-  <a href="https://github.com/phax/peppol-smp-server/wiki">Wiki</a>
+  <a href="https://github.com/phax/phoss-smp/wiki">Wiki</a>
   with the relevant documentation.
   Previously I had two separate versions - one with an SQL backend and one with an XML
   backend - but I now decided to merge these versions so that both backends can use the
@@ -98,7 +98,7 @@
   The <strong>sources</strong> and the <strong>binary resources</strong> are
   available on GitHub: 
   <ul>
-    <li><a href="https://github.com/phax/peppol-smp-server/releases">https://github.com/phax/peppol-smp-server/releases</a></li>
+    <li><a href="https://github.com/phax/phoss-smp/releases">https://github.com/phax/phoss-smp/releases</a></li>
   </ul> 
 </p>
 
@@ -193,7 +193,7 @@
   customization of the web application and the other file (<code>smp-server.properties</code>) is
   for the SMP functionality itself.
   Please read the Wiki page
-  <a href="https://github.com/phax/peppol-smp-server/wiki/Configuration">https://github.com/phax/peppol-smp-server/wiki/Configuration</a>
+  <a href="https://github.com/phax/phoss-smp/wiki/Configuration">https://github.com/phax/phoss-smp/wiki/Configuration</a>
   for all configuration options and example files.
 </p>
 

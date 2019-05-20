@@ -165,9 +165,9 @@
       Especially the REST API was improved to be more consistent, robust and configurable. 
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.1.0">Download phoss SMP 5.1.0</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.1.0">Download phoss SMP 5.1.0</a></li>
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
-      <li><a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
     </ul>
 
     <h3>2019-03-10 - Document validation updated</h3>
@@ -281,7 +281,7 @@
       This is a maintenance release with some bug fixes and a security fix as well.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.8">Download phoss SMP 5.0.8</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.8">Download phoss SMP 5.0.8</a></li>
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
     </ul>
     
@@ -373,10 +373,10 @@
     <p>
       phoss SMP 5.0.6 was released. 
       This is a maintenance release with some bug fixes and a new 
-      <a href="https://github.com/phax/peppol-smp-server/wiki/Status-API">Status API</a>.
+      <a href="https://github.com/phax/phoss-smp/wiki/Status-API">Status API</a>.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.6">Download phoss SMP 5.0.6</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.6">Download phoss SMP 5.0.6</a></li>
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
     </ul>
     
@@ -452,7 +452,7 @@
       This release is compliant with the new OpenPEPPOL v3 PKI.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.5">Download phoss SMP 5.0.5</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.5">Download phoss SMP 5.0.5</a></li>
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
     </ul>
     
@@ -482,7 +482,7 @@
       This is the first release that supports the new OpenPEPPOL v3 PKI.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.4">Download phoss SMP 5.0.4</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.4">Download phoss SMP 5.0.4</a></li>
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
     </ul>
 
@@ -647,7 +647,7 @@
       This is a maintenance release with some bug fixes.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.3">Download phoss SMP 5.0.3</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.3">Download phoss SMP 5.0.3</a></li>
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
     </ul>
   
@@ -737,7 +737,7 @@
       This is a maintenance release with PEPPOL Directory API support.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.2">Download phoss SMP 5.0.2</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.2">Download phoss SMP 5.0.2</a></li>
     </ul>
     
     <h3>2017-03-31 - PEPPOL PKI explained</h3>
@@ -829,7 +829,7 @@
     <h3>2016-11-15 - phoss SMP 5.0.0</h3>
     
     <p>
-      <img src="https://raw.githubusercontent.com/phax/peppol-smp-server/peppol-smp-server-parent-pom-5.0.0/docs/logo/logo-gradient-446-100.png" width="446" height="100" alt="phoss logo"/>
+      <img src="https://raw.githubusercontent.com/phax/phoss-smp/peppol-smp-server-parent-pom-5.0.0/docs/logo/logo-gradient-446-100.png" width="446" height="100" alt="phoss logo"/>
     </p>
     
     <p>
@@ -842,7 +842,7 @@
     </p>
       
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0">Download phoss SMP 5.0.0</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.0">Download phoss SMP 5.0.0</a></li>
     </ul>
     
     <h3>2016-11-14 - Validation artefacts 3.3.0</h3>
@@ -860,7 +860,7 @@
     </p>
       
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc2">Download SMP Server 5.0.0-RC2</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc2">Download SMP Server 5.0.0-RC2</a></li>
     </ul>
     
     <h3>2016-10-13 - PEPPOL SMP Server 5.0.0-RC1</h3>
@@ -870,7 +870,7 @@
       Once the conformance test with CEF is finished, version 5.0.0 will be released!
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc1">Download SMP Server 5.0.0-RC1</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.0-rc1">Download SMP Server 5.0.0-RC1</a></li>
     </ul>
     
     <h3>2016-10-05 - Validation artefacts 3.3.0-RC1</h3>
@@ -922,7 +922,7 @@
     
     <p>
       It improves integration with PEPPOL Directory as well as customizability in general.
-      Look on <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">GitHub Wiki</a> for further details.
+      Look on <a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">GitHub Wiki</a> for further details.
     </p>
     <ul>
       <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/5.0.0-b1/">Download binary 5.0.0-Beta1 release</a></li>
@@ -949,10 +949,10 @@
     
     <p>
       <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.2 is out.
-      Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
+      Refer to <a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.2">Source release</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-4.1.2">Source release</a></li>
       <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.2/">Binary release</a></li>
     </ul>
   </div>
@@ -962,10 +962,10 @@
     
     <p>
       <a href="https://github.com/phax/peppol-smp-server">SMP Server</a> release 4.1.0 is out.
-      Refer to <a href="https://github.com/phax/peppol-smp-server/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
+      Refer to <a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">News and noteworthy</a> in the SMP Server Wiki.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.1.0">Source release</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-4.1.0">Source release</a></li>
       <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.1.0/">Binary release</a></li>
     </ul>
     
@@ -977,7 +977,7 @@
       using the SQL backend and adds an overview page with all tasks and action items.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.3">Source release</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-4.0.3">Source release</a></li>
       <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.3/">Binary release</a></li>
     </ul>
     
@@ -997,7 +997,7 @@
       version 4.3.1.
     </p>
     <ul>
-      <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-parent-pom-4.0.2">Source release</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-4.0.2">Source release</a></li>
       <li><a href="http://repo2.maven.org/maven2/com/helger/peppol-smp-server-webapp/4.0.2/">Binary release</a></li>
     </ul>
     
@@ -1134,7 +1134,7 @@
       <li>
         Source releases:
         <ul>
-          <li><a href="https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0">https://github.com/phax/peppol-smp-server/releases/tag/peppol-smp-server-3.1.0</a></li>
+          <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-3.1.0">https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-3.1.0</a></li>
         </ul> 
       </li>
     </ul>
