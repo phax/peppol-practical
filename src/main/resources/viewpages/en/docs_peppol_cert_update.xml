@@ -28,9 +28,58 @@
   <div class="card-header">Table of contents</div>
   <div class="card-body">
     <ol>
-      <li><a href="#pki3">PEPPOL PKI v3</a></li>
-      <li><a href="#pki2">PEPPOL PKI v2 (legacy)</a></li>
-      <li><a href="#usage">Certificate usage in PEPPOL</a></li>
+      <li><a href="#bg">Background information</a></li>
+      <li><a href="#ap">Updating an Access Point</a></li>
+      <li><a href="#smp">Updating an SMP</a></li>
     </ol>
   </div>
 </div>
+
+<a name="bg"></a>
+<h2>Background information</h2>
+
+<p>
+  Short note: the information provided here is meant to be as product independent as possible, 
+  so if you have tool specific questions, please contact your vendor directly. 
+</p>
+
+<p>
+  Another note: if you are an AP-only provider, you can safely skip the chapter on SMP and read
+  only the AP chapter. The reverse is unfortunately not true - if you are an SMP-only provider
+  you also need to consider the AP certificates of your clients. 
+</p>
+
+<p>
+  The terminology in this article differentiates between <em>keystore</em> and <em>truststore</em>.
+  A <em>keystore</em> is considered the collection of your private keys that might <b>not</b> be
+  disclosed to the public.
+  <br />
+  A <em>truststore</em> on the contrary is a collection of public certificates that are
+  trustworthy.
+  Usually an application has one <em>keystore</em> and one <em>truststore</em>.
+  Both types can contain different private keys and/or public certificates, that are accessed by
+  so called <em>alias</em>es.
+  Both <em>keystore</em> and <em>truststore</em> usually require a password to access it.
+  Additionally each key entry (alias) can have it's own password, that may be different from the
+  password to access the file. 
+  <br />
+  PEPPOL does not provide a common <em>truststore</em>, but I assembled some common <em>truststores</em>
+  that can be found at 
+  <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore" target="_blank">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>
+  and try to serve different requirements.
+  E.g. phoss-smp uses the <code>complete-truststore.jks</code> by default.
+  <em>Truststores</em> are usually public and should not contain secret keys.
+  Theoretically <em>keystore</em> and <em>truststore</em> can reside in the same file, but that is considered bad practice. 
+</p>
+
+<p>
+  The PEPPOL PKI update that happened in 2018 was a special case of a certificate update, because it
+  required to update the <em>truststore</em> as well, because a completely new PKI was introduced.
+  Regular certificate updates only contain updates of <em>keystores</em>.
+</p>
+
+<a name="ap"></a>
+<h2>Updating an Access Point</h2>
+
+<a name="smp"></a>
+<h2>Updating an SMP</h2>

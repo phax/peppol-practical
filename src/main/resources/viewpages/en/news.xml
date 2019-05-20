@@ -40,10 +40,12 @@
     
     <p>
       The participant information tool now also works with the TOOP pilot.
-      Previously requests for TOOP participants were rejected, because the TOOP SMP certificate was not in the truststore. 
+      Previously requests for TOOP participants were rejected, because the TOOP SMP certificate was not in the truststore.
+      Additionally a new article on "Certificate Update" was published. 
     </p>
     <ul>
       <li><a href="/public/menuitem-tools-participant">Participant information tool</a></li>
+      <li><a href="/public/menuitem-docs-peppol-cert-update">Article on Certificate Update</a></li>
     </ul>
    
     <h3>2019-05-15 - Document validation extended</h3>
