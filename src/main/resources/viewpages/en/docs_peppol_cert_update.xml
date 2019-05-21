@@ -100,7 +100,8 @@
 <p>
   It's important that the SMP certificate contains the full chain together with the key, as a single alias
   in the <em>keystore</em>.
-  <a href="https://github.com/phax/phoss-smp/wiki/Certificate-setup">phoss SMP Wiki</a> contains an explanation how this can be achieved.
+  <a href="https://github.com/phax/phoss-smp/wiki/Certificate-setup">phoss SMP Wiki</a> contains an explanation 
+  how this can be achieved using commandline commands.
 </p>
 
 <a name="smpsml"></a>
@@ -137,10 +138,11 @@
   The update of your SMP certificate in your SMP software heavily depends on the software used.
   In most cases, the keystore is referenced in some kind of configuration file.
   Either you update that keystore or you configure a completely new keystore.<br />
-  E.g. in phoss-smp the keystore is configured in two properties files:
+  E.g. in <em>phoss-smp</em> the keystore is configured in two properties files:
   <code>smp-server.properties</code> and <code>pd-client.properties</code>. If you provide a new
   keystore, ensure to adopt the path in both files. A restart of the SMP web application is 
-  required to make it work, if the path changed.
+  required to make it work, if the path changed. After a certificate change it is recommended
+  to visit the "Certificate information" page, to check if the modification was successful or not.
 </p>
 
 <p>
