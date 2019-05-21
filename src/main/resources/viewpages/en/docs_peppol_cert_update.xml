@@ -50,7 +50,7 @@
 
 <p>
   Another note: for an AP certificate update you must make sure to update the certificate in your Access Point software
-  <strong>AND</strong> in all SMP entries that point to your AP.
+  <strong>and</strong> in all SMP entries that point to your AP.
   For an SMP certificate update, you only need to update your SMP software.
 </p>
 
@@ -97,8 +97,19 @@
   <li>update the the SMP software itself</li>   
 </ol>
 
+<p>
+  It's important that the SMP certificate contains the full chain together with the key, as a single alias
+  in the <em>keystore</em>.
+  <a href="https://github.com/phax/phoss-smp/wiki/Certificate-setup">phoss SMP Wiki</a> contains an explanation how this can be achieved.
+</p>
+
 <a name="smpsml"></a>
 <h3>Notifying the SML</h3>
+
+<p>
+  Updating the SML is mandatory - you <strong>must</strong> do this.<br />
+  Note: remember to only use test SMP certificates with the SMK and production SMP certificates with the SML.
+</p>
 
 <p>
   The SML links your SMP-ID with your SMP certificate and your public endpoint URL.
@@ -125,9 +136,14 @@
 <p>
   The update of your SMP certificate in your SMP software heavily depends on the software used.
   In most cases, the keystore is referenced in some kind of configuration file.
-  Either you update that keystore or you configure a completely new keystore.
+  Either you update that keystore or you configure a completely new keystore.<br />
+  E.g. in phoss-smp the keystore is configured in two properties files:
+  <code>smp-server.properties</code> and <code>pd-client.properties</code>. If you provide a new
+  keystore, ensure to adopt the path in both files. A restart of the SMP web application is 
+  required to make it work, if the path changed.
 </p>
 
 <p>
- Note: the SMP ID must <strong>not</strong> be changed during the update process. The SMP ID must always stay constant.
+  Note: the SMP ID must <strong>not</strong> be changed during the update process. The SMP ID <strong>must never change</strong>.<br />
+  Note: no special action is needed for PEPPOL Directory. All business card will be available, independent of the certificate status. 
 </p>
