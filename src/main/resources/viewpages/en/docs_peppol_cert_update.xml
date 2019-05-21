@@ -29,8 +29,13 @@
   <div class="card-body">
     <ol>
       <li><a href="#bg">Background information</a></li>
-      <li><a href="#ap">Updating an Access Point</a></li>
-      <li><a href="#smp">Updating an SMP</a></li>
+      <li><a href="#ap">Updating an Access Point (AP)</a></li>
+      <li><a href="#smp">Updating an SMP</a>
+        <ol>
+          <li><a href="#smpsml">Notifying the SML</a></li>
+          <li><a href="#smpitself">Updating the SMP software</a></li>
+        </ol>
+      </li>
     </ol>
   </div>
 </div>
@@ -44,9 +49,9 @@
 </p>
 
 <p>
-  Another note: if you are an AP-only provider, you can safely skip the chapter on SMP and read
-  only the AP chapter. The reverse is unfortunately not true - if you are an SMP-only provider
-  you also need to consider the AP certificates of your clients. 
+  Another note: for an AP certificate update you must make sure to update the certificate in your Access Point software
+  <strong>AND</strong> in all SMP entries that point to your AP.
+  For an SMP certificate update, you only need to update your SMP software.
 </p>
 
 <p>
@@ -83,3 +88,46 @@
 
 <a name="smp"></a>
 <h2>Updating an SMP</h2>
+
+<p>
+  The certificate update on an SMP consists of two basic steps:
+</p>
+<ol>
+  <li>notify the SML about your new certificate, ideally ahead of time</li> 
+  <li>update the the SMP software itself</li>   
+</ol>
+
+<a name="smpsml"></a>
+<h3>Notifying the SML</h3>
+
+<p>
+  The SML links your SMP-ID with your SMP certificate and your public endpoint URL.
+  In case of a certificate update, the SML offers a special Webservice interface to indicate a future certificate change.
+  This interface can only be used, if the certificate exchange happens in the future, and the date provided must at least
+  be tomorrow (the day after the date of request). Additionally your existing certificate may not be expired yet.
+  You can perform this certificate update request e.g. via <a href="/public/menuitem-tools-smp-sml">this site</a> but keep
+  in mind that this requires your private key. Common SMP software like <a href="https://github.com/phax/phoss-smp">phoss SMP</a>
+  contains this functionality "out of the box".<br />
+  Note: the SML only needs the public certificate of your new SMP certificate - don't provide them with your private key!<br />
+  Note: you need to manually update your SMP certificate in your SMP software at exactly the date you specified in that
+  update request, otherwise you won't be able to perform changes in the SML.
+</p>
+<p>
+  If your certificate is already expired, you need to contact <a href="/public/menuitem-docs-sml-support">CEF support</a>
+  and provide the following information: old certificate subject and serial as well as new certificate subject and serial.<br />
+  Note: you may already update your SMP software with the new certificate, because the old certificate is anyway useless.<br />
+  Note: no further action or service call to the SML is necessary, if you are using this manual process.  
+</p>
+
+<a name="smpitself"></a>
+<h3>Update the SMP software</h3>
+
+<p>
+  The update of your SMP certificate in your SMP software heavily depends on the software used.
+  In most cases, the keystore is referenced in some kind of configuration file.
+  Either you update that keystore or you configure a completely new keystore.
+</p>
+
+<p>
+ Note: the SMP ID must <strong>not</strong> be changed during the update process. The SMP ID must always stay constant.
+</p>
