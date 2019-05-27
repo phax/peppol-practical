@@ -42,6 +42,7 @@ import com.helger.html.hc.html.forms.HCInput;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.grouping.HCP;
 import com.helger.html.hc.html.textlevel.HCA;
+import com.helger.html.hc.html.textlevel.HCSmall;
 import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
@@ -366,11 +367,6 @@ public final class LayoutAreaContentProviderPublic
                                   .addChild (new HCA (new SimpleURL ("https://github.com/phax")).addChild ("phax"))
                                   .addChild (" - Twitter: ")
                                   .addChild (new HCA (new SimpleURL ("https://twitter.com/philiphelger")).addChild ("@philiphelger")));
-      aFooter.addChild (new HCP ().addChild ("Disclaimer: This page is a personal project of Philip Helger." +
-                                             " The content is neither provided nor approved by OpenPEPPOL AISBL." +
-                                             " The official PEPPOL website is ")
-                                  .addChild (new HCA (new SimpleURL ("https://www.peppol.eu")).addChild ("www.peppol.eu")
-                                                                                              .setTargetBlank ()));
 
       if (s_nFooterRowCount > 0)
       {
@@ -389,6 +385,12 @@ public final class LayoutAreaContentProviderPublic
         }
         aFooter.addChild (aTable);
       }
+
+      aFooter.addChild (new HCP ().addChild (new HCSmall ().addChild ("Disclaimer: This page is a personal project of Philip Helger." +
+                                                                      " The content is neither provided nor approved by OpenPEPPOL AISBL." +
+                                                                      " The official PEPPOL website is ")
+                                                           .addChild (new HCA (new SimpleURL ("https://www.peppol.eu")).addChild ("www.peppol.eu")
+                                                                                                                       .setTargetBlank ())));
 
       ret.addChild (aFooter);
     }
