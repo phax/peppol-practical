@@ -359,13 +359,18 @@ public final class LayoutAreaContentProviderPublic
 
     // Footer
     {
-      final BootstrapContainer aDiv = new BootstrapContainer ().setFluid (true).setID (CLayout.LAYOUT_AREAID_FOOTER);
+      final BootstrapContainer aFooter = new BootstrapContainer ().setFluid (true).setID (CLayout.LAYOUT_AREAID_FOOTER);
 
-      aDiv.addChild (new HCP ().addChild ("PEPPOL practical - created by Philip Helger")
-                               .addChild (" - GitHub: ")
-                               .addChild (new HCA (new SimpleURL ("https://github.com/phax")).addChild ("phax"))
-                               .addChild (" - Twitter: ")
-                               .addChild (new HCA (new SimpleURL ("https://twitter.com/philiphelger")).addChild ("@philiphelger")));
+      aFooter.addChild (new HCP ().addChild ("PEPPOL practical - created by Philip Helger")
+                                  .addChild (" - GitHub: ")
+                                  .addChild (new HCA (new SimpleURL ("https://github.com/phax")).addChild ("phax"))
+                                  .addChild (" - Twitter: ")
+                                  .addChild (new HCA (new SimpleURL ("https://twitter.com/philiphelger")).addChild ("@philiphelger")));
+      aFooter.addChild (new HCP ().addChild ("Disclaimer: This page is a personal project of Philip Helger." +
+                                             " The content is neither provided nor approved by OpenPEPPOL AISBL." +
+                                             " The official PEPPOL website is ")
+                                  .addChild (new HCA (new SimpleURL ("https://www.peppol.eu")).addChild ("www.peppol.eu")
+                                                                                              .setTargetBlank ()));
 
       if (s_nFooterRowCount > 0)
       {
@@ -382,10 +387,10 @@ public final class LayoutAreaContentProviderPublic
           aRow.createColumn (4)
               .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol3.getAtIndex (i)));
         }
-        aDiv.addChild (aTable);
+        aFooter.addChild (aTable);
       }
 
-      ret.addChild (aDiv);
+      ret.addChild (aFooter);
     }
 
     return ret;
