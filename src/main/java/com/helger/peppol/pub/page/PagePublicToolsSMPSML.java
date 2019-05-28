@@ -45,7 +45,6 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTFromString;
 import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
@@ -264,7 +263,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
         aSSLContext.init (aKeyManagerFactory.getKeyManagers (),
                           new TrustManager [] { new TrustManagerTrustAll (false) },
-                          RandomHelper.getSecureRandom ());
+                          null);
         aSocketFactory = aSSLContext.getSocketFactory ();
         LOGGER.info ("Successfully created TLS socket factory with the provided keystore password!");
       }
