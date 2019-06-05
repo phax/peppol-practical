@@ -27,6 +27,25 @@
   supports both ways, but this page ignores the non-PEPPOL aspects. 
 </p>
 
+<div class="card">
+  <div class="card-header">
+    Table of contents
+  </div>
+  <div class="card-body">
+    <ol>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#create-smp">Create SMP at SML</a></li>
+      <li><a href="#update-smp">Update SMP at SML</a></li>
+      <li><a href="#delete-smp">Delete SMP from SML</a></li>
+      <li><a href="#create-participant">Create participant in SMP and SML</a></li>
+      <li><a href="#update-participant">Update participant in SMP and SML</a></li>
+      <li><a href="#delete-participant">Delete participant from SMP and SML</a></li>
+      <li><a href="#migrate-participant">Migrate participant from one SMP to another SMP</a></li>
+    </ol>
+  </div>
+</div>
+
+<a name="prerequisites"></a>
 <h2>Prerequisites</h2>
 
 <p>
@@ -41,6 +60,7 @@
   </ul>
 </p>
 
+<a name="create-smp"></a>
 <h2>Create SMP at SML</h2>
 <p>
   Every SMP must initially be registered to the SML. That needs to happen exactly once.
@@ -88,32 +108,112 @@
     Only the "logical address" (the public host name) is considered.     
 </p>
 
+<p>
+  Note: when using <em>phoss SMP</em> you have a GUI to do this smoothly at "Administration | SML | SML registration".
+  Alternatively you can perform it via <a href="/public/menuitem-tools-smp-sml">the SMP-SML Tools</a> on this site.
+</p>
+
+<a name="update-smp"></a>
 <h2>Update SMP at SML</h2>
 <p>
-  TODO
+  If the public domain name of an SMP changes, this information must be propagated to the respective SML.
+  The change of an SMP-ID is <strong>not</strong> foreseen, so this value must stay consistent.
+  The change of an SMP certificate (e.g. because of expiration) can also <strong>not</strong> be done with
+    this process. BDMSL foresees a specific process for this that is described at
+    <a href="/public/menuitem-docs-peppol-cert-update">PEPPOL Certificate update</a>.
 </p>
 
-<h2>Delete SMP at SML</h2>
 <p>
-  TODO
+  The following elements are needed to update the SMP registration in the SML:
+  <ul>
+    <li>SMP X.509 certificate (must be the same as for initial registration)</li>
+    <li>SMP-ID (must be the same as for initial registration)</li>
+    <li>IP address of the machine (<em>physical address</em>)</li>
+    <li>Public URL of the SMP (<em>logical address</em>)</li>
+  </ul>
 </p>
 
+<p>
+  The following actions are taking place on the SML side:
+  <ul>
+    <li>The X.509 certificate is validated</li>
+    <li>The existence of the SMP-ID is verified</li>
+    <li>It is checked whether the SMP-ID is linked to the X.509 certificate</li>
+    <li>The consistency of the provided parameters is checked</li>
+    <li>The local database entry, that links the SMP-ID and X.509 certificate together, is updated</li>
+    <li>
+      The destination of the publisher DNS record (<code><em>SMP-ID</em>.publisher.<em>DNSZONE</em></code>)
+        is updated to the new public URL.
+        The DNS entry itself is either a <em>CNAME</em> record (if the public URL is a domain name)
+        or an <em>A</em> record (if the public URL consists of an IP address).<br />
+    </li>
+  </ul>
+</p>
+
+<p>
+  Note: when using <em>phoss SMP</em> you have a GUI to do this smoothly at "Administration | SML | SML registration".
+  Alternatively you can perform it via <a href="/public/menuitem-tools-smp-sml">the SMP-SML Tools</a> on this site.
+</p>
+
+
+<a name="delete-smp"></a>
+<h2>Delete SMP from SML</h2>
+<p>
+  If an SMP leaves the network, after all participants were migrated to different SMPs, it must unregister itself
+  from the SML.
+</p>
+
+<p>
+  Note: don't test this functionality if you already have participants registered, since all participant DNS entries
+  will also be deleted.
+</p>
+
+<p>
+  The following elements are needed to delete the SMP registration from the SML:
+  <ul>
+    <li>SMP X.509 certificate (must be the same as for initial registration)</li>
+    <li>SMP-ID (must be the same as for initial registration)</li>
+  </ul>
+</p>
+
+<p>
+  The following actions are taking place on the SML side:
+  <ul>
+    <li>The X.509 certificate is validated</li>
+    <li>The existence of the SMP-ID is verified</li>
+    <li>It is checked whether the SMP-ID is linked to the X.509 certificate</li>
+    <li>The local database entries for all participants that are linked to that SMP-ID are deleted</li>
+    <li>The local database entry for the provided SMP-ID is deleted</li>
+    <li>All DNS records for participants linked to the SMP-ID publisher record are deleted</li>
+    <li>The publisher DNS record is deleted</li>
+  </ul>
+</p>
+
+<p>
+  Note: when using <em>phoss SMP</em> you have a GUI to do this smoothly at "Administration | SML | SML registration".
+  Alternatively you can perform it via <a href="/public/menuitem-tools-smp-sml">the SMP-SML Tools</a> on this site.
+</p>
+
+<a name="create-participant"></a>
 <h2>Create participant in SMP and SML</h2>
 <p>
   TODO
 </p>
 
+<a name="update-participant"></a>
 <h2>Update participant in SMP and SML</h2>
 <p>
   TODO
 </p>
 
-<h2>Delete participant in SMP and SML</h2>
+<a name="delete-participant"></a>
+<h2>Delete participant from SMP and SML</h2>
 <p>
   TODO
 </p>
 
-<h2>Move participant from one SMP to another</h2>
+<a name="migrate-participant"></a>
+<h2>Migrate participant from one SMP to another SMP</h2>
 <p>
   TODO
 </p>

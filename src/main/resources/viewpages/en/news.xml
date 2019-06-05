@@ -36,6 +36,16 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2019-06-xx - Documentation update</h3>
+    
+    <p>
+      A new article on the interplay between SMP and SML was added.
+      It contains the details on the one time registrations and the per-participant actions needed.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-docs-smp-sml-interplay">Article on SMP-SML interplay</a></li>
+    </ul>
+   
     <h3>2019-05-21 - TOOP integration improved</h3>
     
     <p>
