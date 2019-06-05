@@ -1,0 +1,119 @@
+<!--
+
+    Copyright (C) 2014-2019 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<p>
+  This page outlines how SMP and SML play together.
+  The SML (Service Metadata Locator) is only central component in the PEPPOL eDelivery Network.
+  The SMP (Service Metadata Publisher) is a decentralized registry for technical metadata. 
+</p>
+<p>
+  Note: this information presented here shows the PEPPOL way which is different from
+  the latest OASIS BDXL way. The SML currently used by PEPPOL (BDMSL operated by DG DIGIT/CEF) 
+  supports both ways, but this page ignores the non-PEPPOL aspects. 
+</p>
+
+<h2>Prerequisites</h2>
+
+<p>
+  This page takes the following assumptions:
+  <ul>
+    <li>You have a running instance of an SMP server (that follows the PEPPOL SMP specification)</li>
+    <li>The SMP server runs on a publicly accessible web server that has a DNS name assigned</li>
+    <li>The SMP server is reachable in the root ("/") path of that domain</li>
+    <li>The SMP server exposes the mandatory read-only APIs on port 80 without https</li>
+    <li>You have a PEPPOL SMP X.509 certificate that is compatible with the SML you want to interact with (production certificate for SML, test certificate for SMK)</li>
+    <li>You have chosen a so called <em>SMP-ID</em> that <strong>must not be changed</strong> afterwards</li>
+  </ul>
+</p>
+
+<h2>Create SMP at SML</h2>
+<p>
+  Every SMP must initially be registered to the SML. That needs to happen exactly once.
+  Therefore you need to provide the following elements:
+  <ul>
+    <li>SMP X.509 certificate</li>
+    <li>SMP-ID</li>
+    <li>IP address of the machine (<em>physical address</em>)</li>
+    <li>Public URL of the SMP (<em>logical address</em>)</li>
+  </ul>
+</p>
+
+<p>
+  The following actions are taking place on the SML side:
+  <ul>
+    <li>The X.509 certificate is validated</li>
+    <li>The uniqueness of the SMP-ID is verified</li>
+    <li>The consistency of the provided parameters is checked</li>
+    <li>A local database entry is created, that links the SMP-ID and X.509 certificate together</li>
+    <li>
+      A new DNS entry in the form of <code><em>SMP-ID</em>.publisher.<em>DNSZONE</em></code> is created.<br />
+      <em>SMP-ID</em> is the input parameter.<br />
+      <em>DNSZONE</em> is the DNS zone in which the SML operates -
+        for the production SML that is <code>edelivery.tech.ec.europa.eu</code> and 
+        for the test SMK this is <code>acc.edelivery.tech.ec.europa.eu</code>.<br />
+      The DNS entry itself is either a <em>CNAME</em> record (if the public URL is a domain name)
+      or an <em>A</em> record (if the public URL consists of an IP address).<br />
+    </li>
+  </ul>
+  See e.g. <a href="http://brz.publisher.edelivery.tech.ec.europa.eu">http://brz.publisher.edelivery.tech.ec.europa.eu</a>
+    for an example of the SMP-ID <em>BRZ</em> on the production SML or 
+    <a href="http://brz-test-smp.publisher.acc.edelivery.tech.ec.europa.eu">http://brz-test-smp.publisher.acc.edelivery.tech.ec.europa.eu</a>
+    for an example with the SMP-ID <em>BRZ-TEST-SMP</em> on the test SMK.
+    Both links bring you to the respective SMP instances.
+</p>
+
+<p>
+  Note: this intermediate DNS record is helpful, if the public URL of an SMP changes. Instead of changing all participants that are
+    linked to an SMP (which can be very many) only this single DNS record is changed, because all participant records are just
+    CNAME records pointing to this "publisher" record.     
+</p>
+
+<p>
+  Note: to the best of my knowledge the provided "physical address" is currently not used in the registration process.
+    Only the "logical address" (the public host name) is considered.     
+</p>
+
+<h2>Update SMP at SML</h2>
+<p>
+  TODO
+</p>
+
+<h2>Delete SMP at SML</h2>
+<p>
+  TODO
+</p>
+
+<h2>Create participant in SMP and SML</h2>
+<p>
+  TODO
+</p>
+
+<h2>Update participant in SMP and SML</h2>
+<p>
+  TODO
+</p>
+
+<h2>Delete participant in SMP and SML</h2>
+<p>
+  TODO
+</p>
+
+<h2>Move participant from one SMP to another</h2>
+<p>
+  TODO
+</p>
