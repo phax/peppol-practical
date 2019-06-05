@@ -107,28 +107,11 @@
 </p>
 
 <p>
-  The technical SMP resources are divided into the following elements: 
+  See <a href="https://github.com/phax/phoss-smp/wiki/Source">https://github.com/phax/phoss-smp/wiki/Source</a>
+  for the description of the different source modules. 
+  All of the components are available as ready-to-use Maven projects.
 </p>
 
-<ul>
-  <li><code>peppol-smp-server-library</code> - A common used library with everything needed for an SMP server except the backend and the GUI.</li>
-  <li><code>peppol-smp-server-sql</code> - The SQL backend implementation. Tested with MySQL 5.x</li>
-  <li><code>peppol-smp-server-xml</code> - The XML backend implementation.</li>
-  <li><code>peppol-smp-server-webapp</code> - The common parts for the web application.</li>
-  <li><code>peppol-smp-server-webapp-sql</code> - The main web application with an SQL backend. It provides the GUI and assembles everything together.</li>
-  <li><code>peppol-smp-server-webapp-xml</code> - The main web application with an XML backend. It provides the GUI and assembles everything together.</li>
-  <li><code>peppol-smp-client</code> - An SMP client library to be used to access any SMP server.</li>
-</ul>
-
-<p>
-  Note: an SMP client for the console is currently not offered. If you need it, just drop me a note, and I will
-  implement one.
-</p>
-
-<p>
-  All of the components are available as ready-to-use Eclipse projects.
-  The easiest way to build the projects is therefore to import the projects into Eclipse.
-</p>
 <p>  
   Hint when using Eclipse: it is best to close the project in Eclipse when a commandline 
   build is performed because otherwise Eclipse might want to refresh while the console 
@@ -138,27 +121,27 @@
 </p>
 
 <a name="smpserver"></a>
-<h2>peppol-smp-server-webapp</h2>
+<h2>phoss-smp-webapp-[mongodb|sql|xml]</h2>
 <p>
-  This is the main SMP server application.
+  This is the main SMP server application logic.
   It is provided as a Java web application that can be deployed in an application server 
     like Apache Tomcat or Jetty.
 </p>
 
 <p>
-  The SMP service has been implemented as a REST interface with a backend that stores the data.
+  The SMP service has been implemented as a REST interface with a customizable backend that stores the data.
 </p>
 
 <ul>
   <li>
-    <em>peppol-smp-server-sql</em> uses a relational database as its backend.
+    <em>phoss-smp-webapp-sql</em> uses a relational database as its backend.
     A copy of the MySQL database initialization script can be found in the 
     <code>/database_backups/</code> folder of the project.
     By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
-    The database layout is compatible to the one of the CIPA SMP.
+    The database layout is compatible to the one of the CIPA SMP 2.2.x.
   </li>
   <li>
-    <em>peppol-smp-server-xml</em> uses XML files as its backend.
+    <em>phoss-smp-webapp-xml</em> uses XML files as its backend.
     <code>smp-servicegroup.xml</code> stores all the service groups,
     <code>smp-servicemetadata.xml</code> stores all the service metadata associated to the service groups and
     <code>smp-redirect.xml</code> stores all the service redirects related to a service group.
@@ -174,18 +157,18 @@
   <li>
     Compiling the project on the command line using <kbd>mvn clean install</kbd>. 
     The result is a WAR file in the <code>target</code> folder and additionally an exploded 
-    version of the WAR file in the <code>target/peppol-smp-server-webapp-x.y.z</code> directory
+    version of the WAR file in the <code>target/phoss-smp-webapp-[sql|xml|mongodb]-x.y.z</code> directory
     (where x.y.z denotes the version number).
   </li>
   <li>
-    Run the application <code>src/test/java/com/helger/peppol/smpserver/standalone/RunInJettySMPSERVER</code> 
-    from within Eclipse.
-    Than the application will be running on localhost port 80 and can be accessed with a browser or an SMP client.
+    Run the application <code>src/test/java/com/helger/phoss/smp/standalone/RunInJettySMPSERVER_[SQL|XML|MONGODB]</code> 
+    from within your IDE.
+    Than the application will be running on localhost port 90 (not 80!) and can be accessed with a browser or an SMP client.
   </li>
 </ul>
 
 <div class="alert alert-info">  
-  Note that the SMP service MUST be deployed as the <code>ROOT</code> web application (at path "/") on 
+  Note that a production SMP service MUST be deployed as the <code>ROOT</code> web application (at path "/") on 
   the application server, since this is a prerequisite in the DNS lookup scheme. 
   Furthermore it MUST be deployed on port 80 (standard http port) and may not use SSL to secure the transport.
 </div>
@@ -196,6 +179,7 @@
   The SMP server is configured with two files. One file (<code>webapp.properties</code>) is for the
   customization of the web application and the other file (<code>smp-server.properties</code>) is
   for the SMP functionality itself.
+  Additionally a PEPPOL Directory client file (<code>pd-client.properties</code>) may be configured.
   Please read the Wiki page
   <a href="https://github.com/phax/phoss-smp/wiki/Configuration">https://github.com/phax/phoss-smp/wiki/Configuration</a>
   for all configuration options and example files.
@@ -203,23 +187,11 @@
 
 <a name="security"></a>
 <h3>Security considerations</h3>
+
 <p>
-  As the SMP is publicly available on HTTP port 80 and does not require a client certificate 
-  or anything the like it especially the modifying actions (HTTP <code>PUT</code> and <code>DELETE</code>)
-  must be handled with special care to avoid man in the middle attacks.
-  Even though HTTP BasicAuth is used this is not really added security, as the username and password 
-  are only Base64 encoded - which is easily decodable - and are therefore vulnerable to 
-  Man in the Middle attacks.
-</p>
-<p>
-  The recommended scenario is to <em>additionally</em> configure the SMP to run on HTTPS (on any port other than 80), 
-  and do the modifying actions only via HTTPS. BasicAuth is required anyway but the data is not 
-  readable by third-parties because of the underlying transport security.
-  This is something that is currently technically not available but should be used as a convention 
-  when running an SMP with this implementation.
-  For a future release it may be of value when the modifying actions are presented with a separate 
-  path prefix (e.g. <code>/secure</code>) which can than easily be used to forward all HTTP request 
-  on <code>/secure/*</code> to HTTPS automatically.
+  Please refer to the Wiki at
+  <a href="https://github.com/phax/phoss-smp/wiki/Security">https://github.com/phax/phoss-smp/wiki/Security</a>
+  for the best practices on securing the SMP.
 </p>
  
 <a name="initialization"></a>
