@@ -227,19 +227,29 @@
   This is the default Java library to query any SMP server (that is compliant to the specifications)
   for participant information. The client library has the sole purpose to provide reusable functionality. 
   It does not offer executable functionality itself.
+  The code base of this in a different repository than the SMP server, it is located at
+  <a href="https://github.com/phax/peppol-commons">https://github.com/phax/peppol-commons</a>.
 </p>
  
 <p>
   The <code>com.helger.peppol.smpclient.SMPClient</code> is the main class when using the library.
   The class contains methods for reading, saving and deleting both service groups and service metadata, 
   as well as listing the service groups of a given user. 
-  The writing methods of this class can only be used in conjunction with the my SMP server or the 
-  CIPA SMP server as for different implementation the write access may have been implemented in a different way.
+  The writing methods of this class can only be used in conjunction with phoss SMP server 
+  as for different implementations the write access may have been implemented in a different way (if provided at all).
   Alternatively the class <code>com.helger.peppol.smpclient.SMPClientReadonly</code> can be used
   to access any SMP that complies to the SMP specifications.
   The library contains both static and non-static methods for performing all of these actions. 
   The class is documented using JavaDoc.
 </p>
+
+<p>
+  Note: the classes <code>SMPClientReadonly</code> and <code>SMPClient</code> can only be used to
+  query SMPs that follow the old PEPPOL SMP specification. To query an SMP server that follows
+  the OASIS BDXR SMP v1 specification the classes <code>BDXRClientReadonly</code> and
+  <code>BDXRClient</code> are provided with a similar API.
+</p>
+
 <p>
   The following is an example code of getting a service metadata object of a service group (participant) 
   for a certain document type:
