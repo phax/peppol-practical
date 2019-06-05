@@ -17,20 +17,20 @@
 
 -->
 <p>
-  This page explains how to setup my implementation of an OpenPEPPOL SMP from scratch.
+  This page explains how to setup my implementation (phoss SMP) of an PEPPOL SMP from scratch.
   SMP is the abbreviation for <em>Service Metadata Publisher</em> which is the decentralized
-  directory service of OpenPEPPOL.
-  SMPs are normally only operated by Service Providers and not by endpoints.
+  directory service (registry) of OpenPEPPOL.
+  SMPs are normally only operated by Service Providers and not by end users.
   An SMP contains information about the endpoints of receivers - the URLs where to send the main
   documents to.
   The information within the SMP is structured by participant ID, document type ID and process ID.  
 </p>
 
 <p>
-  phoss SMP is a fork of the CIPA e-Delivery SMP components on version 2.2.3.
+  phoss SMP is a fork of the CIPA e-Delivery SMP components on version 2.2.3 back in 2015.
   The goal is to keep the implementation simple and provide publicly available PEPPOL components
   to the world. An additional goal was to make the configuration as simple as possible.
-  Please read the official <a href="https://github.com/phax/phoss-smp/wiki">SMP Server Wiki</a> for
+  Please read the official <a href="https://github.com/phax/phoss-smp/wiki">phoss SMP Wiki</a> for
   all the details.
 </p>
 
@@ -71,7 +71,8 @@
       also contains the possibility to write new entries.</li>
   <li>You should be familiar with Java 1.8+</li>
   <li>When using the SMP server implementation with a database backend
-      basic knowledge of a relational database (e.g. MySQL) is required</li>
+      basic knowledge of a relational database (e.g. MySQL) is required. 
+      Alternatively a filesystem based XML backend is also available.</li>
   <li>Basic knowledge about Apache Tomcat or Jetty (and optionally a web server) should be present</li>    
 </ol>
 
@@ -80,17 +81,13 @@
 
 <p>
   My phoss SMP server implementation is located on GitHub at
-  <a href="https://github.com/phax/peppol-smp-server">peppol-smp-server</a>. It contains
+  <a href="https://github.com/phax/phoss-smp">phax/phoss-smp</a>. It contains
   the source code and a 
   <a href="https://github.com/phax/phoss-smp/wiki">Wiki</a>
   with the relevant documentation.
-  Previously I had two separate versions - one with an SQL backend and one with an XML
-  backend - but I now decided to merge these versions so that both backends can use the
-  benefits of the management GUI. The backend can now be chosen via a configuration file
-  property.
-  The SMP servers uses shared components also available on GitHub:
+  The SMP server uses shared components also available on GitHub:
   <a href="https://github.com/phax/peppol-commons">peppol-commons</a> 
-  - a common library with shared PEPPOL components containing an SMP client library
+  - a common library with shared PEPPOL components containing e.g. an SMP client library
   and an SML client library.
 </p>
 
@@ -99,7 +96,14 @@
   available on GitHub: 
   <ul>
     <li><a href="https://github.com/phax/phoss-smp/releases">https://github.com/phax/phoss-smp/releases</a></li>
-  </ul> 
+  </ul>
+</p>
+
+<p>
+  Pre-build <strong>Docker</strong> images are available on hub.docker.com: 
+  <ul>
+    <li><a href="https://hub.docker.com/r/phelger/smp/">https://hub.docker.com/r/phelger/smp/</a></li>
+  </ul>
 </p>
 
 <p>

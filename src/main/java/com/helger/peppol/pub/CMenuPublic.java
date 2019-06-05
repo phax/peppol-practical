@@ -30,7 +30,7 @@ public final class CMenuPublic
   public static final String MENU_DOCS = "docs";
   public static final String MENU_DOCS_SETUP_AP_PH = "docs-setup-ap";
   public static final String MENU_DOCS_SETUP_SMP_CIPA = "docs-setup-smp";
-  public static final String MENU_DOCS_SETUP_SMP_PH = "docs-setup-smp-ph";
+  public static final String MENU_DOCS_SETUP_SMP_PHOSS = "docs-setup-smp-ph";
   public static final String MENU_DOCS_SML_SUPPORT = "docs-sml-support";
   public static final String MENU_DOCS_DOC_EXCHANGE = "docs-doc-exchange";
   public static final String MENU_DOCS_PEPPOL_PKI = "docs-peppol-pki";

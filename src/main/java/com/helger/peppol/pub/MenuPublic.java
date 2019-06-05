@@ -68,14 +68,14 @@ public final class MenuPublic
                                                      "Setup PEPPOL AP",
                                                      new ClassPathResource ("viewpages/en/docs_setup_ap.xml")));
       aMenuTree.createItem (aSetup,
-                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_PH,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_PHOSS,
                                                      "Setup phoss SMP",
-                                                     new ClassPathResource ("viewpages/en/docs_setup_smp_ph.xml")));
+                                                     new ClassPathResource ("viewpages/en/docs_setup_smp_phoss.xml")));
       if (false)
         aMenuTree.createItem (aSetup,
                               new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_CIPA,
                                                        "Setup CIPA SMP (deprecated)",
-                                                       new ClassPathResource ("viewpages/en/docs_setup_smp.xml")));
+                                                       new ClassPathResource ("viewpages/en/invisible/docs_setup_smp_cipa.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SML_SUPPORT,
                                                      "SML support",
@@ -102,7 +102,7 @@ public final class MenuPublic
         aMenuTree.createItem (aSetup,
                               new AppPageViewExternal ("docs-sml-migration",
                                                        "SML migration information",
-                                                       new ClassPathResource ("viewpages/en/docs_sml_migration.xml")));
+                                                       new ClassPathResource ("viewpages/en/invisible/docs_sml_migration.xml")));
     }
 
     // Tools stuff
