@@ -37,6 +37,7 @@ import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.bdve.teapps.TEAPPSValidation;
 import com.helger.bdve.ubl.UBLValidation;
 import com.helger.bdve.ublbe.UBLBEValidation;
+import com.helger.bdve.xrechnung.XRechnungValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -64,6 +65,7 @@ public final class ExtValidationKeyRegistry
     EbInterfaceValidation.initEbInterface (VES_REGISTRY);
     TEAPPSValidation.initTEAPPS (VES_REGISTRY);
     UBLBEValidation.initUBLBE (VES_REGISTRY);
+    XRechnungValidation.initXRechnung (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()

@@ -81,6 +81,9 @@ A very small Java WS client is available for
 <li><code>be.ubl:invoice:1.0.0</code> - UBL.BE Invoice 1.0.0</li>
 <li><code>com.tieto:teappsxml:2.7.2</code> - TEAPPSXML 2.7.2</li>
 <li><code>com.tieto:teappsxml:3.0</code> - TEAPPSXML 3.0</li>
+<li><code>de.xrechnung:cii:1.2.0</code> - XRechnung CII 1.2.0</li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.0</code> - XRechnung UBL CrediteNote 1.2.0</li>
+<li><code>de.xrechnung:ubl-invoice:1.2.0</code> - XRechnung UBL Invoice 1.2.0</li>
 <li><code>dk.oioubl:application-response:2.0.2</code> - OIOUBL Application Response 2.0.2</li>
 <li><code>dk.oioubl:catalogue:2.0.2</code> - OIOUBL Catalogue 2.0.2</li>
 <li><code>dk.oioubl:catalogue-deletion:2.0.2</code> - OIOUBL Catalogue Deletion 2.0.2</li>

@@ -75,12 +75,12 @@ import com.helger.pd.businesscard.generic.PDName;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
@@ -184,14 +184,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (StringHelper.hasNoText (sParticipantIDScheme))
         aFormErrors.addFieldError (FIELD_ID_SCHEME, "Please provide an identifier scheme");
       else
-        if (!IPeppolParticipantIdentifier.isValidScheme (sParticipantIDScheme))
+        if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sParticipantIDScheme))
           aFormErrors.addFieldError (FIELD_ID_SCHEME,
                                      "The participant identifier scheme '" + sParticipantIDScheme + "' is not valid!");
 
       if (StringHelper.hasNoText (sParticipantIDValue))
         aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
       else
-        if (!IPeppolParticipantIdentifier.isValidValue (sParticipantIDValue))
+        if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sParticipantIDValue))
           aFormErrors.addFieldError (FIELD_ID_VALUE,
                                      "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
 
@@ -361,8 +361,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                     if (aProcess.getProcessIdentifier () != null)
                     {
                       final IHCLI <?> aLIProcessID = aULProcessID.addAndReturnItem (new HCDiv ().addChild ("Process ID: ")
-                                                                                                .addChild (new HCCode ().addChild (aProcess.getProcessIdentifier ()
-                                                                                                                                           .getURIEncoded ())));
+                                                                                                .addChild (new HCCode ().addChild (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()))));
                       final HCUL aULEndpoint = new HCUL ();
                       // For all endpoints of the process
                       for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
