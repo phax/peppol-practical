@@ -22,8 +22,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.peppol.smp.ISMPTransportProfile;
+import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
 /**
  * Misc utility methods
