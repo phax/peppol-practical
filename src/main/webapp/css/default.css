@@ -99,3 +99,7 @@ td {
 .table-sla th {
   text-align: center;
 }
+
+.tab-content > .tab-pane {
+  padding-top: 0.5rem;
+}

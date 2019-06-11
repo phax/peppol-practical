@@ -38,9 +38,11 @@
       <li><a href="#update-smp">Update SMP at SML</a></li>
       <li><a href="#delete-smp">Delete SMP from SML</a></li>
       <li><a href="#create-participant">Create participant in SMP and SML</a></li>
-      <li><a href="#update-participant">Update participant in SMP and SML</a></li>
       <li><a href="#delete-participant">Delete participant from SMP and SML</a></li>
+      <!-- 
       <li><a href="#migrate-participant">Migrate participant from one SMP to another SMP</a></li>
+       -->
+      <li><a href="#references">References</a></li>
     </ol>
   </div>
 </div>
@@ -81,7 +83,8 @@
     <li>The consistency of the provided parameters is checked</li>
     <li>A local database entry is created, that links the SMP-ID and X.509 certificate together</li>
     <li>
-      A new DNS entry in the form of <code><em>SMP-ID</em>.publisher.<em>DNSZONE</em></code> is created.<br />
+      A new DNS entry in the form of <code><em>SMP-ID</em>.publisher.<em>DNSZONE</em></code> is created.
+        This is the so-called <strong>publisher entry</strong>.<br />
       <em>SMP-ID</em> is the input parameter.<br />
       <em>DNSZONE</em> is the DNS zone in which the SML operates -
         for the production SML that is <code>edelivery.tech.ec.europa.eu</code> and 
@@ -197,23 +200,107 @@
 <a name="create-participant"></a>
 <h2>Create participant in SMP and SML</h2>
 <p>
-  TODO
+  Before you can register new participants, ensure you registered your SMP to the SML as <a href="#create-smp">stated above</a>. 
 </p>
 
-<a name="update-participant"></a>
-<h2>Update participant in SMP and SML</h2>
 <p>
-  TODO
+  Each participant <strong>must</strong> be registered at the SML so that it can be addressed in the network.
+  The following elements need to be provided to make it work:
+  <ul>
+    <li>SMP X.509 certificate</li>
+    <li>SMP-ID</li>
+    <li>Participant ID</li>
+  </ul>
+</p>
+
+
+<p>
+  The following actions are taking place on the SML side:
+  <ul>
+    <li>The X.509 certificate is validated</li>
+    <li>The existence of the SMP-ID is verified</li>
+    <li>It is checked whether the SMP-ID is linked to the X.509 certificate</li>
+    <li>The consistency of the provided parameters is checked</li>
+    <li>A local database entry is created, that links the SMP-ID and the participant identifier</li>
+    <li>
+      A new DNS entry in the form of 
+        <code>"B-"+hexstring(md5(lowercase(<em>ID-VALUE</em>)))+"."+<em>ID-SCHEME</em>+"."+<em>DNSZONE</em></code>
+        is created.<br />
+      <em>ID-SCHEME</em> is part of the input parameter - the scheme part of the participant identifier (usually this is <code>iso6523-actorid-upis</code>)<br />
+      <em>ID-VALUE</em> is also part of the input parameter - the value part of the participant identifier<br />
+      <em>DNSZONE</em> is the DNS zone in which the SML operates -
+        for the production SML that is <code>edelivery.tech.ec.europa.eu</code> and 
+        for the test SMK this is <code>acc.edelivery.tech.ec.europa.eu</code>.<br />
+      The DNS entry itself is a <em>CNAME</em> record pointing to the SMP <em>publisher entry</em>
+        which in turn is itself a reference to the URL or IP provided at the SMP to SML registration
+        process (see above).<br />
+    </li>
+  </ul>
+  The URL created from e.g. the participant identifier <code>iso6523-actorid-upis::9915:b</code> is
+    <a href="http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu">http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu</a>.
+  This is a reference to the <em>publisher entry</em>
+    <a href="http://brz.publisher.edelivery.tech.ec.europa.eu">http://brz.publisher.edelivery.tech.ec.europa.eu</a>
+    created at the registration process (see above).
+    Both links lead to the same IP and therefore to the same SMP instance.
+</p>
+
+<p>
+  Note: the changes to the DNS may not be directly visible to you, because the propagation
+    of new entries can take up to 24 hours to be replicated to all distributed nodes.
+</p>
+
+<p>
+  Note: when using <em>phoss SMP</em> this is done implicitly if you create a service group
+    but only if SML connection is enabled.
 </p>
 
 <a name="delete-participant"></a>
 <h2>Delete participant from SMP and SML</h2>
 <p>
-  TODO
+  If a participant is no longer needed, it must be manually unregistered from the SML.
 </p>
 
+<p>
+  The following elements are needed to delete the SMP registration from the SML:
+  <ul>
+    <li>SMP X.509 certificate (must be the same as for initial registration)</li>
+    <li>Participant ID</li>
+  </ul>
+</p>
+
+<p>
+  The following actions are taking place on the SML side:
+  <ul>
+    <li>The X.509 certificate is validated</li>
+    <li>The existence of the Participant ID is verified</li>
+    <li>It is checked whether the Participant ID is linked to the X.509 certificate</li>
+    <li>The local database entry for the provided Participant ID is deleted</li>
+    <li>The DNS record (<code>B-...</code>) for that Participant ID is deleted</li>
+  </ul>
+</p>
+
+<p>
+  Note: the changes to the DNS may not be directly visible to you, because the propagation
+    of new entries can take up to 24 hours to be replicated to all distributed nodes.
+</p>
+
+<p>
+  Note: when using <em>phoss SMP</em> this is done implicitly if you delete a service group
+    but only if SML connection is enabled.
+</p>
+
+<!-- 
 <a name="migrate-participant"></a>
 <h2>Migrate participant from one SMP to another SMP</h2>
 <p>
   TODO
+</p>
+ -->
+<a name="references"></a>
+<h2>References</h2>
+<p>
+  <ul>
+    <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-SMP_Service_Specification-110.pdf">PEPPOL SMP specification 1.1.0</a></li>
+    <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-SML_Service_Specification-101.pdf">PEPPOL SML specification 1.0.1</a></li>
+  </ul>
 </p>
