@@ -75,12 +75,12 @@ import com.helger.pd.businesscard.generic.PDName;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
+import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ProcessType;
-import com.helger.peppol.smp.ServiceGroupType;
-import com.helger.peppol.smp.ServiceMetadataReferenceType;
 import com.helger.peppol.smp.ServiceMetadataType;
 import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
@@ -211,14 +211,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           URI aSMPHostURI = null;
           if (bSMLAutoDetect)
           {
-            for (final ISMLInfo aSMLInfo : aSMLInfoMgr.getAllSorted ())
+            for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
             {
-              aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSMLInfo);
-              aSML = aSMLInfo;
+              aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aCurSML);
               try
               {
                 InetAddress.getByName (aSMPHostURI.getHost ());
                 // Found it
+                aSML = aCurSML;
                 break;
               }
               catch (final UnknownHostException ex)
@@ -226,13 +226,25 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 // continue
               }
             }
+
+            // Ensure to go into the exception handler
+            if (aSML == null)
+              throw new UnknownHostException ("");
           }
           else
+          {
             aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSML);
+          }
+
+          // TODO make configurable
+          final ESMPAPIType eSMPAPIType = "SMK TOOP".equals (aSML.getDisplayName ()) ? ESMPAPIType.OASIS_BDXR_V1
+                                                                                     : ESMPAPIType.PEPPOL;
 
           LOGGER.info ("Participant information of '" +
                        aParticipantID.getURIEncoded () +
-                       "' is queried from " +
+                       "' is queried using SMP API " +
+                       eSMPAPIType +
+                       " from " +
                        aSMPHostURI);
           final URL aSMPHost = aSMPHostURI.toURL ();
 
@@ -262,34 +274,65 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aNodeList.addChild (aUL);
           }
 
-          final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPHostURI);
+          // Determine all document types
           final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();
+          SMPClientReadOnly aSMPClient = null;
+          BDXRClientReadOnly aBDXR1Client = null;
+
           {
-            aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
-
             final HCUL aUL = new HCUL ();
-
-            final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
-
-            // Get all HRefs and sort them by decoded URL
-            final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
-            // Map from cleaned URL to original URL
             final ICommonsSortedMap <String, String> aSGHrefs = new CommonsTreeMap <> ();
-            if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-              for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                .getServiceMetadataReference ())
-              {
-                final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
-                if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-                  aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
-                                                      .addChild (new HCCode ().addChild (sHref)));
 
+            switch (eSMPAPIType)
+            {
+              case PEPPOL:
+              {
+                aSMPClient = new SMPClientReadOnly (aSMPHostURI);
+
+                // Get all HRefs and sort them by decoded URL
+                final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+                // Map from cleaned URL to original URL
+                if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
+                  for (final com.helger.peppol.smp.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                          .getServiceMetadataReference ())
+                  {
+                    final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
+                    if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+                      aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
+                                                          .addChild (new HCCode ().addChild (sHref)));
+
+                  }
+                break;
               }
+              case OASIS_BDXR_V1:
+              {
+                aBDXR1Client = new BDXRClientReadOnly (aSMPHostURI);
+
+                // Get all HRefs and sort them by decoded URL
+                final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
+                // Map from cleaned URL to original URL
+                if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
+                  for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                              .getServiceMetadataReference ())
+                  {
+                    final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
+                    if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+                      aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
+                                                          .addChild (new HCCode ().addChild (sHref)));
+
+                  }
+                break;
+              }
+            }
+
             LOGGER.info ("Participant information of '" +
                          aParticipantID.getURIEncoded () +
                          "' returned " +
                          aSGHrefs.size () +
                          " entries");
+
+            aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
+            final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
 
             // Show all ServiceGroup hrefs
             for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
