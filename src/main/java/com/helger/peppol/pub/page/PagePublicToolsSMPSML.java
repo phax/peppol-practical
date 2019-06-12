@@ -795,7 +795,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final boolean bShowInput = true;
 
     aNodeList.addChild (new BootstrapWarnBox ().addChild ("Note: as of ")
-                                               .addChild (new HCA (new SimpleURL ("https://github.com/phax/peppol-smp-server")).addChild ("phoss SMP server 5.0.0 beta 1"))
+                                               .addChild (new HCA (new SimpleURL ("https://github.com/phax/phoss-smp")).addChild ("phoss SMP server 5.0.0 beta 1"))
                                                .addChild (" this registration feature is contained directly in the SMP software! So you don't need to send your certificates over the Internet anymore!"));
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))

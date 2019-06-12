@@ -288,7 +288,7 @@
       <td>Service Metadata Publisher</td>
       <td>
         Distributed PEPPOL registry. Used to lookup participant endpoint URLs.
-        See <a href="https://github.com/phax/peppol-smp-server">https://github.com/phax/peppol-smp-server</a> for an Open Source implementation.
+        See <a href="https://github.com/phax/phoss-smp">https://github.com/phax/phoss-smp</a> for an Open Source implementation.
       </td>
     </tr>
     <tr>

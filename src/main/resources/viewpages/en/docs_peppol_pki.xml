@@ -76,9 +76,6 @@
   <li>
     3 September 2018: the new certificates can be used in production
   </li>
-  <li>
-    30 November 2018: the old (PKI v2) certificates will be revoked and cannot be used in the PEPPOL eDelivery Network anymore
-  </li>
 </ul>
 
 <p>
@@ -109,7 +106,7 @@
 <h2>Introduction to the PEPPOL PKI (v2, until 2018 - out of date)</h2>
 
 <div class="alert alert-danger">
-  All PEPPOL PKI v2 will be revoked soon, as new certificate were rolled out! Read details below.
+  Do not use the PEPPOL PKI v2 anymore. It is here for migration to v3 purposes only.
 </div>
 
 <p>

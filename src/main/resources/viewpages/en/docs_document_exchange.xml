@@ -133,58 +133,5 @@
 <h2>Appendix - SMP/SML interaction</h2>
 
 <p>
-  The SMP has the following interactions with the SML and is responsible for telling the SML what to do.
+  A detailed description can now be found at <a href="/public/menuitem-docs-smp-sml-interplay">SMP-SML interplay</a>. 
 </p>
-
-<ol>
-  <li>
-    <p>
-      When an SMP enters the PEPPOL network, it needs to be registered to the SML.
-      This is where the SMP-ID comes into play.
-      For the registration the SML creates a DNS entry with the name 
-      <code>SMP-ID + ".publisher." + SML-ZONE-NAME</code>
-      which is a CNAME entry (alias) to the hostname provided for registration.
-      This is the so called <strong>publisher</strong> entry.
-    </p>
-    <p>
-      Example: an SMP with SMP-ID <code>TEST-SMP</code> and host name <code>smp.example.org</code>
-      should be registered at the SMK (with DNS zone name <code>acc.edelivery.tech.ec.europa.eu.</code>).
-      Therefore the DNS name <code>TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu</code> pointing 
-      to <code>smp.example.org</code> is created. 
-    </p>
-    <p>
-      Note: this publisher entry is the reason, why the SMP-ID can only used a limited character set.
-    </p>
-  </li>
-  <li>
-    <p>
-      If the host name of an SMP entry changes, the SMP-ID and the new host name are send to the
-      SML and the SML updates the publisher entry in the DNS. That means that all existing
-      participant DNS entries (see below) don't need to be modified.  
-    </p>
-  </li>
-  <li>
-    <p>
-      When an SMP leaves the PEPPOL network, the publisher entry and all entries referencing
-      this publisher entry will be removed.
-    </p>
-  </li>
-  <li>
-    <p>
-      Each time a service group (participant) is added to an SMP that is registered to an SML,
-      the SML creates a CNAME entry (according to the algorithm explained above - "B-...")
-      that in turn points to the publisher entry.
-    </p>
-    <p>
-      So upon name resolution, the service group DNS entry is resolved to the publisher entry
-      which in turn is resolved to the SMP host name.
-    </p>
-    <p>
-      <strong>Note:</strong> the latest version of the SML not only creates a CNAME record for
-      each participant but also a <a href="https://en.wikipedia.org/wiki/NAPTR_record" target="_blank">DNS NAPTR</a>
-      record pointing to the publisher entry.
-      For the NAPTR records, the e-SENS algorithm for creating DNS names is used instead:
-      <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))), "=") + "." + ID-SCHEME + "." + SML-ZONE-NAME</code>
-    </p>
-  </li>
-</ol>

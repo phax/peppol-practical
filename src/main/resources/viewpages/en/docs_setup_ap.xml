@@ -16,11 +16,6 @@
     limitations under the License.
 
 -->
-<div class="alert alert-warning">
-  This page is a bit outdated but the general principles still apply.
-</div>
-
-
 <p>
   This page explains how to setup an OpenPEPPOL AS2 AccessPoint from scratch.
   AP is the abbreviation for <em>Access Point</em> which is the technical endpoint for
@@ -28,18 +23,26 @@
 </p>
 
 <p>
-  There are three known possibilities (I'm aware of) on how to build an AS2 AccessPoint.
-  The first one is using the <em>cipa-dispatcher</em> project which is part of the
-  <a href="https://joinup.ec.europa.eu/solution/cipa-e-delivery">CIPA e-Delivery</a>
-  project maintained by the European Commission. It is a Mendelson frontend and therefore
-  requires Mendelson to be setup besides CIPA.
-  The second possibility is to use <a href="https://github.com/difi/oxalis">Oxalis</a> as the
-  software of choice. And the third solution - the one described in this document - is the
-  usage of my <a href="https://github.com/phax/as2-lib">as2-lib</a> as the AS2 communication
-  channel and <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a>
-  for receiving AS2 messages within a standard Java servlet. By default no external AS2 software
-  is required for this solution, so I'm presenting a fully self-contained Open Source solution.
-  This solution is also used by the Austrian government to receive e-Invoices via PEPPOL. 
+  There are a few known possibilities (I'm aware of) on how to build/run a PEPPOL AS2 AccessPoint.
+  <ul>
+    <li>
+      You can use <a href="https://github.com/difi/oxalis">Oxalis</a> as a prebuild solution. 
+      It supports AS2 and AS4 but comes without professional support.
+    </li>
+    <li>
+      You can use <a href="http://holodeck-b2b.org/">Holodeck B2B</a> as a prebuild solution. 
+      It supports AS2 and AS4 and comes with commercial support.
+    </li>
+    <li>
+      The solution described in this document is the
+      usage of my <a href="https://github.com/phax/as2-lib">as2-lib</a> as the AS2 communication
+      channel and <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a>
+      for receiving AS2 messages within a standard Java servlet.
+      By default no external AS2 software
+      is required for this solution, so I'm presenting a fully self-contained Open Source solution.
+      This solution is also used by the Austrian government to receive e-Invoices via PEPPOL. 
+    </li>
+  </ul>
 </p>
 
 <div class="card card-default">
@@ -49,11 +52,7 @@
   <div class="card-body">
     <ol>
       <li><a href="#prerequisites">Prerequisites</a></li>
-      <li><a href="#messagestructure">AS2 Message structure</a>
-        <ol>
-          <li><a href="#msimplementation">Implementation</a></li>
-        </ol>
-      </li>
+      <li><a href="#messagestructure">AS2 Message structure</a></li>
       <li><a href="#as2receiver">AS2 AccessPoint receiver</a></li>
       <li><a href="#as2sender">AS2 AccessPoint sender</a></li>
     </ol>
@@ -125,27 +124,19 @@
     <a href="http://bouncycastle.org/">The Legion of the Bouncy Castle</a> 
     provides tools for it.
     It is <a href="http://bouncycastle.org/licence.html">licensed under an MIT-like license</a>.
-    The latest version 1.56 is used within <em>as2-lib</em> for S/MIME handling.
+    The latest version 1.62 is used within <em>as2-lib</em> for S/MIME handling.
     The relevant Maven artefacts are:
     <pre>
     &lt;dependency&gt;
       &lt;groupId&gt;org.bouncycastle&lt;/groupId&gt;
       &lt;artifactId&gt;bcmail-jdk15on&lt;/artifactId&gt;
-      &lt;version&gt;1.56&lt;/version&gt;
+      &lt;version&gt;1.62&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
       &lt;artifactId&gt;javax.mail&lt;/artifactId&gt;
-      &lt;version&gt;1.5.6&lt;/version&gt;
-      &lt;exclusions&gt;
-        &lt;exclusion&gt;
-          &lt;groupId&gt;javax.activation&lt;/groupId&gt;
-          &lt;artifactId&gt;activation&lt;/artifactId&gt;
-        &lt;/exclusion&gt;
-      &lt;/exclusions&gt;
+      &lt;version&gt;1.6.2&lt;/version&gt;
     &lt;/dependency&gt;</pre>
-    Note: the <code>activation</code> artefact is excluded from <code>javax.mail</code> because
-    when using JDK 6 (or higher) the activation package is already contained in the Java runtime.
   </li>
   <li>
     <strong>SBDH</strong>: to read an write SBDH messages I created a Java library called
@@ -158,12 +149,12 @@
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;ph-sbdh&lt;/artifactId&gt;
-      &lt;version&gt;3.0.2&lt;/version&gt;
+      &lt;version&gt;4.1.0&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;peppol-sbdh&lt;/artifactId&gt;
-      &lt;version&gt;5.2.4&lt;/version&gt;
+      &lt;version&gt;7.0.0&lt;/version&gt;
     &lt;/dependency&gt;</pre>
   </li>
   <li>
@@ -175,7 +166,7 @@
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;ph-ubl21&lt;/artifactId&gt;
-      &lt;version&gt;5.1.0&lt;/version&gt;
+      &lt;version&gt;6.1.2&lt;/version&gt;
     &lt;/dependency&gt;</pre>
   </li>
 </ul>
@@ -190,7 +181,7 @@
   <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> to receive messages from arbitrary
   PEPPOL AS2 receivers. It requires <strong>no external AS2 handler</strong> (like Mendelson) and 
   no mandatory database setup. 
-  <em>as2-peppol-server</em> is a Java 1.6+ project and licensed under Apache 2.0 license.
+  <em>as2-peppol-server</em> is a Java 1.8+ project and licensed under Apache 2.0 license.
 </p>
 
 <p>
@@ -226,9 +217,11 @@
       <li>
         Your <strong>PEPPOL sender participant ID</strong>. There is no fixed way how to determine this.
         If you are registered as a PEPPOL recipient, than please use your recipient ID as your
-        sender ID. If you are not registered as a sender have a look at the 
+        sender ID. If you are not registered as a sender have a look at the latest
         <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">PEPPOL policy for use of identifiers</a>
-        3.0 beneath <em>POLICY 8</em> and search the VAT scheme suitable for your country (at the end of the list).
+        as well as the
+        <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists">Participant Identifier Scheme code lists</a>
+        and search the VAT scheme suitable for your country (at the end of the list).
         Assuming you are from San Marino and your VAT number is <em>123456</em> than use the following 
         sender ID: <code>9951:123456</code>.   
       </li>
@@ -248,24 +241,24 @@
   <li>
     Perform an SMP lookup on the recipient ID and the document type ID to retrieve a list
     of all endpoints and extract the one using the <em>transportProfile</em>
-    <code>busdox-transport-as2-ver1p0</code>.
+    <code>busdox-transport-as2-ver1p0</code> (for AS2; for AS4 it is <code>peppol-transport-as4-v2_0</code>).
     From this endpoint use <em>EndpointReference</em> as the destination URL and
     also remember the certificate of the recipient. It is later needed to extract the
     <em>as2-to</em> ID.
   </li>
   <li>
     Next thing to do is to create an SBDH document. Using the 
-    <a href="https://github.com/phax/ph-sbdh">ph-sbdh</a> library this can be
+    <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> library this can be
     performed in very few steps:
     <ol>
       <li>
-        Create an instance of <code>com.helger.peppol.sbdh.DocumentData</code> which is filled with
+        Create an instance of <code>com.helger.peppol.sbdh.PeppolSBDHDocument</code> which is filled with
         the UBL document, the sender participant ID, the receiver participant ID, the document type
         ID and the process ID (all stated in the prerequisites above).
       </li>
       <li>
-        Convert the <code>DocumentData</code> to a <code>StandardBusinessDocument</code> using
-        the <code>DocumentDataWriter</code> utility class.
+        Convert the <code>PeppolSBDHDocument</code> to a <code>StandardBusinessDocument</code> using
+        the <code>PeppolSBDHDocumentWriter</code> utility class.
       </li>
     </ol>
   </li>

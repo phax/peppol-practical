@@ -112,6 +112,10 @@
 </p>
 
 <p>
+  Note: this DNS publisher entry is the reason, why the SMP-ID can only used a limited character set.
+</p>
+
+<p>
   Note: when using <em>phoss SMP</em> you have a GUI to do this smoothly at "Administration | SML | SML registration".
   Alternatively you can perform it via <a href="/public/menuitem-tools-smp-sml">the SMP-SML Tools</a> on this site.
 </p>
@@ -247,6 +251,14 @@
 <p>
   Note: the changes to the DNS may not be directly visible to you, because the propagation
     of new entries can take up to 24 hours to be replicated to all distributed nodes.
+</p>
+
+<p>
+  Note: the latest version of the SML not only creates a CNAME record for
+  each participant but also a <a href="https://en.wikipedia.org/wiki/NAPTR_record" target="_blank">DNS NAPTR</a>
+  record pointing to the publisher entry.
+  For the NAPTR records, a special algorithm for creating DNS names is used instead:
+  <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))), "=") + "." + ID-SCHEME + "." + SML-ZONE-NAME</code>
 </p>
 
 <p>
