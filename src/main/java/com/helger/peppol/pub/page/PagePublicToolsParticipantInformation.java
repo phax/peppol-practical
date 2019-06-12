@@ -225,7 +225,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           {
             for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
             {
-              eSMPAPIType = _findSMPAPIType (aSML);
+              eSMPAPIType = _findSMPAPIType (aCurSML);
               aSMPHostURI = _getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aCurSML);
               try
               {
