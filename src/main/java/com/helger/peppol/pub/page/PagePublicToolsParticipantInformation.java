@@ -22,6 +22,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Map;
 
@@ -46,6 +47,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
+import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.html.hc.ext.HCA_MailTo;
 import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.EHCFormMethod;
@@ -79,10 +81,6 @@ import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.peppol.smp.EndpointType;
-import com.helger.peppol.smp.ProcessType;
-import com.helger.peppol.smp.ServiceMetadataType;
-import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
@@ -393,86 +391,142 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (aDocTypeIDs.isNotEmpty ())
           {
             final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
-            final ICommonsOrderedSet <String> aAllUsedCertifiactes = new CommonsLinkedHashSet <> ();
+            final ICommonsOrderedSet <X509Certificate> aAllUsedCertifiactes = new CommonsLinkedHashSet <> ();
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();
             for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
             {
               final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (aDocTypeID.getURIEncoded ())));
-              final SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
-                                                                                              aDocTypeID);
-              if (aSSM != null)
+
+              switch (eSMPAPIType)
               {
-                final ServiceMetadataType aSM = aSSM.getServiceMetadata ();
-                if (aSM.getRedirect () != null)
-                  aLIDocTypeID.addChild (new HCDiv ().addChild ("Redirect to " + aSM.getRedirect ().getHref ()));
-                else
+                case PEPPOL:
                 {
-                  // For all processes
-                  final HCUL aULProcessID = new HCUL ();
-                  for (final ProcessType aProcess : aSM.getServiceInformation ().getProcessList ().getProcess ())
-                    if (aProcess.getProcessIdentifier () != null)
+                  final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
+                                                                                                                        aDocTypeID);
+                  if (aSSM != null)
+                  {
+                    final com.helger.peppol.smp.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                    if (aSM.getRedirect () != null)
+                      aLIDocTypeID.addChild (new HCDiv ().addChild ("Redirect to " + aSM.getRedirect ().getHref ()));
+                    else
                     {
-                      final IHCLI <?> aLIProcessID = aULProcessID.addAndReturnItem (new HCDiv ().addChild ("Process ID: ")
-                                                                                                .addChild (new HCCode ().addChild (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()))));
-                      final HCUL aULEndpoint = new HCUL ();
-                      // For all endpoints of the process
-                      for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
-                      {
-                        // Endpoint URL
-                        final IHCLI <?> aLIEndpoint = aULEndpoint.addAndReturnItem (new HCDiv ().addChild ("Endpoint URL: ")
-                                                                                                .addChild (aEndpoint.getEndpointReference () == null ? new HCEM ().addChild ("none")
-                                                                                                                                                     : new HCCode ().addChild (W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ()))));
-
-                        // Valid from
-                        if (aEndpoint.getServiceActivationDate () != null)
+                      // For all processes
+                      final HCUL aULProcessID = new HCUL ();
+                      for (final com.helger.peppol.smp.ProcessType aProcess : aSM.getServiceInformation ()
+                                                                                 .getProcessList ()
+                                                                                 .getProcess ())
+                        if (aProcess.getProcessIdentifier () != null)
                         {
-                          final LocalDate aValidFrom = PDTFactory.createLocalDate (aEndpoint.getServiceActivationDate ());
-                          aLIEndpoint.addChild (new HCDiv ().addChild ("Valid from: " +
-                                                                       PDTToString.getAsString (aValidFrom,
-                                                                                                aDisplayLocale)));
-                          if (aValidFrom.isAfter (aNowDate))
-                            aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is not yet valid!"));
+                          final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
+                          aLIProcessID.addChild (new HCDiv ().addChild ("Process ID: ")
+                                                             .addChild (new HCCode ().addChild (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()))));
+                          final HCUL aULEndpoint = new HCUL ();
+                          // For all endpoints of the process
+                          for (final com.helger.peppol.smp.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
+                                                                                            .getEndpoint ())
+                          {
+                            final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
+
+                            // Endpoint URL
+                            final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
+                                                                                                  : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+                            _printEndpointURL (aLIEndpoint, sEndpointRef);
+
+                            // Valid from
+                            _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
+
+                            // Valid to
+                            _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
+
+                            // Transport profile
+                            _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
+
+                            // Technical infos
+                            _printTecInfo (aLIEndpoint,
+                                           StringHelper.getImplodedNonEmpty (" / ",
+                                                                             aEndpoint.getTechnicalInformationUrl (),
+                                                                             aEndpoint.getTechnicalContactUrl ()));
+
+                            // Certificate
+                            aAllUsedCertifiactes.add (CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ()));
+                          }
+                          aLIProcessID.addChild (aULEndpoint);
                         }
-
-                        // Valid to
-                        if (aEndpoint.getServiceExpirationDate () != null)
-                        {
-                          final LocalDate aValidTo = PDTFactory.createLocalDate (aEndpoint.getServiceExpirationDate ());
-                          aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " +
-                                                                       PDTToString.getAsString (aValidTo,
-                                                                                                aDisplayLocale)));
-                          if (aValidTo.isBefore (aNowDate))
-                            aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is no longer valid!"));
-                        }
-
-                        // Transport profile
-                        final String sTransportProfile = aEndpoint.getTransportProfile ();
-                        final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-                        final String sShortName = eTransportProfile == null ? "unknown" : eTransportProfile.getName ();
-                        aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: " + sTransportProfile + " (")
-                                                          .addChild (new HCStrong ().addChild (sShortName))
-                                                          .addChild (")"));
-
-                        // Technical infos
-                        final String sTecInfo = StringHelper.getImplodedNonEmpty (" / ",
-                                                                                  aEndpoint.getTechnicalInformationUrl (),
-                                                                                  aEndpoint.getTechnicalContactUrl ());
-                        if (StringHelper.hasText (sTecInfo))
-                          aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: " + sTecInfo));
-
-                        // Certificate
-                        aAllUsedCertifiactes.add (aEndpoint.getCertificate ());
-                      }
-                      aLIProcessID.addChild (aULEndpoint);
+                      aLIDocTypeID.addChild (aULProcessID);
                     }
-                  aLIDocTypeID.addChild (aULProcessID);
+                  }
+                  else
+                  {
+                    aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to get service registration"));
+                  }
+                  break;
                 }
-              }
-              else
-              {
-                aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to get service registration"));
+                case OASIS_BDXR_V1:
+                {
+                  final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
+                                                                                                                              aDocTypeID);
+                  if (aSSM != null)
+                  {
+                    final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                    if (aSM.getRedirect () != null)
+                      aLIDocTypeID.addChild (new HCDiv ().addChild ("Redirect to " + aSM.getRedirect ().getHref ()));
+                    else
+                    {
+                      // For all processes
+                      final HCUL aULProcessID = new HCUL ();
+                      for (final com.helger.xsds.bdxr.smp1.ProcessType aProcess : aSM.getServiceInformation ()
+                                                                                     .getProcessList ()
+                                                                                     .getProcess ())
+                        if (aProcess.getProcessIdentifier () != null)
+                        {
+                          final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
+                          aLIProcessID.addChild (new HCDiv ().addChild ("Process ID: ")
+                                                             .addChild (new HCCode ().addChild (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()))));
+                          final HCUL aULEndpoint = new HCUL ();
+                          // For all endpoints of the process
+                          for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
+                                                                                                .getEndpoint ())
+                          {
+                            final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
+
+                            // Endpoint URL
+                            _printEndpointURL (aLIEndpoint, aEndpoint.getEndpointURI ());
+
+                            // Valid from
+                            _printActivationDate (aLIEndpoint,
+                                                  PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceActivationDate ()),
+                                                  aDisplayLocale);
+
+                            // Valid to
+                            _printExpirationDate (aLIEndpoint,
+                                                  PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceExpirationDate ()),
+                                                  aDisplayLocale);
+
+                            // Transport profile
+                            _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
+
+                            // Technical infos
+                            _printTecInfo (aLIEndpoint,
+                                           StringHelper.getImplodedNonEmpty (" / ",
+                                                                             aEndpoint.getTechnicalInformationUrl (),
+                                                                             aEndpoint.getTechnicalContactUrl ()));
+
+                            // Certificate
+                            aAllUsedCertifiactes.add (CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ()));
+                          }
+                          aLIProcessID.addChild (aULEndpoint);
+                        }
+                      aLIDocTypeID.addChild (aULProcessID);
+                    }
+                  }
+                  else
+                  {
+                    aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to get service registration"));
+                  }
+                  break;
+                }
               }
             }
             aNodeList.addChild (aULDocTypeIDs);
@@ -485,18 +539,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             else
             {
               final HCUL aULCerts = new HCUL ();
-              for (final String sCertificate : aAllUsedCertifiactes)
+              for (final X509Certificate aCert : aAllUsedCertifiactes)
               {
                 final IHCLI <?> aLICert = aULCerts.addItem ();
-                X509Certificate aCert;
-                try
-                {
-                  aCert = CertificateHelper.convertStringToCertficate (sCertificate);
-                }
-                catch (final Exception ex)
-                {
-                  aCert = null;
-                }
                 if (aCert != null)
                 {
                   if (aCert.getIssuerDN () != null)
@@ -520,7 +565,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 }
                 final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
                                                               .setRows (3)
-                                                              .setValue (sCertificate)
+                                                              .setValue (CertificateHelper.getPEMEncodedCertificate (aCert))
                                                               .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
                 BootstrapFormHelper.markAsFormControl (aTextArea);
                 aLICert.addChild (new HCDiv ().addChild (aTextArea));
@@ -747,4 +792,56 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       aToolbar.addSubmitButton ("Show details");
     }
   }
+
+  private static void _printEndpointURL (final IHCLI <?> aLIEndpoint, final String sEndpointRef)
+  {
+    aLIEndpoint.addChild (new HCDiv ().addChild ("Endpoint URL: ")
+                                      .addChild (StringHelper.hasNoText (sEndpointRef) ? new HCEM ().addChild ("none")
+                                                                                       : new HCCode ().addChild (sEndpointRef)));
+  }
+
+  private static void _printActivationDate (final IHCLI <?> aLIEndpoint,
+                                            final LocalDateTime aServiceActivationDate,
+                                            final Locale aDisplayLocale)
+  {
+    if (aServiceActivationDate != null)
+    {
+      final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
+      final LocalDate aValidFrom = aServiceActivationDate.toLocalDate ();
+      aLIEndpoint.addChild (new HCDiv ().addChild ("Valid from: " +
+                                                   PDTToString.getAsString (aValidFrom, aDisplayLocale)));
+      if (aValidFrom.isAfter (aNowDate))
+        aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is not yet valid!"));
+    }
+  }
+
+  private static void _printExpirationDate (final IHCLI <?> aLIEndpoint,
+                                            final LocalDateTime aServiceExpirationDate,
+                                            final Locale aDisplayLocale)
+  {
+    if (aServiceExpirationDate != null)
+    {
+      final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
+      final LocalDate aValidTo = PDTFactory.createLocalDate (aServiceExpirationDate);
+      aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " + PDTToString.getAsString (aValidTo, aDisplayLocale)));
+      if (aValidTo.isBefore (aNowDate))
+        aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is no longer valid!"));
+    }
+  }
+
+  private static void _printTransportProfile (final IHCLI <?> aLIEndpoint, final String sTransportProfile)
+  {
+    final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
+    final String sShortName = eTransportProfile == null ? "unknown" : eTransportProfile.getName ();
+    aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: " + sTransportProfile + " (")
+                                      .addChild (new HCStrong ().addChild (sShortName))
+                                      .addChild (")"));
+  }
+
+  private static void _printTecInfo (final IHCLI <?> aLIEndpoint, final String sTecInfo)
+  {
+    if (StringHelper.hasText (sTecInfo))
+      aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: " + sTecInfo));
+  }
+
 }
