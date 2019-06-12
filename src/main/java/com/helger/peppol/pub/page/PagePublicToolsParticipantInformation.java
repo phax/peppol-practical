@@ -87,6 +87,7 @@ import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
+import com.helger.peppol.url.BDXLURLProvider;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.url.PeppolURLProvider;
@@ -128,7 +129,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_SML = "sml";
   public static final String PARAM_QUERY_BUSINESS_CARD = "querybc";
 
-  private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
   private static final boolean DEFAULT_QUERY_BUSINESS_CARD = true;
   private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsParticipantInformation.class);
 
@@ -144,6 +144,19 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                .setHref (new SimpleURL (sURL))
                                                                .addChild ("Open in browser")
                                                                .setTargetBlank ();
+  }
+
+  @Nonnull
+  private static ESMPAPIType _findSMPAPIType (@Nonnull final ISMLInfo aSML)
+  {
+    // TODO make configurable
+    return "SMK TOOP".equals (aSML.getDisplayName ()) ? ESMPAPIType.OASIS_BDXR_V1 : ESMPAPIType.PEPPOL;
+  }
+
+  @Nonnull
+  private static IPeppolURLProvider _getURLProvider (@Nonnull final ESMPAPIType eAPIType)
+  {
+    return eAPIType == ESMPAPIType.PEPPOL ? PeppolURLProvider.INSTANCE : BDXLURLProvider.INSTANCE;
   }
 
   @Override
@@ -208,12 +221,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
         try
         {
+          ESMPAPIType eSMPAPIType = null;
           URI aSMPHostURI = null;
           if (bSMLAutoDetect)
           {
             for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
             {
-              aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aCurSML);
+              eSMPAPIType = _findSMPAPIType (aSML);
+              aSMPHostURI = _getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aCurSML);
               try
               {
                 InetAddress.getByName (aSMPHostURI.getHost ());
@@ -233,12 +248,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
           else
           {
-            aSMPHostURI = URL_PROVIDER.getSMPURIOfParticipant (aParticipantID, aSML);
+            eSMPAPIType = _findSMPAPIType (aSML);
+            aSMPHostURI = _getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aSML);
           }
-
-          // TODO make configurable
-          final ESMPAPIType eSMPAPIType = "SMK TOOP".equals (aSML.getDisplayName ()) ? ESMPAPIType.OASIS_BDXR_V1
-                                                                                     : ESMPAPIType.PEPPOL;
 
           LOGGER.info ("Participant information of '" +
                        aParticipantID.getURIEncoded () +
