@@ -151,8 +151,8 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
-        <artifactId>peppol-directory-parent-pom</artifactId>
-        <version>0.7.2</version>
+        <artifactId>phoss-directory-parent-pom</artifactId>
+        <version>0.8.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -246,7 +246,7 @@
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>peppol-directory-businesscard</artifactId>
+      <artifactId>phoss-directory-businesscard</artifactId>
     </dependency>
     
     <dependency>
