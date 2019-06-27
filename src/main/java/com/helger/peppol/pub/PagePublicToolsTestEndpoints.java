@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.pub.page;
+package com.helger.peppol.pub;
 
 import java.util.Locale;
 
@@ -37,11 +37,10 @@ import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.pub.CMenuPublic;
-import com.helger.peppol.pub.testendpoint.TestEndpoint;
-import com.helger.peppol.pub.testendpoint.TestEndpointManager;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.testendpoint.TestEndpoint;
+import com.helger.peppol.testendpoint.TestEndpointManager;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPageForm;
 import com.helger.peppol.ui.select.ParticipantIdentifierSchemeSelect;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.pub.page;
+package com.helger.peppol.pub;
 
 import java.io.InputStream;
 import java.net.InetAddress;
@@ -44,7 +44,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTFromString;
 import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
@@ -63,6 +62,7 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
+import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.photon.audit.AuditHelper;
@@ -118,13 +118,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
   {
     super (sID, "SMP - SML tools");
-  }
-
-  @Nonnull
-  @Nonempty
-  private static String _getTechnicalDetails (@Nonnull final Throwable t)
-  {
-    return " Technical details: " + ClassHelper.getClassLocalName (t) + " " + StringHelper.getNotNull (t.getMessage ());
   }
 
   @Nullable
@@ -244,9 +237,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         }
         catch (final Exception ex)
         {
-          final String sMsg = "The key store could not be loaded with the provided password.";
-          LOGGER.error (sMsg, ex);
-          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + _getTechnicalDetails (ex));
+          final String sMsg = "The key store could not be loaded with the provided password. ";
+          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + AppCommonUI.getTechnicalDetailsString (ex));
           aKeyStore = null;
         }
       }
@@ -269,9 +261,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       }
       catch (final Exception ex)
       {
-        final String sMsg = "Failed to use the provided key store for TLS connection.";
-        LOGGER.error (sMsg, ex);
-        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + _getTechnicalDetails (ex));
+        final String sMsg = "Failed to use the provided key store for TLS connection. ";
+        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + AppCommonUI.getTechnicalDetailsString (ex));
       }
     }
     return aSocketFactory;
@@ -330,9 +321,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         }
         catch (final UnknownHostException ex)
         {
-          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
-                                     "The provided IP address does not resolve to a valid host." +
-                                                             _getTechnicalDetails (ex));
+          final String sMsg = "The provided IP address does not resolve to a valid host. ";
+          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, sMsg + AppCommonUI.getTechnicalDetailsString (ex));
         }
       }
 
@@ -409,7 +399,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
         LOGGER.error (sMsg, ex);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -468,8 +458,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final Exception ex)
         {
           aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
-                                     "The provided IP address does not resolve to a valid host." +
-                                                             _getTechnicalDetails (ex));
+                                     "The provided IP address does not resolve to a valid host. " +
+                                                             AppCommonUI.getTechnicalDetailsString (ex));
         }
       }
 
@@ -545,8 +535,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        LOGGER.error (sMsg, ex);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
+        LOGGER.error (sMsg);
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -613,8 +603,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' from the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        LOGGER.error (sMsg, ex);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
+        LOGGER.error (sMsg);
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
                                            aSMLInfo.getManagementServiceURL (),
@@ -772,8 +762,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
                             "'.";
-        LOGGER.error (sMsg, ex);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg + _getTechnicalDetails (ex)));
+        LOGGER.error (sMsg);
+        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
                                            sMigrationPublicKey,

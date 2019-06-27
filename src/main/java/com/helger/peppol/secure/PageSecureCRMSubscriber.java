@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.secure.page;
+package com.helger.peppol.secure;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -53,7 +53,6 @@ import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
-import com.helger.peppol.secure.CMenuSecure;
 import com.helger.peppol.ui.page.AbstractAppWebPageForm;
 import com.helger.photon.bootstrap4.alert.BootstrapQuestionBox;
 import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;

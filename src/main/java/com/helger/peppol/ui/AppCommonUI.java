@@ -23,11 +23,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.http.EHttpMethod;
 import com.helger.commons.id.factory.GlobalIDFactory;
+import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.css.property.CCSSProperties;
@@ -88,6 +93,7 @@ public final class AppCommonUI
                                                                                      .addItem (50)
                                                                                      .addItem (100)
                                                                                      .addItemAll ();
+  private static final Logger LOGGER = LoggerFactory.getLogger (AppCommonUI.class);
 
   private AppCommonUI ()
   {}
@@ -300,5 +306,53 @@ public final class AppCommonUI
 
     // add other types as desired
     throw new IllegalArgumentException ("Unsupported object: " + aObject);
+  }
+
+  @Nonnull
+  private static String _getString (@Nonnull final Throwable t)
+  {
+    return StringHelper.getConcatenatedOnDemand (ClassHelper.getClassLocalName (t.getClass ()), " - ", t.getMessage ());
+  }
+
+  @Nullable
+  public static HCNodeList getTechnicalDetailsUI (@Nullable final Throwable t)
+  {
+    if (t == null)
+      return null;
+
+    LOGGER.warn ("Technical details", t);
+
+    final HCNodeList ret = new HCNodeList ();
+    Throwable aCur = t;
+    while (aCur != null)
+    {
+      if (ret.hasNoChildren ())
+        ret.addChild (new HCDiv ().addChild ("Technical details: " + _getString (aCur)));
+      else
+        ret.addChild (new HCDiv ().addChild ("Caused by: " + _getString (aCur)));
+      aCur = aCur.getCause ();
+    }
+    return ret;
+  }
+
+  @Nullable
+  public static String getTechnicalDetailsString (@Nullable final Throwable t)
+  {
+    if (t == null)
+      return null;
+
+    LOGGER.warn ("Technical details", t);
+
+    final StringBuilder ret = new StringBuilder ();
+    Throwable aCur = t;
+    while (aCur != null)
+    {
+      if (ret.length () == 0)
+        ret.append ("Technical details: ").append (_getString (aCur));
+      else
+        ret.append ("\nCaused by: ").append (_getString (aCur));
+      aCur = aCur.getCause ();
+    }
+    return ret.toString ();
   }
 }

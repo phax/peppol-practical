@@ -20,12 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.secure.page.PageSecureAdminAddons;
-import com.helger.peppol.secure.page.PageSecureCRMGroup;
-import com.helger.peppol.secure.page.PageSecureCRMSubscriber;
-import com.helger.peppol.secure.page.PageSecureCommentAdmin;
-import com.helger.peppol.secure.page.PageSecureSMLConfiguration;
-import com.helger.peppol.secure.page.PageSecureSchematronTools;
 import com.helger.photon.bootstrap4.pages.BootstrapPagesMenuConfigurator;
 import com.helger.photon.core.menu.IMenuItemPage;
 import com.helger.photon.core.menu.IMenuTree;

@@ -26,7 +26,7 @@ import com.helger.commons.exception.InitializationException;
 import com.helger.dao.DAOException;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
-import com.helger.peppol.pub.testendpoint.TestEndpointManager;
+import com.helger.peppol.testendpoint.TestEndpointManager;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
 

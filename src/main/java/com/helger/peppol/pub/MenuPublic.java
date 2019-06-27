@@ -20,15 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.peppol.pub.page.PagePublicContact;
-import com.helger.peppol.pub.page.PagePublicLogin;
-import com.helger.peppol.pub.page.PagePublicNewsletterSubscribe;
-import com.helger.peppol.pub.page.PagePublicNewsletterUnsubscribe;
-import com.helger.peppol.pub.page.PagePublicSignUp;
-import com.helger.peppol.pub.page.PagePublicToolsDocumentValidation;
-import com.helger.peppol.pub.page.PagePublicToolsParticipantInformation;
-import com.helger.peppol.pub.page.PagePublicToolsSMPSML;
-import com.helger.peppol.pub.page.PagePublicToolsTestEndpoints;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.core.menu.IMenuItemPage;

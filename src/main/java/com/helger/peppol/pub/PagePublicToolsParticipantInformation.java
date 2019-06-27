@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.pub.page;
+package com.helger.peppol.pub;
 
 import java.net.InetAddress;
 import java.net.URI;
@@ -83,6 +83,7 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.smpclient.exception.SMPClientException;
+import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.peppol.url.BDXLURLProvider;
@@ -93,8 +94,11 @@ import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.BDXR1IdentifierFactory;
+import com.helger.peppolid.factory.BDXR2IdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
@@ -144,11 +148,35 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                .setTargetBlank ();
   }
 
+  private static boolean _isSMKToop (@Nonnull final ISMLInfo aSML)
+  {
+    // TODO make configurable
+    return "SMK TOOP".equals (aSML.getDisplayName ());
+  }
+
   @Nonnull
   private static ESMPAPIType _findSMPAPIType (@Nonnull final ISMLInfo aSML)
   {
-    // TODO make configurable
-    return "SMK TOOP".equals (aSML.getDisplayName ()) ? ESMPAPIType.OASIS_BDXR_V1 : ESMPAPIType.PEPPOL;
+    return _isSMKToop (aSML) ? ESMPAPIType.OASIS_BDXR_V1 : ESMPAPIType.PEPPOL;
+  }
+
+  @Nonnull
+  private static IIdentifierFactory _getIdentifierFactory (@Nonnull final ISMLInfo aSML,
+                                                           @Nonnull final ESMPAPIType eSMP)
+  {
+    if (_isSMKToop (aSML))
+      return SimpleIdentifierFactory.INSTANCE;
+
+    switch (eSMP)
+    {
+      case PEPPOL:
+        return PeppolIdentifierFactory.INSTANCE;
+      case OASIS_BDXR_V1:
+        return BDXR1IdentifierFactory.INSTANCE;
+      case OASIS_BDXR_V2:
+        return BDXR2IdentifierFactory.INSTANCE;
+    }
+    throw new IllegalStateException ();
   }
 
   @Nonnull
@@ -166,7 +194,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
-    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
 
     String sParticipantIDScheme = DEFAULT_ID_SCHEME;
     String sParticipantIDValue = null;
@@ -211,21 +238,24 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         // Try to print the basic information before an error occurs
-        final IParticipantIdentifier aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme,
-                                                                                       sParticipantIDValue);
+        final String sParticipantIDUriEncoded = CIdentifier.getURIEncoded (sParticipantIDScheme, sParticipantIDValue);
         aNodeList.addChild (new HCDiv ().addChild ("Querying the following SMP for ")
-                                        .addChild (new HCCode ().addChild (aParticipantID.getURIEncoded ()))
+                                        .addChild (new HCCode ().addChild (sParticipantIDUriEncoded))
                                         .addChild (":"));
 
         try
         {
           ESMPAPIType eSMPAPIType = null;
+          IIdentifierFactory aIF = null;
+          IParticipantIdentifier aParticipantID = null;
           URI aSMPHostURI = null;
           if (bSMLAutoDetect)
           {
             for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
             {
               eSMPAPIType = _findSMPAPIType (aCurSML);
+              aIF = _getIdentifierFactory (aCurSML, eSMPAPIType);
+              aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
               aSMPHostURI = _getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aCurSML);
               try
               {
@@ -247,11 +277,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           else
           {
             eSMPAPIType = _findSMPAPIType (aSML);
+            aIF = _getIdentifierFactory (aSML, eSMPAPIType);
+            aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
             aSMPHostURI = _getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aSML);
           }
 
           LOGGER.info ("Participant information of '" +
-                       aParticipantID.getURIEncoded () +
+                       sParticipantIDUriEncoded +
                        "' is queried using SMP API " +
                        eSMPAPIType +
                        " from " +
@@ -700,32 +732,30 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         catch (final UnknownHostException ex)
         {
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
-                                                                                        aParticipantID.getURIEncoded () +
+                                                                                        sParticipantIDUriEncoded +
                                                                                         " is not registered to the PEPPOL network."))
-                                                      .addChild (new HCDiv ().addChild ("Technical details: unknown host " +
-                                                                                        ex.getMessage ()))
+                                                      .addChild (AppCommonUI.getTechnicalDetailsUI (ex))
                                                       .addChild (bSMLAutoDetect ? null
                                                                                 : new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
-                                             aParticipantID.getURIEncoded (),
+                                             sParticipantIDUriEncoded,
                                              "unknown-host",
                                              ex.getMessage ());
         }
         catch (final PeppolDNSResolutionException ex)
         {
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
-                                                                                        aParticipantID.getURIEncoded () +
+                                                                                        sParticipantIDUriEncoded +
                                                                                         " is not registered to the PEPPOL network."))
-                                                      .addChild (new HCDiv ().addChild ("Technical details: DNS resolution failed " +
-                                                                                        ex.getMessage ()))
+                                                      .addChild (AppCommonUI.getTechnicalDetailsUI (ex))
                                                       .addChild (bSMLAutoDetect ? null
                                                                                 : new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
-                                             aParticipantID.getURIEncoded (),
+                                             sParticipantIDUriEncoded,
                                              "dns-resolution-failed",
                                              ex.getMessage ());
         }
@@ -740,12 +770,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                        .handle ();
           }
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Error querying SMP."))
-                                                      .addChild (new HCDiv ().addChild ("Technical details: " +
-                                                                                        ex.getMessage ())));
+                                                      .addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
-                                             aParticipantID.getURIEncoded (),
+                                             sParticipantIDUriEncoded,
                                              ex.getClass (),
                                              ex.getMessage ());
         }
