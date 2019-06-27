@@ -22,7 +22,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
@@ -167,22 +166,23 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
         aForm.addChild (new HCHiddenField (FIELD_GROUP, aAllCRMGroups.getFirst ().getID ()));
       }
       else
-      {
-        // Show selection
-        final HCNodeList aGroups = new HCNodeList ();
-        for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aAllCRMGroups,
-                                                                     IHasDisplayName.getComparatorCollating (aDisplayLocale)))
+        if (aAllCRMGroups.isNotEmpty ())
         {
-          final String sCRMGroupID = aCRMGroup.getID ();
-          final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
-                                                                                        sCRMGroupID,
-                                                                                        false);
-          aGroups.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB)).addChild (" " + aCRMGroup.getDisplayName ()));
+          // Show selection
+          final HCNodeList aGroups = new HCNodeList ();
+          for (final ICRMGroup aCRMGroup : aAllCRMGroups.getSorted (IHasDisplayName.getComparatorCollating (aDisplayLocale)))
+          {
+            final String sCRMGroupID = aCRMGroup.getID ();
+            final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
+                                                                                          sCRMGroupID,
+                                                                                          false);
+            aGroups.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB))
+                                          .addChild (" " + aCRMGroup.getDisplayName ()));
+          }
+          aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Mailing lists to subscribe to")
+                                                       .setCtrl (aGroups)
+                                                       .setErrorList (aFormErrors.getListOfField (FIELD_GROUP)));
         }
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Mailing lists to subscribe to")
-                                                     .setCtrl (aGroups)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_GROUP)));
-      }
     }
 
     // Toolbar
