@@ -51,6 +51,7 @@ public final class CMenuPublic
   public static final String MENU_CHANGE_PASSWORD = "changepassword";
   public static final String MENU_NEWSLETTER_SUBSCRIBE = "newsletter-subscribe";
   public static final String MENU_CONTACT = "contact";
+  public static final String MENU_PEPPOL_SERVICE_DESK = "peppol-service-desk";
 
   // footer
   public static final String MENU_NEWSLETTER_UNSUBSCRIBE = "newsletter-unsubscribe";

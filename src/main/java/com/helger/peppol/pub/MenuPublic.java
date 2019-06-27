@@ -20,6 +20,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.text.display.ConstantHasDisplayText;
+import com.helger.commons.url.SimpleURL;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.core.menu.IMenuItemPage;
@@ -158,6 +160,14 @@ public final class MenuPublic
     {
       aMenuTree.createRootItem (new BasePageSecurityChangePassword <WebPageExecutionContext> (CMenuPublic.MENU_CHANGE_PASSWORD))
                .setDisplayFilter (new MenuObjectFilterUserLoggedIn ());
+    }
+
+    // External stuff
+    {
+      aMenuTree.createRootSeparator ();
+      aMenuTree.createRootItem (CMenuPublic.MENU_PEPPOL_SERVICE_DESK,
+                                new SimpleURL ("https://openpeppol.atlassian.net/servicedesk/customer/portal/1"),
+                                new ConstantHasDisplayText ("OpenPEPPOL Service Desk (external)"));
     }
 
     // Set default
