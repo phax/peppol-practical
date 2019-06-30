@@ -36,6 +36,30 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2019-06-30 - Documentation update</h3>
+    
+    <p>
+      The new EHF validation artefacts were added.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+   
+    <p>
+      New VESIDs are:
+    </p>
+    <ul>
+<li><code>no.ehf:catalogue:1.0.14</code> - EHF Catalogue 1.0.14</li>
+<li><code>no.ehf:catalogue-response:1.0.14</code> - EHF Catalogue Response 1.0.14</li>
+<li><code>no.ehf:creditnote:2.0.16</code> - EHF Creditnote 2.0.16</li>
+<li><code>no.ehf:despatch-advice:1.0.11</code> - EHF Despatch Advice 1.0.11</li>
+<li><code>no.ehf:invoice:2.0.16</code> - EHF Invoice 2.0.16</li>
+<li><code>no.ehf:order:1.0.12</code> - EHF Ordering 1.0.12</li>
+<li><code>no.ehf:order-agreement:1.0.3</code> - EHF Order Agreement 1.0.3</li>
+<li><code>no.ehf:order-response:1.0.12</code> - EHF Order Response 1.0.12</li>
+<li><code>no.ehf:punch-out:1.0.2</code> - EHF Punch Out 1.0.2</li>
+    </ul>
+   
     <h3>2019-06-11 - Documentation update</h3>
     
     <p>
@@ -56,6 +80,7 @@
 <li><code>de.xrechnung:ubl-creditnote:1.2.0</code> - XRechnung UBL CrediteNote 1.2.0</li>
 <li><code>de.xrechnung:ubl-invoice:1.2.0</code> - XRechnung UBL Invoice 1.2.0</li>
     </ul>
+
     <h3>2019-05-21 - TOOP integration improved</h3>
     
     <p>

@@ -166,15 +166,24 @@ A very small Java WS client is available for
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.1</code> - Energie eFactuur 1.0.1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2.0.0</code> - Energie eFactuur 2.0.0</li>
 <li><code>nl.energie-efactuur:energie-efactuur:3.0.0</code> - Energie eFactuur 3.0.0</li>
-<li><code>no.ehf:catalogue:1.0.13</code> - EHF Catalogue 1.0.13</li>
-<li><code>no.ehf:catalogue-response:1.0.13</code> - EHF Catalogue Response 1.0.13</li>
-<li><code>no.ehf:creditnote:2.0.15</code> - EHF Creditnote 2.0.15</li>
-<li><code>no.ehf:despatch-advice:1.0.10</code> - EHF Despatch Advice 1.0.10</li>
-<li><code>no.ehf:invoice:2.0.15</code> - EHF Invoice 2.0.15</li>
-<li><code>no.ehf:order:1.0.11</code> - EHF Ordering 1.0.11</li>
-<li><code>no.ehf:order-agreement:1.0.2</code> - EHF Order Agreement 1.0.2</li>
-<li><code>no.ehf:order-response:1.0.11</code> - EHF Order Response 1.0.11</li>
-<li><code>no.ehf:punch-out:1.0.1</code> - EHF Punch Out 1.0.1</li>
+<li><code>no.ehf:catalogue:1.0.13</code> - EHF Catalogue 1.0.13 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:catalogue:1.0.14</code> - EHF Catalogue 1.0.14</li>
+<li><code>no.ehf:catalogue-response:1.0.13</code> - EHF Catalogue Response 1.0.13 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:catalogue-response:1.0.14</code> - EHF Catalogue Response 1.0.14</li>
+<li><code>no.ehf:creditnote:2.0.15</code> - EHF Creditnote 2.0.15 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:creditnote:2.0.16</code> - EHF Creditnote 2.0.16</li>
+<li><code>no.ehf:despatch-advice:1.0.10</code> - EHF Despatch Advice 1.0.10 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:despatch-advice:1.0.11</code> - EHF Despatch Advice 1.0.11</li>
+<li><code>no.ehf:invoice:2.0.15</code> - EHF Invoice 2.0.15 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:invoice:2.0.16</code> - EHF Invoice 2.0.16</li>
+<li><code>no.ehf:order:1.0.11</code> - EHF Ordering 1.0.11 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:order:1.0.12</code> - EHF Ordering 1.0.12</li>
+<li><code>no.ehf:order-agreement:1.0.2</code> - EHF Order Agreement 1.0.2 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:order-agreement:1.0.3</code> - EHF Order Agreement 1.0.3</li>
+<li><code>no.ehf:order-response:1.0.11</code> - EHF Order Response 1.0.11 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:order-response:1.0.12</code> - EHF Order Response 1.0.12</li>
+<li><code>no.ehf:punch-out:1.0.1</code> - EHF Punch Out 1.0.1 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:punch-out:1.0.2</code> - EHF Punch Out 1.0.2</li>
 <li><code>no.ehf:reminder:1.1.0</code> - EHF Reminder 1.1.0</li>
 <li><code>org.oasis-open:applicationresponse:2.0</code> - UBL ApplicationResponse 2.0</li>
 <li><code>org.oasis-open:applicationresponse:2.1</code> - UBL ApplicationResponse 2.1</li>
