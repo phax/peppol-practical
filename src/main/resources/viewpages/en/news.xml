@@ -36,6 +36,28 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2019-07-10 - Document validation extended</h3>
+    
+    <p>
+      XRechnung 1.2.1 validation artefacts were added.
+      EN 16031 1.2.3 validation artefacts were added.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+   
+    <p>
+      New VESIDs are:
+    </p>
+    <ul>
+<li><code>de.xrechnung:cii:1.2.1</code> - XRechnung CII 1.2.1</li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.1</code> - XRechnung UBL CrediteNote 1.2.1</li>
+<li><code>de.xrechnung:ubl-invoice:1.2.1</code> - XRechnung UBL Invoice 1.2.1</li>
+<li><code>eu.cen.en16931:cii:1.2.3</code> - EN 16931 CII 1.2.3</li>
+<li><code>eu.cen.en16931:ubl:1.2.3</code> - EN 16931 UBL Invoice 1.2.3</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.2.3</code> - EN 16931 UBL CreditNote 1.2.3</li>
+    </ul>
+   
     <h3>2019-06-30 - Document validation extended</h3>
     
     <p>

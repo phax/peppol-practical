@@ -81,9 +81,12 @@ A very small Java WS client is available for
 <li><code>be.ubl:invoice:1.0.0</code> - UBL.BE Invoice 1.0.0</li>
 <li><code>com.tieto:teappsxml:2.7.2</code> - TEAPPSXML 2.7.2</li>
 <li><code>com.tieto:teappsxml:3.0</code> - TEAPPSXML 3.0</li>
-<li><code>de.xrechnung:cii:1.2.0</code> - XRechnung CII 1.2.0</li>
-<li><code>de.xrechnung:ubl-creditnote:1.2.0</code> - XRechnung UBL CrediteNote 1.2.0</li>
-<li><code>de.xrechnung:ubl-invoice:1.2.0</code> - XRechnung UBL Invoice 1.2.0</li>
+<li><code>de.xrechnung:cii:1.2.0</code> - XRechnung CII 1.2.0 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:cii:1.2.1</code> - XRechnung CII 1.2.1</li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.0</code> - XRechnung UBL CrediteNote 1.2.0 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.1</code> - XRechnung UBL CrediteNote 1.2.1</li>
+<li><code>de.xrechnung:ubl-invoice:1.2.0</code> - XRechnung UBL Invoice 1.2.0 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-invoice:1.2.1</code> - XRechnung UBL Invoice 1.2.1</li>
 <li><code>dk.oioubl:application-response:2.0.2</code> - OIOUBL Application Response 2.0.2</li>
 <li><code>dk.oioubl:catalogue:2.0.2</code> - OIOUBL Catalogue 2.0.2</li>
 <li><code>dk.oioubl:catalogue-deletion:2.0.2</code> - OIOUBL Catalogue Deletion 2.0.2</li>
@@ -102,16 +105,19 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:cii:1.0.0</code> - EN 16931 CII 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.1.0</code> - EN 16931 CII 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.2.0</code> - EN 16931 CII 1.2.0 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:cii:1.2.1</code> - EN 16931 CII 1.2.1</li>
+<li><code>eu.cen.en16931:cii:1.2.1</code> - EN 16931 CII 1.2.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:cii:1.2.3</code> - EN 16931 CII 1.2.3</li>
 <li><code>eu.cen.en16931:edifact:1.0.0</code> - EN 16931 EDIFACT/ISO 20625 1.0.0</li>
 <li><code>eu.cen.en16931:ubl:1.0.0</code> - EN 16931 UBL Invoice 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.1.0</code> - EN 16931 UBL Invoice 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.2.0</code> - EN 16931 UBL Invoice 1.2.0 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl:1.2.1</code> - EN 16931 UBL Invoice 1.2.1</li>
+<li><code>eu.cen.en16931:ubl:1.2.1</code> - EN 16931 UBL Invoice 1.2.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl:1.2.3</code> - EN 16931 UBL Invoice 1.2.3</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.0.0</code> - EN 16931 UBL CreditNote 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.1.0</code> - EN 16931 UBL CreditNote 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.2.0</code> - EN 16931 UBL CreditNote 1.2.0 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.2.1</code> - EN 16931 UBL CreditNote 1.2.1</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.2.1</code> - EN 16931 UBL CreditNote 1.2.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.2.3</code> - EN 16931 UBL CreditNote 1.2.3</li>
 <li><code>eu.peppol.bis2:t01:3.5.0</code> - OpenPEPPOL Order (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.6.0</code> - OpenPEPPOL Order (3.6.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.7.0</code> - OpenPEPPOL Order (3.7.0)</li>
@@ -160,8 +166,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:t77:3.8.0</code> - OpenPEPPOL Punch Out (3.8.0)</li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG PEPPOL BIS3 CreditNote (UBL)</li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1</code> - SG PEPPOL BIS3 Invoice (UBL)</li>
-<li><code>eu.peppol.bis3.ubl:creditnote:1</code> - OpenPEPPOL BIS3 CreditNote (UBL)</li>
-<li><code>eu.peppol.bis3.ubl:invoice:1</code> - OpenPEPPOL BIS3 Invoice (UBL)</li>
+<li><code>eu.peppol.bis3.ubl:creditnote:1</code> - OpenPEPPOL BIS3 CreditNote (UBL) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.ubl:invoice:1</code> - OpenPEPPOL BIS3 Invoice (UBL) <strong>(Deprecated)</strong></li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.0</code> - Energie eFactuur 1.0.0</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.1</code> - Energie eFactuur 1.0.1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2.0.0</code> - Energie eFactuur 2.0.0</li>
