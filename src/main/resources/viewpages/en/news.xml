@@ -36,6 +36,17 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2019-07-17 - Participant information tool update</h3>
+    
+    <p>
+      The participant information tool now knows the predefined document types of
+      PEPPOL (CodeList v4) and TOOP (0.10.5 release) and highlights them accordingly.
+    </p>
+
+    <ul>
+      <li><a href="/public/menuitem-tools-participant">Participant information tool</a></li>
+    </ul>
+   
     <h3>2019-07-12 - Document validation extended</h3>
     
     <p>

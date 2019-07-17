@@ -41,6 +41,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
+import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.locale.language.LanguageCache;
 import com.helger.commons.string.StringHelper;
@@ -66,6 +67,7 @@ import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.html.textlevel.HCEM;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.html.hc.impl.HCTextNode;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.network.dns.IPV4Addr;
@@ -100,6 +102,7 @@ import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
@@ -392,7 +395,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 {
                   aDocTypeIDs.add (aDocType);
                   aLI.addChild (new HCDiv ().addChild (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ())
-                                            .addChild (" " + aDocType.getURIEncoded ()));
+                                            .addChild (" ")
+                                            .addChild (AppCommonUI.createDocTypeID (aDocType, false)));
                   aLI.addChild (new HCDiv ().addChild (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ())
                                             .addChild (" ")
                                             .addChild (_createOpenInBrowser (sOriginalHref)));
@@ -401,7 +405,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 {
                   aLI.addChild (new BootstrapErrorBox ().addChild ("The document type ")
                                                         .addChild (new HCCode ().addChild (sDocType))
-                                                        .addChild (" could not be interpreted as a PEPPOL document type!"));
+                                                        .addChild (" could not be interpreted as a structured document type!"));
                 }
               }
               else
@@ -429,7 +433,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             final HCUL aULDocTypeIDs = new HCUL ();
             for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
             {
-              final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (aDocTypeID.getURIEncoded ())));
+              final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (AppCommonUI.createDocTypeID (aDocTypeID,
+                                                                                                                                 true)));
 
               switch (eSMPAPIType)
               {
@@ -453,7 +458,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         {
                           final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
                           aLIProcessID.addChild (new HCDiv ().addChild ("Process ID: ")
-                                                             .addChild (new HCCode ().addChild (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()))));
+                                                             .addChild (AppCommonUI.createProcessID (SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                           final HCUL aULEndpoint = new HCUL ();
                           // For all endpoints of the process
                           for (final com.helger.peppol.smp.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
@@ -515,7 +520,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         {
                           final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
                           aLIProcessID.addChild (new HCDiv ().addChild ("Process ID: ")
-                                                             .addChild (new HCCode ().addChild (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()))));
+                                                             .addChild (AppCommonUI.createProcessID (SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                           final HCUL aULEndpoint = new HCUL ();
                           // For all endpoints of the process
                           for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
@@ -862,7 +867,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   {
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
     final String sShortName = eTransportProfile == null ? "unknown" : eTransportProfile.getName ();
-    aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: " + sTransportProfile + " (")
+    aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: ")
+                                      .addChild (new HCCode ().addChild (sTransportProfile))
+                                      .addChild (" (")
                                       .addChild (new HCStrong ().addChild (sShortName))
                                       .addChild (")"));
   }
@@ -870,7 +877,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   private static void _printTecInfo (final IHCLI <?> aLIEndpoint, final String sTecInfo)
   {
     if (StringHelper.hasText (sTecInfo))
-      aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: " + sTecInfo));
+    {
+      final boolean bIsEmail = EmailAddressHelper.isValid (sTecInfo);
+      aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: ")
+                                        .addChild (bIsEmail ? HCA_MailTo.createLinkedEmail (sTecInfo)
+                                                            : new HCTextNode (sTecInfo)));
+    }
   }
 
 }

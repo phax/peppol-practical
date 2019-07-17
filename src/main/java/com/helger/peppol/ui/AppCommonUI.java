@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.http.EHttpMethod;
 import com.helger.commons.id.factory.GlobalIDFactory;
@@ -41,6 +43,8 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.textlevel.HCA;
+import com.helger.html.hc.html.textlevel.HCCode;
+import com.helger.html.hc.html.textlevel.HCSmall;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.html.jquery.JQuery;
@@ -55,6 +59,10 @@ import com.helger.peppol.app.ajax.AjaxExecutorPublicLogin;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.pub.CMenuPublic;
+import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IProcessIdentifier;
+import com.helger.photon.bootstrap4.badge.BootstrapBadge;
+import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
@@ -94,6 +102,31 @@ public final class AppCommonUI
                                                                                      .addItem (100)
                                                                                      .addItemAll ();
   private static final Logger LOGGER = LoggerFactory.getLogger (AppCommonUI.class);
+
+  private static final ICommonsMap <String, String> DOCTYPE_NAMES = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, String> PROCESS_NAMES = new CommonsHashMap <> ();
+
+  @Nonnull
+  private static String _ensurePrefix (@Nonnull final String sPrefix, @Nonnull final String s)
+  {
+    if (s.startsWith (sPrefix))
+      return s;
+    return sPrefix + s;
+  }
+
+  static
+  {
+    for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier.values ())
+      DOCTYPE_NAMES.put (e.getURIEncoded (), _ensurePrefix ("PEPPOL ", e.getCommonName ()));
+    for (final eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier e : eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier.values ())
+      DOCTYPE_NAMES.put (e.getURIEncoded (), _ensurePrefix ("TOOP ", e.getName ()));
+
+    for (final com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier e : com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier.values ())
+      if (e.getBISID () != null)
+        PROCESS_NAMES.put (e.getURIEncoded (), _ensurePrefix ("PEPPOL ", e.getBISID ()));
+    for (final eu.toop.commons.codelist.EPredefinedProcessIdentifier e : eu.toop.commons.codelist.EPredefinedProcessIdentifier.values ())
+      PROCESS_NAMES.put (e.getURIEncoded (), _ensurePrefix ("TOOP ", e.getName ()));
+  }
 
   private AppCommonUI ()
   {}
@@ -354,5 +387,35 @@ public final class AppCommonUI
       aCur = aCur.getCause ();
     }
     return ret.toString ();
+  }
+
+  @Nonnull
+  public static IHCNode createDocTypeID (@Nonnull final IDocumentTypeIdentifier aDocType, final boolean bInDetails)
+  {
+    final String sURI = aDocType.getURIEncoded ();
+    final String sNiceName = DOCTYPE_NAMES.get (sURI);
+    if (sNiceName == null)
+      return bInDetails ? new HCCode ().addChild (sURI) : new HCTextNode (sURI);
+
+    final BootstrapBadge aBadge = new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (sNiceName);
+    if (bInDetails)
+      return new HCNodeList ().addChild (aBadge)
+                              .addChild (new HCSmall ().addChild (" (")
+                                                       .addChild (new HCCode ().addChild (sURI))
+                                                       .addChild (")"));
+    return aBadge;
+  }
+
+  @Nonnull
+  public static IHCNode createProcessID (@Nonnull final IProcessIdentifier aProces)
+  {
+    final String sURI = aProces.getURIEncoded ();
+    final String sNiceName = PROCESS_NAMES.get (sURI);
+    if (sNiceName == null)
+      return new HCCode ().addChild (sURI);
+    return new HCNodeList ().addChild (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (sNiceName))
+                            .addChild (new HCSmall ().addChild (" (")
+                                                     .addChild (new HCCode ().addChild (sURI))
+                                                     .addChild (")"));
   }
 }

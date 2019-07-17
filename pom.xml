@@ -156,6 +156,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>eu.toop</groupId>
+        <artifactId>toop-commons-parent-pom</artifactId>
+        <version>0.10.5</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -249,6 +256,10 @@
       <artifactId>phoss-directory-businesscard</artifactId>
     </dependency>
     
+    <dependency>
+      <groupId>eu.toop</groupId>
+      <artifactId>toop-commons</artifactId>
+    </dependency>
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
