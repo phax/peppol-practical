@@ -16,8 +16,11 @@
  */
 package com.helger.peppol.ui;
 
+import java.io.File;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -93,6 +96,10 @@ import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTables;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTablesI18N;
 import com.helger.photon.uictrls.datatables.plugins.DataTablesPluginSearchHighlight;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroDocument;
+import com.helger.xml.microdom.serialize.MicroWriter;
 
 @Immutable
 public final class AppCommonUI
@@ -103,8 +110,20 @@ public final class AppCommonUI
                                                                                      .addItemAll ();
   private static final Logger LOGGER = LoggerFactory.getLogger (AppCommonUI.class);
 
-  private static final ICommonsMap <String, String> DOCTYPE_NAMES = new CommonsHashMap <> ();
-  private static final ICommonsMap <String, String> PROCESS_NAMES = new CommonsHashMap <> ();
+  private static final class NameEntry
+  {
+    private final String m_sName;
+    private final boolean m_bDeprecated;
+
+    public NameEntry (@Nonnull final String sName, final boolean bDeprecated)
+    {
+      m_sName = sName;
+      m_bDeprecated = bDeprecated;
+    }
+  }
+
+  private static final ICommonsMap <String, NameEntry> DOCTYPE_NAMES = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, NameEntry> PROCESS_NAMES = new CommonsHashMap <> ();
 
   @Nonnull
   private static String _ensurePrefix (@Nonnull final String sPrefix, @Nonnull final String s)
@@ -117,15 +136,44 @@ public final class AppCommonUI
   static
   {
     for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier.values ())
-      DOCTYPE_NAMES.put (e.getURIEncoded (), _ensurePrefix ("PEPPOL ", e.getCommonName ()));
+      DOCTYPE_NAMES.put (e.getURIEncoded (),
+                         new NameEntry (_ensurePrefix ("PEPPOL ", e.getCommonName ()), e.isDeprecated ()));
     for (final eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier e : eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier.values ())
-      DOCTYPE_NAMES.put (e.getURIEncoded (), _ensurePrefix ("TOOP ", e.getName ()));
+      DOCTYPE_NAMES.put (e.getURIEncoded (), new NameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated ()));
 
     for (final com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier e : com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier.values ())
       if (e.getBISID () != null)
-        PROCESS_NAMES.put (e.getURIEncoded (), _ensurePrefix ("PEPPOL ", e.getBISID ()));
+        PROCESS_NAMES.put (e.getURIEncoded (),
+                           new NameEntry (_ensurePrefix ("PEPPOL ", e.getBISID ()), e.isDeprecated ()));
     for (final eu.toop.commons.codelist.EPredefinedProcessIdentifier e : eu.toop.commons.codelist.EPredefinedProcessIdentifier.values ())
-      PROCESS_NAMES.put (e.getURIEncoded (), _ensurePrefix ("TOOP ", e.getName ()));
+      PROCESS_NAMES.put (e.getURIEncoded (), new NameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated ()));
+
+    if (false)
+    {
+      final IMicroDocument aDoc = new MicroDocument ();
+      final IMicroElement eRoot = aDoc.appendElement ("root");
+      eRoot.setAttribute ("type", "doctypeid");
+      for (final Map.Entry <String, NameEntry> aEntry : DOCTYPE_NAMES.getSortedByKey (Comparator.naturalOrder ())
+                                                                     .entrySet ())
+        eRoot.appendElement ("item")
+             .setAttribute ("id", aEntry.getKey ())
+             .setAttribute ("name", aEntry.getValue ().m_sName)
+             .setAttribute ("deprecated", aEntry.getValue ().m_bDeprecated);
+      MicroWriter.writeToFile (aDoc, new File ("doctypeid-mapping.xml"));
+    }
+    if (false)
+    {
+      final IMicroDocument aDoc = new MicroDocument ();
+      final IMicroElement eRoot = aDoc.appendElement ("root");
+      eRoot.setAttribute ("type", "processid");
+      for (final Map.Entry <String, NameEntry> aEntry : PROCESS_NAMES.getSortedByKey (Comparator.naturalOrder ())
+                                                                     .entrySet ())
+        eRoot.appendElement ("item")
+             .setAttribute ("id", aEntry.getKey ())
+             .setAttribute ("name", aEntry.getValue ().m_sName)
+             .setAttribute ("deprecated", aEntry.getValue ().m_bDeprecated);
+      MicroWriter.writeToFile (aDoc, new File ("processid-mapping.xml"));
+    }
   }
 
   private AppCommonUI ()
@@ -393,29 +441,40 @@ public final class AppCommonUI
   public static IHCNode createDocTypeID (@Nonnull final IDocumentTypeIdentifier aDocType, final boolean bInDetails)
   {
     final String sURI = aDocType.getURIEncoded ();
-    final String sNiceName = DOCTYPE_NAMES.get (sURI);
-    if (sNiceName == null)
+    final NameEntry aNiceName = DOCTYPE_NAMES.get (sURI);
+    if (aNiceName == null)
       return bInDetails ? new HCCode ().addChild (sURI) : new HCTextNode (sURI);
 
-    final BootstrapBadge aBadge = new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (sNiceName);
+    final HCNodeList ret = new HCNodeList ();
+    ret.addChild (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (aNiceName.m_sName));
+    if (aNiceName.m_bDeprecated)
+    {
+      ret.addChild (" ")
+         .addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Identifier is deprecated"));
+    }
     if (bInDetails)
-      return new HCNodeList ().addChild (aBadge)
-                              .addChild (new HCSmall ().addChild (" (")
-                                                       .addChild (new HCCode ().addChild (sURI))
-                                                       .addChild (")"));
-    return aBadge;
+    {
+      ret.addChild (new HCSmall ().addChild (" (").addChild (new HCCode ().addChild (sURI)).addChild (")"));
+    }
+    return ret;
   }
 
   @Nonnull
   public static IHCNode createProcessID (@Nonnull final IProcessIdentifier aProces)
   {
     final String sURI = aProces.getURIEncoded ();
-    final String sNiceName = PROCESS_NAMES.get (sURI);
-    if (sNiceName == null)
+    final NameEntry aNiceName = PROCESS_NAMES.get (sURI);
+    if (aNiceName == null)
       return new HCCode ().addChild (sURI);
-    return new HCNodeList ().addChild (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (sNiceName))
-                            .addChild (new HCSmall ().addChild (" (")
-                                                     .addChild (new HCCode ().addChild (sURI))
-                                                     .addChild (")"));
+
+    final HCNodeList ret = new HCNodeList ();
+    ret.addChild (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (aNiceName.m_sName));
+    if (aNiceName.m_bDeprecated)
+    {
+      ret.addChild (" ")
+         .addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Identifier is deprecated"));
+    }
+    ret.addChild (new HCSmall ().addChild (" (").addChild (new HCCode ().addChild (sURI)).addChild (")"));
+    return ret;
   }
 }
