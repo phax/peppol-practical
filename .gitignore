@@ -19,3 +19,5 @@ target/
 /.project 
 /.classpath 
 /bin/
+/doctypeid-mapping.xml
+/processid-mapping.xml
