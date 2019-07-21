@@ -154,16 +154,27 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis2:t77:3.6.0</code> - OpenPEPPOL Punch Out (3.6.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t77:3.7.0</code> - OpenPEPPOL Punch Out (3.7.0)</li>
 <li><code>eu.peppol.bis3:creditnote:3.8.0</code> - OpenPEPPOL Credit Note (3.8.0)</li>
+<li><code>eu.peppol.bis3:creditnote:3.8.1</code> - OpenPEPPOL Credit Note (3.8.1)</li>
 <li><code>eu.peppol.bis3:invoice:3.8.0</code> - OpenPEPPOL Invoice (3.8.0)</li>
+<li><code>eu.peppol.bis3:invoice:3.8.1</code> - OpenPEPPOL Invoice (3.8.1)</li>
 <li><code>eu.peppol.bis3:t01:3.8.0</code> - OpenPEPPOL Order (3.8.0)</li>
+<li><code>eu.peppol.bis3:t01:3.8.1</code> - OpenPEPPOL Order (3.8.1)</li>
 <li><code>eu.peppol.bis3:t110:3.8.0</code> - OpenPEPPOL Order Agreement (3.8.0)</li>
+<li><code>eu.peppol.bis3:t110:3.8.1</code> - OpenPEPPOL Order Agreement (3.8.1)</li>
 <li><code>eu.peppol.bis3:t111:3.8.0</code> - OpenPEPPOL Invoice Message Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t111:3.8.1</code> - OpenPEPPOL Invoice Message Response (3.8.1)</li>
 <li><code>eu.peppol.bis3:t16:3.8.0</code> - OpenPEPPOL Despatch Advice (3.8.0)</li>
+<li><code>eu.peppol.bis3:t16:3.8.1</code> - OpenPEPPOL Despatch Advice (3.8.1)</li>
 <li><code>eu.peppol.bis3:t19:3.8.0</code> - OpenPEPPOL Catalogue (3.8.0)</li>
+<li><code>eu.peppol.bis3:t19:3.8.1</code> - OpenPEPPOL Catalogue (3.8.1)</li>
 <li><code>eu.peppol.bis3:t58:3.8.0</code> - OpenPEPPOL Catalogue Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t58:3.8.1</code> - OpenPEPPOL Catalogue Response (3.8.1)</li>
 <li><code>eu.peppol.bis3:t71:3.8.0</code> - OpenPEPPOL MLR (3.8.0)</li>
+<li><code>eu.peppol.bis3:t71:3.8.1</code> - OpenPEPPOL MLR (3.8.1)</li>
 <li><code>eu.peppol.bis3:t76:3.8.0</code> - OpenPEPPOL Order Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t76:3.8.1</code> - OpenPEPPOL Order Response (3.8.1)</li>
 <li><code>eu.peppol.bis3:t77:3.8.0</code> - OpenPEPPOL Punch Out (3.8.0)</li>
+<li><code>eu.peppol.bis3:t77:3.8.1</code> - OpenPEPPOL Punch Out (3.8.1)</li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG PEPPOL BIS3 CreditNote (UBL)</li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1</code> - SG PEPPOL BIS3 Invoice (UBL)</li>
 <li><code>eu.peppol.bis3.ubl:creditnote:1</code> - OpenPEPPOL BIS3 CreditNote (UBL) <strong>(Deprecated)</strong></li>
@@ -369,8 +380,8 @@ A very small Java WS client is available for
 <li><code>org.oasis-open:waybill:2.2</code> - UBL Waybill 2.2</li>
 <li><code>org.oasis-open:weightstatement:2.2</code> - UBL WeightStatement 2.2</li>
 <li><code>org.simplerinvoicing:creditnote:2.0</code> - Simplerinvoicing CreditNote 2.0</li>
+<li><code>org.simplerinvoicing:invoice:1.0</code> - Simplerinvoicing Invoice 1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1</li>
-<li><code>org.simplerinvoicing:invoice:1.1:strict</code> - Simplerinvoicing Invoice 1.1 (strict)</li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2</li>
 <li><code>org.simplerinvoicing:invoice:2.0</code> - Simplerinvoicing Invoice 2.0</li>
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2</li>

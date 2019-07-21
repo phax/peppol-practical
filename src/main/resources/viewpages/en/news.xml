@@ -35,6 +35,41 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+
+    <h3>2019-07-21 - Document validation extended</h3>
+    
+    <p>
+      The new OpenPEPPOL validation artefacts (v3.8.1) that will be mandatory from August 15th are now contained.
+      Also SimplerInvoicing validation artefacts were updated. 
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+  
+    <p>
+      New VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.peppol.bis3:creditnote:3.8.1</code> - OpenPEPPOL Credit Note (3.8.1)</li>
+<li><code>eu.peppol.bis3:invoice:3.8.1</code> - OpenPEPPOL Invoice (3.8.1)</li>
+<li><code>eu.peppol.bis3:t01:3.8.1</code> - OpenPEPPOL Order (3.8.1)</li>
+<li><code>eu.peppol.bis3:t110:3.8.1</code> - OpenPEPPOL Order Agreement (3.8.1)</li>
+<li><code>eu.peppol.bis3:t111:3.8.1</code> - OpenPEPPOL Invoice Message Response (3.8.1)</li>
+<li><code>eu.peppol.bis3:t16:3.8.1</code> - OpenPEPPOL Despatch Advice (3.8.1)</li>
+<li><code>eu.peppol.bis3:t19:3.8.1</code> - OpenPEPPOL Catalogue (3.8.1)</li>
+<li><code>eu.peppol.bis3:t58:3.8.1</code> - OpenPEPPOL Catalogue Response (3.8.1)</li>
+<li><code>eu.peppol.bis3:t71:3.8.1</code> - OpenPEPPOL MLR (3.8.1)</li>
+<li><code>eu.peppol.bis3:t76:3.8.1</code> - OpenPEPPOL Order Response (3.8.1)</li>
+<li><code>eu.peppol.bis3:t77:3.8.1</code> - OpenPEPPOL Punch Out (3.8.1)</li>
+<li><code>org.simplerinvoicing:invoice:1.0</code> - Simplerinvoicing Invoice 1.0 <strong>(Deprecated)</strong></li>
+    </ul>
+    
+    <p>
+      Dropped VESIDs are:
+    </p>
+    <ul>
+<li><code>org.simplerinvoicing:invoice:1.1:strict</code> - Simplerinvoicing Invoice 1.1 (strict)</li>
+    </ul>
    
     <h3>2019-07-17 - Participant information tool update</h3>
     
