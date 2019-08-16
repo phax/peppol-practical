@@ -16,11 +16,8 @@
  */
 package com.helger.peppol.ui;
 
-import java.io.File;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.datetime.PDTToString;
@@ -96,10 +94,6 @@ import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTables;
 import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTablesI18N;
 import com.helger.photon.uictrls.datatables.plugins.DataTablesPluginSearchHighlight;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
-import com.helger.xml.microdom.IMicroDocument;
-import com.helger.xml.microdom.IMicroElement;
-import com.helger.xml.microdom.MicroDocument;
-import com.helger.xml.microdom.serialize.MicroWriter;
 
 @Immutable
 public final class AppCommonUI
@@ -137,33 +131,6 @@ public final class AppCommonUI
     for (final eu.toop.commons.codelist.EPredefinedProcessIdentifier e : eu.toop.commons.codelist.EPredefinedProcessIdentifier.values ())
       PROCESS_NAMES.put (e.getURIEncoded (),
                          new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated ()));
-
-    if (false)
-    {
-      final IMicroDocument aDoc = new MicroDocument ();
-      final IMicroElement eRoot = aDoc.appendElement ("root");
-      eRoot.setAttribute ("type", "doctypeid");
-      for (final Map.Entry <String, NiceNameEntry> aEntry : DOCTYPE_NAMES.getSortedByKey (Comparator.naturalOrder ())
-                                                                         .entrySet ())
-        eRoot.appendElement ("item")
-             .setAttribute ("id", aEntry.getKey ())
-             .setAttribute ("name", aEntry.getValue ().getName ())
-             .setAttribute ("deprecated", aEntry.getValue ().isDeprecated ());
-      MicroWriter.writeToFile (aDoc, new File ("doctypeid-mapping.xml"));
-    }
-    if (false)
-    {
-      final IMicroDocument aDoc = new MicroDocument ();
-      final IMicroElement eRoot = aDoc.appendElement ("root");
-      eRoot.setAttribute ("type", "processid");
-      for (final Map.Entry <String, NiceNameEntry> aEntry : PROCESS_NAMES.getSortedByKey (Comparator.naturalOrder ())
-                                                                         .entrySet ())
-        eRoot.appendElement ("item")
-             .setAttribute ("id", aEntry.getKey ())
-             .setAttribute ("name", aEntry.getValue ().getName ())
-             .setAttribute ("deprecated", aEntry.getValue ().isDeprecated ());
-      MicroWriter.writeToFile (aDoc, new File ("processid-mapping.xml"));
-    }
   }
 
   private AppCommonUI ()
@@ -466,5 +433,19 @@ public final class AppCommonUI
   {
     final String sURI = aProcess.getURIEncoded ();
     return _createID (sURI, PROCESS_NAMES.get (sURI), true);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static final ICommonsMap <String, NiceNameEntry> getDocTypeNames ()
+  {
+    return DOCTYPE_NAMES.getClone ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static final ICommonsMap <String, NiceNameEntry> getProcessNames ()
+  {
+    return PROCESS_NAMES.getClone ();
   }
 }
