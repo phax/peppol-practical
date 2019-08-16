@@ -99,13 +99,17 @@ public class WSDVS implements WSDVSPort
   @Nonnull
   public ResponseType validate (@Nonnull final RequestType aValidationRequest) throws ValidateFaultError
   {
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Start validating business document with SOAP WS");
-
     final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ()
                                                                              .get (MessageContext.SERVLET_REQUEST);
     final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
                                                                                 .get (MessageContext.SERVLET_RESPONSE);
+
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Start validating business document with SOAP WS; source [" +
+                   aHttpRequest.getRemoteAddr () +
+                   ":" +
+                   aHttpRequest.getRemotePort () +
+                   "]");
 
     // Start request scope
     try (final WebScoped aWebScoped = new WebScoped (aHttpRequest, aHttpResponse))
