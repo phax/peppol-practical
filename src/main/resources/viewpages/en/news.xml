@@ -40,10 +40,17 @@
     
     <p>
       According to a mail sent out by CEF, the PEPPOL DNS and the SML will not be available on <strong>August 28<sup>th</sup></strong>
-      between <strong>18:00 and 19:00 CEST</strong> because of maintenance:<br />
-      A maintenance will be carried out on DNS in production environment. 
-      After the intervention, users will be able to verify the DNS response validity. 
-      More information on it could be found <a href="https://www.icann.org/resources/pages/dnssec-what-is-it-why-important-2019-03-05-en">here</a>.<br/>
+      between <strong>18:00 and 19:00 CEST</strong> because of maintenance:
+    </p>
+    <blockquote class="blockquote">
+      <p class="mb-0">  
+        A maintenance will be carried out on DNS in production environment. 
+        After the intervention, users will be able to verify the DNS response validity. 
+        More information on it could be found <a href="https://www.icann.org/resources/pages/dnssec-what-is-it-why-important-2019-03-05-en">here</a>.
+      </p>
+      <footer class="blockquote-footer">CEF eDelivery Support mail August 7<sup>th</sup></footer>
+    </blockquote>
+    <p>  
       The implications are, that a document exchange will not possible during that time, because the necessary DNS resolution will not work.
     </p>
 
