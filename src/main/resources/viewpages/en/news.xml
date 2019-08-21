@@ -36,6 +36,17 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2019-08-21 - Planned DNS maintenance on August 28<sup>th</sup></h3>
+    
+    <p>
+      According to a mail sent out by CEF, the PEPPOL DNS and the SML will not be available on <strong>August 28<sup>th</sup></strong>
+      between <strong>18:00 and 19:00 CEST</strong> because of maintenance:<br />
+      A maintenance will be carried out on DNS in production environment. 
+      After the intervention, users will be able to verify the DNS response validity. 
+      More information on it could be found <a href="https://www.icann.org/resources/pages/dnssec-what-is-it-why-important-2019-03-05-en">here</a>.<br/>
+      The implications are, that a document exchange will not possible during that time, because the necessary DNS resolution will not work.
+    </p>
+
     <h3>2019-07-21 - Document validation extended</h3>
     
     <p>
