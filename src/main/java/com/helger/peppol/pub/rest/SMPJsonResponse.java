@@ -18,8 +18,10 @@ package com.helger.peppol.pub.rest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.helger.datetime.util.PDTXMLConverter;
@@ -30,17 +32,26 @@ import com.helger.json.JsonObject;
 import com.helger.peppol.bdxr.smp1.BDXR1ExtensionConverter;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.smp.SMPExtensionConverter;
+import com.helger.peppol.ui.AppCommonUI;
+import com.helger.peppol.ui.NiceNameEntry;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.IIdentifierFactory;
 
-public class SMPJsonResponse
+@Immutable
+public final class SMPJsonResponse
 {
   private static final String JSON_SMPTYPE = "smptype";
   private static final String JSON_PARTICIPANT_ID = "participantID";
-  private static final String JSON_DOCUMENT_TYPE_ID = "documentTypeID";
   private static final String JSON_HREF = "href";
+  private static final String JSON_DOCUMENT_TYPE_ID = "documentTypeID";
+  private static final String JSON_NICE_NAME = "niceName";
+  private static final String JSON_IS_DEPRECATED = "isDeprecated";
+  private static final String JSON_ERROR = "error";
+  private static final String JSON_URLS = "urls";
+
   private static final String JSON_CERTIFICATE_UID = "certificateUID";
   private static final String JSON_REDIRECT = "redirect";
   private static final String JSON_PROCESS_ID = "processID";
@@ -61,6 +72,54 @@ public class SMPJsonResponse
 
   private SMPJsonResponse ()
   {}
+
+  @Nonnull
+  public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
+                                     @Nonnull final Map <String, String> aSGHrefs,
+                                     @Nonnull final IIdentifierFactory aIF)
+  {
+    final IJsonObject aJson = new JsonObject ();
+    aJson.add (JSON_SMPTYPE, ESMPAPIType.PEPPOL.getID ());
+    aJson.add (JSON_PARTICIPANT_ID, aParticipantID.getURIEncoded ());
+
+    final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
+    final IJsonArray aURLsArray = new JsonArray ();
+    // Show all ServiceGroup hrefs
+    for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
+    {
+      final String sHref = aEntry.getKey ();
+      final String sOriginalHref = aEntry.getValue ();
+
+      final IJsonObject aUrlEntry = new JsonObject ().add (JSON_HREF, sOriginalHref);
+      final int nPathStart = sHref.indexOf (sPathStart);
+      if (nPathStart >= 0)
+      {
+        final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
+        aUrlEntry.add (JSON_DOCUMENT_TYPE_ID, sDocType);
+        final IDocumentTypeIdentifier aDocType = aIF.parseDocumentTypeIdentifier (sDocType);
+        if (aDocType != null)
+        {
+          final NiceNameEntry aNN = AppCommonUI.getDocTypeNames ().get (sDocType);
+          if (aNN != null)
+          {
+            aUrlEntry.add (JSON_NICE_NAME, aNN.getName ());
+            aUrlEntry.add (JSON_IS_DEPRECATED, aNN.isDeprecated ());
+          }
+        }
+        else
+        {
+          aUrlEntry.add (JSON_ERROR, "The document type ID could not be interpreted as a structured document type!");
+        }
+      }
+      else
+      {
+        aUrlEntry.add (JSON_ERROR, "Contained href does not match the rules. Expected path part: '" + sPathStart + "'");
+      }
+      aURLsArray.add (aUrlEntry);
+    }
+    aJson.add (JSON_URLS, aURLsArray);
+    return aJson;
+  }
 
   @Nonnull
   public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,

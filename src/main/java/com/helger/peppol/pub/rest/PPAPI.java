@@ -36,17 +36,30 @@ public final class PPAPI
   {
     final IAPIExceptionMapper aExceptionMapper = new APIExceptionMapper ();
 
+    // More specific to less specific
+
     {
-      final APIDescriptor aSMPQueryGet = new APIDescriptor (APIPath.get ("/smpquery/{" +
-                                                                         PARAM_SML_ID +
-                                                                         "}/{" +
-                                                                         PARAM_PARTICIPANT_ID +
-                                                                         "}/{" +
-                                                                         PARAM_DOCTYPE_ID +
-                                                                         "}"),
-                                                            new APISMPQueryGetServiceInformation ());
-      aSMPQueryGet.setExceptionMapper (aExceptionMapper);
-      aAPIRegistry.registerAPI (aSMPQueryGet);
+      final APIDescriptor aSMPQueryEndpoints = new APIDescriptor (APIPath.get ("/smpquery/{" +
+                                                                               PARAM_SML_ID +
+                                                                               "}/{" +
+                                                                               PARAM_PARTICIPANT_ID +
+                                                                               "}/{" +
+                                                                               PARAM_DOCTYPE_ID +
+                                                                               "}"),
+                                                                  new APISMPQueryGetServiceInformation ());
+      aSMPQueryEndpoints.setExceptionMapper (aExceptionMapper);
+      aAPIRegistry.registerAPI (aSMPQueryEndpoints);
+    }
+
+    {
+      final APIDescriptor aSMPQueryDocTypes = new APIDescriptor (APIPath.get ("/smpquery/{" +
+                                                                              PARAM_SML_ID +
+                                                                              "}/{" +
+                                                                              PARAM_PARTICIPANT_ID +
+                                                                              "}"),
+                                                                 new APISMPQueryGetDocTypes ());
+      aSMPQueryDocTypes.setExceptionMapper (aExceptionMapper);
+      aAPIRegistry.registerAPI (aSMPQueryDocTypes);
     }
   }
 }

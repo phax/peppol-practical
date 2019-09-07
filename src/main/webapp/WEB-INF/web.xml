@@ -35,10 +35,12 @@
   <!-- In case of page not found - goto error page
        This is relative to the web application context.
    -->
+   <!-- 
   <error-page>
     <error-code>404</error-code>
     <location>/error404.jsp</location>
   </error-page>
+   -->
   
   <!-- Application specific stuff -->  
 

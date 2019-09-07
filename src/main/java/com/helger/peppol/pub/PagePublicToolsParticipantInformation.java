@@ -91,6 +91,7 @@ import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
@@ -239,6 +240,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                     aSML.getID () +
                                                     "'");
 
+          final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
+
           LOGGER.info ("Participant information of '" +
                        sParticipantIDUriEncoded +
                        "' is queried using SMP API '" +
@@ -292,7 +295,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
 
                 // Get all HRefs and sort them by decoded URL
-                final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aQueryParams.getParticipantID ());
+                final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
                 // Map from cleaned URL to original URL
                 if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
                   for (final com.helger.peppol.smp.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
@@ -303,7 +306,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                     if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
                       aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
                                                           .addChild (new HCCode ().addChild (sHref)));
-
                   }
                 break;
               }
@@ -312,7 +314,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
 
                 // Get all HRefs and sort them by decoded URL
-                final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aQueryParams.getParticipantID ());
+                final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
                 // Map from cleaned URL to original URL
                 if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
                   for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
@@ -323,20 +325,19 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                     if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
                       aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
                                                           .addChild (new HCCode ().addChild (sHref)));
-
                   }
                 break;
               }
             }
 
             LOGGER.info ("Participant information of '" +
-                         aQueryParams.getParticipantID ().getURIEncoded () +
+                         aParticipantID.getURIEncoded () +
                          "' returned " +
                          aSGHrefs.size () +
                          " entries");
 
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
-            final String sPathStart = "/" + aQueryParams.getParticipantID ().getURIEncoded () + "/services/";
+            final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
 
             // Show all ServiceGroup hrefs
             for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
@@ -378,7 +379,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             }
             if (!aUL.hasChildren ())
               aUL.addItem (new BootstrapWarnBox ().addChild ("No service group entries were found for " +
-                                                             aQueryParams.getParticipantID ().getURIEncoded ()));
+                                                             aParticipantID.getURIEncoded ()));
             aNodeList.addChild (aUL);
           }
 
@@ -399,7 +400,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               {
                 case PEPPOL:
                 {
-                  final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aQueryParams.getParticipantID (),
+                  final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
                                                                                                                         aDocTypeID);
                   if (aSSM != null)
                   {
@@ -461,7 +462,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 }
                 case OASIS_BDXR_V1:
                 {
-                  final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aQueryParams.getParticipantID (),
+                  final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
                                                                                                                               aDocTypeID);
                   if (aSSM != null)
                   {
@@ -575,9 +576,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aNodeList.addChild (new HCH3 ().addChild ("Business Card details"));
 
             EFamFamFlagIcon.registerResourcesForThisRequest ();
-            final String sBCURL = aSMPHost.toExternalForm () +
-                                  "/businesscard/" +
-                                  aQueryParams.getParticipantID ().getURIEncoded ();
+            final String sBCURL = aSMPHost.toExternalForm () + "/businesscard/" + aParticipantID.getURIEncoded ();
             LOGGER.info ("Querying BC from '" + sBCURL + "'");
             byte [] aData;
             try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
@@ -693,8 +692,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
 
           // Audit success
-          AuditHelper.onAuditExecuteSuccess ("participant-information",
-                                             aQueryParams.getParticipantID ().getURIEncoded ());
+          AuditHelper.onAuditExecuteSuccess ("participant-information", aParticipantID.getURIEncoded ());
         }
         catch (final UnknownHostException ex)
         {

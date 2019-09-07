@@ -30,6 +30,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.http.CHttp;
 import com.helger.commons.mime.CMimeType;
@@ -43,7 +45,7 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
-import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
@@ -51,9 +53,9 @@ import com.helger.photon.api.IAPIExecutor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APISMPQueryGetServiceInformation implements IAPIExecutor
+public final class APISMPQueryGetDocTypes implements IAPIExecutor
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetServiceInformation.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetDocTypes.class);
 
   public void invokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
                          @Nonnull @Nonempty final String sPath,
@@ -72,11 +74,6 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     final IParticipantIdentifier aPID = SimpleIdentifierFactory.INSTANCE.parseParticipantIdentifier (sParticipantID);
     if (aPID == null)
       throw new APIParamException ("Invalid participant ID '" + sParticipantID + "' provided.");
-
-    final String sDocTypeID = aPathVariables.get (PPAPI.PARAM_DOCTYPE_ID);
-    final IDocumentTypeIdentifier aDTID = SimpleIdentifierFactory.INSTANCE.parseDocumentTypeIdentifier (sDocTypeID);
-    if (aDTID == null)
-      throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
     final StopWatch aSW = StopWatch.createdStarted ();
 
@@ -120,11 +117,6 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
                                    "'");
 
     final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
-    final IDocumentTypeIdentifier aDocTypeID = aQueryParams.getIF ()
-                                                           .createDocumentTypeIdentifier (aDTID.getScheme (),
-                                                                                          aDTID.getValue ());
-    if (aDocTypeID == null)
-      throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
     LOGGER.info ("Participant information of '" +
                  aParticipantID.getURIEncoded () +
@@ -134,45 +126,66 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
                  aQueryParams.getSMPHostURI () +
                  "' using SML '" +
                  aSML +
-                 "' for document type '" +
-                 aDocTypeID.getURIEncoded () +
                  "'");
 
-    IJsonObject aJson = null;
+    ICommonsSortedMap <String, String> aSGHrefs = null;
     switch (aQueryParams.getSMPAPIType ())
     {
       case PEPPOL:
       {
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
-        final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
-                                                                                                              aDocTypeID);
-        if (aSSM != null)
+
+        // Get all HRefs and sort them by decoded URL
+        final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+        // Map from cleaned URL to original URL
+        if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
         {
-          final com.helger.peppol.smp.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
-          aJson = SMPJsonResponse.convert (aParticipantID, aDocTypeID, aSM);
+          aSGHrefs = new CommonsTreeMap <> ();
+          for (final com.helger.peppol.smp.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                  .getServiceMetadataReference ())
+          {
+            // Decoded href is important for unification
+            final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
+            if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+              LOGGER.warn ("The ServiceGroup list contains the duplicate URL '" + sHref + "'");
+          }
         }
         break;
       }
       case OASIS_BDXR_V1:
       {
+        aSGHrefs = new CommonsTreeMap <> ();
         final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
-        final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
-                                                                                                                    aDocTypeID);
-        if (aSSM != null)
+
+        // Get all HRefs and sort them by decoded URL
+        final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
+        // Map from cleaned URL to original URL
+        if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
         {
-          final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
-          aJson = SMPJsonResponse.convert (aParticipantID, aDocTypeID, aSM);
+          aSGHrefs = new CommonsTreeMap <> ();
+          for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                      .getServiceMetadataReference ())
+          {
+            // Decoded href is important for unification
+            final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
+            if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+              LOGGER.warn ("The ServiceGroup list contains the duplicate URL '" + sHref + "'");
+          }
         }
         break;
       }
     }
+
+    IJsonObject aJson = null;
+    if (aSGHrefs != null)
+      aJson = SMPJsonResponse.convert (aParticipantID, aSGHrefs, aQueryParams.getIF ());
 
     aSW.stop ();
 
     if (aJson == null)
     {
       LOGGER.info ("Failed to perform the SMP lookup");
-      aUnifiedResponse.setStatus (CHttp.HTTP_BAD_REQUEST);
+      aUnifiedResponse.setStatus (CHttp.HTTP_NOT_FOUND);
     }
     else
     {
