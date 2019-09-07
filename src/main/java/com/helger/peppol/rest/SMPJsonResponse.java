@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.pub.rest;
+package com.helger.peppol.rest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,10 +30,10 @@ import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.peppol.bdxr.smp1.BDXR1ExtensionConverter;
+import com.helger.peppol.domain.NiceNameEntry;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.smp.SMPExtensionConverter;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.peppol.ui.NiceNameEntry;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -74,12 +74,13 @@ public final class SMPJsonResponse
   {}
 
   @Nonnull
-  public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
+  public static IJsonObject convert (@Nonnull final ESMPAPIType eSMPAPIType,
+                                     @Nonnull final IParticipantIdentifier aParticipantID,
                                      @Nonnull final Map <String, String> aSGHrefs,
                                      @Nonnull final IIdentifierFactory aIF)
   {
     final IJsonObject aJson = new JsonObject ();
-    aJson.add (JSON_SMPTYPE, ESMPAPIType.PEPPOL.getID ());
+    aJson.add (JSON_SMPTYPE, eSMPAPIType.getID ());
     aJson.add (JSON_PARTICIPANT_ID, aParticipantID.getURIEncoded ());
 
     final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";

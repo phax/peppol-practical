@@ -111,6 +111,10 @@ public final class MenuPublic
                             new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsSMPSML (CMenuPublic.MENU_TOOLS_SMP_SML));
       aMenuTree.createItem (aSetup, new PagePublicToolsTestEndpoints (CMenuPublic.MENU_TOOLS_TEST_ENDPOINTS));
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_TOOLS_REST_API,
+                                                     "REST API",
+                                                     new ClassPathResource ("viewpages/en/rest_api.xml")));
     }
 
     // Validation stuff

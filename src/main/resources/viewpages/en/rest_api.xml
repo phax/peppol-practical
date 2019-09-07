@@ -1,0 +1,87 @@
+<!--
+
+    Copyright (C) 2014-2019 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<div class="alert alert-info">
+  <div>
+    This site offers a small REST API to perform arbitrary PEPPOL SMP lookups with a JSON result.
+    The API is proprietary.
+    The result data format is proprietary JSON. 
+  </div>
+</div>
+
+<h2>Base parameters</h2>
+
+<div>
+  The base URL for all REST queries is <code>https://peppol.helger.com/api</code> - prepend this to all queries.
+</div>
+
+<div class="mt-2">
+  If an SML is required, the following SML identifiers are available:
+</div>
+<ul>
+  <li><code>digitprod</code> - the production PEPPOL SML</li>
+  <li><code>digittest</code> - the test PEPPOL SML (aka SMK)</li>
+  <li><code>id40</code> - the pilot TOOP SML (aka SMK)</li>
+  <li><code>autodetect</code> - find the matching SML automatically</li>
+</ul>
+
+<h2 class="mt-2">API: <small class="text-muted">SMP query all document types of a participant</small></h2>
+
+<p>
+  To retrieve all document types from a participant, use the following URL layout:
+</p>
+<div>
+  <code>/smpquery/<em>SML-ID</em>/<em>participant-ID</em></code>
+</div>
+<div class="pl-4">
+  <code>SML-ID</code> is the SML identifier mentioned above.<br />
+  <code>participant-ID</code> is the URL encoded participant identifier to be queried (e.g. <code>iso6523-actorid-upis%3a%3a9915%3atest</code>)
+</div>
+
+<p>
+  Example URL:
+  <a href="/api/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest" target="_blank">/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest</a>
+</p>
+
+<p>
+  <strong>Note:</strong> all SMP queries are passed through to the effective SMP server and cause load there.
+</p>
+
+<h2 class="mt-2">API: <small class="text-muted">SMP query all endpoints of a participant for a certain document type</small></h2>
+
+<p>
+  To retrieve all endpoints from a participant for a single document type, use the following URL layout:
+</p>
+
+<div>
+  <code>/smpquery/<em>SML-ID</em>/<em>participant-ID</em>/<em>docType-ID</em></code>
+</div>
+<div class="pl-4">
+  <code>SML-ID</code> is the SML identifier mentioned above.<br />
+  <code>participant-ID</code> is the URL encoded participant identifier to be queried (e.g. <code>iso6523-actorid-upis%3a%3a9915%3atest</code>)<br />
+  <code>docType-ID</code> is the URL encoded document type identifier to be queried (e.g. <code>busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns010%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1</code>)
+</div>
+
+<p>
+  Example URL:
+  <a href="/api/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns010%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1" target="_blank">/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns010%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1</a>
+</p>
+
+<p>
+  <strong>Note:</strong> all SMP queries are passed through to the effective SMP server and cause load there.
+</p>

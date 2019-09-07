@@ -59,6 +59,7 @@ import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.AjaxExecutorPublicLogin;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.comment.domain.CommentThreadManager;
+import com.helger.peppol.domain.NiceNameEntry;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;

@@ -35,6 +35,15 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+  
+    <h3>2019-09-07 - added REST API</h3>
+    
+    <p>
+      The new REST API for arbitrary SMP querying with JSON output was introduced. 
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-tools-rest-api">Read more about the REST API here</a></li>
+    </ul>
 
     <h3>2019-08-21 - Planned DNS maintenance on August 28<sup>th</sup></h3>
     
@@ -52,6 +61,10 @@
     </blockquote>
     <p>  
       The implications are, that a document exchange will not possible during that time, because the necessary DNS resolution will not work.
+    </p>
+    
+    <p>
+      The activation of DNSSEC failed in that maintenance window and will be retried on a different date and time.
     </p>
 
     <h3>2019-07-21 - Document validation extended</h3>

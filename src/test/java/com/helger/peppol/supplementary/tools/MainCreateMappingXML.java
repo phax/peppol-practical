@@ -23,8 +23,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.peppol.domain.NiceNameEntry;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.peppol.ui.NiceNameEntry;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
