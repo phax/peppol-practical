@@ -89,4 +89,14 @@ public final class AppSettings extends AbstractGlobalSingleton
   {
     return s_aCF.getAsBoolean ("webapp.pagecomments.enabled", false);
   }
+
+  public static boolean isRestLogExceptions ()
+  {
+    return s_aCF.getAsBoolean ("rest.log.exceptions", GlobalDebug.isDebugMode ());
+  }
+
+  public static boolean isRestExceptionsWithPayload ()
+  {
+    return s_aCF.getAsBoolean ("rest.exceptions.payload", GlobalDebug.isDebugMode ());
+  }
 }

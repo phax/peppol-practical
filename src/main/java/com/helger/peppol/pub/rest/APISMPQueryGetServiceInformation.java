@@ -1,0 +1,209 @@
+/**
+ * Copyright (C) 2014-2019 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.peppol.pub.rest;
+
+import java.net.InetAddress;
+import java.net.URI;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
+import org.apache.http.client.HttpResponseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.helger.commons.CGlobal;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.http.CHttp;
+import com.helger.commons.mime.CMimeType;
+import com.helger.commons.timing.StopWatch;
+import com.helger.json.IJsonObject;
+import com.helger.json.serialize.JsonWriter;
+import com.helger.json.serialize.JsonWriterSettings;
+import com.helger.peppol.app.AppHelper;
+import com.helger.peppol.app.mgr.ISMLInfoManager;
+import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
+import com.helger.peppol.sml.ESMPAPIType;
+import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smpclient.SMPClientReadOnly;
+import com.helger.peppol.url.PeppolDNSResolutionException;
+import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.peppolid.factory.SimpleIdentifierFactory;
+import com.helger.photon.api.IAPIDescriptor;
+import com.helger.photon.api.IAPIExecutor;
+import com.helger.servlet.response.UnifiedResponse;
+import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+public final class APISMPQueryGetServiceInformation implements IAPIExecutor
+{
+  private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetServiceInformation.class);
+
+  public void invokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
+                         @Nonnull @Nonempty final String sPath,
+                         @Nonnull final Map <String, String> aPathVariables,
+                         @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                         @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+  {
+    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
+    final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
+    final boolean bSMLAutoDetect = "autodetect".equals (sSMLID);
+    ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    if (aSML == null && !bSMLAutoDetect)
+      throw new APIParamException ("Unsupported SML ID '" + sSMLID + "' provided.");
+
+    final String sParticipantID = aPathVariables.get (PPAPI.PARAM_PARTICIPANT_ID);
+    final IParticipantIdentifier aPID = SimpleIdentifierFactory.INSTANCE.parseParticipantIdentifier (sParticipantID);
+    if (aPID == null)
+      throw new APIParamException ("Invalid participant ID '" + sParticipantID + "' provided.");
+
+    final String sDocTypeID = aPathVariables.get (PPAPI.PARAM_DOCTYPE_ID);
+    final IDocumentTypeIdentifier aDTID = SimpleIdentifierFactory.INSTANCE.parseDocumentTypeIdentifier (sDocTypeID);
+    if (aDTID == null)
+      throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
+
+    final StopWatch aSW = StopWatch.createdStarted ();
+
+    // TODO add
+    ESMPAPIType eSMPAPIType = null;
+    IIdentifierFactory aIF = null;
+    IParticipantIdentifier aParticipantID = null;
+    IDocumentTypeIdentifier aDocTypeID = null;
+    URI aSMPHostURI = null;
+    if (bSMLAutoDetect)
+    {
+      for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
+      {
+        eSMPAPIType = AppHelper.findSMPAPIType (aCurSML);
+        aIF = AppHelper.getIdentifierFactory (aCurSML, eSMPAPIType);
+        aParticipantID = aIF.createParticipantIdentifier (aPID.getScheme (), aPID.getValue ());
+        if (aParticipantID == null)
+          continue;
+        aDocTypeID = aIF.createDocumentTypeIdentifier (aDTID.getScheme (), aDTID.getValue ());
+        if (aDocTypeID == null)
+          continue;
+        try
+        {
+          aSMPHostURI = AppHelper.getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aCurSML);
+        }
+        catch (final PeppolDNSResolutionException ex)
+        {
+          continue;
+        }
+        try
+        {
+          InetAddress.getByName (aSMPHostURI.getHost ());
+          // Found it
+          aSML = aCurSML;
+          break;
+        }
+        catch (final UnknownHostException ex)
+        {
+          // continue
+        }
+      }
+
+      // Ensure to go into the exception handler
+      if (aSML == null)
+        throw new HttpResponseException (CHttp.HTTP_NOT_FOUND,
+                                         "The participant identifier '" +
+                                                               sParticipantID +
+                                                               "' could not be found in any SML.");
+    }
+    else
+    {
+      eSMPAPIType = AppHelper.findSMPAPIType (aSML);
+      aIF = AppHelper.getIdentifierFactory (aSML, eSMPAPIType);
+      aParticipantID = aIF.createParticipantIdentifier (aPID.getScheme (), aPID.getValue ());
+      aDocTypeID = aIF.createDocumentTypeIdentifier (aDTID.getScheme (), aDTID.getValue ());
+      if (aParticipantID != null)
+        aSMPHostURI = AppHelper.getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aSML);
+    }
+    if (aParticipantID == null)
+      throw new APIParamException ("Invalid participant ID '" + sParticipantID + "' provided.");
+    if (aDocTypeID == null)
+      throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
+
+    LOGGER.info ("Participant information of '" +
+                 aParticipantID.getURIEncoded () +
+                 "' is queried using SMP API '" +
+                 eSMPAPIType +
+                 "' from '" +
+                 aSMPHostURI +
+                 "' using SML '" +
+                 aSML +
+                 "' for document type '" +
+                 aDocTypeID.getURIEncoded () +
+                 "'");
+
+    IJsonObject aJson = null;
+    switch (eSMPAPIType)
+    {
+      case PEPPOL:
+      {
+        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPHostURI);
+        final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
+                                                                                                              aDocTypeID);
+        if (aSSM != null)
+        {
+          final com.helger.peppol.smp.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+          aJson = SMPJsonResponse.convert (aParticipantID, aDocTypeID, aSM);
+        }
+        break;
+      }
+      case OASIS_BDXR_V1:
+      {
+        final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aSMPHostURI);
+        final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
+                                                                                                                    aDocTypeID);
+        if (aSSM != null)
+        {
+          final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+          aJson = SMPJsonResponse.convert (aParticipantID, aDocTypeID, aSM);
+        }
+        break;
+      }
+    }
+
+    aSW.stop ();
+
+    if (aJson == null)
+    {
+      LOGGER.info ("Failed to perform the SMP lookup");
+      aUnifiedResponse.setStatus (CHttp.HTTP_BAD_REQUEST);
+    }
+    else
+    {
+      LOGGER.info ("Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
+
+      aJson.add ("queryDateTime",
+                 DateTimeFormatter.ISO_ZONED_DATE_TIME.format (PDTFactory.getCurrentZonedDateTimeUTC ()));
+      aJson.add ("queryDurationMillis", aSW.getMillis ());
+
+      final String sRet = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true)).writeAsString (aJson);
+      aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8)
+                      .setMimeType (CMimeType.APPLICATION_JSON)
+                      .enableCaching (3 * CGlobal.SECONDS_PER_HOUR);
+    }
+  }
+}

@@ -46,6 +46,7 @@ import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.locale.language.LanguageCache;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SimpleURL;
+import com.helger.commons.url.URLHelper;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.datetime.util.PDTXMLConverter;
@@ -77,6 +78,7 @@ import com.helger.pd.businesscard.generic.PDContact;
 import com.helger.pd.businesscard.generic.PDIdentifier;
 import com.helger.pd.businesscard.generic.PDName;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
+import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
@@ -88,19 +90,13 @@ import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
-import com.helger.peppol.url.BDXLURLProvider;
-import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
-import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.factory.BDXR1IdentifierFactory;
-import com.helger.peppolid.factory.BDXR2IdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
@@ -149,43 +145,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                .setHref (new SimpleURL (sURL))
                                                                .addChild ("Open in browser")
                                                                .setTargetBlank ();
-  }
-
-  private static boolean _isSMKToop (@Nonnull final ISMLInfo aSML)
-  {
-    // TODO make configurable
-    return "SMK TOOP".equals (aSML.getDisplayName ());
-  }
-
-  @Nonnull
-  private static ESMPAPIType _findSMPAPIType (@Nonnull final ISMLInfo aSML)
-  {
-    return _isSMKToop (aSML) ? ESMPAPIType.OASIS_BDXR_V1 : ESMPAPIType.PEPPOL;
-  }
-
-  @Nonnull
-  private static IIdentifierFactory _getIdentifierFactory (@Nonnull final ISMLInfo aSML,
-                                                           @Nonnull final ESMPAPIType eSMP)
-  {
-    if (_isSMKToop (aSML))
-      return SimpleIdentifierFactory.INSTANCE;
-
-    switch (eSMP)
-    {
-      case PEPPOL:
-        return PeppolIdentifierFactory.INSTANCE;
-      case OASIS_BDXR_V1:
-        return BDXR1IdentifierFactory.INSTANCE;
-      case OASIS_BDXR_V2:
-        return BDXR2IdentifierFactory.INSTANCE;
-    }
-    throw new IllegalStateException ();
-  }
-
-  @Nonnull
-  private static IPeppolURLProvider _getURLProvider (@Nonnull final ESMPAPIType eAPIType)
-  {
-    return eAPIType == ESMPAPIType.PEPPOL ? PeppolURLProvider.INSTANCE : BDXLURLProvider.INSTANCE;
   }
 
   @Override
@@ -256,10 +215,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           {
             for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
             {
-              eSMPAPIType = _findSMPAPIType (aCurSML);
-              aIF = _getIdentifierFactory (aCurSML, eSMPAPIType);
+              eSMPAPIType = AppHelper.findSMPAPIType (aCurSML);
+              aIF = AppHelper.getIdentifierFactory (aCurSML, eSMPAPIType);
               aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
-              aSMPHostURI = _getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aCurSML);
+              if (aParticipantID == null)
+                continue;
+              aSMPHostURI = AppHelper.getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aCurSML);
               try
               {
                 InetAddress.getByName (aSMPHostURI.getHost ());
@@ -279,11 +240,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
           else
           {
-            eSMPAPIType = _findSMPAPIType (aSML);
-            aIF = _getIdentifierFactory (aSML, eSMPAPIType);
+            eSMPAPIType = AppHelper.findSMPAPIType (aSML);
+            aIF = AppHelper.getIdentifierFactory (aSML, eSMPAPIType);
             aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
-            aSMPHostURI = _getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aSML);
+            if (aParticipantID != null)
+              aSMPHostURI = AppHelper.getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aSML);
           }
+
+          if (aSMPHostURI == null)
+            aSMPHostURI = URLHelper.getAsURI ("http://invalid.participant.identifier");
 
           LOGGER.info ("Participant information of '" +
                        sParticipantIDUriEncoded +
@@ -341,6 +306,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   for (final com.helger.peppol.smp.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                                                           .getServiceMetadataReference ())
                   {
+                    // Decoded href is important for unification
                     final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
                     if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
                       aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
@@ -360,6 +326,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                                                               .getServiceMetadataReference ())
                   {
+                    // Decoded href is important for unification
                     final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
                     if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
                       aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
