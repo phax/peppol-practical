@@ -22,17 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.sml.ESMPAPIType;
-import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
-import com.helger.peppol.url.BDXLURLProvider;
-import com.helger.peppol.url.IPeppolURLProvider;
-import com.helger.peppol.url.PeppolURLProvider;
-import com.helger.peppolid.factory.BDXR1IdentifierFactory;
-import com.helger.peppolid.factory.BDXR2IdentifierFactory;
-import com.helger.peppolid.factory.IIdentifierFactory;
-import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
 /**
@@ -67,41 +57,5 @@ public final class AppHelper
   public static String getSMPTransportProfileShortName (@Nullable final ISMPTransportProfile aTransportProfile)
   {
     return aTransportProfile == null ? null : aTransportProfile.getName ();
-  }
-
-  public static boolean isSMKToop (@Nonnull final ISMLInfo aSML)
-  {
-    // TODO make configurable
-    return "SMK TOOP".equals (aSML.getDisplayName ());
-  }
-
-  @Nonnull
-  public static ESMPAPIType findSMPAPIType (@Nonnull final ISMLInfo aSML)
-  {
-    return isSMKToop (aSML) ? ESMPAPIType.OASIS_BDXR_V1 : ESMPAPIType.PEPPOL;
-  }
-
-  @Nonnull
-  public static IIdentifierFactory getIdentifierFactory (@Nonnull final ISMLInfo aSML, @Nonnull final ESMPAPIType eSMP)
-  {
-    if (isSMKToop (aSML))
-      return SimpleIdentifierFactory.INSTANCE;
-
-    switch (eSMP)
-    {
-      case PEPPOL:
-        return PeppolIdentifierFactory.INSTANCE;
-      case OASIS_BDXR_V1:
-        return BDXR1IdentifierFactory.INSTANCE;
-      case OASIS_BDXR_V2:
-        return BDXR2IdentifierFactory.INSTANCE;
-    }
-    throw new IllegalStateException ();
-  }
-
-  @Nonnull
-  public static IPeppolURLProvider getURLProvider (@Nonnull final ESMPAPIType eAPIType)
-  {
-    return eAPIType == ESMPAPIType.PEPPOL ? PeppolURLProvider.INSTANCE : BDXLURLProvider.INSTANCE;
   }
 }

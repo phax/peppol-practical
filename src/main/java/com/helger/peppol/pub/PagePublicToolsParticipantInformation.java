@@ -17,7 +17,6 @@
 package com.helger.peppol.pub;
 
 import java.net.InetAddress;
-import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
@@ -46,7 +45,6 @@ import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.locale.language.LanguageCache;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SimpleURL;
-import com.helger.commons.url.URLHelper;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.datetime.util.PDTXMLConverter;
@@ -78,11 +76,10 @@ import com.helger.pd.businesscard.generic.PDContact;
 import com.helger.pd.businesscard.generic.PDIdentifier;
 import com.helger.pd.businesscard.generic.PDName;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
-import com.helger.peppol.app.AppHelper;
+import com.helger.peppol.app.SMPQueryParams;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
-import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
@@ -94,8 +91,6 @@ import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
-import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
@@ -207,23 +202,17 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
         try
         {
-          ESMPAPIType eSMPAPIType = null;
-          IIdentifierFactory aIF = null;
-          IParticipantIdentifier aParticipantID = null;
-          URI aSMPHostURI = null;
+          SMPQueryParams aQueryParams = null;
           if (bSMLAutoDetect)
           {
             for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
             {
-              eSMPAPIType = AppHelper.findSMPAPIType (aCurSML);
-              aIF = AppHelper.getIdentifierFactory (aCurSML, eSMPAPIType);
-              aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
-              if (aParticipantID == null)
+              aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue);
+              if (aQueryParams == null)
                 continue;
-              aSMPHostURI = AppHelper.getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aCurSML);
               try
               {
-                InetAddress.getByName (aSMPHostURI.getHost ());
+                InetAddress.getByName (aQueryParams.getSMPHostURI ().getHost ());
                 // Found it
                 aSML = aCurSML;
                 break;
@@ -240,23 +229,26 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
           else
           {
-            eSMPAPIType = AppHelper.findSMPAPIType (aSML);
-            aIF = AppHelper.getIdentifierFactory (aSML, eSMPAPIType);
-            aParticipantID = aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
-            if (aParticipantID != null)
-              aSMPHostURI = AppHelper.getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aSML);
+            aQueryParams = SMPQueryParams.createForSML (aSML, sParticipantIDScheme, sParticipantIDValue);
           }
 
-          if (aSMPHostURI == null)
-            aSMPHostURI = URLHelper.getAsURI ("http://invalid.participant.identifier");
+          if (aQueryParams == null)
+            throw new PeppolDNSResolutionException ("Failed to resolve participant ID '" +
+                                                    sParticipantIDUriEncoded +
+                                                    "' for the provided SML '" +
+                                                    aSML.getID () +
+                                                    "'");
 
           LOGGER.info ("Participant information of '" +
                        sParticipantIDUriEncoded +
-                       "' is queried using SMP API " +
-                       eSMPAPIType +
-                       " from " +
-                       aSMPHostURI);
-          final URL aSMPHost = aSMPHostURI.toURL ();
+                       "' is queried using SMP API '" +
+                       aQueryParams.getSMPAPIType () +
+                       "' from '" +
+                       aQueryParams.getSMPHostURI () +
+                       "' using SML '" +
+                       aSML +
+                       "'");
+          final URL aSMPHost = aQueryParams.getSMPHostURI ().toURL ();
 
           {
             final HCUL aUL = new HCUL ();
@@ -293,14 +285,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             final HCUL aUL = new HCUL ();
             final ICommonsSortedMap <String, String> aSGHrefs = new CommonsTreeMap <> ();
 
-            switch (eSMPAPIType)
+            switch (aQueryParams.getSMPAPIType ())
             {
               case PEPPOL:
               {
-                aSMPClient = new SMPClientReadOnly (aSMPHostURI);
+                aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
 
                 // Get all HRefs and sort them by decoded URL
-                final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+                final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aQueryParams.getParticipantID ());
                 // Map from cleaned URL to original URL
                 if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
                   for (final com.helger.peppol.smp.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
@@ -317,10 +309,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               }
               case OASIS_BDXR_V1:
               {
-                aBDXR1Client = new BDXRClientReadOnly (aSMPHostURI);
+                aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
 
                 // Get all HRefs and sort them by decoded URL
-                final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
+                final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aQueryParams.getParticipantID ());
                 // Map from cleaned URL to original URL
                 if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
                   for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
@@ -338,13 +330,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             }
 
             LOGGER.info ("Participant information of '" +
-                         aParticipantID.getURIEncoded () +
+                         aQueryParams.getParticipantID ().getURIEncoded () +
                          "' returned " +
                          aSGHrefs.size () +
                          " entries");
 
             aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
-            final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
+            final String sPathStart = "/" + aQueryParams.getParticipantID ().getURIEncoded () + "/services/";
 
             // Show all ServiceGroup hrefs
             for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
@@ -357,7 +349,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               if (nPathStart >= 0)
               {
                 final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
-                final IDocumentTypeIdentifier aDocType = aIF.parseDocumentTypeIdentifier (sDocType);
+                final IDocumentTypeIdentifier aDocType = aQueryParams.getIF ().parseDocumentTypeIdentifier (sDocType);
                 if (aDocType != null)
                 {
                   aDocTypeIDs.add (aDocType);
@@ -386,7 +378,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             }
             if (!aUL.hasChildren ())
               aUL.addItem (new BootstrapWarnBox ().addChild ("No service group entries were found for " +
-                                                             aParticipantID.getURIEncoded ()));
+                                                             aQueryParams.getParticipantID ().getURIEncoded ()));
             aNodeList.addChild (aUL);
           }
 
@@ -403,11 +395,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (AppCommonUI.createDocTypeID (aDocTypeID,
                                                                                                                                  true)));
 
-              switch (eSMPAPIType)
+              switch (aQueryParams.getSMPAPIType ())
               {
                 case PEPPOL:
                 {
-                  final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
+                  final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aQueryParams.getParticipantID (),
                                                                                                                         aDocTypeID);
                   if (aSSM != null)
                   {
@@ -469,7 +461,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 }
                 case OASIS_BDXR_V1:
                 {
-                  final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
+                  final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aQueryParams.getParticipantID (),
                                                                                                                               aDocTypeID);
                   if (aSSM != null)
                   {
@@ -583,7 +575,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aNodeList.addChild (new HCH3 ().addChild ("Business Card details"));
 
             EFamFamFlagIcon.registerResourcesForThisRequest ();
-            final String sBCURL = aSMPHost.toExternalForm () + "/businesscard/" + aParticipantID.getURIEncoded ();
+            final String sBCURL = aSMPHost.toExternalForm () +
+                                  "/businesscard/" +
+                                  aQueryParams.getParticipantID ().getURIEncoded ();
             LOGGER.info ("Querying BC from '" + sBCURL + "'");
             byte [] aData;
             try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
@@ -699,7 +693,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
 
           // Audit success
-          AuditHelper.onAuditExecuteSuccess ("participant-information", aParticipantID.getURIEncoded ());
+          AuditHelper.onAuditExecuteSuccess ("participant-information",
+                                             aQueryParams.getParticipantID ().getURIEncoded ());
         }
         catch (final UnknownHostException ex)
         {

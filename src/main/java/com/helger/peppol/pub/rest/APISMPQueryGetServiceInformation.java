@@ -17,7 +17,6 @@
 package com.helger.peppol.pub.rest;
 
 import java.net.InetAddress;
-import java.net.URI;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
@@ -38,17 +37,14 @@ import com.helger.commons.timing.StopWatch;
 import com.helger.json.IJsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
-import com.helger.peppol.app.AppHelper;
+import com.helger.peppol.app.SMPQueryParams;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
-import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
-import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.photon.api.IAPIExecutor;
@@ -85,34 +81,17 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     final StopWatch aSW = StopWatch.createdStarted ();
 
     // TODO add
-    ESMPAPIType eSMPAPIType = null;
-    IIdentifierFactory aIF = null;
-    IParticipantIdentifier aParticipantID = null;
-    IDocumentTypeIdentifier aDocTypeID = null;
-    URI aSMPHostURI = null;
+    SMPQueryParams aQueryParams = null;
     if (bSMLAutoDetect)
     {
       for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
       {
-        eSMPAPIType = AppHelper.findSMPAPIType (aCurSML);
-        aIF = AppHelper.getIdentifierFactory (aCurSML, eSMPAPIType);
-        aParticipantID = aIF.createParticipantIdentifier (aPID.getScheme (), aPID.getValue ());
-        if (aParticipantID == null)
-          continue;
-        aDocTypeID = aIF.createDocumentTypeIdentifier (aDTID.getScheme (), aDTID.getValue ());
-        if (aDocTypeID == null)
+        aQueryParams = SMPQueryParams.createForSML (aCurSML, aPID.getScheme (), aPID.getValue ());
+        if (aQueryParams == null)
           continue;
         try
         {
-          aSMPHostURI = AppHelper.getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aCurSML);
-        }
-        catch (final PeppolDNSResolutionException ex)
-        {
-          continue;
-        }
-        try
-        {
-          InetAddress.getByName (aSMPHostURI.getHost ());
+          InetAddress.getByName (aQueryParams.getSMPHostURI ().getHost ());
           // Found it
           aSML = aCurSML;
           break;
@@ -132,24 +111,28 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     }
     else
     {
-      eSMPAPIType = AppHelper.findSMPAPIType (aSML);
-      aIF = AppHelper.getIdentifierFactory (aSML, eSMPAPIType);
-      aParticipantID = aIF.createParticipantIdentifier (aPID.getScheme (), aPID.getValue ());
-      aDocTypeID = aIF.createDocumentTypeIdentifier (aDTID.getScheme (), aDTID.getValue ());
-      if (aParticipantID != null)
-        aSMPHostURI = AppHelper.getURLProvider (eSMPAPIType).getSMPURIOfParticipant (aParticipantID, aSML);
+      aQueryParams = SMPQueryParams.createForSML (aSML, aPID.getScheme (), aPID.getValue ());
     }
-    if (aParticipantID == null)
-      throw new APIParamException ("Invalid participant ID '" + sParticipantID + "' provided.");
+    if (aQueryParams == null)
+      throw new APIParamException ("Failed to resolve participant ID '" +
+                                   sParticipantID +
+                                   "' for the provided SML '" +
+                                   aSML.getID () +
+                                   "'");
+
+    final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
+    final IDocumentTypeIdentifier aDocTypeID = aQueryParams.getIF ()
+                                                           .createDocumentTypeIdentifier (aDTID.getScheme (),
+                                                                                          aDTID.getValue ());
     if (aDocTypeID == null)
       throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
     LOGGER.info ("Participant information of '" +
                  aParticipantID.getURIEncoded () +
                  "' is queried using SMP API '" +
-                 eSMPAPIType +
+                 aQueryParams.getSMPAPIType () +
                  "' from '" +
-                 aSMPHostURI +
+                 aQueryParams.getSMPHostURI () +
                  "' using SML '" +
                  aSML +
                  "' for document type '" +
@@ -157,11 +140,11 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
                  "'");
 
     IJsonObject aJson = null;
-    switch (eSMPAPIType)
+    switch (aQueryParams.getSMPAPIType ())
     {
       case PEPPOL:
       {
-        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPHostURI);
+        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
         final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
                                                                                                               aDocTypeID);
         if (aSSM != null)
@@ -173,7 +156,7 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
       }
       case OASIS_BDXR_V1:
       {
-        final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aSMPHostURI);
+        final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
         final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
                                                                                                                     aDocTypeID);
         if (aSSM != null)
