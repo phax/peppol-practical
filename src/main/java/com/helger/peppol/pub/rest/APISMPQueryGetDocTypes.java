@@ -118,9 +118,9 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
 
     final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
 
-    LOGGER.info ("Participant information of '" +
+    LOGGER.info ("[API] Document types of '" +
                  aParticipantID.getURIEncoded () +
-                 "' is queried using SMP API '" +
+                 "' are queried using SMP API '" +
                  aQueryParams.getSMPAPIType () +
                  "' from '" +
                  aQueryParams.getSMPHostURI () +
@@ -147,7 +147,7 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
             // Decoded href is important for unification
             final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
             if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-              LOGGER.warn ("The ServiceGroup list contains the duplicate URL '" + sHref + "'");
+              LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
           }
         }
         break;
@@ -169,7 +169,7 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
             // Decoded href is important for unification
             final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
             if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-              LOGGER.warn ("The ServiceGroup list contains the duplicate URL '" + sHref + "'");
+              LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
           }
         }
         break;
@@ -184,12 +184,12 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
 
     if (aJson == null)
     {
-      LOGGER.info ("Failed to perform the SMP lookup");
+      LOGGER.error ("[API] Failed to perform the SMP lookup");
       aUnifiedResponse.setStatus (CHttp.HTTP_NOT_FOUND);
     }
     else
     {
-      LOGGER.info ("Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
+      LOGGER.info ("[API] Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
 
       aJson.add ("queryDateTime",
                  DateTimeFormatter.ISO_ZONED_DATE_TIME.format (PDTFactory.getCurrentZonedDateTimeUTC ()));

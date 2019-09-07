@@ -126,7 +126,7 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     if (aDocTypeID == null)
       throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
-    LOGGER.info ("Participant information of '" +
+    LOGGER.info ("[API] Participant information of '" +
                  aParticipantID.getURIEncoded () +
                  "' is queried using SMP API '" +
                  aQueryParams.getSMPAPIType () +
@@ -171,12 +171,12 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
 
     if (aJson == null)
     {
-      LOGGER.info ("Failed to perform the SMP lookup");
+      LOGGER.error ("[API] Failed to perform the SMP lookup");
       aUnifiedResponse.setStatus (CHttp.HTTP_BAD_REQUEST);
     }
     else
     {
-      LOGGER.info ("Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
+      LOGGER.info ("[API] Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
 
       aJson.add ("queryDateTime",
                  DateTimeFormatter.ISO_ZONED_DATE_TIME.format (PDTFactory.getCurrentZonedDateTimeUTC ()));
