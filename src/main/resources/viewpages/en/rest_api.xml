@@ -46,11 +46,12 @@
   To retrieve all document types from a participant, use the following URL layout:
 </p>
 <div>
-  <code>/smpquery/<em>SML-ID</em>/<em>participant-ID</em></code>
+  <code>/smpquery/<em>SML-ID</em>/<em>participant-ID</em>[?businessCard=true]</code>
 </div>
 <div class="pl-4">
   <code>SML-ID</code> is the SML identifier mentioned above.<br />
-  <code>participant-ID</code> is the URL encoded participant identifier to be queried (e.g. <code>iso6523-actorid-upis%3a%3a9915%3atest</code>)
+  <code>participant-ID</code> is the URL encoded participant identifier to be queried (e.g. <code>iso6523-actorid-upis%3a%3a9915%3atest</code>)<br />
+  If the optional parameter <code>businessCard=true</code> is added, the SMP Business Card is queried as well.
 </div>
 
 <p>

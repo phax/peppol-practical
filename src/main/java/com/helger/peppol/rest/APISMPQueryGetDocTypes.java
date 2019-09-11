@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +37,14 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.http.CHttp;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.timing.StopWatch;
+import com.helger.httpclient.HttpClientManager;
+import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.json.IJsonObject;
+import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
+import com.helger.pd.businesscard.generic.PDBusinessCard;
+import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
@@ -74,6 +80,8 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
     final IParticipantIdentifier aPID = SimpleIdentifierFactory.INSTANCE.parseParticipantIdentifier (sParticipantID);
     if (aPID == null)
       throw new APIParamException ("Invalid participant ID '" + sParticipantID + "' provided.");
+
+    final boolean bQueryBusinessCard = aRequestScope.params ().hasStringValue ("businessCard", "true");
 
     final StopWatch aSW = StopWatch.createdStarted ();
 
@@ -179,6 +187,42 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
     IJsonObject aJson = null;
     if (aSGHrefs != null)
       aJson = SMPJsonResponse.convert (aQueryParams.getSMPAPIType (), aParticipantID, aSGHrefs, aQueryParams.getIF ());
+
+    if (bQueryBusinessCard)
+    {
+      final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
+                            "/businesscard/" +
+                            aParticipantID.getURIEncoded ();
+      LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
+      byte [] aData;
+      try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
+      {
+        final HttpGet aGet = new HttpGet (sBCURL);
+        aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
+      }
+      catch (final Exception ex)
+      {
+        aData = null;
+      }
+
+      if (aData == null)
+        LOGGER.warn ("[API] No Business Card is available for that participant.");
+      else
+      {
+        final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
+        if (aBC == null)
+        {
+          LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));
+        }
+        else
+        {
+          // Business Card found
+          if (aJson == null)
+            aJson = new JsonObject ();
+          aJson.add ("businessCard", aBC.getAsJson ());
+        }
+      }
+    }
 
     aSW.stop ();
 
