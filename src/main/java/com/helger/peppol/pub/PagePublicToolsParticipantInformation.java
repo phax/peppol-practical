@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
@@ -64,7 +65,7 @@ import com.helger.html.hc.html.sections.HCH4;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.html.textlevel.HCEM;
-import com.helger.html.hc.html.textlevel.HCStrong;
+import com.helger.html.hc.html.textlevel.HCSmall;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.httpclient.HttpClientManager;
@@ -99,6 +100,8 @@ import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
 import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
+import com.helger.photon.bootstrap4.badge.BootstrapBadge;
+import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
@@ -447,6 +450,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                              aEndpoint.getTechnicalContactUrl ()));
 
                             // Certificate
+                            // (also add null values)
                             aAllUsedCertifiactes.add (CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ()));
                           }
                           aLIProcessID.addChild (aULEndpoint);
@@ -511,6 +515,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                              aEndpoint.getTechnicalContactUrl ()));
 
                             // Certificate
+                            // (also add null values)
                             aAllUsedCertifiactes.add (CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ()));
                           }
                           aLIProcessID.addChild (aULEndpoint);
@@ -531,7 +536,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aNodeList.addChild (new HCH3 ().addChild ("Certificate details"));
             if (aAllUsedCertifiactes.isEmpty ())
             {
-              aNodeList.addChild (new BootstrapWarnBox ().addChild ("No certificate information were found."));
+              aNodeList.addChild (new BootstrapWarnBox ().addChild ("No certificate information was found."));
             }
             else
             {
@@ -541,10 +546,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 final IHCLI <?> aLICert = aULCerts.addItem ();
                 if (aCert != null)
                 {
-                  if (aCert.getIssuerDN () != null)
-                    aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
                   if (aCert.getSubjectDN () != null)
                     aLICert.addChild (new HCDiv ().addChild ("Subject: " + aCert.getSubjectDN ().toString ()));
+                  if (aCert.getIssuerDN () != null)
+                    aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
                   final LocalDate aNotBefore = PDTFactory.createLocalDate (aCert.getNotBefore ());
                   aLICert.addChild (new HCDiv ().addChild ("Not before: " +
                                                            PDTToString.getAsString (aNotBefore, aDisplayLocale)));
@@ -555,17 +560,18 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                            PDTToString.getAsString (aNotAfter, aDisplayLocale)));
                   if (aNotAfter.isBefore (aNowDate))
                     aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is no longer valid!"));
+
+                  final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
+                                                                .setRows (3)
+                                                                .setValue (CertificateHelper.getPEMEncodedCertificate (aCert))
+                                                                .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
+                  BootstrapFormHelper.markAsFormControl (aTextArea);
+                  aLICert.addChild (new HCDiv ().addChild (aTextArea));
                 }
                 else
                 {
                   aLICert.addChild (new BootstrapErrorBox ().addChild ("Failed to interpret the data as a X509 certificate"));
                 }
-                final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
-                                                              .setRows (3)
-                                                              .setValue (CertificateHelper.getPEMEncodedCertificate (aCert))
-                                                              .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
-                BootstrapFormHelper.markAsFormControl (aTextArea);
-                aLICert.addChild (new HCDiv ().addChild (aTextArea));
               }
               aNodeList.addChild (aULCerts);
             }
@@ -787,14 +793,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
   }
 
-  private static void _printEndpointURL (final IHCLI <?> aLIEndpoint, final String sEndpointRef)
+  private static void _printEndpointURL (@Nonnull final IHCLI <?> aLIEndpoint, final String sEndpointRef)
   {
     aLIEndpoint.addChild (new HCDiv ().addChild ("Endpoint URL: ")
                                       .addChild (StringHelper.hasNoText (sEndpointRef) ? new HCEM ().addChild ("none")
                                                                                        : new HCCode ().addChild (sEndpointRef)));
   }
 
-  private static void _printActivationDate (final IHCLI <?> aLIEndpoint,
+  private static void _printActivationDate (@Nonnull final IHCLI <?> aLIEndpoint,
                                             final LocalDateTime aServiceActivationDate,
                                             final Locale aDisplayLocale)
   {
@@ -809,7 +815,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
   }
 
-  private static void _printExpirationDate (final IHCLI <?> aLIEndpoint,
+  private static void _printExpirationDate (@Nonnull final IHCLI <?> aLIEndpoint,
                                             final LocalDateTime aServiceExpirationDate,
                                             final Locale aDisplayLocale)
   {
@@ -823,18 +829,29 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
   }
 
-  private static void _printTransportProfile (final IHCLI <?> aLIEndpoint, final String sTransportProfile)
+  private static void _printTransportProfile (@Nonnull final IHCLI <?> aLIEndpoint,
+                                              @Nullable final String sTransportProfile)
   {
+    final HCDiv aDiv = new HCDiv ().addChild ("Transport profile: ");
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-    final String sShortName = eTransportProfile == null ? "unknown" : eTransportProfile.getName ();
-    aLIEndpoint.addChild (new HCDiv ().addChild ("Transport profile: ")
-                                      .addChild (new HCCode ().addChild (sTransportProfile))
-                                      .addChild (" (")
-                                      .addChild (new HCStrong ().addChild (sShortName))
-                                      .addChild (")"));
+    if (eTransportProfile != null)
+    {
+      // Known transport profile
+      aDiv.addChild (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (eTransportProfile.getName ()))
+          .addChild (new HCSmall ().addChild (" (")
+                                   .addChild (new HCCode ().addChild (sTransportProfile))
+                                   .addChild (")"));
+    }
+    else
+    {
+      aDiv.addChild (new HCCode ().addChild (sTransportProfile))
+          .addChild (" ")
+          .addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("non-standard"));
+    }
+    aLIEndpoint.addChild (aDiv);
   }
 
-  private static void _printTecInfo (final IHCLI <?> aLIEndpoint, final String sTecInfo)
+  private static void _printTecInfo (@Nonnull final IHCLI <?> aLIEndpoint, final String sTecInfo)
   {
     if (StringHelper.hasText (sTecInfo))
     {
