@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.pub;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -64,7 +63,6 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
     super (sID, "Subscribe to newsletter");
   }
 
-  @SuppressWarnings ("null")
   @Override
   protected void fillContent (final WebPageExecutionContext aWPEC)
   {
@@ -73,7 +71,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
     final FormErrorList aFormErrors = new FormErrorList ();
-    List <String> aSelectedCRMGroupIDs = null;
+    ICommonsList <String> aSelectedCRMGroupIDs = null;
 
     if (aWPEC.hasAction (CPageParam.ACTION_SAVE))
     {

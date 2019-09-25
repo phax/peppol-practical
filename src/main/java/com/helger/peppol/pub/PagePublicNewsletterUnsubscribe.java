@@ -16,8 +16,6 @@
  */
 package com.helger.peppol.pub;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
@@ -27,7 +25,6 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
-import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
@@ -77,7 +74,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         // Update an existing one
-        aCRMSubscriberMgr.updateCRMSubscriberGroupAssignments (aCRMSubscriber.getID (), (Set <ICRMGroup>) null);
+        aCRMSubscriberMgr.updateCRMSubscriberGroupAssignments (aCRMSubscriber.getID (), null);
         aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Successfully unsubscribed '" +
                                                                  sEmailAddress +
                                                                  "' from all mailing lists"));
