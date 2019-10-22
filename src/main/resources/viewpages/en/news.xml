@@ -36,6 +36,36 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2019-10-22 - Document validation extended</h3>
+    
+    <p>
+      The latest PEPPOL A-NZ validation artefacts are contained, as well as the PEPPOL 3.9.0-RC1 (Fall 2019) validation artefacts.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+    </ul>
+  
+    <p>
+      New VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.peppol.bis3:creditnote:3.9.0-rc1</code> - OpenPEPPOL Credit Note (3.9.0-rc1) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:invoice:3.9.0-rc1</code> - OpenPEPPOL Invoice (3.9.0-rc1) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:t01:3.9.0-rc1</code> - OpenPEPPOL Order (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t110:3.9.0-rc1</code> - OpenPEPPOL Order Agreement (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t111:3.9.0-rc1</code> - OpenPEPPOL Invoice Message Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t16:3.9.0-rc1</code> - OpenPEPPOL Despatch Advice (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t19:3.9.0-rc1</code> - OpenPEPPOL Catalogue (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t58:3.9.0-rc1</code> - OpenPEPPOL Catalogue Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t71:3.9.0-rc1</code> - OpenPEPPOL MLR (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t76:3.9.0-rc1</code> - OpenPEPPOL Order Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t77:3.9.0-rc1</code> - OpenPEPPOL Punch Out (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3.aunz.ubl:credit-note:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote (UBL)</li>
+<li><code>eu.peppol.bis3.aunz.ubl:credit-note-self-billing:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote (UBL)</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code> - A-NZ PEPPOL BIS3 Invoice (UBL)</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.1</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL)</li>
+    </ul>
+
     <h3>2019-10-14 - Document validation extended</h3>
     
     <p>
