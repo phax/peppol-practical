@@ -118,14 +118,14 @@ public final class AppCommonUI
 
   static
   {
-    for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier.values ())
+    for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV6 e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV6.values ())
       DOCTYPE_NAMES.put (e.getURIEncoded (),
                          new NiceNameEntry (_ensurePrefix ("PEPPOL ", e.getCommonName ()), e.isDeprecated ()));
     for (final eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier e : eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier.values ())
       DOCTYPE_NAMES.put (e.getURIEncoded (),
                          new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated ()));
 
-    for (final com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier e : com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier.values ())
+    for (final com.helger.peppolid.peppol.process.EPredefinedProcessIdentifierV6 e : com.helger.peppolid.peppol.process.EPredefinedProcessIdentifierV6.values ())
       if (e.getBISID () != null)
         PROCESS_NAMES.put (e.getURIEncoded (),
                            new NiceNameEntry (_ensurePrefix ("PEPPOL ", e.getBISID ()), e.isDeprecated ()));
