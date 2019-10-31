@@ -190,8 +190,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:t77:3.8.0</code> - OpenPEPPOL Punch Out (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t77:3.8.1</code> - OpenPEPPOL Punch Out (3.8.1) (aka BIS 3.0.2)</li>
 <li><code>eu.peppol.bis3:t77:3.9.0-rc1</code> - OpenPEPPOL Punch Out (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3.aunz.ubl:credit-note:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote (UBL)</li>
-<li><code>eu.peppol.bis3.aunz.ubl:credit-note-self-billing:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote (UBL)</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote (UBL)</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL)</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code> - A-NZ PEPPOL BIS3 Invoice (UBL)</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.1</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL)</li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG PEPPOL BIS3 CreditNote (UBL)</li>

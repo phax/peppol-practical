@@ -36,6 +36,13 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2019-10-31 - Minor update</h3>
+    <p>The IDs of 2 new validation artefacts were changed:</p>
+<ul>
+<li><code>eu.peppol.bis3.aunz.ubl:credit-note-self-billing:1.0.1</code> &rarr; <code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code></li>
+<li><code>eu.peppol.bis3.aunz.ubl:credit-note-self-billing:1.0.1</code> &rarr; <code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.1</code></li>
+</ul>
+
     <h3>2019-10-22 - Document validation extended</h3>
     
     <p>
