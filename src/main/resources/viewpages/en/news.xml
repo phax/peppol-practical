@@ -36,6 +36,27 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2019-11-03 - Document validation uptended</h3>
+    
+    <p>Replaced the Peppol 3.9.0-rc1 artefacts with the 3.9.0 release artefacts.</p>
+
+    <p>
+      Updated VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.peppol.bis3:creditnote:3.9.0</code> - OpenPEPPOL Credit Note (3.9.0) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:invoice:3.9.0</code> - OpenPEPPOL Invoice (3.9.0) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:t01:3.9.0</code> - OpenPEPPOL Order (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t110:3.9.0</code> - OpenPEPPOL Order Agreement (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t111:3.9.0</code> - OpenPEPPOL Invoice Message Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t16:3.9.0</code> - OpenPEPPOL Despatch Advice (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t19:3.9.0</code> - OpenPEPPOL Catalogue (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t58:3.9.0</code> - OpenPEPPOL Catalogue Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t71:3.9.0</code> - OpenPEPPOL MLR (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t76:3.9.0</code> - OpenPEPPOL Order Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t77:3.9.0</code> - OpenPEPPOL Punch Out (3.9.0) (aka BIS 3.0.3)</li>
+    </ul>
+
     <h3>2019-10-31 - Minor update</h3>
     <p>The IDs of 2 new validation artefacts were changed:</p>
 <ul>
