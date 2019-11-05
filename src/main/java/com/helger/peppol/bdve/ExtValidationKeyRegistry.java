@@ -59,6 +59,7 @@ public final class ExtValidationKeyRegistry
     UBLValidation.initUBL20 (VES_REGISTRY);
     UBLValidation.initUBL21 (VES_REGISTRY);
     UBLValidation.initUBL22 (VES_REGISTRY);
+    UBLValidation.initUBL23 (VES_REGISTRY);
     CIIValidation.initCIID16B (VES_REGISTRY);
     EnergieEFactuurValidation.initEnergieEFactuur (VES_REGISTRY);
     OIOUBLValidation.initOIOUBL (VES_REGISTRY);

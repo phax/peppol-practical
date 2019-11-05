@@ -35,7 +35,11 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
-
+  
+    <h3>2019-xx-yy - Document validation uptended</h3>
+    
+    <p>Added 86 new UBL 2.3-CSPRD01 document types. The VESIDs are <code>org.oasis-open:*:2.3-csprd01</code></p>
+    
     <h3>2019-11-03 - Document validation uptended</h3>
     
     <p>Replaced the Peppol 3.9.0-rc1 artefacts with the 3.9.0 release artefacts.</p>
