@@ -32,8 +32,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.http.CHttp;
 import com.helger.commons.mime.CMimeType;
@@ -41,18 +39,14 @@ import com.helger.commons.timing.StopWatch;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.json.IJsonObject;
-import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.pd.businesscard.generic.PDBusinessCard;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
 import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.smpclient.SMPClientReadOnly;
-import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
@@ -60,9 +54,9 @@ import com.helger.photon.api.IAPIExecutor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APISMPQueryGetDocTypes implements IAPIExecutor
+public final class APISMPQueryGetBusinessCard implements IAPIExecutor
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetDocTypes.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetBusinessCard.class);
 
   public void invokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
                          @Nonnull @Nonempty final String sPath,
@@ -81,8 +75,6 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
     final IParticipantIdentifier aPID = SimpleIdentifierFactory.INSTANCE.parseParticipantIdentifier (sParticipantID);
     if (aPID == null)
       throw new APIParamException ("Invalid participant ID '" + sParticipantID + "' provided.");
-
-    final boolean bQueryBusinessCard = aRequestScope.params ().hasStringValue ("businessCard", "true");
 
     final ZonedDateTime aQueryDT = PDTFactory.getCurrentZonedDateTimeUTC ();
     final StopWatch aSW = StopWatch.createdStarted ();
@@ -128,9 +120,9 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
 
     final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
 
-    LOGGER.info ("[API] Document types of '" +
+    LOGGER.info ("[API] BusinessCard of '" +
                  aParticipantID.getURIEncoded () +
-                 "' are queried using SMP API '" +
+                 "' is queried using SMP API '" +
                  aQueryParams.getSMPAPIType () +
                  "' from '" +
                  aQueryParams.getSMPHostURI () +
@@ -138,91 +130,36 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
                  aSML +
                  "'");
 
-    ICommonsSortedMap <String, String> aSGHrefs = null;
-    switch (aQueryParams.getSMPAPIType ())
+    IJsonObject aJson = null;
+
+    final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
+                          "/businesscard/" +
+                          aParticipantID.getURIEncoded ();
+    LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
+    byte [] aData;
+    try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
     {
-      case PEPPOL:
-      {
-        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
-
-        // Get all HRefs and sort them by decoded URL
-        final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
-        // Map from cleaned URL to original URL
-        if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-        {
-          aSGHrefs = new CommonsTreeMap <> ();
-          for (final com.helger.peppol.smp.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                  .getServiceMetadataReference ())
-          {
-            // Decoded href is important for unification
-            final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
-            if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-              LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
-          }
-        }
-        break;
-      }
-      case OASIS_BDXR_V1:
-      {
-        aSGHrefs = new CommonsTreeMap <> ();
-        final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
-
-        // Get all HRefs and sort them by decoded URL
-        final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
-        // Map from cleaned URL to original URL
-        if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-        {
-          aSGHrefs = new CommonsTreeMap <> ();
-          for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                      .getServiceMetadataReference ())
-          {
-            // Decoded href is important for unification
-            final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
-            if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-              LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
-          }
-        }
-        break;
-      }
+      final HttpGet aGet = new HttpGet (sBCURL);
+      aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
+    }
+    catch (final Exception ex)
+    {
+      aData = null;
     }
 
-    IJsonObject aJson = null;
-    if (aSGHrefs != null)
-      aJson = SMPJsonResponse.convert (aQueryParams.getSMPAPIType (), aParticipantID, aSGHrefs, aQueryParams.getIF ());
-
-    if (bQueryBusinessCard)
+    if (aData == null)
+      LOGGER.warn ("[API] No Business Card is available for that participant.");
+    else
     {
-      final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
-                            "/businesscard/" +
-                            aParticipantID.getURIEncoded ();
-      LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
-      byte [] aData;
-      try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
+      final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
+      if (aBC == null)
       {
-        final HttpGet aGet = new HttpGet (sBCURL);
-        aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
+        LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));
       }
-      catch (final Exception ex)
-      {
-        aData = null;
-      }
-
-      if (aData == null)
-        LOGGER.warn ("[API] No Business Card is available for that participant.");
       else
       {
-        final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
-        if (aBC == null)
-        {
-          LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));
-        }
-        else
-        {
-          // Business Card found
-          if (aJson == null)
-            aJson = new JsonObject ();
-          aJson.add ("businessCard", aBC.getAsJson ());
-        }
+        // Business Card found
+        aJson = aBC.getAsJson ();
       }
     }
 
@@ -230,12 +167,12 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
 
     if (aJson == null)
     {
-      LOGGER.error ("[API] Failed to perform the SMP lookup");
+      LOGGER.error ("[API] Failed to perform the BusinessCard SMP lookup");
       aUnifiedResponse.setStatus (CHttp.HTTP_NOT_FOUND);
     }
     else
     {
-      LOGGER.info ("[API] Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
+      LOGGER.info ("[API] Succesfully finished BusinessCard lookup lookup after " + aSW.getMillis () + " milliseconds");
 
       aJson.add ("queryDateTime", DateTimeFormatter.ISO_ZONED_DATE_TIME.format (aQueryDT));
       aJson.add ("queryDurationMillis", aSW.getMillis ());

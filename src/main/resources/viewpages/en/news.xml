@@ -35,12 +35,20 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+
+    <h3>2019-11-18 - extended REST API</h3>
+    <p>
+      The REST API for arbitrary SMP querying with JSON output was extended to allow for querying the BusinessCard onlyß. 
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-tools-rest-api">Read more about the REST API here</a></li>
+    </ul>
   
-    <h3>2019-xx-yy - Document validation uptended</h3>
+    <h3>2019-11-08 - Document validation updated</h3>
     
     <p>Added 86 new UBL 2.3-CSPRD01 document types. The VESIDs are <code>org.oasis-open:*:2.3-csprd01</code></p>
     
-    <h3>2019-11-03 - Document validation uptended</h3>
+    <h3>2019-11-03 - Document validation updated</h3>
     
     <p>Replaced the Peppol 3.9.0-rc1 artefacts with the 3.9.0 release artefacts.</p>
 

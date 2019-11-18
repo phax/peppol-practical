@@ -86,3 +86,29 @@
 <p>
   <strong>Note:</strong> all SMP queries are passed through to the effective SMP server and cause load there.
 </p>
+
+<h2 class="mt-2">API: <small class="text-muted">SMP query the Business Card of a participant</small></h2>
+
+<p>
+  To retrieve the Business Card of a participant, use the following URL layout:
+</p>
+<div>
+  <code>/businesscard/<em>SML-ID</em>/<em>participant-ID</em></code>
+</div>
+<div class="pl-4">
+  <code>SML-ID</code> is the SML identifier mentioned above.<br />
+  <code>participant-ID</code> is the URL encoded participant identifier to be queried (e.g. <code>iso6523-actorid-upis%3a%3a9915%3atest</code>)
+</div>
+
+<p>
+  Example URL:
+  <a href="/api/businesscard/digittest/iso6523-actorid-upis%3a%3a9915%3atest" target="_blank">/businesscard/digittest/iso6523-actorid-upis%3a%3a9915%3atest</a>
+</p>
+
+<p>
+  <strong>Note:</strong> the layout of the BusinessCard JSON is identical to the one used in querying all document types of a participant.
+</p>
+
+<p>
+  <strong>Note:</strong> all SMP queries are passed through to the effective SMP server and cause load there.
+</p>

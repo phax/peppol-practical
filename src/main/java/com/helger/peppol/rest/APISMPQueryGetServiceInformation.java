@@ -19,6 +19,7 @@ package com.helger.peppol.rest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
@@ -78,6 +79,7 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     if (aDTID == null)
       throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
+    final ZonedDateTime aQueryDT = PDTFactory.getCurrentZonedDateTimeUTC ();
     final StopWatch aSW = StopWatch.createdStarted ();
 
     SMPQueryParams aQueryParams = null;
@@ -178,8 +180,7 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     {
       LOGGER.info ("[API] Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
 
-      aJson.add ("queryDateTime",
-                 DateTimeFormatter.ISO_ZONED_DATE_TIME.format (PDTFactory.getCurrentZonedDateTimeUTC ()));
+      aJson.add ("queryDateTime", DateTimeFormatter.ISO_ZONED_DATE_TIME.format (aQueryDT));
       aJson.add ("queryDurationMillis", aSW.getMillis ());
 
       final String sRet = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true)).writeAsString (aJson);

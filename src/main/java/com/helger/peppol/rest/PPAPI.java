@@ -37,7 +37,6 @@ public final class PPAPI
     final IAPIExceptionMapper aExceptionMapper = new APIExceptionMapper ();
 
     // More specific to less specific
-
     {
       final APIDescriptor aSMPQueryEndpoints = new APIDescriptor (APIPath.get ("/smpquery/{" +
                                                                                PARAM_SML_ID +
@@ -60,6 +59,17 @@ public final class PPAPI
                                                                  new APISMPQueryGetDocTypes ());
       aSMPQueryDocTypes.setExceptionMapper (aExceptionMapper);
       aAPIRegistry.registerAPI (aSMPQueryDocTypes);
+    }
+
+    {
+      final APIDescriptor aSMPQueryBusinessCard = new APIDescriptor (APIPath.get ("/businesscard/{" +
+                                                                                  PARAM_SML_ID +
+                                                                                  "}/{" +
+                                                                                  PARAM_PARTICIPANT_ID +
+                                                                                  "}"),
+                                                                     new APISMPQueryGetBusinessCard ());
+      aSMPQueryBusinessCard.setExceptionMapper (aExceptionMapper);
+      aAPIRegistry.registerAPI (aSMPQueryBusinessCard);
     }
   }
 }
