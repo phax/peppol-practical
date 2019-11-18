@@ -40,6 +40,7 @@
     <p>
       The REST API for arbitrary SMP querying with JSON output was extended to allow for querying the BusinessCard only.
       Additionally the Peppol Validation artefacts version 3.8.1 were deprecated.
+      And the Participant information tool was extended to optionally show timing information about the query duration.
     </p>
     <ul>
       <li><a href="/public/menuitem-tools-rest-api">Read more about the REST API here</a></li>

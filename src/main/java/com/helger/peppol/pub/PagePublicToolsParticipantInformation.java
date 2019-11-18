@@ -45,10 +45,12 @@ import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.locale.language.LanguageCache;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.timing.StopWatch;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.datetime.util.PDTXMLConverter;
+import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCA_MailTo;
 import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.EHCFormMethod;
@@ -128,8 +130,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_ID_VALUE = "value";
   public static final String FIELD_SML = "sml";
   public static final String PARAM_QUERY_BUSINESS_CARD = "querybc";
+  public static final String PARAM_SHOW_TIME = "showtime";
 
   private static final boolean DEFAULT_QUERY_BUSINESS_CARD = true;
+  private static final boolean DEFAULT_SHOW_TIME = false;
   private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsParticipantInformation.class);
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
@@ -144,6 +148,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                .setHref (new SimpleURL (sURL))
                                                                .addChild ("Open in browser")
                                                                .setTargetBlank ();
+  }
+
+  @Nonnull
+  private static IHCNode _createTimingNode (final long nMillis)
+  {
+    return new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("took " + nMillis + " milliseconds");
   }
 
   @Override
@@ -169,6 +179,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final boolean bQueryBusinessCard = aWPEC.params ()
                                               .isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD,
                                                                   DEFAULT_QUERY_BUSINESS_CARD);
+      final boolean bShowTime = aWPEC.params ().isCheckBoxChecked (PARAM_SHOW_TIME, DEFAULT_SHOW_TIME);
 
       // Legacy URL params?
       if (aWPEC.params ().containsKey ("idscheme") && aWPEC.params ().containsKey ("idvalue"))
@@ -288,6 +299,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           BDXRClientReadOnly aBDXR1Client = null;
 
           {
+            final StopWatch aSWGetDocTypes = StopWatch.createdStarted ();
             final HCUL aUL = new HCUL ();
             final ICommonsSortedMap <String, String> aSGHrefs = new CommonsTreeMap <> ();
 
@@ -333,13 +345,18 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               }
             }
 
+            aSWGetDocTypes.stop ();
+
             LOGGER.info ("Participant information of '" +
                          aParticipantID.getURIEncoded () +
                          "' returned " +
                          aSGHrefs.size () +
                          " entries");
 
-            aNodeList.addChild (new HCH3 ().addChild ("ServiceGroup contents"));
+            final HCH3 aH3 = new HCH3 ().addChild ("ServiceGroup contents");
+            if (bShowTime)
+              aH3.addChild (" ").addChild (_createTimingNode (aSWGetDocTypes.getMillis ()));
+            aNodeList.addChild (aH3);
             final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
 
             // Show all ServiceGroup hrefs
@@ -391,20 +408,23 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           {
             final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
             final ICommonsOrderedSet <X509Certificate> aAllUsedCertifiactes = new CommonsLinkedHashSet <> ();
+            long nTotalDurationMillis = 0;
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();
             for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
             {
-              final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (new HCDiv ().addChild (AppCommonUI.createDocTypeID (aDocTypeID,
-                                                                                                                                 true)));
+              final HCDiv aDocTypeDiv = new HCDiv ().addChild (AppCommonUI.createDocTypeID (aDocTypeID, true));
+              final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
 
+              final StopWatch aSWGetDetails = StopWatch.createdStarted ();
               switch (aQueryParams.getSMPAPIType ())
               {
                 case PEPPOL:
                 {
                   final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
                                                                                                                         aDocTypeID);
+                  aSWGetDetails.stop ();
                   if (aSSM != null)
                   {
                     final com.helger.peppol.smp.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
@@ -468,6 +488,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 {
                   final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
                                                                                                                               aDocTypeID);
+                  aSWGetDetails.stop ();
                   if (aSSM != null)
                   {
                     final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
@@ -530,8 +551,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   break;
                 }
               }
+              if (bShowTime)
+                aDocTypeDiv.addChild (" ").addChild (_createTimingNode (aSWGetDetails.getMillis ()));
+              nTotalDurationMillis += aSWGetDetails.getMillis ();
             }
             aNodeList.addChild (aULDocTypeIDs);
+
+            if (bShowTime)
+              aNodeList.addChild (new HCDiv ().addChild ("Overall time: ")
+                                              .addChild (_createTimingNode (nTotalDurationMillis)));
 
             aNodeList.addChild (new HCH3 ().addChild ("Certificate details"));
             if (aAllUsedCertifiactes.isEmpty ())
@@ -579,6 +607,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
           if (bQueryBusinessCard)
           {
+            final StopWatch aSWGetBC = StopWatch.createdStarted ();
             aNodeList.addChild (new HCH3 ().addChild ("Business Card details"));
 
             EFamFamFlagIcon.registerResourcesForThisRequest ();
@@ -594,6 +623,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             {
               aData = null;
             }
+            aSWGetBC.stop ();
 
             if (aData == null)
               aNodeList.addChild (new BootstrapWarnBox ().addChild ("No Business Card is available for that participant."));
@@ -607,11 +637,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               }
               else
               {
-                aNodeList.addChild (new HCH4 ().addChild ("Business Card contains " +
-                                                          (aBC.businessEntities ()
-                                                              .size () == 1 ? "1 entity"
-                                                                            : aBC.businessEntities ().size () +
-                                                                              " entities")));
+                final HCH4 aH4 = new HCH4 ().addChild ("Business Card contains " +
+                                                       (aBC.businessEntities ().size () == 1 ? "1 entity"
+                                                                                             : aBC.businessEntities ()
+                                                                                                  .size () +
+                                                                                               " entities"));
+                if (bShowTime)
+                  aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
+                aNodeList.addChild (aH4);
                 aNodeList.addChild (new HCDiv ().addChild (_createOpenInBrowser (sBCURL)));
 
                 final HCUL aUL = new HCUL ();
@@ -786,6 +819,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                    .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_QUERY_BUSINESS_CARD,
                                                                                                       DEFAULT_QUERY_BUSINESS_CARD)))
                                                    .setErrorList (aFormErrors.getListOfField (PARAM_QUERY_BUSINESS_CARD)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Show query duration?")
+                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_SHOW_TIME,
+                                                                                                      DEFAULT_SHOW_TIME)))
+                                                   .setErrorList (aFormErrors.getListOfField (PARAM_SHOW_TIME)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
