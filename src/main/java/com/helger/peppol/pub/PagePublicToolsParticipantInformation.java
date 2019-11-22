@@ -407,7 +407,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (aDocTypeIDs.isNotEmpty ())
           {
             final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
-            final ICommonsOrderedSet <X509Certificate> aAllUsedCertifiactes = new CommonsLinkedHashSet <> ();
+            final ICommonsOrderedSet <X509Certificate> aAllUsedEndpointCertifiactes = new CommonsLinkedHashSet <> ();
             long nTotalDurationMillis = 0;
 
             aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
@@ -469,9 +469,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                              aEndpoint.getTechnicalInformationUrl (),
                                                                              aEndpoint.getTechnicalContactUrl ()));
 
-                            // Certificate
-                            // (also add null values)
-                            aAllUsedCertifiactes.add (CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ()));
+                            // Certificate (also add null values)
+                            aAllUsedEndpointCertifiactes.add (CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ()));
                           }
                           aLIProcessID.addChild (aULEndpoint);
                         }
@@ -535,9 +534,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                              aEndpoint.getTechnicalInformationUrl (),
                                                                              aEndpoint.getTechnicalContactUrl ()));
 
-                            // Certificate
-                            // (also add null values)
-                            aAllUsedCertifiactes.add (CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ()));
+                            // Certificate (also add null values)
+                            aAllUsedEndpointCertifiactes.add (CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ()));
                           }
                           aLIProcessID.addChild (aULEndpoint);
                         }
@@ -561,37 +559,37 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               aNodeList.addChild (new HCDiv ().addChild ("Overall time: ")
                                               .addChild (_createTimingNode (nTotalDurationMillis)));
 
-            aNodeList.addChild (new HCH3 ().addChild ("Certificate details"));
-            if (aAllUsedCertifiactes.isEmpty ())
+            aNodeList.addChild (new HCH3 ().addChild ("Endpoint Certificate details"));
+            if (aAllUsedEndpointCertifiactes.isEmpty ())
             {
-              aNodeList.addChild (new BootstrapWarnBox ().addChild ("No certificate information was found."));
+              aNodeList.addChild (new BootstrapWarnBox ().addChild ("No Endpoint Certificate information was found."));
             }
             else
             {
               final HCUL aULCerts = new HCUL ();
-              for (final X509Certificate aCert : aAllUsedCertifiactes)
+              for (final X509Certificate aEndpointCert : aAllUsedEndpointCertifiactes)
               {
                 final IHCLI <?> aLICert = aULCerts.addItem ();
-                if (aCert != null)
+                if (aEndpointCert != null)
                 {
-                  if (aCert.getSubjectDN () != null)
-                    aLICert.addChild (new HCDiv ().addChild ("Subject: " + aCert.getSubjectDN ().toString ()));
-                  if (aCert.getIssuerDN () != null)
-                    aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aCert.getIssuerDN ().toString ()));
-                  final LocalDate aNotBefore = PDTFactory.createLocalDate (aCert.getNotBefore ());
+                  if (aEndpointCert.getSubjectDN () != null)
+                    aLICert.addChild (new HCDiv ().addChild ("Subject: " + aEndpointCert.getSubjectDN ().toString ()));
+                  if (aEndpointCert.getIssuerDN () != null)
+                    aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aEndpointCert.getIssuerDN ().toString ()));
+                  final LocalDate aNotBefore = PDTFactory.createLocalDate (aEndpointCert.getNotBefore ());
                   aLICert.addChild (new HCDiv ().addChild ("Not before: " +
                                                            PDTToString.getAsString (aNotBefore, aDisplayLocale)));
                   if (aNotBefore.isAfter (aNowDate))
-                    aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is not yet valid!"));
-                  final LocalDate aNotAfter = PDTFactory.createLocalDate (aCert.getNotAfter ());
+                    aLICert.addChild (new BootstrapErrorBox ().addChild ("This Endpoint Certificate is not yet valid!"));
+                  final LocalDate aNotAfter = PDTFactory.createLocalDate (aEndpointCert.getNotAfter ());
                   aLICert.addChild (new HCDiv ().addChild ("Not after: " +
                                                            PDTToString.getAsString (aNotAfter, aDisplayLocale)));
                   if (aNotAfter.isBefore (aNowDate))
-                    aLICert.addChild (new BootstrapErrorBox ().addChild ("This certificate is no longer valid!"));
+                    aLICert.addChild (new BootstrapErrorBox ().addChild ("This Endpoint Certificate is no longer valid!"));
 
                   final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
                                                                 .setRows (3)
-                                                                .setValue (CertificateHelper.getPEMEncodedCertificate (aCert))
+                                                                .setValue (CertificateHelper.getPEMEncodedCertificate (aEndpointCert))
                                                                 .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
                   BootstrapFormHelper.markAsFormControl (aTextArea);
                   aLICert.addChild (new HCDiv ().addChild (aTextArea));
