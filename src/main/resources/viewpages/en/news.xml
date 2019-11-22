@@ -45,7 +45,7 @@
       Usually this should not happen, but every start can be tricky ;-)<br/>
       Effectively <code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code> was changed to
         <code>eu.peppol.bis3.aunz.ubl:invoice:1.0.0</code> and marked as deprecated,
-        and a new rule set is now used for <code><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code></code>. 
+        and a new rule set is now used for <code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code>. 
     </p>
 
     <h3>2019-11-18 - extended REST API</h3>
