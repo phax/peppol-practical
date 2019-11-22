@@ -35,6 +35,18 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+  
+    <h3>2019-11-22 - Document validation updated</h3>
+    
+    <p>
+      Updated the Peppol Australia and New Zealand validation rules.
+      The old version <code>1.0.1</code> is now called <code>1.0.0</code> and is marked as deprecated
+        whereas the "new" version <code>1.0.1</code> represents the real "version 1.0.1".
+      Usually this should not happen, but every start can be tricky ;-)<br/>
+      Effectively <code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code> was changed to
+        <code>eu.peppol.bis3.aunz.ubl:invoice:1.0.0</code> and marked as deprecated,
+        and a new rule set is now used for <code><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code></code>. 
+    </p>
 
     <h3>2019-11-18 - extended REST API</h3>
     <p>
