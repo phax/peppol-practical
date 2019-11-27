@@ -119,19 +119,18 @@ public final class AppCommonUI
   static
   {
     for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV6 e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV6.values ())
+    {
       DOCTYPE_NAMES.put (e.getURIEncoded (),
-                         new NiceNameEntry (_ensurePrefix ("PEPPOL ", e.getCommonName ()), e.isDeprecated ()));
+                         new NiceNameEntry (_ensurePrefix ("Peppol ", e.getCommonName ()),
+                                            e.isDeprecated (),
+                                            e.getAllProcessIDs ()));
+    }
     for (final eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier e : eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier.values ())
       DOCTYPE_NAMES.put (e.getURIEncoded (),
-                         new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated ()));
-
-    for (final com.helger.peppolid.peppol.process.EPredefinedProcessIdentifierV6 e : com.helger.peppolid.peppol.process.EPredefinedProcessIdentifierV6.values ())
-      if (e.getBISID () != null)
-        PROCESS_NAMES.put (e.getURIEncoded (),
-                           new NiceNameEntry (_ensurePrefix ("PEPPOL ", e.getBISID ()), e.isDeprecated ()));
+                         new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
     for (final eu.toop.commons.codelist.EPredefinedProcessIdentifier e : eu.toop.commons.codelist.EPredefinedProcessIdentifier.values ())
       PROCESS_NAMES.put (e.getURIEncoded (),
-                         new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated ()));
+                         new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
   }
 
   private AppCommonUI ()

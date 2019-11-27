@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.peppol.domain.NiceNameEntry;
 import com.helger.peppol.ui.AppCommonUI;
+import com.helger.peppolid.IProcessIdentifier;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -43,10 +44,18 @@ public class MainCreateMappingXML
       for (final Map.Entry <String, NiceNameEntry> aEntry : AppCommonUI.getDocTypeNames ()
                                                                        .getSortedByKey (Comparator.naturalOrder ())
                                                                        .entrySet ())
-        eRoot.appendElement ("item")
-             .setAttribute ("id", aEntry.getKey ())
-             .setAttribute ("name", aEntry.getValue ().getName ())
-             .setAttribute ("deprecated", aEntry.getValue ().isDeprecated ());
+      {
+        final NiceNameEntry aNNE = aEntry.getValue ();
+        final IMicroElement eItem = eRoot.appendElement ("item")
+                                         .setAttribute ("id", aEntry.getKey ())
+                                         .setAttribute ("name", aNNE.getName ())
+                                         .setAttribute ("deprecated", aNNE.isDeprecated ());
+        if (aNNE.hasProcessIDs ())
+          for (final IProcessIdentifier aProcID : aNNE.getAllProcIDs ())
+            eItem.appendElement ("procid")
+                 .setAttribute ("scheme", aProcID.getScheme ())
+                 .setAttribute ("value", aProcID.getValue ());
+      }
       MicroWriter.writeToFile (aDoc, new File ("doctypeid-mapping.xml"));
     }
     {
