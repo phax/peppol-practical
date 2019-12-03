@@ -122,7 +122,9 @@ public final class MenuPublic
       final IMenuItemPage aValidation = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
                                                                                                                       "Document Validation",
                                                                                                                       aMenuTree));
-      aMenuTree.createItem (aValidation, new PagePublicToolsDocumentValidation (CMenuPublic.MENU_VALIDATION_BIS2));
+      final IMenuItemPage aUpload = aMenuTree.createItem (aValidation,
+                                                          new PagePublicToolsDocumentValidation (CMenuPublic.MENU_VALIDATION_UPLOAD));
+      aMenuTree.createRedirect ("validation-bis2", aUpload);
       aMenuTree.createItem (aValidation,
                             new AppPageViewExternal (CMenuPublic.MENU_VALIDATION_DVS,
                                                      "Document Validation (WebService)",

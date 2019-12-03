@@ -44,7 +44,7 @@ public final class CMenuPublic
   public static final String MENU_TOOLS_TEST_ENDPOINTS = "tools-test-endpoints";
   public static final String MENU_TOOLS_REST_API = "tools-rest-api";
   public static final String MENU_VALIDATION = "validation";
-  public static final String MENU_VALIDATION_BIS2 = "validation-bis2";
+  public static final String MENU_VALIDATION_UPLOAD = "validation-upload";
   public static final String MENU_VALIDATION_DVS = "validation-ws2";
   public static final String MENU_EN16931 = "en16931";
   public static final String MENU_LOGIN = "login";
