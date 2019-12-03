@@ -119,8 +119,10 @@ public final class APISMPQueryGetBusinessCard implements IAPIExecutor
                                    "'");
 
     final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
+    final String sLogPrefix = "[API] ";
 
-    LOGGER.info ("[API] BusinessCard of '" +
+    LOGGER.info (sLogPrefix +
+                 "BusinessCard of '" +
                  aParticipantID.getURIEncoded () +
                  "' is queried using SMP API '" +
                  aQueryParams.getSMPAPIType () +
@@ -135,7 +137,7 @@ public final class APISMPQueryGetBusinessCard implements IAPIExecutor
     final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
                           "/businesscard/" +
                           aParticipantID.getURIEncoded ();
-    LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
+    LOGGER.info (sLogPrefix + "Querying BC from '" + sBCURL + "'");
     byte [] aData;
     try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
     {
@@ -148,13 +150,13 @@ public final class APISMPQueryGetBusinessCard implements IAPIExecutor
     }
 
     if (aData == null)
-      LOGGER.warn ("[API] No Business Card is available for that participant.");
+      LOGGER.warn (sLogPrefix + "No Business Card is available for that participant.");
     else
     {
       final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
       if (aBC == null)
       {
-        LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));
+        LOGGER.error (sLogPrefix + "Failed to parse BC:\n" + new String (aData));
       }
       else
       {
