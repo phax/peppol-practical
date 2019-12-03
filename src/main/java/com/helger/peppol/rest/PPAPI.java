@@ -71,5 +71,11 @@ public final class PPAPI
       aSMPQueryBusinessCard.setExceptionMapper (aExceptionMapper);
       aAPIRegistry.registerAPI (aSMPQueryBusinessCard);
     }
+
+    {
+      final APIDescriptor aCII2UBL = new APIDescriptor (APIPath.post ("/convert/cii2ubl"), new APIConvertCIIToUBL ());
+      aCII2UBL.setExceptionMapper (aExceptionMapper);
+      aAPIRegistry.registerAPI (aCII2UBL);
+    }
   }
 }
