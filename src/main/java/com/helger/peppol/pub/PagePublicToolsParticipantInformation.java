@@ -19,6 +19,7 @@ package com.helger.peppol.pub;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,6 +45,7 @@ import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.locale.language.LanguageCache;
+import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.url.SimpleURL;
@@ -83,6 +85,7 @@ import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
 import com.helger.peppol.domain.SMPQueryParams;
+import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
@@ -91,6 +94,8 @@ import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.peppol.url.PeppolDNSResolutionException;
+import com.helger.peppol.utils.EPeppolCertificateCheckResult;
+import com.helger.peppol.utils.PeppolCertificateChecker;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -101,6 +106,7 @@ import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
+import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap4.badge.BootstrapBadge;
 import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
@@ -120,6 +126,8 @@ import com.helger.photon.icon.fontawesome.EFontAwesome4Icon;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.famfam.EFamFamFlagIcon;
+import com.helger.photon.uictrls.prism.EPrismLanguage;
+import com.helger.photon.uictrls.prism.HCPrismJS;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -406,7 +414,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           // List document type details
           if (aDocTypeIDs.isNotEmpty ())
           {
-            final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
+            final LocalDateTime aNowDateTime = PDTFactory.getCurrentLocalDateTime ();
+            final LocalDate aNowDate = aNowDateTime.toLocalDate ();
             final ICommonsOrderedSet <X509Certificate> aAllUsedEndpointCertifiactes = new CommonsLinkedHashSet <> ();
             long nTotalDurationMillis = 0;
 
@@ -586,9 +595,27 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                            PDTToString.getAsString (aNotAfter, aDisplayLocale)));
                   if (aNotAfter.isBefore (aNowDate))
                     aLICert.addChild (new BootstrapErrorBox ().addChild ("This Endpoint Certificate is no longer valid!"));
+                  aLICert.addChild (new HCDiv ().addChild ("Serial number: " +
+                                                           aEndpointCert.getSerialNumber ().toString () +
+                                                           " / 0x" +
+                                                           aEndpointCert.getSerialNumber ().toString (16)));
+
+                  if (aQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
+                  {
+                    // Check Peppol certificate status
+                    final EPeppolCertificateCheckResult eCertStatus = PeppolCertificateChecker.checkPeppolAPCertificate (aEndpointCert,
+                                                                                                                         aNowDateTime,
+                                                                                                                         ETriState.FALSE,
+                                                                                                                         ETriState.UNDEFINED);
+                    if (eCertStatus.isValid ())
+                      aLICert.addChild (new BootstrapSuccessBox ().addChild ("The Endpoint Certificate appears to be a valid Peppol certificate."));
+                    else
+                      aLICert.addChild (new BootstrapErrorBox ().addChild ("The Endpoint Certificate appears to be an invalid Peppol certificate. Reason: " +
+                                                                           eCertStatus.getReason ()));
+                  }
 
                   final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
-                                                                .setRows (3)
+                                                                .setRows (4)
                                                                 .setValue (CertificateHelper.getPEMEncodedCertificate (aEndpointCert))
                                                                 .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
                   BootstrapFormHelper.markAsFormControl (aTextArea);
@@ -630,8 +657,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
               if (aBC == null)
               {
-                aNodeList.addChild (new BootstrapWarnBox ().addChild ("Failed to parse the response data as a Business Card."));
-                LOGGER.error ("Failed to parse BC:\n" + new String (aData));
+                aNodeList.addChild (new BootstrapErrorBox ().addChild ("Failed to parse the response data as a Business Card."));
+
+                final String sBC = new String (aData, StandardCharsets.UTF_8);
+                if (StringHelper.hasText (sBC))
+                  aNodeList.addChild (new HCPrismJS (EPrismLanguage.MARKUP).addChild (sBC));
+                LOGGER.error ("Failed to parse BC:\n" + sBC);
               }
               else
               {

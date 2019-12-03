@@ -36,6 +36,13 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2019-11-27 - Participant Information extended</h3>
+    
+    <p>
+      The participant information tool now contains an extended check for the validity of Peppol certificates.
+      Additionally the error handling for invalid Business Cards was improved.
+    </p>
+  
     <h3>2019-11-22 - Document validation updated</h3>
     
     <p>
