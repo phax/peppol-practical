@@ -36,11 +36,14 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
-    <h3>2019-11-27 - Participant Information extended</h3>
+    <h3>2019-12-03 - Participant Information extended</h3>
     
     <p>
       The participant information tool now contains an extended check for the validity of Peppol certificates.
       Additionally the error handling for invalid Business Cards was improved.
+    </p>
+    <p>
+      Also the link to the document validation upload page was modified, to avoid naming confusion. Old links are of course still valid.
     </p>
   
     <h3>2019-11-22 - Document validation updated</h3>
@@ -103,7 +106,7 @@
       The latest PEPPOL A-NZ validation artefacts are contained, as well as the PEPPOL 3.9.0-RC1 (Fall 2019) validation artefacts.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
   
     <p>
@@ -133,7 +136,7 @@
       The latest PEPPOL SG validation artefacts are contained, as well as the new EN 16931 validation artefacts (v1.3.0)
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
   
     <p>
@@ -183,7 +186,7 @@
       Also SimplerInvoicing validation artefacts were updated. 
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
   
     <p>
@@ -229,7 +232,7 @@
       EN 16031 1.2.3 validation artefacts were added.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
    
     <p>
@@ -250,7 +253,7 @@
       The new EHF validation artefacts were added.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
    
     <p>
@@ -277,7 +280,7 @@
     </p>
     <ul>
       <li><a href="/public/menuitem-docs-smp-sml-interplay">Article on SMP-SML interplay</a></li>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
    
     <p>
@@ -309,7 +312,7 @@
       T10 and T14 validation artefacts must be taken from Billing BIS v3.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
       <li><a href="https://peppol.eu/downloads/post-award/">PEPPOL website where artefacts are referenced</a></li>
     </ul>
     <p>
@@ -335,7 +338,7 @@
       EN 16931 rules v1.2.1 for CII and UBL are now contained.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
       <li><a href="https://github.com/CenPC434/validation/#news-and-noteworthy">See EN16931 validation artefacts v1.2.1 changes</a></li>
     </ul>
     <p>
@@ -353,7 +356,7 @@
       EN 16931 rules v1.2.0 for CII and UBL are now contained.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
       <li><a href="https://github.com/CenPC434/validation/#news-and-noteworthy">See EN16931 validation artefacts v1.2.0 changes</a></li>
     </ul>
     <p>
@@ -371,7 +374,7 @@
       OIOUBL validation was updated, Energie EFactuur 3.0.0 rules were added, and SimplerInvoicing rules were updated from 2.0-RC1 to 2.0 final.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
     <p>
       New VESIDs are:
@@ -441,7 +444,7 @@
       EHF validation was updated to the latest rule set. Now it is based on the PEPPOL 3.7.0 rule set, so expect slightly different results.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2019-02-04 - Document validation updated</h3>
@@ -451,7 +454,7 @@
       Additionally SimplerInvoicing 2.0.0 RC1 Invoice and CrediteNote were added.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2019-01-28 - PEPPOL TICC News</h3>
@@ -506,7 +509,7 @@
       UBL.BE Invoice and CreditNote 1.0.0 was added.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
   </div>
   <div id="tabs-2018" class="tab-pane" role="tabpanel">
@@ -517,7 +520,7 @@
       PEPPOL 3.4.0 and 3.7.0.RC1 rules were removed.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2018-11-09 - Document validation corrected</h3>
@@ -527,7 +530,7 @@
       The changes are reflected also in <a href="https://github.com/phax/ph-bdve/releases/tag/ph-bdve-parent-pom-5.0.6">ph-bdve 5.0.6</a>.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2018-11-07 - Document validation extended</h3>
@@ -536,7 +539,7 @@
       PEPPOL 3.7.0.RC1 and UBL.BE 3.0 Invoice and Credit Note are now supported.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2018-10-30 - phoss SMP 5.0.8</h3>
@@ -604,7 +607,7 @@
       The old EN 16931 1.0.0 validation artefacts are now deprecated.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
     
     <h3>2018-06-15 - Document validation extended</h3>
@@ -614,7 +617,7 @@
       Additionally EN 16931 UBL CreditNotes can now also be validated. 
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2018-06-14 - PEPPOL Policy for the use of identifiers 3.1 release</h3>
@@ -652,7 +655,7 @@
       Additionally Austrian ebInterface documents can now be validated as well. 
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2018-05-21 - New OpenPEPPOL Support Process</h3>
@@ -781,7 +784,7 @@
       EN16931 rules v1.0.0 are now contained. 
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2018-02-07 - Document validation extended - again</h3>
@@ -791,7 +794,7 @@
       Additionally a bug concerning the UBL validation of EN 16931 documents was fixed (#49).
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2018-02-05 - Validation Webservice changed</h3>
@@ -809,7 +812,7 @@
       Additionally a bug concerning the CII validation of EN 16931 documents was fixed (#47).
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
     <h3>2018-01-17 - Document validation extended</h3>
@@ -820,7 +823,7 @@
       Additionally validation rule sets for "pure UBL" and "pure CII" validation were added.
     </p>
     <ul>
-      <li><a href="/public/menuitem-validation-bis2">Click here to validate your business document</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
   </div>
   <div id="tabs-2017" class="tab-pane" role="tabpanel">
@@ -1062,7 +1065,7 @@
     <p>
       Finally the BIS2 document validation with OpenPEPPOL validation artefacts 3.3.0 is available.
       Additionally support for Simplerinvoicing 1.1 was added.
-      <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
+      <a href="/public/menuitem-validation-upload">Click here to validate your business document</a>.
     </p>
   </div>
 
@@ -1282,7 +1285,7 @@
     
     <p>
       Finally a first version of the BIS2 document validation is available on this page.
-      <a href="/public/menuitem-validation-bis2">Click here to validate your business document</a>.
+      <a href="/public/menuitem-validation-upload">Click here to validate your business document</a>.
     </p>
     
     <h3>2015-10-27</h3>
