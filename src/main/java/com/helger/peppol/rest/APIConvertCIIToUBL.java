@@ -61,6 +61,11 @@ import un.unece.uncefact.data.standard.crossindustryinvoice._100.CrossIndustryIn
  */
 public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
 {
+  public static final String PARAM_SIMPLE_RESPONSE = "simple-response";
+  public static final boolean DEFAULT_SIMPLE_RESPONSE = false;
+  public static final String PARAM_XML_BEAUTIFY = "xml-beautify";
+  public static final boolean DEFAULT_XML_BEAUTIFY = true;
+
   private static final Logger LOGGER = LoggerFactory.getLogger (APIConvertCIIToUBL.class);
 
   public void invokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
@@ -74,7 +79,11 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
 
     final ZonedDateTime aQueryDT = PDTFactory.getCurrentZonedDateTimeUTC ();
     final StopWatch aSW = StopWatch.createdStarted ();
-    final boolean bSimpleMode = aRequestScope.params ().containsKey ("simpleResponse");
+
+    // Params
+    final boolean bSimpleResponse = aRequestScope.params ()
+                                                 .getAsBoolean (PARAM_SIMPLE_RESPONSE, DEFAULT_SIMPLE_RESPONSE);
+    final boolean bXMLBeautify = aRequestScope.params ().getAsBoolean (PARAM_XML_BEAUTIFY, DEFAULT_XML_BEAUTIFY);
 
     final String sLogPrefix = "[API] ";
 
@@ -120,10 +129,10 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
       if (aUBL != null)
       {
         if (aUBL instanceof InvoiceType)
-          sUBL = UBL21Writer.invoice ().getAsString ((InvoiceType) aUBL);
+          sUBL = UBL21Writer.invoice ().setFormattedOutput (bXMLBeautify).getAsString ((InvoiceType) aUBL);
         else
           if (aUBL instanceof CreditNoteType)
-            sUBL = UBL21Writer.creditNote ().getAsString ((CreditNoteType) aUBL);
+            sUBL = UBL21Writer.creditNote ().setFormattedOutput (bXMLBeautify).getAsString ((CreditNoteType) aUBL);
           else
             throw new IllegalStateException ();
 
@@ -132,7 +141,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
       }
     }
 
-    if (bSimpleMode && bSuccess)
+    if (bSimpleResponse && bSuccess)
     {
       aUnifiedResponse.setContentAndCharset (sUBL, StandardCharsets.UTF_8).setMimeType (CMimeType.APPLICATION_XML);
     }
