@@ -29,11 +29,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.cii.d16b.CIID16BReader;
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.list.ErrorList;
+import com.helger.commons.http.CHttp;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.timing.StopWatch;
 import com.helger.en16931.cii2ubl.CIIToUBL21Converter;
@@ -56,7 +56,7 @@ import un.unece.uncefact.data.standard.crossindustryinvoice._100.CrossIndustryIn
 
 /**
  * Convert CII to UBL via API
- * 
+ *
  * @author Philip Helger
  */
 public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
@@ -74,6 +74,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
 
     final ZonedDateTime aQueryDT = PDTFactory.getCurrentZonedDateTimeUTC ();
     final StopWatch aSW = StopWatch.createdStarted ();
+    final boolean bSimpleMode = aRequestScope.params ().containsKey ("simpleResponse");
 
     final String sLogPrefix = "[API] ";
 
@@ -95,6 +96,8 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
       aJson.add ("parsingErrors", aParseErrors);
     }
 
+    String sUBL = null;
+    boolean bSuccess = false;
     if (aCIIInvoice != null)
     {
       // Convert to domain model
@@ -116,7 +119,6 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
 
       if (aUBL != null)
       {
-        final String sUBL;
         if (aUBL instanceof InvoiceType)
           sUBL = UBL21Writer.invoice ().getAsString ((InvoiceType) aUBL);
         else
@@ -126,12 +128,21 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
             throw new IllegalStateException ();
 
         aJson.add ("ubl", sUBL);
+        bSuccess = true;
       }
     }
 
-    final String sRet = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true)).writeAsString (aJson);
-    aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8)
-                    .setMimeType (CMimeType.APPLICATION_JSON)
-                    .enableCaching (3 * CGlobal.SECONDS_PER_HOUR);
+    if (bSimpleMode && bSuccess)
+    {
+      aUnifiedResponse.setContentAndCharset (sUBL, StandardCharsets.UTF_8).setMimeType (CMimeType.APPLICATION_XML);
+    }
+    else
+    {
+      if (!bSuccess)
+        aUnifiedResponse.setStatus (CHttp.HTTP_BAD_REQUEST).setAllowContentOnStatusCode (true);
+
+      final String sRet = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true)).writeAsString (aJson);
+      aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8).setMimeType (CMimeType.APPLICATION_JSON);
+    }
   }
 }
