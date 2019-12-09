@@ -60,6 +60,11 @@ public final class NiceNameEntry implements Serializable
     return CollectionHelper.isNotEmpty (m_aProcIDs);
   }
 
+  public boolean containsProcessID (@Nonnull final IProcessIdentifier aProcID)
+  {
+    return m_aProcIDs.containsAny (aProcID::hasSameContent);
+  }
+
   @Nullable
   public ICommonsList <IProcessIdentifier> getAllProcIDs ()
   {

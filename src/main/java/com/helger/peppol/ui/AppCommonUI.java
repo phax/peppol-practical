@@ -395,11 +395,13 @@ public final class AppCommonUI
   }
 
   @Nonnull
-  private static IHCNode _createID (@Nonnull final String sID,
-                                    @Nullable final NiceNameEntry aNiceName,
-                                    final boolean bInDetails)
+  private static IHCNode _createFormattedID (@Nonnull final String sID,
+                                             @Nullable final String sName,
+                                             @Nullable final EBootstrapBadgeType eType,
+                                             final boolean bIsDeprecated,
+                                             final boolean bInDetails)
   {
-    if (aNiceName == null)
+    if (sName == null)
     {
       // No nice name present
       if (bInDetails)
@@ -408,8 +410,8 @@ public final class AppCommonUI
     }
 
     final HCNodeList ret = new HCNodeList ();
-    ret.addChild (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (aNiceName.getName ()));
-    if (aNiceName.isDeprecated ())
+    ret.addChild (new BootstrapBadge (eType).addChild (sName));
+    if (bIsDeprecated)
     {
       ret.addChild (" ")
          .addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Identifier is deprecated"));
@@ -422,17 +424,46 @@ public final class AppCommonUI
   }
 
   @Nonnull
-  public static IHCNode createDocTypeID (@Nonnull final IDocumentTypeIdentifier aDocType, final boolean bInDetails)
+  private static IHCNode _createID (@Nonnull final String sID,
+                                    @Nullable final NiceNameEntry aNiceName,
+                                    final boolean bInDetails)
   {
-    final String sURI = aDocType.getURIEncoded ();
+    if (aNiceName == null)
+      return _createFormattedID (sID, null, null, false, bInDetails);
+    return _createFormattedID (sID,
+                               aNiceName.getName (),
+                               EBootstrapBadgeType.SUCCESS,
+                               aNiceName.isDeprecated (),
+                               bInDetails);
+  }
+
+  @Nonnull
+  public static IHCNode createDocTypeID (@Nonnull final IDocumentTypeIdentifier aDocTypeID, final boolean bInDetails)
+  {
+    final String sURI = aDocTypeID.getURIEncoded ();
     return _createID (sURI, DOCTYPE_NAMES.get (sURI), bInDetails);
   }
 
   @Nonnull
-  public static IHCNode createProcessID (@Nonnull final IProcessIdentifier aProcess)
+  public static IHCNode createProcessID (@Nonnull final IDocumentTypeIdentifier aDocTypeID,
+                                         @Nonnull final IProcessIdentifier aProcessID)
   {
-    final String sURI = aProcess.getURIEncoded ();
-    return _createID (sURI, PROCESS_NAMES.get (sURI), true);
+    final String sURI = aProcessID.getURIEncoded ();
+    final boolean bInDetails = true;
+
+    // Check direct match first
+    NiceNameEntry aNN = PROCESS_NAMES.get (sURI);
+    if (aNN != null)
+      return _createID (sURI, aNN, bInDetails);
+
+    aNN = DOCTYPE_NAMES.get (aDocTypeID.getURIEncoded ());
+    if (aNN != null)
+    {
+      if (aNN.containsProcessID (aProcessID))
+        return _createFormattedID (sURI, "Matching Process Identifier", EBootstrapBadgeType.SUCCESS, false, bInDetails);
+      return _createFormattedID (sURI, "Unexpected Process Identifier", EBootstrapBadgeType.WARNING, false, bInDetails);
+    }
+    return _createFormattedID (sURI, null, null, false, bInDetails);
   }
 
   @Nonnull

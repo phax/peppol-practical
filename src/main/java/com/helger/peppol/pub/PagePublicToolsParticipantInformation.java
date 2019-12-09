@@ -298,6 +298,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                      .addChild (" (determined by reverse name lookup - this is potentially not the URL you registered your SMP for!)"),
                          new HCDiv ().addChild (_createOpenInBrowser ("http://" + sURL3)));
 
+            final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
+            aUL.addItem (new HCDiv ().addChild ("Query base URL: ").addChild (new HCCode ().addChild (sURL4)),
+                         new HCDiv ().addChild (_createOpenInBrowser (sURL4)));
+
             aNodeList.addChild (aUL);
           }
 
@@ -450,7 +454,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         {
                           final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
                           aLIProcessID.addChild (new HCDiv ().addChild ("Process ID: ")
-                                                             .addChild (AppCommonUI.createProcessID (SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
+                                                             .addChild (AppCommonUI.createProcessID (aDocTypeID,
+                                                                                                     SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                           final HCUL aULEndpoint = new HCUL ();
                           // For all endpoints of the process
                           for (final com.helger.peppol.smp.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
@@ -513,7 +518,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         {
                           final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
                           aLIProcessID.addChild (new HCDiv ().addChild ("Process ID: ")
-                                                             .addChild (AppCommonUI.createProcessID (SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
+                                                             .addChild (AppCommonUI.createProcessID (aDocTypeID,
+                                                                                                     SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                           final HCUL aULEndpoint = new HCUL ();
                           // For all endpoints of the process
                           for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()

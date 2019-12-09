@@ -40,7 +40,8 @@
     
     <p>
       Added support for SimplerInvoicing 2.0.1 validation rules.
-      Deprecated SimplerInvoicing v2.0.0 rules.
+      Deprecated SimplerInvoicing v2.0.0 rules.<br/>
+      Updated the Participant Information tool to better handle the process ID linked to the document type.
     </p>
     
     <p>
