@@ -36,6 +36,21 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2019-12-16 - SimplerInvoicing 2.0.2 added</h3>
+    
+    <p>
+      Added support for SimplerInvoicing 2.0.2 validation rules.
+      Deprecated SimplerInvoicing v2.0.1 rules.
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>org.simplerinvoicing:creditnote:2.0.2</code> - Simplerinvoicing CreditNote 2.0.2</li>
+<li><code>org.simplerinvoicing:invoice:2.0.2</code> - Simplerinvoicing Invoice 2.0.2</li>
+    </ul>
+  
     <h3>2019-12-09 - SimplerInvoicing 2.0.1 added</h3>
     
     <p>

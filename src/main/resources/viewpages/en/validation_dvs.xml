@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 428 entries -->
+<!-- 430 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -489,12 +489,14 @@ A very small Java WS client is available for
 <li><code>org.oasis-open:weightstatement:2.2</code> - UBL WeightStatement 2.2</li>
 <li><code>org.oasis-open:weightstatement:2.3-csprd01</code> - UBL WeightStatement 2.3-csprd01</li>
 <li><code>org.simplerinvoicing:creditnote:2.0</code> - Simplerinvoicing CreditNote 2.0 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.1</code> - Simplerinvoicing CreditNote 2.0.1</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.1</code> - Simplerinvoicing CreditNote 2.0.1 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.2</code> - Simplerinvoicing CreditNote 2.0.2</li>
 <li><code>org.simplerinvoicing:invoice:1.0</code> - Simplerinvoicing Invoice 1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1</li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2</li>
 <li><code>org.simplerinvoicing:invoice:2.0</code> - Simplerinvoicing Invoice 2.0 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:invoice:2.0.1</code> - Simplerinvoicing Invoice 2.0.1</li>
+<li><code>org.simplerinvoicing:invoice:2.0.1</code> - Simplerinvoicing Invoice 2.0.1 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.2</code> - Simplerinvoicing Invoice 2.0.2</li>
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
 </ul>
