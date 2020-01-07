@@ -378,7 +378,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final String sOriginalHref = aEntry.getValue ();
 
               final IHCLI <?> aLI = aUL.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
-              final int nPathStart = sHref.indexOf (sPathStart);
+              // Should be case insensitive "indexOf" here
+              final int nPathStart = sHref.toLowerCase (Locale.US).indexOf (sPathStart.toLowerCase (Locale.US));
               if (nPathStart >= 0)
               {
                 final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
