@@ -49,7 +49,6 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.peppol.ui.CAppCSS;
 import com.helger.photon.app.url.LinkHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
@@ -139,8 +138,17 @@ public final class LayoutAreaContentProviderPublic
     final IUser aUser = LoggedInUserManager.getInstance ().getCurrentUser ();
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar ();
-    aNavbar.addBrand (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()),
+    aNavbar.addBrand (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()),
                       aLinkToStartPage);
+
+    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant information")
+                                                                        .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO))
+                                                                        .addClass (CBootstrapCSS.ML_AUTO)
+                                                                        .addClass (CBootstrapCSS.MX_2));
+    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Document validation")
+                                                                        .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_VALIDATION_UPLOAD))
+                                                                        .addClass (CBootstrapCSS.ML_AUTO)
+                                                                        .addClass (CBootstrapCSS.MX_2));
 
     final BootstrapNavbarToggleable aToggleable = aNavbar.addAndReturnToggleable ();
 

@@ -39,6 +39,8 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.type.ITypedObject;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.css.property.CCSSProperties;
+import com.helger.html.css.DefaultCSSClassProvider;
+import com.helger.html.css.ICSSClassProvider;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
@@ -99,6 +101,9 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 @Immutable
 public final class AppCommonUI
 {
+  public static final ICSSClassProvider CSS_CLASS_LOGO1 = DefaultCSSClassProvider.create ("logo1");
+  public static final ICSSClassProvider CSS_CLASS_LOGO2 = DefaultCSSClassProvider.create ("logo2");
+
   private static final DataTablesLengthMenu LENGTH_MENU = new DataTablesLengthMenu ().addItem (25)
                                                                                      .addItem (50)
                                                                                      .addItem (100)

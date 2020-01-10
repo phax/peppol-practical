@@ -29,7 +29,7 @@ import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.pub.LayoutAreaContentProviderPublic;
-import com.helger.peppol.ui.CAppCSS;
+import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.app.url.LinkHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
 import com.helger.photon.bootstrap4.breadcrumb.BootstrapBreadcrumb;
@@ -68,9 +68,9 @@ public final class LayoutAreaContentProviderSecure
     final ISimpleURL aLinkToStartPage = aLEC.getLinkToMenuItem (aLEC.getMenuTree ().getDefaultMenuItemID ());
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar ();
-    aNavbar.addBrand (new HCNodeList ().addChild (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO1)
+    aNavbar.addBrand (new HCNodeList ().addChild (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1)
                                                                .addChild (AppHelper.getApplicationTitle ()))
-                                       .addChild (new HCSpan ().addClass (CAppCSS.CSS_CLASS_LOGO2)
+                                       .addChild (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO2)
                                                                .addChild (" Administration")),
                       aLinkToStartPage);
 
