@@ -24,6 +24,13 @@
   </div>
 </div>
 
+<h2 class="mt-2">Table of Contents</h2>
+<ul>
+  <li><a href="#smpdoctypes">SMP query all document types of a participant</a></li>
+  <li><a href="#smpserviceinfo">SMP query all endpoints of a participant for a certain document type</a></li>
+  <li><a href="#smpbusinesscard">SMP query the Business Card of a participant</a></li>
+</ul>
+
 <h2>Base parameters</h2>
 
 <div>
@@ -40,6 +47,8 @@
   <li><code>autodetect</code> - find the matching SML automatically</li>
 </ul>
 
+<!-- ######################## -->
+<a name="smpdoctypes"></a>
 <h2 class="mt-2">API: <small class="text-muted">SMP query all document types of a participant</small></h2>
 
 <p>
@@ -54,15 +63,73 @@
   If the optional parameter <code>businessCard=true</code> is added, the SMP Business Card is queried as well.
 </div>
 
-<p>
-  Example URL:
+<p class="mt-2">
+  <strong>Example URL (without Business Card):</strong>
   <a href="/api/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest" target="_blank">/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest</a>
+</p>
+
+<p>
+  <strong>Example URL (with Business Card):</strong>
+  <a href="/api/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest?businessCard=true" target="_blank">/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest?businessCard=true</a>
 </p>
 
 <p>
   <strong>Note:</strong> all SMP queries are passed through to the effective SMP server and cause load there.
 </p>
 
+<p><strong>Example response (with Business Card):</strong></p>
+
+<pre>
+{
+  "smptype":"peppol",
+  "participantID":"iso6523-actorid-upis::9915:test",
+  "urls":[
+    {
+      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1",
+      "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
+      "niceName":"Peppol PEPPOL BIS Billing UBL CreditNote V3",
+      "isDeprecated":false
+    },
+    {
+      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns014%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1",
+      "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1",
+      "niceName":"Peppol PEPPOL Billing profile CreditNote V2",
+      "isDeprecated":false
+    },
+    {
+      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns014%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3Aextended%3Aurn%3Awww.erechnung.gv.at%3Aver1.0%3A%3A2.1",
+      "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0:extended:urn:www.erechnung.gv.at:ver1.0::2.1"
+    },
+    {
+      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns010%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3Aextended%3Aurn%3Awww.erechnung.gv.at%3Aver1.0%3A%3A2.1",
+      "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0:extended:urn:www.erechnung.gv.at:ver1.0::2.1"
+    }
+  ],
+  "businessCard":{
+    "participant":{
+      "scheme":"iso6523-actorid-upis",
+      "value":"9915:test"
+    },
+    "entity":[
+      {
+        "name":[
+          {
+            "name":"Austrian Government"
+          }
+        ],
+        "countrycode":"AT",
+        "geoinfo":"Vienna, Austria",
+        "additionalinfo":"This is the test endpoint for the whole Austrian Government!"
+      }
+    ]
+  },
+  "queryDateTime":"2020-01-10T17:51:15.76Z",
+  "queryDurationMillis":878
+}
+</pre>
+
+<!-- ######################## -->
+<a name="smpserviceinfo"></a>
 <h2 class="mt-2">API: <small class="text-muted">SMP query all endpoints of a participant for a certain document type</small></h2>
 
 <p>
@@ -78,8 +145,8 @@
   <code>docType-ID</code> is the URL encoded document type identifier to be queried (e.g. <code>busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns010%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1</code>)
 </div>
 
-<p>
-  Example URL:
+<p class="mt-2">
+  <strong>Example URL:</strong>
   <a href="/api/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns010%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1" target="_blank">/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns010%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1</a>
 </p>
 
@@ -87,6 +154,64 @@
   <strong>Note:</strong> all SMP queries are passed through to the effective SMP server and cause load there.
 </p>
 
+<p><strong>Example response:</strong></p>
+
+<pre>
+{
+  "smptype":"peppol",
+  "participantID":"iso6523-actorid-upis::9915:test",
+  "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1",
+  "serviceinfo":{
+    "processes":[
+      {
+        "processID":"cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii05:ver2.0",
+        "endpoints":[
+          {
+            "transportProfile":"busdox-transport-as2-ver1p0",
+            "endpointReference":"https://test.erechnung.gv.at/as2",
+            "requireBusinessLevelSignature":false,
+            "minimumAuthenticationLevel":null,
+            "certificate":"MIIFuzCCA6OgAwIBAgIQLc6VuJ1QGhKCNekpRV+3RzANBgkqhkiG9w0BAQsFADBr\nMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQT3BlblBFUFBPTCBBSVNCTDEWMBQGA1UE\nCxMNRk9SIFRFU1QgT05MWTEpMCcGA1UEAxMgUEVQUE9MIEFDQ0VTUyBQT0lOVCBU\nRVNUIENBIC0gRzIwHhcNMTkwMjIyMDAwMDAwWhcNMjEwMjExMjM1OTU5WjBIMRIw\nEAYDVQQDDAlQREswMDAyNzAxFzAVBgNVBAsMDlBFUFBPTCBURVNUIEFQMQwwCgYD\nVQQKDANCUloxCzAJBgNVBAYTAkFUMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB\nCgKCAQEA3/MoOJgIfDzUkSy52GJ0KAmQ8uUFoms+qcZki5xwgeUkEQZqEZfU7uZq\nSuJsQfo1OYNpOSRba4xtBVOMrbS5Q2i4y+rLxUnk89aWZj41GtuEYxlqQ27/F5Bu\nSMTVPzzt439Nj11JljanAhkJ/mHGFXsWoftzuQXajwU1ZCrrSxOv4TighIDBuvrq\n7xHjwi4+mljWOW2jBximWOZmOt0fZGgWduxZgnKwwYAeur7+GnAtPOFeIXyNREiE\nJyMPHxysKhs+a9ZUuSGHXMF+jDYOC1HMozsa10QIctNxpdHkYkORUdXmjh1k6AY/\nEuZwQSeZoAGorE066DdREn+JvIVvQQIDAQABo4IBfDCCAXgwDAYDVR0TAQH/BAIw\nADAOBgNVHQ8BAf8EBAMCA6gwFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwIwHQYDVR0O\nBBYEFEOP+WBp2jknDwIRUt9rhwrSIvgpMF0GA1UdHwRWMFQwUqBQoE6GTGh0dHA6\nLy9wa2ktY3JsLnN5bWF1dGguY29tL2NhXzZhOTM3NzM0YTM5M2EwODA1YmYzM2Nk\nYThiMzMxMDkzL0xhdGVzdENSTC5jcmwwNwYIKwYBBQUHAQEEKzApMCcGCCsGAQUF\nBzABhhtodHRwOi8vcGtpLW9jc3Auc3ltYXV0aC5jb20wHwYDVR0jBBgwFoAUa29L\ntvE3uis8fxjNuiuyuXwqN+swLQYKYIZIAYb4RQEQAwQfMB0GE2CGSAGG+EUBEAEC\nAwEBgamQ4QMWBjk1NzYwODA5BgpghkgBhvhFARAFBCswKQIBABYkYUhSMGNITTZM\neTl3YTJrdGNtRXVjM2x0WVhWMGFDNWpiMjA9MA0GCSqGSIb3DQEBCwUAA4ICAQA6\n56xmXDfQZl3HLKmSpsJN5Fm+Q2MNWj50Q9avI2L7lF2GUS6COih3ECohv6g8t3Pj\ndhzt31ejWPjxuoXtcLesFBL6h9NgLoKel1LWOGnu06y9Q1pBBa4fx0ql2I845AV1\nax/F1Yh5ynQNVtaxyRDZizkL35MOl/WDDL2Oi/wt5d52BwsurU32JTKOlj+TUZt8\ntza1rA5bjGmsnVl48zrxrVSlMY/6y6uT86mub9nrBCMWbdY9BQ73V/jGW8BkhnVq\n+wVzHpDu/X66eErA/HUJk8k5Mb9Cj4uiLBcoSt9vk0cY9Q9S+QMOJdWEkl3veiTj\n1sydTX8MvL5bGBRPo0veNyypSXrA9FQwG6CbCY8UK1h/7oYnnTab04UUqGZBj72t\nXURqTq1updBEnSIFO4si95j0hN1fnkgsB//UtSyHriy4Je8voAzQQmPhms1FL/OS\nINWLSVEnUEodDztNDxD4x4sBZcmIgnsPiF7ygnEQIWVO8J92/GD0NmMcgnW4CFDK\nRgv5Aw4bFKcnS8CO9XvNp6reyZV2Q8kef5lGxxHR7S76CQ0tleUVMQPXkbFxcHN5\n8H2U2yIhorlH1DaOxPOlhSUTfKCBq38I6O4BUW8tvI35Rxo7pSfos5Lt7u/PIVwI\nVMRYrNhdxiS0RgWmZLELqi1QTzliBXJkurhHdG7eVA==",
+            "certificateDetails":{
+              "parsable":true,
+              "subject":{
+                "name":"C=AT,O=BRZ,OU=PEPPOL TEST AP,CN=PDK000270",
+                "CN":"PDK000270",
+                "OU":"PEPPOL TEST AP",
+                "O":"BRZ",
+                "C":"AT"
+              },
+              "issuer":{
+                "name":"CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
+                "C":"BE",
+                "O":"OpenPEPPOL AISBL",
+                "OU":"FOR TEST ONLY",
+                "CN":"PEPPOL ACCESS POINT TEST CA - G2"
+              },
+              "serial10":60887909668878219226152841132441057095,
+              "serial16":"2dce95b89d501a128235e929455fb747",
+              "notBefore":"2019-02-22T01:00:00",
+              "notAfter":"2021-02-12T00:59:59",
+              "sigAlgName":"SHA256withRSA"
+            },
+            "serviceDescription":"BRZ Test AP",
+            "technicalContactUrl":"peppol-support@peppol.at",
+            "technicalInformationUrl":"http://www.peppol.at",
+            "extension":null
+          }
+        ],
+        "extension":null
+      }
+    ],
+    "extension":null
+  },
+  "queryDateTime":"2020-01-10T17:52:41.949Z",
+  "queryDurationMillis":380
+}
+</pre>
+
+<!-- ######################## -->
+<a name="smpbusinesscard"></a>
 <h2 class="mt-2">API: <small class="text-muted">SMP query the Business Card of a participant</small></h2>
 
 <p>
@@ -100,8 +225,8 @@
   <code>participant-ID</code> is the URL encoded participant identifier to be queried (e.g. <code>iso6523-actorid-upis%3a%3a9915%3atest</code>)
 </div>
 
-<p>
-  Example URL:
+<p class="mt-2">
+  <strong>Example URL:</strong>
   <a href="/api/businesscard/digittest/iso6523-actorid-upis%3a%3a9915%3atest" target="_blank">/businesscard/digittest/iso6523-actorid-upis%3a%3a9915%3atest</a>
 </p>
 
@@ -112,3 +237,27 @@
 <p>
   <strong>Note:</strong> all SMP queries are passed through to the effective SMP server and cause load there.
 </p>
+
+<p><strong>Example Response:</strong></p>
+<pre>
+{
+  "participant":{
+    "scheme":"iso6523-actorid-upis",
+    "value":"9915:test"
+  },
+  "entity":[
+    {
+      "name":[
+        {
+          "name":"Austrian Government"
+        }
+      ],
+      "countrycode":"AT",
+      "geoinfo":"Vienna, Austria",
+      "additionalinfo":"This is the test endpoint for the whole Austrian Government!"
+    }
+  ],
+  "queryDateTime":"2020-01-10T18:31:03.548Z",
+  "queryDurationMillis":173
+}
+</pre>

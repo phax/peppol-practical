@@ -36,6 +36,16 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2020-01-10 - Extended REST API</h3>
+    
+    <p>
+      The algorithm to determine all document types of an SMP participant was improved to handle IDs case insensitive (thanks Jelte).<br /> 
+      The REST API documentation was improved, and the output of the "serviceinfo" query was extended to also contain the certificate details (thanks Peter).<br />
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-tools-rest-api">Read more about the REST API here</a></li>
+    </ul>
+    
     <h3>2019-12-18 - Document Validation - Peppol SG 1.0.2 added</h3>
     
     <p>
