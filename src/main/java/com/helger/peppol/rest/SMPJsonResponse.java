@@ -16,14 +16,21 @@
  */
 package com.helger.peppol.rest;
 
+import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.datatype.XMLGregorianCalendar;
+import javax.naming.InvalidNameException;
+import javax.naming.ldap.LdapName;
+import javax.naming.ldap.Rdn;
+import javax.security.auth.x500.X500Principal;
 
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
@@ -39,6 +46,7 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.security.certificate.CertificateHelper;
 
 @Immutable
 public final class SMPJsonResponse
@@ -62,6 +70,7 @@ public final class SMPJsonResponse
   private static final String JSON_SERVICE_ACTIVATION_DATE = "serviceActivationDate";
   private static final String JSON_SERVICE_EXPIRATION_DATE = "serviceExpirationDate";
   private static final String JSON_CERTIFICATE = "certificate";
+  private static final String JSON_CERTIFICATE_DETAILS = "certificateDetails";
   private static final String JSON_SERVICE_DESCRIPTION = "serviceDescription";
   private static final String JSON_TECHNICAL_CONTACT_URL = "technicalContactUrl";
   private static final String JSON_TECHNICAL_INFORMATION_URL = "technicalInformationUrl";
@@ -92,7 +101,8 @@ public final class SMPJsonResponse
       final String sOriginalHref = aEntry.getValue ();
 
       final IJsonObject aUrlEntry = new JsonObject ().add (JSON_HREF, sOriginalHref);
-      final int nPathStart = sHref.indexOf (sPathStart);
+      // Should be case insensitive "indexOf" here
+      final int nPathStart = sHref.toLowerCase (Locale.US).indexOf (sPathStart.toLowerCase (Locale.US));
       if (nPathStart >= 0)
       {
         final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
@@ -120,6 +130,50 @@ public final class SMPJsonResponse
     }
     aJson.add (JSON_URLS, aURLsArray);
     return aJson;
+  }
+
+  @Nonnull
+  private static IJsonObject _getJsonPrincipal (@Nonnull final X500Principal aPrincipal)
+  {
+    final IJsonObject ret = new JsonObject ();
+    ret.add ("name", aPrincipal.getName ());
+    try
+    {
+      for (final Rdn aRdn : new LdapName (aPrincipal.getName ()).getRdns ())
+        ret.add (aRdn.getType (), aRdn.getValue ());
+    }
+    catch (final InvalidNameException ex)
+    {
+      // shit happens
+    }
+    return ret;
+  }
+
+  @Nullable
+  private static String _getLDT (@Nullable final LocalDateTime aLDT)
+  {
+    return aLDT == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (aLDT);
+  }
+
+  private static void _convertCertificate (@Nonnull final IJsonObject aTarget, @Nonnull final String sCert)
+  {
+    aTarget.add (JSON_CERTIFICATE, sCert);
+
+    final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (sCert);
+    final IJsonObject aDetails = new JsonObject ();
+    aDetails.add ("parsable", aCert != null);
+    if (aCert != null)
+    {
+      aDetails.add ("subject", _getJsonPrincipal (aCert.getSubjectX500Principal ()));
+      aDetails.add ("issuer", _getJsonPrincipal (aCert.getIssuerX500Principal ()));
+      aDetails.add ("serial10", aCert.getSerialNumber ());
+      aDetails.add ("serial16", aCert.getSerialNumber ().toString (16));
+      aDetails.addIfNotNull ("notBefore", _getLDT (PDTFactory.createLocalDateTime (aCert.getNotBefore ())));
+      aDetails.addIfNotNull ("notAfter", _getLDT (PDTFactory.createLocalDateTime (aCert.getNotAfter ())));
+      aDetails.add ("validByDate", CertificateHelper.isCertificateValidPerNow (aCert));
+      aDetails.add ("sigAlgName", aCert.getSigAlgName ());
+    }
+    aTarget.add (JSON_CERTIFICATE_DETAILS, aDetails);
   }
 
   @Nonnull
@@ -170,18 +224,10 @@ public final class SMPJsonResponse
                                                                .add (JSON_MINIMUM_AUTHENTICATION_LEVEL,
                                                                      aEndpoint.getMinimumAuthenticationLevel ());
 
-                  final LocalDateTime aServiceActivationDate = aEndpoint.getServiceActivationDate ();
-                  if (aServiceActivationDate != null)
-                    aJsonEP.add (JSON_SERVICE_ACTIVATION_DATE,
-                                 DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (aServiceActivationDate));
-
-                  final LocalDateTime aServiceExpirationDate = aEndpoint.getServiceExpirationDate ();
-                  if (aServiceExpirationDate != null)
-                    aJsonEP.add (JSON_SERVICE_EXPIRATION_DATE,
-                                 DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (aServiceExpirationDate));
-
-                  aJsonEP.add (JSON_CERTIFICATE, aEndpoint.getCertificate ())
-                         .add (JSON_SERVICE_DESCRIPTION, aEndpoint.getServiceDescription ())
+                  aJsonEP.addIfNotNull (JSON_SERVICE_ACTIVATION_DATE, _getLDT (aEndpoint.getServiceActivationDate ()));
+                  aJsonEP.addIfNotNull (JSON_SERVICE_EXPIRATION_DATE, _getLDT (aEndpoint.getServiceExpirationDate ()));
+                  _convertCertificate (aJsonEP, aEndpoint.getCertificate ());
+                  aJsonEP.add (JSON_SERVICE_DESCRIPTION, aEndpoint.getServiceDescription ())
                          .add (JSON_TECHNICAL_CONTACT_URL, aEndpoint.getTechnicalContactUrl ())
                          .add (JSON_TECHNICAL_INFORMATION_URL, aEndpoint.getTechnicalInformationUrl ())
                          .add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aEndpoint.getExtension ()));
@@ -247,18 +293,13 @@ public final class SMPJsonResponse
                                                                .add (JSON_MINIMUM_AUTHENTICATION_LEVEL,
                                                                      aEndpoint.getMinimumAuthenticationLevel ());
 
-                  final XMLGregorianCalendar aServiceActivationDate = aEndpoint.getServiceActivationDate ();
-                  if (aServiceActivationDate != null)
-                    aJsonEP.add (JSON_SERVICE_ACTIVATION_DATE,
-                                 DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (PDTXMLConverter.getLocalDateTime (aServiceActivationDate)));
-
-                  final XMLGregorianCalendar aServiceExpirationDate = aEndpoint.getServiceExpirationDate ();
-                  if (aServiceExpirationDate != null)
-                    aJsonEP.add (JSON_SERVICE_EXPIRATION_DATE,
-                                 DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (PDTXMLConverter.getLocalDateTime (aServiceExpirationDate)));
-
-                  aJsonEP.add (JSON_CERTIFICATE, aEndpoint.getCertificate ())
-                         .add (JSON_SERVICE_DESCRIPTION, aEndpoint.getServiceDescription ())
+                  aJsonEP.addIfNotNull (JSON_SERVICE_ACTIVATION_DATE,
+                                        _getLDT (PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceActivationDate ())));
+                  aJsonEP.addIfNotNull (JSON_SERVICE_EXPIRATION_DATE,
+                                        _getLDT (PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceExpirationDate ())));
+                  _convertCertificate (aJsonEP,
+                                       new String (aEndpoint.getCertificate (), CertificateHelper.CERT_CHARSET));
+                  aJsonEP.add (JSON_SERVICE_DESCRIPTION, aEndpoint.getServiceDescription ())
                          .add (JSON_TECHNICAL_CONTACT_URL, aEndpoint.getTechnicalContactUrl ())
                          .add (JSON_TECHNICAL_INFORMATION_URL, aEndpoint.getTechnicalInformationUrl ())
                          .add (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aEndpoint.getExtension ()));
