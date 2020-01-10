@@ -34,6 +34,7 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
@@ -161,7 +162,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
                                                                                              .getAllPasswordConstraintDescriptions (aDisplayLocale));
 
     aForm.addChild (new BootstrapInfoBox ().addChild ("Sign up to ")
-                                           .addChild (new HCStrong ().addChild ("PEPPOL practical"))
+                                           .addChild (new HCStrong ().addChild (AppHelper.getApplicationTitle ()))
                                            .addChild (" easily by filling out this form. No further information and no credit card information is needed."));
 
     final BootstrapForm aRealForm = (BootstrapForm) aForm;

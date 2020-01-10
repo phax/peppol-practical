@@ -283,7 +283,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                         aSML.getDNSZone ())));
 
             final String sURL1 = aSMPHost.toExternalForm ();
-            aUL.addItem (new HCDiv ().addChild ("PEPPOL name: ").addChild (new HCCode ().addChild (sURL1)),
+            aUL.addItem (new HCDiv ().addChild ("Peppol name: ").addChild (new HCCode ().addChild (sURL1)),
                          new HCDiv ().addChild (_createOpenInBrowser (sURL1)));
 
             final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
@@ -773,7 +773,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         {
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
                                                                                         sParticipantIDUriEncoded +
-                                                                                        " is not registered to the PEPPOL network."))
+                                                                                        " is not registered to the Peppol network."))
                                                       .addChild (AppCommonUI.getTechnicalDetailsUI (ex))
                                                       .addChild (bSMLAutoDetect ? null
                                                                                 : new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
@@ -788,7 +788,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         {
           aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
                                                                                         sParticipantIDUriEncoded +
-                                                                                        " is not registered to the PEPPOL network."))
+                                                                                        " is not registered to the Peppol network."))
                                                       .addChild (AppCommonUI.getTechnicalDetailsUI (ex))
                                                       .addChild (bSMLAutoDetect ? null
                                                                                 : new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));

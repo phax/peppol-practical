@@ -105,7 +105,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String HELPTEXT_SMP_ID = "This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!";
   private static final String HELPTEXT_PHYSICAL_ADDRESS = "This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!";
   private static final String HELPTEXT_LOGICAL_ADDRESS = "This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!";
-  private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your PEPPOL SMP key is required to perform the action! Remember to use the production keystore when accessing the SML and the pilot keystore when accessing the SMK! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
+  private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your Peppol SMP key is required to perform the action! Remember to use the production keystore when accessing the SML and the pilot keystore when accessing the SMK! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
   private static final String HELPTEXT_KEYSTORE_PW = "The password of the JKS key store is required to access the content of the key store! The password is neither logged nor stored anywhere and discarded after opening the keystore.";
 
   private static final String SUBACTION_SMP_REGISTER = "smpregister";
@@ -756,8 +756,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            aMigrationDate);
       }
       catch (final com.helger.peppol.smlclient.bdmsl.BadRequestFault
-          | com.helger.peppol.smlclient.bdmsl.InternalErrorFault | com.helger.peppol.smlclient.bdmsl.NotFoundFault
-          | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault | ClientTransportException ex)
+                   | com.helger.peppol.smlclient.bdmsl.InternalErrorFault
+                   | com.helger.peppol.smlclient.bdmsl.NotFoundFault
+                   | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault
+                   | ClientTransportException ex)
       {
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
@@ -915,11 +917,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         final BootstrapForm aForm = getUIHandler ().createFormFileUploadSelf (aWPEC);
         aForm.setLeft (nLeft);
-        aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Prepare the update of your PEPPOL SMP certificate in the future."),
+        aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Prepare the update of your Peppol SMP certificate in the future."),
                                                              new HCDiv ().addChild ("This works only if your SMP certificate is NOT expired yet." +
                                                                                     " If your SMP certificate is already expired contact CEF-EDELIVERY-SUPPORT@ec.europa.eu with your SMP ID, the new certificate and the requested exchange date!"),
                                                              new HCDiv ().addChild ("Note: this is a custom extension that only works with the CEF SML instances!")));
-        aForm.addChild (new BootstrapWarnBox ().addChild ("It is your responsibility to update the PEPPOL certificate in your SMP at the specified time!"));
+        aForm.addChild (new BootstrapWarnBox ().addChild ("It is your responsibility to update the Peppol certificate in your SMP at the specified time!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));

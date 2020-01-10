@@ -362,7 +362,7 @@ public final class LayoutAreaContentProviderPublic
     {
       final BootstrapContainer aFooter = new BootstrapContainer ().setFluid (true).setID (CLayout.LAYOUT_AREAID_FOOTER);
 
-      aFooter.addChild (new HCP ().addChild ("PEPPOL practical - created by Philip Helger")
+      aFooter.addChild (new HCP ().addChild (AppHelper.getApplicationTitle () + " - created by Philip Helger")
                                   .addChild (" - GitHub: ")
                                   .addChild (new HCA (new SimpleURL ("https://github.com/phax")).addChild ("phax"))
                                   .addChild (" - Twitter: ")
@@ -388,7 +388,7 @@ public final class LayoutAreaContentProviderPublic
 
       aFooter.addChild (new HCP ().addChild (new HCSmall ().addChild ("Disclaimer: This page is a personal project of Philip Helger." +
                                                                       " The content is neither provided nor approved by OpenPEPPOL AISBL." +
-                                                                      " The official PEPPOL website is ")
+                                                                      " The official Peppol website is ")
                                                            .addChild (new HCA (new SimpleURL ("https://www.peppol.eu")).addChild ("www.peppol.eu")
                                                                                                                        .setTargetBlank ())));
 

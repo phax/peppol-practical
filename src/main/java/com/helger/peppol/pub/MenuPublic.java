@@ -58,7 +58,7 @@ public final class MenuPublic
                                                                                                                  aMenuTree));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_AP_PH,
-                                                     "Setup PEPPOL AP",
+                                                     "Setup Peppol AP",
                                                      new ClassPathResource ("viewpages/en/docs_setup_ap.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_SMP_PHOSS,
@@ -83,15 +83,15 @@ public final class MenuPublic
                                                      new ClassPathResource ("viewpages/en/docs_document_exchange.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_PKI,
-                                                     "PEPPOL PKI explained",
+                                                     "Peppol PKI explained",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_pki.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_CERT_UPDATE,
-                                                     "PEPPOL Certificate update",
+                                                     "Peppol Certificate update",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_cert_update.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_DICT,
-                                                     "PEPPOL Dictionary/Abbreviations",
+                                                     "Peppol Dictionary/Abbreviations",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_dict.xml")));
 
       // Not needed any more

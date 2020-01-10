@@ -28,6 +28,7 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.html.grouping.HCP;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
@@ -63,7 +64,7 @@ public final class PagePublicContact extends AbstractAppWebPage
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
-    aNodeList.addChild (new HCP ().addChild ("If you have general questions concerning PEPPOL technology, you may contact me using the form below. Please be aware, that I run this page on a voluntary basis and that the answers you may receive are my personal answers and not official OpenPEPPOL answers."));
+    aNodeList.addChild (new HCP ().addChild ("If you have general questions concerning Peppol technology, you may contact me using the form below. Please be aware, that I run this page on a voluntary basis and that the answers you may receive are my personal answers and not official OpenPEPPOL answers."));
 
     boolean bShowForm = true;
     final FormErrorList aFormErrors = new FormErrorList ();
@@ -90,10 +91,10 @@ public final class PagePublicContact extends AbstractAppWebPage
         aEmailData.setFrom (new EmailAddress ("peppol-practical@helger.com"));
         aEmailData.setTo (new EmailAddress ("ph@helger.com"));
         aEmailData.setReplyTo (new EmailAddress (sEmail, sName));
-        aEmailData.setSubject ("[PEPPOL Practical] Contact Form - " + sName);
+        aEmailData.setSubject ("[" + AppHelper.getApplicationTitle () + "] Contact Form - " + sName);
 
         final StringBuilder aSB = new StringBuilder ();
-        aSB.append ("Contact form from PEPPOL practical was filled out.\n\n");
+        aSB.append ("Contact form from " + AppHelper.getApplicationTitle () + " was filled out.\n\n");
         aSB.append ("Name: ").append (sName).append ("\n");
         aSB.append ("Email: ").append (sEmail).append ("\n");
         aSB.append ("Topic: ").append (sTopic).append ("\n");

@@ -362,7 +362,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     else
       aToolbar.addChild (new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("You need to be logged in to create test endpoints."));
 
-    aNodeList.addChild (new BootstrapInfoBox ().addChild ("Test endpoints are special PEPPOL participant identifiers whose sole purpose is the usage for testing. So if you are an PEPPOL AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients."));
+    aNodeList.addChild (new BootstrapInfoBox ().addChild ("Test endpoints are special Peppol participant identifiers whose sole purpose is the usage for testing. So if you are a Peppol AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients."));
 
     // List existing
     final HCTable aTable = new HCTable (new DTCol ("Participant ID"),
