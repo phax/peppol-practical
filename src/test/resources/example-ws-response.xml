@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validateResponseOutput xmlns="http://peppol.helger.com/ws/documentvalidationservice/201701/" success="false" interrupted="false" mostSevereErrorLevel="ERROR">
+  <Result success="true" artifactType="xsd" artifactPath="schemas/ubl21/maindoc/UBL-Invoice-2.1.xsd"/>
+  <Result success="true" artifactType="schematron-xslt" artifactPath="openpeppol/3.7.0/XSLT/BIIRULES-UBL-T10.xsl"/>
+  <Result success="false" artifactType="schematron-xslt" artifactPath="openpeppol/3.7.0/XSLT/OPENPEPPOL-UBL-T10.xsl">
+    <Item errorLevel="ERROR" errorFieldName="/:Invoice[1]/cbc:InvoiceTypeCode[1]" errorLocation="uploaded-file" errorText="[EUGEN-T10-R025]-An invoice type code MUST have a list identifier attribute 'UNCL1001'." test="@listID = 'UNCL1001'"/>
+    <Item errorLevel="ERROR" errorFieldName="/:Invoice[1]/cbc:DocumentCurrencyCode[1]" errorLocation="uploaded-file" errorText="[EUGEN-T10-R026]-A currency code element MUST have a list identifier attribute 'ISO4217'." test="@listID = 'ISO4217'"/>
+    <Item errorLevel="WARN" errorFieldName="/:Invoice[1]/cac:AccountingSupplierParty[1]" errorLocation="uploaded-file" errorText="[EUGEN-T10-R039]-A supplier SHOULD provide information about its legal entity information" test="(cac:Party/cac:PartyLegalEntity)"/>
+  </Result>
+  <Result success="true" artifactType="schematron-xslt" artifactPath="openpeppol/3.7.0/XSLTCore/OPENPEPPOLCORE-UBL-T10.xsl">
+    <Item errorLevel="WARN" errorFieldName="/*[local-name()='Invoice']/*[local-name()='AccountingCustomerParty']/*[local-name()='Party']/*[local-name()='PartyTaxScheme']/*[local-name()='TaxScheme']/*[local-name()='ID']" errorLocation="uploaded-file" errorText="Attribute @schemeAgencyID' marked as not used in the given context." test="false()"/>
+    <Item errorLevel="WARN" errorFieldName="/*[local-name()='Invoice']/*[local-name()='AccountingCustomerParty']/*[local-name()='Party']/*[local-name()='PartyTaxScheme']/*[local-name()='TaxScheme']/*[local-name()='ID']" errorLocation="uploaded-file" errorText="Attribute @schemeID' marked as not used in the given context." test="false()"/>
+  </Result>
+</validateResponseOutput>

@@ -28,6 +28,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.url.URLHelper;
+import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;
 import com.helger.peppol.wsclient2.ResponseType;
@@ -62,6 +63,12 @@ public final class MainWSDVSClient
     aRequest.setXML (sXML);
     aRequest.setDisplayLocale ("en");
     final ResponseType aResponse = aPort.validate (aRequest);
+
+    if (false)
+      LOGGER.info ("Result:\n" +
+                   new GenericJAXBMarshaller <> (ResponseType.class,
+                                                 com.helger.peppol.wsclient2.ObjectFactory._ValidateResponseOutput_QNAME).getAsString (aResponse));
+
     LOGGER.info ("Success: " + aResponse.isSuccess ());
     LOGGER.info ("Interrupted: " + aResponse.isInterrupted ());
     LOGGER.info ("Most severe error level: " + aResponse.getMostSevereErrorLevel ());
