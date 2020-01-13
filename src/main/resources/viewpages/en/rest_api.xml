@@ -52,9 +52,14 @@
 <h2 class="mt-2">API: <small class="text-muted">SMP query all document types of a participant</small></h2>
 
 <p>
-  To retrieve all document types from a participant, use the following URL layout:
+  To retrieve all document types from a participant registered in an SMP.
 </p>
 <div>
+  <strong>HTTP method:</strong>
+  <code>GET</code>
+</div>
+<div>
+  <strong>URL layout:</strong>
   <code>/smpquery/<em>SML-ID</em>/<em>participant-ID</em>[?businessCard=true]</code>
 </div>
 <div class="pl-4">
@@ -133,10 +138,15 @@
 <h2 class="mt-2">API: <small class="text-muted">SMP query all endpoints of a participant for a certain document type</small></h2>
 
 <p>
-  To retrieve all endpoints from a participant for a single document type, use the following URL layout:
+  To retrieve all endpoints of an SMP participant for a single document type. This API gives you AS2 and AS4 endpoints.
 </p>
 
 <div>
+  <strong>HTTP method:</strong>
+  <code>GET</code>
+</div>
+<div>
+  <strong>URL layout:</strong>
   <code>/smpquery/<em>SML-ID</em>/<em>participant-ID</em>/<em>docType-ID</em></code>
 </div>
 <div class="pl-4">
@@ -192,6 +202,7 @@
               "serial16":"2dce95b89d501a128235e929455fb747",
               "notBefore":"2019-02-22T01:00:00",
               "notAfter":"2021-02-12T00:59:59",
+              "validByDate":true,
               "sigAlgName":"SHA256withRSA"
             },
             "serviceDescription":"BRZ Test AP",
@@ -215,9 +226,14 @@
 <h2 class="mt-2">API: <small class="text-muted">SMP query the Business Card of a participant</small></h2>
 
 <p>
-  To retrieve the Business Card of a participant, use the following URL layout:
+  To retrieve the Business Card of a participant stored in an SMP.
 </p>
 <div>
+  <strong>HTTP method:</strong>
+  <code>GET</code>
+</div>
+<div>
+  <strong>URL layout:</strong>
   <code>/businesscard/<em>SML-ID</em>/<em>participant-ID</em></code>
 </div>
 <div class="pl-4">
@@ -260,4 +276,60 @@
   "queryDateTime":"2020-01-10T18:31:03.548Z",
   "queryDurationMillis":173
 }
+</pre>
+
+
+<!-- ######################## -->
+<a name="cii2ubl"></a>
+<h2 class="mt-2">API: <small class="text-muted">Convert EN 16931 CII to EN 16931 UBL documents</small></h2>
+
+<p>
+  To automatically convert EN 16931 CII D16B documents to EN 16931 UBL 2.1 documents, based on 
+  <a href="https://github.com/phax/en16931-cii2ubl" target="_blank">https://github.com/phax/en16931-cii2ubl</a>.
+</p>
+<div>
+  <strong>HTTP method:</strong>
+  <code>POST</code>
+</div>
+<div>
+  <strong>URL layout:</strong>
+  <code>/convert/cii2ubl</code>
+</div>
+<div class="pl-4">
+  The CII document to be converted must be the payload of the request.<br />
+  The URL parameter <code>simple-response</code> can be used to "only" return the UBL document and no additional detail. Possible values are <code>true</code> and <code>false</code>.<br />
+  The URL parameter <code>xml-beautify</code> can be used to format (indent) the resulting UBL document. Possible values are <code>true</code> and <code>false</code>.
+</div>
+
+<p class="mt-2">
+  <strong>Note:</strong> the request header <code>Content-Type</code> MUST be set to <code>text/xml</code> or <code>application/xml</code>.
+</p>
+
+<p>
+  Example <strong>curl</strong> call to convert the local file "CII_example2.xml":<br />
+  <code>curl -X POST "https://peppol.helger.com/api/convert/cii2ubl?simple-response=true&amp;xml-beautify=true" --data @CII_example2.xml --header "Content-Type: application/xml"</code>
+</p>
+
+<p><strong>Example Response (default layout):</strong></p>
+<pre>
+{
+  "conversionDateTime":"2020-01-13T08:06:23.224Z",
+  "parsingDuractionMillis":6,
+  "parsingErrors":[],
+  "conversionDuractionMillis":0,
+  "coversionErrors":[],
+  "ubl":"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;&lt;Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" xmlns:cec=\"urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2\" xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\"&gt;&lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017:extended:urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;&lt;cbc:ProfileID&gt;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&lt;/cbc:ProfileID&gt;&lt;cbc:ID&gt;TOSL108&lt;/cbc:ID&gt;&lt;cbc:IssueDate&gt;2013-06-30&lt;/cbc:IssueDate&gt;&lt;!-- details omitted for readability --&gt;&lt;/Invoice&gt;"
+}
+</pre>
+
+<p><strong>Example Response (simple response layout):</strong></p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"&gt;
+  &lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017:extended:urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;
+  &lt;cbc:ProfileID&gt;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&lt;/cbc:ProfileID&gt;
+  &lt;cbc:ID&gt;TOSL108&lt;/cbc:ID&gt;
+  &lt;cbc:IssueDate&gt;2013-06-30&lt;/cbc:IssueDate&gt;
+  &lt;!-- details omitted for readability --&gt;
+&lt;/Invoice&gt;
 </pre>
