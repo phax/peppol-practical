@@ -138,6 +138,8 @@ public final class MenuPublic
                                                          new ClassPathResource ("viewpages/en/en16931.xml")));
     }
 
+    aMenuTree.createRootSeparator ();
+
     // Newsletter stuff
     {
       aMenuTree.createRootItem (new PagePublicNewsletterSubscribe (CMenuPublic.MENU_NEWSLETTER_SUBSCRIBE));
@@ -148,7 +150,6 @@ public final class MenuPublic
 
     // Contact form
     {
-      aMenuTree.createRootSeparator ();
       aMenuTree.createRootItem (new PagePublicContact (CMenuPublic.MENU_CONTACT));
     }
 
@@ -168,9 +169,10 @@ public final class MenuPublic
                .setDisplayFilter (new MenuObjectFilterUserLoggedIn ());
     }
 
+    aMenuTree.createRootSeparator ();
+
     // External stuff
     {
-      aMenuTree.createRootSeparator ();
       aMenuTree.createRootItem (CMenuPublic.MENU_PEPPOL_SERVICE_DESK,
                                 new SimpleURL ("https://openpeppol.atlassian.net/servicedesk/customer/portal/1"),
                                 new ConstantHasDisplayText ("OpenPEPPOL Service Desk (external)"));

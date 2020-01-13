@@ -87,6 +87,7 @@ import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
 import com.helger.photon.uicore.html.twitter.HCTweet;
 import com.helger.photon.uicore.page.IWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.photon.uictrls.famfam.EFamFamIcon;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.xservlet.forcedredirect.ForcedRedirectManager;
 
@@ -142,10 +143,12 @@ public final class LayoutAreaContentProviderPublic
                       aLinkToStartPage);
 
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant information")
+                                                                        .setIcon (EFamFamIcon.USER_GREEN)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Document validation")
+                                                                        .setIcon (EFamFamIcon.SCRIPT_GO)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_VALIDATION_UPLOAD))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
