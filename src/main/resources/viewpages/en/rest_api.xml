@@ -29,6 +29,7 @@
   <li><a href="#smpdoctypes">SMP query all document types of a participant</a></li>
   <li><a href="#smpserviceinfo">SMP query all endpoints of a participant for a certain document type</a></li>
   <li><a href="#smpbusinesscard">SMP query the Business Card of a participant</a></li>
+  <li><a href="#cii2ubl">Convert EN 16931 CII to EN 16931 UBL documents</a></li>
 </ul>
 
 <h2>Base parameters</h2>

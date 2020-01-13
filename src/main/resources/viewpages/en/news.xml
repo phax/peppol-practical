@@ -25,7 +25,8 @@
 </p>
 
 <ul class="nav nav-tabs">
-  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2019</a></li>
+  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2020</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2019" data-toggle="tab">2019</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2018" data-toggle="tab">2018</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2017" data-toggle="tab">2017</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2016" data-toggle="tab">2016</a></li>
@@ -36,16 +37,19 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
-    <h3>2020-01-10 - Extended REST API</h3>
+    <h3>2020-01-13 - Extended REST API</h3>
     
     <p>
       The algorithm to determine all document types of an SMP participant was improved to handle IDs case insensitive (thanks Jelte).<br /> 
       The REST API documentation was improved, and the output of the "serviceinfo" query was extended to also contain the certificate details (thanks Peter).<br />
+      A new REST API to convert EN 16931 CII D16B documents to EN 16931 UBL documents. 
     </p>
     <ul>
       <li><a href="/public/menuitem-tools-rest-api">Read more about the REST API here</a></li>
     </ul>
-    
+  </div>
+  
+  <div id="tabs-2019" class="tab-pane" role="tabpanel">
     <h3>2019-12-18 - Document Validation - Peppol SG 1.0.2 added</h3>
     
     <p>
