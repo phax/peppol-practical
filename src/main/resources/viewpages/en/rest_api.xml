@@ -307,6 +307,11 @@
 </p>
 
 <p>
+  <strong>Privacy note:</strong> uploaded documents are <strong>not</strong> persisted and stored by this system. The source document is converted and than discarded.
+</p>
+
+
+<p>
   Example <strong>curl</strong> call to convert the local file "CII_example2.xml":<br />
   <code>curl -X POST "https://peppol.helger.com/api/convert/cii2ubl?simple-response=true&amp;xml-beautify=true" --data @CII_example2.xml --header "Content-Type: application/xml"</code>
 </p>

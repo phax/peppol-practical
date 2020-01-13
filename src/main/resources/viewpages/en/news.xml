@@ -42,7 +42,7 @@
     <p>
       The algorithm to determine all document types of an SMP participant was improved to handle IDs case insensitive (thanks Jelte).<br /> 
       The REST API documentation was improved, and the output of the "serviceinfo" query was extended to also contain the certificate details (thanks Peter).<br />
-      A new REST API to convert EN 16931 CII D16B documents to EN 16931 UBL documents. <br />
+      A new REST API to convert EN 16931 CII D16B documents to EN 16931 UBL documents (thanks Michaël).<br />
       Additionally document validation was extended to support XRechnung Validation 1.2.2 (and deprecated 1.2.1)
     </p>
     <ul>
