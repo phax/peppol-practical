@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 432 entries -->
+<!-- 435 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -83,11 +83,14 @@ A very small Java WS client is available for
 <li><code>com.tieto:teappsxml:2.7.2</code> - TEAPPSXML 2.7.2</li>
 <li><code>com.tieto:teappsxml:3.0</code> - TEAPPSXML 3.0</li>
 <li><code>de.xrechnung:cii:1.2.0</code> - XRechnung CII 1.2.0 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:cii:1.2.1</code> - XRechnung CII 1.2.1</li>
+<li><code>de.xrechnung:cii:1.2.1</code> - XRechnung CII 1.2.1 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:cii:1.2.2</code> - XRechnung CII 1.2.2</li>
 <li><code>de.xrechnung:ubl-creditnote:1.2.0</code> - XRechnung UBL CrediteNote 1.2.0 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:ubl-creditnote:1.2.1</code> - XRechnung UBL CrediteNote 1.2.1</li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.1</code> - XRechnung UBL CrediteNote 1.2.1 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.2</code> - XRechnung UBL CrediteNote 1.2.2</li>
 <li><code>de.xrechnung:ubl-invoice:1.2.0</code> - XRechnung UBL Invoice 1.2.0 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:ubl-invoice:1.2.1</code> - XRechnung UBL Invoice 1.2.1</li>
+<li><code>de.xrechnung:ubl-invoice:1.2.1</code> - XRechnung UBL Invoice 1.2.1 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-invoice:1.2.2</code> - XRechnung UBL Invoice 1.2.2</li>
 <li><code>dk.oioubl:application-response:2.0.2</code> - OIOUBL Application Response 2.0.2</li>
 <li><code>dk.oioubl:catalogue:2.0.2</code> - OIOUBL Catalogue 2.0.2</li>
 <li><code>dk.oioubl:catalogue-deletion:2.0.2</code> - OIOUBL Catalogue Deletion 2.0.2</li>

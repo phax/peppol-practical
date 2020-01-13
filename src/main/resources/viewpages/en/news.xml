@@ -42,12 +42,26 @@
     <p>
       The algorithm to determine all document types of an SMP participant was improved to handle IDs case insensitive (thanks Jelte).<br /> 
       The REST API documentation was improved, and the output of the "serviceinfo" query was extended to also contain the certificate details (thanks Peter).<br />
-      A new REST API to convert EN 16931 CII D16B documents to EN 16931 UBL documents. 
+      A new REST API to convert EN 16931 CII D16B documents to EN 16931 UBL documents. <br />
+      Additionally document validation was extended to support XRechnung Validation 1.2.2 (and deprecated 1.2.1)
     </p>
     <ul>
       <li><a href="/public/menuitem-tools-rest-api">Read more about the REST API here</a></li>
+      <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>de.xrechnung:cii:1.2.2</code> - XRechnung CII 1.2.2</li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.2</code> - XRechnung UBL CrediteNote 1.2.2</li>
+<li><code>de.xrechnung:ubl-invoice:1.2.2</code> - XRechnung UBL Invoice 1.2.2</li>
+    </ul>
+
   </div>
+
+  
   
   <div id="tabs-2019" class="tab-pane" role="tabpanel">
     <h3>2019-12-18 - Document Validation - Peppol SG 1.0.2 added</h3>
