@@ -298,8 +298,8 @@
 </div>
 <div class="pl-4">
   The CII document to be converted must be the payload of the request.<br />
-  The URL parameter <code>simple-response</code> can be used to "only" return the UBL document and no additional detail. Possible values are <code>true</code> and <code>false</code>.<br />
-  The URL parameter <code>xml-beautify</code> can be used to format (indent) the resulting UBL document. Possible values are <code>true</code> and <code>false</code>.
+  The optional URL parameter <code>simple-response</code> can be used to "only" return the UBL document and no additional detail. Possible values are <code>true</code> and <code>false</code>. Default is <code>false</code>.<br />
+  The optional URL parameter <code>xml-beautify</code> can be used to format (indent) the resulting UBL document. Possible values are <code>true</code> and <code>false</code>. Default is <code>true</code>.
 </div>
 
 <p class="mt-2">
