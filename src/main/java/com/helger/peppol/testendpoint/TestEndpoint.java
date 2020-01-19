@@ -38,7 +38,7 @@ import com.helger.tenancy.AbstractBusinessObject;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class TestEndpoint extends AbstractBusinessObject implements IHasDisplayName
+public final class TestEndpoint extends AbstractBusinessObject implements IHasDisplayName
 {
   public static final ObjectType OT = new ObjectType ("test-endpoint");
 
