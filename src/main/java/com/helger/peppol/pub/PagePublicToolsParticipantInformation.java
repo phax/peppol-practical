@@ -436,8 +436,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               {
                 case PEPPOL:
                 {
-                  final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
-                                                                                                                        aDocTypeID);
+                  final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                    aDocTypeID);
                   aSWGetDetails.stop ();
                   if (aSSM != null)
                   {
@@ -500,8 +500,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 }
                 case OASIS_BDXR_V1:
                 {
-                  final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
-                                                                                                                              aDocTypeID);
+                  final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                          aDocTypeID);
                   aSWGetDetails.stop ();
                   if (aSSM != null)
                   {

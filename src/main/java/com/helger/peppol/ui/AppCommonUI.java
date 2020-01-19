@@ -116,19 +116,37 @@ public final class AppCommonUI
   @Nonnull
   private static String _ensurePrefix (@Nonnull final String sPrefix, @Nonnull final String s)
   {
-    if (s.startsWith (sPrefix))
-      return s;
-    return sPrefix + s;
+    final String sReal = StringHelper.trimStart (s, "PEPPOL").trim ();
+
+    if (sReal.startsWith (sPrefix))
+      return sReal;
+    return sPrefix + sReal;
   }
 
   static
   {
-    for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV6 e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV6.values ())
+    if (true)
     {
-      DOCTYPE_NAMES.put (e.getURIEncoded (),
-                         new NiceNameEntry (_ensurePrefix ("Peppol ", e.getCommonName ()),
-                                            e.isDeprecated (),
-                                            e.getAllProcessIDs ()));
+      for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier.values ())
+        DOCTYPE_NAMES.put (e.getURIEncoded (),
+                           new NiceNameEntry (_ensurePrefix ("Peppol ", e.getCommonName ()), e.isDeprecated (), null));
+      for (final com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier e : com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier.values ())
+        PROCESS_NAMES.put (e.getURIEncoded (),
+                           new NiceNameEntry (_ensurePrefix ("Peppol ",
+                                                             StringHelper.getNotEmpty (e.getBISID (),
+                                                                                       "Default " + e.getValue ())),
+                                              e.isDeprecated (),
+                                              null));
+    }
+    else
+    {
+      for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV7 e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV7.values ())
+      {
+        DOCTYPE_NAMES.put (e.getURIEncoded (),
+                           new NiceNameEntry (_ensurePrefix ("Peppol ", e.getCommonName ()),
+                                              e.isDeprecated (),
+                                              e.getAllProcessIDs ()));
+      }
     }
     for (final eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier e : eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier.values ())
       DOCTYPE_NAMES.put (e.getURIEncoded (),

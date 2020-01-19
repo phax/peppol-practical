@@ -41,8 +41,10 @@ import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
+import com.helger.peppol.bdxrclient.IBDXRServiceMetadataProvider;
 import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smpclient.ISMPServiceMetadataProvider;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -145,9 +147,9 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     {
       case PEPPOL:
       {
-        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
-        final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceRegistrationOrNull (aParticipantID,
-                                                                                                              aDocTypeID);
+        final ISMPServiceMetadataProvider aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+        final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
+                                                                                                          aDocTypeID);
         if (aSSM != null)
         {
           final com.helger.peppol.smp.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
@@ -157,9 +159,9 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
       }
       case OASIS_BDXR_V1:
       {
-        final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
-        final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceRegistrationOrNull (aParticipantID,
-                                                                                                                    aDocTypeID);
+        final IBDXRServiceMetadataProvider aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+        final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                aDocTypeID);
         if (aSSM != null)
         {
           final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
