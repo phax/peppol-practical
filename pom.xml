@@ -152,14 +152,14 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>phoss-directory-parent-pom</artifactId>
-        <version>0.8.3</version>
+        <version>0.8.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>eu.toop</groupId>
         <artifactId>toop-commons-parent-pom</artifactId>
-        <version>0.10.6-2</version>
+        <version>0.10.8</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
