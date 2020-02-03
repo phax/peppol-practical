@@ -36,7 +36,30 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+   
+    <h3>2020-02-01 - AS4 now mandatory in the Peppol network</h3>
+    
+    <p>
+      Per today, AS4 according to the Peppol AS4 profile is the mandatory protocol in the Peppol eDelivery network.
+      You can still use AS2 but only using the Peppol AS2 v2 profile. 
+    </p>
+    <ul>
+      <li><a href="https://docs.peppol.eu/edelivery/as4/specification/">Peppol AS4 profile v2</a></li>
+      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-AS2-Profile-2.0-2019-03-14.pdf">Peppol AS2 profile v2</a></li>
+    </ul>
   
+    <h3>2020-01-24 - phoss SMP 5.2.1</h3>
+    
+    <p>
+      phoss SMP 5.2.1 was released. 
+      This is a bug fix release and ships with a new logo. 
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-5.2.1">Download phoss SMP 5.2.1</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2020-01-13 - Extended REST API</h3>
     
     <p>
