@@ -62,7 +62,7 @@ public final class NiceNameEntry implements Serializable
 
   public boolean containsProcessID (@Nonnull final IProcessIdentifier aProcID)
   {
-    return m_aProcIDs.containsAny (aProcID::hasSameContent);
+    return m_aProcIDs != null && m_aProcIDs.containsAny (aProcID::hasSameContent);
   }
 
   @Nullable
