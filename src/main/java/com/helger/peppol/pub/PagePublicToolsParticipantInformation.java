@@ -840,11 +840,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_SCHEME,
                                                                                            sParticipantIDScheme)).setMaxLength (PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH)
                                                                                                                  .setPlaceholder ("Identifier scheme"))
+                                                   .setHelpText (new HCDiv ().addChild ("The most common identifier scheme is ")
+                                                                             .addChild (new HCCode ().addChild (DEFAULT_ID_SCHEME)))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_SCHEME)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE,
                                                                                            sParticipantIDValue)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
                                                                                                                 .setPlaceholder ("Identifier value"))
+                                                   .setHelpText (new HCDiv ().addChild ("The identifier value must look like ")
+                                                                             .addChild (new HCCode ().addChild ("9915:test")))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
                                                    .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
