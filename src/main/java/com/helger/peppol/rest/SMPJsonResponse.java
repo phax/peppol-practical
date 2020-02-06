@@ -36,17 +36,17 @@ import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
-import com.helger.peppol.bdxr.smp1.BDXR1ExtensionConverter;
 import com.helger.peppol.domain.NiceNameEntry;
 import com.helger.peppol.sml.ESMPAPIType;
-import com.helger.peppol.smp.SMPExtensionConverter;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.security.certificate.CertificateHelper;
+import com.helger.smpclient.bdxr1.utils.BDXR1ExtensionConverter;
+import com.helger.smpclient.peppol.utils.SMPExtensionConverter;
+import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 
 @Immutable
 public final class SMPJsonResponse
@@ -179,14 +179,14 @@ public final class SMPJsonResponse
   @Nonnull
   public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
                                      @Nonnull final IDocumentTypeIdentifier aDocTypeID,
-                                     @Nonnull final com.helger.peppol.smp.ServiceMetadataType aSM)
+                                     @Nonnull final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM)
   {
     final IJsonObject ret = new JsonObject ();
     ret.add (JSON_SMPTYPE, ESMPAPIType.PEPPOL.getID ());
     ret.add (JSON_PARTICIPANT_ID, aParticipantID.getURIEncoded ());
     ret.add (JSON_DOCUMENT_TYPE_ID, aDocTypeID.getURIEncoded ());
 
-    final com.helger.peppol.smp.RedirectType aRedirect = aSM.getRedirect ();
+    final com.helger.smpclient.peppol.jaxb.RedirectType aRedirect = aSM.getRedirect ();
     if (aRedirect != null)
     {
       final IJsonObject aJsonRedirect = new JsonObject ().add (JSON_HREF, aRedirect.getHref ())
@@ -197,13 +197,13 @@ public final class SMPJsonResponse
     }
     else
     {
-      final com.helger.peppol.smp.ServiceInformationType aSI = aSM.getServiceInformation ();
+      final com.helger.smpclient.peppol.jaxb.ServiceInformationType aSI = aSM.getServiceInformation ();
       final IJsonObject aJsonSI = new JsonObject ();
       {
         final IJsonArray aJsonProcs = new JsonArray ();
         // For all processes
         if (aSI.getProcessList () != null)
-          for (final com.helger.peppol.smp.ProcessType aProcess : aSI.getProcessList ().getProcess ())
+          for (final com.helger.smpclient.peppol.jaxb.ProcessType aProcess : aSI.getProcessList ().getProcess ())
             if (aProcess.getProcessIdentifier () != null)
             {
               final IJsonObject aJsonProc = new JsonObject ().add (JSON_PROCESS_ID,
@@ -211,8 +211,8 @@ public final class SMPJsonResponse
               final IJsonArray aJsonEPs = new JsonArray ();
               // For all endpoints
               if (aProcess.getServiceEndpointList () != null)
-                for (final com.helger.peppol.smp.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
-                                                                                  .getEndpoint ())
+                for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
+                                                                                             .getEndpoint ())
                 {
                   final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
                                                                                         : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());

@@ -23,16 +23,16 @@ import javax.annotation.Nullable;
 
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.url.BDXLURLProvider;
-import com.helger.peppol.url.IPeppolURLProvider;
-import com.helger.peppol.url.PeppolDNSResolutionException;
-import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.BDXR1IdentifierFactory;
 import com.helger.peppolid.factory.BDXR2IdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
+import com.helger.smpclient.url.BDXLURLProvider;
+import com.helger.smpclient.url.IPeppolURLProvider;
+import com.helger.smpclient.url.PeppolDNSResolutionException;
+import com.helger.smpclient.url.PeppolURLProvider;
 
 /**
  * Extracted because used some times
@@ -86,7 +86,8 @@ public final class SMPQueryParams
   }
 
   @Nonnull
-  private static IIdentifierFactory _getIdentifierFactory (@Nonnull final ISMLInfo aSML, @Nonnull final ESMPAPIType eSMP)
+  private static IIdentifierFactory _getIdentifierFactory (@Nonnull final ISMLInfo aSML,
+                                                           @Nonnull final ESMPAPIType eSMP)
   {
     if (_isSMKToop (aSML))
       return SimpleIdentifierFactory.INSTANCE;

@@ -40,18 +40,18 @@ import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
-import com.helger.peppol.bdxrclient.IBDXRServiceMetadataProvider;
 import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.smpclient.ISMPServiceMetadataProvider;
-import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.photon.api.IAPIExecutor;
 import com.helger.servlet.response.UnifiedResponse;
+import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
+import com.helger.smpclient.bdxr1.IBDXRServiceMetadataProvider;
+import com.helger.smpclient.peppol.ISMPServiceMetadataProvider;
+import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class APISMPQueryGetServiceInformation implements IAPIExecutor
@@ -148,11 +148,11 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
       case PEPPOL:
       {
         final ISMPServiceMetadataProvider aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
-        final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
-                                                                                                          aDocTypeID);
+        final com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                     aDocTypeID);
         if (aSSM != null)
         {
-          final com.helger.peppol.smp.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+          final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
           aJson = SMPJsonResponse.convert (aParticipantID, aDocTypeID, aSM);
         }
         break;

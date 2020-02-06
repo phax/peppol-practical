@@ -83,20 +83,15 @@ import com.helger.pd.businesscard.generic.PDName;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
 import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.peppol.smpclient.SMPClientReadOnly;
-import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
-import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.utils.EPeppolCertificateCheckResult;
 import com.helger.peppol.utils.PeppolCertificateChecker;
-import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -129,6 +124,11 @@ import com.helger.photon.uictrls.famfam.EFamFamFlagIcon;
 import com.helger.photon.uictrls.prism.EPrismLanguage;
 import com.helger.photon.uictrls.prism.HCPrismJS;
 import com.helger.security.certificate.CertificateHelper;
+import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
+import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.peppol.SMPClientReadOnly;
+import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
@@ -322,11 +322,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
 
                 // Get all HRefs and sort them by decoded URL
-                final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+                final com.helger.smpclient.peppol.jaxb.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
                 // Map from cleaned URL to original URL
                 if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-                  for (final com.helger.peppol.smp.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                          .getServiceMetadataReference ())
+                  for (final com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                                     .getServiceMetadataReference ())
                   {
                     // Decoded href is important for unification
                     final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
@@ -436,21 +436,21 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               {
                 case PEPPOL:
                 {
-                  final com.helger.peppol.smp.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                    aDocTypeID);
+                  final com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                               aDocTypeID);
                   aSWGetDetails.stop ();
                   if (aSSM != null)
                   {
-                    final com.helger.peppol.smp.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                    final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
                     if (aSM.getRedirect () != null)
                       aLIDocTypeID.addChild (new HCDiv ().addChild ("Redirect to " + aSM.getRedirect ().getHref ()));
                     else
                     {
                       // For all processes
                       final HCUL aULProcessID = new HCUL ();
-                      for (final com.helger.peppol.smp.ProcessType aProcess : aSM.getServiceInformation ()
-                                                                                 .getProcessList ()
-                                                                                 .getProcess ())
+                      for (final com.helger.smpclient.peppol.jaxb.ProcessType aProcess : aSM.getServiceInformation ()
+                                                                                            .getProcessList ()
+                                                                                            .getProcess ())
                         if (aProcess.getProcessIdentifier () != null)
                         {
                           final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
@@ -459,8 +459,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                                      SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                           final HCUL aULEndpoint = new HCUL ();
                           // For all endpoints of the process
-                          for (final com.helger.peppol.smp.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
-                                                                                            .getEndpoint ())
+                          for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
+                                                                                                       .getEndpoint ())
                           {
                             final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
 

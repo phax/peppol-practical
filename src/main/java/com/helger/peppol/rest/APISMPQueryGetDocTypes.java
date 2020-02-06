@@ -48,16 +48,16 @@ import com.helger.pd.businesscard.generic.PDBusinessCard;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.bdxrclient.BDXRClientReadOnly;
 import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.photon.api.IAPIExecutor;
 import com.helger.servlet.response.UnifiedResponse;
+import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
+import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class APISMPQueryGetDocTypes implements IAPIExecutor
@@ -146,13 +146,13 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
 
         // Get all HRefs and sort them by decoded URL
-        final com.helger.peppol.smp.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+        final com.helger.smpclient.peppol.jaxb.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
         // Map from cleaned URL to original URL
         if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
         {
           aSGHrefs = new CommonsTreeMap <> ();
-          for (final com.helger.peppol.smp.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                  .getServiceMetadataReference ())
+          for (final com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                             .getServiceMetadataReference ())
           {
             // Decoded href is important for unification
             final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
