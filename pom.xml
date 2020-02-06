@@ -117,14 +117,14 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>7.0.6</version>
+        <version>8.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-ubl-parent-pom</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -145,21 +145,21 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-bdve-parent-pom</artifactId>
-        <version>5.2.4</version>
+        <version>5.2.5-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>phoss-directory-parent-pom</artifactId>
-        <version>0.8.4</version>
+        <version>0.8.5-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>eu.toop</groupId>
         <artifactId>toop-commons-parent-pom</artifactId>
-        <version>0.10.8</version>
+        <version>0.10.9-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
