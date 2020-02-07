@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 435 entries -->
+<!-- 437 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -76,10 +76,12 @@ A very small Java WS client is available for
 <li><code>at.ebinterface:invoice:4.2</code> - ebInterface 4.2</li>
 <li><code>at.ebinterface:invoice:4.3</code> - ebInterface 4.3</li>
 <li><code>at.ebinterface:invoice:5.0</code> - ebInterface 5.0</li>
-<li><code>be.efff:credit-note:3.0.0</code> - e-FFF Credit Note 3.0.0</li>
-<li><code>be.efff:invoice:3.0.0</code> - e-FFF Invoice 3.0.0</li>
-<li><code>be.ubl:credit-note:1.0.0</code> - UBL.BE Credit Note 1.0.0</li>
-<li><code>be.ubl:invoice:1.0.0</code> - UBL.BE Invoice 1.0.0</li>
+<li><code>be.efff:credit-note:3.0.0</code> - e-FFF Credit Note 3.0.0 <strong>(Deprecated)</strong></li>
+<li><code>be.efff:invoice:3.0.0</code> - e-FFF Invoice 3.0.0 <strong>(Deprecated)</strong></li>
+<li><code>be.ubl:credit-note:1.0.0</code> - UBL.BE Credit Note 1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>be.ubl:credit-note:1.1.0</code> - UBL.BE Credit Note 1.1.0</li>
+<li><code>be.ubl:invoice:1.0.0</code> - UBL.BE Invoice 1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>be.ubl:invoice:1.1.0</code> - UBL.BE Invoice 1.1.0</li>
 <li><code>com.tieto:teappsxml:2.7.2</code> - TEAPPSXML 2.7.2</li>
 <li><code>com.tieto:teappsxml:3.0</code> - TEAPPSXML 3.0</li>
 <li><code>de.xrechnung:cii:1.2.0</code> - XRechnung CII 1.2.0 <strong>(Deprecated)</strong></li>
@@ -386,6 +388,7 @@ A very small Java WS client is available for
 <li><code>org.oasis-open:productactivity:2.2</code> - UBL ProductActivity 2.2</li>
 <li><code>org.oasis-open:productactivity:2.3-csprd01</code> - UBL ProductActivity 2.3-csprd01</li>
 <li><code>org.oasis-open:proofofreexportation:2.3-csprd01</code> - UBL ProofOfReexportation 2.3-csprd01</li>
+<li><code>org.oasis-open:proofofreexportationrequest:2.3-csprd01</code> - UBL ProofOfReexportationRequest 2.3-csprd01</li>
 <li><code>org.oasis-open:qualificationapplicationrequest:2.2</code> - UBL QualificationApplicationRequest 2.2</li>
 <li><code>org.oasis-open:qualificationapplicationrequest:2.3-csprd01</code> - UBL QualificationApplicationRequest 2.3-csprd01</li>
 <li><code>org.oasis-open:qualificationapplicationresponse:2.2</code> - UBL QualificationApplicationResponse 2.2</li>
@@ -406,7 +409,6 @@ A very small Java WS client is available for
 <li><code>org.oasis-open:remittanceadvice:2.1</code> - UBL RemittanceAdvice 2.1</li>
 <li><code>org.oasis-open:remittanceadvice:2.2</code> - UBL RemittanceAdvice 2.2</li>
 <li><code>org.oasis-open:remittanceadvice:2.3-csprd01</code> - UBL RemittanceAdvice 2.3-csprd01</li>
-<li><code>org.oasis-open:requestforproofofreexportation:2.3-csprd01</code> - UBL RequestForProofOfReexportation 2.3-csprd01</li>
 <li><code>org.oasis-open:requestforquotation:2.0</code> - UBL RequestForQuotation 2.0</li>
 <li><code>org.oasis-open:requestforquotation:2.1</code> - UBL RequestForQuotation 2.1</li>
 <li><code>org.oasis-open:requestforquotation:2.2</code> - UBL RequestForQuotation 2.2</li>

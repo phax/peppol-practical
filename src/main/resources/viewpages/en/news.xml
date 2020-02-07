@@ -36,6 +36,20 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+    <h3>2020-02-07 - Document Validation - UBL.BE 1.1 added</h3>
+    
+    <p>
+      Added support for UBL.BE 1.1 validation rules.
+      Deprecated UBL.BE 1.0, e-FFF Invoice 3.0.0 and e-FFF Credit Note 3.0.0 rules.
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>be.ubl:credit-note:1.1.0</code> - UBL.BE Credit Note 1.1.0</li>
+<li><code>be.ubl:invoice:1.1.0</code> - UBL.BE Invoice 1.1.0</li>
+    </ul>
    
     <h3>2020-02-01 - AS4 now mandatory in the Peppol network</h3>
     
