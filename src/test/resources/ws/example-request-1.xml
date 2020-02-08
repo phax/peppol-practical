@@ -46,7 +46,7 @@
   &lt;cbc:CustomizationID schemeID="PEPPOL"&gt;urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0
   &lt;/cbc:CustomizationID&gt;
   &lt;cbc:ProfileID&gt;urn:www.cenbii.eu:profile:bii04:ver1.0&lt;/cbc:ProfileID&gt;
-  &lt;cbc:ID&gt;phloc-ws-test&lt;/cbc:ID&gt;
+  &lt;cbc:ID&gt;ph-ws-test&lt;/cbc:ID&gt;
   &lt;cbc:IssueDate&gt;2011-09-15&lt;/cbc:IssueDate&gt;
   &lt;cbc:InvoiceTypeCode listAgencyID="6" listID="UN/ECE 1001 Subset"&gt;380&lt;/cbc:InvoiceTypeCode&gt;
   &lt;cbc:DocumentCurrencyCode languageID="en" listAgencyID="6"
@@ -63,7 +63,7 @@
     &lt;cac:Party&gt;
       &lt;cbc:EndpointID schemeID="AT:VAT"&gt;ATU63968889&lt;/cbc:EndpointID&gt;
       &lt;cac:PartyName&gt;
-        &lt;cbc:Name&gt;phloc systems&lt;/cbc:Name&gt;
+        &lt;cbc:Name&gt;ph systems&lt;/cbc:Name&gt;
       &lt;/cac:PartyName&gt;
       &lt;cac:PostalAddress&gt;
         &lt;cbc:StreetName&gt;Zeillergasse&lt;/cbc:StreetName&gt;
@@ -85,7 +85,7 @@
         &lt;/cac:TaxScheme&gt;
       &lt;/cac:PartyTaxScheme&gt;
       &lt;cac:Contact&gt;
-        &lt;cbc:ElectronicMail&gt;ph@phloc.com&lt;/cbc:ElectronicMail&gt;
+        &lt;cbc:ElectronicMail&gt;ph@helger.com&lt;/cbc:ElectronicMail&gt;
       &lt;/cac:Contact&gt;
     &lt;/cac:Party&gt;
   &lt;/cac:AccountingSupplierParty&gt;
