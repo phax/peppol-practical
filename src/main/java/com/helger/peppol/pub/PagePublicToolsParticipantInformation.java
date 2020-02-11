@@ -494,7 +494,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   }
                   else
                   {
-                    aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to get service registration"));
+                    aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to read service metadata from SMP"));
                   }
                   break;
                 }
@@ -560,7 +560,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   }
                   else
                   {
-                    aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to get service registration"));
+                    aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to read service metadata from SMP"));
                   }
                   break;
                 }
