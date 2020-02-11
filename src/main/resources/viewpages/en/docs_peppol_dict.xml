@@ -17,7 +17,7 @@
 
 -->
 <p>
-  This page lists some of the terms and abbreviations often used in PEPPOL.
+  This page lists some of the terms and abbreviations often used in Peppol.
   If you are missing a term <a href="/public/menuitem-contact">drop me a note</a>.
 </p>
 
@@ -44,7 +44,7 @@
       <td>AccessPoint</td>
       <td>
         The technical connector of a software solution that is capable of
-        sending and/or receiving PEPPOL business documents
+        sending and/or receiving Peppol business documents
       </td>
     </tr>
     <tr>
@@ -53,6 +53,7 @@
       <td>
         Transport protocol specified in
         <a href="http://www.ietf.org/rfc/rfc4130.txt">RFC 4130</a>.
+        This was the default transport protocol until 2020-01-31.
       </td>
     </tr>
     <tr>
@@ -63,26 +64,26 @@
       <td>
         Transport protocol specified by <em>OASIS</em>.
         It was used in the eSENS project and adopted by <em>CEF</em>.
-        PEPPOL is currently investigating a transition to AS4.
+        The Peppol AS4 profile v2 is the mandatory transport protocol in the Peppol eDelivery network since 2020-02-01.
       </td>
     </tr>
     <tr>
       <td>BIS</td>
       <td>Business Interoperability Specification</td>
-      <td>A PEPPOL created specification that define how a business document exchange should take place and how the UBL elements are bound to semantical elements.</td>
+      <td>A Peppol created specification that define how a business document exchange should take place and how the UBL elements are bound to semantical elements.</td>
     </tr>
     <tr>
       <td>BLR</td>
       <td>Business Level Response</td>
       <td>
         Business document to be exchanged stating business level validation results (see also <em>MLR</em>).
-        PEPPOL does not contain a single BLR - it contains an Order Response and an Invoice Response.
+        Peppol does not contain a single BLR - it contains an Order Response and an Invoice Response.
       </td>
     </tr>
     <tr>
       <td>Business Card</td>
       <td></td>
-      <td>The document type for describing the non-functional aspects of a PEPPOL participant for listing in the <em>PD</em>.</td>
+      <td>The document type for describing the non-functional aspects of a Peppol participant for listing in the <em>PD</em>.</td>
     </tr>
     <tr>
       <td>CEF</td>
@@ -104,7 +105,7 @@
       </td>
       <td></td>
       <td>
-        The previous PEPPOL reference implementation now maintained by <em>EC</em>.
+        The previous Peppol reference implementation now maintained by <em>EC</em>.
         See <a href="https://joinup.ec.europa.eu/solution/cipa-e-delivery">https://joinup.ec.europa.eu/solution/cipa-e-delivery</a>.
         Superseded by <em>CEF</em> - 
         <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery">https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery</a>.
@@ -123,7 +124,7 @@
     <tr>
       <td>CMB</td>
       <td>Change Management Board</td>
-      <td>The PEPPOL internal team that makes decisions. There is one CMB for TICC, PoACC and PrACC.</td>
+      <td>The Peppol internal team that makes decisions. There is one CMB for TICC, PoACC and PrACC.</td>
     </tr>
     <tr>
       <td>DNS</td>
@@ -140,8 +141,11 @@
     </tr>
     <tr>
       <td>EDEC</td>
-      <td>eDelivery Community</td>
-      <td>The successor of <em>TICC</em> within OpenPEPPOL</td>
+      <td>eDelivery Domain Community</td>
+      <td>
+        The successor of <em>TICC</em> within OpenPEPPOL.
+        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+      </td>
     </tr>
     <tr>
       <td>
@@ -173,12 +177,12 @@
         <br/><em><small>deprecated</small></em>
       </td>
       <td>Lightweight Message Exchange</td>
-      <td>Legacy PEPPOL transport protocol for pulling messages. Has been discontinued.</td>
+      <td>Legacy Peppol transport protocol for pulling messages. Has been discontinued.</td>
     </tr>
     <tr>
       <td>MC</td>
       <td>Managing Committee</td>
-      <td>The PEPPOL managing board.</td>
+      <td>The Peppol managing board.</td>
     </tr>
     <tr>
       <td>MDN</td>
@@ -205,35 +209,46 @@
       <td>OpenPEPPOL AISBL</td>
       <td></td>
       <td>
-        The organisation responsible for maintaining PEPPOL standards and running the transport infrastructure.
+        The organisation responsible for maintaining Peppol standards and running the transport infrastructure.
         See <a href="http://peppol.eu/">http://peppol.eu/</a>.
         See also <em>AISBL</em>.
       </td>
     </tr>
     <tr>
+      <td>PD</td>
+      <td>Peppol Directory</td>
       <td>
-        PD
-        <br/><em><small>in progress</small></em>
-      </td>
-      <td>PEPPOL Directory</td>
-      <td>
-        A central PEPPOL service that should help in mapping PEPPOL participant IDs to the participant names and countries.  
+        A central Peppol service that should help in mapping Peppol participant IDs to the participant names and countries.  
       </td>
     </tr>
     <tr>
-      <td>PEPPOL</td>
+      <td>
+        PEPPOL
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td>Pan European Public Procurement On-Line</td>
       <td>
         This is the European project that initiated all this.
         Started as a European Large Scale Pilot and is now maintained by OpenPEPPOL AISBL.
+        Since middle of 2019 the abbreviation was officially replaced with "Peppol" as a noun.
       </td>
     </tr>
     <tr>
-      <td>PoACC</td>
+      <td>POAC</td>
+      <td>Post-Award Domain Community</td>
+      <td>
+        Peppol internal team to manage the post-award assets.
+        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+      </td>
+    </tr>
+    <tr>
+      <td>
+        PoACC
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td>Post-Award Coordinating Community</td>
       <td>
-        PEPPOL internal team to manage the post-award assets.
-        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+        The old term for <em>POAC</em>. 
       </td>
     </tr>
     <tr>
@@ -245,11 +260,21 @@
       </td>
     </tr>
     <tr>
-      <td>PrACC</td>
+      <td>PRAC</td>
+      <td>Pre-Award Domain Community</td>
+      <td>
+        Peppol internal team to manage the pre-award assets.
+        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+      </td>
+    </tr>
+    <tr>
+      <td>
+        PrACC
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td>Pre-Award Coordinating Community</td>
       <td>
-        PEPPOL internal team to manage the pre-award assets.
-        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+        The old term for <em>PRAC</em>. 
       </td>
     </tr>
     <tr>
@@ -279,7 +304,7 @@
       <td>SML</td>
       <td>Service Metadata Locator</td>
       <td>
-        Central PEPPOL service that modifies the <em>DNS</em>.
+        Central Peppol service that modifies the <em>DNS</em>.
         Currently operated by <em>CEF</em>.
       </td>
     </tr>
@@ -287,7 +312,7 @@
       <td>SMP</td>
       <td>Service Metadata Publisher</td>
       <td>
-        Distributed PEPPOL registry. Used to lookup participant endpoint URLs.
+        Distributed Peppol registry. Used to lookup participant endpoint URLs.
         See <a href="https://github.com/phax/phoss-smp">https://github.com/phax/phoss-smp</a> for an Open Source implementation.
       </td>
     </tr>
@@ -297,7 +322,7 @@
         <br/><em><small>deprecated</small></em>
       </td>
       <td>Secure Trusted Asynchronous Reliable Transport</td>
-      <td>Legacy PEPPOL transport protocol, based on the Webservice stack. Was superseded by <em>AS2</em>.</td>
+      <td>Legacy Peppol transport protocol, based on the Webservice stack. Was superseded by <em>AS2</em>.</td>
     </tr>
     <tr>
       <td>
@@ -306,14 +331,14 @@
       </td>
       <td><em>TICC</em> Codelist Team</td>
       <td>
-        Special team that takes care of the "PEPPOL Policy for the use of identifiers" as well as the codelists
+        Special team that takes care of the "Peppol Policy for the use of identifiers" as well as the codelists
         required for document exchange.
       </td>
     </tr>
     <tr>
       <td>TIA</td>
       <td>Transport Infrastructure Agreement</td>
-      <td>The contract between the PEPPOL user and the PEPPOL Authority</td>
+      <td>The contract between the Peppol user and the Peppol Authority</td>
     </tr>
     <tr>
       <td>
@@ -322,7 +347,7 @@
       </td>
       <td>Transport Infrastructure Coordinating Community</td>
       <td>
-        PEPPOL internal team to manage the technical assets.
+        Peppol internal team to manage the technical assets.
         See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a>.
         Now called <em>EDEC</em>.
       </td>
@@ -330,7 +355,7 @@
     <tr>
       <td>UBL</td>
       <td>Universal Business Language</td>
-      <td>An <em>OASIS</em> standard that defines certain XML based document types used in PEPPOL and the <em>EN</em>.</td>
+      <td>An <em>OASIS</em> standard that defines certain XML based document types used in Peppol and the <em>EN</em>.</td>
     </tr>
   </tbody>
 </table>

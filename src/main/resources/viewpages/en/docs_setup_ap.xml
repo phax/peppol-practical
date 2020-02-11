@@ -17,30 +17,40 @@
 
 -->
 <p>
-  This page explains how to setup an OpenPEPPOL AS2 AccessPoint from scratch.
+  This page explains how to setup a Peppol AP from scratch.
   AP is the abbreviation for <em>Access Point</em> which is the technical endpoint for
   sending and receiving business documents.
+  See the <a href="/public/menuitem-docs-peppol-dict">Dictionary</a> for more abbreviations.
 </p>
 
 <p>
-  There are a few known possibilities (I'm aware of) on how to build/run a PEPPOL AS2 AccessPoint.
+  Since 2020-02-01 AS4 is the mandatory transport protocol in the Peppol eDelivery network and
+  AS2 transport protocol got an upgrade to "Peppol AS2 v2" (see details below).<br/>
+  This page was originally created for AS2 and is now partially extended for AS4 - more details to come.
+</p>
+
+<p>
+  There are a few known possibilities (I'm aware of) on how to build/run a Peppol AccessPoint.
   <ul>
     <li>
-      You can use <a href="https://github.com/difi/oxalis">Oxalis</a> as a prebuild solution. 
+      <a href="https://github.com/difi/oxalis">Oxalis</a> is a prebuild solution.
+      It is an Open Source project written in Java.
       It supports AS2 and AS4 but comes without professional support.
+      Especially the interoperability of the AS4 implementation is not good as they passed the 
+      <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery+AS4+conformant+solutions">CEF conformance test</a> only partially.  
     </li>
     <li>
-      You can use <a href="http://holodeck-b2b.org/">Holodeck B2B</a> as a prebuild solution. 
+      <a href="http://holodeck-b2b.org/">Holodeck B2B</a> is also a prebuild solution. 
+      It is an Open Source project written in Java.
       It supports AS2 and AS4 and comes with commercial support.
     </li>
     <li>
-      The solution described in this document is the
-      usage of my <a href="https://github.com/phax/as2-lib">as2-lib</a> as the AS2 communication
-      channel and <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a>
-      for receiving AS2 messages within a standard Java servlet.
-      By default no external AS2 software
-      is required for this solution, so I'm presenting a fully self-contained Open Source solution.
-      This solution is also used by the Austrian government to receive e-Invoices via PEPPOL. 
+      The solutions described in this document are:<br/>
+      <a href="https://github.com/phax/phase4">phase4</a> as the AS4 communication channel for sending and receiving Peppol AS4 messages.<br/>
+      <a href="https://github.com/phax/as2-lib">as2-lib</a> as the AS2 communication channel and 
+      <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a> for receiving Peppol AS2 messages.<br/>
+      No external AS2/AS4 software is required for using these projects, so I'm presenting fully self-contained Open Source solutions.
+      Both solutions are used by commercial vendors around the globe. 
     </li>
   </ul>
 </p>
@@ -52,9 +62,20 @@
   <div class="card-body">
     <ol>
       <li><a href="#prerequisites">Prerequisites</a></li>
-      <li><a href="#messagestructure">AS2 Message structure</a></li>
-      <li><a href="#as2receiver">AS2 AccessPoint receiver</a></li>
-      <li><a href="#as2sender">AS2 AccessPoint sender</a></li>
+      <li><a href="#as4">AS4 specifics</a>
+        <ol>
+          <li><a href="#as4messagestructure">AS4 Message structure</a></li>
+          <li><a href="#as4receiver">AS4 AccessPoint receiver</a></li>
+          <li><a href="#as4sender">AS4 AccessPoint sender</a></li>
+        </ol>
+      </li>
+      <li><a href="#as2">AS2 specifics</a>
+        <ol>
+          <li><a href="#as2messagestructure">AS2 Message structure</a></li>
+          <li><a href="#as2receiver">AS2 AccessPoint receiver</a></li>
+          <li><a href="#as2sender">AS2 AccessPoint sender</a></li>
+        </ol>
+      </li>
     </ol>
   </div>
 </div>
@@ -69,31 +90,81 @@
       <a href="https://peppol.eu/get-involved/join-openpeppol/">OpenPEPPOL AISBL</a></li>
   <li>Afterwards you need to apply for an <em>AP certificate</em> at OpenPEPPOL. 
       This certificate is required to run the AP.</li>
-  <li>At least one of the default PEPPOL BIS v2 (processes) must be implemented (according to the TIAs).
+  <li>At least one of the default Peppol BIS v2 (processes) must be implemented (according to the TIAs).
       A list of
       <a href="https://peppol.eu/downloads/post-award/">all available BISs</a>
-      is available on the PEPPOL website.  
+      is available on the Peppol website.  
   </li>
   <li>You should have a look at the 
-      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official PEPPOL AS2 specification</a>.
+      <a href="https://docs.peppol.eu/edelivery/as4/specification/">official Peppol AS4 profile</a>
+      and optionally at
+      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official Peppol AS2 specification</a>.
   </li>
   <li>You should have a look at the 
-      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official PEPPOL Envelope specification</a>
+      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official Peppol Envelope specification</a>
       (SBDH).
   </li>
   <li>You should be familiar with Java</li>
   <li>Basic knowledge about Apache Tomcat (and optionally a web server) should be present</li>
 </ol>
 
-<a name="messagestructure"></a>
-<h2>AS2 Message structure</h2>
+<a name="as4"></a>
+<h2>AS4 as a transport protocol (mandatory)</h2>
+
 <p>
-  An AccessPoint is a technical adapter for sending and receiving PEPPOL UBL documents.
+  The <a href="https://docs.peppol.eu/edelivery/as4/specification/">Peppol AS4 profile</a> 
+  is based on the 
+  <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery+AS4+-+1.14">CEF eDelivery AS4 1.14 profile</a>
+  which in turn is a (non-perfect) profile of the
+  <a href="https://docs.oasis-open.org/ebxml-msg/ebms/v3.0/profiles/AS4-profile/v1.0/">OASIS AS4 profile v1.0</a>
+  which (you guessed it) is a profile of the
+  <a href="https://docs.oasis-open.org/ebxml-msg/ebms/v3.0/core/os/">OASIS ebXML Messaging V3</a>.
+</p>
+
+<a name="as4messagestructure"></a>
+<h3>AS4 Message structure</h3>
+
+<p>
+  Peppol adds a specific limitation on the usage of AS4.
+  AS4 Messages must be signed and encrypted.
+  AS4 messages must have exactly one encrypted payload which is a Standard Business Document (SBD).
+  Peppol AS4 message MUST use the MIME encoding for message transmission. 
+</p>
+
+<a name="as4receiver"></a>
+<h3>AS4 AccessPoint receiver</h3>
+
+<p>
+  See the <a href="https://github.com/phax/phase4#subproject-phase4-peppol-servlet">official phase4 documentation</a> on phase4-peppol-servlet for details.
+</p>
+
+<a name="as4sender"></a>
+<h3>AS4 AccessPoint sender</h3>
+
+<p>
+  See the <a href="https://github.com/phax/phase4#subproject-phase4-peppol-client">official phase4 documentation</a> on phase4-peppol-client for details.
+</p>
+
+<a name="as2"></a>
+<h2>AS2 as a transport protocol (optional)</h2>
+
+<p>
+  AS2 is a transport protocol specified in <a href="http://www.ietf.org/rfc/rfc4130.txt">RFC 4130</a>.
+  AS2 version 1.1 adding compression is specified in <a href="http://www.ietf.org/rfc/rfc5402.txt">RFC 5402</a>.
+  The MDN is specified in <a href="http://www.ietf.org/rfc/rfc3798.txt">RFC 3798</a>.
+  Algorithm names are defined in <a href="https://www.ietf.org/rfc/rfc5751.txt">RFC 5751</a> (S/MIME 3.2) 
+    which supersedes <a href="https://www.ietf.org/rfc/rfc3851.txt">RFC 3851</a> (S/MIME 3.1).
+</p>
+
+<a name="as2messagestructure"></a>
+<h3>AS2 Message structure</h3>
+<p>
+  An AccessPoint is a technical adapter for sending and receiving Peppol UBL documents.
   The following images shows the overall structure of a transmitted AS2 message in a very
   simplified way:
 </p>
 <p>
-  <img src="../imgs/ap-message-structure.png" alt="PEPPOL AS2 message structure" />
+  <img src="../imgs/ap-message-structure.png" alt="Peppol AS2 message structure" />
 </p>
 <p>
   The outermost container is an <a href="http://en.wikipedia.org/wiki/S/MIME">S/MIME</a> 
@@ -103,7 +174,7 @@
   <a href="http://www.uncefactforum.org/ATG/atg_news_download.htm">Standard Business Document Header</a>
   (SBDH).
   It is a UN/CEFACT standard for merging XML documents with relevant metadata into a single XML document.
-  PEPPOL maintains its own 
+  Peppol maintains its own 
   <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">Envelope specification</a>
   that is based on SBDH.
   Finally inside the SBDH the main UBL business document is contained.
@@ -111,8 +182,8 @@
   can be downloaded from the <a href="https://www.oasis-open.org/committees/ubl/">OASIS UBL</a> web site. 
 </p>
 
-<a name="msimplementation"></a>
-<h3>Implementation</h3>
+<a name="as2msimplementation"></a>
+<h4>Implementation</h4>
 <p>
   This section points to projects that help in implementing the different layers of an AS2 message.
   If you are already familiar with these concepts you may simply skip this section.
@@ -130,19 +201,19 @@
     &lt;dependency&gt;
       &lt;groupId&gt;org.bouncycastle&lt;/groupId&gt;
       &lt;artifactId&gt;bcmail-jdk15on&lt;/artifactId&gt;
-      &lt;version&gt;1.62&lt;/version&gt;
+      &lt;version&gt;1.64&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
-      &lt;artifactId&gt;javax.mail&lt;/artifactId&gt;
-      &lt;version&gt;1.6.2&lt;/version&gt;
+      &lt;artifactId&gt;jakarta.mail&lt;/artifactId&gt;
+      &lt;version&gt;1.6.4&lt;/version&gt;
     &lt;/dependency&gt;</pre>
   </li>
   <li>
     <strong>SBDH</strong>: to read an write SBDH messages I created a Java library called
     <a href="https://github.com/phax/ph-sbdh">ph-sbdh</a> which uses JAXB generated objects.
     Additionally the Java library <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a>
-    can be used on top of <em>ph-sbdh</em> as it adds the PEPPOL specific requirements. 
+    can be used on top of <em>ph-sbdh</em> as it adds the Peppol specific requirements. 
     Both libraries are licensed under the Apache 2.0 license.
     The relevant Maven artefacts are:
     <pre>
@@ -154,7 +225,7 @@
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;peppol-sbdh&lt;/artifactId&gt;
-      &lt;version&gt;7.0.0&lt;/version&gt;
+      &lt;version&gt;8.0.0&lt;/version&gt;
     &lt;/dependency&gt;</pre>
   </li>
   <li>
@@ -166,20 +237,20 @@
     &lt;dependency&gt;
       &lt;groupId&gt;com.helger&lt;/groupId&gt;
       &lt;artifactId&gt;ph-ubl21&lt;/artifactId&gt;
-      &lt;version&gt;6.1.2&lt;/version&gt;
+      &lt;version&gt;6.2.1&lt;/version&gt;
     &lt;/dependency&gt;</pre>
   </li>
 </ul>
 
 <a name="as2receiver"></a>
-<h2>AS2 AccessPoint receiver</h2>
+<h3>AS2 AccessPoint receiver</h3>
 <p>
-  An example project that shows how to receive PEPPOL documents via AS2 can be found 
+  An example project that shows how to receive Peppol documents via AS2 can be found 
   in the <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong> project.
   It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
   <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
   <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> to receive messages from arbitrary
-  PEPPOL AS2 receivers. It requires <strong>no external AS2 handler</strong> (like Mendelson) and 
+  Peppol AS2 receivers. It requires <strong>no external AS2 handler</strong> (like Mendelson) and 
   no mandatory database setup. 
   <em>as2-peppol-server</em> is a Java 1.8+ project and licensed under Apache 2.0 license.
 </p>
@@ -191,14 +262,14 @@
 </p>
 
 <a name="as2sender"></a>
-<h2>AS2 AccessPoint sender</h2>
+<h3>AS2 AccessPoint sender</h3>
 <p>
-  An example project that shows how to send PEPPOL documents via AS2 can be found 
+  An example project that shows how to send Peppol documents via AS2 can be found 
   in the <strong><a href="https://github.com/phax/as2-peppol-client">as2-peppol-client</a></strong> project.
   It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
   <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
   <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> to send messages to arbitrary
-  PEPPOL AS2 receivers.
+  Peppol AS2 receivers.
   <em>as2-peppol-client</em> is a Java 1.8+ project and licensed under Apache 2.0 license.
 </p>
 
@@ -211,14 +282,14 @@
     <ol>
       <li>The <strong>UBL document</strong> to be send. How you create your UBL file is out of scope!</li>
       <li>
-        The <strong>PEPPOL participant ID of the receiver</strong> (e.g. <code>0088:test</code>). 
-        The determination of the recipient ID is not in scope for PEPPOL!
+        The <strong>Peppol participant ID of the receiver</strong> (e.g. <code>0088:test</code>). 
+        The determination of the recipient ID is not in scope for Peppol!
       </li>
       <li>
-        Your <strong>PEPPOL sender participant ID</strong>. There is no fixed way how to determine this.
-        If you are registered as a PEPPOL recipient, than please use your recipient ID as your
+        Your <strong>Peppol sender participant ID</strong>. There is no fixed way how to determine this.
+        If you are registered as a Peppol recipient, than please use your recipient ID as your
         sender ID. If you are not registered as a sender have a look at the latest
-        <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">PEPPOL policy for use of identifiers</a>
+        <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">Peppol policy for use of identifiers</a>
         as well as the
         <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists">Participant Identifier Scheme code lists</a>
         and search the VAT scheme suitable for your country (at the end of the list).
@@ -226,15 +297,15 @@
         sender ID: <code>9951:123456</code>.   
       </li>
       <li>
-        You need to know the <strong>PEPPOL document type identifier</strong> and 
-        <strong>PEPPOL process identifier</strong> in which you want to send the document.
+        You need to know the <strong>Peppol document type identifier</strong> and 
+        <strong>Peppol process identifier</strong> in which you want to send the document.
         If you are unsure what document type and process the receiver supports you can use the
         <a href="/public/menuitem-tools-participant">Participant information tool</a>
         contained in this page to determine the details.         
       </li>
       <li>
-        You need to have a valid <strong>PEPPOL AP certificate</strong> for sending documents to 
-        the PEPPOL network.
+        You need to have a valid <strong>Peppol AP certificate</strong> for sending documents to 
+        the Peppol network.
       </li>
     </ol>
   </li>
@@ -266,7 +337,7 @@
     For setting up the AS2 client request some additional input is needed:
     <ol>
       <li>
-        A PKCS12 keystore containing your PEPPOL AP certificate.
+        A PKCS12 keystore containing your Peppol AP certificate.
         If you only have a JKS keystore, you can easily convert it to a PKCS12 keystore
         using the great <a href="http://portecle.sourceforge.net/">Portecle</a> tool
         by <em>exporting</em> the certificate and the public key. You need to enter
@@ -276,7 +347,7 @@
         The password to access the PKCS12 keystore.
       </li>
       <li>
-        Your AS2 ID (<em>as2-from</em>), which must be the common name of your PEPPOL AP certificate subject
+        Your AS2 ID (<em>as2-from</em>), which must be the common name of your Peppol AP certificate subject
         (e.g. <code>APP_1000000001</code>).
       </li>
       <li>
@@ -284,7 +355,7 @@
         Ideally it is equal to your AS2 ID for easy matching but this is just an idea.
       </li>
       <li>
-        The AS2 ID of the receiver (<em>as2-to</em>), which must be the common name of the recipients PEPPOL AP 
+        The AS2 ID of the receiver (<em>as2-to</em>), which must be the common name of the recipients Peppol AP 
         certificate subject (e.g. <code>APP_1000000002</code>) received via the previous SMP lookup.
       </li>
       <li>

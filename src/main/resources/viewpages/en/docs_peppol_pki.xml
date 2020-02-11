@@ -40,9 +40,8 @@
 <h2>OpenPEPPOL PKI v3 - since 2018</h2>
 
 <p>
-  During 2018 all PEPPOL certificates were replaced, because the underlying root certificate of PKI v2 is about to expire in January 2020.
-  The new PKI is called "OpenPEPPOL PKI v3" and the root certificates are valid from 2018 to 2028.
-  The structure is very similar to the old one, but the STS CA is not present any more. So this is how it looks like:
+  The PKI is called "OpenPEPPOL PKI v3" and the root certificates are valid from 2018 to 2028.
+  The structure is very similar to the V2 one, but the STS CA is not present any more. So this is how it looks like:
 </p>
 
 <p>
@@ -64,7 +63,7 @@
     <div>
       Complete JKS files with all of the new root certificates are available at 
       <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>.
-      The recommended one is <code>complete-truststore.jks</code> as it contains all certificates - both for PKI v2 and PKI v3.
+      The recommended one is <code>complete-truststore.jks</code> as it contains all certificates.
     </div>
   </li>
   <li>
@@ -106,7 +105,8 @@
 <h2>Introduction to the PEPPOL PKI (v2, until 2018 - out of date)</h2>
 
 <div class="alert alert-danger">
-  Do not use the PEPPOL PKI v2 anymore. It is here for migration to v3 purposes only.
+  Do not use the PEPPOL PKI v2 anymore. It is here for historical purposes only.
+  The root certificates of PKI v2 expired on January 27<sup>th</sup> 2020.
 </div>
 
 <p>
