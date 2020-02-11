@@ -99,4 +99,16 @@ public final class AppSettings extends AbstractGlobalSingleton
   {
     return s_aCF.getAsBoolean ("rest.exceptions.payload", GlobalDebug.isDebugMode ());
   }
+
+  @Nullable
+  public static String getRecaptchaWebKey ()
+  {
+    return s_aCF.getAsString ("recaptcha.webkey");
+  }
+
+  @Nullable
+  public static String getRecaptchaSecretKey ()
+  {
+    return s_aCF.getAsString ("recaptcha.secretkey");
+  }
 }
