@@ -36,6 +36,39 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+    <h3>2020-02-11 - Document Validation - Peppol Hotfix added, EHF G2 updated</h3>
+    
+    <p>
+      Added support for OpenPEPPOL 3.9.1 validation rules - the changes are only in Invoice and CreditNote.
+      Updated to the latest EHF G2 validation rules.
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.peppol.bis3:creditnote:3.9.1</code> - OpenPEPPOL Credit Note (3.9.1) (aka BIS Billing 3.0.5 + Hotfix)</li>
+<li><code>eu.peppol.bis3:invoice:3.9.1</code> - OpenPEPPOL Invoice (3.9.1) (aka BIS Billing 3.0.5 + Hotfix)</li>
+<li><code>eu.peppol.bis3:t01:3.9.1</code> - OpenPEPPOL Order (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t110:3.9.1</code> - OpenPEPPOL Order Agreement (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t111:3.9.1</code> - OpenPEPPOL Invoice Message Response (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t16:3.9.1</code> - OpenPEPPOL Despatch Advice (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t19:3.9.1</code> - OpenPEPPOL Catalogue (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t58:3.9.1</code> - OpenPEPPOL Catalogue Response (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t71:3.9.1</code> - OpenPEPPOL MLR (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t76:3.9.1</code> - OpenPEPPOL Order Response (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t77:3.9.1</code> - OpenPEPPOL Punch Out (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>no.ehf:catalogue:1.0.15</code> - EHF Catalogue 1.0.15</li>
+<li><code>no.ehf:catalogue-response:1.0.15</code> - EHF Catalogue Response 1.0.15</li>
+<li><code>no.ehf:creditnote:2.0.17</code> - EHF Creditnote 2.0.17</li>
+<li><code>no.ehf:despatch-advice:1.0.12</code> - EHF Despatch Advice 1.0.12</li>
+<li><code>no.ehf:invoice:2.0.17</code> - EHF Invoice 2.0.17</li>
+<li><code>no.ehf:order:1.0.13</code> - EHF Ordering 1.0.13</li>
+<li><code>no.ehf:order-agreement:1.0.4</code> - EHF Order Agreement 1.0.4</li>
+<li><code>no.ehf:order-response:1.0.13</code> - EHF Order Response 1.0.13</li>
+<li><code>no.ehf:punch-out:1.0.3</code> - EHF Punch Out 1.0.3</li>
+    </ul>
+   
     <h3>2020-02-07 - Document Validation - UBL.BE 1.1 added</h3>
     
     <p>

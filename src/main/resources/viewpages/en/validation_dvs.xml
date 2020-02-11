@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 437 entries -->
+<!-- 457 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -165,36 +165,47 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:creditnote:3.8.0</code> - OpenPEPPOL Credit Note (3.8.0) (aka BIS Billing 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.8.1</code> - OpenPEPPOL Credit Note (3.8.1) (aka BIS Billing 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.9.0</code> - OpenPEPPOL Credit Note (3.9.0) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:creditnote:3.9.1</code> - OpenPEPPOL Credit Note (3.9.1) (aka BIS Billing 3.0.5 + Hotfix)</li>
 <li><code>eu.peppol.bis3:invoice:3.8.0</code> - OpenPEPPOL Invoice (3.8.0) (aka BIS Billing 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.8.1</code> - OpenPEPPOL Invoice (3.8.1) (aka BIS Billing 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.9.0</code> - OpenPEPPOL Invoice (3.9.0) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:invoice:3.9.1</code> - OpenPEPPOL Invoice (3.9.1) (aka BIS Billing 3.0.5 + Hotfix)</li>
 <li><code>eu.peppol.bis3:t01:3.8.0</code> - OpenPEPPOL Order (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t01:3.8.1</code> - OpenPEPPOL Order (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t01:3.9.0</code> - OpenPEPPOL Order (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t01:3.9.1</code> - OpenPEPPOL Order (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3:t110:3.8.0</code> - OpenPEPPOL Order Agreement (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t110:3.8.1</code> - OpenPEPPOL Order Agreement (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t110:3.9.0</code> - OpenPEPPOL Order Agreement (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t110:3.9.1</code> - OpenPEPPOL Order Agreement (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3:t111:3.8.0</code> - OpenPEPPOL Invoice Message Response (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t111:3.8.1</code> - OpenPEPPOL Invoice Message Response (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t111:3.9.0</code> - OpenPEPPOL Invoice Message Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t111:3.9.1</code> - OpenPEPPOL Invoice Message Response (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3:t16:3.8.0</code> - OpenPEPPOL Despatch Advice (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t16:3.8.1</code> - OpenPEPPOL Despatch Advice (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t16:3.9.0</code> - OpenPEPPOL Despatch Advice (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t16:3.9.1</code> - OpenPEPPOL Despatch Advice (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3:t19:3.8.0</code> - OpenPEPPOL Catalogue (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t19:3.8.1</code> - OpenPEPPOL Catalogue (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t19:3.9.0</code> - OpenPEPPOL Catalogue (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t19:3.9.1</code> - OpenPEPPOL Catalogue (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3:t58:3.8.0</code> - OpenPEPPOL Catalogue Response (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t58:3.8.1</code> - OpenPEPPOL Catalogue Response (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t58:3.9.0</code> - OpenPEPPOL Catalogue Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t58:3.9.1</code> - OpenPEPPOL Catalogue Response (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3:t71:3.8.0</code> - OpenPEPPOL MLR (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t71:3.8.1</code> - OpenPEPPOL MLR (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t71:3.9.0</code> - OpenPEPPOL MLR (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t71:3.9.1</code> - OpenPEPPOL MLR (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3:t76:3.8.0</code> - OpenPEPPOL Order Response (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t76:3.8.1</code> - OpenPEPPOL Order Response (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t76:3.9.0</code> - OpenPEPPOL Order Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t76:3.9.1</code> - OpenPEPPOL Order Response (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3:t77:3.8.0</code> - OpenPEPPOL Punch Out (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t77:3.8.1</code> - OpenPEPPOL Punch Out (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t77:3.9.0</code> - OpenPEPPOL Punch Out (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t77:3.9.1</code> - OpenPEPPOL Punch Out (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.0</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.1</li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.0</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
@@ -214,23 +225,32 @@ A very small Java WS client is available for
 <li><code>nl.energie-efactuur:energie-efactuur:2.0.0</code> - Energie eFactuur 2.0.0</li>
 <li><code>nl.energie-efactuur:energie-efactuur:3.0.0</code> - Energie eFactuur 3.0.0</li>
 <li><code>no.ehf:catalogue:1.0.13</code> - EHF Catalogue 1.0.13 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:catalogue:1.0.14</code> - EHF Catalogue 1.0.14</li>
+<li><code>no.ehf:catalogue:1.0.14</code> - EHF Catalogue 1.0.14 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:catalogue:1.0.15</code> - EHF Catalogue 1.0.15</li>
 <li><code>no.ehf:catalogue-response:1.0.13</code> - EHF Catalogue Response 1.0.13 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:catalogue-response:1.0.14</code> - EHF Catalogue Response 1.0.14</li>
+<li><code>no.ehf:catalogue-response:1.0.14</code> - EHF Catalogue Response 1.0.14 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:catalogue-response:1.0.15</code> - EHF Catalogue Response 1.0.15</li>
 <li><code>no.ehf:creditnote:2.0.15</code> - EHF Creditnote 2.0.15 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:creditnote:2.0.16</code> - EHF Creditnote 2.0.16</li>
+<li><code>no.ehf:creditnote:2.0.16</code> - EHF Creditnote 2.0.16 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:creditnote:2.0.17</code> - EHF Creditnote 2.0.17</li>
 <li><code>no.ehf:despatch-advice:1.0.10</code> - EHF Despatch Advice 1.0.10 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:despatch-advice:1.0.11</code> - EHF Despatch Advice 1.0.11</li>
+<li><code>no.ehf:despatch-advice:1.0.11</code> - EHF Despatch Advice 1.0.11 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:despatch-advice:1.0.12</code> - EHF Despatch Advice 1.0.12</li>
 <li><code>no.ehf:invoice:2.0.15</code> - EHF Invoice 2.0.15 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:invoice:2.0.16</code> - EHF Invoice 2.0.16</li>
+<li><code>no.ehf:invoice:2.0.16</code> - EHF Invoice 2.0.16 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:invoice:2.0.17</code> - EHF Invoice 2.0.17</li>
 <li><code>no.ehf:order:1.0.11</code> - EHF Ordering 1.0.11 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:order:1.0.12</code> - EHF Ordering 1.0.12</li>
+<li><code>no.ehf:order:1.0.12</code> - EHF Ordering 1.0.12 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:order:1.0.13</code> - EHF Ordering 1.0.13</li>
 <li><code>no.ehf:order-agreement:1.0.2</code> - EHF Order Agreement 1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:order-agreement:1.0.3</code> - EHF Order Agreement 1.0.3</li>
+<li><code>no.ehf:order-agreement:1.0.3</code> - EHF Order Agreement 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:order-agreement:1.0.4</code> - EHF Order Agreement 1.0.4</li>
 <li><code>no.ehf:order-response:1.0.11</code> - EHF Order Response 1.0.11 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:order-response:1.0.12</code> - EHF Order Response 1.0.12</li>
+<li><code>no.ehf:order-response:1.0.12</code> - EHF Order Response 1.0.12 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:order-response:1.0.13</code> - EHF Order Response 1.0.13</li>
 <li><code>no.ehf:punch-out:1.0.1</code> - EHF Punch Out 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf:punch-out:1.0.2</code> - EHF Punch Out 1.0.2</li>
+<li><code>no.ehf:punch-out:1.0.2</code> - EHF Punch Out 1.0.2 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf:punch-out:1.0.3</code> - EHF Punch Out 1.0.3</li>
 <li><code>no.ehf:reminder:1.1.0</code> - EHF Reminder 1.1.0</li>
 <li><code>org.oasis-open:applicationresponse:2.0</code> - UBL ApplicationResponse 2.0</li>
 <li><code>org.oasis-open:applicationresponse:2.1</code> - UBL ApplicationResponse 2.1</li>
