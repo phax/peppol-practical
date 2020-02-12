@@ -32,16 +32,12 @@ import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCCheckBox;
-import com.helger.html.hc.html.grouping.HCPre;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.bdve.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -134,8 +130,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
         final IXMLWriterSettings XWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
                                                                .setNamespaceContext (aNSCtx);
 
-        aNodeList.addChild (new BootstrapInfoBox ().addChild ("Showing preprocessed version of " +
-                                                              aVESID.getAsSingleID ()));
+        aNodeList.addChild (info ("Showing preprocessed version of " + aVESID.getAsSingleID ()));
         final BootstrapTabBox aTabBox = new BootstrapTabBox ();
         for (final IValidationExecutor aVE : aVES.getAllExecutors ())
         {
@@ -170,7 +165,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                   aCode = aPrism;
                 }
                 else
-                  aCode = new HCPre ().addChild (sXML);
+                  aCode = pre (sXML);
 
                 final CollectingPSErrorHandler aErrHdl = new CollectingPSErrorHandler ();
                 aPreprocessedSchema.validateCompletely (aErrHdl);
@@ -182,28 +177,27 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                 {
                   final HCUL aUL = new HCUL ();
                   aErrHdl.getAllErrors ().forEach (x -> aUL.addItem (x.getErrorText (aDisplayLocale)));
-                  aTabContent = new HCNodeList ().addChild (new BootstrapErrorBox ().addChild ("Errors in the Schematron:")
-                                                                                    .addChild (aUL))
+                  aTabContent = new HCNodeList ().addChild (error ("Errors in the Schematron:").addChild (aUL))
                                                  .addChild (aCode);
                 }
               }
               catch (final Exception ex)
               {
-                aTabContent = new BootstrapErrorBox ().addChild ("Error parsing Schematron: " + ex.getMessage ());
+                aTabContent = error ("Error parsing Schematron: " + ex.getMessage ());
               }
               aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
               break;
             }
             case SCHEMATRON_XSLT:
             {
-              final IHCNode aTabContent = new BootstrapInfoBox ().addChild ("This is already XSLT");
+              final IHCNode aTabContent = info ("This is already XSLT");
               aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
               break;
             }
           }
         }
         if (aTabBox.hasNoTabs ())
-          aNodeList.addChild (new BootstrapWarnBox ().addChild ("No Schematron artefacts found"));
+          aNodeList.addChild (warn ("No Schematron artefacts found"));
         else
           aNodeList.addChild (aTabBox);
       }
@@ -219,7 +213,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
           final IXMLWriterSettings XWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
                                                                  .setNamespaceContext (aNSCtx);
 
-          aNodeList.addChild (new BootstrapInfoBox ().addChild ("Showing XSLT version of " + aVESID.getAsSingleID ()));
+          aNodeList.addChild (info ("Showing XSLT version of " + aVESID.getAsSingleID ()));
           final BootstrapTabBox aTabBox = new BootstrapTabBox ();
           for (final IValidationExecutor aVE : aVES.getAllExecutors ())
           {
@@ -250,11 +244,11 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                     aTabContent = aPrism;
                   }
                   else
-                    aTabContent = new HCPre ().addChild (sXML);
+                    aTabContent = pre (sXML);
                 }
                 catch (final Exception ex)
                 {
-                  aTabContent = new BootstrapErrorBox ().addChild ("Error parsing Schematron: " + ex.getMessage ());
+                  aTabContent = error ("Error parsing Schematron: " + ex.getMessage ());
                 }
                 aTabBox.addTab ("t" + aTabBox.getTabCount (),
                                 FilenameHelper.getBaseName (aRes.getPath ()),
@@ -263,7 +257,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
               }
               case SCHEMATRON_XSLT:
               {
-                final IHCNode aTabContent = new BootstrapInfoBox ().addChild ("This is already XSLT");
+                final IHCNode aTabContent = info ("This is already XSLT");
                 aTabBox.addTab ("t" + aTabBox.getTabCount (),
                                 FilenameHelper.getBaseName (aRes.getPath ()),
                                 aTabContent);
@@ -272,7 +266,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
             }
           }
           if (aTabBox.hasNoTabs ())
-            aNodeList.addChild (new BootstrapWarnBox ().addChild ("No Schematron artefacts found"));
+            aNodeList.addChild (warn ("No Schematron artefacts found"));
           else
             aNodeList.addChild (aTabBox);
         }

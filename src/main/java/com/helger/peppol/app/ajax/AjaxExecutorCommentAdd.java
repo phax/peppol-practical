@@ -42,8 +42,7 @@ import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.photon.ajax.executor.IAjaxExecutor;
 import com.helger.photon.app.PhotonUnifiedResponse;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.traits.IHCBootstrap4Trait;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
@@ -54,7 +53,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorCommentAdd implements IAjaxExecutor
+public final class AjaxExecutorCommentAdd implements IAjaxExecutor, IHCBootstrap4Trait
 {
   public static final String PARAM_OBJECT_TYPE = "objectType";
   public static final String PARAM_OBJECT_ID = "objectID";
@@ -93,8 +92,8 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner,
-                                                                                                      sCommentThreadID);
+      final ICommentThread aCommentThread = CommentThreadManager.getInstance ()
+                                                                .getCommentThreadOfID (aOwner, sCommentThreadID);
       if (aCommentThread != null)
       {
         final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);
@@ -129,9 +128,9 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor
                                                                                             sTitle,
                                                                                             sText));
             if (eSuccess.isSuccess ())
-              aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
+              aMessageBox = success (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
             else
-              aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
+              aMessageBox = error (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
           }
 
           // List of exiting comments + message box
@@ -150,14 +149,14 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor
 
     // Somebody played around with the API
     LOGGER.warn ("Failed to resolve comment object type '" +
-                    sObjectType +
-                    "' and/or object ID '" +
-                    sObjectID +
-                    "' for adding to comment '" +
-                    sCommentID +
-                    "' in thread '" +
-                    sCommentThreadID +
-                    "'");
+                 sObjectType +
+                 "' and/or object ID '" +
+                 sObjectID +
+                 "' for adding to comment '" +
+                 sCommentID +
+                 "' in thread '" +
+                 sCommentThreadID +
+                 "'");
     aAjaxResponse.createNotFound ();
   }
 }

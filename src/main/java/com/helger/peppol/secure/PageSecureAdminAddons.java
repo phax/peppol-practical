@@ -25,11 +25,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.html.hc.IHCNode;
-import com.helger.html.hc.html.grouping.HCDiv;
-import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.photon.audit.AuditHelper;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
 import com.helger.photon.bootstrap4.pages.AbstractBootstrapWebPage;
 import com.helger.photon.core.appid.CApplicationID;
@@ -52,7 +49,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
   }
 
   @Nullable
-  private static IHCNode _handleAction (@Nullable final String sAction)
+  private IHCNode _handleAction (@Nullable final String sAction)
   {
     if (ACTION_EXPIRE_PAGE_CACHE.equals (sAction))
     {
@@ -88,7 +85,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
       AuditHelper.onAuditExecuteSuccess ("page-reload",
                                          aCounterUpdated.getAsInteger (),
                                          aCounterNoNeed.getAsInteger ());
-      return new BootstrapSuccessBox ().addChild (sMsg);
+      return success (sMsg);
     }
 
     return null;
@@ -102,10 +99,10 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
     // Perform
     aNodeList.addChild (_handleAction (aWPEC.getAction ()));
 
-    aNodeList.addChild (new HCH2 ().addChild ("Cache handling"));
-    aNodeList.addChild (new HCDiv ().addChild (new BootstrapButton ().setOnClick (aWPEC.getSelfHref ()
-                                                                                       .add (CPageParam.PARAM_ACTION,
-                                                                                             ACTION_EXPIRE_PAGE_CACHE))
-                                                                     .addChild ("Expire static page cache")));
+    aNodeList.addChild (h2 ("Cache handling"));
+    aNodeList.addChild (div (new BootstrapButton ().setOnClick (aWPEC.getSelfHref ()
+                                                                     .add (CPageParam.PARAM_ACTION,
+                                                                           ACTION_EXPIRE_PAGE_CACHE))
+                                                   .addChild ("Expire static page cache")));
   }
 }

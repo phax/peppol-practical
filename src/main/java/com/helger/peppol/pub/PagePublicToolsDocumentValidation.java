@@ -46,24 +46,16 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCCheckBox;
-import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.html.tabular.HCRow;
-import com.helger.html.hc.html.textlevel.HCCode;
-import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.bdve.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap4.badge.BootstrapBadge;
-import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -216,22 +208,20 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           final IErrorList aItemErrors = aValidationResultItem.getErrorList ();
 
           // Header for level
-          final HCDiv aDiv = new HCDiv ();
-          aDiv.addChild (new HCStrong ().addChild (aValidationArtefact.getValidationArtefactType ().getName () +
-                                                   " - " +
-                                                   aValidationArtefact.getRuleResource ().getPath ()));
-          aDetails.addChild (aDiv);
+          aDetails.addChild (div (strong (aValidationArtefact.getValidationArtefactType ().getName () +
+                                          " - " +
+                                          aValidationArtefact.getRuleResource ().getPath ())));
           final HCUL aUL = new HCUL ();
           if (aValidationResultItem.isIgnored ())
           {
             // Ignored layer?
-            aUL.addItem (new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("This layer was not executed because the prerequisite is not fulfilled"));
+            aUL.addItem (badgeInfo ("This layer was not executed because the prerequisite is not fulfilled"));
           }
           else
             if (aItemErrors.isEmpty ())
             {
               // No warnings, no errors
-              aUL.addItem (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild ("All fine on this level"));
+              aUL.addItem (badgeSuccess ("All fine on this level"));
             }
             else
             {
@@ -242,7 +232,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                 if (aError.getErrorLevel ().isGE (EErrorLevel.ERROR))
                 {
                   nErrors++;
-                  aErrorLevel = new BootstrapBadge (EBootstrapBadgeType.DANGER).addChild ("Error");
+                  aErrorLevel = badgeDanger ("Error");
                 }
                 else
                   if (aError.getErrorLevel ().isGE (EErrorLevel.WARN))
@@ -251,7 +241,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                       continue;
 
                     nWarnings++;
-                    aErrorLevel = new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Warning");
+                    aErrorLevel = badgeWarn ("Warning");
                   }
                   else
                     if (aError.getErrorLevel ().isGE (EErrorLevel.INFO))
@@ -260,39 +250,36 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                         continue;
 
                       nInfos++;
-                      aErrorLevel = new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("Information");
+                      aErrorLevel = badgeInfo ("Information");
                     }
                     else
-                      aErrorLevel = new BootstrapBadge ().addChild ("undefined");
+                      aErrorLevel = badgeWarn ("undefined");
 
                 final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
                                                                                          : null;
                 nItemsAdded++;
                 final IHCLI <?> aItem = aUL.addItem ();
-                aItem.addChild (new HCDiv ().addChild (aErrorLevel));
+                aItem.addChild (div (aErrorLevel));
 
                 final String sLocation = aError.getErrorLocation ().getAsString ();
                 if (StringHelper.hasText (sLocation))
-                  aItem.addChild (new HCDiv ().addChild ("Location: ").addChild (new HCCode ().addChild (sLocation)));
+                  aItem.addChild (div ("Location: ").addChild (code (sLocation)));
 
                 final String sFieldName = aError.getErrorFieldName ();
                 if (StringHelper.hasText (sFieldName))
-                  aItem.addChild (new HCDiv ().addChild ("Element/context: ")
-                                              .addChild (new HCCode ().addChild (sFieldName)));
+                  aItem.addChild (div ("Element/context: ").addChild (code (sFieldName)));
 
                 if (aSVRLError != null)
-                  aItem.addChild (new HCDiv ().addChild ("XPath test: ")
-                                              .addChild (new HCCode ().addChild (aSVRLError.getTest ())));
-                aItem.addChild (new HCDiv ().addChild ("Error message: " + aError.getErrorText (aDisplayLocale)));
+                  aItem.addChild (div ("XPath test: ").addChild (code (aSVRLError.getTest ())));
+                aItem.addChild (div ("Error message: " + aError.getErrorText (aDisplayLocale)));
                 if (aError.hasLinkedException ())
-                  aItem.addChild (new HCDiv ().addChild ("Technical details: ")
-                                              .addChild (new HCCode ().addChild (aError.getLinkedExceptionMessage ())));
+                  aItem.addChild (div ("Technical details: ").addChild (code (aError.getLinkedExceptionMessage ())));
               }
 
               if (nItemsAdded == 0)
               {
                 // Only warnings but warnings are disabled
-                aUL.addItem (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild ("All fine on this level - only suppressed warnings are contained"));
+                aUL.addItem (badgeSuccess ("All fine on this level - only suppressed warnings are contained"));
               }
             }
           aDetails.addChild (aUL);
@@ -303,42 +290,42 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         {
           if (nWarnings == 0)
           {
-            aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Congratulations - the file '" +
-                                                                     sFileName +
-                                                                     "' is valid. No warnings and no errors."));
+            aNodeList.addChild (success ("Congratulations - the file '" +
+                                         sFileName +
+                                         "' is valid. No warnings and no errors."));
           }
           else
           {
-            aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Congratulations - the file '" +
-                                                                     sFileName +
-                                                                     "' is valid but it contains " +
-                                                                     nWarnings +
-                                                                     (nWarnings == 1 ? " warning" : " warnings") +
-                                                                     "."));
+            aNodeList.addChild (success ("Congratulations - the file '" +
+                                         sFileName +
+                                         "' is valid but it contains " +
+                                         nWarnings +
+                                         (nWarnings == 1 ? " warning" : " warnings") +
+                                         "."));
           }
         }
         else
         {
           if (nWarnings == 0)
           {
-            aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
-                                                                   sFileName +
-                                                                   "' is invalid. It contains " +
-                                                                   nErrors +
-                                                                   (nErrors == 1 ? " error" : " errors") +
-                                                                   "."));
+            aNodeList.addChild (error ("The file '" +
+                                       sFileName +
+                                       "' is invalid. It contains " +
+                                       nErrors +
+                                       (nErrors == 1 ? " error" : " errors") +
+                                       "."));
           }
           else
           {
-            aNodeList.addChild (new BootstrapErrorBox ().addChild ("The file '" +
-                                                                   sFileName +
-                                                                   "' is invalid. It contains " +
-                                                                   nErrors +
-                                                                   (nErrors == 1 ? " error" : " errors") +
-                                                                   " and " +
-                                                                   nWarnings +
-                                                                   (nWarnings == 1 ? " warning" : " warnings") +
-                                                                   "."));
+            aNodeList.addChild (error ("The file '" +
+                                       sFileName +
+                                       "' is invalid. It contains " +
+                                       nErrors +
+                                       (nErrors == 1 ? " error" : " errors") +
+                                       " and " +
+                                       nWarnings +
+                                       (nWarnings == 1 ? " warning" : " warnings") +
+                                       "."));
           }
         }
 
@@ -372,7 +359,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
     {
       final BootstrapForm aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC));
       aForm.setEncTypeFileUpload ();
-      aForm.addChild (new BootstrapInfoBox ().addChild ("Select the rule set and the XML file for validation and upload it"));
+      aForm.addChild (info ("Select the rule set and the XML file for validation and upload it"));
 
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Rule set")
                                                    .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VES),

@@ -40,8 +40,7 @@ import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.photon.ajax.executor.IAjaxExecutor;
 import com.helger.photon.app.PhotonUnifiedResponse;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.traits.IHCBootstrap4Trait;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
@@ -52,7 +51,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor
+public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor, IHCBootstrap4Trait
 {
   public static final String PARAM_OBJECT_TYPE = "objectType";
   public static final String PARAM_OBJECT_ID = "objectID";
@@ -111,9 +110,9 @@ public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor
                                                                                              sTitle,
                                                                                              sText));
         if (aNewThread != null)
-          aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
+          aMessageBox = success (ECommentText.MSG_COMMENT_SAVE_SUCCESS.getDisplayText (aDisplayLocale));
         else
-          aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
+          aMessageBox = error (ECommentText.MSG_COMMENT_SAVE_FAILURE.getDisplayText (aDisplayLocale));
       }
 
       // List of exiting comments + message box

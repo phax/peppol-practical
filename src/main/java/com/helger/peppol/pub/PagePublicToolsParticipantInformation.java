@@ -67,9 +67,6 @@ import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.sections.HCH3;
 import com.helger.html.hc.html.sections.HCH4;
 import com.helger.html.hc.html.textlevel.HCA;
-import com.helger.html.hc.html.textlevel.HCCode;
-import com.helger.html.hc.html.textlevel.HCEM;
-import com.helger.html.hc.html.textlevel.HCSmall;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.httpclient.HttpClientManager;
@@ -99,12 +96,6 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
-import com.helger.photon.bootstrap4.badge.BootstrapBadge;
-import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
@@ -159,9 +150,70 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   }
 
   @Nonnull
-  private static IHCNode _createTimingNode (final long nMillis)
+  private IHCNode _createTimingNode (final long nMillis)
   {
-    return new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("took " + nMillis + " milliseconds");
+    return badgeInfo ("took " + nMillis + " milliseconds");
+  }
+
+  private void _printEndpointURL (@Nonnull final IHCLI <?> aLIEndpoint, final String sEndpointRef)
+  {
+    aLIEndpoint.addChild (div ("Endpoint URL: ").addChild (StringHelper.hasNoText (sEndpointRef) ? em ("none")
+                                                                                                 : code (sEndpointRef)));
+  }
+
+  private void _printActivationDate (@Nonnull final IHCLI <?> aLIEndpoint,
+                                     final LocalDateTime aServiceActivationDate,
+                                     final Locale aDisplayLocale)
+  {
+    if (aServiceActivationDate != null)
+    {
+      final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
+      final LocalDate aValidFrom = aServiceActivationDate.toLocalDate ();
+      aLIEndpoint.addChild (div ("Valid from: " + PDTToString.getAsString (aValidFrom, aDisplayLocale)));
+      if (aValidFrom.isAfter (aNowDate))
+        aLIEndpoint.addChild (error ("This endpoint is not yet valid!"));
+    }
+  }
+
+  private void _printExpirationDate (@Nonnull final IHCLI <?> aLIEndpoint,
+                                     final LocalDateTime aServiceExpirationDate,
+                                     final Locale aDisplayLocale)
+  {
+    if (aServiceExpirationDate != null)
+    {
+      final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
+      final LocalDate aValidTo = PDTFactory.createLocalDate (aServiceExpirationDate);
+      aLIEndpoint.addChild (div ("Valid to: " + PDTToString.getAsString (aValidTo, aDisplayLocale)));
+      if (aValidTo.isBefore (aNowDate))
+        aLIEndpoint.addChild (error ("This endpoint is no longer valid!"));
+    }
+  }
+
+  private void _printTransportProfile (@Nonnull final IHCLI <?> aLIEndpoint, @Nullable final String sTransportProfile)
+  {
+    final HCDiv aDiv = div ("Transport profile: ");
+    final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
+    if (eTransportProfile != null)
+    {
+      // Known transport profile
+      aDiv.addChild (badgeSuccess (eTransportProfile.getName ()))
+          .addChild (small (" (").addChild (code (sTransportProfile)).addChild (")"));
+    }
+    else
+    {
+      aDiv.addChild (code (sTransportProfile)).addChild (" ").addChild (badgeWarn ("non-standard"));
+    }
+    aLIEndpoint.addChild (aDiv);
+  }
+
+  private void _printTecInfo (@Nonnull final IHCLI <?> aLIEndpoint, final String sTecInfo)
+  {
+    if (StringHelper.hasText (sTecInfo))
+    {
+      final boolean bIsEmail = EmailAddressHelper.isValid (sTecInfo);
+      aLIEndpoint.addChild (div ("Technical info: ").addChild (bIsEmail ? HCA_MailTo.createLinkedEmail (sTecInfo)
+                                                                        : new HCTextNode (sTecInfo)));
+    }
   }
 
   @Override
@@ -219,9 +271,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       {
         // Try to print the basic information before an error occurs
         final String sParticipantIDUriEncoded = CIdentifier.getURIEncoded (sParticipantIDScheme, sParticipantIDValue);
-        aNodeList.addChild (new HCDiv ().addChild ("Querying the following SMP for ")
-                                        .addChild (new HCCode ().addChild (sParticipantIDUriEncoded))
-                                        .addChild (":"));
+        aNodeList.addChild (div ("Querying the following SMP for ").addChild (code (sParticipantIDUriEncoded))
+                                                                   .addChild (":"));
 
         try
         {
@@ -277,30 +328,23 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
           {
             final HCUL aUL = new HCUL ();
-            aUL.addItem (new HCDiv ().addChild ("SML used: ")
-                                     .addChild (new HCCode ().addChild (aSML.getDisplayName () +
-                                                                        " / " +
-                                                                        aSML.getDNSZone ())));
+            aUL.addItem (div ("SML used: ").addChild (code (aSML.getDisplayName () + " / " + aSML.getDNSZone ())));
 
             final String sURL1 = aSMPHost.toExternalForm ();
-            aUL.addItem (new HCDiv ().addChild ("Peppol name: ").addChild (new HCCode ().addChild (sURL1)),
-                         new HCDiv ().addChild (_createOpenInBrowser (sURL1)));
+            aUL.addItem (div ("Peppol name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
 
             final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
             final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
-            aUL.addItem (new HCDiv ().addChild ("IP address: ").addChild (new HCCode ().addChild (sURL2)),
-                         new HCDiv ().addChild (_createOpenInBrowser ("http://" + sURL2)));
+            aUL.addItem (div ("IP address: ").addChild (code (sURL2)), div (_createOpenInBrowser ("http://" + sURL2)));
 
             final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
             final String sURL3 = aNice.getCanonicalHostName ();
-            aUL.addItem (new HCDiv ().addChild ("Nice name: ")
-                                     .addChild (new HCCode ().addChild (sURL3))
-                                     .addChild (" (determined by reverse name lookup - this is potentially not the URL you registered your SMP for!)"),
-                         new HCDiv ().addChild (_createOpenInBrowser ("http://" + sURL3)));
+            aUL.addItem (div ("Nice name: ").addChild (code (sURL3))
+                                            .addChild (" (determined by reverse name lookup - this is potentially not the URL you registered your SMP for!)"),
+                         div (_createOpenInBrowser ("http://" + sURL3)));
 
             final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
-            aUL.addItem (new HCDiv ().addChild ("Query base URL: ").addChild (new HCCode ().addChild (sURL4)),
-                         new HCDiv ().addChild (_createOpenInBrowser (sURL4)));
+            aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
 
             aNodeList.addChild (aUL);
           }
@@ -331,8 +375,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                     // Decoded href is important for unification
                     final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
                     if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-                      aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
-                                                          .addChild (new HCCode ().addChild (sHref)));
+                      aUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
                   }
                 break;
               }
@@ -350,8 +393,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                     // Decoded href is important for unification
                     final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
                     if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-                      aUL.addItem (new BootstrapWarnBox ().addChild ("The ServiceGroup list contains the duplicate URL ")
-                                                          .addChild (new HCCode ().addChild (sHref)));
+                      aUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
                   }
                 break;
               }
@@ -365,7 +407,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                          aSGHrefs.size () +
                          " entries");
 
-            final HCH3 aH3 = new HCH3 ().addChild ("ServiceGroup contents");
+            final HCH3 aH3 = h3 ("ServiceGroup contents");
             if (bShowTime)
               aH3.addChild (" ").addChild (_createTimingNode (aSWGetDocTypes.getMillis ()));
             aNodeList.addChild (aH3);
@@ -377,7 +419,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final String sHref = aEntry.getKey ();
               final String sOriginalHref = aEntry.getValue ();
 
-              final IHCLI <?> aLI = aUL.addAndReturnItem (new HCDiv ().addChild (new HCCode ().addChild (sHref)));
+              final IHCLI <?> aLI = aUL.addAndReturnItem (div (code (sHref)));
               // Should be case insensitive "indexOf" here
               final int nPathStart = sHref.toLowerCase (Locale.US).indexOf (sPathStart.toLowerCase (Locale.US));
               if (nPathStart >= 0)
@@ -387,32 +429,27 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 if (aDocType != null)
                 {
                   aDocTypeIDs.add (aDocType);
-                  aLI.addChild (new HCDiv ().addChild (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ())
-                                            .addChild (" ")
-                                            .addChild (AppCommonUI.createDocTypeID (aDocType, false)));
-                  aLI.addChild (new HCDiv ().addChild (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ())
-                                            .addChild (" ")
-                                            .addChild (_createOpenInBrowser (sOriginalHref)));
+                  aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
+                                                                                .addChild (AppCommonUI.createDocTypeID (aDocType,
+                                                                                                                        false)));
+                  aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
+                                                                                .addChild (_createOpenInBrowser (sOriginalHref)));
                 }
                 else
                 {
-                  aLI.addChild (new BootstrapErrorBox ().addChild ("The document type ")
-                                                        .addChild (new HCCode ().addChild (sDocType))
-                                                        .addChild (" could not be interpreted as a structured document type!"));
+                  aLI.addChild (error ("The document type ").addChild (code (sDocType))
+                                                            .addChild (" could not be interpreted as a structured document type!"));
                 }
               }
               else
               {
-                aLI.addChild (new BootstrapErrorBox ().addChildren (new HCDiv ().addChild ("Contained href does not match the rules!"),
-                                                                    new HCDiv ().addChild ("Found href: ")
-                                                                                .addChild (new HCCode ().addChild (sHref)),
-                                                                    new HCDiv ().addChild ("Expected path part: ")
-                                                                                .addChild (new HCCode ().addChild (sPathStart))));
+                aLI.addChild (error ().addChildren (div ("Contained href does not match the rules!"),
+                                                    div ("Found href: ").addChild (code (sHref)),
+                                                    div ("Expected path part: ").addChild (code (sPathStart))));
               }
             }
             if (!aUL.hasChildren ())
-              aUL.addItem (new BootstrapWarnBox ().addChild ("No service group entries were found for " +
-                                                             aParticipantID.getURIEncoded ()));
+              aUL.addItem (warn ("No service group entries were found for " + aParticipantID.getURIEncoded ()));
             aNodeList.addChild (aUL);
           }
 
@@ -420,15 +457,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (aDocTypeIDs.isNotEmpty ())
           {
             final LocalDateTime aNowDateTime = PDTFactory.getCurrentLocalDateTime ();
-            final LocalDate aNowDate = aNowDateTime.toLocalDate ();
             final ICommonsOrderedSet <X509Certificate> aAllUsedEndpointCertifiactes = new CommonsLinkedHashSet <> ();
             long nTotalDurationMillis = 0;
 
-            aNodeList.addChild (new HCH3 ().addChild ("Document type details"));
+            aNodeList.addChild (h3 ("Document type details"));
             final HCUL aULDocTypeIDs = new HCUL ();
             for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
             {
-              final HCDiv aDocTypeDiv = new HCDiv ().addChild (AppCommonUI.createDocTypeID (aDocTypeID, true));
+              final HCDiv aDocTypeDiv = div (AppCommonUI.createDocTypeID (aDocTypeID, true));
               final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
 
               final StopWatch aSWGetDetails = StopWatch.createdStarted ();
@@ -443,7 +479,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   {
                     final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
                     if (aSM.getRedirect () != null)
-                      aLIDocTypeID.addChild (new HCDiv ().addChild ("Redirect to " + aSM.getRedirect ().getHref ()));
+                      aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
                     else
                     {
                       // For all processes
@@ -454,9 +490,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         if (aProcess.getProcessIdentifier () != null)
                         {
                           final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
-                          aLIProcessID.addChild (new HCDiv ().addChild ("Process ID: ")
-                                                             .addChild (AppCommonUI.createProcessID (aDocTypeID,
-                                                                                                     SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
+                          aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
+                                                                                                             SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                           final HCUL aULEndpoint = new HCUL ();
                           // For all endpoints of the process
                           for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
@@ -494,7 +529,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   }
                   else
                   {
-                    aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to read service metadata from SMP"));
+                    aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP"));
                   }
                   break;
                 }
@@ -507,7 +542,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   {
                     final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
                     if (aSM.getRedirect () != null)
-                      aLIDocTypeID.addChild (new HCDiv ().addChild ("Redirect to " + aSM.getRedirect ().getHref ()));
+                      aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
                     else
                     {
                       // For all processes
@@ -518,9 +553,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         if (aProcess.getProcessIdentifier () != null)
                         {
                           final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
-                          aLIProcessID.addChild (new HCDiv ().addChild ("Process ID: ")
-                                                             .addChild (AppCommonUI.createProcessID (aDocTypeID,
-                                                                                                     SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
+                          aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
+                                                                                                             SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                           final HCUL aULEndpoint = new HCUL ();
                           // For all endpoints of the process
                           for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
@@ -560,7 +594,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   }
                   else
                   {
-                    aLIDocTypeID.addChild (new BootstrapErrorBox ().addChild ("Failed to read service metadata from SMP"));
+                    aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP"));
                   }
                   break;
                 }
@@ -572,13 +606,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aNodeList.addChild (aULDocTypeIDs);
 
             if (bShowTime)
-              aNodeList.addChild (new HCDiv ().addChild ("Overall time: ")
-                                              .addChild (_createTimingNode (nTotalDurationMillis)));
+              aNodeList.addChild (div ("Overall time: ").addChild (_createTimingNode (nTotalDurationMillis)));
 
-            aNodeList.addChild (new HCH3 ().addChild ("Endpoint Certificate details"));
+            aNodeList.addChild (h3 ("Endpoint Certificate details"));
             if (aAllUsedEndpointCertifiactes.isEmpty ())
             {
-              aNodeList.addChild (new BootstrapWarnBox ().addChild ("No Endpoint Certificate information was found."));
+              aNodeList.addChild (warn ("No Endpoint Certificate information was found."));
             }
             else
             {
@@ -588,24 +621,20 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 final IHCLI <?> aLICert = aULCerts.addItem ();
                 if (aEndpointCert != null)
                 {
-                  if (aEndpointCert.getSubjectDN () != null)
-                    aLICert.addChild (new HCDiv ().addChild ("Subject: " + aEndpointCert.getSubjectDN ().toString ()));
-                  if (aEndpointCert.getIssuerDN () != null)
-                    aLICert.addChild (new HCDiv ().addChild ("Issuer: " + aEndpointCert.getIssuerDN ().toString ()));
-                  final LocalDate aNotBefore = PDTFactory.createLocalDate (aEndpointCert.getNotBefore ());
-                  aLICert.addChild (new HCDiv ().addChild ("Not before: " +
-                                                           PDTToString.getAsString (aNotBefore, aDisplayLocale)));
-                  if (aNotBefore.isAfter (aNowDate))
-                    aLICert.addChild (new BootstrapErrorBox ().addChild ("This Endpoint Certificate is not yet valid!"));
-                  final LocalDate aNotAfter = PDTFactory.createLocalDate (aEndpointCert.getNotAfter ());
-                  aLICert.addChild (new HCDiv ().addChild ("Not after: " +
-                                                           PDTToString.getAsString (aNotAfter, aDisplayLocale)));
-                  if (aNotAfter.isBefore (aNowDate))
-                    aLICert.addChild (new BootstrapErrorBox ().addChild ("This Endpoint Certificate is no longer valid!"));
-                  aLICert.addChild (new HCDiv ().addChild ("Serial number: " +
-                                                           aEndpointCert.getSerialNumber ().toString () +
-                                                           " / 0x" +
-                                                           aEndpointCert.getSerialNumber ().toString (16)));
+                  aLICert.addChild (div ("Subject: " + aEndpointCert.getSubjectX500Principal ().getName ()));
+                  aLICert.addChild (div ("Issuer: " + aEndpointCert.getIssuerX500Principal ().getName ()));
+                  final LocalDateTime aNotBefore = PDTFactory.createLocalDateTime (aEndpointCert.getNotBefore ());
+                  aLICert.addChild (div ("Not before: " + PDTToString.getAsString (aNotBefore, aDisplayLocale)));
+                  if (aNotBefore.isAfter (aNowDateTime))
+                    aLICert.addChild (error ("This Endpoint Certificate is not yet valid!"));
+                  final LocalDateTime aNotAfter = PDTFactory.createLocalDateTime (aEndpointCert.getNotAfter ());
+                  aLICert.addChild (div ("Not after: " + PDTToString.getAsString (aNotAfter, aDisplayLocale)));
+                  if (aNotAfter.isBefore (aNowDateTime))
+                    aLICert.addChild (error ("This Endpoint Certificate is no longer valid!"));
+                  aLICert.addChild (div ("Serial number: " +
+                                         aEndpointCert.getSerialNumber ().toString () +
+                                         " / 0x" +
+                                         aEndpointCert.getSerialNumber ().toString (16)));
 
                   if (aQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
                   {
@@ -615,10 +644,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                                                          ETriState.FALSE,
                                                                                                                          ETriState.UNDEFINED);
                     if (eCertStatus.isValid ())
-                      aLICert.addChild (new BootstrapSuccessBox ().addChild ("The Endpoint Certificate appears to be a valid Peppol certificate."));
+                      aLICert.addChild (success ("The Endpoint Certificate appears to be a valid Peppol certificate."));
                     else
-                      aLICert.addChild (new BootstrapErrorBox ().addChild ("The Endpoint Certificate appears to be an invalid Peppol certificate. Reason: " +
-                                                                           eCertStatus.getReason ()));
+                      aLICert.addChild (error ("The Endpoint Certificate appears to be an invalid Peppol certificate. Reason: " +
+                                               eCertStatus.getReason ()));
                   }
 
                   final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
@@ -626,11 +655,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                 .setValue (CertificateHelper.getPEMEncodedCertificate (aEndpointCert))
                                                                 .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
                   BootstrapFormHelper.markAsFormControl (aTextArea);
-                  aLICert.addChild (new HCDiv ().addChild (aTextArea));
+                  aLICert.addChild (div (aTextArea));
                 }
                 else
                 {
-                  aLICert.addChild (new BootstrapErrorBox ().addChild ("Failed to interpret the data as a X509 certificate"));
+                  aLICert.addChild (error ("Failed to interpret the data as a X509 certificate"));
                 }
               }
               aNodeList.addChild (aULCerts);
@@ -640,7 +669,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (bQueryBusinessCard)
           {
             final StopWatch aSWGetBC = StopWatch.createdStarted ();
-            aNodeList.addChild (new HCH3 ().addChild ("Business Card details"));
+            aNodeList.addChild (h3 ("Business Card details"));
 
             EFamFamFlagIcon.registerResourcesForThisRequest ();
             final String sBCURL = aSMPHost.toExternalForm () + "/businesscard/" + aParticipantID.getURIEncoded ();
@@ -658,13 +687,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aSWGetBC.stop ();
 
             if (aData == null)
-              aNodeList.addChild (new BootstrapWarnBox ().addChild ("No Business Card is available for that participant."));
+              aNodeList.addChild (warn ("No Business Card is available for that participant."));
             else
             {
               final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
               if (aBC == null)
               {
-                aNodeList.addChild (new BootstrapErrorBox ().addChild ("Failed to parse the response data as a Business Card."));
+                aNodeList.addChild (error ("Failed to parse the response data as a Business Card."));
 
                 final String sBC = new String (aData, StandardCharsets.UTF_8);
                 if (StringHelper.hasText (sBC))
@@ -673,15 +702,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               }
               else
               {
-                final HCH4 aH4 = new HCH4 ().addChild ("Business Card contains " +
-                                                       (aBC.businessEntities ().size () == 1 ? "1 entity"
-                                                                                             : aBC.businessEntities ()
-                                                                                                  .size () +
-                                                                                               " entities"));
+                final HCH4 aH4 = h4 ("Business Card contains " +
+                                     (aBC.businessEntities ().size () == 1 ? "1 entity"
+                                                                           : aBC.businessEntities ().size () +
+                                                                             " entities"));
                 if (bShowTime)
                   aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
                 aNodeList.addChild (aH4);
-                aNodeList.addChild (new HCDiv ().addChild (_createOpenInBrowser (sBCURL)));
+                aNodeList.addChild (div (_createOpenInBrowser (sBCURL)));
 
                 final HCUL aUL = new HCUL ();
                 for (final PDBusinessEntity aEntity : aBC.businessEntities ())
@@ -696,7 +724,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                    : " (" +
                                                                      aLanguage.getDisplayLanguage (aDisplayLocale) +
                                                                      ")";
-                    aLI.addChild (new HCDiv ().addChild (aName.getName () + sLanguageName));
+                    aLI.addChild (div (aName.getName () + sLanguageName));
                   }
 
                   // Country
@@ -709,15 +737,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                        sCountryCode +
                                                                        ")";
                     final EFamFamFlagIcon eIcon = EFamFamFlagIcon.getFromIDOrNull (sCountryCode);
-                    aLI.addChild (new HCDiv ().addChild ("Country: " + sCountryName + " ")
-                                              .addChild (eIcon == null ? null : eIcon.getAsNode ()));
+                    aLI.addChild (div ("Country: " + sCountryName + " ").addChild (eIcon == null ? null
+                                                                                                 : eIcon.getAsNode ()));
                   }
 
                   // Geo info
                   if (aEntity.hasGeoInfo ())
                   {
-                    aLI.addChild (new HCDiv ().addChild ("Geographical information: ")
-                                              .addChildren (HCExtHelper.nl2brList (aEntity.getGeoInfo ())));
+                    aLI.addChild (div ("Geographical information: ").addChildren (HCExtHelper.nl2brList (aEntity.getGeoInfo ())));
                   }
                   // Additional IDs
                   if (aEntity.identifiers ().isNotEmpty ())
@@ -726,15 +753,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                     aIDTab.addHeaderRow ().addCells ("Scheme", "Value");
                     for (final PDIdentifier aItem : aEntity.identifiers ())
                       aIDTab.addBodyRow ().addCells (aItem.getScheme (), aItem.getValue ());
-                    aLI.addChild (new HCDiv ().addChild ("Additional identifiers: ").addChild (aIDTab));
+                    aLI.addChild (div ("Additional identifiers: ").addChild (aIDTab));
                   }
                   // Website URLs
                   if (aEntity.websiteURIs ().isNotEmpty ())
                   {
                     final HCNodeList aWebsites = new HCNodeList ();
                     for (final String sItem : aEntity.websiteURIs ())
-                      aWebsites.addChild (new HCDiv ().addChild (HCA.createLinkedWebsite (sItem)));
-                    aLI.addChild (new HCDiv ().addChild ("Website URLs: ").addChild (aWebsites));
+                      aWebsites.addChild (div (HCA.createLinkedWebsite (sItem)));
+                    aLI.addChild (div ("Website URLs: ").addChild (aWebsites));
                   }
                   // Contacts
                   if (aEntity.contacts ().isNotEmpty ())
@@ -747,18 +774,16 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                  .addCell (aItem.getName ())
                                  .addCell (aItem.getPhoneNumber ())
                                  .addCell (HCA_MailTo.createLinkedEmail (aItem.getEmail ()));
-                    aLI.addChild (new HCDiv ().addChild ("Contact points: ").addChild (aContactTab));
+                    aLI.addChild (div ("Contact points: ").addChild (aContactTab));
                   }
                   if (aEntity.hasAdditionalInfo ())
                   {
-                    aLI.addChild (new HCDiv ().addChild ("Additional information: ")
-                                              .addChildren (HCExtHelper.nl2brList (aEntity.getAdditionalInfo ())));
+                    aLI.addChild (div ("Additional information: ").addChildren (HCExtHelper.nl2brList (aEntity.getAdditionalInfo ())));
                   }
                   if (aEntity.hasRegistrationDate ())
                   {
-                    aLI.addChild (new HCDiv ().addChild ("Registration date: ")
-                                              .addChild (PDTToString.getAsString (aEntity.getRegistrationDate (),
-                                                                                  aDisplayLocale)));
+                    aLI.addChild (div ("Registration date: ").addChild (PDTToString.getAsString (aEntity.getRegistrationDate (),
+                                                                                                 aDisplayLocale)));
                   }
                 }
                 aNodeList.addChild (aUL);
@@ -771,12 +796,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         }
         catch (final UnknownHostException ex)
         {
-          aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
-                                                                                        sParticipantIDUriEncoded +
-                                                                                        " is not registered to the Peppol network."))
-                                                      .addChild (AppCommonUI.getTechnicalDetailsUI (ex))
-                                                      .addChild (bSMLAutoDetect ? null
-                                                                                : new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
+          aNodeList.addChild (error (div ("Seems like the participant ID " +
+                                          sParticipantIDUriEncoded +
+                                          " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex))
+                                                                                       .addChild (bSMLAutoDetect ? null
+                                                                                                                 : div ("Try selecting a different SML - maybe this helps")));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
@@ -786,12 +810,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         }
         catch (final PeppolDNSResolutionException ex)
         {
-          aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Seems like the participant ID " +
-                                                                                        sParticipantIDUriEncoded +
-                                                                                        " is not registered to the Peppol network."))
-                                                      .addChild (AppCommonUI.getTechnicalDetailsUI (ex))
-                                                      .addChild (bSMLAutoDetect ? null
-                                                                                : new HCDiv ().addChild ("Try selecting a different SML - maybe this helps")));
+          aNodeList.addChild (error (div ("Seems like the participant ID " +
+                                          sParticipantIDUriEncoded +
+                                          " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex))
+                                                                                       .addChild (bSMLAutoDetect ? null
+                                                                                                                 : div ("Try selecting a different SML - maybe this helps")));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
@@ -809,8 +832,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                        .setThrowable (ex)
                                        .handle ();
           }
-          aNodeList.addChild (new BootstrapErrorBox ().addChild (new HCDiv ().addChild ("Error querying SMP."))
-                                                      .addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+          aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
@@ -828,27 +850,24 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final BootstrapForm aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC)
                                                                               .setMethod (EHCFormMethod.GET)
                                                                               .setLeft (3));
-      aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Show all processes, document types and endpoints of a participant."),
-                                                           new HCDiv ().addChild ("You may want to try scheme ")
-                                                                       .addChild (new HCCode ().addChild (DEFAULT_ID_SCHEME))
-                                                                       .addChild (" and value ")
-                                                                       .addChild (new HCCode ().addChild ("9915:test"))
-                                                                       .addChild (" on ")
-                                                                       .addChild (new HCCode ().addChild ("SMK"))
-                                                                       .addChild (" as an example.")));
+      aForm.addChild (info ().addChildren (div ("Show all processes, document types and endpoints of a participant."),
+                                           div ("You may want to try scheme ").addChild (code (DEFAULT_ID_SCHEME))
+                                                                              .addChild (" and value ")
+                                                                              .addChild (code ("9915:test"))
+                                                                              .addChild (" on ")
+                                                                              .addChild (code ("SMK"))
+                                                                              .addChild (" as an example.")));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_SCHEME,
                                                                                            sParticipantIDScheme)).setMaxLength (PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH)
                                                                                                                  .setPlaceholder ("Identifier scheme"))
-                                                   .setHelpText (new HCDiv ().addChild ("The most common identifier scheme is ")
-                                                                             .addChild (new HCCode ().addChild (DEFAULT_ID_SCHEME)))
+                                                   .setHelpText (div ("The most common identifier scheme is ").addChild (code (DEFAULT_ID_SCHEME)))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_SCHEME)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE,
                                                                                            sParticipantIDValue)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
                                                                                                                 .setPlaceholder ("Identifier value"))
-                                                   .setHelpText (new HCDiv ().addChild ("The identifier value must look like ")
-                                                                             .addChild (new HCCode ().addChild ("9915:test")))
+                                                   .setHelpText (div ("The identifier value must look like ").addChild (code ("9915:test")))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
                                                    .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
@@ -867,75 +886,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
       aToolbar.addSubmitButton ("Show details");
-    }
-  }
-
-  private static void _printEndpointURL (@Nonnull final IHCLI <?> aLIEndpoint, final String sEndpointRef)
-  {
-    aLIEndpoint.addChild (new HCDiv ().addChild ("Endpoint URL: ")
-                                      .addChild (StringHelper.hasNoText (sEndpointRef) ? new HCEM ().addChild ("none")
-                                                                                       : new HCCode ().addChild (sEndpointRef)));
-  }
-
-  private static void _printActivationDate (@Nonnull final IHCLI <?> aLIEndpoint,
-                                            final LocalDateTime aServiceActivationDate,
-                                            final Locale aDisplayLocale)
-  {
-    if (aServiceActivationDate != null)
-    {
-      final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
-      final LocalDate aValidFrom = aServiceActivationDate.toLocalDate ();
-      aLIEndpoint.addChild (new HCDiv ().addChild ("Valid from: " +
-                                                   PDTToString.getAsString (aValidFrom, aDisplayLocale)));
-      if (aValidFrom.isAfter (aNowDate))
-        aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is not yet valid!"));
-    }
-  }
-
-  private static void _printExpirationDate (@Nonnull final IHCLI <?> aLIEndpoint,
-                                            final LocalDateTime aServiceExpirationDate,
-                                            final Locale aDisplayLocale)
-  {
-    if (aServiceExpirationDate != null)
-    {
-      final LocalDate aNowDate = PDTFactory.getCurrentLocalDate ();
-      final LocalDate aValidTo = PDTFactory.createLocalDate (aServiceExpirationDate);
-      aLIEndpoint.addChild (new HCDiv ().addChild ("Valid to: " + PDTToString.getAsString (aValidTo, aDisplayLocale)));
-      if (aValidTo.isBefore (aNowDate))
-        aLIEndpoint.addChild (new BootstrapErrorBox ().addChild ("This endpoint is no longer valid!"));
-    }
-  }
-
-  private static void _printTransportProfile (@Nonnull final IHCLI <?> aLIEndpoint,
-                                              @Nullable final String sTransportProfile)
-  {
-    final HCDiv aDiv = new HCDiv ().addChild ("Transport profile: ");
-    final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-    if (eTransportProfile != null)
-    {
-      // Known transport profile
-      aDiv.addChild (new BootstrapBadge (EBootstrapBadgeType.SUCCESS).addChild (eTransportProfile.getName ()))
-          .addChild (new HCSmall ().addChild (" (")
-                                   .addChild (new HCCode ().addChild (sTransportProfile))
-                                   .addChild (")"));
-    }
-    else
-    {
-      aDiv.addChild (new HCCode ().addChild (sTransportProfile))
-          .addChild (" ")
-          .addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("non-standard"));
-    }
-    aLIEndpoint.addChild (aDiv);
-  }
-
-  private static void _printTecInfo (@Nonnull final IHCLI <?> aLIEndpoint, final String sTecInfo)
-  {
-    if (StringHelper.hasText (sTecInfo))
-    {
-      final boolean bIsEmail = EmailAddressHelper.isValid (sTecInfo);
-      aLIEndpoint.addChild (new HCDiv ().addChild ("Technical info: ")
-                                        .addChild (bIsEmail ? HCA_MailTo.createLinkedEmail (sTecInfo)
-                                                            : new HCTextNode (sTecInfo)));
     }
   }
 

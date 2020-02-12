@@ -37,7 +37,6 @@ import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.ui.page.AbstractAppWebPageForm;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -111,13 +110,13 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
       {
         // We're editing an existing object
         aCRMGroupMgr.updateCRMGroup (aSelectedObject.getID (), sName, sSenderEmailAddress);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The CRM group was successfully edited!"));
+        aNodeList.addChild (success ("The CRM group was successfully edited!"));
       }
       else
       {
         // We're creating a new object
         aCRMGroupMgr.createCRMGroup (sName, sSenderEmailAddress);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The new CRM group was successfully created!"));
+        aNodeList.addChild (success ("The new CRM group was successfully created!"));
       }
     }
   }

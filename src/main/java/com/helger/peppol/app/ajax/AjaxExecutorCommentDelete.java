@@ -40,8 +40,7 @@ import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.photon.ajax.executor.IAjaxExecutor;
 import com.helger.photon.app.PhotonUnifiedResponse;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
+import com.helger.photon.bootstrap4.traits.IHCBootstrap4Trait;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -50,7 +49,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorCommentDelete implements IAjaxExecutor
+public final class AjaxExecutorCommentDelete implements IAjaxExecutor, IHCBootstrap4Trait
 {
   public static final String PARAM_OBJECT_TYPE = "objectType";
   public static final String PARAM_OBJECT_ID = "objectID";
@@ -77,8 +76,8 @@ public final class AjaxExecutorCommentDelete implements IAjaxExecutor
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner,
-                                                                                                      sCommentThreadID);
+      final ICommentThread aCommentThread = CommentThreadManager.getInstance ()
+                                                                .getCommentThreadOfID (aOwner, sCommentThreadID);
       if (aCommentThread != null)
       {
         final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);
@@ -92,9 +91,9 @@ public final class AjaxExecutorCommentDelete implements IAjaxExecutor
                                                                            ECommentState.DELETED_BY_MODERATOR);
           IHCNode aMessageBox;
           if (eChange.isChanged ())
-            aMessageBox = new BootstrapSuccessBox ().addChild (ECommentText.MSG_COMMENT_DELETE_SUCCESS.getDisplayText (aDisplayLocale));
+            aMessageBox = success (ECommentText.MSG_COMMENT_DELETE_SUCCESS.getDisplayText (aDisplayLocale));
           else
-            aMessageBox = new BootstrapErrorBox ().addChild (ECommentText.MSG_COMMENT_DELETE_FAILURE.getDisplayText (aDisplayLocale));
+            aMessageBox = error (ECommentText.MSG_COMMENT_DELETE_FAILURE.getDisplayText (aDisplayLocale));
 
           // Message box + list of exiting comments
           aAjaxResponse.html (CommentUI.getCommentList (aLEC,
@@ -112,14 +111,14 @@ public final class AjaxExecutorCommentDelete implements IAjaxExecutor
 
     // Somebody played around with the API
     LOGGER.warn ("Failed to resolve comment object type '" +
-                    sObjectType +
-                    "' and/or object ID '" +
-                    sObjectID +
-                    "' for deletion of comment '" +
-                    sCommentID +
-                    "' in thread '" +
-                    sCommentThreadID +
-                    "'");
+                 sObjectType +
+                 "' and/or object ID '" +
+                 sObjectID +
+                 "' for deletion of comment '" +
+                 sCommentID +
+                 "' in thread '" +
+                 sCommentThreadID +
+                 "'");
     aAjaxResponse.createNotFound ();
   }
 }

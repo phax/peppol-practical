@@ -26,12 +26,10 @@ import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCHiddenField;
-import com.helger.html.hc.html.grouping.HCP;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.AppSettings;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -74,7 +72,7 @@ public final class PagePublicContact extends AbstractAppWebPage
     final boolean bRecaptchaEnabled = StringHelper.hasText (sRecaptchWebKey) &&
                                       StringHelper.hasText (sRecaptchSecretKey);
 
-    aNodeList.addChild (new HCP ().addChild ("If you have general questions concerning Peppol technology, you may contact me using the form below. Please be aware, that I run this page on a voluntary basis and that the answers you may receive are my personal answers and not official OpenPEPPOL answers."));
+    aNodeList.addChild (p ("If you have general questions concerning Peppol technology, you may contact me using the form below. Please be aware, that I run this page on a voluntary basis and that the answers you may receive are my personal answers and not official OpenPEPPOL answers."));
 
     boolean bShowForm = true;
     final FormErrorList aFormErrors = new FormErrorList ();
@@ -128,7 +126,7 @@ public final class PagePublicContact extends AbstractAppWebPage
 
         ScopedMailAPI.getInstance ().queueMail (InternalErrorSettings.getSMTPSettings (), aEmailData);
 
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("Thank you for your message. Please note that I run this page on a voluntary basis on my expenses - you may consider a donation :)"));
+        aNodeList.addChild (success ("Thank you for your message. Please note that I run this page on a voluntary basis on my expenses - you may consider a donation :)"));
         bShowForm = false;
       }
     }

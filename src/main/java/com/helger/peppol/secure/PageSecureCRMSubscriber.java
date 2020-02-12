@@ -40,7 +40,6 @@ import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCTextArea;
-import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.tabular.HCRow;
 import com.helger.html.hc.html.tabular.HCTable;
 import com.helger.html.hc.html.tabular.IHCCell;
@@ -54,9 +53,6 @@ import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
 import com.helger.peppol.crm.ICRMSubscriber;
 import com.helger.peppol.ui.page.AbstractAppWebPageForm;
-import com.helger.photon.bootstrap4.alert.BootstrapQuestionBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -89,27 +85,27 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <ICRMSubscriber, WebPageExecutionContext> ()
     {
       @Override
-      protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
-                                      @Nonnull final BootstrapForm aForm,
-                                      @Nonnull final ICRMSubscriber aSelectedObject)
+      protected void showQuery (@Nonnull final WebPageExecutionContext aWPEC,
+                                @Nonnull final BootstrapForm aForm,
+                                @Nonnull final ICRMSubscriber aSelectedObject)
       {
         final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-        aForm.addChild (new BootstrapQuestionBox ().addChild ("Should the CRM subscriber '" +
-                                                              aSelectedObject.getDisplayText (aDisplayLocale) +
-                                                              "' really be deleted?"));
+        aForm.addChild (question ("Should the CRM subscriber '" +
+                                  aSelectedObject.getDisplayText (aDisplayLocale) +
+                                  "' really be deleted?"));
       }
 
       @Override
-      protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
+      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
                                     @Nonnull final ICRMSubscriber aSelectedObject)
       {
         final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
         final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
 
         if (aCRMSubscriberMgr.deleteCRMSubscriber (aSelectedObject).isChanged ())
-          aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("The CRM subscriber '" +
-                                                                              aSelectedObject.getDisplayText (aDisplayLocale) +
-                                                                              "' was successfully deleted."));
+          aWPEC.postRedirectGetInternal (success ("The CRM subscriber '" +
+                                                  aSelectedObject.getDisplayText (aDisplayLocale) +
+                                                  "' was successfully deleted."));
       }
     });
   }
@@ -123,7 +119,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
 
     if (aCRMGroupMgr.isEmpty ())
     {
-      aNodeList.addChild (new BootstrapWarnBox ().addChild ("No CRM groups is present! At least one CRM group must be present to assign a subscriber to"));
+      aNodeList.addChild (warn ("No CRM groups is present! At least one CRM group must be present to assign a subscriber to"));
       aNodeList.addChild (new BootstrapButton ().addChild ("Create new CRM group")
                                                 .setOnClick (createCreateURL (aWPEC, CMenuSecure.MENU_CRM_GROUPS))
                                                 .setIcon (EDefaultIcon.YES));
@@ -170,9 +166,9 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
                                                                    IHasDisplayName.getComparatorCollating (aDisplayLocale)))
-        aGroups.addChild (new HCDiv ().addChild (new HCA (createViewURL (aWPEC,
-                                                                         CMenuSecure.MENU_CRM_GROUPS,
-                                                                         aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
+        aGroups.addChild (div (new HCA (createViewURL (aWPEC,
+                                                       CMenuSecure.MENU_CRM_GROUPS,
+                                                       aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Assigned groups").setCtrl (aGroups));
     }
   }
@@ -236,13 +232,13 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                                sName,
                                                sEmailAddress,
                                                aSelectedCRMGroups);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The CRM subscriber was successfully edited!"));
+        aNodeList.addChild (success ("The CRM subscriber was successfully edited!"));
       }
       else
       {
         // We're creating a new object
         aCRMSubscriberMgr.createCRMSubscriber (eSalutation, sName, sEmailAddress, aSelectedCRMGroups);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild ("The new CRM subscriber was successfully created!"));
+        aNodeList.addChild (success ("The new CRM subscriber was successfully created!"));
       }
     }
   }
@@ -290,8 +286,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                                                                       sCRMGroupID,
                                                                                       aSelectedObject != null &&
                                                                                                    aSelectedObject.isAssignedToGroup (aCRMGroup));
-        aGroups.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB).setValue (sCRMGroupID))
-                                      .addChild (" " + aCRMGroup.getDisplayName ()));
+        aGroups.addChild (div (new HCCheckBox (aRFB).setValue (sCRMGroupID)).addChild (" " +
+                                                                                       aCRMGroup.getDisplayName ()));
       }
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Assigned groups")
                                                    .setCtrl (aGroups)

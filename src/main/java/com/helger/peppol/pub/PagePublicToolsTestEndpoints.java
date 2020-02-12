@@ -48,12 +48,6 @@ import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.peppol.ui.select.SMPTransportProfileSelect;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap4.alert.BootstrapQuestionBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap4.badge.BootstrapBadge;
-import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -87,27 +81,27 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <TestEndpoint, WebPageExecutionContext> ()
     {
       @Override
-      protected void showDeleteQuery (@Nonnull final WebPageExecutionContext aWPEC,
-                                      @Nonnull final BootstrapForm aForm,
-                                      @Nonnull final TestEndpoint aSelectedObject)
+      protected void showQuery (@Nonnull final WebPageExecutionContext aWPEC,
+                                @Nonnull final BootstrapForm aForm,
+                                @Nonnull final TestEndpoint aSelectedObject)
       {
-        aForm.addChild (new BootstrapQuestionBox ().addChild ("Are you sure you want to delete the test endpoint '" +
-                                                              aSelectedObject.getParticipantIDValue () +
-                                                              "' for transport profile '" +
-                                                              AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
-                                                              "'?"));
+        aForm.addChild (question ("Are you sure you want to delete the test endpoint '" +
+                                  aSelectedObject.getParticipantIDValue () +
+                                  "' for transport profile '" +
+                                  AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
+                                  "'?"));
       }
 
       @Override
       @OverrideOnDemand
-      protected void performDelete (@Nonnull final WebPageExecutionContext aWPEC,
+      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
                                     @Nonnull final TestEndpoint aSelectedObject)
       {
         final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
         if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
-          aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("The test endpoint was successfully deleted!"));
+          aWPEC.postRedirectGetInternal (success ("The test endpoint was successfully deleted!"));
         else
-          aWPEC.postRedirectGetInternal (new BootstrapErrorBox ().addChild ("Error deleting the test endpoint!"));
+          aWPEC.postRedirectGetInternal (error ("Error deleting the test endpoint!"));
       }
     });
   }
@@ -322,12 +316,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                              sParticipantIDValue,
                                              eTransportProfile,
                                              aSML);
-        aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("Successfully edited the test endpoint for " +
-                                                                            sParticipantIDIssuer +
-                                                                            ":" +
-                                                                            sParticipantIDValue +
-                                                                            " with transport profile " +
-                                                                            sTransportProfileName));
+        aWPEC.postRedirectGetInternal (success ("Successfully edited the test endpoint for " +
+                                                sParticipantIDIssuer +
+                                                ":" +
+                                                sParticipantIDValue +
+                                                " with transport profile " +
+                                                sTransportProfileName));
       }
       else
       {
@@ -337,12 +331,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                              sParticipantIDValue,
                                              eTransportProfile,
                                              aSML);
-        aWPEC.postRedirectGetInternal (new BootstrapSuccessBox ().addChild ("Successfully added the new test endpoint for " +
-                                                                            sParticipantIDIssuer +
-                                                                            ":" +
-                                                                            sParticipantIDValue +
-                                                                            " with transport profile " +
-                                                                            sTransportProfileName));
+        aWPEC.postRedirectGetInternal (success ("Successfully added the new test endpoint for " +
+                                                sParticipantIDIssuer +
+                                                ":" +
+                                                sParticipantIDValue +
+                                                " with transport profile " +
+                                                sTransportProfileName));
       }
     }
   }
@@ -360,9 +354,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     if (bUserIsLoggedIn)
       aToolbar.addButtonNew ("Create new test endpoint", createCreateURL (aWPEC));
     else
-      aToolbar.addChild (new BootstrapBadge (EBootstrapBadgeType.INFO).addChild ("You need to be logged in to create test endpoints."));
+      aToolbar.addChild (badgeInfo ("You need to be logged in to create test endpoints."));
 
-    aNodeList.addChild (new BootstrapInfoBox ().addChild ("Test endpoints are special Peppol participant identifiers whose sole purpose is the usage for testing. So if you are a Peppol AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients."));
+    aNodeList.addChild (info ("Test endpoints are special Peppol participant identifiers whose sole purpose is the usage for testing. So if you are a Peppol AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients."));
 
     // List existing
     final HCTable aTable = new HCTable (new DTCol ("Participant ID"),

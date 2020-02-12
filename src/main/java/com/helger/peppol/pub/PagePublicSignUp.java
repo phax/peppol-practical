@@ -32,15 +32,11 @@ import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.AbstractHCForm;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
-import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -136,17 +132,17 @@ public final class PagePublicSignUp extends AbstractAppWebPage
                                                          (Map <String, String>) null,
                                                          false);
       if (aCreatedUser == null)
-        aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error creating the new user!"));
+        aNodeList.addChild (error ("Error creating the new user!"));
       else
       {
         // Assign new user to user group
         if (aUserGroupMgr.assignUserToUserGroup (CPPApp.USERGROUP_VIEW_ID, aCreatedUser.getID ()).isUnchanged ())
-          aNodeList.addChild (new BootstrapErrorBox ().addChild ("Error assigning the user to the user group!"));
+          aNodeList.addChild (error ("Error assigning the user to the user group!"));
         else
         {
-          aNodeList.addChild (new BootstrapSuccessBox ().addChild ("You have been registered successfully! You may now login with your email address '" +
-                                                                   sEmailAddress +
-                                                                   "' and the selected password."));
+          aNodeList.addChild (success ("You have been registered successfully! You may now login with your email address '" +
+                                       sEmailAddress +
+                                       "' and the selected password."));
           // Show login form
           aNodeList.addChild (AppCommonUI.createViewLoginForm (aWPEC, sEmailAddress, false));
         }
@@ -161,9 +157,8 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     final List <IHCNode> aPasswordHelpText = HCExtHelper.list2divList (GlobalPasswordSettings.getPasswordConstraintList ()
                                                                                              .getAllPasswordConstraintDescriptions (aDisplayLocale));
 
-    aForm.addChild (new BootstrapInfoBox ().addChild ("Sign up to ")
-                                           .addChild (new HCStrong ().addChild (AppHelper.getApplicationTitle ()))
-                                           .addChild (" easily by filling out this form. No further information and no credit card information is needed."));
+    aForm.addChild (info ("Sign up to ").addChild (strong (AppHelper.getApplicationTitle ()))
+                                        .addChild (" easily by filling out this form. No further information and no credit card information is needed."));
 
     final BootstrapForm aRealForm = (BootstrapForm) aForm;
     aRealForm.setLeft (3);

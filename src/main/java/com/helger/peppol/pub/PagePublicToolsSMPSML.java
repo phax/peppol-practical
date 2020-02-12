@@ -26,6 +26,7 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -52,7 +53,6 @@ import com.helger.commons.url.URLHelper;
 import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
-import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.network.dns.IPV4Addr;
@@ -66,10 +66,6 @@ import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLSelect;
 import com.helger.photon.audit.AuditHelper;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.alert.BootstrapInfoBox;
-import com.helger.photon.bootstrap4.alert.BootstrapSuccessBox;
-import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -277,8 +273,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     return ret;
   }
 
-  private static void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                         @Nonnull final FormErrorList aFormErrors)
+  private void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                  @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -380,7 +376,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
         LOGGER.info (sMsg);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
+        aNodeList.addChild (success (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-create",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -399,7 +395,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
         LOGGER.error (sMsg, ex);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -413,8 +409,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
-  private static void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                       @Nonnull final FormErrorList aFormErrors)
+  private void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -517,7 +512,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
         LOGGER.info (sMsg);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
+        aNodeList.addChild (success (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -536,7 +531,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
         LOGGER.error (sMsg);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -550,8 +545,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
-  private static void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                         @Nonnull final FormErrorList aFormErrors)
+  private void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                  @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -593,7 +588,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
         LOGGER.info (sMsg);
-        aNodeList.addChild (new BootstrapSuccessBox ().addChild (sMsg));
+        aNodeList.addChild (success (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSMLInfo.getManagementServiceURL ());
       }
       catch (final Exception ex)
@@ -604,7 +599,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
         LOGGER.error (sMsg);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
                                            aSMLInfo.getManagementServiceURL (),
@@ -616,8 +611,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
-  private static void _updateSMPCertAtSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                           @Nonnull final FormErrorList aFormErrors)
+  private void _updateSMPCertAtSML (@Nonnull final WebPageExecutionContext aWPEC,
+                                    @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -730,10 +725,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         aCaller.prepareChangeCertificate (sMigrationPublicKey, aMigrationDate);
 
-        final LocalDate aNotBefore = PDTFactory.createLocalDate (aMigrationPublicKey.getNotBefore ());
-        final LocalDate aNotAfter = PDTFactory.createLocalDate (aMigrationPublicKey.getNotAfter ());
+        final LocalDateTime aNotBefore = PDTFactory.createLocalDateTime (aMigrationPublicKey.getNotBefore ());
+        final LocalDateTime aNotAfter = PDTFactory.createLocalDateTime (aMigrationPublicKey.getNotAfter ());
 
-        final LocalDate aEffectiveMigrationDate = aMigrationDate != null ? aMigrationDate : aNotBefore;
+        final LocalDate aEffectiveMigrationDate = aMigrationDate != null ? aMigrationDate : aNotBefore.toLocalDate ();
         final String sMsg = "Successfully prepared migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
                             "'" +
@@ -742,13 +737,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             ".";
         LOGGER.info (sMsg);
 
-        final BootstrapSuccessBox aBox = new BootstrapSuccessBox ();
-        aBox.addChild (new HCDiv ().addChild (sMsg));
-        aBox.addChild (new HCDiv ().addChild ("Issuer: " + aMigrationPublicKey.getIssuerDN ().toString ()));
-        aBox.addChild (new HCDiv ().addChild ("Subject: " + aMigrationPublicKey.getSubjectDN ().toString ()));
-        aBox.addChild (new HCDiv ().addChild ("Not before: " + PDTToString.getAsString (aNotBefore, aDisplayLocale)));
-        aBox.addChild (new HCDiv ().addChild ("Not after: " + PDTToString.getAsString (aNotAfter, aDisplayLocale)));
-        aNodeList.addChild (aBox);
+        aNodeList.addChild (success ().addChildren (div (sMsg),
+                                                    div ("Issuer: " +
+                                                         aMigrationPublicKey.getIssuerX500Principal ().getName ()),
+                                                    div ("Subject: " +
+                                                         aMigrationPublicKey.getSubjectX500Principal ().getName ()),
+                                                    div ("Not before: " +
+                                                         PDTToString.getAsString (aNotBefore, aDisplayLocale)),
+                                                    div ("Not after: " +
+                                                         PDTToString.getAsString (aNotAfter, aDisplayLocale))));
 
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
@@ -765,7 +762,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             aSML.getManagementServiceURL () +
                             "'.";
         LOGGER.error (sMsg);
-        aNodeList.addChild (new BootstrapErrorBox ().addChild (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
                                            sMigrationPublicKey,
@@ -786,9 +783,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
 
-    aNodeList.addChild (new BootstrapWarnBox ().addChild ("Note: as of ")
-                                               .addChild (new HCA (new SimpleURL ("https://github.com/phax/phoss-smp")).addChild ("phoss SMP server 5.0.0 beta 1"))
-                                               .addChild (" this registration feature is contained directly in the SMP software! So you don't need to send your certificates over the Internet anymore!"));
+    aNodeList.addChild (warn ("Note: as of ").addChild (new HCA (new SimpleURL ("https://github.com/phax/phoss-smp")).addChild ("phoss SMP server 5.0.0 beta 1"))
+                                             .addChild (" this registration feature is contained directly in the SMP software! So you don't need to send your certificates over the Internet anymore!"));
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
@@ -814,7 +810,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
         aForm.setEncTypeFileUpload ().setLeft (nLeft);
-        aForm.addChild (new BootstrapInfoBox ().addChild ("Register a new SMP to the SML. This must only be done once per SMP!"));
+        aForm.addChild (info ("Register a new SMP to the SML. This must only be done once per SMP!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
@@ -851,7 +847,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
         aForm.setEncTypeFileUpload ().setLeft (nLeft);
-        aForm.addChild (new BootstrapInfoBox ().addChild ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
+        aForm.addChild (info ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
@@ -888,7 +884,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         final BootstrapForm aForm = getUIHandler ().createFormFileUploadSelf (aWPEC);
         aForm.setLeft (nLeft);
-        aForm.addChild (new BootstrapInfoBox ().addChild ("Delete an existing SMP from the SML."));
+        aForm.addChild (info ("Delete an existing SMP from the SML."));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
@@ -917,11 +913,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         final BootstrapForm aForm = getUIHandler ().createFormFileUploadSelf (aWPEC);
         aForm.setLeft (nLeft);
-        aForm.addChild (new BootstrapInfoBox ().addChildren (new HCDiv ().addChild ("Prepare the update of your Peppol SMP certificate in the future."),
-                                                             new HCDiv ().addChild ("This works only if your SMP certificate is NOT expired yet." +
-                                                                                    " If your SMP certificate is already expired contact CEF-EDELIVERY-SUPPORT@ec.europa.eu with your SMP ID, the new certificate and the requested exchange date!"),
-                                                             new HCDiv ().addChild ("Note: this is a custom extension that only works with the CEF SML instances!")));
-        aForm.addChild (new BootstrapWarnBox ().addChild ("It is your responsibility to update the Peppol certificate in your SMP at the specified time!"));
+        aForm.addChild (info ().addChildren (div ("Prepare the update of your Peppol SMP certificate in the future."),
+                                             div ("This works only if your SMP certificate is NOT expired yet." +
+                                                  " If your SMP certificate is already expired contact CEF-EDELIVERY-SUPPORT@ec.europa.eu with your SMP ID, the new certificate and the requested exchange date!"),
+                                             div ("Note: this is a custom extension that only works with the CEF SML instances!")));
+        aForm.addChild (warn ("It is your responsibility to update the Peppol certificate in your SMP at the specified time!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));

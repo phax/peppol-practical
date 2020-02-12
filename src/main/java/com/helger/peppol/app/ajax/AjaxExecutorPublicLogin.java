@@ -30,6 +30,7 @@ import com.helger.peppol.app.CPPApp;
 import com.helger.photon.ajax.executor.IAjaxExecutor;
 import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.traits.IHCBootstrap4Trait;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.photon.core.login.CLogin;
@@ -42,7 +43,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorPublicLogin implements IAjaxExecutor
+public final class AjaxExecutorPublicLogin implements IAjaxExecutor, IHCBootstrap4Trait
 {
   public static final String JSON_LOGGEDIN = "loggedin";
   public static final String JSON_HTML = "html";
@@ -56,9 +57,10 @@ public final class AjaxExecutorPublicLogin implements IAjaxExecutor
     final String sPassword = aRequestScope.params ().getAsString (CLogin.REQUEST_ATTR_PASSWORD);
 
     // Main login
-    final ELoginResult eLoginResult = LoggedInUserManager.getInstance ().loginUser (sLoginName,
-                                                                                    sPassword,
-                                                                                    CPPApp.REQUIRED_ROLE_IDS_VIEW);
+    final ELoginResult eLoginResult = LoggedInUserManager.getInstance ()
+                                                         .loginUser (sLoginName,
+                                                                     sPassword,
+                                                                     CPPApp.REQUIRED_ROLE_IDS_VIEW);
     if (eLoginResult.isSuccess ())
     {
       aAjaxResponse.json (new JsonObject ().add (JSON_LOGGEDIN, true));
@@ -70,9 +72,9 @@ public final class AjaxExecutorPublicLogin implements IAjaxExecutor
         LOGGER.warn ("Login of '" + sLoginName + "' failed because " + eLoginResult);
 
       final Locale aDisplayLocale = aLEC.getDisplayLocale ();
-      final BootstrapErrorBox aRoot = new BootstrapErrorBox ().addChild (EPhotonCoreText.LOGIN_ERROR_MSG.getDisplayText (aDisplayLocale) +
-                                                                         " " +
-                                                                         eLoginResult.getDisplayText (aDisplayLocale));
+      final BootstrapErrorBox aRoot = error (EPhotonCoreText.LOGIN_ERROR_MSG.getDisplayText (aDisplayLocale) +
+                                             " " +
+                                             eLoginResult.getDisplayText (aDisplayLocale));
 
       // Set as result property
       aAjaxResponse.json (new JsonObject ().add (JSON_LOGGEDIN, false)
