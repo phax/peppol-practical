@@ -529,7 +529,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   }
                   else
                   {
-                    aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP"));
+                    aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
                   }
                   break;
                 }
@@ -594,7 +594,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   }
                   else
                   {
-                    aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP"));
+                    aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
                   }
                   break;
                 }
