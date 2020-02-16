@@ -111,9 +111,9 @@ public final class PagePublicContact extends AbstractAppWebPage
       if (aFormErrors.isEmpty ())
       {
         final EmailData aEmailData = new EmailData (EEmailType.TEXT);
-        aEmailData.setFrom (new EmailAddress ("peppol-practical@helger.com"));
-        aEmailData.setTo (new EmailAddress ("ph@helger.com"));
-        aEmailData.setReplyTo (new EmailAddress (sEmail, sName));
+        aEmailData.setFrom (new EmailAddress ("peppol-practical@helger.com", "Peppol Practical"));
+        aEmailData.to ().add (new EmailAddress ("philip@helger.com"));
+        aEmailData.replyTo ().add (new EmailAddress (sEmail, sName));
         aEmailData.setSubject ("[" + AppHelper.getApplicationTitle () + "] Contact Form - " + sName);
 
         final StringBuilder aSB = new StringBuilder ();
