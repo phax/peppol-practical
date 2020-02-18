@@ -48,8 +48,8 @@ import com.helger.pd.businesscard.generic.PDBusinessCard;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.peppol.domain.SMPQueryParams;
-import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -73,7 +73,7 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
     final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
     final boolean bSMLAutoDetect = "autodetect".equals (sSMLID);
-    ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    IExtendedSMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     if (aSML == null && !bSMLAutoDetect)
       throw new APIParamException ("Unsupported SML ID '" + sSMLID + "' provided.");
 
@@ -90,7 +90,7 @@ public final class APISMPQueryGetDocTypes implements IAPIExecutor
     SMPQueryParams aQueryParams = null;
     if (bSMLAutoDetect)
     {
-      for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
+      for (final IExtendedSMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
       {
         aQueryParams = SMPQueryParams.createForSML (aCurSML, aPID.getScheme (), aPID.getValue ());
         if (aQueryParams == null)

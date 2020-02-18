@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.photon.security.object.StubObject;
@@ -69,8 +69,8 @@ public final class TestEndpointMicroTypeConverter extends AbstractBusinessObject
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
 
     final String sSMLID = eValue.getAttributeValue (ATTR_SML);
-    final ISMLInfo aSML = PPMetaManager.getSMLInfoMgr ().getSMLInfoOfID (sSMLID);
-    if (aSML == null)
+    final IExtendedSMLInfo aSMLInfo = PPMetaManager.getSMLInfoMgr ().getSMLInfoOfID (sSMLID);
+    if (aSMLInfo == null)
       throw new IllegalStateException ("Failed to resolve SML with ID '" + sSMLID + "'");
 
     // Create object
@@ -80,6 +80,6 @@ public final class TestEndpointMicroTypeConverter extends AbstractBusinessObject
                              sParticipantIDScheme,
                              sParticipantIDValue,
                              eTransportProfile,
-                             aSML);
+                             aSMLInfo);
   }
 }

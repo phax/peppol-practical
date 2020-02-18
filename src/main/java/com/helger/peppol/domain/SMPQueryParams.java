@@ -111,13 +111,13 @@ public final class SMPQueryParams
   }
 
   @Nullable
-  public static SMPQueryParams createForSML (@Nonnull final ISMLInfo aCurSML,
+  public static SMPQueryParams createForSML (@Nonnull final IExtendedSMLInfo aCurSML,
                                              @Nullable final String sParticipantIDScheme,
                                              @Nullable final String sParticipantIDValue)
   {
     final SMPQueryParams ret = new SMPQueryParams ();
-    ret.m_eSMPAPIType = _findSMPAPIType (aCurSML);
-    ret.m_aIF = _getIdentifierFactory (aCurSML, ret.m_eSMPAPIType);
+    ret.m_eSMPAPIType = _findSMPAPIType (aCurSML.getSMLInfo ());
+    ret.m_aIF = _getIdentifierFactory (aCurSML.getSMLInfo (), ret.m_eSMPAPIType);
     ret.m_aParticipantID = ret.m_aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
     if (ret.m_aParticipantID == null)
     {
@@ -126,7 +126,8 @@ public final class SMPQueryParams
     }
     try
     {
-      ret.m_aSMPHostURI = _getURLProvider (ret.m_eSMPAPIType).getSMPURIOfParticipant (ret.m_aParticipantID, aCurSML);
+      ret.m_aSMPHostURI = _getURLProvider (ret.m_eSMPAPIType).getSMPURIOfParticipant (ret.m_aParticipantID,
+                                                                                      aCurSML.getSMLInfo ());
     }
     catch (final PeppolDNSResolutionException ex)
     {

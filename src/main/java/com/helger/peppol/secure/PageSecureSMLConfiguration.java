@@ -37,8 +37,8 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.peppol.sml.CSMLDefault;
-import com.helger.peppol.sml.ISMLInfo;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -57,7 +57,7 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 
-public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <ISMLInfo, WebPageExecutionContext>
+public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IExtendedSMLInfo, WebPageExecutionContext>
 {
   private static final String FIELD_DISPLAY_NAME = "displayname";
   private static final String FIELD_DNS_ZONE = "dnszone";
@@ -67,12 +67,12 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
   public PageSecureSMLConfiguration (@Nonnull @Nonempty final String sID)
   {
     super (sID, "SML configuration");
-    setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <ISMLInfo, WebPageExecutionContext> ()
+    setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <IExtendedSMLInfo, WebPageExecutionContext> ()
     {
       @Override
       protected void showQuery (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nonnull final BootstrapForm aForm,
-                                @Nonnull final ISMLInfo aSelectedObject)
+                                @Nonnull final IExtendedSMLInfo aSelectedObject)
       {
         aForm.addChild (question ("Are you sure you want to delete the SML configuration '" +
                                   aSelectedObject.getDisplayName () +
@@ -81,7 +81,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
 
       @Override
       protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
-                                    @Nonnull final ISMLInfo aSelectedObject)
+                                    @Nonnull final IExtendedSMLInfo aSelectedObject)
       {
         final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
         if (aSMLInfoMgr.removeSMLInfo (aSelectedObject.getID ()).isChanged ())
@@ -97,7 +97,8 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
   }
 
   @Override
-  protected ISMLInfo getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
+  protected IExtendedSMLInfo getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
+                                                @Nullable final String sID)
   {
     final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     return aSMLInfoMgr.getSMLInfoOfID (sID);
@@ -106,14 +107,14 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
   @Override
   protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
                                      @Nonnull final EWebPageFormAction eFormAction,
-                                     @Nullable final ISMLInfo aSelectedObject)
+                                     @Nullable final IExtendedSMLInfo aSelectedObject)
   {
     return super.isActionAllowed (aWPEC, eFormAction, aSelectedObject);
   }
 
   @Override
   protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
-                                     @Nonnull final ISMLInfo aSelectedObject)
+                                     @Nonnull final IExtendedSMLInfo aSelectedObject)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
@@ -144,7 +145,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
 
   @Override
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
-                                @Nullable final ISMLInfo aSelectedObject,
+                                @Nullable final IExtendedSMLInfo aSelectedObject,
                                 @Nonnull final BootstrapForm aForm,
                                 final boolean bFormSubmitted,
                                 @Nonnull final EWebPageFormAction eFormAction,
@@ -195,7 +196,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
 
   @Override
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
-                                                 @Nullable final ISMLInfo aSelectedObject,
+                                                 @Nullable final IExtendedSMLInfo aSelectedObject,
                                                  @Nonnull final FormErrorList aFormErrors,
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
@@ -272,7 +273,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
                                         new DTCol ("Management Service URL"),
                                         new DTCol ("Client Cert?"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
-    for (final ISMLInfo aCurObject : aSMLInfoMgr.getAll ())
+    for (final IExtendedSMLInfo aCurObject : aSMLInfoMgr.getAll ())
     {
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 

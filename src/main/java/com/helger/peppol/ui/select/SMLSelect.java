@@ -19,7 +19,7 @@ package com.helger.peppol.ui.select;
 import javax.annotation.Nonnull;
 
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
@@ -32,7 +32,7 @@ public class SMLSelect extends HCExtSelect
     super (aRF);
     if (bAddAutoDetect)
       addOption (FIELD_AUTO_SELECT, "Auto-detect SML");
-    for (final ISMLInfo aSMLInfo : PPMetaManager.getSMLInfoMgr ().getAllSorted ())
+    for (final IExtendedSMLInfo aSMLInfo : PPMetaManager.getSMLInfoMgr ().getAllSorted ())
       if (aSMLInfo.isClientCertificateRequired ())
         addOption (aSMLInfo.getID (), "[" + aSMLInfo.getDisplayName () + "] " + aSMLInfo.getManagementServiceURL ());
   }

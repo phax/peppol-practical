@@ -80,9 +80,9 @@ import com.helger.pd.businesscard.generic.PDName;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.sml.ESMPAPIType;
-import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
@@ -234,7 +234,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       sParticipantIDScheme = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_SCHEME));
       sParticipantIDValue = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_VALUE));
       final String sSMLID = StringHelper.trim (aWPEC.params ().getAsString (FIELD_SML));
-      ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+      IExtendedSMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
       final boolean bSMLAutoDetect = SMLSelect.FIELD_AUTO_SELECT.equals (sSMLID);
       final boolean bQueryBusinessCard = aWPEC.params ()
                                               .isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD,
@@ -279,7 +279,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           SMPQueryParams aQueryParams = null;
           if (bSMLAutoDetect)
           {
-            for (final ISMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
+            for (final IExtendedSMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
             {
               aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue);
               if (aQueryParams == null)
@@ -466,6 +466,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             {
               final HCDiv aDocTypeDiv = div (AppCommonUI.createDocTypeID (aDocTypeID, true));
               final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
+
+              LOGGER.info ("Now SMP querying '" +
+                           aParticipantID.getURIEncoded () +
+                           "' / '" +
+                           aDocTypeID.getURIEncoded () +
+                           "'");
 
               final StopWatch aSWGetDetails = StopWatch.createdStarted ();
               switch (aQueryParams.getSMPAPIType ())

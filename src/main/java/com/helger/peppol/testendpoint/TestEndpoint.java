@@ -27,7 +27,7 @@ import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
-import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
@@ -47,7 +47,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
   private String m_sParticipantIDIssuer;
   private String m_sParticipantIDValue;
   private ISMPTransportProfile m_aTransportProfile;
-  private ISMLInfo m_aSML;
+  private IExtendedSMLInfo m_aSMLInfo;
 
   /**
    * Constructor.
@@ -70,7 +70,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
                        @Nonnull @Nonempty final String sParticipantIDIssuer,
                        @Nonnull @Nonempty final String sParticipantIDValue,
                        @Nonnull final ISMPTransportProfile aTransportProfile,
-                       @Nonnull final ISMLInfo eSML)
+                       @Nonnull final IExtendedSMLInfo eSML)
   {
     this (StubObject.createForCurrentUser (),
           sCompanyName,
@@ -105,7 +105,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
                 @Nonnull @Nonempty final String sParticipantIDIssuer,
                 @Nonnull @Nonempty final String sParticipantIDValue,
                 @Nonnull final ISMPTransportProfile aTransportProfile,
-                @Nonnull final ISMLInfo eSML)
+                @Nonnull final IExtendedSMLInfo eSML)
   {
     super (aObject);
     setCompanyName (sCompanyName);
@@ -226,19 +226,19 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
   }
 
   @Nonnull
-  public ISMLInfo getSML ()
+  public IExtendedSMLInfo getSML ()
   {
-    return m_aSML;
+    return m_aSMLInfo;
   }
 
   @Nonnull
-  public EChange setSML (@Nonnull final ISMLInfo aSML)
+  public EChange setSML (@Nonnull final IExtendedSMLInfo aSML)
   {
     ValueEnforcer.notNull (aSML, "SML");
-    if (aSML.equals (m_aSML))
+    if (aSML.equals (m_aSMLInfo))
       return EChange.UNCHANGED;
 
-    m_aSML = aSML;
+    m_aSMLInfo = aSML;
     return EChange.CHANGED;
   }
 
@@ -269,7 +269,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
                             .append ("ParticipantIDIssuer", m_sParticipantIDIssuer)
                             .append ("ParticipantIDValue", m_sParticipantIDValue)
                             .append ("TransportProfile", m_aTransportProfile)
-                            .append ("SML", m_aSML)
+                            .append ("SML", m_aSMLInfo)
                             .getToString ();
   }
 }

@@ -59,6 +59,7 @@ import com.helger.network.dns.IPV4Addr;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.mgr.ISMLInfoManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
@@ -280,7 +281,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    final IExtendedSMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
@@ -363,7 +364,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     {
       try
       {
-        final ManageServiceMetadataServiceCaller aCaller = _create (aSMLInfo, aSocketFactory);
+        final ManageServiceMetadataServiceCaller aCaller = _create (aSMLInfo.getSMLInfo (), aSocketFactory);
         aCaller.create (sSMPID, sPhysicalAddress, sLogicalAddress);
 
         final String sMsg = "Successfully registered SMP '" +
@@ -415,7 +416,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    final IExtendedSMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
@@ -499,7 +500,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     {
       try
       {
-        final ManageServiceMetadataServiceCaller aCaller = _create (aSMLInfo, aSocketFactory);
+        final ManageServiceMetadataServiceCaller aCaller = _create (aSMLInfo.getSMLInfo (), aSocketFactory);
         aCaller.update (sSMPID, sPhysicalAddress, sLogicalAddress);
 
         final String sMsg = "Successfully updated SMP '" +
@@ -552,7 +553,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    final IExtendedSMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
@@ -579,7 +580,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     {
       try
       {
-        final ManageServiceMetadataServiceCaller aCaller = _create (aSMLInfo, aSocketFactory);
+        final ManageServiceMetadataServiceCaller aCaller = _create (aSMLInfo.getSMLInfo (), aSocketFactory);
         aCaller.delete (sSMPID);
 
         final String sMsg = "Successfully deleted SMP '" +
@@ -619,7 +620,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    final IExtendedSMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
     final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
@@ -718,7 +719,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
     if (aFormErrors.isEmpty ())
     {
-      final BDMSLClient aCaller = new BDMSLClient (aSML);
+      final BDMSLClient aCaller = new BDMSLClient (aSML.getSMLInfo ());
       aCaller.setSSLSocketFactory (aSocketFactory);
 
       try
@@ -753,10 +754,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            aMigrationDate);
       }
       catch (final com.helger.peppol.smlclient.bdmsl.BadRequestFault
-                   | com.helger.peppol.smlclient.bdmsl.InternalErrorFault
-                   | com.helger.peppol.smlclient.bdmsl.NotFoundFault
-                   | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault
-                   | ClientTransportException ex)
+          | com.helger.peppol.smlclient.bdmsl.InternalErrorFault | com.helger.peppol.smlclient.bdmsl.NotFoundFault
+          | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault | ClientTransportException ex)
       {
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +

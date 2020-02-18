@@ -25,17 +25,19 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.dao.DAOException;
+import com.helger.peppol.domain.ExtendedSMLInfo;
+import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.peppol.sml.ESML;
-import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.sml.SMLInfo;
 import com.helger.photon.app.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.audit.AuditHelper;
 
-public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <ISMLInfo, SMLInfo> implements ISMLInfoManager
+public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <IExtendedSMLInfo, ExtendedSMLInfo> implements
+                                  ISMLInfoManager
 {
   public SMLInfoManager (@Nonnull @Nonempty final String sFilename) throws DAOException
   {
-    super (SMLInfo.class, sFilename);
+    super (ExtendedSMLInfo.class, sFilename);
   }
 
   @Override
@@ -44,20 +46,21 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <ISMLInfo
   {
     // Add the default transport profiles
     for (final ESML e : ESML.values ())
-      internalCreateItem (new SMLInfo (e));
+      internalCreateItem (ExtendedSMLInfo.create (e));
     return EChange.CHANGED;
   }
 
   @Nonnull
-  public ISMLInfo createSMLInfo (@Nonnull @Nonempty final String sDisplayName,
-                                 @Nonnull @Nonempty final String sDNSZone,
-                                 @Nonnull @Nonempty final String sManagementServiceURL,
-                                 final boolean bClientCertificateRequired)
+  public IExtendedSMLInfo createSMLInfo (@Nonnull @Nonempty final String sDisplayName,
+                                         @Nonnull @Nonempty final String sDNSZone,
+                                         @Nonnull @Nonempty final String sManagementServiceURL,
+                                         final boolean bClientCertificateRequired)
   {
     final SMLInfo aSMLInfo = new SMLInfo (sDisplayName, sDNSZone, sManagementServiceURL, bClientCertificateRequired);
+    final ExtendedSMLInfo aExtSMLInfo = new ExtendedSMLInfo (aSMLInfo);
 
     m_aRWLock.writeLocked ( () -> {
-      internalCreateItem (aSMLInfo);
+      internalCreateItem (aExtSMLInfo);
     });
     AuditHelper.onAuditCreateSuccess (SMLInfo.OT,
                                       aSMLInfo.getID (),
@@ -65,7 +68,7 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <ISMLInfo
                                       sDNSZone,
                                       sManagementServiceURL,
                                       Boolean.valueOf (bClientCertificateRequired));
-    return aSMLInfo;
+    return aExtSMLInfo;
   }
 
   @Nonnull
@@ -75,8 +78,8 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <ISMLInfo
                                 @Nonnull @Nonempty final String sManagementServiceURL,
                                 final boolean bClientCertificateRequired)
   {
-    final SMLInfo aSMLInfo = getOfID (sSMLInfoID);
-    if (aSMLInfo == null)
+    final ExtendedSMLInfo aExtSMLInfo = getOfID (sSMLInfoID);
+    if (aExtSMLInfo == null)
     {
       AuditHelper.onAuditModifyFailure (SMLInfo.OT, sSMLInfoID, "no-such-id");
       return EChange.UNCHANGED;
@@ -85,6 +88,7 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <ISMLInfo
     m_aRWLock.writeLock ().lock ();
     try
     {
+      final SMLInfo aSMLInfo = aExtSMLInfo.getSMLInfo ();
       EChange eChange = EChange.UNCHANGED;
       eChange = eChange.or (aSMLInfo.setDisplayName (sDisplayName));
       eChange = eChange.or (aSMLInfo.setDNSZone (sDNSZone));
@@ -93,7 +97,7 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <ISMLInfo
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
-      internalUpdateItem (aSMLInfo);
+      internalUpdateItem (aExtSMLInfo);
     }
     finally
     {
@@ -118,8 +122,8 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <ISMLInfo
     m_aRWLock.writeLock ().lock ();
     try
     {
-      final SMLInfo aSMLInfo = internalDeleteItem (sSMLInfoID);
-      if (aSMLInfo == null)
+      final ExtendedSMLInfo aExtSMLInfo = internalDeleteItem (sSMLInfoID);
+      if (aExtSMLInfo == null)
       {
         AuditHelper.onAuditDeleteFailure (SMLInfo.OT, "no-such-id", sSMLInfoID);
         return EChange.UNCHANGED;
@@ -135,18 +139,21 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <ISMLInfo
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <ISMLInfo> getAllSorted ()
+  public ICommonsList <IExtendedSMLInfo> getAllSorted ()
   {
     return getAll ().getSortedInline ( (c1, c2) -> {
-      int ret = c1.getDNSZone ().length () - c2.getDNSZone ().length ();
+      final String d1 = c1.getSMLInfo ().getDNSZone ();
+      final String d2 = c2.getSMLInfo ().getDNSZone ();
+      // Short before long
+      int ret = d1.length () - d2.length ();
       if (ret == 0)
-        ret = c1.getDNSZone ().compareTo (c2.getDNSZone ());
+        ret = d1.compareTo (d2);
       return ret;
     });
   }
 
   @Nullable
-  public ISMLInfo getSMLInfoOfID (@Nullable final String sID)
+  public IExtendedSMLInfo getSMLInfoOfID (@Nullable final String sID)
   {
     return getOfID (sID);
   }
