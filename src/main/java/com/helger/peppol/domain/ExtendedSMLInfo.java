@@ -2,19 +2,22 @@ package com.helger.peppol.domain;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.SMLInfo;
 
 public final class ExtendedSMLInfo implements IExtendedSMLInfo
 {
   private SMLInfo m_aSMLInfo;
+  private ESMPAPIType m_eSMPAPIType;
 
-  public ExtendedSMLInfo (@Nonnull final SMLInfo aSMLInfo)
+  public ExtendedSMLInfo (@Nonnull final SMLInfo aSMLInfo, @Nonnull final ESMPAPIType eSMPAPIType)
   {
     setSMLInfo (aSMLInfo);
+    setSMPAPIType (eSMPAPIType);
   }
 
   @Nonnull
@@ -26,16 +29,33 @@ public final class ExtendedSMLInfo implements IExtendedSMLInfo
   @Nonnull
   public EChange setSMLInfo (@Nonnull final SMLInfo aSMLInfo)
   {
-    if (EqualsHelper.equals (aSMLInfo, m_aSMLInfo))
+    ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
+    if (aSMLInfo.equals (m_aSMLInfo))
       return EChange.UNCHANGED;
     m_aSMLInfo = aSMLInfo;
     return EChange.CHANGED;
   }
 
   @Nonnull
+  public ESMPAPIType getSMPAPIType ()
+  {
+    return m_eSMPAPIType;
+  }
+
+  @Nonnull
+  public EChange setSMPAPIType (@Nonnull final ESMPAPIType eSMPAPIType)
+  {
+    ValueEnforcer.notNull (eSMPAPIType, "SMPAPIType");
+    if (eSMPAPIType.equals (m_eSMPAPIType))
+      return EChange.UNCHANGED;
+    m_eSMPAPIType = eSMPAPIType;
+    return EChange.CHANGED;
+  }
+
+  @Nonnull
   public static ExtendedSMLInfo create (@Nonnull final ESML eSML)
   {
-    return new ExtendedSMLInfo (new SMLInfo (eSML));
+    return new ExtendedSMLInfo (new SMLInfo (eSML), ESMPAPIType.PEPPOL);
   }
 
   @Override

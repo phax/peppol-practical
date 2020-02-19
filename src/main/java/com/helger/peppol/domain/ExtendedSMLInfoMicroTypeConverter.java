@@ -19,15 +19,19 @@ package com.helger.peppol.domain;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.SMLInfo;
 import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
+import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
 public final class ExtendedSMLInfoMicroTypeConverter implements IMicroTypeConverter <ExtendedSMLInfo>
 {
   private static final String ELEMENT_SML_INFO = "smlinfo";
+  private static final IMicroQName ATTR_SMP_API_TYPE = new MicroQName ("smpapitype");
 
   @Nonnull
   public IMicroElement convertToMicroElement (@Nonnull final ExtendedSMLInfo aObj,
@@ -38,6 +42,7 @@ public final class ExtendedSMLInfoMicroTypeConverter implements IMicroTypeConver
     aElement.appendChild (MicroTypeConverter.convertToMicroElement (aObj.getSMLInfo (),
                                                                     sNamespaceURI,
                                                                     ELEMENT_SML_INFO));
+    aElement.setAttribute (ATTR_SMP_API_TYPE, aObj.getSMPAPIType ().getID ());
     return aElement;
   }
 
@@ -46,15 +51,18 @@ public final class ExtendedSMLInfoMicroTypeConverter implements IMicroTypeConver
   {
     final IMicroElement eSMLInfo = aElement.getFirstChildElement (ELEMENT_SML_INFO);
     final SMLInfo aSMLInfo;
+    final ESMPAPIType eSMPAPIType;
     if (eSMLInfo != null)
     {
       aSMLInfo = MicroTypeConverter.convertToNative (eSMLInfo, SMLInfo.class);
+      eSMPAPIType = ESMPAPIType.getFromIDOrNull (aElement.getAttributeValue (ATTR_SMP_API_TYPE));
     }
     else
     {
       // Assume we read legacy data
       aSMLInfo = MicroTypeConverter.convertToNative (aElement, SMLInfo.class);
+      eSMPAPIType = ESMPAPIType.PEPPOL;
     }
-    return new ExtendedSMLInfo (aSMLInfo);
+    return new ExtendedSMLInfo (aSMLInfo, eSMPAPIType);
   }
 }

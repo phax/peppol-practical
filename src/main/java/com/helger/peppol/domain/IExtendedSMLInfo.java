@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
+import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 
 public interface IExtendedSMLInfo extends IHasID <String>, IHasDisplayName, Serializable
@@ -53,4 +54,7 @@ public interface IExtendedSMLInfo extends IHasID <String>, IHasDisplayName, Seri
   {
     return getSMLInfo ().isClientCertificateRequired ();
   }
+
+  @Nonnull
+  ESMPAPIType getSMPAPIType ();
 }

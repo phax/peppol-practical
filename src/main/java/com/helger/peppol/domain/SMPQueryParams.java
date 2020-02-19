@@ -80,12 +80,6 @@ public final class SMPQueryParams
   }
 
   @Nonnull
-  private static ESMPAPIType _findSMPAPIType (@Nonnull final ISMLInfo aSML)
-  {
-    return _isSMKToop (aSML) ? ESMPAPIType.OASIS_BDXR_V1 : ESMPAPIType.PEPPOL;
-  }
-
-  @Nonnull
   private static IIdentifierFactory _getIdentifierFactory (@Nonnull final ISMLInfo aSML,
                                                            @Nonnull final ESMPAPIType eSMP)
   {
@@ -116,7 +110,7 @@ public final class SMPQueryParams
                                              @Nullable final String sParticipantIDValue)
   {
     final SMPQueryParams ret = new SMPQueryParams ();
-    ret.m_eSMPAPIType = _findSMPAPIType (aCurSML.getSMLInfo ());
+    ret.m_eSMPAPIType = aCurSML.getSMPAPIType ();
     ret.m_aIF = _getIdentifierFactory (aCurSML.getSMLInfo (), ret.m_eSMPAPIType);
     ret.m_aParticipantID = ret.m_aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
     if (ret.m_aParticipantID == null)

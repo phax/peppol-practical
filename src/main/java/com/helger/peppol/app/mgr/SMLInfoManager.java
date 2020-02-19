@@ -28,6 +28,7 @@ import com.helger.dao.DAOException;
 import com.helger.peppol.domain.ExtendedSMLInfo;
 import com.helger.peppol.domain.IExtendedSMLInfo;
 import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.SMLInfo;
 import com.helger.photon.app.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.audit.AuditHelper;
@@ -54,10 +55,11 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <IExtende
   public IExtendedSMLInfo createSMLInfo (@Nonnull @Nonempty final String sDisplayName,
                                          @Nonnull @Nonempty final String sDNSZone,
                                          @Nonnull @Nonempty final String sManagementServiceURL,
-                                         final boolean bClientCertificateRequired)
+                                         final boolean bClientCertificateRequired,
+                                         @Nonnull final ESMPAPIType eSMPAPIType)
   {
     final SMLInfo aSMLInfo = new SMLInfo (sDisplayName, sDNSZone, sManagementServiceURL, bClientCertificateRequired);
-    final ExtendedSMLInfo aExtSMLInfo = new ExtendedSMLInfo (aSMLInfo);
+    final ExtendedSMLInfo aExtSMLInfo = new ExtendedSMLInfo (aSMLInfo, eSMPAPIType);
 
     m_aRWLock.writeLocked ( () -> {
       internalCreateItem (aExtSMLInfo);
@@ -67,7 +69,8 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <IExtende
                                       sDisplayName,
                                       sDNSZone,
                                       sManagementServiceURL,
-                                      Boolean.valueOf (bClientCertificateRequired));
+                                      Boolean.valueOf (bClientCertificateRequired),
+                                      eSMPAPIType);
     return aExtSMLInfo;
   }
 
@@ -76,7 +79,8 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <IExtende
                                 @Nonnull @Nonempty final String sDisplayName,
                                 @Nonnull @Nonempty final String sDNSZone,
                                 @Nonnull @Nonempty final String sManagementServiceURL,
-                                final boolean bClientCertificateRequired)
+                                final boolean bClientCertificateRequired,
+                                @Nonnull final ESMPAPIType eSMPAPIType)
   {
     final ExtendedSMLInfo aExtSMLInfo = getOfID (sSMLInfoID);
     if (aExtSMLInfo == null)
@@ -94,6 +98,7 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <IExtende
       eChange = eChange.or (aSMLInfo.setDNSZone (sDNSZone));
       eChange = eChange.or (aSMLInfo.setManagementServiceURL (sManagementServiceURL));
       eChange = eChange.or (aSMLInfo.setClientCertificateRequired (bClientCertificateRequired));
+      eChange = eChange.or (aExtSMLInfo.setSMPAPIType (eSMPAPIType));
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
@@ -109,7 +114,8 @@ public final class SMLInfoManager extends AbstractPhotonMapBasedWALDAO <IExtende
                                       sDisplayName,
                                       sDNSZone,
                                       sManagementServiceURL,
-                                      Boolean.valueOf (bClientCertificateRequired));
+                                      Boolean.valueOf (bClientCertificateRequired),
+                                      eSMPAPIType);
     return EChange.CHANGED;
   }
 

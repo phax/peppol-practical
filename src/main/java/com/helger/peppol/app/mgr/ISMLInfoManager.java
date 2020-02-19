@@ -26,6 +26,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.peppol.domain.IExtendedSMLInfo;
+import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 
 /**
@@ -56,13 +57,16 @@ public interface ISMLInfoManager
    *        Both Peppol production SML and SMK require a client certificate.
    *        Only a locally running SML software may not require a client
    *        certificate.
+   * @param eSMPAPIType
+   *        SMP API type. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
   @Nonnull
   IExtendedSMLInfo createSMLInfo (@Nonnull @Nonempty String sDisplayName,
                                   @Nonnull @Nonempty String sDNSZone,
                                   @Nonnull @Nonempty String sManagementServiceURL,
-                                  boolean bClientCertificateRequired);
+                                  boolean bClientCertificateRequired,
+                                  @Nonnull ESMPAPIType eSMPAPIType);
 
   /**
    * Update an existing SML information.
@@ -88,6 +92,8 @@ public interface ISMLInfoManager
    *        Both Peppol production SML and SMK require a client certificate.
    *        Only a locally running SML software may not require a client
    *        certificate.
+   * @param eSMPAPIType
+   *        SMP API type. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if something was changed.
    */
   @Nonnull
@@ -95,7 +101,8 @@ public interface ISMLInfoManager
                          @Nonnull @Nonempty String sDisplayName,
                          @Nonnull @Nonempty String sDNSZone,
                          @Nonnull @Nonempty String sManagementServiceURL,
-                         boolean bClientCertificateRequired);
+                         boolean bClientCertificateRequired,
+                         @Nonnull ESMPAPIType eSMPAPIType);
 
   /**
    * Delete an existing SML information.
