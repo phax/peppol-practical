@@ -57,15 +57,15 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.network.dns.IPV4Addr;
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.app.mgr.ISMLInfoManager;
+import com.helger.peppol.app.mgr.ISMLConfigurationManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.domain.IExtendedSMLInfo;
+import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.peppol.ui.select.SMLSelect;
+import com.helger.peppol.ui.select.SMLConfigurationSelect;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -279,9 +279,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final IExtendedSMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
@@ -414,9 +414,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final IExtendedSMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
@@ -551,9 +551,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final IExtendedSMLInfo aSMLInfo = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
@@ -617,10 +617,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final IExtendedSMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
     final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
@@ -811,7 +811,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setEncTypeFileUpload ().setLeft (nLeft);
         aForm.addChild (info ("Register a new SMP to the SML. This must only be done once per SMP!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
+                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -848,7 +848,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setEncTypeFileUpload ().setLeft (nLeft);
         aForm.addChild (info ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
+                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -885,7 +885,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setLeft (nLeft);
         aForm.addChild (info ("Delete an existing SMP from the SML."));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
+                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -918,7 +918,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                              div ("Note: this is a custom extension that only works with the CEF SML instances!")));
         aForm.addChild (warn ("It is your responsibility to update the Peppol certificate in your SMP at the specified time!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLSelect (new RequestField (FIELD_SML_ID), false))
+                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID), false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing/old SMP key store")
                                                      .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))

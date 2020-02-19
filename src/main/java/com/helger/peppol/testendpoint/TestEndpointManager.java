@@ -31,7 +31,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.dao.DAOException;
-import com.helger.peppol.domain.IExtendedSMLInfo;
+import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.app.dao.AbstractPhotonSimpleDAO;
 import com.helger.photon.audit.AuditHelper;
@@ -90,7 +90,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
                                           @Nonnull @Nonempty final String sParticipantIDScheme,
                                           @Nonnull @Nonempty final String sParticipantIDValue,
                                           @Nonnull final ISMPTransportProfile aTransportProfile,
-                                          @Nonnull final IExtendedSMLInfo aSML)
+                                          @Nonnull final ISMLConfiguration aSML)
   {
     final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName,
                                                          sContactPerson,
@@ -127,7 +127,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
                                      @Nonnull @Nonempty final String sParticipantIDScheme,
                                      @Nonnull @Nonempty final String sParticipantIDValue,
                                      @Nonnull final ISMPTransportProfile aTransportProfile,
-                                     @Nonnull final IExtendedSMLInfo aSML)
+                                     @Nonnull final ISMLConfiguration aSML)
   {
     m_aRWLock.writeLock ().lock ();
     try

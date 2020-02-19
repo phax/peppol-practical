@@ -8,16 +8,21 @@ import com.helger.commons.state.EChange;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.SMLInfo;
+import com.helger.peppolid.factory.ESMPIdentifierType;
 
-public final class ExtendedSMLInfo implements IExtendedSMLInfo
+public final class SMLConfiguration implements ISMLConfiguration
 {
   private SMLInfo m_aSMLInfo;
   private ESMPAPIType m_eSMPAPIType;
+  private ESMPIdentifierType m_eSMPIdentifierType;
 
-  public ExtendedSMLInfo (@Nonnull final SMLInfo aSMLInfo, @Nonnull final ESMPAPIType eSMPAPIType)
+  public SMLConfiguration (@Nonnull final SMLInfo aSMLInfo,
+                           @Nonnull final ESMPAPIType eSMPAPIType,
+                           @Nonnull final ESMPIdentifierType eSMPIdentifierType)
   {
     setSMLInfo (aSMLInfo);
     setSMPAPIType (eSMPAPIType);
+    setSMPIdentifierType (eSMPIdentifierType);
   }
 
   @Nonnull
@@ -53,9 +58,25 @@ public final class ExtendedSMLInfo implements IExtendedSMLInfo
   }
 
   @Nonnull
-  public static ExtendedSMLInfo create (@Nonnull final ESML eSML)
+  public ESMPIdentifierType getSMPIdentifierType ()
   {
-    return new ExtendedSMLInfo (new SMLInfo (eSML), ESMPAPIType.PEPPOL);
+    return m_eSMPIdentifierType;
+  }
+
+  @Nonnull
+  public EChange setSMPIdentifierType (@Nonnull final ESMPIdentifierType eSMPIdentifierType)
+  {
+    ValueEnforcer.notNull (eSMPIdentifierType, "SMPIdentifierType");
+    if (eSMPIdentifierType.equals (m_eSMPIdentifierType))
+      return EChange.UNCHANGED;
+    m_eSMPIdentifierType = eSMPIdentifierType;
+    return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public static SMLConfiguration create (@Nonnull final ESML eSML)
+  {
+    return new SMLConfiguration (new SMLInfo (eSML), ESMPAPIType.PEPPOL, ESMPIdentifierType.PEPPOL);
   }
 
   @Override
@@ -65,7 +86,7 @@ public final class ExtendedSMLInfo implements IExtendedSMLInfo
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final ExtendedSMLInfo rhs = (ExtendedSMLInfo) o;
+    final SMLConfiguration rhs = (SMLConfiguration) o;
     return getID ().equals (rhs.getID ());
   }
 

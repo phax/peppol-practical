@@ -27,7 +27,7 @@ import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
-import com.helger.peppol.domain.IExtendedSMLInfo;
+import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
@@ -47,7 +47,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
   private String m_sParticipantIDIssuer;
   private String m_sParticipantIDValue;
   private ISMPTransportProfile m_aTransportProfile;
-  private IExtendedSMLInfo m_aSMLInfo;
+  private ISMLConfiguration m_aSMLInfo;
 
   /**
    * Constructor.
@@ -70,7 +70,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
                        @Nonnull @Nonempty final String sParticipantIDIssuer,
                        @Nonnull @Nonempty final String sParticipantIDValue,
                        @Nonnull final ISMPTransportProfile aTransportProfile,
-                       @Nonnull final IExtendedSMLInfo eSML)
+                       @Nonnull final ISMLConfiguration eSML)
   {
     this (StubObject.createForCurrentUser (),
           sCompanyName,
@@ -105,7 +105,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
                 @Nonnull @Nonempty final String sParticipantIDIssuer,
                 @Nonnull @Nonempty final String sParticipantIDValue,
                 @Nonnull final ISMPTransportProfile aTransportProfile,
-                @Nonnull final IExtendedSMLInfo eSML)
+                @Nonnull final ISMLConfiguration eSML)
   {
     super (aObject);
     setCompanyName (sCompanyName);
@@ -226,13 +226,13 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
   }
 
   @Nonnull
-  public IExtendedSMLInfo getSML ()
+  public ISMLConfiguration getSML ()
   {
     return m_aSMLInfo;
   }
 
   @Nonnull
-  public EChange setSML (@Nonnull final IExtendedSMLInfo aSML)
+  public EChange setSML (@Nonnull final ISMLConfiguration aSML)
   {
     ValueEnforcer.notNull (aSML, "SML");
     if (aSML.equals (m_aSMLInfo))

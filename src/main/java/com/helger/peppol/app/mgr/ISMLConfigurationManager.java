@@ -25,16 +25,17 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.EChange;
-import com.helger.peppol.domain.IExtendedSMLInfo;
+import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppolid.factory.ESMPIdentifierType;
 
 /**
  * Base interface for a manager that handles {@link ISMLInfo} objects.
  *
  * @author Philip Helger
  */
-public interface ISMLInfoManager
+public interface ISMLConfigurationManager
 {
   /**
    * Create a new SML information.
@@ -59,14 +60,17 @@ public interface ISMLInfoManager
    *        certificate.
    * @param eSMPAPIType
    *        SMP API type. May not be <code>null</code>.
+   * @param eSMPIdentifierType
+   *        SMP identifier type. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
   @Nonnull
-  IExtendedSMLInfo createSMLInfo (@Nonnull @Nonempty String sDisplayName,
-                                  @Nonnull @Nonempty String sDNSZone,
-                                  @Nonnull @Nonempty String sManagementServiceURL,
-                                  boolean bClientCertificateRequired,
-                                  @Nonnull ESMPAPIType eSMPAPIType);
+  ISMLConfiguration createSMLInfo (@Nonnull @Nonempty String sDisplayName,
+                                   @Nonnull @Nonempty String sDNSZone,
+                                   @Nonnull @Nonempty String sManagementServiceURL,
+                                   boolean bClientCertificateRequired,
+                                   @Nonnull ESMPAPIType eSMPAPIType,
+                                   @Nonnull ESMPIdentifierType eSMPIdentifierType);
 
   /**
    * Update an existing SML information.
@@ -94,6 +98,8 @@ public interface ISMLInfoManager
    *        certificate.
    * @param eSMPAPIType
    *        SMP API type. May not be <code>null</code>.
+   * @param eSMPIdentifierType
+   *        SMP identifier type. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if something was changed.
    */
   @Nonnull
@@ -102,7 +108,8 @@ public interface ISMLInfoManager
                          @Nonnull @Nonempty String sDNSZone,
                          @Nonnull @Nonempty String sManagementServiceURL,
                          boolean bClientCertificateRequired,
-                         @Nonnull ESMPAPIType eSMPAPIType);
+                         @Nonnull ESMPAPIType eSMPAPIType,
+                         @Nonnull ESMPIdentifierType eSMPIdentifierType);
 
   /**
    * Delete an existing SML information.
@@ -121,11 +128,11 @@ public interface ISMLInfoManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsList <IExtendedSMLInfo> getAll ();
+  ICommonsList <ISMLConfiguration> getAll ();
 
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsList <IExtendedSMLInfo> getAllSorted ();
+  ICommonsList <ISMLConfiguration> getAllSorted ();
 
   /**
    * Get the SML information with the passed ID.
@@ -135,7 +142,7 @@ public interface ISMLInfoManager
    * @return <code>null</code> if no such SML information exists.
    */
   @Nullable
-  IExtendedSMLInfo getSMLInfoOfID (@Nullable String sID);
+  ISMLConfiguration getSMLInfoOfID (@Nullable String sID);
 
   /**
    * Find the first SML information that matches the provided predicate.
@@ -146,7 +153,7 @@ public interface ISMLInfoManager
    * @return <code>null</code> if no such SML information exists.
    */
   @Nullable
-  IExtendedSMLInfo findFirst (@Nullable Predicate <? super IExtendedSMLInfo> aFilter);
+  ISMLConfiguration findFirst (@Nullable Predicate <? super ISMLConfiguration> aFilter);
 
   /**
    * Check if a SML information with the passed ID is contained.

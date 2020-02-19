@@ -78,15 +78,15 @@ import com.helger.pd.businesscard.generic.PDContact;
 import com.helger.pd.businesscard.generic.PDIdentifier;
 import com.helger.pd.businesscard.generic.PDName;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
-import com.helger.peppol.app.mgr.ISMLInfoManager;
+import com.helger.peppol.app.mgr.ISMLConfigurationManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.domain.IExtendedSMLInfo;
+import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
-import com.helger.peppol.ui.select.SMLSelect;
+import com.helger.peppol.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.utils.EPeppolCertificateCheckResult;
 import com.helger.peppol.utils.PeppolCertificateChecker;
 import com.helger.peppolid.CIdentifier;
@@ -222,7 +222,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final IRequestWebScopeWithoutResponse aRequestScope = aWPEC.getRequestScope ();
-    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
 
@@ -234,8 +234,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       sParticipantIDScheme = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_SCHEME));
       sParticipantIDValue = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_VALUE));
       final String sSMLID = StringHelper.trim (aWPEC.params ().getAsString (FIELD_SML));
-      IExtendedSMLInfo aSML = aSMLInfoMgr.getSMLInfoOfID (sSMLID);
-      final boolean bSMLAutoDetect = SMLSelect.FIELD_AUTO_SELECT.equals (sSMLID);
+      ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+      final boolean bSMLAutoDetect = SMLConfigurationSelect.FIELD_AUTO_SELECT.equals (sSMLID);
       final boolean bQueryBusinessCard = aWPEC.params ()
                                               .isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD,
                                                                   DEFAULT_QUERY_BUSINESS_CARD);
@@ -279,7 +279,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           SMPQueryParams aQueryParams = null;
           if (bSMLAutoDetect)
           {
-            for (final IExtendedSMLInfo aCurSML : aSMLInfoMgr.getAllSorted ())
+            for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
             {
               aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue);
               if (aQueryParams == null)
@@ -876,8 +876,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                    .setHelpText (div ("The identifier value must look like ").addChild (code ("9915:test")))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
-                                                   .setCtrl (new SMLSelect (new RequestField (FIELD_SML,
-                                                                                              SMLSelect.FIELD_AUTO_SELECT),
+                                                   .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML,
+                                                                                              SMLConfigurationSelect.FIELD_AUTO_SELECT),
                                                                             true))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Query Business Card?")

@@ -35,12 +35,14 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
-import com.helger.peppol.app.mgr.ISMLInfoManager;
+import com.helger.peppol.app.mgr.ISMLConfigurationManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.domain.IExtendedSMLInfo;
+import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.ui.select.SMPAPITypeSelect;
+import com.helger.peppol.ui.select.SMPIdentifierTypeSelect;
+import com.helger.peppolid.factory.ESMPIdentifierType;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -59,23 +61,25 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 
-public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IExtendedSMLInfo, WebPageExecutionContext>
+public class PageSecureSMLConfiguration extends
+                                        AbstractBootstrapWebPageForm <ISMLConfiguration, WebPageExecutionContext>
 {
   private static final String FIELD_DISPLAY_NAME = "displayname";
   private static final String FIELD_DNS_ZONE = "dnszone";
   private static final String FIELD_MANAGEMENT_ADDRESS_URL = "mgmtaddrurl";
   private static final String FIELD_CLIENT_CERTIFICATE_REQUIRED = "clientcert";
   private static final String FIELD_SMP_API_TYPE = "smpapitype";
+  private static final String FIELD_SMP_ID_TYPE = "smpidype";
 
   public PageSecureSMLConfiguration (@Nonnull @Nonempty final String sID)
   {
     super (sID, "SML configuration");
-    setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <IExtendedSMLInfo, WebPageExecutionContext> ()
+    setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <ISMLConfiguration, WebPageExecutionContext> ()
     {
       @Override
       protected void showQuery (@Nonnull final WebPageExecutionContext aWPEC,
                                 @Nonnull final BootstrapForm aForm,
-                                @Nonnull final IExtendedSMLInfo aSelectedObject)
+                                @Nonnull final ISMLConfiguration aSelectedObject)
       {
         aForm.addChild (question ("Are you sure you want to delete the SML configuration '" +
                                   aSelectedObject.getDisplayName () +
@@ -84,10 +88,10 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
 
       @Override
       protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
-                                    @Nonnull final IExtendedSMLInfo aSelectedObject)
+                                    @Nonnull final ISMLConfiguration aSelectedObject)
       {
-        final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
-        if (aSMLInfoMgr.removeSMLInfo (aSelectedObject.getID ()).isChanged ())
+        final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+        if (aSMLConfigurationMgr.removeSMLInfo (aSelectedObject.getID ()).isChanged ())
           aWPEC.postRedirectGetInternal (success ("The SML configuration '" +
                                                   aSelectedObject.getDisplayName () +
                                                   "' was successfully deleted!"));
@@ -100,24 +104,24 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
   }
 
   @Override
-  protected IExtendedSMLInfo getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
-                                                @Nullable final String sID)
+  protected ISMLConfiguration getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
+                                                 @Nullable final String sID)
   {
-    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
-    return aSMLInfoMgr.getSMLInfoOfID (sID);
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    return aSMLConfigurationMgr.getSMLInfoOfID (sID);
   }
 
   @Override
   protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
                                      @Nonnull final EWebPageFormAction eFormAction,
-                                     @Nullable final IExtendedSMLInfo aSelectedObject)
+                                     @Nullable final ISMLConfiguration aSelectedObject)
   {
     return super.isActionAllowed (aWPEC, eFormAction, aSelectedObject);
   }
 
   @Override
   protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
-                                     @Nonnull final IExtendedSMLInfo aSelectedObject)
+                                     @Nonnull final ISMLConfiguration aSelectedObject)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
@@ -144,13 +148,15 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
                                                                                        aDisplayLocale)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP API type")
                                                  .setCtrl (aSelectedObject.getSMPAPIType ().getDisplayName ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP identifier type")
+                                                 .setCtrl (aSelectedObject.getSMPIdentifierType ().getDisplayName ()));
 
     aNodeList.addChild (aForm);
   }
 
   @Override
   protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
-                                @Nullable final IExtendedSMLInfo aSelectedObject,
+                                @Nullable final ISMLConfiguration aSelectedObject,
                                 @Nonnull final BootstrapForm aForm,
                                 final boolean bFormSubmitted,
                                 @Nonnull final EWebPageFormAction eFormAction,
@@ -198,7 +204,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
                                                  .setHelpText ("Check this if this SML requires a client certificate for access. Both Peppol production SML and SMK require a client certificate. Only a locally running SML software may not require a client certificate.")
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_CLIENT_CERTIFICATE_REQUIRED)));
 
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP API type?")
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP API type")
                                                  .setCtrl (new SMPAPITypeSelect (new RequestField (FIELD_SMP_API_TYPE,
                                                                                                    aSelectedObject != null ? aSelectedObject.getSMPAPIType ()
                                                                                                                                             .getID ()
@@ -206,16 +212,24 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
                                                                                  aDisplayLocale))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SMP_API_TYPE)));
 
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP identifier type")
+                                                 .setCtrl (new SMPIdentifierTypeSelect (new RequestField (FIELD_SMP_ID_TYPE,
+                                                                                                          aSelectedObject != null ? aSelectedObject.getSMPIdentifierType ()
+                                                                                                                                                   .getID ()
+                                                                                                                                  : null),
+                                                                                        aDisplayLocale))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID_TYPE)));
+
   }
 
   @Override
   protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
-                                                 @Nullable final IExtendedSMLInfo aSelectedObject,
+                                                 @Nullable final ISMLConfiguration aSelectedObject,
                                                  @Nonnull final FormErrorList aFormErrors,
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final boolean bEdit = eFormAction.isEdit ();
-    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
 
     final String sDisplayName = aWPEC.params ().getAsString (FIELD_DISPLAY_NAME);
     final String sDNSZone = aWPEC.params ().getAsString (FIELD_DNS_ZONE);
@@ -224,6 +238,8 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
                                                     .isCheckBoxChecked (FIELD_CLIENT_CERTIFICATE_REQUIRED, true);
     final String sSMPAPIType = aWPEC.params ().getAsString (FIELD_SMP_API_TYPE);
     final ESMPAPIType eSMPAPIType = ESMPAPIType.getFromIDOrNull (sSMPAPIType);
+    final String sSMPIdentifierType = aWPEC.params ().getAsString (FIELD_SMP_ID_TYPE);
+    final ESMPIdentifierType eSMPIdentifierType = ESMPIdentifierType.getFromIDOrNull (sSMPIdentifierType);
 
     // validations
     if (StringHelper.hasNoText (sDisplayName))
@@ -251,6 +267,12 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
       if (eSMPAPIType == null)
         aFormErrors.addFieldError (FIELD_SMP_API_TYPE, "A valid SMP API type must be selected!");
 
+    if (StringHelper.hasNoText (sSMPIdentifierType))
+      aFormErrors.addFieldError (FIELD_SMP_ID_TYPE, "An SMP identifier type must be selected!");
+    else
+      if (eSMPIdentifierType == null)
+        aFormErrors.addFieldError (FIELD_SMP_ID_TYPE, "A valid SMP identifier type must be selected!");
+
     if (aFormErrors.isEmpty ())
     {
       // Lowercase with the US locale - not display locale specific
@@ -258,23 +280,25 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
 
       if (bEdit)
       {
-        aSMLInfoMgr.updateSMLInfo (aSelectedObject.getID (),
-                                   sDisplayName,
-                                   sDNSZoneLC,
-                                   sManagementAddressURL,
-                                   bClientCertificateRequired,
-                                   eSMPAPIType);
+        aSMLConfigurationMgr.updateSMLInfo (aSelectedObject.getID (),
+                                            sDisplayName,
+                                            sDNSZoneLC,
+                                            sManagementAddressURL,
+                                            bClientCertificateRequired,
+                                            eSMPAPIType,
+                                            eSMPIdentifierType);
         aWPEC.postRedirectGetInternal (success ("The SML configuration '" +
                                                 sDisplayName +
                                                 "' was successfully edited."));
       }
       else
       {
-        aSMLInfoMgr.createSMLInfo (sDisplayName,
-                                   sDNSZoneLC,
-                                   sManagementAddressURL,
-                                   bClientCertificateRequired,
-                                   eSMPAPIType);
+        aSMLConfigurationMgr.createSMLInfo (sDisplayName,
+                                            sDNSZoneLC,
+                                            sManagementAddressURL,
+                                            bClientCertificateRequired,
+                                            eSMPAPIType,
+                                            eSMPIdentifierType);
         aWPEC.postRedirectGetInternal (success ("The new SML configuration '" +
                                                 sDisplayName +
                                                 "' was successfully created."));
@@ -287,7 +311,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final ISMLInfoManager aSMLInfoMgr = PPMetaManager.getSMLInfoMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
 
     aNodeList.addChild (info ("This page lets you create custom SML configurations that can be used for registration."));
 
@@ -300,8 +324,9 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
                                         new DTCol ("Management Service URL"),
                                         new DTCol ("Client Cert?"),
                                         new DTCol ("SMP API type"),
+                                        new DTCol ("SMP ID type"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
-    for (final IExtendedSMLInfo aCurObject : aSMLInfoMgr.getAll ())
+    for (final ISMLConfiguration aCurObject : aSMLConfigurationMgr.getAll ())
     {
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 
@@ -311,6 +336,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
       aRow.addCell (aCurObject.getManagementServiceURL ());
       aRow.addCell (EPhotonCoreText.getYesOrNo (aCurObject.isClientCertificateRequired (), aDisplayLocale));
       aRow.addCell (aCurObject.getSMPAPIType ().getDisplayName ());
+      aRow.addCell (aCurObject.getSMPIdentifierType ().getDisplayName ());
 
       aRow.addCell (createEditLink (aWPEC, aCurObject, "Edit " + aCurObject.getID ()),
                     new HCTextNode (" "),

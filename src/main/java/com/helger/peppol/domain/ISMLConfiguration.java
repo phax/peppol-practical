@@ -9,8 +9,9 @@ import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppolid.factory.ESMPIdentifierType;
 
-public interface IExtendedSMLInfo extends IHasID <String>, IHasDisplayName, Serializable
+public interface ISMLConfiguration extends IHasID <String>, IHasDisplayName, Serializable
 {
   @Nonnull
   ISMLInfo getSMLInfo ();
@@ -57,4 +58,7 @@ public interface IExtendedSMLInfo extends IHasID <String>, IHasDisplayName, Seri
 
   @Nonnull
   ESMPAPIType getSMPAPIType ();
+
+  @Nonnull
+  ESMPIdentifierType getSMPIdentifierType ();
 }

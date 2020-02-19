@@ -16,24 +16,26 @@
  */
 package com.helger.peppol.ui.select;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.domain.IExtendedSMLInfo;
+import com.helger.peppolid.factory.ESMPIdentifierType;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
-public class SMLSelect extends HCExtSelect
+/**
+ * UI select for SMP API types
+ *
+ * @author Philip Helger
+ */
+public class SMPIdentifierTypeSelect extends HCExtSelect
 {
-  public static final String FIELD_AUTO_SELECT = "auto";
-
-  public SMLSelect (@Nonnull final RequestField aRF, final boolean bAddAutoDetect)
+  public SMPIdentifierTypeSelect (@Nonnull final RequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
-    if (bAddAutoDetect)
-      addOption (FIELD_AUTO_SELECT, "Auto-detect SML");
-    for (final IExtendedSMLInfo aSMLInfo : PPMetaManager.getSMLInfoMgr ().getAllSorted ())
-      if (aSMLInfo.isClientCertificateRequired ())
-        addOption (aSMLInfo.getID (), "[" + aSMLInfo.getDisplayName () + "] " + aSMLInfo.getManagementServiceURL ());
+    addOptionPleaseSelect (aDisplayLocale);
+    for (final ESMPIdentifierType e : ESMPIdentifierType.values ())
+      addOption (e.getID (), e.getDisplayName ());
   }
 }

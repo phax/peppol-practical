@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.SMLInfo;
+import com.helger.peppolid.factory.ESMPIdentifierType;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
@@ -28,13 +29,14 @@ import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
-public final class ExtendedSMLInfoMicroTypeConverter implements IMicroTypeConverter <ExtendedSMLInfo>
+public final class SMLConfigurationMicroTypeConverter implements IMicroTypeConverter <SMLConfiguration>
 {
   private static final String ELEMENT_SML_INFO = "smlinfo";
   private static final IMicroQName ATTR_SMP_API_TYPE = new MicroQName ("smpapitype");
+  private static final IMicroQName ATTR_SMP_IDENTIFIER_TYPE = new MicroQName ("smpidtype");
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final ExtendedSMLInfo aObj,
+  public IMicroElement convertToMicroElement (@Nonnull final SMLConfiguration aObj,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
@@ -43,26 +45,31 @@ public final class ExtendedSMLInfoMicroTypeConverter implements IMicroTypeConver
                                                                     sNamespaceURI,
                                                                     ELEMENT_SML_INFO));
     aElement.setAttribute (ATTR_SMP_API_TYPE, aObj.getSMPAPIType ().getID ());
+    aElement.setAttribute (ATTR_SMP_IDENTIFIER_TYPE, aObj.getSMPIdentifierType ().getID ());
     return aElement;
   }
 
   @Nonnull
-  public ExtendedSMLInfo convertToNative (@Nonnull final IMicroElement aElement)
+  public SMLConfiguration convertToNative (@Nonnull final IMicroElement aElement)
   {
     final IMicroElement eSMLInfo = aElement.getFirstChildElement (ELEMENT_SML_INFO);
     final SMLInfo aSMLInfo;
     final ESMPAPIType eSMPAPIType;
+    final ESMPIdentifierType eSMPIdentifierType;
     if (eSMLInfo != null)
     {
       aSMLInfo = MicroTypeConverter.convertToNative (eSMLInfo, SMLInfo.class);
-      eSMPAPIType = ESMPAPIType.getFromIDOrNull (aElement.getAttributeValue (ATTR_SMP_API_TYPE));
+      eSMPAPIType = ESMPAPIType.getFromIDOrDefault (aElement.getAttributeValue (ATTR_SMP_API_TYPE), ESMPAPIType.PEPPOL);
+      eSMPIdentifierType = ESMPIdentifierType.getFromIDOrDefault (aElement.getAttributeValue (ATTR_SMP_IDENTIFIER_TYPE),
+                                                                  ESMPIdentifierType.PEPPOL);
     }
     else
     {
       // Assume we read legacy data
       aSMLInfo = MicroTypeConverter.convertToNative (aElement, SMLInfo.class);
       eSMPAPIType = ESMPAPIType.PEPPOL;
+      eSMPIdentifierType = ESMPIdentifierType.PEPPOL;
     }
-    return new ExtendedSMLInfo (aSMLInfo, eSMPAPIType);
+    return new SMLConfiguration (aSMLInfo, eSMPAPIType, eSMPIdentifierType);
   }
 }
