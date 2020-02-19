@@ -234,7 +234,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       sParticipantIDScheme = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_SCHEME));
       sParticipantIDValue = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_VALUE));
       final String sSMLID = StringHelper.trim (aWPEC.params ().getAsString (FIELD_SML));
-      ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+      ISMLConfiguration aSMLConfiguration = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
       final boolean bSMLAutoDetect = SMLConfigurationSelect.FIELD_AUTO_SELECT.equals (sSMLID);
       final boolean bQueryBusinessCard = aWPEC.params ()
                                               .isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD,
@@ -264,7 +264,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aFormErrors.addFieldError (FIELD_ID_VALUE,
                                      "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
 
-      if (aSML == null && !bSMLAutoDetect)
+      if (aSMLConfiguration == null && !bSMLAutoDetect)
         aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
       if (aFormErrors.isEmpty ())
@@ -288,7 +288,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               {
                 InetAddress.getByName (aQueryParams.getSMPHostURI ().getHost ());
                 // Found it
-                aSML = aCurSML;
+                aSMLConfiguration = aCurSML;
                 break;
               }
               catch (final UnknownHostException ex)
@@ -298,19 +298,19 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             }
 
             // Ensure to go into the exception handler
-            if (aSML == null)
+            if (aSMLConfiguration == null)
               throw new UnknownHostException ("");
           }
           else
           {
-            aQueryParams = SMPQueryParams.createForSML (aSML, sParticipantIDScheme, sParticipantIDValue);
+            aQueryParams = SMPQueryParams.createForSML (aSMLConfiguration, sParticipantIDScheme, sParticipantIDValue);
           }
 
           if (aQueryParams == null)
             throw new PeppolDNSResolutionException ("Failed to resolve participant ID '" +
                                                     sParticipantIDUriEncoded +
                                                     "' for the provided SML '" +
-                                                    aSML.getID () +
+                                                    aSMLConfiguration.getID () +
                                                     "'");
 
           final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
@@ -322,13 +322,18 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                        "' from '" +
                        aQueryParams.getSMPHostURI () +
                        "' using SML '" +
-                       aSML +
+                       aSMLConfiguration +
                        "'");
           final URL aSMPHost = aQueryParams.getSMPHostURI ().toURL ();
 
           {
             final HCUL aUL = new HCUL ();
-            aUL.addItem (div ("SML used: ").addChild (code (aSML.getDisplayName () + " / " + aSML.getDNSZone ())));
+            aUL.addItem (div ("SML used: ").addChild (code (aSMLConfiguration.getDisplayName () +
+                                                            " / " +
+                                                            aSMLConfiguration.getDNSZone ()))
+                                           .addChild (" ")
+                                           .addChild (aSMLConfiguration.isProduction () ? badgeSuccess ("production SML")
+                                                                                        : badgeWarn ("test SML")));
 
             final String sURL1 = aSMPHost.toExternalForm ();
             aUL.addItem (div ("Peppol name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
@@ -877,8 +882,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
                                                    .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML,
-                                                                                              SMLConfigurationSelect.FIELD_AUTO_SELECT),
-                                                                            true))
+                                                                                                           SMLConfigurationSelect.FIELD_AUTO_SELECT),
+                                                                                         true))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Query Business Card?")
                                                    .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_QUERY_BUSINESS_CARD,
