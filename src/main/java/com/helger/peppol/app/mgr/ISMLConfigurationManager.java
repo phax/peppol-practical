@@ -62,6 +62,8 @@ public interface ISMLConfigurationManager
    *        SMP API type. May not be <code>null</code>.
    * @param eSMPIdentifierType
    *        SMP identifier type. May not be <code>null</code>.
+   * @param bProduction
+   *        <code>true</code> if production SML, <code>false</code> if test
    * @return Never <code>null</code>.
    */
   @Nonnull
@@ -70,7 +72,8 @@ public interface ISMLConfigurationManager
                                    @Nonnull @Nonempty String sManagementServiceURL,
                                    boolean bClientCertificateRequired,
                                    @Nonnull ESMPAPIType eSMPAPIType,
-                                   @Nonnull ESMPIdentifierType eSMPIdentifierType);
+                                   @Nonnull ESMPIdentifierType eSMPIdentifierType,
+                                   boolean bProduction);
 
   /**
    * Update an existing SML information.
@@ -100,6 +103,8 @@ public interface ISMLConfigurationManager
    *        SMP API type. May not be <code>null</code>.
    * @param eSMPIdentifierType
    *        SMP identifier type. May not be <code>null</code>.
+   * @param bProduction
+   *        <code>true</code> if production SML, <code>false</code> if test
    * @return {@link EChange#CHANGED} if something was changed.
    */
   @Nonnull
@@ -109,7 +114,8 @@ public interface ISMLConfigurationManager
                          @Nonnull @Nonempty String sManagementServiceURL,
                          boolean bClientCertificateRequired,
                          @Nonnull ESMPAPIType eSMPAPIType,
-                         @Nonnull ESMPIdentifierType eSMPIdentifierType);
+                         @Nonnull ESMPIdentifierType eSMPIdentifierType,
+                         boolean bProduction);
 
   /**
    * Delete an existing SML information.

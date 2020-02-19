@@ -70,6 +70,7 @@ public class PageSecureSMLConfiguration extends
   private static final String FIELD_CLIENT_CERTIFICATE_REQUIRED = "clientcert";
   private static final String FIELD_SMP_API_TYPE = "smpapitype";
   private static final String FIELD_SMP_ID_TYPE = "smpidype";
+  private static final String FIELD_PRODUCTION = "production";
 
   public PageSecureSMLConfiguration (@Nonnull @Nonempty final String sID)
   {
@@ -150,6 +151,9 @@ public class PageSecureSMLConfiguration extends
                                                  .setCtrl (aSelectedObject.getSMPAPIType ().getDisplayName ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP identifier type")
                                                  .setCtrl (aSelectedObject.getSMPIdentifierType ().getDisplayName ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Production SML?")
+                                                 .setCtrl (EPhotonCoreText.getYesOrNo (aSelectedObject.isProduction (),
+                                                                                       aDisplayLocale)));
 
     aNodeList.addChild (aForm);
   }
@@ -220,6 +224,12 @@ public class PageSecureSMLConfiguration extends
                                                                                         aDisplayLocale))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID_TYPE)));
 
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Production SML?")
+                                                 .setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_PRODUCTION,
+                                                                                                    aSelectedObject != null ? aSelectedObject.isProduction ()
+                                                                                                                            : true)))
+                                                 .setHelpText ("Check this if this SML is a production SML. Don't check e.g. for SMK.")
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_PRODUCTION)));
   }
 
   @Override
@@ -240,6 +250,7 @@ public class PageSecureSMLConfiguration extends
     final ESMPAPIType eSMPAPIType = ESMPAPIType.getFromIDOrNull (sSMPAPIType);
     final String sSMPIdentifierType = aWPEC.params ().getAsString (FIELD_SMP_ID_TYPE);
     final ESMPIdentifierType eSMPIdentifierType = ESMPIdentifierType.getFromIDOrNull (sSMPIdentifierType);
+    final boolean bProduction = aWPEC.params ().isCheckBoxChecked (FIELD_PRODUCTION, false);
 
     // validations
     if (StringHelper.hasNoText (sDisplayName))
@@ -286,7 +297,8 @@ public class PageSecureSMLConfiguration extends
                                             sManagementAddressURL,
                                             bClientCertificateRequired,
                                             eSMPAPIType,
-                                            eSMPIdentifierType);
+                                            eSMPIdentifierType,
+                                            bProduction);
         aWPEC.postRedirectGetInternal (success ("The SML configuration '" +
                                                 sDisplayName +
                                                 "' was successfully edited."));
@@ -298,7 +310,8 @@ public class PageSecureSMLConfiguration extends
                                             sManagementAddressURL,
                                             bClientCertificateRequired,
                                             eSMPAPIType,
-                                            eSMPIdentifierType);
+                                            eSMPIdentifierType,
+                                            bProduction);
         aWPEC.postRedirectGetInternal (success ("The new SML configuration '" +
                                                 sDisplayName +
                                                 "' was successfully created."));
@@ -325,6 +338,7 @@ public class PageSecureSMLConfiguration extends
                                         new DTCol ("Client Cert?"),
                                         new DTCol ("SMP API type"),
                                         new DTCol ("SMP ID type"),
+                                        new DTCol ("Production?"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
     for (final ISMLConfiguration aCurObject : aSMLConfigurationMgr.getAll ())
     {
@@ -337,6 +351,7 @@ public class PageSecureSMLConfiguration extends
       aRow.addCell (EPhotonCoreText.getYesOrNo (aCurObject.isClientCertificateRequired (), aDisplayLocale));
       aRow.addCell (aCurObject.getSMPAPIType ().getDisplayName ());
       aRow.addCell (aCurObject.getSMPIdentifierType ().getDisplayName ());
+      aRow.addCell (EPhotonCoreText.getYesOrNo (aCurObject.isProduction (), aDisplayLocale));
 
       aRow.addCell (createEditLink (aWPEC, aCurObject, "Edit " + aCurObject.getID ()),
                     new HCTextNode (" "),

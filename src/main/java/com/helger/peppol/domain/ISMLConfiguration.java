@@ -61,4 +61,6 @@ public interface ISMLConfiguration extends IHasID <String>, IHasDisplayName, Ser
 
   @Nonnull
   ESMPIdentifierType getSMPIdentifierType ();
+
+  boolean isProduction ();
 }

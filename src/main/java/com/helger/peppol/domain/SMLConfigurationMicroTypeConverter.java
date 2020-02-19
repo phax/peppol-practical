@@ -34,6 +34,7 @@ public final class SMLConfigurationMicroTypeConverter implements IMicroTypeConve
   private static final String ELEMENT_SML_INFO = "smlinfo";
   private static final IMicroQName ATTR_SMP_API_TYPE = new MicroQName ("smpapitype");
   private static final IMicroQName ATTR_SMP_IDENTIFIER_TYPE = new MicroQName ("smpidtype");
+  private static final IMicroQName ATTR_PRODUCTION = new MicroQName ("prod");
 
   @Nonnull
   public IMicroElement convertToMicroElement (@Nonnull final SMLConfiguration aObj,
@@ -46,6 +47,7 @@ public final class SMLConfigurationMicroTypeConverter implements IMicroTypeConve
                                                                     ELEMENT_SML_INFO));
     aElement.setAttribute (ATTR_SMP_API_TYPE, aObj.getSMPAPIType ().getID ());
     aElement.setAttribute (ATTR_SMP_IDENTIFIER_TYPE, aObj.getSMPIdentifierType ().getID ());
+    aElement.setAttribute (ATTR_PRODUCTION, aObj.isProduction ());
     return aElement;
   }
 
@@ -56,12 +58,14 @@ public final class SMLConfigurationMicroTypeConverter implements IMicroTypeConve
     final SMLInfo aSMLInfo;
     final ESMPAPIType eSMPAPIType;
     final ESMPIdentifierType eSMPIdentifierType;
+    final boolean bProduction;
     if (eSMLInfo != null)
     {
       aSMLInfo = MicroTypeConverter.convertToNative (eSMLInfo, SMLInfo.class);
       eSMPAPIType = ESMPAPIType.getFromIDOrDefault (aElement.getAttributeValue (ATTR_SMP_API_TYPE), ESMPAPIType.PEPPOL);
       eSMPIdentifierType = ESMPIdentifierType.getFromIDOrDefault (aElement.getAttributeValue (ATTR_SMP_IDENTIFIER_TYPE),
                                                                   ESMPIdentifierType.PEPPOL);
+      bProduction = aElement.getAttributeValueAsBool (ATTR_PRODUCTION, false);
     }
     else
     {
@@ -69,7 +73,8 @@ public final class SMLConfigurationMicroTypeConverter implements IMicroTypeConve
       aSMLInfo = MicroTypeConverter.convertToNative (aElement, SMLInfo.class);
       eSMPAPIType = ESMPAPIType.PEPPOL;
       eSMPIdentifierType = ESMPIdentifierType.PEPPOL;
+      bProduction = false;
     }
-    return new SMLConfiguration (aSMLInfo, eSMPAPIType, eSMPIdentifierType);
+    return new SMLConfiguration (aSMLInfo, eSMPAPIType, eSMPIdentifierType, bProduction);
   }
 }

@@ -34,8 +34,9 @@ import com.helger.peppolid.factory.ESMPIdentifierType;
 import com.helger.photon.app.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.audit.AuditHelper;
 
-public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO <ISMLConfiguration, SMLConfiguration> implements
-                                  ISMLConfigurationManager
+public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO <ISMLConfiguration, SMLConfiguration>
+                                           implements
+                                           ISMLConfigurationManager
 {
   public SMLConfigurationManager (@Nonnull @Nonempty final String sFilename) throws DAOException
   {
@@ -58,10 +59,11 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
                                           @Nonnull @Nonempty final String sManagementServiceURL,
                                           final boolean bClientCertificateRequired,
                                           @Nonnull final ESMPAPIType eSMPAPIType,
-                                          @Nonnull final ESMPIdentifierType eSMPIdentifierType)
+                                          @Nonnull final ESMPIdentifierType eSMPIdentifierType,
+                                          final boolean bProduction)
   {
     final SMLInfo aSMLInfo = new SMLInfo (sDisplayName, sDNSZone, sManagementServiceURL, bClientCertificateRequired);
-    final SMLConfiguration aExtSMLInfo = new SMLConfiguration (aSMLInfo, eSMPAPIType, eSMPIdentifierType);
+    final SMLConfiguration aExtSMLInfo = new SMLConfiguration (aSMLInfo, eSMPAPIType, eSMPIdentifierType, bProduction);
 
     m_aRWLock.writeLocked ( () -> {
       internalCreateItem (aExtSMLInfo);
@@ -73,7 +75,8 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
                                       sManagementServiceURL,
                                       Boolean.valueOf (bClientCertificateRequired),
                                       eSMPAPIType,
-                                      eSMPIdentifierType);
+                                      eSMPIdentifierType,
+                                      Boolean.valueOf (bProduction));
     return aExtSMLInfo;
   }
 
@@ -84,7 +87,8 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
                                 @Nonnull @Nonempty final String sManagementServiceURL,
                                 final boolean bClientCertificateRequired,
                                 @Nonnull final ESMPAPIType eSMPAPIType,
-                                @Nonnull final ESMPIdentifierType eSMPIdentifierType)
+                                @Nonnull final ESMPIdentifierType eSMPIdentifierType,
+                                final boolean bProduction)
   {
     final SMLConfiguration aExtSMLInfo = getOfID (sSMLInfoID);
     if (aExtSMLInfo == null)
@@ -104,6 +108,7 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
       eChange = eChange.or (aSMLInfo.setClientCertificateRequired (bClientCertificateRequired));
       eChange = eChange.or (aExtSMLInfo.setSMPAPIType (eSMPAPIType));
       eChange = eChange.or (aExtSMLInfo.setSMPIdentifierType (eSMPIdentifierType));
+      eChange = eChange.or (aExtSMLInfo.setProduction (bProduction));
       if (eChange.isUnchanged ())
         return EChange.UNCHANGED;
 
@@ -121,7 +126,8 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
                                       sManagementServiceURL,
                                       Boolean.valueOf (bClientCertificateRequired),
                                       eSMPAPIType,
-                                      eSMPIdentifierType);
+                                      eSMPIdentifierType,
+                                      Boolean.valueOf (bProduction));
     return EChange.CHANGED;
   }
 

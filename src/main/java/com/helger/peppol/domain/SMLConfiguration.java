@@ -15,14 +15,17 @@ public final class SMLConfiguration implements ISMLConfiguration
   private SMLInfo m_aSMLInfo;
   private ESMPAPIType m_eSMPAPIType;
   private ESMPIdentifierType m_eSMPIdentifierType;
+  private boolean m_bProduction;
 
   public SMLConfiguration (@Nonnull final SMLInfo aSMLInfo,
                            @Nonnull final ESMPAPIType eSMPAPIType,
-                           @Nonnull final ESMPIdentifierType eSMPIdentifierType)
+                           @Nonnull final ESMPIdentifierType eSMPIdentifierType,
+                           final boolean bProduction)
   {
     setSMLInfo (aSMLInfo);
     setSMPAPIType (eSMPAPIType);
     setSMPIdentifierType (eSMPIdentifierType);
+    setProduction (bProduction);
   }
 
   @Nonnull
@@ -73,10 +76,27 @@ public final class SMLConfiguration implements ISMLConfiguration
     return EChange.CHANGED;
   }
 
+  public boolean isProduction ()
+  {
+    return m_bProduction;
+  }
+
+  @Nonnull
+  public EChange setProduction (final boolean bProduction)
+  {
+    if (bProduction == m_bProduction)
+      return EChange.UNCHANGED;
+    m_bProduction = bProduction;
+    return EChange.CHANGED;
+  }
+
   @Nonnull
   public static SMLConfiguration create (@Nonnull final ESML eSML)
   {
-    return new SMLConfiguration (new SMLInfo (eSML), ESMPAPIType.PEPPOL, ESMPIdentifierType.PEPPOL);
+    return new SMLConfiguration (new SMLInfo (eSML),
+                                 ESMPAPIType.PEPPOL,
+                                 ESMPIdentifierType.PEPPOL,
+                                 eSML == ESML.DIGIT_PRODUCTION);
   }
 
   @Override

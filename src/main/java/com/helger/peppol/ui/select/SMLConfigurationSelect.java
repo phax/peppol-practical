@@ -34,6 +34,11 @@ public class SMLConfigurationSelect extends HCExtSelect
       addOption (FIELD_AUTO_SELECT, "Auto-detect SML");
     for (final ISMLConfiguration aSMLInfo : PPMetaManager.getSMLConfigurationMgr ().getAllSorted ())
       if (aSMLInfo.isClientCertificateRequired ())
-        addOption (aSMLInfo.getID (), "[" + aSMLInfo.getDisplayName () + "] " + aSMLInfo.getManagementServiceURL ());
+        addOption (aSMLInfo.getID (),
+                   "[" +
+                                      aSMLInfo.getDisplayName () +
+                                      "] " +
+                                      aSMLInfo.getManagementServiceURL () +
+                                      (aSMLInfo.isProduction () ? " (production)" : " (test)"));
   }
 }
