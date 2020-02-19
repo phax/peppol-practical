@@ -531,7 +531,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                              aEndpoint.getTechnicalContactUrl ()));
 
                             // Certificate (also add null values)
-                            aAllUsedEndpointCertifiactes.add (CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ()));
+                            final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ());
+                            aAllUsedEndpointCertifiactes.add (aCert);
                           }
                           aLIProcessID.addChild (aULEndpoint);
                         }
@@ -596,7 +597,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                              aEndpoint.getTechnicalContactUrl ()));
 
                             // Certificate (also add null values)
-                            aAllUsedEndpointCertifiactes.add (CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ()));
+                            final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
+                            aAllUsedEndpointCertifiactes.add (aCert);
                           }
                           aLIProcessID.addChild (aULEndpoint);
                         }
