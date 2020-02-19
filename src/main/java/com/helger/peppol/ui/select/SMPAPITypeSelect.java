@@ -36,6 +36,6 @@ public class SMPAPITypeSelect extends HCExtSelect
     super (aRF);
     addOptionPleaseSelect (aDisplayLocale);
     for (final ESMPAPIType e : ESMPAPIType.values ())
-      addOption (e.getID (), e.name ());
+      addOption (e.getID (), e.getDisplayName ());
   }
 }

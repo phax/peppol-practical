@@ -143,7 +143,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
                                                  .setCtrl (EPhotonCoreText.getYesOrNo (aSelectedObject.isClientCertificateRequired (),
                                                                                        aDisplayLocale)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP API type")
-                                                 .setCtrl (aSelectedObject.getSMPAPIType ().name ()));
+                                                 .setCtrl (aSelectedObject.getSMPAPIType ().getDisplayName ()));
 
     aNodeList.addChild (aForm);
   }
@@ -310,7 +310,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IE
       aRow.addCell (aCurObject.getDNSZone ());
       aRow.addCell (aCurObject.getManagementServiceURL ());
       aRow.addCell (EPhotonCoreText.getYesOrNo (aCurObject.isClientCertificateRequired (), aDisplayLocale));
-      aRow.addCell (aCurObject.getSMPAPIType ().name ());
+      aRow.addCell (aCurObject.getSMPAPIType ().getDisplayName ());
 
       aRow.addCell (createEditLink (aWPEC, aCurObject, "Edit " + aCurObject.getID ()),
                     new HCTextNode (" "),
