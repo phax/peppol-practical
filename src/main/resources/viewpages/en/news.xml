@@ -37,6 +37,18 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2020-03-10 - Proposed CEF SMK/SML Security Configuration changes</h3>
+    
+    <p>
+      On March 16<sup>th</sup>, CEF will update the https configuration for the SMK.
+      The production SML will follow at least 4 weeks later.<br />
+      Therefore all SMP providers must ensure to be able to communicate with this new configuration.
+      I've created a 
+      <a href="https://github.com/phax/phoss-smp/wiki/CEF-SMK-SML-Cipher-Suite-Update-2020-03">phoss SMP Wiki page</a>
+      that assembles the Java software dependencies.
+      To my knowledge all phoss SMP 5.x instances should continue to work without any changes needed.  
+    </p>
+   
     <h3>2020-03-09 - Document Validation - EN 16931 1.3.1 added</h3>
     
     <p>
