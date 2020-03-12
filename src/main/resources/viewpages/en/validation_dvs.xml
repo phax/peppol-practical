@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 460 entries -->
+<!-- 462 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -79,9 +79,11 @@ A very small Java WS client is available for
 <li><code>be.efff:credit-note:3.0.0</code> - e-FFF Credit Note 3.0.0 <strong>(Deprecated)</strong></li>
 <li><code>be.efff:invoice:3.0.0</code> - e-FFF Invoice 3.0.0 <strong>(Deprecated)</strong></li>
 <li><code>be.ubl:credit-note:1.0.0</code> - UBL.BE Credit Note 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>be.ubl:credit-note:1.1.0</code> - UBL.BE Credit Note 1.1.0</li>
+<li><code>be.ubl:credit-note:1.1.0</code> - UBL.BE Credit Note 1.1.0 <strong>(Deprecated)</strong></li>
+<li><code>be.ubl:credit-note:1.2.0</code> - UBL.BE Credit Note 1.2.0</li>
 <li><code>be.ubl:invoice:1.0.0</code> - UBL.BE Invoice 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>be.ubl:invoice:1.1.0</code> - UBL.BE Invoice 1.1.0</li>
+<li><code>be.ubl:invoice:1.1.0</code> - UBL.BE Invoice 1.1.0 <strong>(Deprecated)</strong></li>
+<li><code>be.ubl:invoice:1.2.0</code> - UBL.BE Invoice 1.2.0</li>
 <li><code>com.tieto:teappsxml:2.7.2</code> - TEAPPSXML 2.7.2</li>
 <li><code>com.tieto:teappsxml:3.0</code> - TEAPPSXML 3.0</li>
 <li><code>de.xrechnung:cii:1.2.0</code> - XRechnung CII 1.2.0 <strong>(Deprecated)</strong></li>
@@ -132,39 +134,39 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.1</code> - EN 16931 UBL CreditNote 1.3.1</li>
 <li><code>eu.peppol.bis2:t01:3.5.0</code> - OpenPEPPOL Order (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.6.0</code> - OpenPEPPOL Order (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t01:3.7.0</code> - OpenPEPPOL Order (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t01:3.7.0</code> - OpenPEPPOL Order (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t10:3.5.0</code> - OpenPEPPOL Invoice (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t10:3.6.0</code> - OpenPEPPOL Invoice (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t10:3.7.0</code> - OpenPEPPOL Invoice (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t10:3.7.0</code> - OpenPEPPOL Invoice (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t10:5:at</code> - OpenPEPPOL Invoice (Austria)</li>
 <li><code>eu.peppol.bis2:t10:7:at-gov</code> - OpenPEPPOL Invoice (Austrian Government)</li>
 <li><code>eu.peppol.bis2:t110:3.5.0</code> - OpenPEPPOL Order Agreement (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t110:3.6.0</code> - OpenPEPPOL Order Agreement (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t110:3.7.0</code> - OpenPEPPOL Order Agreement (3.7.0) (aka BIS 2)</li>
-<li><code>eu.peppol.bis2:t111:3.7.0</code> - OpenPEPPOL Invoice Message Response (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t110:3.7.0</code> - OpenPEPPOL Order Agreement (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis2:t111:3.7.0</code> - OpenPEPPOL Invoice Message Response (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t14:3.5.0</code> - OpenPEPPOL Credit Note (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t14:3.6.0</code> - OpenPEPPOL Credit Note (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t14:3.7.0</code> - OpenPEPPOL Credit Note (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t14:3.7.0</code> - OpenPEPPOL Credit Note (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t14:5:at</code> - OpenPEPPOL Credit Note (Austria)</li>
 <li><code>eu.peppol.bis2:t14:7:at-gov</code> - OpenPEPPOL Credit Note (Austrian Government)</li>
 <li><code>eu.peppol.bis2:t16:3.5.0</code> - OpenPEPPOL Despatch Advice (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t16:3.6.0</code> - OpenPEPPOL Despatch Advice (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t16:3.7.0</code> - OpenPEPPOL Despatch Advice (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t16:3.7.0</code> - OpenPEPPOL Despatch Advice (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t19:3.5.0</code> - OpenPEPPOL Catalogue (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t19:3.6.0</code> - OpenPEPPOL Catalogue (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t19:3.7.0</code> - OpenPEPPOL Catalogue (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t19:3.7.0</code> - OpenPEPPOL Catalogue (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t58:3.5.0</code> - OpenPEPPOL Catalogue Response (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t58:3.6.0</code> - OpenPEPPOL Catalogue Response (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t58:3.7.0</code> - OpenPEPPOL Catalogue Response (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t58:3.7.0</code> - OpenPEPPOL Catalogue Response (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t71:3.5.0</code> - OpenPEPPOL MLR (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t71:3.6.0</code> - OpenPEPPOL MLR (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t71:3.7.0</code> - OpenPEPPOL MLR (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t71:3.7.0</code> - OpenPEPPOL MLR (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t76:3.5.0</code> - OpenPEPPOL Order Response (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t76:3.6.0</code> - OpenPEPPOL Order Response (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t76:3.7.0</code> - OpenPEPPOL Order Response (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t76:3.7.0</code> - OpenPEPPOL Order Response (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t77:3.5.0</code> - OpenPEPPOL Punch Out (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t77:3.6.0</code> - OpenPEPPOL Punch Out (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t77:3.7.0</code> - OpenPEPPOL Punch Out (3.7.0) (aka BIS 2)</li>
+<li><code>eu.peppol.bis2:t77:3.7.0</code> - OpenPEPPOL Punch Out (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.8.0</code> - OpenPEPPOL Credit Note (3.8.0) (aka BIS Billing 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.8.1</code> - OpenPEPPOL Credit Note (3.8.1) (aka BIS Billing 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.9.0</code> - OpenPEPPOL Credit Note (3.9.0) (aka BIS Billing 3.0.5)</li>

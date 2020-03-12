@@ -37,6 +37,22 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
    
+    <h3>2020-03-12 - Document Validation - UBL.BE 1.2 added</h3>
+    
+    <p>
+      Added support for UBL.BE 1.2 validation rules.
+      Deprecated UBL.BE 1.1 rules.<br />
+      Also deprecated the OpenPeppol 3.7.0 rules that were used for BIS v2 validation. 
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>be.ubl:credit-note:1.2.0</code> - UBL.BE Credit Note 1.2.0</li>
+<li><code>be.ubl:invoice:1.2.0</code> - UBL.BE Invoice 1.2.0</li>
+    </ul>
+  
     <h3>2020-03-10 - Proposed CEF SMK/SML Security Configuration changes</h3>
     
     <p>
