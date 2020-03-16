@@ -111,4 +111,9 @@ public final class AppSettings extends AbstractGlobalSingleton
   {
     return s_aCF.getAsString ("recaptcha.secretkey");
   }
+
+  public static long getValidationAPIMaxRequestsPerSecond ()
+  {
+    return s_aCF.getAsLong ("validation.limit.requestspersecond", -1);
+  }
 }

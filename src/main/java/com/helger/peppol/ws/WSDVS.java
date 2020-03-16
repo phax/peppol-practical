@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.ws;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.time.Duration;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -45,6 +48,7 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
+import com.helger.peppol.app.AppSettings;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
@@ -58,6 +62,9 @@ import com.helger.peppol.wsclient2.WSDVSPort;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.web.scope.mgr.WebScoped;
 import com.helger.xml.serialize.read.DOMReader;
+
+import es.moki.ratelimitj.core.limiter.request.RequestLimitRule;
+import es.moki.ratelimitj.inmemory.request.InMemorySlidingWindowRequestRateLimiter;
 
 @WebService (endpointInterface = "com.helger.peppol.wsclient2.WSDVSPort")
 public class WSDVS implements WSDVSPort
@@ -77,6 +84,28 @@ public class WSDVS implements WSDVSPort
 
   @Resource
   private WebServiceContext m_aWSContext;
+
+  private InMemorySlidingWindowRequestRateLimiter m_aRequestRateLimiter;
+
+  public WSDVS ()
+  {
+    final long nRequestsPerSec = AppSettings.getValidationAPIMaxRequestsPerSecond ();
+    if (nRequestsPerSec > 0)
+    {
+      // 2 request per second, per key
+      // Note: duration must be > 1 second
+      m_aRequestRateLimiter = new InMemorySlidingWindowRequestRateLimiter (RequestLimitRule.of (Duration.ofSeconds (2),
+                                                                                                nRequestsPerSec * 2));
+      LOGGER.info ("Installed validation API rate limiter with a maximum of " +
+                   nRequestsPerSec +
+                   " requests per second");
+    }
+    else
+    {
+      m_aRequestRateLimiter = null;
+      LOGGER.info ("REST search API runs without limit");
+    }
+  }
 
   private static void _throw (@Nonnull final String s) throws ValidateFaultError
   {
@@ -110,6 +139,31 @@ public class WSDVS implements WSDVSPort
                    ":" +
                    aHttpRequest.getRemotePort () +
                    "]");
+
+    if (m_aRequestRateLimiter != null)
+    {
+      final String sRateLimitKey = "ip:" + aHttpRequest.getRemoteAddr ();
+      final boolean bOverLimit = m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey);
+      if (bOverLimit)
+      {
+        // Too Many Requests
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("REST search rate limit exceeded for " + sRateLimitKey);
+
+        final HttpServletResponse aResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
+                                                                                .get (MessageContext.SERVLET_RESPONSE);
+        try
+        {
+          // TODO Use constant in ph-commons CHttp 9.3.10 or later
+          aResponse.sendError (429);
+        }
+        catch (final IOException ex)
+        {
+          throw new UncheckedIOException (ex);
+        }
+        return null;
+      }
+    }
 
     // Start request scope
     try (final WebScoped aWebScoped = new WebScoped (aHttpRequest, aHttpResponse))

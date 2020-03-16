@@ -273,6 +273,11 @@
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
     </dependency>
+    <dependency>
+      <groupId>es.moki.ratelimitj</groupId>
+      <artifactId>ratelimitj-inmemory</artifactId>
+      <version>0.6.0</version>
+    </dependency>
 
     <dependency>
       <groupId>javax.servlet</groupId>
