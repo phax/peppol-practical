@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.SMLInfo;
@@ -114,5 +115,15 @@ public final class SMLConfiguration implements ISMLConfiguration
   public int hashCode ()
   {
     return new HashCodeGenerator (this).append (getID ()).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("SMLInfo", m_aSMLInfo)
+                                       .append ("APIType", m_eSMPAPIType)
+                                       .append ("IdentifierType", m_eSMPIdentifierType)
+                                       .append ("Production", m_bProduction)
+                                       .getToString ();
   }
 }
