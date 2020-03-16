@@ -144,10 +144,9 @@ public final class PagePublicContact extends AbstractAppWebPage
       final HCExtSelect aSelect = new HCExtSelect (new RequestField (FIELD_TOPIC));
       aSelect.addOption ("SML/SMK");
       aSelect.addOption ("SMP");
-      aSelect.addOption ("AccessPoint (AP)");
-      aSelect.addOption ("AS2");
-      aSelect.addOption ("AS4");
+      aSelect.addOption ("AccessPoint (AP)/AS4");
       aSelect.addOption ("Peppol Directory");
+      aSelect.addOption ("Validation");
       aSelect.addOption ("CEF");
       aSelect.addOption ("General question");
       aSelect.addOptionPleaseSelect (aDisplayLocale);
