@@ -137,7 +137,7 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
                  "' from '" +
                  aQueryParams.getSMPHostURI () +
                  "' using SML '" +
-                 aSML +
+                 aSML.getID () +
                  "' for document type '" +
                  aDocTypeID.getURIEncoded () +
                  "'");
@@ -176,7 +176,7 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     if (aJson == null)
     {
       LOGGER.error ("[API] Failed to perform the SMP lookup");
-      aUnifiedResponse.setStatus (CHttp.HTTP_BAD_REQUEST);
+      aUnifiedResponse.setStatus (CHttp.HTTP_NOT_FOUND);
     }
     else
     {
