@@ -36,6 +36,14 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+
+    <h3>2020-03-16 - Document Validation - introduction of rate limit</h3>
+    
+    <p>
+      To avoid that the server goes down because of the many validation requests, I needed to introduce a rate limit.
+      That means that you cannot do more than 2 validations per seconds.
+      If you are looking for a commercial solution, don't hesitate to contact me via the <a href="/public/menuitem-contact">contact form</a>.
+    </p>
    
     <h3>2020-03-12 - Document Validation - UBL.BE 1.2 added</h3>
     
