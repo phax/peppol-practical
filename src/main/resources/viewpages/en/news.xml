@@ -37,6 +37,24 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+  
+    <h3>2020-03-20 - Document Validation - Peppol AU-NZ updated to 1.0.2</h3>
+    
+    <p>
+      Added support for Peppol AU-NZ 1.0.2 validation rules.
+      Deprecated Peppol AU-NZ 1.0.1 rules. 
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.2</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.2</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.2</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.2</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.2</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.2</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.2</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.2</li>
+    </ul>
+
     <h3>2020-03-16 - Document Validation - introduction of rate limit</h3>
     
     <p>
@@ -301,7 +319,7 @@
     <h3>2019-10-22 - Document validation extended</h3>
     
     <p>
-      The latest PEPPOL A-NZ validation artefacts are contained, as well as the PEPPOL 3.9.0-RC1 (Fall 2019) validation artefacts.
+      The latest Peppol A-NZ validation artefacts are contained, as well as the PEPPOL 3.9.0-RC1 (Fall 2019) validation artefacts.
     </p>
     <ul>
       <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
