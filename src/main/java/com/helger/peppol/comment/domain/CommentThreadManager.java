@@ -103,7 +103,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   @ReturnsMutableCopy
   public ICommonsSet <ObjectType> getAllRegisteredObjectTypes ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.copyOfKeySet ());
+    return m_aRWLock.readLockedGet (m_aMap::copyOfKeySet);
   }
 
   @Nullable
@@ -112,7 +112,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
     if (aObjectType == null)
       return null;
 
-    return m_aRWLock.readLocked ( () -> m_aMap.get (aObjectType));
+    return m_aRWLock.readLockedGet ( () -> m_aMap.get (aObjectType));
   }
 
   @Nullable

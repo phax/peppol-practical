@@ -211,14 +211,14 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllOwningObjectIDs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aObjectToCommentThreads.copyOfKeySet ());
+    return m_aRWLock.readLockedGet (m_aObjectToCommentThreads::copyOfKeySet);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public IMultiMapListBased <String, ICommentThread> getAllCommentThreads ()
   {
-    return m_aRWLock.readLocked ( () -> new MultiHashMapArrayListBased <> (m_aObjectToCommentThreads));
+    return m_aRWLock.readLockedGet ( () -> new MultiHashMapArrayListBased <> (m_aObjectToCommentThreads));
   }
 
   @Nonnull
@@ -249,7 +249,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
     if (StringHelper.hasNoText (sCommentThreadID))
       return null;
 
-    return m_aRWLock.readLocked ( () -> m_aAllCommentThreads.get (sCommentThreadID));
+    return m_aRWLock.readLockedGet ( () -> m_aAllCommentThreads.get (sCommentThreadID));
   }
 
   @Nullable
