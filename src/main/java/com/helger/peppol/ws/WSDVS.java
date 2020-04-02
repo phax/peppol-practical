@@ -18,8 +18,11 @@ package com.helger.peppol.ws;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Locale;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Resource;
@@ -38,9 +41,14 @@ import com.helger.bdve.executorset.VESID;
 import com.helger.bdve.result.ValidationResult;
 import com.helger.bdve.result.ValidationResultList;
 import com.helger.bdve.source.ValidationSource;
+import com.helger.commons.csv.CSVWriter;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.http.CHttp;
+import com.helger.commons.io.EAppend;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -59,7 +67,9 @@ import com.helger.peppol.wsclient2.TriStateType;
 import com.helger.peppol.wsclient2.ValidateFaultError;
 import com.helger.peppol.wsclient2.ValidationResultType;
 import com.helger.peppol.wsclient2.WSDVSPort;
+import com.helger.photon.app.io.WebFileIO;
 import com.helger.schematron.svrl.SVRLResourceError;
+import com.helger.servlet.request.RequestHelper;
 import com.helger.web.scope.mgr.WebScoped;
 import com.helger.xml.serialize.read.DOMReader;
 
@@ -70,6 +80,10 @@ import es.moki.ratelimitj.inmemory.request.InMemorySlidingWindowRequestRateLimit
 public class WSDVS implements WSDVSPort
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (WSDVS.class);
+  // Re-created for every restart; in combination with s_aInvocationCounter it
+  // is unique
+  private static final String SESSION_ID = UUID.randomUUID ().toString ();
+  private static final AtomicInteger s_aInvocationCounter = new AtomicInteger ();
   private static final IMutableStatisticsHandlerCounter s_aCounterTotal = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                "$total");
   private static final IMutableStatisticsHandlerCounter s_aCounterAPISuccess = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
@@ -133,18 +147,52 @@ public class WSDVS implements WSDVSPort
     final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
                                                                                 .get (MessageContext.SERVLET_RESPONSE);
 
+    final String sRateLimitKey = "ip:" + aHttpRequest.getRemoteAddr ();
+    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey)
+                                                                 : false;
+
+    final String sInvocationUniqueID = Integer.toString (s_aInvocationCounter.incrementAndGet ());
+
+    // Just append to file
+    try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
+                                                                                .getFile ("wsdvs-logs.csv"),
+                                                                       EAppend.APPEND,
+                                                                       StandardCharsets.ISO_8859_1)))
+    {
+      w.setSeparatorChar (';');
+      w.writeNext (SESSION_ID,
+                   sInvocationUniqueID,
+                   PDTFactory.getCurrentLocalDateTime ().toString (),
+                   aHttpRequest.getRemoteAddr (),
+                   Boolean.toString (bOverRateLimit),
+                   aValidationRequest.getVESID (),
+                   Integer.toString (StringHelper.getLength (aValidationRequest.getXML ())),
+                   RequestHelper.getHttpUserAgentStringFromRequest (aHttpRequest));
+    }
+    catch (final IOException ex)
+    {
+      LOGGER.error ("Error writing CSV: " + ex.getMessage ());
+    }
+
     if (LOGGER.isInfoEnabled ())
       LOGGER.info ("Start validating business document with SOAP WS; source [" +
                    aHttpRequest.getRemoteAddr () +
                    ":" +
                    aHttpRequest.getRemotePort () +
-                   "]");
+                   "]; VESID '" +
+                   aValidationRequest.getVESID () +
+                   "'; Payload: " +
+                   StringHelper.getLength (aValidationRequest.getXML ()) +
+                   " bytes;" +
+                   (bOverRateLimit ? " RATE LIMIT EXCEEDED" : ""));
 
-    if (m_aRequestRateLimiter != null)
+    // Start request scope
+    try (final WebScoped aWebScoped = new WebScoped (aHttpRequest, aHttpResponse))
     {
-      final String sRateLimitKey = "ip:" + aHttpRequest.getRemoteAddr ();
-      final boolean bOverLimit = m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey);
-      if (bOverLimit)
+      // Track total invocation
+      s_aCounterTotal.increment ();
+
+      if (bOverRateLimit)
       {
         // Too Many Requests
         if (LOGGER.isDebugEnabled ())
@@ -155,7 +203,7 @@ public class WSDVS implements WSDVSPort
         try
         {
           // TODO Use constant in ph-commons CHttp 9.3.10 or later
-          aResponse.sendError (429);
+          aResponse.sendError (CHttp.HTTP_TOO_MANY_REQUESTS);
         }
         catch (final IOException ex)
         {
@@ -163,13 +211,6 @@ public class WSDVS implements WSDVSPort
         }
         return null;
       }
-    }
-
-    // Start request scope
-    try (final WebScoped aWebScoped = new WebScoped (aHttpRequest, aHttpResponse))
-    {
-      // Track total invocation
-      s_aCounterTotal.increment ();
 
       // Interpret parameters
       final String sVESID = aValidationRequest.getVESID ();
@@ -202,6 +243,7 @@ public class WSDVS implements WSDVSPort
       // All input parameters are valid!
       if (LOGGER.isInfoEnabled ())
         LOGGER.info ("Validating by SOAP WS using " + aVESID.getAsSingleID ());
+
       final StopWatch aSW = StopWatch.createdStarted ();
 
       // Start validating
@@ -267,9 +309,11 @@ public class WSDVS implements WSDVSPort
       ret.setInterrupted (bValidationInterrupted);
       ret.setMostSevereErrorLevel (_convert (aMostSevere));
 
+      aSW.stop ();
+
       if (LOGGER.isInfoEnabled ())
         LOGGER.info ("Finished validation after " +
-                     aSW.stopAndGetMillis () +
+                     aSW.getMillis () +
                      "ms; " +
                      nWarnings +
                      " warns; " +
@@ -288,6 +332,25 @@ public class WSDVS implements WSDVSPort
         s_aCounterAPISuccess.increment ();
       else
         s_aCounterAPIError.increment ();
+
+      // Just append to file
+      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
+                                                                                  .getFile ("wsdvs-results.csv"),
+                                                                         EAppend.APPEND,
+                                                                         StandardCharsets.ISO_8859_1)))
+      {
+        w.setSeparatorChar (';');
+        w.writeNext (SESSION_ID,
+                     sInvocationUniqueID,
+                     PDTFactory.getCurrentLocalDateTime ().toString (),
+                     Long.toString (aSW.getMillis ()),
+                     Integer.toString (nWarnings),
+                     Integer.toString (nErrors));
+      }
+      catch (final IOException ex)
+      {
+        LOGGER.error ("Error writing CSV2: " + ex.getMessage ());
+      }
 
       return ret;
     }
