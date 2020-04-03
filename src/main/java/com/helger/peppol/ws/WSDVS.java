@@ -41,6 +41,7 @@ import com.helger.bdve.executorset.VESID;
 import com.helger.bdve.result.ValidationResult;
 import com.helger.bdve.result.ValidationResultList;
 import com.helger.bdve.source.ValidationSource;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.csv.CSVWriter;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.error.IError;
@@ -95,6 +96,7 @@ public class WSDVS implements WSDVSPort
   private static final IMutableStatisticsHandlerCounter s_aCounterValidationError = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
                                                                                                                          "$validation-error");
   private static final IMutableStatisticsHandlerTimer s_aTimer = StatisticsManager.getTimerHandler (WSDVS.class);
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   @Resource
   private WebServiceContext m_aWSContext;
@@ -153,26 +155,28 @@ public class WSDVS implements WSDVSPort
 
     final String sInvocationUniqueID = Integer.toString (s_aInvocationCounter.incrementAndGet ());
 
-    // Just append to file
-    try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
-                                                                                .getFile ("wsdvs-logs.csv"),
-                                                                       EAppend.APPEND,
-                                                                       StandardCharsets.ISO_8859_1)))
-    {
-      w.setSeparatorChar (';');
-      w.writeNext (SESSION_ID,
-                   sInvocationUniqueID,
-                   PDTFactory.getCurrentLocalDateTime ().toString (),
-                   aHttpRequest.getRemoteAddr (),
-                   Boolean.toString (bOverRateLimit),
-                   aValidationRequest.getVESID (),
-                   Integer.toString (StringHelper.getLength (aValidationRequest.getXML ())),
-                   RequestHelper.getHttpUserAgentStringFromRequest (aHttpRequest));
-    }
-    catch (final IOException ex)
-    {
-      LOGGER.error ("Error writing CSV: " + ex.getMessage ());
-    }
+    s_aRWLock.writeLocked ( () -> {
+      // Just append to file
+      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
+                                                                                  .getFile ("wsdvs-logs.csv"),
+                                                                         EAppend.APPEND,
+                                                                         StandardCharsets.ISO_8859_1)))
+      {
+        w.setSeparatorChar (';');
+        w.writeNext (SESSION_ID,
+                     sInvocationUniqueID,
+                     PDTFactory.getCurrentLocalDateTime ().toString (),
+                     aHttpRequest.getRemoteAddr (),
+                     Boolean.toString (bOverRateLimit),
+                     aValidationRequest.getVESID (),
+                     Integer.toString (StringHelper.getLength (aValidationRequest.getXML ())),
+                     RequestHelper.getHttpUserAgentStringFromRequest (aHttpRequest));
+      }
+      catch (final IOException ex)
+      {
+        LOGGER.error ("Error writing CSV: " + ex.getMessage ());
+      }
+    });
 
     if (LOGGER.isInfoEnabled ())
       LOGGER.info ("Start validating business document with SOAP WS; source [" +
@@ -333,24 +337,28 @@ public class WSDVS implements WSDVSPort
       else
         s_aCounterAPIError.increment ();
 
-      // Just append to file
-      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
-                                                                                  .getFile ("wsdvs-results.csv"),
-                                                                         EAppend.APPEND,
-                                                                         StandardCharsets.ISO_8859_1)))
-      {
-        w.setSeparatorChar (';');
-        w.writeNext (SESSION_ID,
-                     sInvocationUniqueID,
-                     PDTFactory.getCurrentLocalDateTime ().toString (),
-                     Long.toString (aSW.getMillis ()),
-                     Integer.toString (nWarnings),
-                     Integer.toString (nErrors));
-      }
-      catch (final IOException ex)
-      {
-        LOGGER.error ("Error writing CSV2: " + ex.getMessage ());
-      }
+      final int nFinalWarnings = nWarnings;
+      final int nFinalErrors = nErrors;
+      s_aRWLock.writeLocked ( () -> {
+        // Just append to file
+        try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
+                                                                                    .getFile ("wsdvs-results.csv"),
+                                                                           EAppend.APPEND,
+                                                                           StandardCharsets.ISO_8859_1)))
+        {
+          w.setSeparatorChar (';');
+          w.writeNext (SESSION_ID,
+                       sInvocationUniqueID,
+                       PDTFactory.getCurrentLocalDateTime ().toString (),
+                       Long.toString (aSW.getMillis ()),
+                       Integer.toString (nFinalWarnings),
+                       Integer.toString (nFinalErrors));
+        }
+        catch (final IOException ex)
+        {
+          LOGGER.error ("Error writing CSV2: " + ex.getMessage ());
+        }
+      });
 
       return ret;
     }
