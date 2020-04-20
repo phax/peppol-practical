@@ -206,7 +206,6 @@ public class WSDVS implements WSDVSPort
                                                                                 .get (MessageContext.SERVLET_RESPONSE);
         try
         {
-          // TODO Use constant in ph-commons CHttp 9.3.10 or later
           aResponse.sendError (CHttp.HTTP_TOO_MANY_REQUESTS);
         }
         catch (final IOException ex)
