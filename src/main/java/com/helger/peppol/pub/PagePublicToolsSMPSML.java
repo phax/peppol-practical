@@ -235,7 +235,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final Exception ex)
         {
           final String sMsg = "The key store could not be loaded with the provided password. ";
-          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + AppCommonUI.getTechnicalDetailsString (ex));
+          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + AppCommonUI.getTechnicalDetailsString (ex, true));
           aKeyStore = null;
         }
       }
@@ -259,7 +259,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       catch (final Exception ex)
       {
         final String sMsg = "Failed to use the provided key store for TLS connection. ";
-        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + AppCommonUI.getTechnicalDetailsString (ex));
+        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + AppCommonUI.getTechnicalDetailsString (ex, true));
       }
     }
     return aSocketFactory;
@@ -319,7 +319,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final UnknownHostException ex)
         {
           final String sMsg = "The provided IP address does not resolve to a valid host. ";
-          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, sMsg + AppCommonUI.getTechnicalDetailsString (ex));
+          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, sMsg + AppCommonUI.getTechnicalDetailsString (ex, false));
         }
       }
 
@@ -395,8 +395,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        LOGGER.error (sMsg, ex);
-        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -455,7 +454,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         {
           aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                      "The provided IP address does not resolve to a valid host. " +
-                                                             AppCommonUI.getTechnicalDetailsString (ex));
+                                                             AppCommonUI.getTechnicalDetailsString (ex, false));
         }
       }
 
@@ -531,8 +530,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        LOGGER.error (sMsg);
-        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -599,8 +597,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' from the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        LOGGER.error (sMsg);
-        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
                                            aSMLInfo.getManagementServiceURL (),
@@ -754,14 +751,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                            aMigrationDate);
       }
       catch (final com.helger.peppol.smlclient.bdmsl.BadRequestFault
-          | com.helger.peppol.smlclient.bdmsl.InternalErrorFault | com.helger.peppol.smlclient.bdmsl.NotFoundFault
-          | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault | ClientTransportException ex)
+                   | com.helger.peppol.smlclient.bdmsl.InternalErrorFault
+                   | com.helger.peppol.smlclient.bdmsl.NotFoundFault
+                   | com.helger.peppol.smlclient.bdmsl.UnauthorizedFault
+                   | ClientTransportException ex)
       {
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
                             "'.";
-        LOGGER.error (sMsg);
-        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+        aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
                                            sMigrationPublicKey,
@@ -811,7 +809,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setEncTypeFileUpload ().setLeft (nLeft);
         aForm.addChild (info ("Register a new SMP to the SML. This must only be done once per SMP!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID), false))
+                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID),
+                                                                                           false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -848,7 +847,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setEncTypeFileUpload ().setLeft (nLeft);
         aForm.addChild (info ("Update an existing SMP at the SML. This must only be done when either the IP address or the host name of the SMP changed!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID), false))
+                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID),
+                                                                                           false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -885,7 +885,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.setLeft (nLeft);
         aForm.addChild (info ("Delete an existing SMP from the SML."));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID), false))
+                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID),
+                                                                                           false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP ID")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
@@ -918,7 +919,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                              div ("Note: this is a custom extension that only works with the CEF SML instances!")));
         aForm.addChild (warn ("It is your responsibility to update the Peppol certificate in your SMP at the specified time!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID), false))
+                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID),
+                                                                                           false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing/old SMP key store")
                                                      .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))

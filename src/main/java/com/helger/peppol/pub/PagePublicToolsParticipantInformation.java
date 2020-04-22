@@ -116,6 +116,7 @@ import com.helger.photon.uictrls.prism.EPrismLanguage;
 import com.helger.photon.uictrls.prism.HCPrismJS;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
+import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
@@ -130,9 +131,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   public static final String FIELD_SML = "sml";
   public static final String PARAM_QUERY_BUSINESS_CARD = "querybc";
   public static final String PARAM_SHOW_TIME = "showtime";
+  public static final String PARAM_XSD_VALIDATION = "xsdvalidation";
 
   private static final boolean DEFAULT_QUERY_BUSINESS_CARD = true;
   private static final boolean DEFAULT_SHOW_TIME = false;
+  private static final boolean DEFAULT_XSD_VALIDATION = true;
   private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsParticipantInformation.class);
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
@@ -240,6 +243,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                               .isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD,
                                                                   DEFAULT_QUERY_BUSINESS_CARD);
       final boolean bShowTime = aWPEC.params ().isCheckBoxChecked (PARAM_SHOW_TIME, DEFAULT_SHOW_TIME);
+      final boolean bXSDValidation = aWPEC.params ().isCheckBoxChecked (PARAM_XSD_VALIDATION, DEFAULT_XSD_VALIDATION);
 
       // Legacy URL params?
       if (aWPEC.params ().containsKey ("idscheme") && aWPEC.params ().containsKey ("idvalue"))
@@ -369,6 +373,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               case PEPPOL:
               {
                 aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+                aSMPClient.setXMLSchemaValidation (bXSDValidation);
 
                 // Get all HRefs and sort them by decoded URL
                 final com.helger.smpclient.peppol.jaxb.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
@@ -387,6 +392,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               case OASIS_BDXR_V1:
               {
                 aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+                aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
 
                 // Get all HRefs and sort them by decoded URL
                 final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
@@ -811,7 +817,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         {
           aNodeList.addChild (error (div ("Seems like the participant ID " +
                                           sParticipantIDUriEncoded +
-                                          " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex))
+                                          " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                     false))
                                                                                        .addChild (bSMLAutoDetect ? null
                                                                                                                  : div ("Try selecting a different SML - maybe this helps")));
 
@@ -825,7 +832,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         {
           aNodeList.addChild (error (div ("Seems like the participant ID " +
                                           sParticipantIDUriEncoded +
-                                          " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex))
+                                          " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                     false))
                                                                                        .addChild (bSMLAutoDetect ? null
                                                                                                                  : div ("Try selecting a different SML - maybe this helps")));
 
@@ -835,17 +843,30 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                              "dns-resolution-failed",
                                              ex.getMessage ());
         }
+        catch (final SMPClientBadResponseException ex)
+        {
+          aNodeList.addChild (error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                                      false)));
+
+          // Audit failure
+          AuditHelper.onAuditExecuteFailure ("participant-information",
+                                             sParticipantIDUriEncoded,
+                                             ex.getClass (),
+                                             ex.getMessage ());
+        }
         catch (final Exception ex)
         {
           // Don't spam me
-          if (!(ex instanceof SMPClientException))
+          final boolean bInterestingException = !(ex instanceof SMPClientException);
+          if (bInterestingException)
           {
             new InternalErrorBuilder ().setRequestScope (aRequestScope)
                                        .setDisplayLocale (aDisplayLocale)
                                        .setThrowable (ex)
                                        .handle ();
           }
-          aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex)));
+          aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                               bInterestingException)));
 
           // Audit failure
           AuditHelper.onAuditExecuteFailure ("participant-information",
@@ -895,6 +916,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                    .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_SHOW_TIME,
                                                                                                       DEFAULT_SHOW_TIME)))
                                                    .setErrorList (aFormErrors.getListOfField (PARAM_SHOW_TIME)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Enable XML Schema validation of results?")
+                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_XSD_VALIDATION,
+                                                                                                      DEFAULT_XSD_VALIDATION)))
+                                                   .setErrorList (aFormErrors.getListOfField (PARAM_XSD_VALIDATION)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);

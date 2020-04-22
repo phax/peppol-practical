@@ -376,12 +376,12 @@ public final class AppCommonUI
   }
 
   @Nullable
-  public static HCNodeList getTechnicalDetailsUI (@Nullable final Throwable t)
+  public static HCNodeList getTechnicalDetailsUI (@Nullable final Throwable t, final boolean bLogException)
   {
     if (t == null)
       return null;
 
-    LOGGER.warn ("Technical details", t);
+    LOGGER.warn ("Technical details", bLogException ? t : null);
 
     final HCNodeList ret = new HCNodeList ();
     Throwable aCur = t;
@@ -397,12 +397,12 @@ public final class AppCommonUI
   }
 
   @Nullable
-  public static String getTechnicalDetailsString (@Nullable final Throwable t)
+  public static String getTechnicalDetailsString (@Nullable final Throwable t, final boolean bLogException)
   {
     if (t == null)
       return null;
 
-    LOGGER.warn ("Technical details", t);
+    LOGGER.warn ("Technical details", bLogException ? t : null);
 
     final StringBuilder ret = new StringBuilder ();
     Throwable aCur = t;
