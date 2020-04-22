@@ -40,7 +40,8 @@
     <h3>2020-04-22 - Improved customizability of participant information</h3>
     
     <p>
-      The participant information page has now options to enable or disable both XML Schema validation as well as signature verification.  
+      The participant information page has now options to enable or disable both XML Schema validation as well as signature verification.
+      The REST API was also extended with new query parameters for the same options.
     </p>
 
     <h3>2020-03-20 - Document Validation - Peppol AU-NZ updated to 1.0.2</h3>

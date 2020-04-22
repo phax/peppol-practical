@@ -49,8 +49,6 @@ import com.helger.photon.api.IAPIDescriptor;
 import com.helger.photon.api.IAPIExecutor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
-import com.helger.smpclient.bdxr1.IBDXRServiceMetadataProvider;
-import com.helger.smpclient.peppol.ISMPServiceMetadataProvider;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -80,6 +78,9 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
     final IDocumentTypeIdentifier aDTID = SimpleIdentifierFactory.INSTANCE.parseDocumentTypeIdentifier (sDocTypeID);
     if (aDTID == null)
       throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
+
+    final boolean bXMLSchemaValidation = aRequestScope.params ().getAsBoolean ("xmlSchemaValidation", true);
+    final boolean bVerifySignature = aRequestScope.params ().getAsBoolean ("verifySignature", true);
 
     final ZonedDateTime aQueryDT = PDTFactory.getCurrentZonedDateTimeUTC ();
     final StopWatch aSW = StopWatch.createdStarted ();
@@ -140,14 +141,20 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
                  aSML.getID () +
                  "' for document type '" +
                  aDocTypeID.getURIEncoded () +
-                 "'");
+                 "'; XSD validation=" +
+                 bXMLSchemaValidation +
+                 "; signature verification=" +
+                 bVerifySignature);
 
     IJsonObject aJson = null;
     switch (aQueryParams.getSMPAPIType ())
     {
       case PEPPOL:
       {
-        final ISMPServiceMetadataProvider aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+        aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
+        aSMPClient.setVerifySignature (bVerifySignature);
+
         final com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
                                                                                                                      aDocTypeID);
         if (aSSM != null)
@@ -159,7 +166,10 @@ public final class APISMPQueryGetServiceInformation implements IAPIExecutor
       }
       case OASIS_BDXR_V1:
       {
-        final IBDXRServiceMetadataProvider aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+        final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+        aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
+        aBDXR1Client.setVerifySignature (bVerifySignature);
+
         final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
                                                                                                                 aDocTypeID);
         if (aSSM != null)
