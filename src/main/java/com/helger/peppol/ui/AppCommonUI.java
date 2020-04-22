@@ -381,7 +381,8 @@ public final class AppCommonUI
     if (t == null)
       return null;
 
-    LOGGER.warn ("Technical details", bLogException ? t : null);
+    if (bLogException)
+      LOGGER.warn ("Technical details", t);
 
     final HCNodeList ret = new HCNodeList ();
     Throwable aCur = t;
@@ -402,7 +403,8 @@ public final class AppCommonUI
     if (t == null)
       return null;
 
-    LOGGER.warn ("Technical details", bLogException ? t : null);
+    if (bLogException)
+      LOGGER.warn ("Technical details", t);
 
     final StringBuilder ret = new StringBuilder ();
     Throwable aCur = t;
