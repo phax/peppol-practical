@@ -68,11 +68,12 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
 
   private static final Logger LOGGER = LoggerFactory.getLogger (APIConvertCIIToUBL.class);
 
-  public void invokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
-                         @Nonnull @Nonempty final String sPath,
-                         @Nonnull final Map <String, String> aPathVariables,
-                         @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                         @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+  @Override
+  protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
+                                    @Nonnull @Nonempty final String sPath,
+                                    @Nonnull final Map <String, String> aPathVariables,
+                                    @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                                    @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
     final ErrorList aErrorList = new ErrorList ();
     final Locale aDisplayLocale = CPPApp.DEFAULT_LOCALE;

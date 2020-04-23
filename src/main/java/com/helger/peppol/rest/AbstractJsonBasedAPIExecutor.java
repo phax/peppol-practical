@@ -28,9 +28,8 @@ import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.state.ETriState;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
-import com.helger.photon.api.IAPIExecutor;
 
-public abstract class AbstractJsonBasedAPIExecutor implements IAPIExecutor
+public abstract class AbstractJsonBasedAPIExecutor extends AbstractAPIExecutor
 {
   @Nonnull
   protected static String getErrorLevel (@Nonnull final IErrorLevel aErrorLevel)

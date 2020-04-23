@@ -101,7 +101,7 @@ public class WSDVS implements WSDVSPort
   @Resource
   private WebServiceContext m_aWSContext;
 
-  private InMemorySlidingWindowRequestRateLimiter m_aRequestRateLimiter;
+  private final InMemorySlidingWindowRequestRateLimiter m_aRequestRateLimiter;
 
   public WSDVS ()
   {
@@ -119,7 +119,7 @@ public class WSDVS implements WSDVSPort
     else
     {
       m_aRequestRateLimiter = null;
-      LOGGER.info ("REST search API runs without limit");
+      LOGGER.info ("Validation API runs without limit");
     }
   }
 

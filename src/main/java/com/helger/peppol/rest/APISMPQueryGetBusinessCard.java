@@ -50,19 +50,19 @@ import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
-import com.helger.photon.api.IAPIExecutor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APISMPQueryGetBusinessCard implements IAPIExecutor
+public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetBusinessCard.class);
 
-  public void invokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
-                         @Nonnull @Nonempty final String sPath,
-                         @Nonnull final Map <String, String> aPathVariables,
-                         @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                         @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+  @Override
+  protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
+                                    @Nonnull @Nonempty final String sPath,
+                                    @Nonnull final Map <String, String> aPathVariables,
+                                    @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                                    @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
     final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);

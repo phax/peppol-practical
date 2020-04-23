@@ -100,6 +100,11 @@ public final class AppSettings extends AbstractGlobalSingleton
     return s_aCF.getAsBoolean ("rest.exceptions.payload", GlobalDebug.isDebugMode ());
   }
 
+  public static long getRESTAPIMaxRequestsPerSecond ()
+  {
+    return s_aCF.getAsLong ("rest.limit.requestspersecond", -1);
+  }
+
   @Nullable
   public static String getRecaptchaWebKey ()
   {
