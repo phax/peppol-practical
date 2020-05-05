@@ -104,10 +104,7 @@ public final class AppCommonUI
   public static final ICSSClassProvider CSS_CLASS_LOGO1 = DefaultCSSClassProvider.create ("logo1");
   public static final ICSSClassProvider CSS_CLASS_LOGO2 = DefaultCSSClassProvider.create ("logo2");
 
-  private static final DataTablesLengthMenu LENGTH_MENU = new DataTablesLengthMenu ().addItem (25)
-                                                                                     .addItem (50)
-                                                                                     .addItem (100)
-                                                                                     .addItemAll ();
+  private static final DataTablesLengthMenu LENGTH_MENU = new DataTablesLengthMenu ().addItem (25).addItem (50).addItem (100).addItemAll ();
   private static final Logger LOGGER = LoggerFactory.getLogger (AppCommonUI.class);
 
   private static final ICommonsMap <String, NiceNameEntry> DOCTYPE_NAMES = new CommonsHashMap <> ();
@@ -125,35 +122,14 @@ public final class AppCommonUI
 
   static
   {
-    if (true)
-    {
-      for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier.values ())
-        DOCTYPE_NAMES.put (e.getURIEncoded (),
-                           new NiceNameEntry (_ensurePrefix ("Peppol ", e.getCommonName ()), e.isDeprecated (), null));
-      for (final com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier e : com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier.values ())
-        PROCESS_NAMES.put (e.getURIEncoded (),
-                           new NiceNameEntry (_ensurePrefix ("Peppol ",
-                                                             StringHelper.getNotEmpty (e.getBISID (),
-                                                                                       "Default " + e.getValue ())),
-                                              e.isDeprecated (),
-                                              null));
-    }
-    else
-    {
-      for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV7 e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifierV7.values ())
-      {
-        DOCTYPE_NAMES.put (e.getURIEncoded (),
-                           new NiceNameEntry (_ensurePrefix ("Peppol ", e.getCommonName ()),
-                                              e.isDeprecated (),
-                                              e.getAllProcessIDs ()));
-      }
-    }
-    for (final eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier e : eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier.values ())
+    for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier.values ())
       DOCTYPE_NAMES.put (e.getURIEncoded (),
-                         new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
+                         new NiceNameEntry (_ensurePrefix ("Peppol ", e.getCommonName ()), e.isDeprecated (), e.getAllProcessIDs ()));
+
+    for (final eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier e : eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier.values ())
+      DOCTYPE_NAMES.put (e.getURIEncoded (), new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
     for (final eu.toop.commons.codelist.EPredefinedProcessIdentifier e : eu.toop.commons.codelist.EPredefinedProcessIdentifier.values ())
-      PROCESS_NAMES.put (e.getURIEncoded (),
-                         new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
+      PROCESS_NAMES.put (e.getURIEncoded (), new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
   }
 
   private AppCommonUI ()
@@ -171,8 +147,7 @@ public final class AppCommonUI
                                                           .data (new JSAssocArray ().add (AjaxExecutorDataTables.OBJECT_ID,
                                                                                           aTable.getID ())))
                  .setServerFilterType (EDataTablesFilterType.ALL_TERMS_PER_ROW)
-                 .setTextLoadingURL (CAjax.DATATABLES_I18N.getInvocationURL (aRequestScope),
-                                     AjaxExecutorDataTablesI18N.LANGUAGE_ID)
+                 .setTextLoadingURL (CAjax.DATATABLES_I18N.getInvocationURL (aRequestScope), AjaxExecutorDataTablesI18N.LANGUAGE_ID)
                  .addPlugin (new DataTablesPluginSearchHighlight ());
     });
     // By default allow markdown in system message
@@ -196,8 +171,7 @@ public final class AppCommonUI
     final String sIDPassword = GlobalIDFactory.getNewStringID ();
     final String sIDErrorField = GlobalIDFactory.getNewStringID ();
 
-    final BootstrapForm aForm = new BootstrapForm (aLEC).setAction (aLEC.getSelfHref ())
-                                                        .setFormType (EBootstrapFormType.DEFAULT);
+    final BootstrapForm aForm = new BootstrapForm (aLEC).setAction (aLEC.getSelfHref ()).setFormType (EBootstrapFormType.DEFAULT);
     aForm.setLeft (3);
 
     // Placeholder for error message
@@ -227,16 +201,13 @@ public final class AppCommonUI
 
       aOnClick.add (new JQueryAjaxBuilder ().url (CAjax.LOGIN.getInvocationURI (aRequestScope))
                                             .method (EHttpMethod.POST)
-                                            .data (new JSAssocArray ().add (CLogin.REQUEST_ATTR_USERID,
-                                                                            JQuery.idRef (sIDUserName).val ())
+                                            .data (new JSAssocArray ().add (CLogin.REQUEST_ATTR_USERID, JQuery.idRef (sIDUserName).val ())
                                                                       .add (CLogin.REQUEST_ATTR_PASSWORD,
                                                                             JQuery.idRef (sIDPassword).val ()))
                                             .success (aJSSuccess)
                                             .build ());
       aOnClick._return (false);
-      aToolbar.addSubmitButton (EPhotonCoreText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale),
-                                aOnClick,
-                                EDefaultIcon.YES.getIcon ());
+      aToolbar.addSubmitButton (EPhotonCoreText.LOGIN_BUTTON_SUBMIT.getDisplayText (aDisplayLocale), aOnClick, EDefaultIcon.YES.getIcon ());
     }
     if (bShowRegistration)
     {
@@ -306,8 +277,7 @@ public final class AppCommonUI
   }
 
   @Nonnull
-  public static IHCNode createViewLink (@Nonnull final IWebPageExecutionContext aWPEC,
-                                        @Nullable final ITypedObject <String> aObject)
+  public static IHCNode createViewLink (@Nonnull final IWebPageExecutionContext aWPEC, @Nullable final ITypedObject <String> aObject)
   {
     return createViewLink (aWPEC, aObject, null);
   }
@@ -330,25 +300,19 @@ public final class AppCommonUI
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
         return new HCA (getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                    .setTitle ("Show details of role '" +
-                                                                               sRealDisplayName +
-                                                                               "'");
+                                                                    .setTitle ("Show details of role '" + sRealDisplayName + "'");
       return new HCTextNode (sRealDisplayName);
     }
 
     if (aObject instanceof IUser)
     {
       final IUser aTypedObj = (IUser) aObject;
-      final String sRealDisplayName = sDisplayName != null ? sDisplayName
-                                                           : SecurityHelper.getUserDisplayName (aTypedObj,
-                                                                                                aDisplayLocale);
+      final String sRealDisplayName = sDisplayName != null ? sDisplayName : SecurityHelper.getUserDisplayName (aTypedObj, aDisplayLocale);
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
         return new HCA (getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                    .setTitle ("Show details of user '" +
-                                                                               sRealDisplayName +
-                                                                               "'");
+                                                                    .setTitle ("Show details of user '" + sRealDisplayName + "'");
       return new HCTextNode (sRealDisplayName);
     }
     if (aObject instanceof IUserGroup)
@@ -359,9 +323,7 @@ public final class AppCommonUI
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
         return new HCA (getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                    .setTitle ("Show details of user group '" +
-                                                                               sRealDisplayName +
-                                                                               "'");
+                                                                    .setTitle ("Show details of user group '" + sRealDisplayName + "'");
       return new HCTextNode (sRealDisplayName);
     }
 
@@ -438,8 +400,7 @@ public final class AppCommonUI
     ret.addChild (new BootstrapBadge (eType).addChild (sName));
     if (bIsDeprecated)
     {
-      ret.addChild (" ")
-         .addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Identifier is deprecated"));
+      ret.addChild (" ").addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Identifier is deprecated"));
     }
     if (bInDetails)
     {
@@ -449,17 +410,11 @@ public final class AppCommonUI
   }
 
   @Nonnull
-  private static IHCNode _createID (@Nonnull final String sID,
-                                    @Nullable final NiceNameEntry aNiceName,
-                                    final boolean bInDetails)
+  private static IHCNode _createID (@Nonnull final String sID, @Nullable final NiceNameEntry aNiceName, final boolean bInDetails)
   {
     if (aNiceName == null)
       return _createFormattedID (sID, null, null, false, bInDetails);
-    return _createFormattedID (sID,
-                               aNiceName.getName (),
-                               EBootstrapBadgeType.SUCCESS,
-                               aNiceName.isDeprecated (),
-                               bInDetails);
+    return _createFormattedID (sID, aNiceName.getName (), EBootstrapBadgeType.SUCCESS, aNiceName.isDeprecated (), bInDetails);
   }
 
   @Nonnull
@@ -470,8 +425,7 @@ public final class AppCommonUI
   }
 
   @Nonnull
-  public static IHCNode createProcessID (@Nonnull final IDocumentTypeIdentifier aDocTypeID,
-                                         @Nonnull final IProcessIdentifier aProcessID)
+  public static IHCNode createProcessID (@Nonnull final IDocumentTypeIdentifier aDocTypeID, @Nonnull final IProcessIdentifier aProcessID)
   {
     final String sURI = aProcessID.getURIEncoded ();
     final boolean bInDetails = true;
