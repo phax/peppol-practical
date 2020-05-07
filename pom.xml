@@ -278,6 +278,11 @@
       <artifactId>ratelimitj-inmemory</artifactId>
       <version>0.6.0</version>
     </dependency>
+    <dependency>
+      <groupId>se.jiderhamn.classloader-leak-prevention</groupId>
+      <artifactId>classloader-leak-prevention-core</artifactId>
+      <version>2.7.0</version>
+    </dependency>
 
     <dependency>
       <groupId>javax.servlet</groupId>

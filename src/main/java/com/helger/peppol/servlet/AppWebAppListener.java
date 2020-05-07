@@ -43,6 +43,9 @@ import com.helger.photon.core.appid.PhotonGlobalState;
 import com.helger.photon.core.locale.ILocaleManager;
 import com.helger.photon.core.menu.MenuTree;
 
+import se.jiderhamn.classloader.leak.prevention.ClassLoaderLeakPreventor;
+import se.jiderhamn.classloader.leak.prevention.ClassLoaderLeakPreventorFactory;
+
 /**
  * This listener is invoked during the servlet initialization. This is basically
  * a ServletContextListener.
@@ -51,6 +54,8 @@ import com.helger.photon.core.menu.MenuTree;
  */
 public final class AppWebAppListener extends WebAppListenerBootstrap
 {
+  private ClassLoaderLeakPreventor classLoaderLeakPreventor;
+
   @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
   {
@@ -73,6 +78,21 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   protected boolean shouldCheckFileAccess (@Nonnull final ServletContext aSC)
   {
     return AppSettings.isCheckFileAccess ();
+  }
+
+  @Override
+  protected void beforeContextInitialized (final ServletContext aSC)
+  {
+    final ClassLoader webAppClassLoader = Thread.currentThread ().getContextClassLoader ();
+    classLoaderLeakPreventor = new ClassLoaderLeakPreventorFactory ().newLeakPreventor (webAppClassLoader);
+    classLoaderLeakPreventor.runPreClassLoaderInitiators ();
+  }
+
+  @Override
+  protected void afterContextDestroyed (final ServletContext aSC)
+  {
+    if (classLoaderLeakPreventor != null)
+      classLoaderLeakPreventor.runCleanUps ();
   }
 
   @Override
