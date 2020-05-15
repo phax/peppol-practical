@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.datetime.PDTToString;
@@ -65,6 +66,7 @@ import com.helger.peppol.domain.NiceNameEntry;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.photon.bootstrap4.badge.BootstrapBadge;
 import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
@@ -130,6 +132,17 @@ public final class AppCommonUI
       DOCTYPE_NAMES.put (e.getURIEncoded (), new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
     for (final eu.toop.commons.codelist.EPredefinedProcessIdentifier e : eu.toop.commons.codelist.EPredefinedProcessIdentifier.values ())
       PROCESS_NAMES.put (e.getURIEncoded (), new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
+
+    // Custom document types
+    final PeppolIdentifierFactory PIF = PeppolIdentifierFactory.INSTANCE;
+    DOCTYPE_NAMES.put ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0:extended:e-fff:ver3.0::2.1",
+                       new NiceNameEntry ("e-FFF 3.0 Invoice",
+                                          true,
+                                          new CommonsArrayList <> (PIF.createProcessIdentifierWithDefaultScheme ("urn:www.cenbii.eu:profile:bii05:ver1.0"))));
+    DOCTYPE_NAMES.put ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0:extended:e-fff:ver3.0::2.1",
+                       new NiceNameEntry ("e-FFF 3.0 CreditNote",
+                                          true,
+                                          new CommonsArrayList <> (PIF.createProcessIdentifierWithDefaultScheme ("urn:www.cenbii.eu:profile:bii05:ver1.0"))));
   }
 
   private AppCommonUI ()
