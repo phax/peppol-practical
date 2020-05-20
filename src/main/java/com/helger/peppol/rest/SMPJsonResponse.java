@@ -30,6 +30,7 @@ import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
+import com.helger.commons.base64.Base64;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.json.IJsonArray;
@@ -47,6 +48,11 @@ import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.bdxr1.utils.BDXR1ExtensionConverter;
 import com.helger.smpclient.peppol.utils.SMPExtensionConverter;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.xsds.bdxr.smp1.EndpointType;
+import com.helger.xsds.bdxr.smp1.ProcessType;
+import com.helger.xsds.bdxr.smp1.RedirectType;
+import com.helger.xsds.bdxr.smp1.ServiceInformationType;
+import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 
 @Immutable
 public final class SMPJsonResponse
@@ -211,13 +217,11 @@ public final class SMPJsonResponse
               final IJsonArray aJsonEPs = new JsonArray ();
               // For all endpoints
               if (aProcess.getServiceEndpointList () != null)
-                for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
-                                                                                             .getEndpoint ())
+                for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                 {
                   final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
                                                                                         : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
-                  final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE,
-                                                                     aEndpoint.getTransportProfile ())
+                  final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE, aEndpoint.getTransportProfile ())
                                                                .add (JSON_ENDPOINT_REFERENCE, sEndpointRef)
                                                                .add (JSON_REQUIRE_BUSINESS_LEVEL_SIGNATURE,
                                                                      aEndpoint.isRequireBusinessLevelSignature ())
@@ -238,8 +242,7 @@ public final class SMPJsonResponse
                        .add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aProcess.getExtension ()));
               aJsonProcs.add (aJsonProc);
             }
-        aJsonSI.add (JSON_PROCESSES, aJsonProcs)
-               .add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aSI.getExtension ()));
+        aJsonSI.add (JSON_PROCESSES, aJsonProcs).add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aSI.getExtension ()));
       }
       ret.add (JSON_SERVICEINFO, aJsonSI);
     }
@@ -249,14 +252,14 @@ public final class SMPJsonResponse
   @Nonnull
   public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
                                      @Nonnull final IDocumentTypeIdentifier aDocTypeID,
-                                     @Nonnull final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM)
+                                     @Nonnull final ServiceMetadataType aSM)
   {
     final IJsonObject ret = new JsonObject ();
     ret.add (JSON_SMPTYPE, ESMPAPIType.OASIS_BDXR_V1.getID ());
     ret.add (JSON_PARTICIPANT_ID, aParticipantID.getURIEncoded ());
     ret.add (JSON_DOCUMENT_TYPE_ID, aDocTypeID.getURIEncoded ());
 
-    final com.helger.xsds.bdxr.smp1.RedirectType aRedirect = aSM.getRedirect ();
+    final RedirectType aRedirect = aSM.getRedirect ();
     if (aRedirect != null)
     {
       final IJsonObject aJsonRedirect = new JsonObject ().add (JSON_HREF, aRedirect.getHref ())
@@ -267,13 +270,13 @@ public final class SMPJsonResponse
     }
     else
     {
-      final com.helger.xsds.bdxr.smp1.ServiceInformationType aSI = aSM.getServiceInformation ();
+      final ServiceInformationType aSI = aSM.getServiceInformation ();
       final IJsonObject aJsonSI = new JsonObject ();
       {
         final IJsonArray aJsonProcs = new JsonArray ();
         // For all processes
         if (aSI.getProcessList () != null)
-          for (final com.helger.xsds.bdxr.smp1.ProcessType aProcess : aSI.getProcessList ().getProcess ())
+          for (final ProcessType aProcess : aSI.getProcessList ().getProcess ())
             if (aProcess.getProcessIdentifier () != null)
             {
               final IJsonObject aJsonProc = new JsonObject ().add (JSON_PROCESS_ID,
@@ -281,13 +284,10 @@ public final class SMPJsonResponse
               final IJsonArray aJsonEPs = new JsonArray ();
               // For all endpoints
               if (aProcess.getServiceEndpointList () != null)
-                for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
-                                                                                      .getEndpoint ())
+                for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                 {
-                  final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE,
-                                                                     aEndpoint.getTransportProfile ())
-                                                               .add (JSON_ENDPOINT_REFERENCE,
-                                                                     aEndpoint.getEndpointURI ())
+                  final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE, aEndpoint.getTransportProfile ())
+                                                               .add (JSON_ENDPOINT_REFERENCE, aEndpoint.getEndpointURI ())
                                                                .add (JSON_REQUIRE_BUSINESS_LEVEL_SIGNATURE,
                                                                      aEndpoint.isRequireBusinessLevelSignature ())
                                                                .add (JSON_MINIMUM_AUTHENTICATION_LEVEL,
@@ -297,21 +297,19 @@ public final class SMPJsonResponse
                                         _getLDT (PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceActivationDate ())));
                   aJsonEP.addIfNotNull (JSON_SERVICE_EXPIRATION_DATE,
                                         _getLDT (PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceExpirationDate ())));
-                  _convertCertificate (aJsonEP,
-                                       new String (aEndpoint.getCertificate (), CertificateHelper.CERT_CHARSET));
+                  _convertCertificate (aJsonEP, Base64.encodeBytes (aEndpoint.getCertificate ()));
                   aJsonEP.add (JSON_SERVICE_DESCRIPTION, aEndpoint.getServiceDescription ())
                          .add (JSON_TECHNICAL_CONTACT_URL, aEndpoint.getTechnicalContactUrl ())
                          .add (JSON_TECHNICAL_INFORMATION_URL, aEndpoint.getTechnicalInformationUrl ())
-                         .add (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aEndpoint.getExtension ()));
+                         .addIfNotNull (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aEndpoint.getExtension ()));
 
                   aJsonEPs.add (aJsonEP);
                 }
               aJsonProc.add (JSON_ENDPOINTS, aJsonEPs)
-                       .add (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aProcess.getExtension ()));
+                       .addIfNotNull (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aProcess.getExtension ()));
               aJsonProcs.add (aJsonProc);
             }
-        aJsonSI.add (JSON_PROCESSES, aJsonProcs)
-               .add (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aSI.getExtension ()));
+        aJsonSI.add (JSON_PROCESSES, aJsonProcs).addIfNotNull (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aSI.getExtension ()));
       }
       ret.add (JSON_SERVICEINFO, aJsonSI);
     }
