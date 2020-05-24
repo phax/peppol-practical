@@ -70,10 +70,10 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
 
   @Override
   protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
-                                    @Nonnull @Nonempty final String sPath,
-                                    @Nonnull final Map <String, String> aPathVariables,
-                                    @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                    @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+                                       @Nonnull @Nonempty final String sPath,
+                                       @Nonnull final Map <String, String> aPathVariables,
+                                       @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                                       @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
     final ErrorList aErrorList = new ErrorList ();
     final Locale aDisplayLocale = CPPApp.DEFAULT_LOCALE;
@@ -82,8 +82,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
     final StopWatch aSW = StopWatch.createdStarted ();
 
     // Params
-    final boolean bSimpleResponse = aRequestScope.params ()
-                                                 .getAsBoolean (PARAM_SIMPLE_RESPONSE, DEFAULT_SIMPLE_RESPONSE);
+    final boolean bSimpleResponse = aRequestScope.params ().getAsBoolean (PARAM_SIMPLE_RESPONSE, DEFAULT_SIMPLE_RESPONSE);
     final boolean bXMLBeautify = aRequestScope.params ().getAsBoolean (PARAM_XML_BEAUTIFY, DEFAULT_XML_BEAUTIFY);
 
     final String sLogPrefix = "[API] ";
@@ -103,7 +102,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
       final IJsonArray aParseErrors = new JsonArray ();
       for (final IError aError : aErrorList.getAllFailures ())
         aParseErrors.add (createItem (aError, aDisplayLocale));
-      aJson.add ("parsingErrors", aParseErrors);
+      aJson.addJson ("parsingErrors", aParseErrors);
     }
 
     String sUBL = null;
@@ -124,7 +123,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
         final IJsonArray aConversionErrors = new JsonArray ();
         for (final IError aError : aErrorList.getAllFailures ())
           aConversionErrors.add (createItem (aError, aDisplayLocale));
-        aJson.add ("coversionErrors", aConversionErrors);
+        aJson.addJson ("coversionErrors", aConversionErrors);
       }
 
       if (aUBL != null)

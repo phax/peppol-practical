@@ -65,10 +65,10 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
 
   @Override
   protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
-                                    @Nonnull @Nonempty final String sPath,
-                                    @Nonnull final Map <String, String> aPathVariables,
-                                    @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                    @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+                                       @Nonnull @Nonempty final String sPath,
+                                       @Nonnull final Map <String, String> aPathVariables,
+                                       @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                                       @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
     final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
@@ -113,9 +113,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
       // Ensure to go into the exception handler
       if (aSML == null)
         throw new HttpResponseException (CHttp.HTTP_NOT_FOUND,
-                                         "The participant identifier '" +
-                                                               sParticipantID +
-                                                               "' could not be found in any SML.");
+                                         "The participant identifier '" + sParticipantID + "' could not be found in any SML.");
     }
     else
     {
@@ -201,9 +199,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
 
     if (bQueryBusinessCard)
     {
-      final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
-                            "/businesscard/" +
-                            aParticipantID.getURIEncoded ();
+      final String sBCURL = aQueryParams.getSMPHostURI ().toString () + "/businesscard/" + aParticipantID.getURIEncoded ();
       LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
       byte [] aData;
       try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
@@ -230,7 +226,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
           // Business Card found
           if (aJson == null)
             aJson = new JsonObject ();
-          aJson.add ("businessCard", aBC.getAsJson ());
+          aJson.addJson ("businessCard", aBC.getAsJson ());
         }
       }
     }

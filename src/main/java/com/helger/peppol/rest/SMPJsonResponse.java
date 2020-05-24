@@ -134,7 +134,7 @@ public final class SMPJsonResponse
       }
       aURLsArray.add (aUrlEntry);
     }
-    aJson.add (JSON_URLS, aURLsArray);
+    aJson.addJson (JSON_URLS, aURLsArray);
     return aJson;
   }
 
@@ -170,8 +170,8 @@ public final class SMPJsonResponse
     aDetails.add ("parsable", aCert != null);
     if (aCert != null)
     {
-      aDetails.add ("subject", _getJsonPrincipal (aCert.getSubjectX500Principal ()));
-      aDetails.add ("issuer", _getJsonPrincipal (aCert.getIssuerX500Principal ()));
+      aDetails.addJson ("subject", _getJsonPrincipal (aCert.getSubjectX500Principal ()));
+      aDetails.addJson ("issuer", _getJsonPrincipal (aCert.getIssuerX500Principal ()));
       aDetails.add ("serial10", aCert.getSerialNumber ());
       aDetails.add ("serial16", aCert.getSerialNumber ().toString (16));
       aDetails.addIfNotNull ("notBefore", _getLDT (PDTFactory.createLocalDateTime (aCert.getNotBefore ())));
@@ -179,7 +179,7 @@ public final class SMPJsonResponse
       aDetails.add ("validByDate", CertificateHelper.isCertificateValidPerNow (aCert));
       aDetails.add ("sigAlgName", aCert.getSigAlgName ());
     }
-    aTarget.add (JSON_CERTIFICATE_DETAILS, aDetails);
+    aTarget.addJson (JSON_CERTIFICATE_DETAILS, aDetails);
   }
 
   @Nonnull
@@ -199,7 +199,7 @@ public final class SMPJsonResponse
                                                          .add (JSON_CERTIFICATE_UID, aRedirect.getCertificateUID ())
                                                          .add (JSON_EXTENSION,
                                                                SMPExtensionConverter.convertToString (aRedirect.getExtension ()));
-      ret.add (JSON_REDIRECT, aJsonRedirect);
+      ret.addJson (JSON_REDIRECT, aJsonRedirect);
     }
     else
     {
@@ -238,13 +238,13 @@ public final class SMPJsonResponse
 
                   aJsonEPs.add (aJsonEP);
                 }
-              aJsonProc.add (JSON_ENDPOINTS, aJsonEPs)
+              aJsonProc.addJson (JSON_ENDPOINTS, aJsonEPs)
                        .add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aProcess.getExtension ()));
               aJsonProcs.add (aJsonProc);
             }
-        aJsonSI.add (JSON_PROCESSES, aJsonProcs).add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aSI.getExtension ()));
+        aJsonSI.addJson (JSON_PROCESSES, aJsonProcs).add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aSI.getExtension ()));
       }
-      ret.add (JSON_SERVICEINFO, aJsonSI);
+      ret.addJson (JSON_SERVICEINFO, aJsonSI);
     }
     return ret;
   }
@@ -264,9 +264,9 @@ public final class SMPJsonResponse
     {
       final IJsonObject aJsonRedirect = new JsonObject ().add (JSON_HREF, aRedirect.getHref ())
                                                          .add (JSON_CERTIFICATE_UID, aRedirect.getCertificateUID ())
-                                                         .add (JSON_EXTENSION,
-                                                               BDXR1ExtensionConverter.convertToJson (aRedirect.getExtension ()));
-      ret.add (JSON_REDIRECT, aJsonRedirect);
+                                                         .addIfNotNull (JSON_EXTENSION,
+                                                                        BDXR1ExtensionConverter.convertToJson (aRedirect.getExtension ()));
+      ret.addJson (JSON_REDIRECT, aJsonRedirect);
     }
     else
     {
@@ -305,13 +305,14 @@ public final class SMPJsonResponse
 
                   aJsonEPs.add (aJsonEP);
                 }
-              aJsonProc.add (JSON_ENDPOINTS, aJsonEPs)
+              aJsonProc.addJson (JSON_ENDPOINTS, aJsonEPs)
                        .addIfNotNull (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aProcess.getExtension ()));
               aJsonProcs.add (aJsonProc);
             }
-        aJsonSI.add (JSON_PROCESSES, aJsonProcs).addIfNotNull (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aSI.getExtension ()));
+        aJsonSI.addJson (JSON_PROCESSES, aJsonProcs)
+               .addIfNotNull (JSON_EXTENSION, BDXR1ExtensionConverter.convertToJson (aSI.getExtension ()));
       }
-      ret.add (JSON_SERVICEINFO, aJsonSI);
+      ret.addJson (JSON_SERVICEINFO, aJsonSI);
     }
     return ret;
   }
