@@ -19,9 +19,9 @@ package com.helger.peppol.app;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.photon.security.mgr.PhotonSecurityManager;
-import com.helger.photon.security.role.RoleManager;
-import com.helger.photon.security.user.UserManager;
-import com.helger.photon.security.usergroup.UserGroupManager;
+import com.helger.photon.security.role.IRoleManager;
+import com.helger.photon.security.user.IUserManager;
+import com.helger.photon.security.usergroup.IUserGroupManager;
 
 @Immutable
 public final class AppSecurity
@@ -31,9 +31,9 @@ public final class AppSecurity
 
   public static void init ()
   {
-    final UserManager aUserMgr = PhotonSecurityManager.getUserMgr ();
-    final UserGroupManager aUserGroupMgr = PhotonSecurityManager.getUserGroupMgr ();
-    final RoleManager aRoleMgr = PhotonSecurityManager.getRoleMgr ();
+    final IUserManager aUserMgr = PhotonSecurityManager.getUserMgr ();
+    final IUserGroupManager aUserGroupMgr = PhotonSecurityManager.getUserGroupMgr ();
+    final IRoleManager aRoleMgr = PhotonSecurityManager.getRoleMgr ();
 
     // Standard users
     if (!aUserMgr.containsWithID (CPPApp.USER_ADMINISTRATOR_ID))

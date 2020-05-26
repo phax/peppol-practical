@@ -45,8 +45,8 @@ import com.helger.photon.core.form.RequestField;
 import com.helger.photon.security.mgr.PhotonSecurityManager;
 import com.helger.photon.security.password.GlobalPasswordSettings;
 import com.helger.photon.security.user.IUser;
-import com.helger.photon.security.user.UserManager;
-import com.helger.photon.security.usergroup.UserGroupManager;
+import com.helger.photon.security.user.IUserManager;
+import com.helger.photon.security.usergroup.IUserGroupManager;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -65,13 +65,12 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     super (sID, "Sign up");
   }
 
-  protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
-                                                 @Nonnull final FormErrorList aFormErrors)
+  protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final UserManager aUserMgr = PhotonSecurityManager.getUserMgr ();
-    final UserGroupManager aUserGroupMgr = PhotonSecurityManager.getUserGroupMgr ();
+    final IUserManager aUserMgr = PhotonSecurityManager.getUserMgr ();
+    final IUserGroupManager aUserGroupMgr = PhotonSecurityManager.getUserGroupMgr ();
 
     final String sFirstName = aWPEC.params ().getAsString (FIELD_FIRSTNAME);
     final String sLastName = aWPEC.params ().getAsString (FIELD_LASTNAME);
@@ -106,12 +105,10 @@ public final class PagePublicSignUp extends AbstractAppWebPage
         }
 
     final List <String> aPasswordErrors = GlobalPasswordSettings.getPasswordConstraintList ()
-                                                                .getInvalidPasswordDescriptions (sPlainTextPassword,
-                                                                                                 aDisplayLocale);
+                                                                .getInvalidPasswordDescriptions (sPlainTextPassword, aDisplayLocale);
     for (final String sPasswordError : aPasswordErrors)
       aFormErrors.addFieldError (FIELD_PASSWORD, "Error: " + sPasswordError);
-    if (!aFormErrors.hasEntryForField (FIELD_PASSWORD) &&
-        !EqualsHelper.equals (sPlainTextPassword, sPlainTextPasswordConfirm))
+    if (!aFormErrors.hasEntryForField (FIELD_PASSWORD) && !EqualsHelper.equals (sPlainTextPassword, sPlainTextPasswordConfirm))
       aFormErrors.addFieldError (FIELD_PASSWORD_CONFIRM, "The two provided passwords don't match!");
 
     if (aFormErrors.isEmpty ())
