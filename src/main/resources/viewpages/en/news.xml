@@ -1666,11 +1666,11 @@
     
     <p>
       Based on my previous projects <a href="https://github.com/phax/as2-lib">as2-lib</a>, 
-      <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a> and
+      <a href="https://github.com/phax/as2-peppol">as2-peppol-servlet</a> and
       <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
       <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> I created a minimal
       PEPPOL AS2 server for receiving PEPPOL AS2 messages. The project 
-      <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong>
+      <strong><a href="https://github.com/phax/as2-peppol">as2-peppol-server</a></strong>
       is located on GitHub and available as OSS under the Apache 2.0 license.
     </p>
     

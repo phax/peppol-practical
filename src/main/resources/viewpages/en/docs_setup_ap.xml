@@ -48,7 +48,7 @@
       The solutions described in this document are:<br/>
       <a href="https://github.com/phax/phase4">phase4</a> as the AS4 communication channel for sending and receiving Peppol AS4 messages.<br/>
       <a href="https://github.com/phax/as2-lib">as2-lib</a> as the AS2 communication channel and 
-      <a href="https://github.com/phax/as2-peppol-servlet">as2-peppol-servlet</a> for receiving Peppol AS2 messages.<br/>
+      <a href="https://github.com/phax/as2-peppol">as2-peppol</a> for sending and receiving Peppol AS2 messages.<br/>
       No external AS2/AS4 software is required for using these projects, so I'm presenting fully self-contained Open Source solutions.
       Both solutions are used by commercial vendors around the globe. 
     </li>
@@ -246,7 +246,7 @@
 <h3>AS2 AccessPoint receiver</h3>
 <p>
   An example project that shows how to receive Peppol documents via AS2 can be found 
-  in the <strong><a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a></strong> project.
+  in the <strong><a href="https://github.com/phax/as2-peppol">as2-peppol-server</a></strong> project.
   It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
   <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
   <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> to receive messages from arbitrary
@@ -257,7 +257,7 @@
 
 <p>
   Detailed setup description can be found directly on the
-  <a href="https://github.com/phax/as2-peppol-server">as2-peppol-server</a>
+  <a href="https://github.com/phax/as2-peppol">as2-peppol-server</a>
   project page. 
 </p>
 
@@ -265,7 +265,7 @@
 <h3>AS2 AccessPoint sender</h3>
 <p>
   An example project that shows how to send Peppol documents via AS2 can be found 
-  in the <strong><a href="https://github.com/phax/as2-peppol-client">as2-peppol-client</a></strong> project.
+  in the <strong><a href="https://github.com/phax/as2-peppol">as2-peppol-client</a></strong> project.
   It uses <a href="https://github.com/phax/as2-lib">as2-lib</a>,
   <a href="https://github.com/phax/ph-ubl">ph-ubl</a> and
   <a href="https://github.com/phax/peppol-commons">peppol-sbdh</a> to send messages to arbitrary
