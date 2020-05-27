@@ -23,7 +23,7 @@ import javax.xml.ws.BindingProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.bdve.peppol.PeppolValidation391;
+import com.helger.bdve.peppol.PeppolValidation3_10_0;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -48,8 +48,7 @@ public final class MainWSDVSClient
     WSHelper.enableSoapLogging (true);
 
     LOGGER.info ("Starting the engines");
-    final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("ws/invoice1.xml"),
-                                                          StandardCharsets.UTF_8);
+    final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("ws/invoice1.xml"), StandardCharsets.UTF_8);
 
     final WSDVSService aService = new WSDVSService (new FileSystemResource ("src/main/webapp/WEB-INF/wsdl/pp-dvs.wsdl").getAsURL ());
     final WSDVSPort aPort = aService.getWSDVSPort ();
@@ -59,7 +58,7 @@ public final class MainWSDVSClient
 
     LOGGER.info ("Starting validation process");
     final RequestType aRequest = new RequestType ();
-    aRequest.setVESID (PeppolValidation391.VID_OPENPEPPOL_INVOICE_V3.getAsSingleID ());
+    aRequest.setVESID (PeppolValidation3_10_0.VID_OPENPEPPOL_INVOICE_V3.getAsSingleID ());
     aRequest.setXML (sXML);
     aRequest.setDisplayLocale ("en");
     final ResponseType aResponse = aPort.validate (aRequest);
@@ -76,14 +75,7 @@ public final class MainWSDVSClient
     final int nMaxPos = aResponse.getResultCount ();
     for (final ValidationResultType aResult : aResponse.getResult ())
     {
-      LOGGER.info ("  [" +
-                   nPos +
-                   "/" +
-                   nMaxPos +
-                   "] " +
-                   aResult.getArtifactType () +
-                   " - " +
-                   aResult.getArtifactPath ());
+      LOGGER.info ("  [" + nPos + "/" + nMaxPos + "] " + aResult.getArtifactType () + " - " + aResult.getArtifactPath ());
       ++nPos;
 
       LOGGER.info ("  Success: " + aResult.getSuccess ());

@@ -22,8 +22,8 @@ import javax.servlet.ServletContext;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.helger.commons.vendor.VendorInfo;
+import com.helger.dns.config.DNSConfig;
 import com.helger.httpclient.HttpDebugger;
-import com.helger.network.dns.DNSHelper;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
 import com.helger.peppol.app.AppSettings;
@@ -99,7 +99,7 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   protected void initGlobalSettings ()
   {
     // Disable DNS caching
-    DNSHelper.setDNSCacheTime (0);
+    DNSConfig.setDNSCacheTime (0);
     HttpDebugger.setEnabled (false);
 
     // JUL to SLF4J

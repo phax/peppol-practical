@@ -146,9 +146,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 
           // Add all XML parsing stuff - always first item
           // Also add if no error is present to have it shown in the list
-          aValidationResultList.add (0,
-                                     new ValidationResult (new ValidationArtefact (EValidationType.XML, null, aXMLRes),
-                                                           aXMLErrors));
+          aValidationResultList.add (0, new ValidationResult (new ValidationArtefact (EValidationType.XML, aXMLRes), aXMLErrors));
         }
 
         // Show summary
@@ -255,8 +253,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
                     else
                       aErrorLevel = badgeWarn ("undefined");
 
-                final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError
-                                                                                         : null;
+                final SVRLResourceError aSVRLError = aError instanceof SVRLResourceError ? (SVRLResourceError) aError : null;
                 nItemsAdded++;
                 final IHCLI <?> aItem = aUL.addItem ();
                 aItem.addChild (div (aErrorLevel));
@@ -290,9 +287,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
         {
           if (nWarnings == 0)
           {
-            aNodeList.addChild (success ("Congratulations - the file '" +
-                                         sFileName +
-                                         "' is valid. No warnings and no errors."));
+            aNodeList.addChild (success ("Congratulations - the file '" + sFileName + "' is valid. No warnings and no errors."));
           }
           else
           {
@@ -362,8 +357,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
       aForm.addChild (info ("Select the rule set and the XML file for validation and upload it"));
 
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Rule set")
-                                                   .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VES),
-                                                                                         aDisplayLocale))
+                                                   .setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VES), aDisplayLocale))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_VES)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("XML file")
                                                    .setCtrl (new BootstrapFileUpload (FIELD_FILE, aDisplayLocale))

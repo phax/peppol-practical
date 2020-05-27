@@ -127,6 +127,8 @@ public final class AppCommonUI
     for (final com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier e : com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier.values ())
       DOCTYPE_NAMES.put (e.getURIEncoded (),
                          new NiceNameEntry (_ensurePrefix ("Peppol ", e.getCommonName ()), e.isDeprecated (), e.getAllProcessIDs ()));
+    for (final com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier e : com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier.values ())
+      PROCESS_NAMES.put (e.getURIEncoded (), new NiceNameEntry (_ensurePrefix ("Peppol ", e.getValue ()), e.isDeprecated (), null));
 
     for (final eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier e : eu.toop.commons.codelist.EPredefinedDocumentTypeIdentifier.values ())
       DOCTYPE_NAMES.put (e.getURIEncoded (), new NiceNameEntry (_ensurePrefix ("TOOP ", e.getName ()), e.isDeprecated (), null));
