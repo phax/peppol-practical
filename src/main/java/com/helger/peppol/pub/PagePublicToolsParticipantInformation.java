@@ -148,9 +148,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   @Nonnull
   private static BootstrapLinkButton _createOpenInBrowser (@Nonnull final String sURL)
   {
+    return _createOpenInBrowser (sURL, "Open in browser");
+  }
+
+  @Nonnull
+  private static BootstrapLinkButton _createOpenInBrowser (@Nonnull final String sURL, @Nonnull final String sLabel)
+  {
     return new BootstrapLinkButton (EBootstrapButtonSize.SMALL).setButtonType (EBootstrapButtonType.OUTLINE_INFO)
                                                                .setHref (new SimpleURL (sURL))
-                                                               .addChild ("Open in browser")
+                                                               .addChild (sLabel)
                                                                .setTargetBlank ();
   }
 
@@ -340,15 +346,19 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             final String sURL1 = aSMPHost.toExternalForm ();
             aUL.addItem (div ("Peppol name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
 
-            final InetAddress aInetAddress = InetAddress.getByName (aSMPHost.getHost ());
-            final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
-            aUL.addItem (div ("IP address: ").addChild (code (sURL2)), div (_createOpenInBrowser ("http://" + sURL2)));
+            final InetAddress [] aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
+            for (final InetAddress aInetAddress : aInetAddresses)
+            {
+              final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
+              final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
+              final String sURL3 = aNice.getCanonicalHostName ();
 
-            final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
-            final String sURL3 = aNice.getCanonicalHostName ();
-            aUL.addItem (div ("Nice name: ").addChild (code (sURL3))
-                                            .addChild (" (determined by reverse name lookup - this is potentially not the URL you registered your SMP for!)"),
-                         div (_createOpenInBrowser ("http://" + sURL3)));
+              aUL.addItem (div ("IP address: ").addChild (code (sURL2)).addChild (" - reverse lookup: ").addChild (code (sURL3)),
+                           div (_createOpenInBrowser ("http://" + sURL2,
+                                                      "Open IP in browser")).addChild (" ")
+                                                                            .addChild (_createOpenInBrowser ("http://" + sURL3,
+                                                                                                             "Open name in browser")));
+            }
 
             final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
             aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
