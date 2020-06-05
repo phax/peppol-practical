@@ -20,8 +20,9 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-import com.helger.bdve.executorset.IValidationExecutorSet;
-import com.helger.bdve.executorset.VESID;
+import com.helger.bdve.api.executorset.IValidationExecutorSet;
+import com.helger.bdve.api.executorset.VESID;
+import com.helger.bdve.engine.source.IValidationSourceXML;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
@@ -30,12 +31,12 @@ public final class MainListVESIDs
 {
   private static String _getPayload ()
   {
-    final ICommonsOrderedMap <VESID, IValidationExecutorSet> aAll = ExtValidationKeyRegistry.getAllSortedByID ();
+    final ICommonsOrderedMap <VESID, IValidationExecutorSet <IValidationSourceXML>> aAll = ExtValidationKeyRegistry.getAllSortedByID ();
 
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ("<!-- ").append (aAll.size ()).append (" entries -->\n");
     aSB.append ("<ul>\n");
-    for (final Map.Entry <VESID, IValidationExecutorSet> aEntry : aAll.entrySet ())
+    for (final Map.Entry <VESID, IValidationExecutorSet <IValidationSourceXML>> aEntry : aAll.entrySet ())
     {
       aSB.append ("<li><code>")
          .append (aEntry.getKey ().getAsSingleID ())

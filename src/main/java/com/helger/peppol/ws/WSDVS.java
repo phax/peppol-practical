@@ -36,11 +36,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.helger.bdve.executorset.IValidationExecutorSet;
-import com.helger.bdve.executorset.VESID;
-import com.helger.bdve.result.ValidationResult;
-import com.helger.bdve.result.ValidationResultList;
-import com.helger.bdve.source.ValidationSource;
+import com.helger.bdve.api.execute.ValidationExecutionManager;
+import com.helger.bdve.api.executorset.IValidationExecutorSet;
+import com.helger.bdve.api.executorset.VESID;
+import com.helger.bdve.api.result.ValidationResult;
+import com.helger.bdve.api.result.ValidationResultList;
+import com.helger.bdve.engine.source.IValidationSourceXML;
+import com.helger.bdve.engine.source.ValidationSourceXML;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.csv.CSVWriter;
 import com.helger.commons.datetime.PDTFactory;
@@ -112,9 +114,7 @@ public class WSDVS implements WSDVSPort
       // Note: duration must be > 1 second
       m_aRequestRateLimiter = new InMemorySlidingWindowRequestRateLimiter (RequestLimitRule.of (Duration.ofSeconds (2),
                                                                                                 nRequestsPerSec * 2));
-      LOGGER.info ("Installed validation API rate limiter with a maximum of " +
-                   nRequestsPerSec +
-                   " requests per second");
+      LOGGER.info ("Installed validation API rate limiter with a maximum of " + nRequestsPerSec + " requests per second");
     }
     else
     {
@@ -144,21 +144,17 @@ public class WSDVS implements WSDVSPort
   @Nonnull
   public ResponseType validate (@Nonnull final RequestType aValidationRequest) throws ValidateFaultError
   {
-    final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ()
-                                                                             .get (MessageContext.SERVLET_REQUEST);
-    final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
-                                                                                .get (MessageContext.SERVLET_RESPONSE);
+    final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ().get (MessageContext.SERVLET_REQUEST);
+    final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ().get (MessageContext.SERVLET_RESPONSE);
 
     final String sRateLimitKey = "ip:" + aHttpRequest.getRemoteAddr ();
-    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey)
-                                                                 : false;
+    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey) : false;
 
     final String sInvocationUniqueID = Integer.toString (s_aInvocationCounter.incrementAndGet ());
 
     s_aRWLock.writeLocked ( () -> {
       // Just append to file
-      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
-                                                                                  .getFile ("wsdvs-logs.csv"),
+      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ().getFile ("wsdvs-logs.csv"),
                                                                          EAppend.APPEND,
                                                                          StandardCharsets.ISO_8859_1)))
       {
@@ -202,8 +198,7 @@ public class WSDVS implements WSDVSPort
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("REST search rate limit exceeded for " + sRateLimitKey);
 
-        final HttpServletResponse aResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
-                                                                                .get (MessageContext.SERVLET_RESPONSE);
+        final HttpServletResponse aResponse = (HttpServletResponse) m_aWSContext.getMessageContext ().get (MessageContext.SERVLET_RESPONSE);
         try
         {
           aResponse.sendError (CHttp.HTTP_TOO_MANY_REQUESTS);
@@ -220,7 +215,7 @@ public class WSDVS implements WSDVSPort
       final VESID aVESID = VESID.parseIDOrNull (sVESID);
       if (aVESID == null)
         _throw ("Syntactically invalid VESID '" + sVESID + "' provided!");
-      final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
+      final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
       if (aVES == null)
         _throw ("Unsupported VESID " + aVESID.getAsSingleID () + " provided!");
 
@@ -237,8 +232,7 @@ public class WSDVS implements WSDVSPort
         _throw ("Invalid XML provided!");
 
       final String sDisplayLocale = aValidationRequest.getDisplayLocale ();
-      final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ()
-                                                                                       .getLocale (sDisplayLocale)
+      final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ().getLocale (sDisplayLocale)
                                                                           : CPPApp.DEFAULT_LOCALE;
       if (aDisplayLocale == null)
         _throw ("Invalid display locale '" + sDisplayLocale + "' provided!");
@@ -250,9 +244,9 @@ public class WSDVS implements WSDVSPort
       final StopWatch aSW = StopWatch.createdStarted ();
 
       // Start validating
-      final ValidationResultList aVRL = aVES.createExecutionManager ()
-                                            .executeValidation (ValidationSource.create ("uploaded-file", aXMLDoc),
-                                                                aDisplayLocale);
+      final ValidationResultList aVRL = ValidationExecutionManager.executeValidation (aVES,
+                                                                                      ValidationSourceXML.create ("uploaded-file", aXMLDoc),
+                                                                                      aDisplayLocale);
 
       // Result object
       final ResponseType ret = new ResponseType ();
@@ -315,13 +309,7 @@ public class WSDVS implements WSDVSPort
       aSW.stop ();
 
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Finished validation after " +
-                     aSW.getMillis () +
-                     "ms; " +
-                     nWarnings +
-                     " warns; " +
-                     nErrors +
-                     " errors");
+        LOGGER.info ("Finished validation after " + aSW.getMillis () + "ms; " + nWarnings + " warns; " + nErrors + " errors");
       s_aTimer.addTime (aSW.getMillis ());
 
       // Track validation result
@@ -340,8 +328,7 @@ public class WSDVS implements WSDVSPort
       final int nFinalErrors = nErrors;
       s_aRWLock.writeLocked ( () -> {
         // Just append to file
-        try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
-                                                                                    .getFile ("wsdvs-results.csv"),
+        try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ().getFile ("wsdvs-results.csv"),
                                                                            EAppend.APPEND,
                                                                            StandardCharsets.ISO_8859_1)))
         {

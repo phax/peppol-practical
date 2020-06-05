@@ -24,15 +24,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.helger.bdve.EValidationType;
-import com.helger.bdve.artefact.IValidationArtefact;
-import com.helger.bdve.artefact.ValidationArtefact;
-import com.helger.bdve.execute.ValidationExecutionManager;
-import com.helger.bdve.executorset.IValidationExecutorSet;
-import com.helger.bdve.executorset.VESID;
-import com.helger.bdve.result.ValidationResult;
-import com.helger.bdve.result.ValidationResultList;
-import com.helger.bdve.source.ValidationSource;
+import com.helger.bdve.api.EValidationType;
+import com.helger.bdve.api.artefact.IValidationArtefact;
+import com.helger.bdve.api.artefact.ValidationArtefact;
+import com.helger.bdve.api.execute.ValidationExecutionManager;
+import com.helger.bdve.api.executorset.IValidationExecutorSet;
+import com.helger.bdve.api.executorset.VESID;
+import com.helger.bdve.api.result.ValidationResult;
+import com.helger.bdve.api.result.ValidationResultList;
+import com.helger.bdve.engine.source.IValidationSourceXML;
+import com.helger.bdve.engine.source.ValidationSourceXML;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
@@ -104,7 +105,7 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
     {
       // Validate fields
       final VESID aVESID = VESID.parseIDOrNull (aWPEC.params ().getAsString (FIELD_VES));
-      final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
+      final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
       final IFileItem aFileItem = aWPEC.params ().getAsFileItem (FIELD_FILE);
       final String sFileName = aFileItem == null ? null : aFileItem.getNameSecure ();
       final boolean bShowWarnings = aWPEC.params ().isCheckBoxChecked (FIELD_SHOW_WARNINGS, DEFAULT_SHOW_WARNINGS);
@@ -123,9 +124,6 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 
         LOGGER.info ("Validating " + sFileName + " using " + aVESID.getAsSingleID ());
 
-        // Start validation
-        final ValidationExecutionManager aValidator = aVES.createExecutionManager ();
-
         // Perform the validation
         final ValidationResultList aValidationResultList = new ValidationResultList ();
         {
@@ -139,9 +137,10 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
           {
             // First options reads XML again but provides line numbers
             // Second option uses prebuild Node but has no line numbers
-            final ValidationSource aSource = true ? ValidationSource.createXMLSource (aXMLRes)
-                                                  : ValidationSource.create (aXMLRes.getPath (), aDoc);
-            aValidator.executeValidation (aSource, aValidationResultList, aDisplayLocale);
+            final ValidationSourceXML aSource = true ? ValidationSourceXML.create (aXMLRes)
+                                                     : ValidationSourceXML.create (aXMLRes.getPath (), aDoc);
+            // Start validation
+            ValidationExecutionManager.executeValidation (aVES, aSource, aValidationResultList, aDisplayLocale);
           }
 
           // Add all XML parsing stuff - always first item

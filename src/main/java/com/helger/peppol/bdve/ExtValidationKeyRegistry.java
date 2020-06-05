@@ -23,14 +23,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.bdve.api.executorset.IValidationExecutorSet;
+import com.helger.bdve.api.executorset.VESID;
+import com.helger.bdve.api.executorset.ValidationExecutorSetRegistry;
 import com.helger.bdve.cii.CIIValidation;
 import com.helger.bdve.ebinterface.EbInterfaceValidation;
 import com.helger.bdve.ehf.EHFValidation;
 import com.helger.bdve.en16931.EN16931Validation;
 import com.helger.bdve.energieefactuur.EnergieEFactuurValidation;
-import com.helger.bdve.executorset.IValidationExecutorSet;
-import com.helger.bdve.executorset.VESID;
-import com.helger.bdve.executorset.ValidationExecutorSetRegistry;
+import com.helger.bdve.engine.source.IValidationSourceXML;
 import com.helger.bdve.oioubl.OIOUBLValidation;
 import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
@@ -48,7 +49,7 @@ import com.helger.commons.name.IHasDisplayName;
 @Immutable
 public final class ExtValidationKeyRegistry
 {
-  public static final ValidationExecutorSetRegistry VES_REGISTRY = new ValidationExecutorSetRegistry ();
+  public static final ValidationExecutorSetRegistry <IValidationSourceXML> VES_REGISTRY = new ValidationExecutorSetRegistry <> ();
   static
   {
     PeppolValidation.initStandard (VES_REGISTRY);
@@ -71,33 +72,33 @@ public final class ExtValidationKeyRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <VESID, IValidationExecutorSet> getAllSortedByDisplayName (@Nonnull final Locale aDisplayLocale)
+  public static ICommonsOrderedMap <VESID, IValidationExecutorSet <IValidationSourceXML>> getAllSortedByDisplayName (@Nonnull final Locale aDisplayLocale)
   {
-    final ICommonsMap <VESID, IValidationExecutorSet> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
-                                                                                    x -> x.getID (),
-                                                                                    x -> x);
+    final ICommonsMap <VESID, IValidationExecutorSet <IValidationSourceXML>> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
+                                                                                                           x -> x.getID (),
+                                                                                                           x -> x);
     return aMap.getSortedByValue (IHasDisplayName.getComparatorCollating (aDisplayLocale));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <VESID, IValidationExecutorSet> getAllSortedByID ()
+  public static ICommonsOrderedMap <VESID, IValidationExecutorSet <IValidationSourceXML>> getAllSortedByID ()
   {
-    final ICommonsMap <VESID, IValidationExecutorSet> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
-                                                                                    x -> x.getID (),
-                                                                                    x -> x);
+    final ICommonsMap <VESID, IValidationExecutorSet <IValidationSourceXML>> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
+                                                                                                           x -> x.getID (),
+                                                                                                           x -> x);
     return aMap.getSortedByKey (Comparator.naturalOrder ());
   }
 
   @Nullable
-  public static IValidationExecutorSet getFromIDOrNull (@Nullable final VESID aID)
+  public static IValidationExecutorSet <IValidationSourceXML> getFromIDOrNull (@Nullable final VESID aID)
   {
     return VES_REGISTRY.getOfID (aID);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <IValidationExecutorSet> getAll ()
+  public static ICommonsList <IValidationExecutorSet <IValidationSourceXML>> getAll ()
   {
     return VES_REGISTRY.getAll ();
   }

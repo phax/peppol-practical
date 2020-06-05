@@ -24,9 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.helger.bdve.execute.IValidationExecutor;
-import com.helger.bdve.executorset.IValidationExecutorSet;
-import com.helger.bdve.executorset.VESID;
+import com.helger.bdve.api.execute.IValidationExecutor;
+import com.helger.bdve.api.executorset.IValidationExecutorSet;
+import com.helger.bdve.api.executorset.VESID;
+import com.helger.bdve.engine.source.IValidationSourceXML;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.IReadableResource;
@@ -102,8 +103,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     {
       final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aWPEC);
       final BootstrapForm aForm = aToolbar.addAndReturnChild (new BootstrapForm (aWPEC).setFormType (EBootstrapFormType.INLINE));
-      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VESID),
-                                                                                         aDisplayLocale)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VESID), aDisplayLocale)));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ActionSelect (new RequestField (CPageParam.PARAM_ACTION))));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_STYLE_OUTPUT,
                                                                                                       DEFAULT_STYLE_OUTPUT)),
@@ -115,7 +115,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     final String sVESID = aWPEC.params ().getAsString (FIELD_VESID);
     final VESID aVESID = VESID.parseIDOrNull (sVESID);
     final boolean bStyleOutput = aWPEC.params ().isCheckBoxChecked (FIELD_STYLE_OUTPUT, DEFAULT_STYLE_OUTPUT);
-    final IValidationExecutorSet aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
+    final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
 
     if (aVES != null)
     {
@@ -132,10 +132,10 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
 
         aNodeList.addChild (info ("Showing preprocessed version of " + aVESID.getAsSingleID ()));
         final BootstrapTabBox aTabBox = new BootstrapTabBox ();
-        for (final IValidationExecutor aVE : aVES.getAllExecutors ())
+        for (final IValidationExecutor <?> aVE : aVES.getAllExecutors ())
         {
           final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
-          switch (aVE.getValidationType ())
+          switch (aVE.getValidationArtefact ().getValidationArtefactType ())
           {
             case SCHEMATRON_PURE:
             case SCHEMATRON_SCH:
@@ -160,8 +160,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                 IHCNode aCode;
                 if (bStyleOutput)
                 {
-                  final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (EPrismPlugin.LINE_NUMBERS)
-                                                                                .addChild (sXML);
+                  final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (EPrismPlugin.LINE_NUMBERS).addChild (sXML);
                   aCode = aPrism;
                 }
                 else
@@ -177,8 +176,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                 {
                   final HCUL aUL = new HCUL ();
                   aErrHdl.getAllErrors ().forEach (x -> aUL.addItem (x.getErrorText (aDisplayLocale)));
-                  aTabContent = new HCNodeList ().addChild (error ("Errors in the Schematron:").addChild (aUL))
-                                                 .addChild (aCode);
+                  aTabContent = new HCNodeList ().addChild (error ("Errors in the Schematron:").addChild (aUL)).addChild (aCode);
                 }
               }
               catch (final Exception ex)
@@ -215,10 +213,10 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
 
           aNodeList.addChild (info ("Showing XSLT version of " + aVESID.getAsSingleID ()));
           final BootstrapTabBox aTabBox = new BootstrapTabBox ();
-          for (final IValidationExecutor aVE : aVES.getAllExecutors ())
+          for (final IValidationExecutor <IValidationSourceXML> aVE : aVES.getAllExecutors ())
           {
             final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
-            switch (aVE.getValidationType ())
+            switch (aVE.getValidationArtefact ().getValidationArtefactType ())
             {
               case SCHEMATRON_PURE:
               case SCHEMATRON_SCH:
@@ -238,8 +236,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                   // Highlight
                   if (bStyleOutput)
                   {
-                    final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (EPrismPlugin.LINE_NUMBERS)
-                                                                                  .addChild (sXML);
+                    final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (EPrismPlugin.LINE_NUMBERS).addChild (sXML);
 
                     aTabContent = aPrism;
                   }
@@ -250,17 +247,13 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                 {
                   aTabContent = error ("Error parsing Schematron: " + ex.getMessage ());
                 }
-                aTabBox.addTab ("t" + aTabBox.getTabCount (),
-                                FilenameHelper.getBaseName (aRes.getPath ()),
-                                aTabContent);
+                aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
                 break;
               }
               case SCHEMATRON_XSLT:
               {
                 final IHCNode aTabContent = info ("This is already XSLT");
-                aTabBox.addTab ("t" + aTabBox.getTabCount (),
-                                FilenameHelper.getBaseName (aRes.getPath ()),
-                                aTabContent);
+                aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
                 break;
               }
             }
