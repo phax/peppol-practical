@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 481 entries -->
+<!-- 496 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -276,6 +276,21 @@ A very small Java WS client is available for
 <li><code>no.ehf:punch-out:1.0.2</code> - EHF Punch Out 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:punch-out:1.0.3</code> - EHF Punch Out 1.0.3</li>
 <li><code>no.ehf:reminder:1.1.0</code> - EHF Reminder 1.1.0</li>
+<li><code>no.ehf.g3:advanced-order-cancellation:3.0.0</code> - EHF Advanced Order Cancellation 3.0.0</li>
+<li><code>no.ehf.g3:advanced-order-change:3.0.0</code> - EHF Advanced Order Change 3.0.0</li>
+<li><code>no.ehf.g3:advanced-order-initiation:3.0.0</code> - EHF Advanced Order Initiation 3.0.0</li>
+<li><code>no.ehf.g3:advanced-order-response:3.0.0</code> - EHF Advanced Order Response 3.0.0</li>
+<li><code>no.ehf.g3:catalogue:3.0.0</code> - EHF Catalogue 3.0.0</li>
+<li><code>no.ehf.g3:catalogue-response:3.0.0</code> - EHF Catalogue Response 3.0.0</li>
+<li><code>no.ehf.g3:despatch-advice:3.0.0</code> - EHF Despatch Advice 3.0.0</li>
+<li><code>no.ehf.g3:forward-billing-creditnote:3.0.1</code> - EHF Forward Billing CreditNote 3.0.1</li>
+<li><code>no.ehf.g3:forward-billing-invoice:3.0.1</code> - EHF Forward Billing Invoice 3.0.1</li>
+<li><code>no.ehf.g3:order:3.0.0</code> - EHF Order 3.0.0</li>
+<li><code>no.ehf.g3:order-agreement:3.0.0</code> - EHF Order Agreement 3.0.0</li>
+<li><code>no.ehf.g3:order-response:3.0.0</code> - EHF Order Response 3.0.0</li>
+<li><code>no.ehf.g3:payment-request:3.0.0</code> - EHF Payment Request 3.0.0</li>
+<li><code>no.ehf.g3:punch-out:3.0.0</code> - EHF Punch Out 3.0.0</li>
+<li><code>no.ehf.g3:reminder:3.0.0</code> - EHF Reminder 3.0.0</li>
 <li><code>org.oasis-open:applicationresponse:2.0</code> - UBL ApplicationResponse 2.0</li>
 <li><code>org.oasis-open:applicationresponse:2.1</code> - UBL ApplicationResponse 2.1</li>
 <li><code>org.oasis-open:applicationresponse:2.2</code> - UBL ApplicationResponse 2.2</li>
