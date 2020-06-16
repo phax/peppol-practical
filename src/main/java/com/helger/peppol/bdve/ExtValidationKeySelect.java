@@ -24,18 +24,34 @@ import javax.annotation.Nonnull;
 import com.helger.bdve.api.executorset.IValidationExecutorSet;
 import com.helger.bdve.api.executorset.VESID;
 import com.helger.bdve.engine.source.IValidationSourceXML;
+import com.helger.bdve.peppol.PeppolValidation3_10_0;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.html.request.IHCRequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
 public final class ExtValidationKeySelect extends HCExtSelect
 {
+  // Explicit exclude certain artefacts
+  @SuppressWarnings ("deprecation")
+  private static final ICommonsSet <VESID> LEGACY_IDS = new CommonsHashSet <> (PeppolValidation3_10_0.VID_OPENPEPPOL_T01_V3,
+                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T16_V3,
+                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T19_V3,
+                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T58_V3,
+                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T71_V3,
+                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T76_V3,
+                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T77_V3,
+                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T110_V3,
+                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T111_V3);
+
   public ExtValidationKeySelect (@Nonnull final IHCRequestField aRF, @Nonnull final Locale aDisplayLocale)
   {
     super (aRF);
     for (final Map.Entry <VESID, IValidationExecutorSet <IValidationSourceXML>> aEntry : ExtValidationKeyRegistry.getAllSortedByDisplayName (aDisplayLocale)
                                                                                                                  .entrySet ())
-      addOption (aEntry.getKey ().getAsSingleID (),
-                 aEntry.getValue ().getDisplayName () + (aEntry.getValue ().isDeprecated () ? " (deprecated!)" : ""));
+      if (!LEGACY_IDS.contains (aEntry.getKey ()))
+        addOption (aEntry.getKey ().getAsSingleID (),
+                   aEntry.getValue ().getDisplayName () + (aEntry.getValue ().isDeprecated () ? " (deprecated!)" : ""));
     addOptionPleaseSelect (aDisplayLocale);
   }
 }

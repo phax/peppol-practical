@@ -51,6 +51,7 @@ import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.grouping.IHCLI;
 import com.helger.html.hc.html.sections.HCH2;
 import com.helger.html.hc.html.tabular.HCRow;
+import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.bdve.ExtValidationKeySelect;
@@ -100,6 +101,10 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
+
+    aNodeList.addChild (warn (div ("This page is moving.")).addChild (div ("The new home of the validation per upload is at my friends of ecosio: ").addChild (HCA.createLinkedWebsite ("https://ecosio.com/en/peppol-and-xml-document-validator/")))
+                                                           .addChild (div ("This validation page will be shut down end of June 2020."))
+                                                           .addChild (div (strong ("Note: ").addChild ("the validation web service is NOT affected by this change and new validation rules WILL be added as usual."))));
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
