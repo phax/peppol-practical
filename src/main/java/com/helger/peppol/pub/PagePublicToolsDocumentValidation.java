@@ -104,7 +104,8 @@ public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 
     aNodeList.addChild (warn (div ("This page is moving.")).addChild (div ("The new home of the validation per upload is at my friends of ecosio: ").addChild (HCA.createLinkedWebsite ("https://ecosio.com/en/peppol-and-xml-document-validator/")))
                                                            .addChild (div ("This validation page will be shut down end of June 2020."))
-                                                           .addChild (div (strong ("Note: ").addChild ("the validation web service is NOT affected by this change and new validation rules WILL be added as usual."))));
+                                                           .addChild (div (strong ("Note: ")).addChild ("the validation web service is NOT affected by this change and new validation rules WILL be added as usual."))
+                                                           .addChild (div ("The endpoint address of the validation web service will also move to ecosio - expect this around end of September.")));
 
     if (aWPEC.hasAction (CPageParam.ACTION_PERFORM))
     {
