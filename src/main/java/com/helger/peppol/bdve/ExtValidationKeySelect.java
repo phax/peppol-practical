@@ -30,10 +30,10 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.html.request.IHCRequestField;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
+@SuppressWarnings ("deprecation")
 public final class ExtValidationKeySelect extends HCExtSelect
 {
   // Explicit exclude certain artefacts
-  @SuppressWarnings ("deprecation")
   private static final ICommonsSet <VESID> LEGACY_IDS = new CommonsHashSet <> (PeppolValidation3_10_0.VID_OPENPEPPOL_T01_V3,
                                                                                PeppolValidation3_10_0.VID_OPENPEPPOL_T16_V3,
                                                                                PeppolValidation3_10_0.VID_OPENPEPPOL_T19_V3,

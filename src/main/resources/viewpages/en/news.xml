@@ -37,6 +37,36 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+   <h3>2020-07-07 - Document Validation extended</h3>
+    
+    <p>
+      Added support for new Peppol Singapore as well as Peppol Australia-New Zealand rules.<br/>
+      Additionally fatturaPA support was added.<br/>
+      And the Peppol Spring Release 2020 Hotfix received another minor Hotfix in regards to the "0208" participant identifier scheme only.<br/>
+      Old VESIDs were deprecated.
+    </p>
+    
+    <p>
+      From now on, the Document Validation Upload is exclusively available at
+      <a href="https://ecosio.com/en/peppol-and-xml-document-validator/">https://ecosio.com/en/peppol-and-xml-document-validator/</a>.
+      The guys from ecosio are using my software as the basis, so you can trust they are delivering the same results as this page would do.
+      The main reason is to divert some traffic away from this server.   
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.3</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.3</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.3</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.3</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.3</code> - SG PEPPOL BIS3 CreditNote (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.sg.ubl:invoice:1.0.3</code> - SG PEPPOL BIS3 Invoice (UBL) 1.0.3</li>
+<li><code>it.fatturapa:invoice:1.2.0</code> - fatturaPA 1.2.0</li>
+<li><code>it.fatturapa:invoice:1.2.1</code> - fatturaPA 1.2.1</li>
+   </ul>
+  
    <h3>2020-06-16 - Document Validation - Peppol Spring Release 2020 Hotfix</h3>
     
     <p>
