@@ -92,8 +92,7 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor, IHCBootstrap
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      final ICommentThread aCommentThread = CommentThreadManager.getInstance ()
-                                                                .getCommentThreadOfID (aOwner, sCommentThreadID);
+      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner, sCommentThreadID);
       if (aCommentThread != null)
       {
         final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);
@@ -103,14 +102,12 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor, IHCBootstrap
           if (StringHelper.hasNoText (sAuthor))
           {
             // No author provided
-            aFormErrors.addFieldError (PARAM_AUTHOR,
-                                       ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
+            aFormErrors.addFieldError (PARAM_AUTHOR, ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
           }
           if (StringHelper.hasNoText (sText))
           {
             // No text provided
-            aFormErrors.addFieldError (PARAM_TEXT,
-                                       ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
+            aFormErrors.addFieldError (PARAM_TEXT, ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
           }
 
           IHCNode aMessageBox = null;

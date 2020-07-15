@@ -54,7 +54,7 @@ public final class CommentThread implements ICommentThread
   {
     ValueEnforcer.notNull (aInitialComment, "InitialComment");
 
-    m_aTree = new DefaultTreeWithGlobalUniqueID<> ();
+    m_aTree = new DefaultTreeWithGlobalUniqueID <> ();
     m_aTree.getRootItem ().createChildItem (aInitialComment.getID (), aInitialComment);
     m_sID = aInitialComment.getID ();
   }
@@ -150,7 +150,7 @@ public final class CommentThread implements ICommentThread
   @ReturnsMutableCopy
   public ICommonsCollection <IComment> getAllActiveComments ()
   {
-    final ICommonsList <IComment> ret = new CommonsArrayList<> ();
+    final ICommonsList <IComment> ret = new CommonsArrayList <> ();
     for (final IComment aComment : m_aTree.getAllItemDatas ())
       if (!aComment.isDeleted ())
         ret.add (aComment);
@@ -166,27 +166,22 @@ public final class CommentThread implements ICommentThread
 
   public void iterateAllComments (@Nonnull final ICommentIterationCallback aCallback)
   {
-    TreeVisitor.visitTreeItem (m_aTree.getRootItem (),
-                               new DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, IComment>> ()
-                               {
-                                 @Override
-                                 public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
-                                 {
-                                   aCallback.onCommentStart (getLevel (),
-                                                             aItem.getParent ().getData (),
-                                                             aItem.getData ());
-                                   return EHierarchyVisitorReturn.CONTINUE;
-                                 }
+    TreeVisitor.visitTreeItem (m_aTree.getRootItem (), new DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, IComment>> ()
+    {
+      @Override
+      public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+      {
+        aCallback.onCommentStart (getLevel (), aItem.getParent ().getData (), aItem.getData ());
+        return EHierarchyVisitorReturn.CONTINUE;
+      }
 
-                                 @Override
-                                 public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
-                                 {
-                                   aCallback.onCommentEnd (getLevel (),
-                                                           aItem.getParent ().getData (),
-                                                           aItem.getData ());
-                                   return EHierarchyVisitorReturn.CONTINUE;
-                                 }
-                               });
+      @Override
+      public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+      {
+        aCallback.onCommentEnd (getLevel (), aItem.getParent ().getData (), aItem.getData ());
+        return EHierarchyVisitorReturn.CONTINUE;
+      }
+    });
   }
 
   @Override

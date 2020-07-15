@@ -37,9 +37,7 @@ public interface ICommentIterationCallback
    * @param aComment
    *        The current comment
    */
-  default void onCommentStart (@Nonnegative final int nLevel,
-                               @Nullable final IComment aParentComment,
-                               @Nonnull final IComment aComment)
+  default void onCommentStart (@Nonnegative final int nLevel, @Nullable final IComment aParentComment, @Nonnull final IComment aComment)
   {}
 
   /**
@@ -52,8 +50,6 @@ public interface ICommentIterationCallback
    * @param aComment
    *        The current comment
    */
-  default void onCommentEnd (@Nonnegative final int nLevel,
-                             @Nullable final IComment aParentComment,
-                             @Nonnull final IComment aComment)
+  default void onCommentEnd (@Nonnegative final int nLevel, @Nullable final IComment aParentComment, @Nonnull final IComment aComment)
   {}
 }

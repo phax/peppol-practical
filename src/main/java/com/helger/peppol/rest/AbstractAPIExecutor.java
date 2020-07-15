@@ -72,8 +72,7 @@ public abstract class AbstractAPIExecutor implements IAPIExecutor
                                @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
     final String sRateLimitKey = "ip:" + aRequestScope.getRemoteAddr ();
-    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey)
-                                                                 : false;
+    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey) : false;
 
     if (bOverRateLimit)
     {

@@ -190,8 +190,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   }
 
   @Nullable
-  public ICommentThread getCommentThreadOfID (@Nonnull final ITypedObject <?> aObject,
-                                              @Nullable final String sCommentThreadID)
+  public ICommentThread getCommentThreadOfID (@Nonnull final ITypedObject <?> aObject, @Nullable final String sCommentThreadID)
   {
     ValueEnforcer.notNull (aObject, "Object");
 
@@ -199,8 +198,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   }
 
   @Nullable
-  public ICommentThread getCommentThreadOfID (@Nonnull final ObjectType aObjectType,
-                                              @Nullable final String sCommentThreadID)
+  public ICommentThread getCommentThreadOfID (@Nonnull final ObjectType aObjectType, @Nullable final String sCommentThreadID)
   {
     ValueEnforcer.notNull (aObjectType, "ObjectType");
 

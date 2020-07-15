@@ -69,8 +69,7 @@ public final class PagePublicContact extends AbstractAppWebPage
 
     final String sRecaptchWebKey = AppSettings.getRecaptchaWebKey ();
     final String sRecaptchSecretKey = AppSettings.getRecaptchaSecretKey ();
-    final boolean bRecaptchaEnabled = StringHelper.hasText (sRecaptchWebKey) &&
-                                      StringHelper.hasText (sRecaptchSecretKey);
+    final boolean bRecaptchaEnabled = StringHelper.hasText (sRecaptchWebKey) && StringHelper.hasText (sRecaptchSecretKey);
 
     aNodeList.addChild (p ("If you have general questions concerning Peppol technology, you may contact me using the form below. Please be aware, that I run this page on a voluntary basis and that the answers you may receive are my personal answers and not official OpenPEPPOL answers."));
 
@@ -82,8 +81,7 @@ public final class PagePublicContact extends AbstractAppWebPage
       final String sEmail = StringHelper.trim (aWPEC.params ().getAsString (FIELD_EMAIL));
       final String sTopic = aWPEC.params ().getAsString (FIELD_TOPIC);
       final String sText = StringHelper.trim (aWPEC.params ().getAsString (FIELD_TEXT));
-      final String sReCaptchaResponse = StringHelper.trim (aWPEC.params ()
-                                                                .getAsString (HCReCaptchaV2.RESPONSE_PARAMETER_NAME));
+      final String sReCaptchaResponse = StringHelper.trim (aWPEC.params ().getAsString (HCReCaptchaV2.RESPONSE_PARAMETER_NAME));
 
       if (StringHelper.hasNoText (sName))
         aFormErrors.addFieldError (FIELD_NAME, "Your name must be provided.");

@@ -52,9 +52,7 @@ public class MainCreateMappingXML
                                          .setAttribute ("deprecated", aNNE.isDeprecated ());
         if (aNNE.hasProcessIDs ())
           for (final IProcessIdentifier aProcID : aNNE.getAllProcIDs ())
-            eItem.appendElement ("procid")
-                 .setAttribute ("scheme", aProcID.getScheme ())
-                 .setAttribute ("value", aProcID.getValue ());
+            eItem.appendElement ("procid").setAttribute ("scheme", aProcID.getScheme ()).setAttribute ("value", aProcID.getValue ());
       }
       MicroWriter.writeToFile (aDoc, new File ("doctypeid-mapping.xml"));
     }

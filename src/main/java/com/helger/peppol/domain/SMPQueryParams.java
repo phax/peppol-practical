@@ -90,8 +90,7 @@ public final class SMPQueryParams
     }
     try
     {
-      ret.m_aSMPHostURI = _getURLProvider (ret.m_eSMPAPIType).getSMPURIOfParticipant (ret.m_aParticipantID,
-                                                                                      aCurSML.getDNSZone ());
+      ret.m_aSMPHostURI = _getURLProvider (ret.m_eSMPAPIType).getSMPURIOfParticipant (ret.m_aParticipantID, aCurSML.getDNSZone ());
     }
     catch (final PeppolDNSResolutionException ex)
     {

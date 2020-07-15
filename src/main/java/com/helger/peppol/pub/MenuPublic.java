@@ -46,9 +46,7 @@ public final class MenuPublic
 
     // News stuff
     {
-      aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_NEWS,
-                                                         "News",
-                                                         new ClassPathResource ("viewpages/en/news.xml")));
+      aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_NEWS, "News", new ClassPathResource ("viewpages/en/news.xml")));
     }
 
     // Setup stuff
@@ -107,8 +105,7 @@ public final class MenuPublic
       final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_TOOLS,
                                                                                                                  "Tools",
                                                                                                                  aMenuTree));
-      aMenuTree.createItem (aSetup,
-                            new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
+      aMenuTree.createItem (aSetup, new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsSMPSML (CMenuPublic.MENU_TOOLS_SMP_SML));
       aMenuTree.createItem (aSetup, new PagePublicToolsTestEndpoints (CMenuPublic.MENU_TOOLS_TEST_ENDPOINTS));
       aMenuTree.createItem (aSetup,
@@ -157,10 +154,8 @@ public final class MenuPublic
 
     // Register/Login stuff
     {
-      aMenuTree.createRootItem (new PagePublicLogin (CMenuPublic.MENU_LOGIN))
-               .setDisplayFilter (new MenuObjectFilterNoUserLoggedIn ());
-      aMenuTree.createRootItem (new PagePublicSignUp (CMenuPublic.MENU_SIGN_UP))
-               .setDisplayFilter (new MenuObjectFilterNoUserLoggedIn ());
+      aMenuTree.createRootItem (new PagePublicLogin (CMenuPublic.MENU_LOGIN)).setDisplayFilter (new MenuObjectFilterNoUserLoggedIn ());
+      aMenuTree.createRootItem (new PagePublicSignUp (CMenuPublic.MENU_SIGN_UP)).setDisplayFilter (new MenuObjectFilterNoUserLoggedIn ());
     }
 
     // Logged in user stuff

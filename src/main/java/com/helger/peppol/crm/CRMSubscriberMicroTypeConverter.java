@@ -47,8 +47,7 @@ public class CRMSubscriberMicroTypeConverter extends AbstractBusinessObjectMicro
     aElement.setAttribute (ATTR_SALUTATION, aValue.getSalutationID ());
     aElement.setAttribute (ATTR_NAME, aValue.getName ());
     aElement.setAttribute (ATTR_EMAIL_ADDRESS, aValue.getEmailAddress ());
-    for (final ICRMGroup aGroup : CollectionHelper.getSorted (aValue.getAllAssignedGroups (),
-                                                              IHasID.getComparatorID ()))
+    for (final ICRMGroup aGroup : CollectionHelper.getSorted (aValue.getAllAssignedGroups (), IHasID.getComparatorID ()))
       aElement.appendElement (sNamespaceURI, ELEMENT_ASSIGNED_GROUP).setAttribute (ATTR_ID, aGroup.getID ());
     return aElement;
   }

@@ -94,10 +94,7 @@ public final class SMLConfiguration implements ISMLConfiguration
   @Nonnull
   public static SMLConfiguration create (@Nonnull final ESML eSML)
   {
-    return new SMLConfiguration (new SMLInfo (eSML),
-                                 ESMPAPIType.PEPPOL,
-                                 ESMPIdentifierType.PEPPOL,
-                                 eSML == ESML.DIGIT_PRODUCTION);
+    return new SMLConfiguration (new SMLInfo (eSML), ESMPAPIType.PEPPOL, ESMPIdentifierType.PEPPOL, eSML == ESML.DIGIT_PRODUCTION);
   }
 
   @Override

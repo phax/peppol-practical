@@ -39,12 +39,7 @@ import com.helger.security.authentication.subject.user.IHasUserID;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IComment extends
-                          ITypedObject <String>,
-                          IHasCreationDateTime,
-                          IHasLastModificationDateTime,
-                          Serializable,
-                          IHasUserID
+public interface IComment extends ITypedObject <String>, IHasCreationDateTime, IHasLastModificationDateTime, Serializable, IHasUserID
 {
   // status vars
 

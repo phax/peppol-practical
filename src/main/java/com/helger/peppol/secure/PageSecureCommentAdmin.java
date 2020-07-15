@@ -112,18 +112,12 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
         StringHelper.hasText (sSelectedObjectType) &&
         StringHelper.hasText (sSelectedOwningObjectID))
     {
-      final TypedObject <String> aTO = TypedObject.create (new ObjectType (sSelectedObjectType),
-                                                           sSelectedOwningObjectID);
+      final TypedObject <String> aTO = TypedObject.create (new ObjectType (sSelectedObjectType), sSelectedOwningObjectID);
       final List <ICommentThread> aCommentThreads = aCommentThreadMgr.getAllCommentThreadsOfObject (aTO);
       if (!aCommentThreads.isEmpty ())
       {
         // Don't allow comment creation
-        aNodeList.addChild (CommentUI.getCommentList (aWPEC,
-                                                      aTO,
-                                                      CommentAction.createGeneric (ECommentAction.NONE),
-                                                      null,
-                                                      null,
-                                                      false));
+        aNodeList.addChild (CommentUI.getCommentList (aWPEC, aTO, CommentAction.createGeneric (ECommentAction.NONE), null, null, false));
         // Toolbar
         final IButtonToolbar <?> aToolbar = new BootstrapButtonToolbar (aWPEC);
         aToolbar.addButton (EPhotonCoreText.BACK_TO_OVERVIEW.getDisplayText (aDisplayLocale),
@@ -139,9 +133,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
     {
       // Refresh button
       final IButtonToolbar <?> aToolbar = new BootstrapButtonToolbar (aWPEC);
-      aToolbar.addButton (EPhotonCoreText.BUTTON_REFRESH.getDisplayText (aDisplayLocale),
-                          aWPEC.getSelfHref (),
-                          EDefaultIcon.REFRESH);
+      aToolbar.addButton (EPhotonCoreText.BUTTON_REFRESH.getDisplayText (aDisplayLocale), aWPEC.getSelfHref (), EDefaultIcon.REFRESH);
       aNodeList.addChild (aToolbar);
 
       final ITabBox <?> aTabBox = new BootstrapTabBox ();
@@ -165,12 +157,10 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
                                                                                                                 .setInitialSorting (ESortOrder.DESCENDING)).setID (getID () +
                                                                                                                                                                    aOT.getName ());
         final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
-        for (final Map.Entry <String, ICommonsList <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ()
-                                                                                      .entrySet ())
+        for (final Map.Entry <String, ICommonsList <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
         {
           final String sOwningObjectID = aEntry.getKey ();
-          final ISimpleURL aViewURL = AbstractWebPageForm.createViewURL (aWPEC, sOwningObjectID).add (PARAM_TYPE,
-                                                                                                      aOT.getName ());
+          final ISimpleURL aViewURL = AbstractWebPageForm.createViewURL (aWPEC, sOwningObjectID).add (PARAM_TYPE, aOT.getName ());
 
           final HCRow aRow = aTable.addBodyRow ();
           aRow.addCell (new HCA (aViewURL).addChild (sOwningObjectID));

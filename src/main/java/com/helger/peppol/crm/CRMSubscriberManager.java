@@ -138,10 +138,7 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
     {
       m_aRWLock.writeLock ().unlock ();
     }
-    AuditHelper.onAuditModifySuccess (CRMSubscriber.OT_CRM_SUBSCRIBER,
-                                      "assigned-groups",
-                                      sCRMSubscriberID,
-                                      aAssignedGroups);
+    AuditHelper.onAuditModifySuccess (CRMSubscriber.OT_CRM_SUBSCRIBER, "assigned-groups", sCRMSubscriberID, aAssignedGroups);
     return EChange.CHANGED;
   }
 

@@ -42,8 +42,7 @@ public final class CRMGroupManager extends AbstractPhotonMapBasedWALDAO <ICRMGro
   }
 
   @Nonnull
-  public ICRMGroup createCRMGroup (@Nonnull @Nonempty final String sDisplayName,
-                                   @Nonnull @Nonempty final String sSenderEmailAddress)
+  public ICRMGroup createCRMGroup (@Nonnull @Nonempty final String sDisplayName, @Nonnull @Nonempty final String sSenderEmailAddress)
   {
     final CRMGroup aCRMGroup = new CRMGroup (sDisplayName, sSenderEmailAddress);
 

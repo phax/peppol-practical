@@ -42,9 +42,7 @@ public final class SMLConfigurationMicroTypeConverter implements IMicroTypeConve
                                               @Nonnull final String sTagName)
   {
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
-    aElement.appendChild (MicroTypeConverter.convertToMicroElement (aObj.getSMLInfo (),
-                                                                    sNamespaceURI,
-                                                                    ELEMENT_SML_INFO));
+    aElement.appendChild (MicroTypeConverter.convertToMicroElement (aObj.getSMLInfo (), sNamespaceURI, ELEMENT_SML_INFO));
     aElement.setAttribute (ATTR_SMP_API_TYPE, aObj.getSMPAPIType ().getID ());
     aElement.setAttribute (ATTR_SMP_IDENTIFIER_TYPE, aObj.getSMPIdentifierType ().getID ());
     aElement.setAttribute (ATTR_PRODUCTION, aObj.isProduction ());

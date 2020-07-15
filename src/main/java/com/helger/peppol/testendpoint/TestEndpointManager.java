@@ -253,9 +253,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
                                        @Nullable final String sParticipantIDValue,
                                        @Nullable final ISMPTransportProfile aTransportProfile)
   {
-    if (StringHelper.hasText (sParticipantIDIssuer) &&
-        StringHelper.hasText (sParticipantIDValue) &&
-        aTransportProfile != null)
+    if (StringHelper.hasText (sParticipantIDIssuer) && StringHelper.hasText (sParticipantIDValue) && aTransportProfile != null)
     {
       m_aRWLock.readLock ().lock ();
       try

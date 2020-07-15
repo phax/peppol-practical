@@ -34,8 +34,7 @@ import com.helger.peppolid.factory.ESMPIdentifierType;
 import com.helger.photon.app.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.audit.AuditHelper;
 
-public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO <ISMLConfiguration, SMLConfiguration>
-                                           implements
+public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO <ISMLConfiguration, SMLConfiguration> implements
                                            ISMLConfigurationManager
 {
   public SMLConfigurationManager (@Nonnull @Nonempty final String sFilename) throws DAOException

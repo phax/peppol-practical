@@ -30,11 +30,11 @@ import com.helger.commons.text.util.TextHelper;
 @Translatable
 public enum ECommentStateText implements IHasDisplayText
 {
- TO_BE_APPROVED ("erwartet Freigabe", "to be approved"),
- APPROVED ("freigegeben", "approved"),
- REJECTED ("abgelehnt", "rejected"),
- DELETED_BY_USER ("vom Benutzer gelöscht", "deleted by user"),
- DELETED_BY_MODERATOR ("vom Moderator gelöscht", "deleted by moderator");
+  TO_BE_APPROVED ("erwartet Freigabe", "to be approved"),
+  APPROVED ("freigegeben", "approved"),
+  REJECTED ("abgelehnt", "rejected"),
+  DELETED_BY_USER ("vom Benutzer gelöscht", "deleted by user"),
+  DELETED_BY_MODERATOR ("vom Moderator gelöscht", "deleted by moderator");
 
   private final IMultilingualText m_aTP;
 

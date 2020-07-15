@@ -40,9 +40,7 @@ public final class CommentThreadMicroTypeConverter implements IMicroTypeConverte
   {
     final IMicroElement eCommentThread = new MicroElement (sNamespaceURI, sTagName);
 
-    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <> (sNamespaceURI,
-                                                                                         ELEMENT_COMMENT,
-                                                                                         Comment.class);
+    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <> (sNamespaceURI, ELEMENT_COMMENT, Comment.class);
     eCommentThread.appendChild (TreeXMLConverter.getTreeWithStringIDAsXML (aValue.getTree (), aXMLConverter));
     return eCommentThread;
   }

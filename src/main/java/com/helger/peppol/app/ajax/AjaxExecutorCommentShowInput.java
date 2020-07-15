@@ -69,21 +69,14 @@ public final class AjaxExecutorCommentShowInput implements IAjaxExecutor
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner,
-                                                                                                      sCommentThreadID);
+      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner, sCommentThreadID);
       if (aCommentThread != null)
       {
         final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);
         if (aParentComment != null)
         {
           // response
-          final IHCNode aNode = CommentUI.getCreateComment (aLEC,
-                                                            sResultDivID,
-                                                            aOwner,
-                                                            aCommentThread,
-                                                            aParentComment,
-                                                            null,
-                                                            null);
+          final IHCNode aNode = CommentUI.getCreateComment (aLEC, sResultDivID, aOwner, aCommentThread, aParentComment, null, null);
           aAjaxResponse.html (aNode);
           return;
         }
@@ -92,14 +85,14 @@ public final class AjaxExecutorCommentShowInput implements IAjaxExecutor
 
     // Somebody played around with the API
     LOGGER.warn ("Failed to resolve comment object type '" +
-                    sObjectType +
-                    "' and/or object ID '" +
-                    sObjectID +
-                    "' for showing input of comment '" +
-                    sCommentID +
-                    "' in thread '" +
-                    sCommentThreadID +
-                    "'");
+                 sObjectType +
+                 "' and/or object ID '" +
+                 sObjectID +
+                 "' for showing input of comment '" +
+                 sCommentID +
+                 "' in thread '" +
+                 sCommentThreadID +
+                 "'");
     aAjaxResponse.createNotFound ();
   }
 }

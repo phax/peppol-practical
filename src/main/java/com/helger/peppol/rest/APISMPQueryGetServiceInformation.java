@@ -57,10 +57,10 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
 
   @Override
   protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
-                                    @Nonnull @Nonempty final String sPath,
-                                    @Nonnull final Map <String, String> aPathVariables,
-                                    @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                    @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+                                       @Nonnull @Nonempty final String sPath,
+                                       @Nonnull final Map <String, String> aPathVariables,
+                                       @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                                       @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
     final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
@@ -109,9 +109,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
       // Ensure to go into the exception handler
       if (aSML == null)
         throw new HttpResponseException (CHttp.HTTP_NOT_FOUND,
-                                         "The participant identifier '" +
-                                                               sParticipantID +
-                                                               "' could not be found in any SML.");
+                                         "The participant identifier '" + sParticipantID + "' could not be found in any SML.");
     }
     else
     {
@@ -125,9 +123,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
                                    "'");
 
     final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
-    final IDocumentTypeIdentifier aDocTypeID = aQueryParams.getIF ()
-                                                           .createDocumentTypeIdentifier (aDTID.getScheme (),
-                                                                                          aDTID.getValue ());
+    final IDocumentTypeIdentifier aDocTypeID = aQueryParams.getIF ().createDocumentTypeIdentifier (aDTID.getScheme (), aDTID.getValue ());
     if (aDocTypeID == null)
       throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
@@ -170,8 +166,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);
 
-        final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                aDocTypeID);
+        final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID, aDocTypeID);
         if (aSSM != null)
         {
           final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();

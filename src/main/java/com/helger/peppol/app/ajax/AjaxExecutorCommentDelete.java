@@ -76,8 +76,7 @@ public final class AjaxExecutorCommentDelete implements IAjaxExecutor, IHCBootst
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      final ICommentThread aCommentThread = CommentThreadManager.getInstance ()
-                                                                .getCommentThreadOfID (aOwner, sCommentThreadID);
+      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner, sCommentThreadID);
       if (aCommentThread != null)
       {
         final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);

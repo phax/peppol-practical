@@ -122,9 +122,7 @@ public final class LayoutAreaContentProviderPublic
       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
         s_aFooterObjectsCol3.add (aCurrentObject);
     });
-    s_nFooterRowCount = MathHelper.getMaxInt (s_aFooterObjectsCol1.size (),
-                                              s_aFooterObjectsCol2.size (),
-                                              s_aFooterObjectsCol3.size ());
+    s_nFooterRowCount = MathHelper.getMaxInt (s_aFooterObjectsCol1.size (), s_aFooterObjectsCol2.size (), s_aFooterObjectsCol3.size ());
   }
 
   private LayoutAreaContentProviderPublic ()
@@ -139,8 +137,7 @@ public final class LayoutAreaContentProviderPublic
     final IUser aUser = LoggedInUserManager.getInstance ().getCurrentUser ();
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar ();
-    aNavbar.addBrand (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()),
-                      aLinkToStartPage);
+    aNavbar.addBrand (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()), aLinkToStartPage);
 
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant information")
                                                                         .setIcon (EFamFamIcon.USER_GREEN)
@@ -180,8 +177,7 @@ public final class LayoutAreaContentProviderPublic
       final BootstrapNavbarNav aNav = aToggleable.addAndReturnNav ();
       final BootstrapDropdownMenu aDropDown = new BootstrapDropdownMenu ();
       {
-        final HCDiv aDiv = new HCDiv ().addClass (CBootstrapCSS.P_2)
-                                       .addStyle (CCSSProperties.MIN_WIDTH.newValue ("400px"));
+        final HCDiv aDiv = new HCDiv ().addClass (CBootstrapCSS.P_2).addStyle (CCSSProperties.MIN_WIDTH.newValue ("400px"));
         aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false));
         aDropDown.addChild (aDiv);
       }
@@ -200,8 +196,7 @@ public final class LayoutAreaContentProviderPublic
   {
     // Main menu
     final IMenuTree aMenuTree = aLEC.getMenuTree ();
-    final MenuItemDeterminatorCallback aCallback = new MenuItemDeterminatorCallback (aMenuTree,
-                                                                                     aLEC.getSelectedMenuItemID ())
+    final MenuItemDeterminatorCallback aCallback = new MenuItemDeterminatorCallback (aMenuTree, aLEC.getSelectedMenuItemID ())
     {
       @Override
       protected boolean isMenuItemValidToBeDisplayed (@Nonnull final IMenuObject aMenuObj)
@@ -356,8 +351,7 @@ public final class LayoutAreaContentProviderPublic
     {
       final HCDiv aRow = aOuterContainer.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX));
       final HCDiv aCol1 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX));
-      final HCDiv aCol2 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.ML_3)
-                                                              .addClass (CBootstrapCSS.FLEX_FILL));
+      final HCDiv aCol2 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.ML_3).addClass (CBootstrapCSS.FLEX_FILL));
 
       // left
       // We need a wrapper span for easy AJAX content replacement
@@ -387,12 +381,9 @@ public final class LayoutAreaContentProviderPublic
         for (int i = 0; i < s_nFooterRowCount; ++i)
         {
           final BootstrapRow aRow = aTable.addAndReturnChild (new BootstrapRow ());
-          aRow.createColumn (4)
-              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol1.getAtIndex (i)));
-          aRow.createColumn (4)
-              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol2.getAtIndex (i)));
-          aRow.createColumn (4)
-              .addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol3.getAtIndex (i)));
+          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol1.getAtIndex (i)));
+          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol2.getAtIndex (i)));
+          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol3.getAtIndex (i)));
         }
         aFooter.addChild (aTable);
       }

@@ -39,8 +39,7 @@ public enum ECommentText implements IHasDisplayTextWithArgs
   MSG_LAST_MODIFICATION ("Letzte Änderung: {0}", "Last modification: {0}"),
   MSG_EDITED_AND_LAST_MODIFICATION ("{0} mal bearbeitet. Zuletzt: {1}", "Edited {0} times. Last modification: {1}"),
   MSG_CREATE_COMMENT ("Neuen Kommentar erstellen", "Create new comment"),
-  MSG_LOGIN_TO_COMMENT ("Sie müssen angemeldet sein, um einen Kommentar zu verfassen!",
-                        "You must be logged in to post a comment!"),
+  MSG_LOGIN_TO_COMMENT ("Sie müssen angemeldet sein, um einen Kommentar zu verfassen!", "You must be logged in to post a comment!"),
 
   MSG_FIELD_AUTHOR ("Ihr Name", "Your name"),
   DESC_FIELD_AUTHOR ("Geben Sie Ihren Namen an. Ohne den Namen kann der Kommentar nicht gespeichert werden",
@@ -56,8 +55,7 @@ public enum ECommentText implements IHasDisplayTextWithArgs
   MSG_COMMENT_SAVE_FAILURE ("Ihr Kommentar konnte nicht gespeichert werden!", "Your comment could not be saved!"),
   MSG_ERR_COMMENT_NO_TEXT ("Der Text darf nicht leer sein. Geben Sie einen Text an!",
                            "The comment text may not be empty. Provide a comment text!"),
-  MSG_ERR_COMMENT_NO_AUTHOR ("Ihr Name darf nicht leer sein. Geben Sie Ihre Namen an!",
-                             "Your name may not be empty. Provide your name!"),
+  MSG_ERR_COMMENT_NO_AUTHOR ("Ihr Name darf nicht leer sein. Geben Sie Ihre Namen an!", "Your name may not be empty. Provide your name!"),
 
   MSG_COMMENT_DELETE_SUCCESS ("Der Kommentar wurde erfolgreich gelöscht!", "The comment was successfully deleted!"),
   MSG_COMMENT_DELETE_FAILURE ("Der Kommentar konnte nicht gelöscht werden!", "The comment could not be deleted!");

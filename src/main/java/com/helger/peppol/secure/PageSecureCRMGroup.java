@@ -76,8 +76,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
 
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getDisplayName ()));
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Sender email address")
-                                                 .setCtrl (aSelectedObject.getSenderEmailAddress ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Sender email address").setCtrl (aSelectedObject.getSenderEmailAddress ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Assigned participants")
                                                  .setCtrl (Long.toString (aCRMSubscriberMgr.getCRMSubscriberCountOfGroup (aSelectedObject))));
   }
@@ -129,8 +128,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrorList aFormErrors)
   {
-    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM group"
-                                                                              : "Create new CRM group"));
+    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM group" : "Create new CRM group"));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_NAME,
                                                                                          aSelectedObject == null ? null

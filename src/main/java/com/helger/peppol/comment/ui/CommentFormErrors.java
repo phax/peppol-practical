@@ -67,8 +67,7 @@ public final class CommentFormErrors extends FormErrorList
   }
 
   @Nonnull
-  public static CommentFormErrors createForReply (@Nonnull final ICommentThread aCommentThread,
-                                                  @Nonnull final IComment aParentComment)
+  public static CommentFormErrors createForReply (@Nonnull final ICommentThread aCommentThread, @Nonnull final IComment aParentComment)
   {
     ValueEnforcer.notNull (aCommentThread, "CommentThread");
     ValueEnforcer.notNull (aParentComment, "ParentComment");

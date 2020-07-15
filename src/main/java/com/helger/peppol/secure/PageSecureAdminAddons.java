@@ -82,9 +82,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
                                                      " pages no action was necessary because they are set to reload every time."
                                                    : "");
       LOGGER.info (sMsg);
-      AuditHelper.onAuditExecuteSuccess ("page-reload",
-                                         aCounterUpdated.getAsInteger (),
-                                         aCounterNoNeed.getAsInteger ());
+      AuditHelper.onAuditExecuteSuccess ("page-reload", aCounterUpdated.getAsInteger (), aCounterNoNeed.getAsInteger ());
       return success (sMsg);
     }
 
@@ -101,8 +99,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
 
     aNodeList.addChild (h2 ("Cache handling"));
     aNodeList.addChild (div (new BootstrapButton ().setOnClick (aWPEC.getSelfHref ()
-                                                                     .add (CPageParam.PARAM_ACTION,
-                                                                           ACTION_EXPIRE_PAGE_CACHE))
+                                                                     .add (CPageParam.PARAM_ACTION, ACTION_EXPIRE_PAGE_CACHE))
                                                    .addChild ("Expire static page cache")));
   }
 }

@@ -43,9 +43,7 @@ public final class RunInJettyPP
   public static void main (final String [] args) throws Exception
   {
     // Proxy configuration is simply applied by setting system properties
-    final ConfigFile aCF = new ConfigFileBuilder ().addPaths ("private-configProxy.properties",
-                                                              "configProxy.properties")
-                                                   .build ();
+    final ConfigFile aCF = new ConfigFileBuilder ().addPaths ("private-configProxy.properties", "configProxy.properties").build ();
     for (final Map.Entry <String, Object> aEntry : aCF.getAllEntries ().entrySet ())
     {
       final String sKey = aEntry.getKey ();

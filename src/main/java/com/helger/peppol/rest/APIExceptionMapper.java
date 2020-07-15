@@ -47,10 +47,7 @@ public class APIExceptionMapper extends AbstractAPIExceptionMapper
     if (AppSettings.isRestLogExceptions ())
       LOGGER.error (sMsg, t);
     else
-      LOGGER.error (sMsg +
-                    " - " +
-                    getResponseEntityWithoutStackTrace (t) +
-                    " (turn on REST exception logging to see all details)");
+      LOGGER.error (sMsg + " - " + getResponseEntityWithoutStackTrace (t) + " (turn on REST exception logging to see all details)");
   }
 
   private static void _setSimpleTextResponse (@Nonnull final UnifiedResponse aUnifiedResponse,

@@ -77,9 +77,7 @@ public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor, IHC
     if (aCurrentUser != null)
       sAuthor = aCurrentUser.getDisplayName ();
 
-    if (StringHelper.hasText (sObjectType) &&
-        StringHelper.hasText (sObjectID) &&
-        CommentSecurity.canCurrentUserPostComments ())
+    if (StringHelper.hasText (sObjectType) && StringHelper.hasText (sObjectID) && CommentSecurity.canCurrentUserPostComments ())
     {
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
@@ -88,8 +86,7 @@ public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor, IHC
       if (StringHelper.hasNoText (sAuthor))
       {
         // No author provided
-        aFormErrors.addFieldError (PARAM_AUTHOR,
-                                   ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
+        aFormErrors.addFieldError (PARAM_AUTHOR, ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
       }
       if (StringHelper.hasNoText (sText))
       {

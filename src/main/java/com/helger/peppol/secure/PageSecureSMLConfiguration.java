@@ -61,8 +61,7 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 
-public class PageSecureSMLConfiguration extends
-                                        AbstractBootstrapWebPageForm <ISMLConfiguration, WebPageExecutionContext>
+public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <ISMLConfiguration, WebPageExecutionContext>
 {
   private static final String FIELD_DISPLAY_NAME = "displayname";
   private static final String FIELD_DNS_ZONE = "dnszone";
@@ -82,14 +81,11 @@ public class PageSecureSMLConfiguration extends
                                 @Nonnull final BootstrapForm aForm,
                                 @Nonnull final ISMLConfiguration aSelectedObject)
       {
-        aForm.addChild (question ("Are you sure you want to delete the SML configuration '" +
-                                  aSelectedObject.getDisplayName () +
-                                  "'?"));
+        aForm.addChild (question ("Are you sure you want to delete the SML configuration '" + aSelectedObject.getDisplayName () + "'?"));
       }
 
       @Override
-      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
-                                    @Nonnull final ISMLConfiguration aSelectedObject)
+      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final ISMLConfiguration aSelectedObject)
       {
         final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
         if (aSMLConfigurationMgr.removeSMLInfo (aSelectedObject.getID ()).isChanged ())
@@ -97,16 +93,13 @@ public class PageSecureSMLConfiguration extends
                                                   aSelectedObject.getDisplayName () +
                                                   "' was successfully deleted!"));
         else
-          aWPEC.postRedirectGetInternal (error ("The SML configuration '" +
-                                                aSelectedObject.getDisplayName () +
-                                                "' could not be deleted!"));
+          aWPEC.postRedirectGetInternal (error ("The SML configuration '" + aSelectedObject.getDisplayName () + "' could not be deleted!"));
       }
     });
   }
 
   @Override
-  protected ISMLConfiguration getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
-                                                 @Nullable final String sID)
+  protected ISMLConfiguration getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
     final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     return aSMLConfigurationMgr.getSMLInfoOfID (sID);
@@ -121,8 +114,7 @@ public class PageSecureSMLConfiguration extends
   }
 
   @Override
-  protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
-                                     @Nonnull final ISMLConfiguration aSelectedObject)
+  protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final ISMLConfiguration aSelectedObject)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
@@ -134,8 +126,7 @@ public class PageSecureSMLConfiguration extends
     final BootstrapViewForm aForm = new BootstrapViewForm ();
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getDisplayName ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("DNS Zone").setCtrl (aSelectedObject.getDNSZone ()));
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Publisher DNS Zone")
-                                                 .setCtrl (aSelectedObject.getPublisherDNSZone ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Publisher DNS Zone").setCtrl (aSelectedObject.getPublisherDNSZone ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Management Service URL")
                                                  .setCtrl (HCA.createLinkedWebsite (aSelectedObject.getManagementServiceURL ())));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Manage Service Metadata Endpoint")
@@ -147,13 +138,11 @@ public class PageSecureSMLConfiguration extends
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Client certificate required?")
                                                  .setCtrl (EPhotonCoreText.getYesOrNo (aSelectedObject.isClientCertificateRequired (),
                                                                                        aDisplayLocale)));
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP API type")
-                                                 .setCtrl (aSelectedObject.getSMPAPIType ().getDisplayName ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP API type").setCtrl (aSelectedObject.getSMPAPIType ().getDisplayName ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP identifier type")
                                                  .setCtrl (aSelectedObject.getSMPIdentifierType ().getDisplayName ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Production SML?")
-                                                 .setCtrl (EPhotonCoreText.getYesOrNo (aSelectedObject.isProduction (),
-                                                                                       aDisplayLocale)));
+                                                 .setCtrl (EPhotonCoreText.getYesOrNo (aSelectedObject.isProduction (), aDisplayLocale)));
 
     aNodeList.addChild (aForm);
   }
@@ -169,9 +158,7 @@ public class PageSecureSMLConfiguration extends
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final boolean bEdit = eFormAction.isEdit ();
 
-    aForm.addChild (getUIHandler ().createActionHeader (bEdit ? "Edit SML configuration '" +
-                                                                aSelectedObject.getDisplayName () +
-                                                                "'"
+    aForm.addChild (getUIHandler ().createActionHeader (bEdit ? "Edit SML configuration '" + aSelectedObject.getDisplayName () + "'"
                                                               : "Create new SML configuration"));
 
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
@@ -244,8 +231,7 @@ public class PageSecureSMLConfiguration extends
     final String sDisplayName = aWPEC.params ().getAsString (FIELD_DISPLAY_NAME);
     final String sDNSZone = aWPEC.params ().getAsString (FIELD_DNS_ZONE);
     final String sManagementAddressURL = aWPEC.params ().getAsString (FIELD_MANAGEMENT_ADDRESS_URL);
-    final boolean bClientCertificateRequired = aWPEC.params ()
-                                                    .isCheckBoxChecked (FIELD_CLIENT_CERTIFICATE_REQUIRED, true);
+    final boolean bClientCertificateRequired = aWPEC.params ().isCheckBoxChecked (FIELD_CLIENT_CERTIFICATE_REQUIRED, true);
     final String sSMPAPIType = aWPEC.params ().getAsString (FIELD_SMP_API_TYPE);
     final ESMPAPIType eSMPAPIType = ESMPAPIType.getFromIDOrNull (sSMPAPIType);
     final String sSMPIdentifierType = aWPEC.params ().getAsString (FIELD_SMP_ID_TYPE);
@@ -299,9 +285,7 @@ public class PageSecureSMLConfiguration extends
                                             eSMPAPIType,
                                             eSMPIdentifierType,
                                             bProduction);
-        aWPEC.postRedirectGetInternal (success ("The SML configuration '" +
-                                                sDisplayName +
-                                                "' was successfully edited."));
+        aWPEC.postRedirectGetInternal (success ("The SML configuration '" + sDisplayName + "' was successfully edited."));
       }
       else
       {
@@ -312,9 +296,7 @@ public class PageSecureSMLConfiguration extends
                                             eSMPAPIType,
                                             eSMPIdentifierType,
                                             bProduction);
-        aWPEC.postRedirectGetInternal (success ("The new SML configuration '" +
-                                                sDisplayName +
-                                                "' was successfully created."));
+        aWPEC.postRedirectGetInternal (success ("The new SML configuration '" + sDisplayName + "' was successfully created."));
       }
     }
   }
@@ -359,7 +341,8 @@ public class PageSecureSMLConfiguration extends
                     new HCTextNode (" "),
                     isActionAllowed (aWPEC,
                                      EWebPageFormAction.DELETE,
-                                     aCurObject) ? createDeleteLink (aWPEC, aCurObject, "Delete " + aCurObject.getDisplayName ()) : createEmptyAction ());
+                                     aCurObject) ? createDeleteLink (aWPEC, aCurObject, "Delete " + aCurObject.getDisplayName ())
+                                                 : createEmptyAction ());
     }
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);

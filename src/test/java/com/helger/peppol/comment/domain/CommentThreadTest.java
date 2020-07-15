@@ -47,12 +47,7 @@ public final class CommentThreadTest
   @Test
   public void testBasic ()
   {
-    final IComment aInitialComment = new Comment ("unittest",
-                                                  ECommentState.APPROVED,
-                                                  "userid",
-                                                  "creatorname",
-                                                  "title",
-                                                  "text");
+    final IComment aInitialComment = new Comment ("unittest", ECommentState.APPROVED, "userid", "creatorname", "title", "text");
     assertNotNull (aInitialComment.getCreationDateTime ());
     assertNull (aInitialComment.getLastModificationDateTime ());
     assertEquals ("userid", aInitialComment.getUserID ());
@@ -67,12 +62,7 @@ public final class CommentThreadTest
 
     // Add another comments into the thread
     aCommentThread.addComment (aInitialComment,
-                               new Comment ("unittest",
-                                            ECommentState.APPROVED,
-                                            "userid",
-                                            "creatorname",
-                                            "title2",
-                                            "text2"));
+                               new Comment ("unittest", ECommentState.APPROVED, "userid", "creatorname", "title2", "text2"));
     assertEquals (2, aCommentThread.getTotalCommentCount ());
 
     // Add another comments into the thread
@@ -87,8 +77,7 @@ public final class CommentThreadTest
     assertSame (aComment3, aCommentThread.getCommentOfID (aComment3.getID ()));
 
     if (false)
-      LOGGER.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aCommentThread,
-                                                                                             "commentthread")));
+      LOGGER.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aCommentThread, "commentthread")));
 
     XMLTestHelper.testMicroTypeConversion (aCommentThread);
   }

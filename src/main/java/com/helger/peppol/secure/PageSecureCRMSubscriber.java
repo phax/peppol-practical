@@ -96,8 +96,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
       }
 
       @Override
-      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
-                                    @Nonnull final ICRMSubscriber aSelectedObject)
+      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final ICRMSubscriber aSelectedObject)
       {
         final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
         final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
@@ -155,13 +154,11 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Status")
-                                                 .setCtrl (aSelectedObject.isDeleted () ? "Deleted" : "Active"));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Status").setCtrl (aSelectedObject.isDeleted () ? "Deleted" : "Active"));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (aSelectedObject.getSalutationDisplayName (aDisplayLocale)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getName ()));
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Email address")
-                                                 .setCtrl (aSelectedObject.getEmailAddress ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Email address").setCtrl (aSelectedObject.getEmailAddress ()));
     {
       final HCNodeList aGroups = new HCNodeList ();
       for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
@@ -204,8 +201,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
         if (aSameEmailAddresSubscriber != null)
         {
           if (!eFormAction.isEdit () || aSameEmailAddresSubscriber != aSelectedObject)
-            aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS,
-                                       "A subscription for the provided email address is already present!");
+            aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "A subscription for the provided email address is already present!");
         }
       }
 
@@ -227,11 +223,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
       if (eFormAction.isEdit ())
       {
         // We're editing an existing object
-        aCRMSubscriberMgr.updateCRMSubscriber (aSelectedObject.getID (),
-                                               eSalutation,
-                                               sName,
-                                               sEmailAddress,
-                                               aSelectedCRMGroups);
+        aCRMSubscriberMgr.updateCRMSubscriber (aSelectedObject.getID (), eSalutation, sName, sEmailAddress, aSelectedCRMGroups);
         aNodeList.addChild (success ("The CRM subscriber was successfully edited!"));
       }
       else
@@ -254,8 +246,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
-    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM subscriber"
-                                                                              : "Create new CRM subscriber"));
+    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM subscriber" : "Create new CRM subscriber"));
 
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
@@ -278,16 +269,14 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
 
     {
       final HCNodeList aGroups = new HCNodeList ();
-      for (final ICRMGroup aCRMGroup : aCRMGroupMgr.getAll ()
-                                                   .getSortedInline (IHasDisplayName.getComparatorCollating (aDisplayLocale)))
+      for (final ICRMGroup aCRMGroup : aCRMGroupMgr.getAll ().getSortedInline (IHasDisplayName.getComparatorCollating (aDisplayLocale)))
       {
         final String sCRMGroupID = aCRMGroup.getID ();
         final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
                                                                                       sCRMGroupID,
                                                                                       aSelectedObject != null &&
                                                                                                    aSelectedObject.isAssignedToGroup (aCRMGroup));
-        aGroups.addChild (div (new HCCheckBox (aRFB).setValue (sCRMGroupID)).addChild (" " +
-                                                                                       aCRMGroup.getDisplayName ()));
+        aGroups.addChild (div (new HCCheckBox (aRFB).setValue (sCRMGroupID)).addChild (" " + aCRMGroup.getDisplayName ()));
       }
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Assigned groups")
                                                    .setCtrl (aGroups)
@@ -326,9 +315,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                new HCTextNode (" "),
                                createCopyLink (aWPEC, aCurObject),
                                new HCTextNode (" "));
-      aActionCell.addChild (isActionAllowed (aWPEC,
-                                             EWebPageFormAction.DELETE,
-                                             aCurObject) ? createDeleteLink (aWPEC, aCurObject) : createEmptyAction ());
+      aActionCell.addChild (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject) ? createDeleteLink (aWPEC, aCurObject)
+                                                                                           : createEmptyAction ());
     }
 
     final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);

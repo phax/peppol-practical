@@ -46,8 +46,7 @@ public final class CRMGroupTest
     assertEquals ("Name", aGroup.getDisplayName ());
     assertEquals ("bla@foo.com", aGroup.getSenderEmailAddress ());
     // Only ID is relevant!
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aGroup,
-                                                                           new CRMGroup ("Name", "bla@foo.com"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aGroup, new CRMGroup ("Name", "bla@foo.com"));
     XMLTestHelper.testMicroTypeConversion (aGroup);
   }
 }
