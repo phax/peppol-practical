@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 524 entries -->
+<!-- 526 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -81,10 +81,12 @@ A very small Java WS client is available for
 <li><code>be.efff:invoice:3.0.0</code> - e-FFF Invoice 3.0.0 <strong>(Deprecated)</strong></li>
 <li><code>be.ubl:credit-note:1.0.0</code> - UBL.BE Credit Note 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>be.ubl:credit-note:1.1.0</code> - UBL.BE Credit Note 1.1.0 <strong>(Deprecated)</strong></li>
-<li><code>be.ubl:credit-note:1.2.0</code> - UBL.BE Credit Note 1.2.0</li>
+<li><code>be.ubl:credit-note:1.2.0</code> - UBL.BE Credit Note 1.2.0 <strong>(Deprecated)</strong></li>
+<li><code>be.ubl:credit-note:1.2.3</code> - UBL.BE Credit Note 1.2.3</li>
 <li><code>be.ubl:invoice:1.0.0</code> - UBL.BE Invoice 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>be.ubl:invoice:1.1.0</code> - UBL.BE Invoice 1.1.0 <strong>(Deprecated)</strong></li>
-<li><code>be.ubl:invoice:1.2.0</code> - UBL.BE Invoice 1.2.0</li>
+<li><code>be.ubl:invoice:1.2.0</code> - UBL.BE Invoice 1.2.0 <strong>(Deprecated)</strong></li>
+<li><code>be.ubl:invoice:1.2.3</code> - UBL.BE Invoice 1.2.3</li>
 <li><code>com.tieto:teappsxml:2.7.2</code> - TEAPPSXML 2.7.2</li>
 <li><code>com.tieto:teappsxml:3.0</code> - TEAPPSXML 3.0</li>
 <li><code>de.xrechnung:cii:1.2.0</code> - XRechnung CII 1.2.0 <strong>(Deprecated)</strong></li>
@@ -176,7 +178,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:catalogue-response:3.10.0</code> - OpenPEPPOL Catalogue Response (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:3.10.1</code> - OpenPEPPOL Catalogue Response (3.10.1) (aka BIS 3.0.4)</li>
 <li><code>eu.peppol.bis3:creditnote:3.10.0</code> - OpenPEPPOL Credit Note (3.10.0) (aka BIS Billing 3.0.6) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:creditnote:3.10.1</code> - OpenPEPPOL Credit Note (3.10.1) (aka BIS Billing 3.0.6 + Hotfix 2)</li>
+<li><code>eu.peppol.bis3:creditnote:3.10.1</code> - OpenPEPPOL Credit Note (3.10.1) (aka BIS Billing 3.0.7)</li>
 <li><code>eu.peppol.bis3:creditnote:3.8.0</code> - OpenPEPPOL Credit Note (3.8.0) (aka BIS Billing 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.8.1</code> - OpenPEPPOL Credit Note (3.8.1) (aka BIS Billing 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.9.0</code> - OpenPEPPOL Credit Note (3.9.0) (aka BIS Billing 3.0.5) <strong>(Deprecated)</strong></li>
@@ -184,7 +186,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:despatch-advice:3.10.0</code> - OpenPEPPOL Despatch Advice (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:3.10.1</code> - OpenPEPPOL Despatch Advice (3.10.1) (aka BIS 3.0.4)</li>
 <li><code>eu.peppol.bis3:invoice:3.10.0</code> - OpenPEPPOL Invoice (3.10.0) (aka BIS Billing 3.0.6) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice:3.10.1</code> - OpenPEPPOL Invoice (3.10.1) (aka BIS Billing 3.0.6 + Hotfix 2)</li>
+<li><code>eu.peppol.bis3:invoice:3.10.1</code> - OpenPEPPOL Invoice (3.10.1) (aka BIS Billing 3.0.7)</li>
 <li><code>eu.peppol.bis3:invoice:3.8.0</code> - OpenPEPPOL Invoice (3.8.0) (aka BIS Billing 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.8.1</code> - OpenPEPPOL Invoice (3.8.1) (aka BIS Billing 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.9.0</code> - OpenPEPPOL Invoice (3.9.0) (aka BIS Billing 3.0.5) <strong>(Deprecated)</strong></li>

@@ -37,7 +37,22 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
-   <h3>2020-07-07 - Document Validation extended</h3>
+    <h3>2020-07-22 - Document Validation extended</h3>
+    
+    <p>
+      Added support for UBL.BE 1.2.3 rules.
+      Version 1.2.0 was marked as deprecated. 
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>be.ubl:credit-note:1.2.3</code> - UBL.BE Credit Note 1.2.3</li>
+<li><code>be.ubl:invoice:1.2.3</code> - UBL.BE Invoice 1.2.3</li>
+    </ul>
+  
+    <h3>2020-07-07 - Document Validation extended</h3>
     
     <p>
       Added support for new Peppol Singapore as well as Peppol Australia-New Zealand rules.<br/>
@@ -65,9 +80,9 @@
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1.0.3</code> - SG PEPPOL BIS3 Invoice (UBL) 1.0.3</li>
 <li><code>it.fatturapa:invoice:1.2.0</code> - fatturaPA 1.2.0</li>
 <li><code>it.fatturapa:invoice:1.2.1</code> - fatturaPA 1.2.1</li>
-   </ul>
+    </ul>
   
-   <h3>2020-06-16 - Document Validation - Peppol Spring Release 2020 Hotfix</h3>
+    <h3>2020-06-16 - Document Validation - Peppol Spring Release 2020 Hotfix</h3>
     
     <p>
       Added support for Peppol 3.10.1 (Spring 2020 + Hotfix) validation rules.
