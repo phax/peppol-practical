@@ -51,8 +51,8 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.prism.EPrismLanguage;
-import com.helger.photon.uictrls.prism.EPrismPlugin;
 import com.helger.photon.uictrls.prism.HCPrismJS;
+import com.helger.photon.uictrls.prism.PrismPluginLineNumbers;
 import com.helger.schematron.CSchematron;
 import com.helger.schematron.pure.binding.IPSQueryBinding;
 import com.helger.schematron.pure.binding.PSQueryBindingRegistry;
@@ -160,7 +160,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                 IHCNode aCode;
                 if (bStyleOutput)
                 {
-                  final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (EPrismPlugin.LINE_NUMBERS).addChild (sXML);
+                  final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ()).addChild (sXML);
                   aCode = aPrism;
                 }
                 else
@@ -236,7 +236,8 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                   // Highlight
                   if (bStyleOutput)
                   {
-                    final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (EPrismPlugin.LINE_NUMBERS).addChild (sXML);
+                    final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ())
+                                                                                  .addChild (sXML);
 
                     aTabContent = aPrism;
                   }
