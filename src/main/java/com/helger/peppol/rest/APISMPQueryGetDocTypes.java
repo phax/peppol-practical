@@ -195,7 +195,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
 
     IJsonObject aJson = null;
     if (aSGHrefs != null)
-      aJson = SMPJsonResponse.convert (aQueryParams.getSMPAPIType (), aParticipantID, aSGHrefs, aQueryParams.getIF ());
+      aJson = SMPJsonResponseExt.convert (aQueryParams.getSMPAPIType (), aParticipantID, aSGHrefs, aQueryParams.getIF ());
 
     if (bQueryBusinessCard)
     {
