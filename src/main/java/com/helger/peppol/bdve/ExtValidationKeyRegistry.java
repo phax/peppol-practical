@@ -33,9 +33,11 @@ import com.helger.bdve.en16931.EN16931Validation;
 import com.helger.bdve.energieefactuur.EnergieEFactuurValidation;
 import com.helger.bdve.engine.source.IValidationSourceXML;
 import com.helger.bdve.fatturapa.FatturaPAValidation;
+import com.helger.bdve.finvoice.FinvoiceValidation;
 import com.helger.bdve.oioubl.OIOUBLValidation;
 import com.helger.bdve.peppol.PeppolValidation;
 import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
+import com.helger.bdve.svefaktura.SvefakturaValidation;
 import com.helger.bdve.teapps.TEAPPSValidation;
 import com.helger.bdve.ubl.UBLValidation;
 import com.helger.bdve.ublbe.UBLBEValidation;
@@ -67,6 +69,8 @@ public final class ExtValidationKeyRegistry
     UBLBEValidation.initUBLBE (VES_REGISTRY);
     XRechnungValidation.initXRechnung (VES_REGISTRY);
     FatturaPAValidation.initFatturaPA (VES_REGISTRY);
+    FinvoiceValidation.initFinvoice (VES_REGISTRY);
+    SvefakturaValidation.initSvefaktura (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()

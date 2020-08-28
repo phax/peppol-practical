@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 526 entries -->
+<!-- 532 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -272,6 +272,10 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1.0.3</code> - SG PEPPOL BIS3 Invoice (UBL) 1.0.3</li>
 <li><code>eu.peppol.bis3.ubl:creditnote:1</code> - OpenPEPPOL CreditNote BIS3 (UBL) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.ubl:invoice:1</code> - OpenPEPPOL Invoice BIS3 (UBL) <strong>(Deprecated)</strong></li>
+<li><code>fi.finvoice:finvoice:1.3</code> - Finvoice 1.3</li>
+<li><code>fi.finvoice:finvoice:2.0</code> - Finvoice 2.0</li>
+<li><code>fi.finvoice:finvoice:2.0.1</code> - Finvoice 2.0.1</li>
+<li><code>fi.finvoice:finvoice:3.0</code> - Finvoice 3.0</li>
 <li><code>it.fatturapa:invoice:1.2.0</code> - fatturaPA 1.2.0</li>
 <li><code>it.fatturapa:invoice:1.2.1</code> - fatturaPA 1.2.1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.0</code> - Energie eFactuur 1.0.0</li>
@@ -594,6 +598,8 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:invoice:2.0.1</code> - Simplerinvoicing Invoice 2.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:2.0.2</code> - Simplerinvoicing Invoice 2.0.2</li>
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2</li>
+<li><code>se.sfti:object-envelope:1.0</code> - SvefakturaXML ObjectEnvelope 1.0</li>
+<li><code>se.sfti:svefaktura:1.0</code> - SvefakturaXML 1.0</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
 </ul>
 <!-- end of MainListVESIDs -->
