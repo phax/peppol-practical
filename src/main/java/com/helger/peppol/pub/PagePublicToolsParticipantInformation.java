@@ -51,7 +51,6 @@ import com.helger.commons.timing.StopWatch;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
-import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.dns.ip.IPV4Addr;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCA_MailTo;
@@ -589,14 +588,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                             _printEndpointURL (aLIEndpoint, aEndpoint.getEndpointURI ());
 
                             // Valid from
-                            _printActivationDate (aLIEndpoint,
-                                                  PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceActivationDate ()),
-                                                  aDisplayLocale);
+                            _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
 
                             // Valid to
-                            _printExpirationDate (aLIEndpoint,
-                                                  PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceExpirationDate ()),
-                                                  aDisplayLocale);
+                            _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
 
                             // Transport profile
                             _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
