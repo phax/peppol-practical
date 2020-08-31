@@ -37,10 +37,11 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
-    <h3>2020-08-28 - Document Validation extended</h3>
+    <h3>2020-08-31 - Document Validation extended</h3>
     
     <p>
-      Added support for Finvoice and Svefaktura. 
+      Added support for Finvoice and Svefaktura.
+      Updated UBL 2.3 from <code>csprd02</code> to <code>csd03</code> including 3 new document types.  
     </p>
     
     <p>
@@ -51,6 +52,9 @@
 <li><code>fi.finvoice:finvoice:2.0</code> - Finvoice 2.0</li>
 <li><code>fi.finvoice:finvoice:2.0.1</code> - Finvoice 2.0.1</li>
 <li><code>fi.finvoice:finvoice:3.0</code> - Finvoice 3.0</li>
+<li><code>org.oasis-open:importcustomsdeclaration:2.3-csd03</code> - UBL ImportCustomsDeclaration 2.3-csd03</li>
+<li><code>org.oasis-open:proofofreexportationreminder:2.3-csd03</code> - UBL ProofOfReexportationReminder 2.3-csd03</li>
+<li><code>org.oasis-open:transitcustomsdeclaration:2.3-csd03</code> - UBL TransitCustomsDeclaration 2.3-csd03</li>
 <li><code>se.sfti:object-envelope:1.0</code> - SvefakturaXML ObjectEnvelope 1.0</li>
 <li><code>se.sfti:svefaktura:1.0</code> - SvefakturaXML 1.0</li>
     </ul>
