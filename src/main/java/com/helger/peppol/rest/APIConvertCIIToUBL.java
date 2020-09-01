@@ -150,7 +150,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
       if (!bSuccess)
         aUnifiedResponse.setStatus (CHttp.HTTP_BAD_REQUEST).setAllowContentOnStatusCode (true);
 
-      final String sRet = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true)).writeAsString (aJson);
+      final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aJson);
       aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8).setMimeType (CMimeType.APPLICATION_JSON);
     }
   }

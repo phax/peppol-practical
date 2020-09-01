@@ -175,7 +175,7 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
       aJson.add ("queryDateTime", DateTimeFormatter.ISO_ZONED_DATE_TIME.format (aQueryDT));
       aJson.add ("queryDurationMillis", aSW.getMillis ());
 
-      final String sRet = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true)).writeAsString (aJson);
+      final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aJson);
       aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8)
                       .setMimeType (CMimeType.APPLICATION_JSON)
                       .enableCaching (3 * CGlobal.SECONDS_PER_HOUR);
