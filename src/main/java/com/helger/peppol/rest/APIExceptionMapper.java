@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.state.EHandled;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.app.AppSettings;
+import com.helger.peppol.app.AppConfig;
 import com.helger.photon.api.AbstractAPIExceptionMapper;
 import com.helger.photon.api.InvokableAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
@@ -44,7 +44,7 @@ public class APIExceptionMapper extends AbstractAPIExceptionMapper
 
   private static void _logRestException (@Nonnull final String sMsg, @Nonnull final Throwable t)
   {
-    if (AppSettings.isRestLogExceptions ())
+    if (AppConfig.isRestLogExceptions ())
       LOGGER.error (sMsg, t);
     else
       LOGGER.error (sMsg + " - " + getResponseEntityWithoutStackTrace (t) + " (turn on REST exception logging to see all details)");
@@ -54,7 +54,7 @@ public class APIExceptionMapper extends AbstractAPIExceptionMapper
                                               final int nStatusCode,
                                               @Nullable final String sContent)
   {
-    if (AppSettings.isRestExceptionsWithPayload ())
+    if (AppConfig.isRestExceptionsWithPayload ())
     {
       // With payload
       setSimpleTextResponse (aUnifiedResponse, nStatusCode, sContent);

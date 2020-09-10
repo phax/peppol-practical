@@ -28,7 +28,7 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
-import com.helger.peppol.app.AppSettings;
+import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -67,8 +67,8 @@ public final class PagePublicContact extends AbstractAppWebPage
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
-    final String sRecaptchWebKey = AppSettings.getRecaptchaWebKey ();
-    final String sRecaptchSecretKey = AppSettings.getRecaptchaSecretKey ();
+    final String sRecaptchWebKey = AppConfig.getRecaptchaWebKey ();
+    final String sRecaptchSecretKey = AppConfig.getRecaptchaSecretKey ();
     final boolean bRecaptchaEnabled = StringHelper.hasText (sRecaptchWebKey) && StringHelper.hasText (sRecaptchSecretKey);
 
     aNodeList.addChild (p ("If you have general questions concerning Peppol technology, you may contact me using the form below. Please be aware, that I run this page on a voluntary basis and that the answers you may receive are my personal answers and not official OpenPEPPOL answers."));

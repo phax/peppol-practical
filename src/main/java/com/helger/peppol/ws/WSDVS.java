@@ -59,7 +59,7 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
-import com.helger.peppol.app.AppSettings;
+import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.bdve.ExtValidationKeyRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
@@ -107,7 +107,7 @@ public class WSDVS implements WSDVSPort
 
   public WSDVS ()
   {
-    final long nRequestsPerSec = AppSettings.getValidationAPIMaxRequestsPerSecond ();
+    final long nRequestsPerSec = AppConfig.getValidationAPIMaxRequestsPerSecond ();
     if (nRequestsPerSec > 0)
     {
       // 2 request per second, per key

@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.http.CHttp;
-import com.helger.peppol.app.AppSettings;
+import com.helger.peppol.app.AppConfig;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.photon.api.IAPIExecutor;
 import com.helger.servlet.response.UnifiedResponse;
@@ -43,14 +43,17 @@ public abstract class AbstractAPIExecutor implements IAPIExecutor
 
   protected AbstractAPIExecutor ()
   {
-    final long nRequestsPerSec = AppSettings.getRESTAPIMaxRequestsPerSecond ();
+    final long nRequestsPerSec = AppConfig.getRESTAPIMaxRequestsPerSecond ();
     if (nRequestsPerSec > 0)
     {
       // 2 request per second, per key
       // Note: duration must be > 1 second
       m_aRequestRateLimiter = new InMemorySlidingWindowRequestRateLimiter (RequestLimitRule.of (Duration.ofSeconds (2),
                                                                                                 nRequestsPerSec * 2));
-      LOGGER.info ("Installed REST API rate limiter with a maximum of " + nRequestsPerSec + " requests per second");
+      LOGGER.info ("Installed REST API rate limiter with a maximum of " +
+                   nRequestsPerSec +
+                   " requests per second for class " +
+                   getClass ().getSimpleName ());
     }
     else
     {

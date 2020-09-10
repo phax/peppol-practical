@@ -11,13 +11,16 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+.apt_generated/
+.settings/ 
+bin/
 target/
-/.apt_generated/
-/**/.pmd
-**/*.iml
-/.settings/ 
-/.project 
-/.classpath 
-/bin/
-/doctypeid-mapping.xml
-/processid-mapping.xml
+
+.classpath 
+.pmd
+.project 
+doctypeid-mapping.xml
+processid-mapping.xml
+
+*.iml
+private-*.properties

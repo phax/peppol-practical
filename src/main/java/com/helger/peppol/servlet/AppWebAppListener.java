@@ -26,7 +26,7 @@ import com.helger.dns.config.DNSConfig;
 import com.helger.httpclient.HttpDebugger;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
-import com.helger.peppol.app.AppSettings;
+import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.app.mgr.PPMetaManager;
@@ -59,25 +59,25 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
   {
-    return AppSettings.getGlobalDebug ();
+    return AppConfig.getGlobalDebug ();
   }
 
   @Override
   protected String getInitParameterProduction (@Nonnull final ServletContext aSC)
   {
-    return AppSettings.getGlobalProduction ();
+    return AppConfig.getGlobalProduction ();
   }
 
   @Override
   protected String getDataPath (@Nonnull final ServletContext aSC)
   {
-    return AppSettings.getDataPath ();
+    return AppConfig.getDataPath ();
   }
 
   @Override
   protected boolean shouldCheckFileAccess (@Nonnull final ServletContext aSC)
   {
-    return AppSettings.isCheckFileAccess ();
+    return AppConfig.isCheckFileAccess ();
   }
 
   @Override

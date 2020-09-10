@@ -16,17 +16,9 @@
  */
 package com.helger.peppol.jetty;
 
-import java.util.Map;
-
 import javax.annotation.concurrent.Immutable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.helger.commons.system.SystemProperties;
 import com.helger.photon.jetty.JettyStarter;
-import com.helger.settings.exchange.configfile.ConfigFile;
-import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
 /**
  * Run peppol-practical as a standalone web application in Jetty on port 8080.
@@ -38,20 +30,8 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 @Immutable
 public final class RunInJettyPP
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (RunInJettyPP.class);
-
   public static void main (final String [] args) throws Exception
   {
-    // Proxy configuration is simply applied by setting system properties
-    final ConfigFile aCF = new ConfigFileBuilder ().addPaths ("private-configProxy.properties", "configProxy.properties").build ();
-    for (final Map.Entry <String, Object> aEntry : aCF.getAllEntries ().entrySet ())
-    {
-      final String sKey = aEntry.getKey ();
-      final String sValue = String.valueOf (aEntry.getValue ());
-      SystemProperties.setPropertyValue (sKey, sValue);
-      LOGGER.info ("Setting Proxy property " + sKey + "=" + sValue);
-    }
-
     new JettyStarter (RunInJettyPP.class).run ();
   }
 }

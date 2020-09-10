@@ -21,11 +21,9 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.exception.InitializationException;
+import com.helger.config.ConfigFactory;
+import com.helger.config.IConfig;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
-import com.helger.settings.ISettings;
-import com.helger.settings.exchange.configfile.ConfigFile;
-import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
 /**
  * This class provides access to the settings as contained in the
@@ -33,92 +31,84 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
  *
  * @author Philip Helger
  */
-public final class AppSettings extends AbstractGlobalSingleton
+public final class AppConfig extends AbstractGlobalSingleton
 {
   /** The name of the file containing the settings */
-  public static final String FILENAME = "webapp.properties";
-  private static final ConfigFile s_aCF;
-
-  static
-  {
-    s_aCF = new ConfigFileBuilder ().addPath ("private-webapp.properties").addPath (FILENAME).build ();
-    if (!s_aCF.isRead ())
-      throw new InitializationException ("Failed to init properties");
-  }
+  private static final IConfig s_aCF = ConfigFactory.getDefaultConfig ();
 
   @Deprecated
   @UsedViaReflection
-  private AppSettings ()
+  private AppConfig ()
   {}
 
   @Nonnull
-  public static ISettings getSettingsObject ()
+  public static IConfig getConfig ()
   {
-    return s_aCF.getSettings ();
+    return s_aCF;
   }
 
   @Nullable
   public static String getGlobalDebug ()
   {
-    return s_aCF.getAsString ("global.debug");
+    return getConfig ().getAsString ("global.debug");
   }
 
   @Nullable
   public static String getGlobalProduction ()
   {
-    return s_aCF.getAsString ("global.production");
+    return getConfig ().getAsString ("global.production");
   }
 
   @Nullable
   public static String getDataPath ()
   {
-    return s_aCF.getAsString ("webapp.datapath");
+    return getConfig ().getAsString ("webapp.datapath");
   }
 
   public static boolean isCheckFileAccess ()
   {
-    return s_aCF.getAsBoolean ("webapp.checkfileaccess", true);
+    return getConfig ().getAsBoolean ("webapp.checkfileaccess", true);
   }
 
   public static boolean isTestVersion ()
   {
-    return s_aCF.getAsBoolean ("webapp.testversion", GlobalDebug.isDebugMode ());
+    return getConfig ().getAsBoolean ("webapp.testversion", GlobalDebug.isDebugMode ());
   }
 
   public static boolean isWebPageCommentingEnabled ()
   {
-    return s_aCF.getAsBoolean ("webapp.pagecomments.enabled", false);
+    return getConfig ().getAsBoolean ("webapp.pagecomments.enabled", false);
   }
 
   public static boolean isRestLogExceptions ()
   {
-    return s_aCF.getAsBoolean ("rest.log.exceptions", GlobalDebug.isDebugMode ());
+    return getConfig ().getAsBoolean ("rest.log.exceptions", GlobalDebug.isDebugMode ());
   }
 
   public static boolean isRestExceptionsWithPayload ()
   {
-    return s_aCF.getAsBoolean ("rest.exceptions.payload", GlobalDebug.isDebugMode ());
+    return getConfig ().getAsBoolean ("rest.exceptions.payload", GlobalDebug.isDebugMode ());
   }
 
   public static long getRESTAPIMaxRequestsPerSecond ()
   {
-    return s_aCF.getAsLong ("rest.limit.requestspersecond", -1);
+    return getConfig ().getAsLong ("rest.limit.requestspersecond", -1);
   }
 
   @Nullable
   public static String getRecaptchaWebKey ()
   {
-    return s_aCF.getAsString ("recaptcha.webkey");
+    return getConfig ().getAsString ("recaptcha.webkey");
   }
 
   @Nullable
   public static String getRecaptchaSecretKey ()
   {
-    return s_aCF.getAsString ("recaptcha.secretkey");
+    return getConfig ().getAsString ("recaptcha.secretkey");
   }
 
   public static long getValidationAPIMaxRequestsPerSecond ()
   {
-    return s_aCF.getAsLong ("validation.limit.requestspersecond", -1);
+    return getConfig ().getAsLong ("validation.limit.requestspersecond", -1);
   }
 }

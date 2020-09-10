@@ -119,7 +119,7 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
-import com.helger.smpclient.url.PeppolDNSResolutionException;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
@@ -225,12 +225,608 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
   }
 
-  @Override
-  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  private void _queryParticipant (@Nonnull final WebPageExecutionContext aWPEC,
+                                  final String sParticipantIDScheme,
+                                  final String sParticipantIDValue,
+                                  final ISMLConfiguration aSMLConfiguration,
+                                  final boolean bSMLAutoDetect,
+                                  final boolean bQueryBusinessCard,
+                                  final boolean bShowTime,
+                                  final boolean bXSDValidation,
+                                  final boolean bVerifySignatures)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final IRequestWebScopeWithoutResponse aRequestScope = aWPEC.getRequestScope ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+
+    final String sParticipantIDUriEncoded = CIdentifier.getURIEncoded (sParticipantIDScheme, sParticipantIDValue);
+
+    LOGGER.info ("Start querying the Participant information of '" + sParticipantIDUriEncoded + "'");
+
+    // Try to print the basic information before an error occurs
+    aNodeList.addChild (div ("Querying the following SMP for ").addChild (code (sParticipantIDUriEncoded)).addChild (":"));
+
+    try
+    {
+      SMPQueryParams aQueryParams = null;
+      ISMLConfiguration aRealSMLConfiguration = aSMLConfiguration;
+      if (bSMLAutoDetect)
+      {
+        for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
+        {
+          aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue);
+          if (aQueryParams == null)
+            continue;
+          try
+          {
+            InetAddress.getByName (aQueryParams.getSMPHostURI ().getHost ());
+            // Found it
+            aRealSMLConfiguration = aCurSML;
+            break;
+          }
+          catch (final UnknownHostException ex)
+          {
+            // continue
+          }
+        }
+
+        // Ensure to go into the exception handler
+        if (aRealSMLConfiguration == null)
+          throw new UnknownHostException ("");
+      }
+      else
+      {
+        // SML configuration is not null
+        aQueryParams = SMPQueryParams.createForSML (aRealSMLConfiguration, sParticipantIDScheme, sParticipantIDValue);
+      }
+
+      if (aQueryParams == null)
+        throw new SMPDNSResolutionException ("Failed to resolve participant ID '" +
+                                             sParticipantIDUriEncoded +
+                                             "' for the provided SML '" +
+                                             aRealSMLConfiguration.getID () +
+                                             "'");
+
+      final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
+
+      LOGGER.info ("Participant information of '" +
+                   sParticipantIDUriEncoded +
+                   "' is queried using SMP API '" +
+                   aQueryParams.getSMPAPIType () +
+                   "' from '" +
+                   aQueryParams.getSMPHostURI () +
+                   "' using SML '" +
+                   aRealSMLConfiguration +
+                   "'; XSD validation=" +
+                   bXSDValidation +
+                   "; verify signatures=" +
+                   bVerifySignatures);
+      final URL aSMPHost = aQueryParams.getSMPHostURI ().toURL ();
+
+      {
+        final HCUL aUL = new HCUL ();
+        aUL.addItem (div ("SML used: ").addChild (code (aRealSMLConfiguration.getDisplayName () +
+                                                        " / " +
+                                                        aRealSMLConfiguration.getDNSZone ()))
+                                       .addChild (" ")
+                                       .addChild (aRealSMLConfiguration.isProduction () ? badgeSuccess ("production SML")
+                                                                                        : badgeWarn ("test SML")));
+
+        final String sURL1 = aSMPHost.toExternalForm ();
+        aUL.addItem (div ("Peppol name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
+
+        final InetAddress [] aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
+        for (final InetAddress aInetAddress : aInetAddresses)
+        {
+          final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
+          final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
+          final String sURL3 = aNice.getCanonicalHostName ();
+
+          aUL.addItem (div ("IP address: ").addChild (code (sURL2)).addChild (" - reverse lookup: ").addChild (code (sURL3)),
+                       div (_createOpenInBrowser ("http://" + sURL2,
+                                                  "Open IP in browser")).addChild (" ")
+                                                                        .addChild (_createOpenInBrowser ("http://" + sURL3,
+                                                                                                         "Open name in browser")));
+        }
+
+        final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
+        aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
+
+        if (!bXSDValidation)
+          aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
+        if (!bVerifySignatures)
+          aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
+
+        aNodeList.addChild (aUL);
+      }
+
+      // Determine all document types
+      final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();
+      SMPClientReadOnly aSMPClient = null;
+      BDXRClientReadOnly aBDXR1Client = null;
+
+      {
+        final StopWatch aSWGetDocTypes = StopWatch.createdStarted ();
+        final HCUL aUL = new HCUL ();
+        final ICommonsSortedMap <String, String> aSGHrefs = new CommonsTreeMap <> ();
+
+        switch (aQueryParams.getSMPAPIType ())
+        {
+          case PEPPOL:
+          {
+            aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+            aSMPClient.setXMLSchemaValidation (bXSDValidation);
+            aSMPClient.setVerifySignature (bVerifySignatures);
+
+            // Get all HRefs and sort them by decoded URL
+            final com.helger.smpclient.peppol.jaxb.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+            // Map from cleaned URL to original URL
+            if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
+              for (final com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                                 .getServiceMetadataReference ())
+              {
+                // Decoded href is important for unification
+                final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
+                if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+                  aUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
+              }
+            break;
+          }
+          case OASIS_BDXR_V1:
+          {
+            aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+            aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
+            aBDXR1Client.setVerifySignature (bVerifySignatures);
+
+            // Get all HRefs and sort them by decoded URL
+            final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
+            // Map from cleaned URL to original URL
+            if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
+              for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                          .getServiceMetadataReference ())
+              {
+                // Decoded href is important for unification
+                final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
+                if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+                  aUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
+              }
+            break;
+          }
+        }
+
+        aSWGetDocTypes.stop ();
+
+        LOGGER.info ("Participant information of '" + aParticipantID.getURIEncoded () + "' returned " + aSGHrefs.size () + " entries");
+
+        final HCH3 aH3 = h3 ("ServiceGroup contents");
+        if (bShowTime)
+          aH3.addChild (" ").addChild (_createTimingNode (aSWGetDocTypes.getMillis ()));
+        aNodeList.addChild (aH3);
+        final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
+
+        // Show all ServiceGroup hrefs
+        for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
+        {
+          final String sHref = aEntry.getKey ();
+          final String sOriginalHref = aEntry.getValue ();
+
+          final IHCLI <?> aLI = aUL.addAndReturnItem (div (code (sHref)));
+          // Should be case insensitive "indexOf" here
+          final int nPathStart = sHref.toLowerCase (Locale.US).indexOf (sPathStart.toLowerCase (Locale.US));
+          if (nPathStart >= 0)
+          {
+            final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
+            final IDocumentTypeIdentifier aDocType = aQueryParams.getIF ().parseDocumentTypeIdentifier (sDocType);
+            if (aDocType != null)
+            {
+              aDocTypeIDs.add (aDocType);
+              aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
+                                                                            .addChild (AppCommonUI.createDocTypeID (aDocType, false)));
+              aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
+                                                                            .addChild (_createOpenInBrowser (sOriginalHref)));
+            }
+            else
+            {
+              aLI.addChild (error ("The document type ").addChild (code (sDocType))
+                                                        .addChild (" could not be interpreted as a structured document type!"));
+            }
+          }
+          else
+          {
+            aLI.addChild (error ().addChildren (div ("Contained href does not match the rules!"),
+                                                div ("Found href: ").addChild (code (sHref)),
+                                                div ("Expected path part: ").addChild (code (sPathStart))));
+          }
+        }
+        if (!aUL.hasChildren ())
+          aUL.addItem (warn ("No service group entries were found for " + aParticipantID.getURIEncoded ()));
+        aNodeList.addChild (aUL);
+      }
+
+      // List document type details
+      if (aDocTypeIDs.isNotEmpty ())
+      {
+        final LocalDateTime aNowDateTime = PDTFactory.getCurrentLocalDateTime ();
+        final ICommonsOrderedSet <X509Certificate> aAllUsedEndpointCertifiactes = new CommonsLinkedHashSet <> ();
+        long nTotalDurationMillis = 0;
+
+        aNodeList.addChild (h3 ("Document type details"));
+        final HCUL aULDocTypeIDs = new HCUL ();
+        for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
+        {
+          final HCDiv aDocTypeDiv = div (AppCommonUI.createDocTypeID (aDocTypeID, true));
+          final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
+
+          LOGGER.info ("Now SMP querying '" + aParticipantID.getURIEncoded () + "' / '" + aDocTypeID.getURIEncoded () + "'");
+
+          final StopWatch aSWGetDetails = StopWatch.createdStarted ();
+          switch (aQueryParams.getSMPAPIType ())
+          {
+            case PEPPOL:
+            {
+              final com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                           aDocTypeID);
+              aSWGetDetails.stop ();
+              if (aSSM != null)
+              {
+                final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                if (aSM.getRedirect () != null)
+                  aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
+                else
+                {
+                  // For all processes
+                  final HCUL aULProcessID = new HCUL ();
+                  for (final com.helger.smpclient.peppol.jaxb.ProcessType aProcess : aSM.getServiceInformation ()
+                                                                                        .getProcessList ()
+                                                                                        .getProcess ())
+                    if (aProcess.getProcessIdentifier () != null)
+                    {
+                      final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
+                      aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
+                                                                                                         SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
+                      final HCUL aULEndpoint = new HCUL ();
+                      // For all endpoints of the process
+                      for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
+                                                                                                   .getEndpoint ())
+                      {
+                        final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
+
+                        // Endpoint URL
+                        final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
+                                                                                              : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+                        _printEndpointURL (aLIEndpoint, sEndpointRef);
+
+                        // Valid from
+                        _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
+
+                        // Valid to
+                        _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
+
+                        // Transport profile
+                        _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
+
+                        // Technical infos
+                        _printTecInfo (aLIEndpoint,
+                                       StringHelper.getImplodedNonEmpty (" / ",
+                                                                         aEndpoint.getTechnicalInformationUrl (),
+                                                                         aEndpoint.getTechnicalContactUrl ()));
+
+                        // Certificate (also add null values)
+                        final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ());
+                        aAllUsedEndpointCertifiactes.add (aCert);
+                      }
+                      aLIProcessID.addChild (aULEndpoint);
+                    }
+                  aLIDocTypeID.addChild (aULProcessID);
+                }
+              }
+              else
+              {
+                aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
+              }
+              break;
+            }
+            case OASIS_BDXR_V1:
+            {
+              final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                      aDocTypeID);
+              aSWGetDetails.stop ();
+              if (aSSM != null)
+              {
+                final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                if (aSM.getRedirect () != null)
+                  aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
+                else
+                {
+                  // For all processes
+                  final HCUL aULProcessID = new HCUL ();
+                  for (final com.helger.xsds.bdxr.smp1.ProcessType aProcess : aSM.getServiceInformation ().getProcessList ().getProcess ())
+                    if (aProcess.getProcessIdentifier () != null)
+                    {
+                      final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
+                      aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
+                                                                                                         SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
+                      final HCUL aULEndpoint = new HCUL ();
+                      // For all endpoints of the process
+                      for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
+                      {
+                        final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
+
+                        // Endpoint URL
+                        _printEndpointURL (aLIEndpoint, aEndpoint.getEndpointURI ());
+
+                        // Valid from
+                        _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
+
+                        // Valid to
+                        _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
+
+                        // Transport profile
+                        _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
+
+                        // Technical infos
+                        _printTecInfo (aLIEndpoint,
+                                       StringHelper.getImplodedNonEmpty (" / ",
+                                                                         aEndpoint.getTechnicalInformationUrl (),
+                                                                         aEndpoint.getTechnicalContactUrl ()));
+
+                        // Certificate (also add null values)
+                        final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
+                        aAllUsedEndpointCertifiactes.add (aCert);
+                      }
+                      aLIProcessID.addChild (aULEndpoint);
+                    }
+                  aLIDocTypeID.addChild (aULProcessID);
+                }
+              }
+              else
+              {
+                aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
+              }
+              break;
+            }
+          }
+          if (bShowTime)
+            aDocTypeDiv.addChild (" ").addChild (_createTimingNode (aSWGetDetails.getMillis ()));
+          nTotalDurationMillis += aSWGetDetails.getMillis ();
+        }
+        aNodeList.addChild (aULDocTypeIDs);
+
+        if (bShowTime)
+          aNodeList.addChild (div ("Overall time: ").addChild (_createTimingNode (nTotalDurationMillis)));
+
+        aNodeList.addChild (h3 ("Endpoint Certificate details"));
+        if (aAllUsedEndpointCertifiactes.isEmpty ())
+        {
+          aNodeList.addChild (warn ("No Endpoint Certificate information was found."));
+        }
+        else
+        {
+          final HCUL aULCerts = new HCUL ();
+          for (final X509Certificate aEndpointCert : aAllUsedEndpointCertifiactes)
+          {
+            final IHCLI <?> aLICert = aULCerts.addItem ();
+            if (aEndpointCert != null)
+            {
+              aLICert.addChild (div ("Subject: " + aEndpointCert.getSubjectX500Principal ().getName ()));
+              aLICert.addChild (div ("Issuer: " + aEndpointCert.getIssuerX500Principal ().getName ()));
+              final LocalDateTime aNotBefore = PDTFactory.createLocalDateTime (aEndpointCert.getNotBefore ());
+              aLICert.addChild (div ("Not before: " + PDTToString.getAsString (aNotBefore, aDisplayLocale)));
+              if (aNotBefore.isAfter (aNowDateTime))
+                aLICert.addChild (error ("This Endpoint Certificate is not yet valid!"));
+              final LocalDateTime aNotAfter = PDTFactory.createLocalDateTime (aEndpointCert.getNotAfter ());
+              aLICert.addChild (div ("Not after: " + PDTToString.getAsString (aNotAfter, aDisplayLocale)));
+              if (aNotAfter.isBefore (aNowDateTime))
+                aLICert.addChild (error ("This Endpoint Certificate is no longer valid!"));
+              aLICert.addChild (div ("Serial number: " +
+                                     aEndpointCert.getSerialNumber ().toString () +
+                                     " / 0x" +
+                                     aEndpointCert.getSerialNumber ().toString (16)));
+
+              if (aQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
+              {
+                // Check Peppol certificate status
+                final EPeppolCertificateCheckResult eCertStatus = PeppolCertificateChecker.checkPeppolAPCertificate (aEndpointCert,
+                                                                                                                     aNowDateTime,
+                                                                                                                     ETriState.FALSE,
+                                                                                                                     ETriState.UNDEFINED);
+                if (eCertStatus.isValid ())
+                  aLICert.addChild (success ("The Endpoint Certificate appears to be a valid Peppol certificate."));
+                else
+                  aLICert.addChild (error ("The Endpoint Certificate appears to be an invalid Peppol certificate. Reason: " +
+                                           eCertStatus.getReason ()));
+              }
+
+              final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
+                                                            .setRows (4)
+                                                            .setValue (CertificateHelper.getPEMEncodedCertificate (aEndpointCert))
+                                                            .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
+              BootstrapFormHelper.markAsFormControl (aTextArea);
+              aLICert.addChild (div (aTextArea));
+            }
+            else
+            {
+              aLICert.addChild (error ("Failed to interpret the data as a X509 certificate"));
+            }
+          }
+          aNodeList.addChild (aULCerts);
+        }
+      }
+
+      if (bQueryBusinessCard)
+      {
+        final StopWatch aSWGetBC = StopWatch.createdStarted ();
+        aNodeList.addChild (h3 ("Business Card details"));
+
+        EFamFamFlagIcon.registerResourcesForThisRequest ();
+        final String sBCURL = aSMPHost.toExternalForm () + "/businesscard/" + aParticipantID.getURIEncoded ();
+        LOGGER.info ("Querying BC from '" + sBCURL + "'");
+        byte [] aData;
+        try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
+        {
+          final HttpGet aGet = new HttpGet (sBCURL);
+          aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
+        }
+        catch (final Exception ex)
+        {
+          aData = null;
+        }
+        aSWGetBC.stop ();
+
+        if (aData == null)
+          aNodeList.addChild (warn ("No Business Card is available for that participant."));
+        else
+        {
+          final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
+          if (aBC == null)
+          {
+            aNodeList.addChild (error ("Failed to parse the response data as a Business Card."));
+
+            final String sBC = new String (aData, StandardCharsets.UTF_8);
+            if (StringHelper.hasText (sBC))
+              aNodeList.addChild (new HCPrismJS (EPrismLanguage.MARKUP).addChild (sBC));
+            LOGGER.error ("Failed to parse BC:\n" + sBC);
+          }
+          else
+          {
+            final HCH4 aH4 = h4 ("Business Card contains " +
+                                 (aBC.businessEntities ().size () == 1 ? "1 entity" : aBC.businessEntities ().size () + " entities"));
+            if (bShowTime)
+              aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
+            aNodeList.addChild (aH4);
+            aNodeList.addChild (div (_createOpenInBrowser (sBCURL)));
+
+            final HCUL aUL = new HCUL ();
+            for (final PDBusinessEntity aEntity : aBC.businessEntities ())
+            {
+              final HCLI aLI = aUL.addItem ();
+
+              // Name
+              for (final PDName aName : aEntity.names ())
+              {
+                final Locale aLanguage = LanguageCache.getInstance ().getLanguage (aName.getLanguageCode ());
+                final String sLanguageName = aLanguage == null ? "" : " (" + aLanguage.getDisplayLanguage (aDisplayLocale) + ")";
+                aLI.addChild (div (aName.getName () + sLanguageName));
+              }
+
+              // Country
+              {
+                final String sCountryCode = aEntity.getCountryCode ();
+                final Locale aCountryCode = CountryCache.getInstance ().getCountry (sCountryCode);
+                final String sCountryName = aCountryCode == null ? sCountryCode
+                                                                 : aCountryCode.getDisplayCountry (aDisplayLocale) +
+                                                                   " (" +
+                                                                   sCountryCode +
+                                                                   ")";
+                final EFamFamFlagIcon eIcon = EFamFamFlagIcon.getFromIDOrNull (sCountryCode);
+                aLI.addChild (div ("Country: " + sCountryName + " ").addChild (eIcon == null ? null : eIcon.getAsNode ()));
+              }
+
+              // Geo info
+              if (aEntity.hasGeoInfo ())
+              {
+                aLI.addChild (div ("Geographical information: ").addChildren (HCExtHelper.nl2brList (aEntity.getGeoInfo ())));
+              }
+              // Additional IDs
+              if (aEntity.identifiers ().isNotEmpty ())
+              {
+                final BootstrapTable aIDTab = new BootstrapTable ().setCondensed (true);
+                aIDTab.addHeaderRow ().addCells ("Scheme", "Value");
+                for (final PDIdentifier aItem : aEntity.identifiers ())
+                  aIDTab.addBodyRow ().addCells (aItem.getScheme (), aItem.getValue ());
+                aLI.addChild (div ("Additional identifiers: ").addChild (aIDTab));
+              }
+              // Website URLs
+              if (aEntity.websiteURIs ().isNotEmpty ())
+              {
+                final HCNodeList aWebsites = new HCNodeList ();
+                for (final String sItem : aEntity.websiteURIs ())
+                  aWebsites.addChild (div (HCA.createLinkedWebsite (sItem)));
+                aLI.addChild (div ("Website URLs: ").addChild (aWebsites));
+              }
+              // Contacts
+              if (aEntity.contacts ().isNotEmpty ())
+              {
+                final BootstrapTable aContactTab = new BootstrapTable ().setCondensed (true);
+                aContactTab.addHeaderRow ().addCells ("Type", "Name", "Phone", "Email");
+                for (final PDContact aItem : aEntity.contacts ())
+                  aContactTab.addBodyRow ()
+                             .addCell (aItem.getType ())
+                             .addCell (aItem.getName ())
+                             .addCell (aItem.getPhoneNumber ())
+                             .addCell (HCA_MailTo.createLinkedEmail (aItem.getEmail ()));
+                aLI.addChild (div ("Contact points: ").addChild (aContactTab));
+              }
+              if (aEntity.hasAdditionalInfo ())
+              {
+                aLI.addChild (div ("Additional information: ").addChildren (HCExtHelper.nl2brList (aEntity.getAdditionalInfo ())));
+              }
+              if (aEntity.hasRegistrationDate ())
+              {
+                aLI.addChild (div ("Registration date: ").addChild (PDTToString.getAsString (aEntity.getRegistrationDate (),
+                                                                                             aDisplayLocale)));
+              }
+            }
+            aNodeList.addChild (aUL);
+          }
+        }
+      }
+
+      // Audit success
+      AuditHelper.onAuditExecuteSuccess ("participant-information", aParticipantID.getURIEncoded ());
+    }
+    catch (final UnknownHostException ex)
+    {
+      aNodeList.addChild (error (div ("Seems like the participant ID " +
+                                      sParticipantIDUriEncoded +
+                                      " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false))
+                                                                                   .addChild (bSMLAutoDetect ? null
+                                                                                                             : div ("Try selecting a different SML - maybe this helps")));
+
+      // Audit failure
+      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "unknown-host", ex.getMessage ());
+    }
+    catch (final SMPDNSResolutionException ex)
+    {
+      aNodeList.addChild (error (div ("Seems like the participant ID " +
+                                      sParticipantIDUriEncoded +
+                                      " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false))
+                                                                                   .addChild (bSMLAutoDetect ? null
+                                                                                                             : div ("Try selecting a different SML - maybe this helps")));
+
+      // Audit failure
+      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "dns-resolution-failed", ex.getMessage ());
+    }
+    catch (final SMPClientBadResponseException ex)
+    {
+      aNodeList.addChild (error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                                  false)));
+
+      // Audit failure
+      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
+    }
+    catch (final Exception ex)
+    {
+      // Don't spam me
+      final boolean bInterestingException = !(ex instanceof SMPClientException);
+      if (bInterestingException)
+      {
+        new InternalErrorBuilder ().setRequestScope (aRequestScope).setDisplayLocale (aDisplayLocale).setThrowable (ex).handle ();
+      }
+      aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, bInterestingException)));
+
+      // Audit failure
+      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
+    }
+
+    aNodeList.addChild (new HCHR ());
+  }
+
+  @Override
+  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  {
+    final HCNodeList aNodeList = aWPEC.getNodeList ();
     final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
@@ -243,7 +839,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       sParticipantIDScheme = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_SCHEME));
       sParticipantIDValue = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_VALUE));
       final String sSMLID = StringHelper.trim (aWPEC.params ().getAsString (FIELD_SML));
-      ISMLConfiguration aSMLConfiguration = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+      final ISMLConfiguration aSMLConfiguration = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
       final boolean bSMLAutoDetect = SMLConfigurationSelect.FIELD_AUTO_SELECT.equals (sSMLID);
       final boolean bQueryBusinessCard = aWPEC.params ().isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD, DEFAULT_QUERY_BUSINESS_CARD);
       final boolean bShowTime = aWPEC.params ().isCheckBoxChecked (PARAM_SHOW_TIME, DEFAULT_SHOW_TIME);
@@ -276,587 +872,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
-        // Try to print the basic information before an error occurs
-        final String sParticipantIDUriEncoded = CIdentifier.getURIEncoded (sParticipantIDScheme, sParticipantIDValue);
-        aNodeList.addChild (div ("Querying the following SMP for ").addChild (code (sParticipantIDUriEncoded)).addChild (":"));
-
-        try
-        {
-          SMPQueryParams aQueryParams = null;
-          if (bSMLAutoDetect)
-          {
-            for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
-            {
-              aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue);
-              if (aQueryParams == null)
-                continue;
-              try
-              {
-                InetAddress.getByName (aQueryParams.getSMPHostURI ().getHost ());
-                // Found it
-                aSMLConfiguration = aCurSML;
-                break;
-              }
-              catch (final UnknownHostException ex)
-              {
-                // continue
-              }
-            }
-
-            // Ensure to go into the exception handler
-            if (aSMLConfiguration == null)
-              throw new UnknownHostException ("");
-          }
-          else
-          {
-            aQueryParams = SMPQueryParams.createForSML (aSMLConfiguration, sParticipantIDScheme, sParticipantIDValue);
-          }
-
-          if (aQueryParams == null)
-            throw new PeppolDNSResolutionException ("Failed to resolve participant ID '" +
-                                                    sParticipantIDUriEncoded +
-                                                    "' for the provided SML '" +
-                                                    aSMLConfiguration.getID () +
-                                                    "'");
-
-          final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
-
-          LOGGER.info ("Participant information of '" +
-                       sParticipantIDUriEncoded +
-                       "' is queried using SMP API '" +
-                       aQueryParams.getSMPAPIType () +
-                       "' from '" +
-                       aQueryParams.getSMPHostURI () +
-                       "' using SML '" +
-                       aSMLConfiguration +
-                       "'; XSD validation=" +
-                       bXSDValidation +
-                       "; verify signatures=" +
-                       bVerifySignatures);
-          final URL aSMPHost = aQueryParams.getSMPHostURI ().toURL ();
-
-          {
-            final HCUL aUL = new HCUL ();
-            aUL.addItem (div ("SML used: ").addChild (code (aSMLConfiguration.getDisplayName () + " / " + aSMLConfiguration.getDNSZone ()))
-                                           .addChild (" ")
-                                           .addChild (aSMLConfiguration.isProduction () ? badgeSuccess ("production SML")
-                                                                                        : badgeWarn ("test SML")));
-
-            final String sURL1 = aSMPHost.toExternalForm ();
-            aUL.addItem (div ("Peppol name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
-
-            final InetAddress [] aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
-            for (final InetAddress aInetAddress : aInetAddresses)
-            {
-              final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
-              final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
-              final String sURL3 = aNice.getCanonicalHostName ();
-
-              aUL.addItem (div ("IP address: ").addChild (code (sURL2)).addChild (" - reverse lookup: ").addChild (code (sURL3)),
-                           div (_createOpenInBrowser ("http://" + sURL2,
-                                                      "Open IP in browser")).addChild (" ")
-                                                                            .addChild (_createOpenInBrowser ("http://" + sURL3,
-                                                                                                             "Open name in browser")));
-            }
-
-            final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
-            aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
-
-            if (!bXSDValidation)
-              aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
-            if (!bVerifySignatures)
-              aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
-
-            aNodeList.addChild (aUL);
-          }
-
-          // Determine all document types
-          final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();
-          SMPClientReadOnly aSMPClient = null;
-          BDXRClientReadOnly aBDXR1Client = null;
-
-          {
-            final StopWatch aSWGetDocTypes = StopWatch.createdStarted ();
-            final HCUL aUL = new HCUL ();
-            final ICommonsSortedMap <String, String> aSGHrefs = new CommonsTreeMap <> ();
-
-            switch (aQueryParams.getSMPAPIType ())
-            {
-              case PEPPOL:
-              {
-                aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
-                aSMPClient.setXMLSchemaValidation (bXSDValidation);
-                aSMPClient.setVerifySignature (bVerifySignatures);
-
-                // Get all HRefs and sort them by decoded URL
-                final com.helger.smpclient.peppol.jaxb.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
-                // Map from cleaned URL to original URL
-                if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-                  for (final com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                                     .getServiceMetadataReference ())
-                  {
-                    // Decoded href is important for unification
-                    final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
-                    if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-                      aUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
-                  }
-                break;
-              }
-              case OASIS_BDXR_V1:
-              {
-                aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
-                aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
-                aBDXR1Client.setVerifySignature (bVerifySignatures);
-
-                // Get all HRefs and sort them by decoded URL
-                final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
-                // Map from cleaned URL to original URL
-                if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-                  for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                              .getServiceMetadataReference ())
-                  {
-                    // Decoded href is important for unification
-                    final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
-                    if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-                      aUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
-                  }
-                break;
-              }
-            }
-
-            aSWGetDocTypes.stop ();
-
-            LOGGER.info ("Participant information of '" + aParticipantID.getURIEncoded () + "' returned " + aSGHrefs.size () + " entries");
-
-            final HCH3 aH3 = h3 ("ServiceGroup contents");
-            if (bShowTime)
-              aH3.addChild (" ").addChild (_createTimingNode (aSWGetDocTypes.getMillis ()));
-            aNodeList.addChild (aH3);
-            final String sPathStart = "/" + aParticipantID.getURIEncoded () + "/services/";
-
-            // Show all ServiceGroup hrefs
-            for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
-            {
-              final String sHref = aEntry.getKey ();
-              final String sOriginalHref = aEntry.getValue ();
-
-              final IHCLI <?> aLI = aUL.addAndReturnItem (div (code (sHref)));
-              // Should be case insensitive "indexOf" here
-              final int nPathStart = sHref.toLowerCase (Locale.US).indexOf (sPathStart.toLowerCase (Locale.US));
-              if (nPathStart >= 0)
-              {
-                final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
-                final IDocumentTypeIdentifier aDocType = aQueryParams.getIF ().parseDocumentTypeIdentifier (sDocType);
-                if (aDocType != null)
-                {
-                  aDocTypeIDs.add (aDocType);
-                  aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
-                                                                                .addChild (AppCommonUI.createDocTypeID (aDocType, false)));
-                  aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
-                                                                                .addChild (_createOpenInBrowser (sOriginalHref)));
-                }
-                else
-                {
-                  aLI.addChild (error ("The document type ").addChild (code (sDocType))
-                                                            .addChild (" could not be interpreted as a structured document type!"));
-                }
-              }
-              else
-              {
-                aLI.addChild (error ().addChildren (div ("Contained href does not match the rules!"),
-                                                    div ("Found href: ").addChild (code (sHref)),
-                                                    div ("Expected path part: ").addChild (code (sPathStart))));
-              }
-            }
-            if (!aUL.hasChildren ())
-              aUL.addItem (warn ("No service group entries were found for " + aParticipantID.getURIEncoded ()));
-            aNodeList.addChild (aUL);
-          }
-
-          // List document type details
-          if (aDocTypeIDs.isNotEmpty ())
-          {
-            final LocalDateTime aNowDateTime = PDTFactory.getCurrentLocalDateTime ();
-            final ICommonsOrderedSet <X509Certificate> aAllUsedEndpointCertifiactes = new CommonsLinkedHashSet <> ();
-            long nTotalDurationMillis = 0;
-
-            aNodeList.addChild (h3 ("Document type details"));
-            final HCUL aULDocTypeIDs = new HCUL ();
-            for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
-            {
-              final HCDiv aDocTypeDiv = div (AppCommonUI.createDocTypeID (aDocTypeID, true));
-              final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
-
-              LOGGER.info ("Now SMP querying '" + aParticipantID.getURIEncoded () + "' / '" + aDocTypeID.getURIEncoded () + "'");
-
-              final StopWatch aSWGetDetails = StopWatch.createdStarted ();
-              switch (aQueryParams.getSMPAPIType ())
-              {
-                case PEPPOL:
-                {
-                  final com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                               aDocTypeID);
-                  aSWGetDetails.stop ();
-                  if (aSSM != null)
-                  {
-                    final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
-                    if (aSM.getRedirect () != null)
-                      aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
-                    else
-                    {
-                      // For all processes
-                      final HCUL aULProcessID = new HCUL ();
-                      for (final com.helger.smpclient.peppol.jaxb.ProcessType aProcess : aSM.getServiceInformation ()
-                                                                                            .getProcessList ()
-                                                                                            .getProcess ())
-                        if (aProcess.getProcessIdentifier () != null)
-                        {
-                          final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
-                          aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
-                                                                                                             SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
-                          final HCUL aULEndpoint = new HCUL ();
-                          // For all endpoints of the process
-                          for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
-                                                                                                       .getEndpoint ())
-                          {
-                            final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
-
-                            // Endpoint URL
-                            final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
-                                                                                                  : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
-                            _printEndpointURL (aLIEndpoint, sEndpointRef);
-
-                            // Valid from
-                            _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
-
-                            // Valid to
-                            _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
-
-                            // Transport profile
-                            _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
-
-                            // Technical infos
-                            _printTecInfo (aLIEndpoint,
-                                           StringHelper.getImplodedNonEmpty (" / ",
-                                                                             aEndpoint.getTechnicalInformationUrl (),
-                                                                             aEndpoint.getTechnicalContactUrl ()));
-
-                            // Certificate (also add null values)
-                            final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ());
-                            aAllUsedEndpointCertifiactes.add (aCert);
-                          }
-                          aLIProcessID.addChild (aULEndpoint);
-                        }
-                      aLIDocTypeID.addChild (aULProcessID);
-                    }
-                  }
-                  else
-                  {
-                    aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
-                  }
-                  break;
-                }
-                case OASIS_BDXR_V1:
-                {
-                  final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                          aDocTypeID);
-                  aSWGetDetails.stop ();
-                  if (aSSM != null)
-                  {
-                    final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
-                    if (aSM.getRedirect () != null)
-                      aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
-                    else
-                    {
-                      // For all processes
-                      final HCUL aULProcessID = new HCUL ();
-                      for (final com.helger.xsds.bdxr.smp1.ProcessType aProcess : aSM.getServiceInformation ()
-                                                                                     .getProcessList ()
-                                                                                     .getProcess ())
-                        if (aProcess.getProcessIdentifier () != null)
-                        {
-                          final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
-                          aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
-                                                                                                             SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
-                          final HCUL aULEndpoint = new HCUL ();
-                          // For all endpoints of the process
-                          for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
-                          {
-                            final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
-
-                            // Endpoint URL
-                            _printEndpointURL (aLIEndpoint, aEndpoint.getEndpointURI ());
-
-                            // Valid from
-                            _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
-
-                            // Valid to
-                            _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
-
-                            // Transport profile
-                            _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
-
-                            // Technical infos
-                            _printTecInfo (aLIEndpoint,
-                                           StringHelper.getImplodedNonEmpty (" / ",
-                                                                             aEndpoint.getTechnicalInformationUrl (),
-                                                                             aEndpoint.getTechnicalContactUrl ()));
-
-                            // Certificate (also add null values)
-                            final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
-                            aAllUsedEndpointCertifiactes.add (aCert);
-                          }
-                          aLIProcessID.addChild (aULEndpoint);
-                        }
-                      aLIDocTypeID.addChild (aULProcessID);
-                    }
-                  }
-                  else
-                  {
-                    aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
-                  }
-                  break;
-                }
-              }
-              if (bShowTime)
-                aDocTypeDiv.addChild (" ").addChild (_createTimingNode (aSWGetDetails.getMillis ()));
-              nTotalDurationMillis += aSWGetDetails.getMillis ();
-            }
-            aNodeList.addChild (aULDocTypeIDs);
-
-            if (bShowTime)
-              aNodeList.addChild (div ("Overall time: ").addChild (_createTimingNode (nTotalDurationMillis)));
-
-            aNodeList.addChild (h3 ("Endpoint Certificate details"));
-            if (aAllUsedEndpointCertifiactes.isEmpty ())
-            {
-              aNodeList.addChild (warn ("No Endpoint Certificate information was found."));
-            }
-            else
-            {
-              final HCUL aULCerts = new HCUL ();
-              for (final X509Certificate aEndpointCert : aAllUsedEndpointCertifiactes)
-              {
-                final IHCLI <?> aLICert = aULCerts.addItem ();
-                if (aEndpointCert != null)
-                {
-                  aLICert.addChild (div ("Subject: " + aEndpointCert.getSubjectX500Principal ().getName ()));
-                  aLICert.addChild (div ("Issuer: " + aEndpointCert.getIssuerX500Principal ().getName ()));
-                  final LocalDateTime aNotBefore = PDTFactory.createLocalDateTime (aEndpointCert.getNotBefore ());
-                  aLICert.addChild (div ("Not before: " + PDTToString.getAsString (aNotBefore, aDisplayLocale)));
-                  if (aNotBefore.isAfter (aNowDateTime))
-                    aLICert.addChild (error ("This Endpoint Certificate is not yet valid!"));
-                  final LocalDateTime aNotAfter = PDTFactory.createLocalDateTime (aEndpointCert.getNotAfter ());
-                  aLICert.addChild (div ("Not after: " + PDTToString.getAsString (aNotAfter, aDisplayLocale)));
-                  if (aNotAfter.isBefore (aNowDateTime))
-                    aLICert.addChild (error ("This Endpoint Certificate is no longer valid!"));
-                  aLICert.addChild (div ("Serial number: " +
-                                         aEndpointCert.getSerialNumber ().toString () +
-                                         " / 0x" +
-                                         aEndpointCert.getSerialNumber ().toString (16)));
-
-                  if (aQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
-                  {
-                    // Check Peppol certificate status
-                    final EPeppolCertificateCheckResult eCertStatus = PeppolCertificateChecker.checkPeppolAPCertificate (aEndpointCert,
-                                                                                                                         aNowDateTime,
-                                                                                                                         ETriState.FALSE,
-                                                                                                                         ETriState.UNDEFINED);
-                    if (eCertStatus.isValid ())
-                      aLICert.addChild (success ("The Endpoint Certificate appears to be a valid Peppol certificate."));
-                    else
-                      aLICert.addChild (error ("The Endpoint Certificate appears to be an invalid Peppol certificate. Reason: " +
-                                               eCertStatus.getReason ()));
-                  }
-
-                  final HCTextArea aTextArea = new HCTextArea ().setReadOnly (true)
-                                                                .setRows (4)
-                                                                .setValue (CertificateHelper.getPEMEncodedCertificate (aEndpointCert))
-                                                                .addStyle (CCSSProperties.FONT_FAMILY.newValue (CCSSValue.FONT_MONOSPACE));
-                  BootstrapFormHelper.markAsFormControl (aTextArea);
-                  aLICert.addChild (div (aTextArea));
-                }
-                else
-                {
-                  aLICert.addChild (error ("Failed to interpret the data as a X509 certificate"));
-                }
-              }
-              aNodeList.addChild (aULCerts);
-            }
-          }
-
-          if (bQueryBusinessCard)
-          {
-            final StopWatch aSWGetBC = StopWatch.createdStarted ();
-            aNodeList.addChild (h3 ("Business Card details"));
-
-            EFamFamFlagIcon.registerResourcesForThisRequest ();
-            final String sBCURL = aSMPHost.toExternalForm () + "/businesscard/" + aParticipantID.getURIEncoded ();
-            LOGGER.info ("Querying BC from '" + sBCURL + "'");
-            byte [] aData;
-            try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
-            {
-              final HttpGet aGet = new HttpGet (sBCURL);
-              aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
-            }
-            catch (final Exception ex)
-            {
-              aData = null;
-            }
-            aSWGetBC.stop ();
-
-            if (aData == null)
-              aNodeList.addChild (warn ("No Business Card is available for that participant."));
-            else
-            {
-              final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
-              if (aBC == null)
-              {
-                aNodeList.addChild (error ("Failed to parse the response data as a Business Card."));
-
-                final String sBC = new String (aData, StandardCharsets.UTF_8);
-                if (StringHelper.hasText (sBC))
-                  aNodeList.addChild (new HCPrismJS (EPrismLanguage.MARKUP).addChild (sBC));
-                LOGGER.error ("Failed to parse BC:\n" + sBC);
-              }
-              else
-              {
-                final HCH4 aH4 = h4 ("Business Card contains " +
-                                     (aBC.businessEntities ().size () == 1 ? "1 entity" : aBC.businessEntities ().size () + " entities"));
-                if (bShowTime)
-                  aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
-                aNodeList.addChild (aH4);
-                aNodeList.addChild (div (_createOpenInBrowser (sBCURL)));
-
-                final HCUL aUL = new HCUL ();
-                for (final PDBusinessEntity aEntity : aBC.businessEntities ())
-                {
-                  final HCLI aLI = aUL.addItem ();
-
-                  // Name
-                  for (final PDName aName : aEntity.names ())
-                  {
-                    final Locale aLanguage = LanguageCache.getInstance ().getLanguage (aName.getLanguageCode ());
-                    final String sLanguageName = aLanguage == null ? "" : " (" + aLanguage.getDisplayLanguage (aDisplayLocale) + ")";
-                    aLI.addChild (div (aName.getName () + sLanguageName));
-                  }
-
-                  // Country
-                  {
-                    final String sCountryCode = aEntity.getCountryCode ();
-                    final Locale aCountryCode = CountryCache.getInstance ().getCountry (sCountryCode);
-                    final String sCountryName = aCountryCode == null ? sCountryCode
-                                                                     : aCountryCode.getDisplayCountry (aDisplayLocale) +
-                                                                       " (" +
-                                                                       sCountryCode +
-                                                                       ")";
-                    final EFamFamFlagIcon eIcon = EFamFamFlagIcon.getFromIDOrNull (sCountryCode);
-                    aLI.addChild (div ("Country: " + sCountryName + " ").addChild (eIcon == null ? null : eIcon.getAsNode ()));
-                  }
-
-                  // Geo info
-                  if (aEntity.hasGeoInfo ())
-                  {
-                    aLI.addChild (div ("Geographical information: ").addChildren (HCExtHelper.nl2brList (aEntity.getGeoInfo ())));
-                  }
-                  // Additional IDs
-                  if (aEntity.identifiers ().isNotEmpty ())
-                  {
-                    final BootstrapTable aIDTab = new BootstrapTable ().setCondensed (true);
-                    aIDTab.addHeaderRow ().addCells ("Scheme", "Value");
-                    for (final PDIdentifier aItem : aEntity.identifiers ())
-                      aIDTab.addBodyRow ().addCells (aItem.getScheme (), aItem.getValue ());
-                    aLI.addChild (div ("Additional identifiers: ").addChild (aIDTab));
-                  }
-                  // Website URLs
-                  if (aEntity.websiteURIs ().isNotEmpty ())
-                  {
-                    final HCNodeList aWebsites = new HCNodeList ();
-                    for (final String sItem : aEntity.websiteURIs ())
-                      aWebsites.addChild (div (HCA.createLinkedWebsite (sItem)));
-                    aLI.addChild (div ("Website URLs: ").addChild (aWebsites));
-                  }
-                  // Contacts
-                  if (aEntity.contacts ().isNotEmpty ())
-                  {
-                    final BootstrapTable aContactTab = new BootstrapTable ().setCondensed (true);
-                    aContactTab.addHeaderRow ().addCells ("Type", "Name", "Phone", "Email");
-                    for (final PDContact aItem : aEntity.contacts ())
-                      aContactTab.addBodyRow ()
-                                 .addCell (aItem.getType ())
-                                 .addCell (aItem.getName ())
-                                 .addCell (aItem.getPhoneNumber ())
-                                 .addCell (HCA_MailTo.createLinkedEmail (aItem.getEmail ()));
-                    aLI.addChild (div ("Contact points: ").addChild (aContactTab));
-                  }
-                  if (aEntity.hasAdditionalInfo ())
-                  {
-                    aLI.addChild (div ("Additional information: ").addChildren (HCExtHelper.nl2brList (aEntity.getAdditionalInfo ())));
-                  }
-                  if (aEntity.hasRegistrationDate ())
-                  {
-                    aLI.addChild (div ("Registration date: ").addChild (PDTToString.getAsString (aEntity.getRegistrationDate (),
-                                                                                                 aDisplayLocale)));
-                  }
-                }
-                aNodeList.addChild (aUL);
-              }
-            }
-          }
-
-          // Audit success
-          AuditHelper.onAuditExecuteSuccess ("participant-information", aParticipantID.getURIEncoded ());
-        }
-        catch (final UnknownHostException ex)
-        {
-          aNodeList.addChild (error (div ("Seems like the participant ID " +
-                                          sParticipantIDUriEncoded +
-                                          " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                                     false))
-                                                                                       .addChild (bSMLAutoDetect ? null
-                                                                                                                 : div ("Try selecting a different SML - maybe this helps")));
-
-          // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "unknown-host", ex.getMessage ());
-        }
-        catch (final PeppolDNSResolutionException ex)
-        {
-          aNodeList.addChild (error (div ("Seems like the participant ID " +
-                                          sParticipantIDUriEncoded +
-                                          " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                                     false))
-                                                                                       .addChild (bSMLAutoDetect ? null
-                                                                                                                 : div ("Try selecting a different SML - maybe this helps")));
-
-          // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participant-information",
-                                             sParticipantIDUriEncoded,
-                                             "dns-resolution-failed",
-                                             ex.getMessage ());
-        }
-        catch (final SMPClientBadResponseException ex)
-        {
-          aNodeList.addChild (error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                                                      false)));
-
-          // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
-        }
-        catch (final Exception ex)
-        {
-          // Don't spam me
-          final boolean bInterestingException = !(ex instanceof SMPClientException);
-          if (bInterestingException)
-          {
-            new InternalErrorBuilder ().setRequestScope (aRequestScope).setDisplayLocale (aDisplayLocale).setThrowable (ex).handle ();
-          }
-          aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, bInterestingException)));
-
-          // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
-        }
-
-        aNodeList.addChild (new HCHR ());
+        _queryParticipant (aWPEC,
+                           sParticipantIDScheme,
+                           sParticipantIDValue,
+                           aSMLConfiguration,
+                           bSMLAutoDetect,
+                           bQueryBusinessCard,
+                           bShowTime,
+                           bXSDValidation,
+                           bVerifySignatures);
       }
     }
 
@@ -910,5 +934,4 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       aToolbar.addSubmitButton ("Show details");
     }
   }
-
 }
