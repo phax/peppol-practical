@@ -91,7 +91,8 @@ import com.helger.peppol.utils.PeppolCertificateChecker;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
@@ -845,6 +846,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final boolean bShowTime = aWPEC.params ().isCheckBoxChecked (PARAM_SHOW_TIME, DEFAULT_SHOW_TIME);
       final boolean bXSDValidation = aWPEC.params ().isCheckBoxChecked (PARAM_XSD_VALIDATION, DEFAULT_XSD_VALIDATION);
       final boolean bVerifySignatures = aWPEC.params ().isCheckBoxChecked (PARAM_VERIFY_SIGNATURES, DEFAULT_VERIFY_SIGNATURES);
+      final IIdentifierFactory aIF = aSMLConfiguration != null ? aSMLConfiguration.getSMPIdentifierType ().getIdentifierFactory ()
+                                                               : SimpleIdentifierFactory.INSTANCE;
 
       // Legacy URL params?
       if (aWPEC.params ().containsKey ("idscheme") && aWPEC.params ().containsKey ("idvalue"))
@@ -858,13 +861,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (StringHelper.hasNoText (sParticipantIDScheme))
         aFormErrors.addFieldError (FIELD_ID_SCHEME, "Please provide an identifier scheme");
       else
-        if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sParticipantIDScheme))
+        if (!aIF.isParticipantIdentifierSchemeValid (sParticipantIDScheme))
           aFormErrors.addFieldError (FIELD_ID_SCHEME, "The participant identifier scheme '" + sParticipantIDScheme + "' is not valid!");
 
       if (StringHelper.hasNoText (sParticipantIDValue))
         aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
       else
-        if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sParticipantIDValue))
+        if (!aIF.isParticipantIdentifierValueValid (sParticipantIDValue))
           aFormErrors.addFieldError (FIELD_ID_VALUE, "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
 
       if (aSMLConfiguration == null && !bSMLAutoDetect)
@@ -898,14 +901,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                               .addChild (" as an example.")));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier scheme")
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_SCHEME,
-                                                                                           sParticipantIDScheme)).setMaxLength (PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH)
-                                                                                                                 .setPlaceholder ("Identifier scheme"))
+                                                                                           sParticipantIDScheme)).setPlaceholder ("Identifier scheme"))
                                                    .setHelpText (div ("The most common identifier scheme is ").addChild (code (DEFAULT_ID_SCHEME)))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_SCHEME)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE,
-                                                                                           sParticipantIDValue)).setMaxLength (PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
-                                                                                                                .setPlaceholder ("Identifier value"))
+                                                                                           sParticipantIDValue)).setPlaceholder ("Identifier value"))
                                                    .setHelpText (div ("The identifier value must look like ").addChild (code ("9915:test")))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
