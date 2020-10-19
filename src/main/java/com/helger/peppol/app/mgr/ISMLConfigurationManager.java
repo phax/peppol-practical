@@ -40,6 +40,8 @@ public interface ISMLConfigurationManager
   /**
    * Create a new SML information.
    *
+   * @param sSMLInfoID
+   *        Internal object ID. May neither be <code>null</code> nor empty.
    * @param sDisplayName
    *        The "shorthand" display name like "SML" or "SMK". May neither be
    *        <code>null</code> nor empty.
@@ -67,7 +69,8 @@ public interface ISMLConfigurationManager
    * @return Never <code>null</code>.
    */
   @Nonnull
-  ISMLConfiguration createSMLInfo (@Nonnull @Nonempty String sDisplayName,
+  ISMLConfiguration createSMLInfo (@Nonnull @Nonempty String sSMLInfoID,
+                                   @Nonnull @Nonempty String sDisplayName,
                                    @Nonnull @Nonempty String sDNSZone,
                                    @Nonnull @Nonempty String sManagementServiceURL,
                                    boolean bClientCertificateRequired,

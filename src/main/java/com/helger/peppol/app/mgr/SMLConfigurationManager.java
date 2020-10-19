@@ -53,7 +53,8 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
   }
 
   @Nonnull
-  public ISMLConfiguration createSMLInfo (@Nonnull @Nonempty final String sDisplayName,
+  public ISMLConfiguration createSMLInfo (@Nonnull @Nonempty final String sSMLInfoID,
+                                          @Nonnull @Nonempty final String sDisplayName,
                                           @Nonnull @Nonempty final String sDNSZone,
                                           @Nonnull @Nonempty final String sManagementServiceURL,
                                           final boolean bClientCertificateRequired,
@@ -61,14 +62,14 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
                                           @Nonnull final ESMPIdentifierType eSMPIdentifierType,
                                           final boolean bProduction)
   {
-    final SMLInfo aSMLInfo = new SMLInfo (sDisplayName, sDNSZone, sManagementServiceURL, bClientCertificateRequired);
+    final SMLInfo aSMLInfo = new SMLInfo (sSMLInfoID, sDisplayName, sDNSZone, sManagementServiceURL, bClientCertificateRequired);
     final SMLConfiguration aExtSMLInfo = new SMLConfiguration (aSMLInfo, eSMPAPIType, eSMPIdentifierType, bProduction);
 
     m_aRWLock.writeLocked ( () -> {
       internalCreateItem (aExtSMLInfo);
     });
     AuditHelper.onAuditCreateSuccess (SMLInfo.OT,
-                                      aSMLInfo.getID (),
+                                      sSMLInfoID,
                                       sDisplayName,
                                       sDNSZone,
                                       sManagementServiceURL,

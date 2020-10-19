@@ -63,6 +63,7 @@ import com.helger.photon.uictrls.datatables.column.DTCol;
 
 public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <ISMLConfiguration, WebPageExecutionContext>
 {
+  private static final String FIELD_ID = "id";
   private static final String FIELD_DISPLAY_NAME = "displayname";
   private static final String FIELD_DNS_ZONE = "dnszone";
   private static final String FIELD_MANAGEMENT_ADDRESS_URL = "mgmtaddrurl";
@@ -81,7 +82,11 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
                                 @Nonnull final BootstrapForm aForm,
                                 @Nonnull final ISMLConfiguration aSelectedObject)
       {
-        aForm.addChild (question ("Are you sure you want to delete the SML configuration '" + aSelectedObject.getDisplayName () + "'?"));
+        aForm.addChild (question ("Are you sure you want to delete the SML configuration '" +
+                                  aSelectedObject.getDisplayName () +
+                                  "' with ID '" +
+                                  aSelectedObject.getID () +
+                                  "'?"));
       }
 
       @Override
@@ -91,6 +96,8 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
         if (aSMLConfigurationMgr.removeSMLInfo (aSelectedObject.getID ()).isChanged ())
           aWPEC.postRedirectGetInternal (success ("The SML configuration '" +
                                                   aSelectedObject.getDisplayName () +
+                                                  "' with ID '" +
+                                                  aSelectedObject.getID () +
                                                   "' was successfully deleted!"));
         else
           aWPEC.postRedirectGetInternal (error ("The SML configuration '" + aSelectedObject.getDisplayName () + "' could not be deleted!"));
@@ -124,6 +131,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
                                                             "'"));
 
     final BootstrapViewForm aForm = new BootstrapViewForm ();
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("ID").setCtrl (aSelectedObject.getID ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getDisplayName ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("DNS Zone").setCtrl (aSelectedObject.getDNSZone ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Publisher DNS Zone").setCtrl (aSelectedObject.getPublisherDNSZone ()));
@@ -160,6 +168,13 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
 
     aForm.addChild (getUIHandler ().createActionHeader (bEdit ? "Edit SML configuration '" + aSelectedObject.getDisplayName () + "'"
                                                               : "Create new SML configuration"));
+
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("ID")
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_ID,
+                                                                                         aSelectedObject != null ? aSelectedObject.getID ()
+                                                                                                                 : null)).setReadOnly (bEdit))
+                                                 .setHelpText ("The internal ID of the SML configuration. This value cannot be edited.")
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_ID)));
 
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_DISPLAY_NAME,
@@ -228,6 +243,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
     final boolean bEdit = eFormAction.isEdit ();
     final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
 
+    final String sID = aWPEC.params ().getAsString (FIELD_ID);
     final String sDisplayName = aWPEC.params ().getAsString (FIELD_DISPLAY_NAME);
     final String sDNSZone = aWPEC.params ().getAsString (FIELD_DNS_ZONE);
     final String sManagementAddressURL = aWPEC.params ().getAsString (FIELD_MANAGEMENT_ADDRESS_URL);
@@ -239,6 +255,30 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
     final boolean bProduction = aWPEC.params ().isCheckBoxChecked (FIELD_PRODUCTION, false);
 
     // validations
+    if (StringHelper.hasNoText (sID))
+      aFormErrors.addFieldError (FIELD_ID, "The SML configuration ID must not be empty!");
+    else
+      if ("autodetect".equals (sID))
+        aFormErrors.addFieldError (FIELD_ID, "This SML configuration ID is reserved!");
+      else
+      {
+        final ISMLConfiguration aExisting = aSMLConfigurationMgr.getSMLInfoOfID (sID);
+        if (bEdit)
+        {
+          // Expect aExistring == aSelectedObject
+          if (aExisting == null)
+            aFormErrors.addFieldError (FIELD_ID, "Invalid SML configuration ID provided!");
+          else
+            if (aExisting != aSelectedObject)
+              aFormErrors.addFieldError (FIELD_ID, "Another SML configuration with the same ID already exists!");
+        }
+        else
+        {
+          if (aExisting != null)
+            aFormErrors.addFieldError (FIELD_ID, "Another SML configuration with the same ID already exists!");
+        }
+      }
+
     if (StringHelper.hasNoText (sDisplayName))
       aFormErrors.addFieldError (FIELD_DISPLAY_NAME, "The SML configuration name must not be empty!");
 
@@ -289,7 +329,8 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
       }
       else
       {
-        aSMLConfigurationMgr.createSMLInfo (sDisplayName,
+        aSMLConfigurationMgr.createSMLInfo (sID,
+                                            sDisplayName,
                                             sDNSZoneLC,
                                             sManagementAddressURL,
                                             bClientCertificateRequired,
@@ -314,7 +355,8 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
     aToolbar.addButton ("Create new SML configuration", createCreateURL (aWPEC), EDefaultIcon.NEW);
     aNodeList.addChild (aToolbar);
 
-    final HCTable aTable = new HCTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
+    final HCTable aTable = new HCTable (new DTCol ("ID"),
+                                        new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
                                         new DTCol ("DNS Zone"),
                                         new DTCol ("Management Service URL"),
                                         new DTCol ("Client Cert?"),
@@ -327,6 +369,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 
       final HCRow aRow = aTable.addBodyRow ();
+      aRow.addCell (aCurObject.getID ());
       aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
       aRow.addCell (aCurObject.getDNSZone ());
       aRow.addCell (aCurObject.getManagementServiceURL ());

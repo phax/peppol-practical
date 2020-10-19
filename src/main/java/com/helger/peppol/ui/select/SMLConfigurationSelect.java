@@ -39,6 +39,9 @@ public class SMLConfigurationSelect extends HCExtSelect
                                       aSMLInfo.getDisplayName () +
                                       "] " +
                                       aSMLInfo.getManagementServiceURL () +
-                                      (aSMLInfo.isProduction () ? " (production)" : " (test)"));
+                                      (aSMLInfo.isProduction () ? " (production)" : " (test)") +
+                                      " (ID: " +
+                                      aSMLInfo.getID () +
+                                      ")");
   }
 }

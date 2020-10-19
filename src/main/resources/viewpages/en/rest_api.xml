@@ -44,7 +44,7 @@
 <ul>
   <li><code>digitprod</code> - the production PEPPOL SML</li>
   <li><code>digittest</code> - the test PEPPOL SML (aka SMK)</li>
-  <li><code>id40</code> - the pilot TOOP SML (aka SMK)</li>
+  <li><code>smk-toop</code> - the pilot TOOP SML (aka SMK)</li>
   <li><code>autodetect</code> - find the matching SML automatically</li>
 </ul>
 
