@@ -258,7 +258,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
     if (StringHelper.hasNoText (sID))
       aFormErrors.addFieldError (FIELD_ID, "The SML configuration ID must not be empty!");
     else
-      if ("autodetect".equals (sID))
+      if (ISMLConfigurationManager.ID_AUTO_DETECT.equals (sID))
         aFormErrors.addFieldError (FIELD_ID, "This SML configuration ID is reserved!");
       else
       {

@@ -38,6 +38,11 @@ import com.helger.peppolid.factory.ESMPIdentifierType;
 public interface ISMLConfigurationManager
 {
   /**
+   * Special ID used for "automatic detection" of SML
+   */
+  String ID_AUTO_DETECT = "autodetect";
+
+  /**
    * Create a new SML information.
    *
    * @param sSMLInfoID

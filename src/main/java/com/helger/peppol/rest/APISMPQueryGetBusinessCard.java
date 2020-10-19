@@ -66,7 +66,7 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
   {
     final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
-    final boolean bSMLAutoDetect = "autodetect".equals (sSMLID);
+    final boolean bSMLAutoDetect = ISMLConfigurationManager.ID_AUTO_DETECT.equals (sSMLID);
     ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     if (aSML == null && !bSMLAutoDetect)
       throw new APIParamException ("Unsupported SML ID '" + sSMLID + "' provided.");

@@ -841,7 +841,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       sParticipantIDValue = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_VALUE));
       final String sSMLID = StringHelper.trim (aWPEC.params ().getAsString (FIELD_SML));
       final ISMLConfiguration aSMLConfiguration = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
-      final boolean bSMLAutoDetect = SMLConfigurationSelect.FIELD_AUTO_SELECT.equals (sSMLID);
+      final boolean bSMLAutoDetect = ISMLConfigurationManager.ID_AUTO_DETECT.equals (sSMLID);
       final boolean bQueryBusinessCard = aWPEC.params ().isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD, DEFAULT_QUERY_BUSINESS_CARD);
       final boolean bShowTime = aWPEC.params ().isCheckBoxChecked (PARAM_SHOW_TIME, DEFAULT_SHOW_TIME);
       final boolean bXSDValidation = aWPEC.params ().isCheckBoxChecked (PARAM_XSD_VALIDATION, DEFAULT_XSD_VALIDATION);
@@ -911,7 +911,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML to use")
                                                    .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML,
-                                                                                                           SMLConfigurationSelect.FIELD_AUTO_SELECT),
+                                                                                                           ISMLConfigurationManager.ID_AUTO_DETECT),
                                                                                          true))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Query Business Card?")

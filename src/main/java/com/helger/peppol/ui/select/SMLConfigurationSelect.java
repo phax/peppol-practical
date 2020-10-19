@@ -18,6 +18,7 @@ package com.helger.peppol.ui.select;
 
 import javax.annotation.Nonnull;
 
+import com.helger.peppol.app.mgr.ISMLConfigurationManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.photon.core.form.RequestField;
@@ -25,13 +26,11 @@ import com.helger.photon.uicore.html.select.HCExtSelect;
 
 public class SMLConfigurationSelect extends HCExtSelect
 {
-  public static final String FIELD_AUTO_SELECT = "auto";
-
   public SMLConfigurationSelect (@Nonnull final RequestField aRF, final boolean bAddAutoDetect)
   {
     super (aRF);
     if (bAddAutoDetect)
-      addOption (FIELD_AUTO_SELECT, "Auto-detect SML");
+      addOption (ISMLConfigurationManager.ID_AUTO_DETECT, "Auto-detect SML");
     for (final ISMLConfiguration aSMLInfo : PPMetaManager.getSMLConfigurationMgr ().getAllSorted ())
       if (aSMLInfo.isClientCertificateRequired ())
         addOption (aSMLInfo.getID (),

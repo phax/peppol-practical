@@ -160,12 +160,22 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
   public ICommonsList <ISMLConfiguration> getAllSorted ()
   {
     return getAll ().getSortedInline ( (c1, c2) -> {
-      final String d1 = c1.getSMLInfo ().getDNSZone ();
-      final String d2 = c2.getSMLInfo ().getDNSZone ();
-      // Short before long
-      int ret = d1.length () - d2.length ();
+      // Production before test
+      final int nProd1 = c1.isProduction () ? 1 : 0;
+      final int nProd2 = c2.isProduction () ? 1 : 0;
+      int ret = nProd1 - nProd2;
       if (ret == 0)
-        ret = d1.compareTo (d2);
+      {
+        // Short before long
+        final String d1 = c1.getSMLInfo ().getDNSZone ();
+        final String d2 = c2.getSMLInfo ().getDNSZone ();
+        ret = d1.length () - d2.length ();
+        if (ret == 0)
+        {
+          // One name before the other
+          ret = d1.compareTo (d2);
+        }
+      }
       return ret;
     });
   }
