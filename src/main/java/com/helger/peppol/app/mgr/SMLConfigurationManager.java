@@ -161,8 +161,8 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
   {
     return getAll ().getSortedInline ( (c1, c2) -> {
       // Production before test
-      final int nProd1 = c1.isProduction () ? 1 : 0;
-      final int nProd2 = c2.isProduction () ? 1 : 0;
+      final int nProd1 = c1.isProduction () ? -1 : +1;
+      final int nProd2 = c2.isProduction () ? -1 : +1;
       int ret = nProd1 - nProd2;
       if (ret == 0)
       {

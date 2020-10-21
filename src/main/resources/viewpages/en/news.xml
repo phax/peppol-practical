@@ -37,6 +37,15 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2020-10-21 - SML registration extended</h3>
+    
+    <p>
+      The participant lookup "Auto-Detect" now again favors "production" over "test". Thanks to Retarus for pointing that out.
+    </p>
+    <p>
+      The SML registration pages now also accept "https" URLs for non-Peppol registrations (e.g. for the CEF connectivity testing).
+    </p>
+  
     <h3>2020-10-19 - SML configuration extended</h3>
     
     <p>The internal management of SML configurations for participant lookup was improved.</p>

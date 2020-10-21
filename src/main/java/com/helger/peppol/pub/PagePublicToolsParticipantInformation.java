@@ -254,7 +254,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       ISMLConfiguration aRealSMLConfiguration = aSMLConfiguration;
       if (bSMLAutoDetect)
       {
-        for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
+        final ICommonsList <ISMLConfiguration> aSortedList = aSMLConfigurationMgr.getAllSorted ();
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Sorted SML Configs: " + StringHelper.getImplodedMapped (", ", aSortedList, ISMLConfiguration::getID));
+        for (final ISMLConfiguration aCurSML : aSortedList)
         {
           aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue);
           if (aQueryParams == null)
