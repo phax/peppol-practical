@@ -317,8 +317,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                        .addChild (aRealSMLConfiguration.isProduction () ? badgeSuccess ("production SML")
                                                                                         : badgeWarn ("test SML")));
 
+        aUL.addItem (div ("Query API: " + aRealSMLConfiguration.getSMPAPIType ().getDisplayName ()));
+
         final String sURL1 = aSMPHost.toExternalForm ();
-        aUL.addItem (div ("Peppol name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
+        aUL.addItem (div ("Resolved name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
 
         final InetAddress [] aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
         for (final InetAddress aInetAddress : aInetAddresses)
