@@ -82,7 +82,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-commons-parent-pom</artifactId>
-        <version>9.5.1</version>
+        <version>9.5.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -173,7 +173,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>en16931-cii2ubl</artifactId>
-        <version>1.2.3</version>
+        <version>1.2.4</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
