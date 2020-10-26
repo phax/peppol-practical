@@ -20,6 +20,9 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.email.EmailAddress;
 import com.helger.commons.email.EmailAddressHelper;
@@ -27,8 +30,8 @@ import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.AppConfig;
+import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -50,6 +53,7 @@ import com.helger.smtp.scope.ScopedMailAPI;
 
 public final class PagePublicContact extends AbstractAppWebPage
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicContact.class);
   private static final String FIELD_NAME = "name";
   private static final String FIELD_EMAIL = "email";
   private static final String FIELD_TOPIC = "reason";
@@ -59,6 +63,11 @@ public final class PagePublicContact extends AbstractAppWebPage
   public PagePublicContact (@Nonnull @Nonempty final String sID)
   {
     super (sID, "Contact form");
+  }
+
+  private static boolean _isSpam (@Nonnull final String sTopic)
+  {
+    return sTopic.contains ("https://bloggybro.com");
   }
 
   @Override
@@ -108,21 +117,26 @@ public final class PagePublicContact extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
-        final EmailData aEmailData = new EmailData (EEmailType.TEXT);
-        aEmailData.setFrom (new EmailAddress ("peppol-practical@helger.com", "Peppol Practical"));
-        aEmailData.to ().add (new EmailAddress ("philip@helger.com"));
-        aEmailData.replyTo ().add (new EmailAddress (sEmail, sName));
-        aEmailData.setSubject ("[" + AppHelper.getApplicationTitle () + "] Contact Form - " + sName);
+        if (!_isSpam (sTopic))
+        {
+          final EmailData aEmailData = new EmailData (EEmailType.TEXT);
+          aEmailData.setFrom (new EmailAddress ("peppol-practical@helger.com", "Peppol Practical"));
+          aEmailData.to ().add (new EmailAddress ("philip@helger.com"));
+          aEmailData.replyTo ().add (new EmailAddress (sEmail, sName));
+          aEmailData.setSubject ("[" + AppHelper.getApplicationTitle () + "] Contact Form - " + sName);
 
-        final StringBuilder aSB = new StringBuilder ();
-        aSB.append ("Contact form from " + AppHelper.getApplicationTitle () + " was filled out.\n\n");
-        aSB.append ("Name: ").append (sName).append ("\n");
-        aSB.append ("Email: ").append (sEmail).append ("\n");
-        aSB.append ("Topic: ").append (sTopic).append ("\n");
-        aSB.append ("Text:\n").append (sText).append ("\n");
-        aEmailData.setBody (aSB.toString ());
+          final StringBuilder aSB = new StringBuilder ();
+          aSB.append ("Contact form from " + AppHelper.getApplicationTitle () + " was filled out.\n\n");
+          aSB.append ("Name: ").append (sName).append ("\n");
+          aSB.append ("Email: ").append (sEmail).append ("\n");
+          aSB.append ("Topic: ").append (sTopic).append ("\n");
+          aSB.append ("Text:\n").append (sText).append ("\n");
+          aEmailData.setBody (aSB.toString ());
 
-        ScopedMailAPI.getInstance ().queueMail (InternalErrorSettings.getSMTPSettings (), aEmailData);
+          ScopedMailAPI.getInstance ().queueMail (InternalErrorSettings.getSMTPSettings (), aEmailData);
+        }
+        else
+          LOGGER.info ("Ignoring spam contact form");
 
         aNodeList.addChild (success ("Thank you for your message. Please note that I run this page on a voluntary basis on my expenses - you may consider a donation :)"));
         bShowForm = false;
