@@ -65,9 +65,9 @@ public final class PagePublicContact extends AbstractAppWebPage
     super (sID, "Contact form");
   }
 
-  private static boolean _isSpam (@Nonnull final String sTopic)
+  private static boolean _isSpamBody (@Nonnull final String sTopic)
   {
-    return sTopic.contains ("https://bloggybro.com");
+    return sTopic.contains ("https://bloggybro.com") || sTopic.contains ("https://seoclerkspro.com/");
   }
 
   @Override
@@ -117,7 +117,7 @@ public final class PagePublicContact extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
-        if (!_isSpam (sTopic))
+        if (!_isSpamBody (sTopic))
         {
           final EmailData aEmailData = new EmailData (EEmailType.TEXT);
           aEmailData.setFrom (new EmailAddress ("peppol-practical@helger.com", "Peppol Practical"));
