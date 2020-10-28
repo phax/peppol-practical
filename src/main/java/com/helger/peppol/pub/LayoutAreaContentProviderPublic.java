@@ -114,7 +114,7 @@ public final class LayoutAreaContentProviderPublic
 
   static
   {
-    PhotonGlobalState.state (CApplicationID.APP_ID_PUBLIC).getMenuTree ().iterateAllMenuObjects ( (aCurrentObject) -> {
+    PhotonGlobalState.state (CApplicationID.APP_ID_PUBLIC).getMenuTree ().iterateAllMenuObjects (aCurrentObject -> {
       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1))
         s_aFooterObjectsCol1.add (aCurrentObject);
       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2))

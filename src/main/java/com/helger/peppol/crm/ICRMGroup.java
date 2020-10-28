@@ -24,7 +24,7 @@ import com.helger.tenancy.IBusinessObject;
 
 /**
  * The read-only interface for a single CRM group.
- * 
+ *
  * @author Philip Helger
  */
 public interface ICRMGroup extends IBusinessObject, IHasDisplayName

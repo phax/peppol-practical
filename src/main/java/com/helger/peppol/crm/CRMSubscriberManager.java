@@ -153,7 +153,7 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
   @ReturnsMutableCopy
   public ICommonsList <ICRMSubscriber> getAllDeletedCRMSubscribers ()
   {
-    return getAll (c -> c.isDeleted ());
+    return getAll (ICRMSubscriber::isDeleted);
   }
 
   @Nullable

@@ -81,7 +81,7 @@ public final class ExtValidationKeyRegistry
   public static ICommonsOrderedMap <VESID, IValidationExecutorSet <IValidationSourceXML>> getAllSortedByDisplayName (@Nonnull final Locale aDisplayLocale)
   {
     final ICommonsMap <VESID, IValidationExecutorSet <IValidationSourceXML>> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
-                                                                                                           x -> x.getID (),
+                                                                                                           IValidationExecutorSet::getID,
                                                                                                            x -> x);
     return aMap.getSortedByValue (IHasDisplayName.getComparatorCollating (aDisplayLocale));
   }
@@ -91,7 +91,7 @@ public final class ExtValidationKeyRegistry
   public static ICommonsOrderedMap <VESID, IValidationExecutorSet <IValidationSourceXML>> getAllSortedByID ()
   {
     final ICommonsMap <VESID, IValidationExecutorSet <IValidationSourceXML>> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
-                                                                                                           x -> x.getID (),
+                                                                                                           IValidationExecutorSet::getID,
                                                                                                            x -> x);
     return aMap.getSortedByKey (Comparator.naturalOrder ());
   }

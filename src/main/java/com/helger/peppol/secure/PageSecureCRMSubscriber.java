@@ -308,7 +308,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
       aRow.addCell (aCurObject.getEmailAddress ());
       aRow.addCell (HCExtHelper.nl2divList (aCurObject.getAllAssignedGroups ()
                                                       .stream ()
-                                                      .map ( (g) -> g.getDisplayName ())
+                                                      .map (g -> g.getDisplayName ())
                                                       .collect (Collectors.joining ("\n"))));
       final IHCCell <?> aActionCell = aRow.addCell ();
       aActionCell.addChildren (createEditLink (aWPEC, aCurObject),

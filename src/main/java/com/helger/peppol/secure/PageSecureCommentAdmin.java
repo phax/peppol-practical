@@ -69,7 +69,7 @@ import com.helger.photon.uictrls.datatables.column.EDTColType;
 public final class PageSecureCommentAdmin extends AbstractAppWebPage
 {
   @Translatable
-  protected static enum EText implements IHasDisplayText
+  protected enum EText implements IHasDisplayText
   {
     HEADER_OBJECT_ID ("Objekt-ID", "Object ID"),
     HEADER_THREADS ("Themen", "Threads"),

@@ -462,14 +462,14 @@ public final class AppCommonUI
 
   @Nonnull
   @ReturnsMutableCopy
-  public static final ICommonsMap <String, NiceNameEntry> getDocTypeNames ()
+  public static ICommonsMap <String, NiceNameEntry> getDocTypeNames ()
   {
     return DOCTYPE_NAMES.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static final ICommonsMap <String, NiceNameEntry> getProcessNames ()
+  public static ICommonsMap <String, NiceNameEntry> getProcessNames ()
   {
     return PROCESS_NAMES.getClone ();
   }
