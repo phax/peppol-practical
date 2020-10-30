@@ -69,7 +69,7 @@ public final class PagePublicContact extends AbstractAppWebPage
   {
     return sTopic.contains ("https://bloggybro.com") ||
            sTopic.contains ("https://seoclerkspro.com/") ||
-           sTopic.contains ("https://seoclerkspro.com/");
+           sTopic.contains ("https://earningradar.com/");
   }
 
   @Override
