@@ -68,11 +68,12 @@ public final class PagePublicContact extends AbstractAppWebPage
   private static boolean _isSpamBody (@Nonnull final String sTopic)
   {
     return sTopic.contains ("https://bloggybro.com") ||
-           sTopic.contains ("https://seoclerkspro.com") ||
            sTopic.contains ("https://earningradar.com") ||
-           sTopic.contains ("https://www.godlikeproductions.com") ||
+           sTopic.contains ("https://geekboy.co/") ||
+           sTopic.contains ("https://seoclerkspro.com") ||
            sTopic.contains ("https://thecanadianreport.ca") ||
-           sTopic.contains ("https://www.electronicdomains.com/");
+           sTopic.contains ("https://www.electronicdomains.com/") ||
+           sTopic.contains ("https://www.godlikeproductions.com");
   }
 
   @Override
