@@ -36,6 +36,31 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+
+
+    <h3>2020-11-03 - Document Validation extended</h3>
+    
+    <p>
+      Added support for Peppol Fall Release 2020.
+      They were published on November 2<sup>nd</sup> and become mandatory on November 16<sup>th</sup> 2020.
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>eu.peppol.bis3:catalogue:3.11.0</code> - OpenPEPPOL Catalogue (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:catalogue-response:3.11.0</code> - OpenPEPPOL Catalogue Response (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:creditnote:3.11.0</code> - OpenPEPPOL Credit Note (3.11.0) (aka BIS Billing 3.0.8)</li>
+<li><code>eu.peppol.bis3:despatch-advice:3.11.0</code> - OpenPEPPOL Despatch Advice (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:invoice:3.11.0</code> - OpenPEPPOL Invoice (3.11.0) (aka BIS Billing 3.0.8)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:3.11.0</code> - OpenPEPPOL Invoice Message Response (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:mlr:3.11.0</code> - OpenPEPPOL MLR (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:order:3.11.0</code> - OpenPEPPOL Order (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:order-agreement:3.11.0</code> - OpenPEPPOL Order Agreement (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:order-response:3.11.0</code> - OpenPEPPOL Order Response (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:punch-out:3.11.0</code> - OpenPEPPOL Punch Out (3.11.0) (aka BIS 3.0.5)</li>
+    </ul>
   
     <h3>2020-10-21 - SML registration extended</h3>
     
