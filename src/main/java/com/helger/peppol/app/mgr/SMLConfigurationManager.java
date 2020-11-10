@@ -93,7 +93,7 @@ public final class SMLConfigurationManager extends AbstractPhotonMapBasedWALDAO 
     final SMLConfiguration aExtSMLInfo = getOfID (sSMLInfoID);
     if (aExtSMLInfo == null)
     {
-      AuditHelper.onAuditModifyFailure (SMLInfo.OT, sSMLInfoID, "no-such-id");
+      AuditHelper.onAuditModifyFailure (SMLInfo.OT, "all", sSMLInfoID, "no-such-id");
       return EChange.UNCHANGED;
     }
 
