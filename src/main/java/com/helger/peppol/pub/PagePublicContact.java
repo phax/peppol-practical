@@ -67,13 +67,15 @@ public final class PagePublicContact extends AbstractAppWebPage
 
   private static boolean _isSpamBody (@Nonnull final String sTopic)
   {
-    return sTopic.contains ("https://bloggybro.com") ||
-           sTopic.contains ("https://earningradar.com") ||
-           sTopic.contains ("https://geekboy.co/") ||
-           sTopic.contains ("https://seoclerkspro.com") ||
-           sTopic.contains ("https://thecanadianreport.ca") ||
-           sTopic.contains ("https://www.electronicdomains.com/") ||
-           sTopic.contains ("https://www.godlikeproductions.com");
+    final String sLowerCase = sTopic.toLowerCase (Locale.US);
+    return sLowerCase.contains ("oakley sunglasses") ||
+           sLowerCase.contains ("//bloggybro.com") ||
+           sLowerCase.contains ("//earningradar.com") ||
+           sLowerCase.contains ("//geekboy.co/") ||
+           sLowerCase.contains ("//seoclerkspro.com") ||
+           sLowerCase.contains ("//thecanadianreport.ca") ||
+           sLowerCase.contains ("//www.electronicdomains.com/") ||
+           sLowerCase.contains ("//www.godlikeproductions.com");
   }
 
   @Override
@@ -142,7 +144,7 @@ public final class PagePublicContact extends AbstractAppWebPage
           ScopedMailAPI.getInstance ().queueMail (InternalErrorSettings.getSMTPSettings (), aEmailData);
         }
         else
-          LOGGER.info ("Ignoring spam contact form");
+          LOGGER.info ("Ignoring spam contact form from " + sEmail + " with topic " + sTopic);
 
         aNodeList.addChild (success ("Thank you for your message. Please note that I run this page on a voluntary basis on my expenses - you may consider a donation :)"));
         bShowForm = false;
