@@ -37,6 +37,26 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2020-11-12 - Document Validation extended</h3>
+    
+    <p>
+      This release brings a fix to the XRechnung 2.0.0 validation.<br />
+      Additionally the Spanish Facturae 3.x and the Portuguese CIUS-PT 2.0.0 are now supported formats.
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+    <ul>
+<li><code>es.gob:facturae:3.0</code> - Facturae 3.0</li>
+<li><code>es.gob:facturae:3.1</code> - Facturae 3.1</li>
+<li><code>es.gob:facturae:3.2</code> - Facturae 3.2</li>
+<li><code>es.gob:facturae:3.2.1</code> - Facturae 3.2.1</li>
+<li><code>es.gob:facturae:3.2.2</code> - Facturae 3.2.2</li>
+<li><code>pt.gov.espap.cius-pt:ubl-creditnote:2.0.0</code> - CIUS-PT UBL CrediteNote 2.0.0</li>
+<li><code>pt.gov.espap.cius-pt:ubl-invoice:2.0.0</code> - CIUS-PT UBL Invoice 2.0.0</li>
+    </ul>
+    
     <h3>2020-11-06 - Document Validation extended</h3>
     
     <p>
