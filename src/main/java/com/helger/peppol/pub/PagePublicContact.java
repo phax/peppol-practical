@@ -70,13 +70,14 @@ public final class PagePublicContact extends AbstractAppWebPage
     final String sLowerCase = sTopic.toLowerCase (Locale.US);
     return sLowerCase.contains ("oakley sunglasses") ||
            sLowerCase.contains ("//www.ads-that-stay-up-forever.xyz") ||
+           sLowerCase.contains ("//bit.ly") ||
            sLowerCase.contains ("//bloggybro.com") ||
            sLowerCase.contains ("//earningradar.com") ||
-           sLowerCase.contains ("//geekboy.co/") ||
+           sLowerCase.contains ("//geekboy.co") ||
            sLowerCase.contains ("//screenshot.photos") ||
            sLowerCase.contains ("//seoclerkspro.com") ||
            sLowerCase.contains ("//thecanadianreport.ca") ||
-           sLowerCase.contains ("//www.electronicdomains.com/") ||
+           sLowerCase.contains ("//www.electronicdomains.com") ||
            sLowerCase.contains ("//www.godlikeproductions.com");
   }
 
