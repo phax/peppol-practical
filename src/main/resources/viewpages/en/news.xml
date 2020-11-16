@@ -36,6 +36,27 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+  
+    <h3>2020-11-16 - Document Validation extended again</h3>
+    
+    <p>
+      Added support for Peppol Fall Release 2020 corrigendum.
+      They were published on November 12<sup>th</sup> and become mandatory today.
+    </p>
+
+<ul>
+<li><code>eu.peppol.bis3:catalogue:3.11.1</code> - OpenPEPPOL Catalogue (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:catalogue-response:3.11.1</code> - OpenPEPPOL Catalogue Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:creditnote:3.11.1</code> - OpenPEPPOL Credit Note (3.11.1) (aka BIS Billing 3.0.8 corrigendum)</li>
+<li><code>eu.peppol.bis3:despatch-advice:3.11.1</code> - OpenPEPPOL Despatch Advice (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:invoice:3.11.1</code> - OpenPEPPOL Invoice (3.11.1) (aka BIS Billing 3.0.8 corrigendum)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:3.11.1</code> - OpenPEPPOL Invoice Message Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:mlr:3.11.1</code> - OpenPEPPOL MLR (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:order:3.11.1</code> - OpenPEPPOL Order (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:order-agreement:3.11.1</code> - OpenPEPPOL Order Agreement (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:order-response:3.11.1</code> - OpenPEPPOL Order Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:punch-out:3.11.1</code> - OpenPEPPOL Punch Out (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+</ul>
 
     <h3>2020-11-12 - Document Validation extended</h3>
     
