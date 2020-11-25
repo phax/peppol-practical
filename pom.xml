@@ -138,7 +138,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-schematron-parent-pom</artifactId>
-        <version>5.6.4</version>
+        <version>5.6.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -152,7 +152,7 @@
       <dependency>
         <groupId>com.helger.bdve.rules</groupId>
         <artifactId>ph-bdve-rules-parent-pom</artifactId>
-        <version>1.0.14</version>
+        <version>1.0.15</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

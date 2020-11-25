@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 572 entries -->
+<!-- 576 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -286,19 +286,23 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.0</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.2</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.3</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.3</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.4</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.4</li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.0</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.2</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.3</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.3</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.4</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.4</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.0</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.2</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.3</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.3</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.4</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.4</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.0</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.1</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.2</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.3</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.3</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.3</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.4</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.4</li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG PEPPOL BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.2</code> - SG PEPPOL BIS3 CreditNote (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.3</code> - SG PEPPOL BIS3 CreditNote (UBL) 1.0.3</li>
