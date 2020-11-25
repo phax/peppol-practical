@@ -636,7 +636,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 final EPeppolCertificateCheckResult eCertStatus = PeppolCertificateChecker.checkPeppolAPCertificate (aEndpointCert,
                                                                                                                      aNowDateTime,
                                                                                                                      ETriState.FALSE,
-                                                                                                                     ETriState.UNDEFINED);
+                                                                                                                     null);
                 if (eCertStatus.isValid ())
                   aLICert.addChild (success ("The Endpoint Certificate appears to be a valid Peppol certificate."));
                 else
