@@ -30,7 +30,7 @@ import com.helger.peppol.app.AppSecurity;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.bdve.ExtValidationKeyRegistry;
+import com.helger.peppol.phive.ExtValidationKeyRegistry;
 import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.bdve;
+package com.helger.peppol.phive;
 
 import java.util.Comparator;
 import java.util.Locale;
@@ -23,33 +23,33 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.bdve.api.executorset.IValidationExecutorSet;
-import com.helger.bdve.api.executorset.VESID;
-import com.helger.bdve.api.executorset.ValidationExecutorSetRegistry;
-import com.helger.bdve.cii.CIIValidation;
-import com.helger.bdve.ciuspt.CIUS_PTValidation;
-import com.helger.bdve.ebinterface.EbInterfaceValidation;
-import com.helger.bdve.ehf.EHFValidation;
-import com.helger.bdve.en16931.EN16931Validation;
-import com.helger.bdve.energieefactuur.EnergieEFactuurValidation;
-import com.helger.bdve.engine.source.IValidationSourceXML;
-import com.helger.bdve.facturae.FacturaeValidation;
-import com.helger.bdve.fatturapa.FatturaPAValidation;
-import com.helger.bdve.finvoice.FinvoiceValidation;
-import com.helger.bdve.oioubl.OIOUBLValidation;
-import com.helger.bdve.peppol.PeppolValidation;
-import com.helger.bdve.simplerinvoicing.SimplerInvoicingValidation;
-import com.helger.bdve.svefaktura.SvefakturaValidation;
-import com.helger.bdve.teapps.TEAPPSValidation;
-import com.helger.bdve.ubl.UBLValidation;
-import com.helger.bdve.ublbe.UBLBEValidation;
-import com.helger.bdve.xrechnung.XRechnungValidation;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.name.IHasDisplayName;
+import com.helger.phive.api.executorset.IValidationExecutorSet;
+import com.helger.phive.api.executorset.VESID;
+import com.helger.phive.api.executorset.ValidationExecutorSetRegistry;
+import com.helger.phive.cii.CIIValidation;
+import com.helger.phive.ciuspt.CIUS_PTValidation;
+import com.helger.phive.ebinterface.EbInterfaceValidation;
+import com.helger.phive.ehf.EHFValidation;
+import com.helger.phive.en16931.EN16931Validation;
+import com.helger.phive.energieefactuur.EnergieEFactuurValidation;
+import com.helger.phive.engine.source.IValidationSourceXML;
+import com.helger.phive.facturae.FacturaeValidation;
+import com.helger.phive.fatturapa.FatturaPAValidation;
+import com.helger.phive.finvoice.FinvoiceValidation;
+import com.helger.phive.oioubl.OIOUBLValidation;
+import com.helger.phive.peppol.PeppolValidation;
+import com.helger.phive.simplerinvoicing.SimplerInvoicingValidation;
+import com.helger.phive.svefaktura.SvefakturaValidation;
+import com.helger.phive.teapps.TEAPPSValidation;
+import com.helger.phive.ubl.UBLValidation;
+import com.helger.phive.ublbe.UBLBEValidation;
+import com.helger.phive.xrechnung.XRechnungValidation;
 
 @Immutable
 public final class ExtValidationKeyRegistry

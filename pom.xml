@@ -136,23 +136,23 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.schematron</groupId>
         <artifactId>ph-schematron-parent-pom</artifactId>
-        <version>5.6.5</version>
+        <version>6.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.helger.bdve</groupId>
-        <artifactId>ph-bdve-parent-pom</artifactId>
-        <version>6.0.4</version>
+        <groupId>com.helger.phive</groupId>
+        <artifactId>phive-parent-pom</artifactId>
+        <version>7.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.helger.bdve.rules</groupId>
-        <artifactId>ph-bdve-rules-parent-pom</artifactId>
-        <version>1.0.15</version>
+        <groupId>com.helger.phive.rules</groupId>
+        <artifactId>phive-rules-parent-pom</artifactId>
+        <version>2.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -216,76 +216,76 @@
       <artifactId>ph-ubl21</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve</groupId>
-      <artifactId>ph-bdve-json</artifactId>
+      <groupId>com.helger.phive</groupId>
+      <artifactId>phive-json</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-cii</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-cii</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-cius-pt</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-cius-pt</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-ebinterface</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-ebinterface</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-ehf</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-ehf</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-en16931</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-en16931</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-energieefactuur</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-energieefactuur</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-facturae</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-facturae</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-fatturapa</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-fatturapa</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-finvoice</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-finvoice</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-oioubl</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-oioubl</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-peppol</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-peppol</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-simplerinvoicing</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-simplerinvoicing</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-svefaktura</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-svefaktura</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-teapps</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-teapps</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-ubl</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-ubl</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-ublbe</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-ublbe</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.bdve.rules</groupId>
-      <artifactId>ph-bdve-rules-xrechnung</artifactId>
+      <groupId>com.helger.phive.rules</groupId>
+      <artifactId>phive-rules-xrechnung</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>

@@ -20,12 +20,12 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-import com.helger.bdve.api.executorset.IValidationExecutorSet;
-import com.helger.bdve.api.executorset.VESID;
-import com.helger.bdve.engine.source.IValidationSourceXML;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.peppol.bdve.ExtValidationKeyRegistry;
+import com.helger.peppol.phive.ExtValidationKeyRegistry;
+import com.helger.phive.api.executorset.IValidationExecutorSet;
+import com.helger.phive.api.executorset.VESID;
+import com.helger.phive.engine.source.IValidationSourceXML;
 
 public final class MainListVESIDs
 {

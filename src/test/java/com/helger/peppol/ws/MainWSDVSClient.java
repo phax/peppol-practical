@@ -23,7 +23,6 @@ import javax.xml.ws.BindingProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.bdve.peppol.PeppolValidation3_11_1;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -36,6 +35,7 @@ import com.helger.peppol.wsclient2.ValidateFaultError;
 import com.helger.peppol.wsclient2.ValidationResultType;
 import com.helger.peppol.wsclient2.WSDVSPort;
 import com.helger.peppol.wsclient2.WSDVSService;
+import com.helger.phive.peppol.PeppolValidation3_11_1;
 import com.helger.wsclient.WSClientConfig;
 import com.helger.wsclient.WSHelper;
 

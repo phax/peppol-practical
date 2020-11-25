@@ -14,20 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.bdve;
+package com.helger.peppol.phive;
 
 import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.helger.bdve.api.executorset.IValidationExecutorSet;
-import com.helger.bdve.api.executorset.VESID;
-import com.helger.bdve.engine.source.IValidationSourceXML;
-import com.helger.bdve.peppol.PeppolValidation3_10_0;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.html.request.IHCRequestField;
+import com.helger.phive.api.executorset.IValidationExecutorSet;
+import com.helger.phive.api.executorset.VESID;
+import com.helger.phive.engine.source.IValidationSourceXML;
+import com.helger.phive.peppol.PeppolValidation3_10_0;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
 @SuppressWarnings ("deprecation")
