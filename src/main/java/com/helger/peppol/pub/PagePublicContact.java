@@ -70,7 +70,6 @@ public final class PagePublicContact extends AbstractAppWebPage
     final String sLowerCase = sTopic.toLowerCase (Locale.US);
     return sLowerCase.contains ("oakley sunglasses") ||
            sLowerCase.contains ("ray-ban sunglasses") ||
-           sLowerCase.contains ("//www.ads-that-stay-up-forever.xyz") ||
            sLowerCase.contains ("//bit.ly") ||
            sLowerCase.contains ("//bloggybro.com") ||
            sLowerCase.contains ("//earningradar.com") ||
@@ -80,6 +79,7 @@ public final class PagePublicContact extends AbstractAppWebPage
            sLowerCase.contains ("//shipped-order.com") ||
            sLowerCase.contains ("//thecanadianreport.ca") ||
            sLowerCase.contains ("//yazing.com") ||
+           sLowerCase.contains ("//www.ads-that-stay-up-forever.xyz") ||
            sLowerCase.contains ("//www.electronicdomains.com") ||
            sLowerCase.contains ("//www.follmex.press") ||
            sLowerCase.contains ("//www.godlikeproductions.com") ||
