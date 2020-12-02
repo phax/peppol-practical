@@ -68,7 +68,8 @@ public final class PagePublicContact extends AbstractAppWebPage
   private static boolean _isSpamBody (@Nonnull final String sTopic)
   {
     final String sLowerCase = sTopic.toLowerCase (Locale.US);
-    return sLowerCase.contains ("oakley sunglasses") ||
+    return sLowerCase.contains ("hineck.online") ||
+           sLowerCase.contains ("oakley sunglasses") ||
            sLowerCase.contains ("ray-ban sunglasses") ||
            sLowerCase.contains ("//bit.ly") ||
            sLowerCase.contains ("//bloggybro.com") ||
