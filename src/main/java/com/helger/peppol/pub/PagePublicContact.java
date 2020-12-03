@@ -78,6 +78,7 @@ public final class PagePublicContact extends AbstractAppWebPage
            sLowerCase.contains ("//screenshot.photos") ||
            sLowerCase.contains ("//seoclerkspro.com") ||
            sLowerCase.contains ("//shipped-order.com") ||
+           sLowerCase.contains ("//speed-seo.net/") ||
            sLowerCase.contains ("//thecanadianreport.ca") ||
            sLowerCase.contains ("//yazing.com") ||
            sLowerCase.contains ("//www.ads-that-stay-up-forever.xyz") ||
