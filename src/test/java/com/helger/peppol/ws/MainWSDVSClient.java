@@ -53,7 +53,8 @@ public final class MainWSDVSClient
     final WSDVSService aService = new WSDVSService (new FileSystemResource ("src/main/webapp/WEB-INF/wsdl/pp-dvs.wsdl").getAsURL ());
     final WSDVSPort aPort = aService.getWSDVSPort ();
 
-    final WSClientConfig aWsClientConfig = new WSClientConfig (URLHelper.getAsURL ("http://localhost:8080/wsdvs"));
+    final WSClientConfig aWsClientConfig = new WSClientConfig (URLHelper.getAsURL (true ? "https://peppol.helger.com/wsdvs"
+                                                                                        : "http://localhost:8080/wsdvs"));
     aWsClientConfig.applyWSSettingsToBindingProvider ((BindingProvider) aPort);
 
     LOGGER.info ("Starting validation process");
