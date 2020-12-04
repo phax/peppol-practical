@@ -23,8 +23,8 @@
   </div>
 </div>
 <p>
-The WSDL file can be found at <a class="external_href" href="http://peppol.helger.com/wsdvs?wsdl">http://peppol.helger.com/wsdvs?wsdl</a>.
-The endpoint URL for this WebService is <code>http://peppol.helger.com/wsdvs</code>. 
+The WSDL file can be found at <a class="external_href" href="https://peppol.helger.com/wsdvs?wsdl">https://peppol.helger.com/wsdvs?wsdl</a>.
+The endpoint URL for this WebService is <code>https://peppol.helger.com/wsdvs</code>. 
 </p>
 
 <!--
