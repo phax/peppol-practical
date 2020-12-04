@@ -36,7 +36,21 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+  
+    <h3>2020-12-04 - Document Validation extended</h3>
+    
+    <p>
+      Added support for UBL.BE 1.2.6 rule sets.
+    </p>
 
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>be.ubl:credit-note:1.2.6</code> - UBL.BE Credit Note 1.2.6</li>
+<li><code>be.ubl:invoice:1.2.6</code> - UBL.BE Invoice 1.2.6</li>
+</ul>
+ 
     <h3>2020-11-25 - Document Validation extended</h3>
     
     <p>
