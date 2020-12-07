@@ -85,7 +85,8 @@ public final class PagePublicContact extends AbstractAppWebPage
            sLowerCase.contains ("//www.electronicdomains.com") ||
            sLowerCase.contains ("//www.follmex.press") ||
            sLowerCase.contains ("//www.godlikeproductions.com") ||
-           sLowerCase.contains ("//www.talkwithcustomer.com");
+           sLowerCase.contains ("//www.talkwithcustomer.com") ||
+           sLowerCase.contains ("//www.thepricer.org");
   }
 
   @Override
