@@ -70,6 +70,7 @@ public final class PagePublicContact extends AbstractAppWebPage
     final String sLowerCase = sTopic.toLowerCase (Locale.US);
     return sLowerCase.contains ("hineck.online") ||
            sLowerCase.contains ("oakley sunglasses") ||
+           sLowerCase.contains ("pharmacyoutlets.online") ||
            sLowerCase.contains ("ray-ban sunglasses") ||
            sLowerCase.contains ("//bit.ly") ||
            sLowerCase.contains ("//bloggybro.com") ||
