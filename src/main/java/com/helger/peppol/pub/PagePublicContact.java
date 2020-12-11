@@ -65,29 +65,36 @@ public final class PagePublicContact extends AbstractAppWebPage
     super (sID, "Contact form");
   }
 
+  // Must only contain lowercase values
+  private static final String [] SPAM_KEYS = new String [] { "hineck.online",
+                                                             "oakley sunglasses",
+                                                             "pharmacyoutlets.online",
+                                                             "ray-ban sunglasses",
+                                                             "//bit.ly",
+                                                             "//bloggybro.com",
+                                                             "//earningradar.com",
+                                                             "//geekboy.co",
+                                                             "//screenshot.photos",
+                                                             "//seoclerkspro.com",
+                                                             "//shipped-order.com",
+                                                             "//speed-seo.net/",
+                                                             "//thecanadianreport.ca",
+                                                             "//yazing.com",
+                                                             "//www.ads-that-stay-up-forever.xyz",
+                                                             "//www.alecpow.com",
+                                                             "//www.electronicdomains.com",
+                                                             "//www.follmex.press",
+                                                             "//www.godlikeproductions.com",
+                                                             "//www.talkwithcustomer.com",
+                                                             "//www.thepricer.org" };
+
   private static boolean _isSpamBody (@Nonnull final String sTopic)
   {
     final String sLowerCase = sTopic.toLowerCase (Locale.US);
-    return sLowerCase.contains ("hineck.online") ||
-           sLowerCase.contains ("oakley sunglasses") ||
-           sLowerCase.contains ("pharmacyoutlets.online") ||
-           sLowerCase.contains ("ray-ban sunglasses") ||
-           sLowerCase.contains ("//bit.ly") ||
-           sLowerCase.contains ("//bloggybro.com") ||
-           sLowerCase.contains ("//earningradar.com") ||
-           sLowerCase.contains ("//geekboy.co") ||
-           sLowerCase.contains ("//screenshot.photos") ||
-           sLowerCase.contains ("//seoclerkspro.com") ||
-           sLowerCase.contains ("//shipped-order.com") ||
-           sLowerCase.contains ("//speed-seo.net/") ||
-           sLowerCase.contains ("//thecanadianreport.ca") ||
-           sLowerCase.contains ("//yazing.com") ||
-           sLowerCase.contains ("//www.ads-that-stay-up-forever.xyz") ||
-           sLowerCase.contains ("//www.electronicdomains.com") ||
-           sLowerCase.contains ("//www.follmex.press") ||
-           sLowerCase.contains ("//www.godlikeproductions.com") ||
-           sLowerCase.contains ("//www.talkwithcustomer.com") ||
-           sLowerCase.contains ("//www.thepricer.org");
+    for (final String s : SPAM_KEYS)
+      if (sLowerCase.contains (s))
+        return true;
+    return false;
   }
 
   @Override
