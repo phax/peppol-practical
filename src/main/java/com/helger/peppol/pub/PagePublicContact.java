@@ -85,6 +85,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "//www.electronicdomains.com",
                                                              "//www.follmex.press",
                                                              "//www.godlikeproductions.com",
+                                                             "//www.interactivewise.com",
                                                              "//www.talkwithcustomer.com",
                                                              "//www.thepricer.org" };
 
