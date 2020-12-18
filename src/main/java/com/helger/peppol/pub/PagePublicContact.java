@@ -87,7 +87,8 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "//www.godlikeproductions.com",
                                                              "//www.interactivewise.com",
                                                              "//www.talkwithcustomer.com",
-                                                             "//www.thepricer.org" };
+                                                             "//www.thepricer.org",
+                                                             "//www.zerocost-ad-posting.xyz" };
 
   private static boolean _isSpamBody (@Nonnull final String sTopic)
   {
