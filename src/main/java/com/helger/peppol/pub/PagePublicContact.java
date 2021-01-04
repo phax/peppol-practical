@@ -72,6 +72,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "ray-ban sunglasses",
                                                              "//bit.ly",
                                                              "//bloggybro.com",
+                                                             "//cutt.ly",
                                                              "//earningradar.com",
                                                              "//geekboy.co",
                                                              "//screenshot.photos",
@@ -87,6 +88,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "//www.godlikeproductions.com",
                                                              "//www.interactivewise.com",
                                                              "//www.talkwithcustomer.com",
+                                                             "//www.talkwithwebvisitors.com",
                                                              "//www.thepricer.org",
                                                              "//www.zerocost-ad-posting.xyz" };
 
