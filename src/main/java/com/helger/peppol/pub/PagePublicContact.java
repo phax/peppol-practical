@@ -70,6 +70,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "oakley sunglasses",
                                                              "pharmacyoutlets.online",
                                                              "ray-ban sunglasses",
+                                                             "//www.alecpow.com",
                                                              "//bit.ly",
                                                              "//bloggybro.com",
                                                              "//cutt.ly",
