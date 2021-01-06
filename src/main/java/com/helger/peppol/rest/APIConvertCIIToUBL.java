@@ -37,6 +37,8 @@ import com.helger.commons.http.CHttp;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.timing.StopWatch;
 import com.helger.en16931.cii2ubl.CIIToUBL21Converter;
+import com.helger.en16931.cii2ubl.CIIToUBLVersion;
+import com.helger.en16931.cii2ubl.EUBLCreationMode;
 import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
@@ -110,12 +112,22 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
     if (aCIIInvoice != null)
     {
       // Convert to domain model
-      LOGGER.info (sLogPrefix + "Converting CII to UBL");
+      LOGGER.info (sLogPrefix +
+                   "Converting CII to UBL with v" +
+                   CIIToUBLVersion.BUILD_VERSION +
+                   " (from " +
+                   CIIToUBLVersion.BUILD_TIMESTAMP +
+                   ")");
 
       aSW.restart ();
       aErrorList.clear ();
 
-      final Serializable aUBL = new CIIToUBL21Converter ().convertCIItoUBL (aCIIInvoice, aErrorList);
+      // Added since v1.3.0
+      aJson.add ("conversionVersion", CIIToUBLVersion.BUILD_VERSION);
+      aJson.add ("conversionBuildTimestamp", CIIToUBLVersion.BUILD_TIMESTAMP);
+
+      final Serializable aUBL = new CIIToUBL21Converter ().setUBLCreationMode (EUBLCreationMode.AUTOMATIC)
+                                                          .convertCIItoUBL (aCIIInvoice, aErrorList);
       final long nConversionMillis = aSW.stopAndGetMillis ();
       aJson.add ("conversionDuractionMillis", nConversionMillis);
 
@@ -134,12 +146,17 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
           if (aUBL instanceof CreditNoteType)
             sUBL = UBL21Writer.creditNote ().setFormattedOutput (bXMLBeautify).getAsString ((CreditNoteType) aUBL);
           else
-            throw new IllegalStateException ();
+            throw new IllegalStateException ("Whaaaatttt");
 
         aJson.add ("ubl", sUBL);
         bSuccess = true;
       }
     }
+
+    if (bSuccess)
+      LOGGER.info (sLogPrefix + "Successfully finished conversion");
+    else
+      LOGGER.info (sLogPrefix + "Finished conversion with errors");
 
     if (bSimpleResponse && bSuccess)
     {
