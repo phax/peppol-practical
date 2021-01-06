@@ -42,6 +42,7 @@ import com.helger.phive.engine.source.IValidationSourceXML;
 import com.helger.phive.facturae.FacturaeValidation;
 import com.helger.phive.fatturapa.FatturaPAValidation;
 import com.helger.phive.finvoice.FinvoiceValidation;
+import com.helger.phive.isdoc.ISDOCValidation;
 import com.helger.phive.oioubl.OIOUBLValidation;
 import com.helger.phive.peppol.PeppolValidation;
 import com.helger.phive.simplerinvoicing.SimplerInvoicingValidation;
@@ -75,6 +76,7 @@ public final class ExtValidationKeyRegistry
     SvefakturaValidation.initSvefaktura (VES_REGISTRY);
     FacturaeValidation.initFacturae (VES_REGISTRY);
     CIUS_PTValidation.initCIUS_PT (VES_REGISTRY);
+    ISDOCValidation.initISDOC (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
