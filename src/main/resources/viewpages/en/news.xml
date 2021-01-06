@@ -37,6 +37,12 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2021-01-06 - Updated CII to UBL conversion</h3>
+    
+    <p>
+      Updated to version 1.3.0 of the conversion rules. Slightly extended the JSON output.
+    </p>
+  
     <h3>2020-12-04 - Document Validation extended</h3>
     
     <p>
