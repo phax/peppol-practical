@@ -149,7 +149,7 @@ public final class PagePublicContact extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
-        if (!_isSpamBody (sTopic))
+        if (!_isSpamBody (sText))
         {
           final EmailData aEmailData = new EmailData (EEmailType.TEXT);
           aEmailData.setFrom (new EmailAddress ("peppol-practical@helger.com", "Peppol Practical"));
@@ -165,12 +165,13 @@ public final class PagePublicContact extends AbstractAppWebPage
           aSB.append ("Text:\n").append (sText).append ("\n");
           aEmailData.setBody (aSB.toString ());
 
+          LOGGER.info ("Sending contact form from '" + sName + "' and email '" + sEmail + "' with topic '" + sTopic + "'");
           ScopedMailAPI.getInstance ().queueMail (InternalErrorSettings.getSMTPSettings (), aEmailData);
         }
         else
-          LOGGER.info ("Ignoring spam contact form from " + sEmail + " with topic " + sTopic);
+          LOGGER.info ("Ignoring spam contact form from '" + sEmail + "' with topic '" + sTopic + "'");
 
-        aNodeList.addChild (success ("Thank you for your message. Please note that I run this page on a voluntary basis on my expenses - you may consider a donation :)"));
+        aNodeList.addChild (success ("Thank you for your message. Please note that I run this page on a voluntary basis on my expenses - you may consider a donation."));
         bShowForm = false;
       }
     }
