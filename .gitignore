@@ -19,8 +19,6 @@ target/
 .classpath 
 .pmd
 .project 
-doctypeid-mapping.xml
-processid-mapping.xml
 
 *.iml
 private-*.properties

@@ -54,7 +54,7 @@ public class MainCreateMappingXML
           for (final IProcessIdentifier aProcID : aNNE.getAllProcIDs ())
             eItem.appendElement ("procid").setAttribute ("scheme", aProcID.getScheme ()).setAttribute ("value", aProcID.getValue ());
       }
-      MicroWriter.writeToFile (aDoc, new File ("doctypeid-mapping.xml"));
+      MicroWriter.writeToFile (aDoc, new File ("docs/doctypeid-mapping.xml"));
     }
     {
       final IMicroDocument aDoc = new MicroDocument ();
@@ -67,7 +67,7 @@ public class MainCreateMappingXML
              .setAttribute ("id", aEntry.getKey ())
              .setAttribute ("name", aEntry.getValue ().getName ())
              .setAttribute ("deprecated", aEntry.getValue ().isDeprecated ());
-      MicroWriter.writeToFile (aDoc, new File ("processid-mapping.xml"));
+      MicroWriter.writeToFile (aDoc, new File ("docs/processid-mapping.xml"));
     }
     LOGGER.info ("Done");
   }
