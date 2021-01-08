@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 584 entries -->
+<!-- 593 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -640,14 +640,23 @@ A very small Java WS client is available for
 <li><code>org.oasis-open:weightstatement:2.3-csd04</code> - UBL WeightStatement 2.3-csd04</li>
 <li><code>org.simplerinvoicing:creditnote:2.0</code> - Simplerinvoicing CreditNote 2.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.1</code> - Simplerinvoicing CreditNote 2.0.1 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.2</code> - Simplerinvoicing CreditNote 2.0.2</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.2</code> - Simplerinvoicing CreditNote 2.0.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3</code> - Simplerinvoicing CreditNote 2.0.3</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3.1</code> - Simplerinvoicing CreditNote 2.0.3.1</li>
 <li><code>org.simplerinvoicing:invoice:1.0</code> - Simplerinvoicing Invoice 1.0 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1</li>
-<li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2</li>
+<li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:1.2.3</code> - Simplerinvoicing Invoice 1.2.3</li>
 <li><code>org.simplerinvoicing:invoice:2.0</code> - Simplerinvoicing Invoice 2.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:2.0.1</code> - Simplerinvoicing Invoice 2.0.1 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:invoice:2.0.2</code> - Simplerinvoicing Invoice 2.0.2</li>
-<li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2</li>
+<li><code>org.simplerinvoicing:invoice:2.0.2</code> - Simplerinvoicing Invoice 2.0.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3</code> - Simplerinvoicing Invoice 2.0.3</li>
+<li><code>org.simplerinvoicing:invoice:2.0.3.1</code> - Simplerinvoicing Invoice 2.0.3.1</li>
+<li><code>org.simplerinvoicing:invoice20.g-account:1.0</code> - Simplerinvoicing 2.0 G-Account extension 1.0 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice20.g-account:1.0.1</code> - Simplerinvoicing 2.0 G-Account extension 1.0.1</li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3</code> - NLCIUS-CII 1.0.3</li>
+<li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:order:1.2.3</code> - Simplerinvoicing Order 1.2.3</li>
 <li><code>pt.gov.espap.cius-pt:ubl-creditnote:2.0.0</code> - CIUS-PT UBL CrediteNote 2.0.0</li>
 <li><code>pt.gov.espap.cius-pt:ubl-invoice:2.0.0</code> - CIUS-PT UBL Invoice 2.0.0</li>
 <li><code>se.sfti:object-envelope:1.0</code> - SvefakturaXML ObjectEnvelope 1.0</li>
