@@ -19,6 +19,7 @@ target/
 .classpath 
 .pmd
 .project 
+zz
 
 *.iml
 private-*.properties
