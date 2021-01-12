@@ -85,7 +85,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "//www.ads-that-stay-up-forever.xyz",
                                                              "//www.alecpow.com",
                                                              "//www.electronicdomains.com",
-                                                             "//www.follmex.press",
+                                                             "//www.follmex.",
                                                              "//www.godlikeproductions.com",
                                                              "//www.interactivewise.com",
                                                              "//www.talkwithcustomer.com",
