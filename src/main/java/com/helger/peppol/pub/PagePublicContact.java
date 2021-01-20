@@ -79,6 +79,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "//screenshot.photos",
                                                              "//seoclerkspro.com",
                                                              "//shipped-order.com",
+                                                             "//socialvideoschedule.com ",
                                                              "//speed-seo.net/",
                                                              "//thecanadianreport.ca",
                                                              "//yazing.com",
