@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 593 entries -->
+<!-- 596 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -137,7 +137,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:cii:1.3.0</code> - EN 16931 CII 1.3.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.1</code> - EN 16931 CII 1.3.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.2</code> - EN 16931 CII 1.3.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:cii:1.3.3</code> - EN 16931 CII 1.3.3</li>
+<li><code>eu.cen.en16931:cii:1.3.3</code> - EN 16931 CII 1.3.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:cii:1.3.4</code> - EN 16931 CII 1.3.4</li>
 <li><code>eu.cen.en16931:edifact:1.0.0</code> - EN 16931 EDIFACT/ISO 20625 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.0.0</code> - EN 16931 UBL Invoice 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.1.0</code> - EN 16931 UBL Invoice 1.1.0 <strong>(Deprecated)</strong></li>
@@ -147,7 +148,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl:1.3.0</code> - EN 16931 UBL Invoice 1.3.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.1</code> - EN 16931 UBL Invoice 1.3.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.2</code> - EN 16931 UBL Invoice 1.3.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl:1.3.3</code> - EN 16931 UBL Invoice 1.3.3</li>
+<li><code>eu.cen.en16931:ubl:1.3.3</code> - EN 16931 UBL Invoice 1.3.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl:1.3.4</code> - EN 16931 UBL Invoice 1.3.4</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.0.0</code> - EN 16931 UBL CreditNote 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.1.0</code> - EN 16931 UBL CreditNote 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.2.0</code> - EN 16931 UBL CreditNote 1.2.0 <strong>(Deprecated)</strong></li>
@@ -156,7 +158,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.0</code> - EN 16931 UBL CreditNote 1.3.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.1</code> - EN 16931 UBL CreditNote 1.3.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.2</code> - EN 16931 UBL CreditNote 1.3.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.3</code> - EN 16931 UBL CreditNote 1.3.3</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.3</code> - EN 16931 UBL CreditNote 1.3.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.4</code> - EN 16931 UBL CreditNote 1.3.4</li>
 <li><code>eu.peppol.bis2:t01:3.5.0</code> - OpenPEPPOL Order (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.6.0</code> - OpenPEPPOL Order (3.6.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.7.0</code> - OpenPEPPOL Order (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>

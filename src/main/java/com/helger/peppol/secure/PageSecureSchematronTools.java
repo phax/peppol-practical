@@ -35,6 +35,8 @@ import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.phive.ExtValidationKeyRegistry;
 import com.helger.peppol.phive.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
+import com.helger.phive.api.EValidationType;
+import com.helger.phive.api.IValidationType;
 import com.helger.phive.api.execute.IValidationExecutor;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
 import com.helger.phive.api.executorset.VESID;
@@ -135,64 +137,57 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
         for (final IValidationExecutor <?> aVE : aVES.getAllExecutors ())
         {
           final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
-          switch (aVE.getValidationArtefact ().getValidationArtefactType ())
+          final IValidationType aType = aVE.getValidationArtefact ().getValidationArtefactType ();
+          if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH)
           {
-            case SCHEMATRON_PURE:
-            case SCHEMATRON_SCH:
+            IHCNode aTabContent;
+            try
             {
-              IHCNode aTabContent;
-              try
-              {
-                // Read Schematron
-                final PSSchema aSchema = new PSReader (aRes, null, null).readSchema ();
-                final IPSQueryBinding aQueryBinding = PSQueryBindingRegistry.getQueryBindingOfNameOrThrow (aSchema.getQueryBinding ());
-                final PSPreprocessor aPreprocessor = PSPreprocessor.createPreprocessorWithoutInformationLoss (aQueryBinding);
-                // Pre-process
-                final PSSchema aPreprocessedSchema = aPreprocessor.getAsPreprocessedSchema (aSchema);
-                if (aPreprocessedSchema == null)
-                  throw new SchematronPreprocessException ("Failed to preprocess schema " +
-                                                           aSchema +
-                                                           " with query binding " +
-                                                           aQueryBinding);
-                // Convert to XML string
-                final String sXML = MicroWriter.getNodeAsString (aPreprocessedSchema.getAsMicroElement (), XWS);
+              // Read Schematron
+              final PSSchema aSchema = new PSReader (aRes, null, null).readSchema ();
+              final IPSQueryBinding aQueryBinding = PSQueryBindingRegistry.getQueryBindingOfNameOrThrow (aSchema.getQueryBinding ());
+              final PSPreprocessor aPreprocessor = PSPreprocessor.createPreprocessorWithoutInformationLoss (aQueryBinding);
+              // Pre-process
+              final PSSchema aPreprocessedSchema = aPreprocessor.getAsPreprocessedSchema (aSchema);
+              if (aPreprocessedSchema == null)
+                throw new SchematronPreprocessException ("Failed to preprocess schema " + aSchema + " with query binding " + aQueryBinding);
+              // Convert to XML string
+              final String sXML = MicroWriter.getNodeAsString (aPreprocessedSchema.getAsMicroElement (), XWS);
 
-                IHCNode aCode;
-                if (bStyleOutput)
-                {
-                  final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ()).addChild (sXML);
-                  aCode = aPrism;
-                }
-                else
-                  aCode = pre (sXML);
-
-                final CollectingPSErrorHandler aErrHdl = new CollectingPSErrorHandler ();
-                aPreprocessedSchema.validateCompletely (aErrHdl);
-                if (aErrHdl.isEmpty ())
-                {
-                  aTabContent = aCode;
-                }
-                else
-                {
-                  final HCUL aUL = new HCUL ();
-                  aErrHdl.getAllErrors ().forEach (x -> aUL.addItem (x.getErrorText (aDisplayLocale)));
-                  aTabContent = new HCNodeList ().addChild (error ("Errors in the Schematron:").addChild (aUL)).addChild (aCode);
-                }
-              }
-              catch (final Exception ex)
+              IHCNode aCode;
+              if (bStyleOutput)
               {
-                aTabContent = error ("Error parsing Schematron: " + ex.getMessage ());
+                final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ()).addChild (sXML);
+                aCode = aPrism;
               }
-              aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
-              break;
+              else
+                aCode = pre (sXML);
+
+              final CollectingPSErrorHandler aErrHdl = new CollectingPSErrorHandler ();
+              aPreprocessedSchema.validateCompletely (aErrHdl);
+              if (aErrHdl.isEmpty ())
+              {
+                aTabContent = aCode;
+              }
+              else
+              {
+                final HCUL aUL = new HCUL ();
+                aErrHdl.getAllErrors ().forEach (x -> aUL.addItem (x.getErrorText (aDisplayLocale)));
+                aTabContent = new HCNodeList ().addChild (error ("Errors in the Schematron:").addChild (aUL)).addChild (aCode);
+              }
             }
-            case SCHEMATRON_XSLT:
+            catch (final Exception ex)
+            {
+              aTabContent = error ("Error parsing Schematron: " + ex.getMessage ());
+            }
+            aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
+          }
+          else
+            if (aType == EValidationType.SCHEMATRON_XSLT)
             {
               final IHCNode aTabContent = info ("This is already XSLT");
               aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
-              break;
             }
-          }
         }
         if (aTabBox.hasNoTabs ())
           aNodeList.addChild (warn ("No Schematron artefacts found"));
@@ -216,48 +211,43 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
           for (final IValidationExecutor <IValidationSourceXML> aVE : aVES.getAllExecutors ())
           {
             final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
-            switch (aVE.getValidationArtefact ().getValidationArtefactType ())
+            final IValidationType aType = aVE.getValidationArtefact ().getValidationArtefactType ();
+            if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH)
             {
-              case SCHEMATRON_PURE:
-              case SCHEMATRON_SCH:
+              IHCNode aTabContent;
+              try
               {
-                IHCNode aTabContent;
-                try
+                // Read Schematron
+                final SchematronResourceSCH aSch = new SchematronResourceSCH (aRes);
+                if (!aSch.isValidSchematron ())
+                  throw new SchematronPreprocessException ("Invalid Schematron!");
+                final Document aXSLT = aSch.getXSLTProvider ().getXSLTDocument ();
+                if (aXSLT == null)
+                  throw new SchematronPreprocessException ("Failed to convert to XSLT!");
+                // Convert to XML string
+                final String sXML = XMLWriter.getNodeAsString (aXSLT, XWS);
+                // Highlight
+                if (bStyleOutput)
                 {
-                  // Read Schematron
-                  final SchematronResourceSCH aSch = new SchematronResourceSCH (aRes);
-                  if (!aSch.isValidSchematron ())
-                    throw new SchematronPreprocessException ("Invalid Schematron!");
-                  final Document aXSLT = aSch.getXSLTProvider ().getXSLTDocument ();
-                  if (aXSLT == null)
-                    throw new SchematronPreprocessException ("Failed to convert to XSLT!");
-                  // Convert to XML string
-                  final String sXML = XMLWriter.getNodeAsString (aXSLT, XWS);
-                  // Highlight
-                  if (bStyleOutput)
-                  {
-                    final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ())
-                                                                                  .addChild (sXML);
+                  final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ()).addChild (sXML);
 
-                    aTabContent = aPrism;
-                  }
-                  else
-                    aTabContent = pre (sXML);
+                  aTabContent = aPrism;
                 }
-                catch (final Exception ex)
-                {
-                  aTabContent = error ("Error parsing Schematron: " + ex.getMessage ());
-                }
-                aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
-                break;
+                else
+                  aTabContent = pre (sXML);
               }
-              case SCHEMATRON_XSLT:
+              catch (final Exception ex)
+              {
+                aTabContent = error ("Error parsing Schematron: " + ex.getMessage ());
+              }
+              aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
+            }
+            else
+              if (aType == EValidationType.SCHEMATRON_XSLT)
               {
                 final IHCNode aTabContent = info ("This is already XSLT");
                 aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
-                break;
               }
-            }
           }
           if (aTabBox.hasNoTabs ())
             aNodeList.addChild (warn ("No Schematron artefacts found"));
