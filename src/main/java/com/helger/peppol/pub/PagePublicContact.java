@@ -69,6 +69,7 @@ public final class PagePublicContact extends AbstractAppWebPage
   private static final String [] SPAM_KEYS = new String [] { "hineck.online",
                                                              "oakley sunglasses",
                                                              "pharmacyoutlets.online",
+                                                             "pharmacyusa.online",
                                                              "ray-ban sunglasses",
                                                              "//www.alecpow.com",
                                                              "//bit.ly",
