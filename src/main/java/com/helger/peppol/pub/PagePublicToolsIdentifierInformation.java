@@ -31,6 +31,9 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.list.ErrorList;
+import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
+import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
+import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SimpleURL;
 import com.helger.html.hc.IHCNode;
@@ -69,6 +72,9 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
   public static final String FIELD_ID_VALUE = "value";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsIdentifierInformation.class);
+  private static final IMutableStatisticsHandlerCounter STATS_COUNT = StatisticsManager.getCounterHandler ("id.information");
+  private static final IMutableStatisticsHandlerCounter STATS_COUNT_SUCCESS = StatisticsManager.getCounterHandler ("id.information.success");
+  private static final IMutableStatisticsHandlerKeyedCounter STATS_ID_TYPE = StatisticsManager.getKeyedCounterHandler ("id.information.idtype");
 
   public PagePublicToolsIdentifierInformation (@Nonnull @Nonempty final String sID)
   {
@@ -103,6 +109,9 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
 
       if (aFormErrors.isEmpty ())
       {
+        STATS_COUNT.increment ();
+        STATS_ID_TYPE.increment (eIDType.getID ());
+
         bShowHeader = false;
         LOGGER.info ("Checking identifier type " + eIDType.name () + " for value '" + sIDValue + "'");
 
@@ -124,6 +133,7 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
 
         if (aIDErrors.containsNoError ())
         {
+          STATS_COUNT_SUCCESS.increment ();
           final IHCNode aWarningsNode;
           final EBootstrapAlertType eAlertType;
           if (aIDErrors.isEmpty ())
