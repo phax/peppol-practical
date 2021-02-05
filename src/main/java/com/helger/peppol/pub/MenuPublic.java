@@ -106,6 +106,7 @@ public final class MenuPublic
                                                                                                                  "Tools",
                                                                                                                  aMenuTree));
       aMenuTree.createItem (aSetup, new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
+      aMenuTree.createItem (aSetup, new PagePublicToolsIdentifierInformation (CMenuPublic.MENU_TOOLS_ID_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsSMPSML (CMenuPublic.MENU_TOOLS_SMP_SML));
       aMenuTree.createItem (aSetup, new PagePublicToolsTestEndpoints (CMenuPublic.MENU_TOOLS_TEST_ENDPOINTS));
       aMenuTree.createItem (aSetup,

@@ -40,6 +40,7 @@ public final class CMenuPublic
   public static final String MENU_NEWS = "news";
   public static final String MENU_TOOLS = "tools";
   public static final String MENU_TOOLS_PARTICIPANT_INFO = "tools-participant";
+  public static final String MENU_TOOLS_ID_INFO = "tools-id-info";
   public static final String MENU_TOOLS_SMP_SML = "tools-smp-sml";
   public static final String MENU_TOOLS_TEST_ENDPOINTS = "tools-test-endpoints";
   public static final String MENU_TOOLS_REST_API = "tools-rest-api";
