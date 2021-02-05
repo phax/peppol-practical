@@ -149,7 +149,7 @@ public final class LayoutAreaContentProviderPublic
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_VALIDATION_UPLOAD))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
-    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("ID info")
+    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("ID information")
                                                                         .setIcon (EFamFamIcon.CUP)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_ID_INFO))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)

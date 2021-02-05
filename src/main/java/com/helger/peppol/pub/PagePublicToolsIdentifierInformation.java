@@ -32,10 +32,12 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.url.SimpleURL;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.EHCFormMethod;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.grouping.HCUL;
+import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.domain.EIDType;
 import com.helger.peppol.domain.KVPair;
@@ -167,14 +169,18 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
       if (bShowHeader)
       {
         final ICommonsOrderedMap <String, String> aRuleSets = new CommonsLinkedHashMap <> ();
-        aRuleSets.put ("Peppol Policy for use of Identifiers", "v4.0");
-        aRuleSets.put ("Peppol Participant Identifier Code List", "v" + EPredefinedParticipantIdentifierScheme.CODE_LIST_VERSION);
-        aRuleSets.put ("Peppol Document Type Identifier Code List", "v" + EPredefinedDocumentTypeIdentifier.CODE_LIST_VERSION);
-        aRuleSets.put ("Peppol Process Identifier Code List", "v" + EPredefinedProcessIdentifier.CODE_LIST_VERSION);
+        aRuleSets.put ("Peppol Policy for use of Identifiers v4.0", "https://docs.peppol.eu/edelivery/");
+        aRuleSets.put ("Peppol Participant Identifier Code List v" + EPredefinedParticipantIdentifierScheme.CODE_LIST_VERSION,
+                       "https://docs.peppol.eu/edelivery/codelists/");
+        aRuleSets.put ("Peppol Document Type Identifier Code List v" + EPredefinedDocumentTypeIdentifier.CODE_LIST_VERSION,
+                       "https://docs.peppol.eu/edelivery/codelists/");
+        aRuleSets.put ("Peppol Process Identifier Code List v" + EPredefinedProcessIdentifier.CODE_LIST_VERSION,
+                       "https://docs.peppol.eu/edelivery/codelists/");
         final HCUL aULRules = new HCUL ();
         for (final Map.Entry <String, String> aEntry : aRuleSets.entrySet ())
-          aULRules.addItem (aEntry.getKey () + " " + aEntry.getValue ());
-        aNodeList.addChild (info (div ("This page lets you verify identifiers against official rules:")).addChild (aULRules));
+          aULRules.addAndReturnItem (aEntry.getKey () + " - ")
+                  .addChild (new HCA (new SimpleURL (aEntry.getValue ())).setTargetBlank ().addChild ("see details"));
+        aNodeList.addChild (info (div ("This page lets you verify identifiers against official rules. Current rule sets are:")).addChild (aULRules));
       }
 
       final HCExtSelect aTypeSelect = new HCExtSelect (new RequestField (FIELD_ID_TYPE));

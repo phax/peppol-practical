@@ -54,7 +54,7 @@ import com.helger.peppolid.peppol.process.PredefinedProcessIdentifierManager;
 public enum EIDType implements IHasID <String>, IHasDisplayName
 {
   PEPPOL_PARTICIPANT ("ppid", "Peppol Participant ID", EIDType::_peppolParticipantID),
-  PEPPOL_DOCUMENT_TYPE ("doctypeid", "Peppol DocumentType ID", EIDType::_peppolDocTypeID),
+  PEPPOL_DOCUMENT_TYPE ("doctypeid", "Peppol Document Type ID", EIDType::_peppolDocTypeID),
   PEPPOL_PROCESS ("pprocid", "Peppol Process ID", EIDType::_peppolProcessID);
 
   private final String m_sID;
