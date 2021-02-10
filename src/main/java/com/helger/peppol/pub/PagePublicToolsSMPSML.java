@@ -608,7 +608,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
     final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
     final LocalDate aMigrationDate = PDTFromString.getLocalDateFromString (sMigrationDate, aDisplayLocale);
-    final String sMigrationPublicCert = aWPEC.params ().getAsString (FIELD_PM_PUBLIC_CERT);
+    final String sMigrationPublicCert = aWPEC.params ().getAsStringTrimmed (FIELD_PM_PUBLIC_CERT);
     X509Certificate aMigrationPublicCert = null;
 
     if (aSML == null)
@@ -655,6 +655,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         {
           // That's okay
         }
+
+        if (!sMigrationPublicCert.startsWith (CertificateHelper.BEGIN_CERTIFICATE))
+          aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT,
+                                     "The provided value must start with '" +
+                                                           CertificateHelper.BEGIN_CERTIFICATE +
+                                                           "' (without the quotes)");
+        if (!sMigrationPublicCert.endsWith (CertificateHelper.END_CERTIFICATE))
+          aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT,
+                                     "The provided value must end with '" + CertificateHelper.END_CERTIFICATE + "' (without the quotes)");
       }
     }
 
