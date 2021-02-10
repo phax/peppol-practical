@@ -71,6 +71,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "pharmacyoutlets.online",
                                                              "pharmacyusa.online",
                                                              "ray-ban sunglasses",
+                                                             "topfakeid.com",
                                                              "//www.alecpow.com",
                                                              "//bit.ly",
                                                              "//bloggybro.com",
