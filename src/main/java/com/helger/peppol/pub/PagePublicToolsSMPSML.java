@@ -98,7 +98,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String FIELD_KEYSTORE = "keystore";
   private static final String FIELD_KEYSTORE_PW = "keystorepw";
   private static final String FIELD_PM_MIGRATION_DATE = "pmmigdate";
-  private static final String FIELD_PM_PUBLIC_KEY = "pmpubkey";
+  private static final String FIELD_PM_PUBLIC_CERT = "pmpubkey";
 
   private static final String HELPTEXT_SMP_ID = "This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!";
   private static final String HELPTEXT_PHYSICAL_ADDRESS = "This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!";
@@ -608,8 +608,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
     final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
     final LocalDate aMigrationDate = PDTFromString.getLocalDateFromString (sMigrationDate, aDisplayLocale);
-    final String sMigrationPublicKey = aWPEC.params ().getAsString (FIELD_PM_PUBLIC_KEY);
-    X509Certificate aMigrationPublicKey = null;
+    final String sMigrationPublicCert = aWPEC.params ().getAsString (FIELD_PM_PUBLIC_CERT);
+    X509Certificate aMigrationPublicCert = null;
 
     if (aSML == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
@@ -623,33 +623,33 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE, "The certificate migration date must be in the future!");
     }
 
-    if (StringHelper.hasNoText (sMigrationPublicKey))
+    if (StringHelper.hasNoText (sMigrationPublicCert))
     {
-      aFormErrors.addFieldError (FIELD_PM_PUBLIC_KEY, "A new public key must be provided.");
+      aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT, "A new public certificate must be provided.");
     }
     else
     {
       try
       {
-        aMigrationPublicKey = CertificateHelper.convertStringToCertficate (sMigrationPublicKey);
+        aMigrationPublicCert = CertificateHelper.convertStringToCertficate (sMigrationPublicCert);
       }
       catch (final Exception ex)
       {
         // Fall through
       }
 
-      if (aMigrationPublicKey == null)
-        aFormErrors.addFieldError (FIELD_PM_PUBLIC_KEY, "The provided public key cannot be parsed as a X.509 certificate.");
+      if (aMigrationPublicCert == null)
+        aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT, "The provided public certificate cannot be parsed as a X.509 certificate.");
       else
       {
         try
         {
-          aMigrationPublicKey.checkValidity ();
+          aMigrationPublicCert.checkValidity ();
         }
         catch (final CertificateExpiredException ex)
         {
-          aFormErrors.addFieldError (FIELD_PM_PUBLIC_KEY, "The provided public key is already expired!");
-          aMigrationPublicKey = null;
+          aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT, "The provided public certificate is already expired!");
+          aMigrationPublicCert = null;
         }
         catch (final CertificateNotYetValidException ex)
         {
@@ -658,10 +658,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       }
     }
 
-    if (aMigrationPublicKey != null)
+    if (aMigrationPublicCert != null)
     {
-      final LocalDate aNotBefore = PDTFactory.createLocalDate (aMigrationPublicKey.getNotBefore ());
-      final LocalDate aNotAfter = PDTFactory.createLocalDate (aMigrationPublicKey.getNotAfter ());
+      final LocalDate aNotBefore = PDTFactory.createLocalDate (aMigrationPublicCert.getNotBefore ());
+      final LocalDate aNotAfter = PDTFactory.createLocalDate (aMigrationPublicCert.getNotAfter ());
 
       if (aMigrationDate != null)
       {
@@ -684,10 +684,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       else
       {
         if (aNotBefore.compareTo (aNow) <= 0)
-          aFormErrors.addFieldError (FIELD_PM_PUBLIC_KEY,
+          aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT,
                                      "The effective certificate migration date (" +
-                                                          PDTToString.getAsString (aNotBefore, aDisplayLocale) +
-                                                          " - taken from the new public key) must be in the future!");
+                                                           PDTToString.getAsString (aNotBefore, aDisplayLocale) +
+                                                           " - taken from the new public certificate) must be in the future!");
       }
     }
 
@@ -705,10 +705,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
       try
       {
-        aCaller.prepareChangeCertificate (sMigrationPublicKey, aMigrationDate);
+        aCaller.prepareChangeCertificate (sMigrationPublicCert, aMigrationDate);
 
-        final LocalDateTime aNotBefore = PDTFactory.createLocalDateTime (aMigrationPublicKey.getNotBefore ());
-        final LocalDateTime aNotAfter = PDTFactory.createLocalDateTime (aMigrationPublicKey.getNotAfter ());
+        final LocalDateTime aNotBefore = PDTFactory.createLocalDateTime (aMigrationPublicCert.getNotBefore ());
+        final LocalDateTime aNotAfter = PDTFactory.createLocalDateTime (aMigrationPublicCert.getNotAfter ());
 
         final LocalDate aEffectiveMigrationDate = aMigrationDate != null ? aMigrationDate : aNotBefore.toLocalDate ();
         final String sMsg = "Successfully prepared migration of SMP certificate at SML '" +
@@ -720,12 +720,12 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         LOGGER.info (sMsg);
 
         aNodeList.addChild (success ().addChildren (div (sMsg),
-                                                    div ("Issuer: " + aMigrationPublicKey.getIssuerX500Principal ().getName ()),
-                                                    div ("Subject: " + aMigrationPublicKey.getSubjectX500Principal ().getName ()),
+                                                    div ("Issuer: " + aMigrationPublicCert.getIssuerX500Principal ().getName ()),
+                                                    div ("Subject: " + aMigrationPublicCert.getSubjectX500Principal ().getName ()),
                                                     div ("Not before: " + PDTToString.getAsString (aNotBefore, aDisplayLocale)),
                                                     div ("Not after: " + PDTToString.getAsString (aNotAfter, aDisplayLocale))));
 
-        AuditHelper.onAuditExecuteSuccess ("smp-sml-update-cert", aSML.getManagementServiceURL (), sMigrationPublicKey, aMigrationDate);
+        AuditHelper.onAuditExecuteSuccess ("smp-sml-update-cert", aSML.getManagementServiceURL (), sMigrationPublicCert, aMigrationDate);
       }
       catch (final com.helger.peppol.smlclient.bdmsl.BadRequestFault |
              com.helger.peppol.smlclient.bdmsl.InternalErrorFault |
@@ -737,7 +737,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (error (sMsg).addChild (AppCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
-                                           sMigrationPublicKey,
+                                           sMigrationPublicCert,
                                            aMigrationDate,
                                            ex.getClass (),
                                            ex.getMessage ());
@@ -907,12 +907,18 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                                                EBootstrap4DateTimePickerMode.DATE)
                                                                                       .setMinDate (PDTFactory.getCurrentLocalDate ()
                                                                                                              .plusDays (1)))
-                                                     .setHelpText ("The SML will replace the certificate at this date. It must be in the future and within the validity period of the provided new public key. If not provided, the 'valid from' part of the certificate is used.")
+                                                     .setHelpText ("The SML will replace the certificate at this date." +
+                                                                   " It must be in the future and within the validity period of the provided new public certificate." +
+                                                                   " If not provided, the 'valid from' part of the certificate is used.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PM_MIGRATION_DATE)));
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("New public key")
-                                                     .setCtrl (new HCTextAreaAutosize (new RequestField (FIELD_PM_PUBLIC_KEY)).setRows (5))
-                                                     .setHelpText ("Paste the public part of your new certificate here (using PEM encoding). Do NOT paste your new private key here.")
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PM_PUBLIC_KEY)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("New public certificate")
+                                                     .setCtrl (new HCTextAreaAutosize (new RequestField (FIELD_PM_PUBLIC_CERT)).setRows (5))
+                                                     .setHelpText (span ("Paste the public part of your new certificate here (using PEM encoding)." +
+                                                                         " Do NOT paste your new private key here." +
+                                                                         " Must start with ").addChild (code (CertificateHelper.BEGIN_CERTIFICATE))
+                                                                                             .addChild (" and end with ")
+                                                                                             .addChild (code (CertificateHelper.END_CERTIFICATE)))
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PM_PUBLIC_CERT)));
 
         final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
         aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
