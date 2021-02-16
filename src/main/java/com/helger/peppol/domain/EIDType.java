@@ -301,6 +301,11 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
         {
           if (aPredefined.isDeprecated ())
             aErrorList.add (_warn ("The identifier value '" + sValue + "' is deprecated"));
+          int nIndex = 0;
+          if (aPredefined.getCommonName () != null)
+            aDetails.add (nIndex++, new KVPair ("Code list name", aPredefined.getCommonName ()));
+          if (aPredefined.getDomainCommunity () != null)
+            aDetails.add (nIndex++, new KVPair ("Peppol Domain Community", aPredefined.getDomainCommunity ()));
         }
 
         try
