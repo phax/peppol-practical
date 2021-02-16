@@ -366,11 +366,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aSMPClient.setVerifySignature (bVerifySignatures);
 
             // Get all HRefs and sort them by decoded URL
-            final com.helger.smpclient.peppol.jaxb.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
+            final com.helger.xsds.peppol.smp1.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
             if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-              for (final com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                                 .getServiceMetadataReference ())
+              for (final com.helger.xsds.peppol.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                            .getServiceMetadataReference ())
               {
                 // Decoded href is important for unification
                 final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
@@ -471,21 +471,21 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           {
             case PEPPOL:
             {
-              final com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                           aDocTypeID);
+              final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                      aDocTypeID);
               aSWGetDetails.stop ();
               if (aSSM != null)
               {
-                final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
                 if (aSM.getRedirect () != null)
                   aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
                 else
                 {
                   // For all processes
                   final HCUL aULProcessID = new HCUL ();
-                  for (final com.helger.smpclient.peppol.jaxb.ProcessType aProcess : aSM.getServiceInformation ()
-                                                                                        .getProcessList ()
-                                                                                        .getProcess ())
+                  for (final com.helger.xsds.peppol.smp1.ProcessType aProcess : aSM.getServiceInformation ()
+                                                                                   .getProcessList ()
+                                                                                   .getProcess ())
                     if (aProcess.getProcessIdentifier () != null)
                     {
                       final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
@@ -493,8 +493,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                                          SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                       final HCUL aULEndpoint = new HCUL ();
                       // For all endpoints of the process
-                      for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
-                                                                                                   .getEndpoint ())
+                      for (final com.helger.xsds.peppol.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                       {
                         final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
 

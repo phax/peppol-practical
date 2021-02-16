@@ -152,11 +152,10 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
 
-        final com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                     aDocTypeID);
+        final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID, aDocTypeID);
         if (aSSM != null)
         {
-          final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+          final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
           aJson = SMPJsonResponse.convert (aParticipantID, aDocTypeID, aSM);
         }
         break;
