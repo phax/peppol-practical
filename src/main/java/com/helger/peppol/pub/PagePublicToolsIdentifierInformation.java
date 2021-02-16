@@ -36,8 +36,10 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.SimpleURL;
+import com.helger.commons.url.URLHelper;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.EHCFormMethod;
+import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.html.textlevel.HCA;
@@ -57,6 +59,7 @@ import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap4.form.EBootstrapFormType;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
+import com.helger.photon.core.form.RequestFieldBoolean;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -70,6 +73,8 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
 {
   public static final String FIELD_ID_TYPE = "type";
   public static final String FIELD_ID_VALUE = "value";
+  public static final String FIELD_ID_DECODE = "decode";
+  private static final boolean DEFAULT_DECODE = true;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsIdentifierInformation.class);
   private static final IMutableStatisticsHandlerCounter STATS_COUNT = StatisticsManager.getCounterHandler ("id.information");
@@ -96,7 +101,14 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
       final String sIDType = aWPEC.params ().getAsString (FIELD_ID_TYPE);
       final EIDType eIDType = EIDType.getFromIDOrNull (sIDType);
 
-      final String sIDValue = aWPEC.params ().getAsStringTrimmed (FIELD_ID_VALUE);
+      String sIDValue = aWPEC.params ().getAsStringTrimmed (FIELD_ID_VALUE);
+
+      final boolean bDecodeValue = aWPEC.params ().isCheckBoxChecked (FIELD_ID_DECODE, DEFAULT_DECODE);
+      if (bDecodeValue)
+      {
+        // Try decoding - else stick with the original
+        sIDValue = URLHelper.urlDecodeOrDefault (sIDValue, sIDValue);
+      }
 
       if (StringHelper.hasNoText (sIDType))
         aFormErrors.addFieldError (FIELD_ID_TYPE, "An identifier type must be selected");
@@ -210,6 +222,9 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
                                                    .setHelpText (div ("The identifier value to be checked for consistency. It MUST contain the scheme (like ").addChild (code (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS))
                                                                                                                                                               .addChild (") AND the value as one long string"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Try to URL decode the identifier value?")
+                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_ID_DECODE, DEFAULT_DECODE)))
+                                                   .setErrorList (aFormErrors.getListOfField (FIELD_ID_DECODE)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
       aToolbar.addHiddenField (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM);
