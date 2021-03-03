@@ -178,7 +178,8 @@
 </p>
 <p>
   If your certificate is already expired, you need to contact <a href="/public/menuitem-docs-sml-support">CEF support</a>
-  and provide the following information: old certificate subject and certificate serial number as well as new certificate subject and serial.<br />
+  and provide the following information: old certificate subject and certificate serial number as well as
+  the new certificate file (PEM encoded, should start with <code>-----BEGIN CERTIFICATE-----</code>).<br />
   <span class="badge badge-info">Note:</span> you may already update your SMP software with the new certificate, because the old certificate is anyway useless.<br />
   <span class="badge badge-info">Note:</span> no further action or service call to the SML is necessary, if you are using this manual process.  
 </p>
