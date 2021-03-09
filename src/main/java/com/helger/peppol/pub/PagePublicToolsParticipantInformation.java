@@ -216,14 +216,23 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     aLIEndpoint.addChild (aDiv);
   }
 
-  private void _printTecInfo (@Nonnull final IHCLI <?> aLIEndpoint, final String sTecInfo)
+  private void _printTecInfo (@Nonnull final IHCLI <?> aLIEndpoint, final String sTecInfo, final String sTecContact)
   {
+    final HCDiv aDiv = div ("Technical info: ");
     if (StringHelper.hasText (sTecInfo))
     {
       final boolean bIsEmail = EmailAddressHelper.isValid (sTecInfo);
-      aLIEndpoint.addChild (div ("Technical info: ").addChild (bIsEmail ? HCA_MailTo.createLinkedEmail (sTecInfo)
-                                                                        : new HCTextNode (sTecInfo)));
+      aDiv.addChild (bIsEmail ? HCA_MailTo.createLinkedEmail (sTecInfo) : new HCTextNode (sTecInfo));
     }
+    if (StringHelper.hasText (sTecContact))
+    {
+      if (aDiv.getChildCount () > 1)
+        aDiv.addChild (" / ");
+      final boolean bIsEmail = EmailAddressHelper.isValid (sTecContact);
+      aDiv.addChild (bIsEmail ? HCA_MailTo.createLinkedEmail (sTecContact) : new HCTextNode (sTecContact));
+    }
+    if (aDiv.getChildCount () > 1)
+      aLIEndpoint.addChild (aDiv);
   }
 
   @Nonnull
@@ -530,10 +539,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
 
                         // Technical infos
-                        _printTecInfo (aLIEndpoint,
-                                       StringHelper.getImplodedNonEmpty (" / ",
-                                                                         aEndpoint.getTechnicalInformationUrl (),
-                                                                         aEndpoint.getTechnicalContactUrl ()));
+                        _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
 
                         // Certificate (also add null values)
                         final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ());
@@ -589,10 +595,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
 
                         // Technical infos
-                        _printTecInfo (aLIEndpoint,
-                                       StringHelper.getImplodedNonEmpty (" / ",
-                                                                         aEndpoint.getTechnicalInformationUrl (),
-                                                                         aEndpoint.getTechnicalContactUrl ()));
+                        _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
 
                         // Certificate (also add null values)
                         final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());

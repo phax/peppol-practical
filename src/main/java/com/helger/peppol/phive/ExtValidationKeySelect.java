@@ -27,7 +27,7 @@ import com.helger.html.request.IHCRequestField;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
 import com.helger.phive.api.executorset.VESID;
 import com.helger.phive.engine.source.IValidationSourceXML;
-import com.helger.phive.peppol.PeppolValidation3_10_0;
+import com.helger.phive.peppol.legacy.PeppolValidation3_10_0;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
 @SuppressWarnings ("deprecation")

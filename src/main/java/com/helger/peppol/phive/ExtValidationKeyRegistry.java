@@ -45,6 +45,10 @@ import com.helger.phive.finvoice.FinvoiceValidation;
 import com.helger.phive.isdoc.ISDOCValidation;
 import com.helger.phive.oioubl.OIOUBLValidation;
 import com.helger.phive.peppol.PeppolValidation;
+import com.helger.phive.peppol.legacy.PeppolLegacyThirdpartyValidation;
+import com.helger.phive.peppol.legacy.PeppolLegacyValidation;
+import com.helger.phive.peppol.legacy.PeppolLegacyValidationAUNZ;
+import com.helger.phive.peppol.legacy.PeppolLegacyValidationSG;
 import com.helger.phive.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.phive.svefaktura.SvefakturaValidation;
 import com.helger.phive.teapps.TEAPPSValidation;
@@ -59,7 +63,10 @@ public final class ExtValidationKeyRegistry
   static
   {
     PeppolValidation.initStandard (VES_REGISTRY);
-    PeppolValidation.initThirdParty (VES_REGISTRY);
+    PeppolLegacyValidation.init (VES_REGISTRY);
+    PeppolLegacyValidationAUNZ.init (VES_REGISTRY);
+    PeppolLegacyValidationSG.init (VES_REGISTRY);
+    PeppolLegacyThirdpartyValidation.init (VES_REGISTRY);
     SimplerInvoicingValidation.initSimplerInvoicing (VES_REGISTRY);
     EN16931Validation.initEN16931 (VES_REGISTRY);
     EHFValidation.initEHF (VES_REGISTRY);
