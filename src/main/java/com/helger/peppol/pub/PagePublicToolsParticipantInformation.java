@@ -226,6 +226,24 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
   }
 
+  @Nonnull
+  private static String _inGroupsOf (@Nonnull final String s, final int nChars)
+  {
+    if (nChars < 1)
+      return s;
+    final int nMax = s.length ();
+    final StringBuilder aSB = new StringBuilder (nMax * 2);
+    int nIndex = 0;
+    while (nIndex < nMax - 1)
+    {
+      if (aSB.length () > 0)
+        aSB.append (' ');
+      aSB.append (s, nIndex, Integer.min (nIndex + nChars, nMax));
+      nIndex += nChars;
+    }
+    return aSB.toString ();
+  }
+
   private void _queryParticipant (@Nonnull final WebPageExecutionContext aWPEC,
                                   final String sParticipantIDScheme,
                                   final String sParticipantIDValue,
@@ -627,7 +645,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               aLICert.addChild (div ("Serial number: " +
                                      aEndpointCert.getSerialNumber ().toString () +
                                      " / 0x" +
-                                     aEndpointCert.getSerialNumber ().toString (16)));
+                                     _inGroupsOf (aEndpointCert.getSerialNumber ().toString (16), 4)));
 
               if (aQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
               {
