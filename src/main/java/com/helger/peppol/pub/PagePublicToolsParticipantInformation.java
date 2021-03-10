@@ -337,6 +337,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
       {
         final HCUL aUL = new HCUL ();
+        aNodeList.addChild (aUL);
+
         aUL.addItem (div ("SML used: ").addChild (code (aRealSMLConfiguration.getDisplayName () +
                                                         " / " +
                                                         aRealSMLConfiguration.getDNSZone ()))
@@ -349,6 +351,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         final String sURL1 = aSMPHost.toExternalForm ();
         aUL.addItem (div ("Resolved name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
 
+        // This may throw UnknownHostException
         final InetAddress [] aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
         for (final InetAddress aInetAddress : aInetAddresses)
         {
@@ -370,8 +373,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
         if (!bVerifySignatures)
           aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
-
-        aNodeList.addChild (aUL);
       }
 
       // Determine all document types
@@ -804,6 +805,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
     catch (final UnknownHostException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Participant Information Error", ex);
+
       aNodeList.addChild (error (div ("Seems like the participant ID " +
                                       sParticipantIDUriEncoded +
                                       " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false))
@@ -815,6 +819,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
     catch (final SMPDNSResolutionException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Participant Information Error", ex);
+
       aNodeList.addChild (error (div ("Seems like the participant ID " +
                                       sParticipantIDUriEncoded +
                                       " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false))
@@ -826,6 +833,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
     catch (final SMPClientBadResponseException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Participant Information Error", ex);
+
       aNodeList.addChild (error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
                                                                                                                                                   false)));
 
@@ -834,6 +844,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
     catch (final Exception ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Participant Information Error", ex);
+
       // Don't spam me
       final boolean bInterestingException = !(ex instanceof SMPClientException);
       if (bInterestingException)
