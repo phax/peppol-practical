@@ -103,6 +103,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "//www.talkwithwebvisitors.com",
                                                              "//www.targeted-visitors-4yoursite.xyz",
                                                              "//www.thepricer.org",
+                                                             "//www.vidnami.com",
                                                              "//www.zerocost-ad-posting.xyz" };
 
   private static boolean _isSpamBody (@Nonnull final String sTopic)
