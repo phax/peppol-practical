@@ -32,6 +32,7 @@ import javax.annotation.Nullable;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -122,6 +123,7 @@ import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+import com.helger.xml.serialize.write.XMLWriter;
 
 public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 {
@@ -382,8 +384,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
       {
         final StopWatch aSWGetDocTypes = StopWatch.createdStarted ();
-        final HCUL aUL = new HCUL ();
+        final HCUL aSGUL = new HCUL ();
         final ICommonsSortedMap <String, String> aSGHrefs = new CommonsTreeMap <> ();
+        IHCNode aSGExtension = null;
 
         switch (aQueryParams.getSMPAPIType ())
         {
@@ -395,16 +398,24 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
             // Get all HRefs and sort them by decoded URL
             final com.helger.xsds.peppol.smp1.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
-            // Map from cleaned URL to original URL
-            if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-              for (final com.helger.xsds.peppol.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                            .getServiceMetadataReference ())
+            if (aSG != null)
+            {
+              // Map from cleaned URL to original URL
+              if (aSG.getServiceMetadataReferenceCollection () != null)
+                for (final com.helger.xsds.peppol.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                              .getServiceMetadataReference ())
+                {
+                  // Decoded href is important for unification
+                  final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
+                  if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+                    aSGUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
+                }
+
+              if (aSG.getExtension () != null && aSG.getExtension ().getAny () != null)
               {
-                // Decoded href is important for unification
-                final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
-                if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-                  aUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
+                aSGExtension = new HCPrismJS (EPrismLanguage.MARKUP).addChild (XMLWriter.getNodeAsString (aSG.getExtension ().getAny ()));
               }
+            }
             break;
           }
           case OASIS_BDXR_V1:
@@ -416,15 +427,32 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             // Get all HRefs and sort them by decoded URL
             final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
             // Map from cleaned URL to original URL
-            if (aSG != null && aSG.getServiceMetadataReferenceCollection () != null)
-              for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                                                          .getServiceMetadataReference ())
+            if (aSG != null)
+            {
+              if (aSG.getServiceMetadataReferenceCollection () != null)
+                for (final com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                                                            .getServiceMetadataReference ())
+                {
+                  // Decoded href is important for unification
+                  final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
+                  if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
+                    aSGUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
+                }
+              if (aSG.getExtensionCount () > 0)
               {
-                // Decoded href is important for unification
-                final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
-                if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-                  aUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
+                final HCUL aNL2 = new HCUL ();
+                for (final com.helger.xsds.bdxr.smp1.ExtensionType aExt : aSG.getExtension ())
+                  if (aExt.getAny () != null)
+                  {
+                    if (aExt.getAny () instanceof Element)
+                      aNL2.addItem (new HCPrismJS (EPrismLanguage.MARKUP).addChild (XMLWriter.getNodeAsString ((Element) aExt.getAny ())));
+                    else
+                      aNL2.addItem (code (aExt.getAny ().toString ()));
+                  }
+                if (aNL2.hasChildren ())
+                  aSGExtension = aNL2;
               }
+            }
             break;
           }
         }
@@ -445,7 +473,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           final String sHref = aEntry.getKey ();
           final String sOriginalHref = aEntry.getValue ();
 
-          final IHCLI <?> aLI = aUL.addAndReturnItem (div (code (sHref)));
+          final IHCLI <?> aLI = aSGUL.addAndReturnItem (div (code (sHref)));
           // Should be case insensitive "indexOf" here
           final int nPathStart = sHref.toLowerCase (Locale.US).indexOf (sPathStart.toLowerCase (Locale.US));
           if (nPathStart >= 0)
@@ -473,9 +501,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                 div ("Expected path part: ").addChild (code (sPathStart))));
           }
         }
-        if (!aUL.hasChildren ())
-          aUL.addItem (warn ("No service group entries were found for " + aParticipantID.getURIEncoded ()));
-        aNodeList.addChild (aUL);
+        if (!aSGUL.hasChildren ())
+          aSGUL.addItem (warn ("No service group entries were found for " + aParticipantID.getURIEncoded ()));
+
+        if (aSGExtension != null)
+          aSGUL.addAndReturnItem (div ("Extension:")).addChild (aSGExtension);
+
+        aNodeList.addChild (aSGUL);
       }
 
       // List document type details
