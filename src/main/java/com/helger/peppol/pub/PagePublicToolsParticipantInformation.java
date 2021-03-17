@@ -20,6 +20,7 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,6 +34,11 @@ import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
+import org.xbill.DNS.ARecord;
+import org.xbill.DNS.Lookup;
+import org.xbill.DNS.Record;
+import org.xbill.DNS.TextParseException;
+import org.xbill.DNS.Type;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -50,6 +56,7 @@ import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.url.SimpleURL;
+import com.helger.commons.url.URLHelper;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.dns.ip.IPV4Addr;
@@ -121,7 +128,6 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
-import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.xml.serialize.write.XMLWriter;
 
@@ -288,7 +294,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           LOGGER.debug ("Sorted SML Configs: " + StringHelper.getImplodedMapped (", ", aSortedList, ISMLConfiguration::getID));
         for (final ISMLConfiguration aCurSML : aSortedList)
         {
-          aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue);
+          aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue, false);
           if (aQueryParams == null)
             continue;
           try
@@ -306,22 +312,43 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
         // Ensure to go into the exception handler
         if (aRealSMLConfiguration == null)
-          throw new UnknownHostException ("");
+        {
+          LOGGER.error ("Failed to autodetect a matching SML for '" + sParticipantIDUriEncoded + "'");
+
+          aNodeList.addChild (error (div ("Seems like the participant ID " +
+                                          sParticipantIDUriEncoded +
+                                          " is not known in any of the configured networks.")));
+
+          // Audit failure
+          AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "no-sml-found");
+          return;
+        }
+
+        LOGGER.info ("Participant ID '" + sParticipantIDUriEncoded + "': auto detected SML " + aRealSMLConfiguration.getID ());
       }
       else
       {
         // SML configuration is not null
-        aQueryParams = SMPQueryParams.createForSML (aRealSMLConfiguration, sParticipantIDScheme, sParticipantIDValue);
+        aQueryParams = SMPQueryParams.createForSML (aRealSMLConfiguration, sParticipantIDScheme, sParticipantIDValue, true);
       }
 
       if (aQueryParams == null)
-        throw new SMPDNSResolutionException ("Failed to resolve participant ID '" +
-                                             sParticipantIDUriEncoded +
-                                             "' for the provided SML '" +
-                                             aRealSMLConfiguration.getID () +
-                                             "'");
+      {
+        LOGGER.error ("Participant ID '" +
+                      sParticipantIDUriEncoded +
+                      "': failed to resolve SMP query parameters for SML '" +
+                      aRealSMLConfiguration.getID () +
+                      "'");
 
-      final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
+        aNodeList.addChild (error (div ("Failed to resolve participant ID " +
+                                        sParticipantIDUriEncoded +
+                                        " for the provided network.")).addChild (bSMLAutoDetect ? null
+                                                                                                : div ("Try selecting a different SML - maybe this helps")));
+
+        // Audit failure
+        AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "smp-query-params-null");
+        return;
+      }
 
       LOGGER.info ("Participant information of '" +
                    sParticipantIDUriEncoded +
@@ -335,9 +362,14 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                    bXSDValidation +
                    "; verify signatures=" +
                    bVerifySignatures);
-      final URL aSMPHost = aQueryParams.getSMPHostURI ().toURL ();
+
+      final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
+      final URL aSMPHost = URLHelper.getAsURL (aQueryParams.getSMPHostURI ());
 
       {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Trying to resolve SMP '" + aSMPHost.getHost () + "' by DNS");
+
         final HCUL aUL = new HCUL ();
         aNodeList.addChild (aUL);
 
@@ -353,28 +385,82 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         final String sURL1 = aSMPHost.toExternalForm ();
         aUL.addItem (div ("Resolved name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
 
-        // This may throw UnknownHostException
-        final InetAddress [] aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
-        for (final InetAddress aInetAddress : aInetAddresses)
+        if (aWPEC.params ().hasStringValue ("dnsjava", "true"))
         {
-          final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
-          final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
-          final String sURL3 = aNice.getCanonicalHostName ();
+          LOGGER.info ("Start DNSJava lookup");
+          Record [] aRecords = null;
+          try
+          {
+            aRecords = new Lookup (aSMPHost.getHost (), Type.A).run ();
+          }
+          catch (final TextParseException ex)
+          {
+            // Ignore
+          }
+          if (aRecords != null)
+            for (final Record aRecord : aRecords)
+            {
+              final ARecord aARec = (ARecord) aRecord;
+              final String sURL2 = aARec.rdataToString ();
+              final InetAddress aNice = aARec.getAddress ();
+              final String sURL3 = aNice != null ? aNice.getCanonicalHostName () : null;
 
-          aUL.addItem (div ("IP address: ").addChild (code (sURL2)).addChild (" - reverse lookup: ").addChild (code (sURL3)),
-                       div (_createOpenInBrowser ("http://" + sURL2,
-                                                  "Open IP in browser")).addChild (" ")
-                                                                        .addChild (_createOpenInBrowser ("http://" + sURL3,
-                                                                                                         "Open name in browser")));
+              final HCDiv aDiv1 = div ("[dnsjava] IP addressX: ").addChild (code (sURL2));
+              if (sURL3 != null)
+                aDiv1.addChild (" - reverse lookup: ").addChild (code (sURL3));
+              else
+                aDiv1.addChild (" - reverse lookup failed");
+
+              final HCDiv aDiv2 = div (_createOpenInBrowser ("http://" + sURL2, "Open IP in browser"));
+              if (sURL3 != null)
+                aDiv2.addChild (" ").addChild (_createOpenInBrowser ("http://" + sURL3, "Open name in browser"));
+              aUL.addItem (aDiv1, aDiv2);
+            }
+          LOGGER.info ("Finished DNSJava lookup - " + (aRecords == null ? "no results" : aRecords.length + " result records"));
         }
 
-        final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
-        aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
+        try
+        {
+          final InetAddress [] aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
+          for (final InetAddress aInetAddress : aInetAddresses)
+          {
+            final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
+            final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
+            final String sURL3 = aNice.getCanonicalHostName ();
 
-        if (!bXSDValidation)
-          aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
-        if (!bVerifySignatures)
-          aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
+            aUL.addItem (div ("IP address: ").addChild (code (sURL2)).addChild (" - reverse lookup: ").addChild (code (sURL3)),
+                         div (_createOpenInBrowser ("http://" + sURL2,
+                                                    "Open IP in browser")).addChild (" ")
+                                                                          .addChild (_createOpenInBrowser ("http://" + sURL3,
+                                                                                                           "Open name in browser")));
+            final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
+            aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
+
+            if (!bXSDValidation)
+              aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
+            if (!bVerifySignatures)
+              aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
+          }
+        }
+        catch (final UnknownHostException ex)
+        {
+          LOGGER.error ("Failed to resolve SMP host '" +
+                        aSMPHost.getHost () +
+                        "' for the participant ID '" +
+                        sParticipantIDUriEncoded +
+                        "'");
+
+          aNodeList.addChild (error (div ("Seems like the participant ID " +
+                                          sParticipantIDUriEncoded +
+                                          " is not registered to the selected network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                       false))
+                                                                                         .addChild (bSMLAutoDetect ? null
+                                                                                                                   : div ("Try selecting a different SML - maybe this helps")));
+
+          // Audit failure
+          AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "unknown-host", ex.getMessage ());
+          return;
+        }
       }
 
       // Determine all document types
@@ -631,8 +717,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                         _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
 
                         // Certificate (also add null values)
-                        final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
-                        aAllUsedEndpointCertifiactes.add (aCert);
+                        try
+                        {
+                          final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
+                          aAllUsedEndpointCertifiactes.add (aCert);
+                        }
+                        catch (final CertificateException ex)
+                        {
+                          aAllUsedEndpointCertifiactes.add (null);
+                        }
                       }
                       aLIProcessID.addChild (aULEndpoint);
                     }
@@ -835,34 +928,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       // Audit success
       AuditHelper.onAuditExecuteSuccess ("participant-information", aParticipantID.getURIEncoded ());
     }
-    catch (final UnknownHostException ex)
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Participant Information Error", ex);
-
-      aNodeList.addChild (error (div ("Seems like the participant ID " +
-                                      sParticipantIDUriEncoded +
-                                      " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false))
-                                                                                   .addChild (bSMLAutoDetect ? null
-                                                                                                             : div ("Try selecting a different SML - maybe this helps")));
-
-      // Audit failure
-      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "unknown-host", ex.getMessage ());
-    }
-    catch (final SMPDNSResolutionException ex)
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Participant Information Error", ex);
-
-      aNodeList.addChild (error (div ("Seems like the participant ID " +
-                                      sParticipantIDUriEncoded +
-                                      " is not registered to the Peppol network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false))
-                                                                                   .addChild (bSMLAutoDetect ? null
-                                                                                                             : div ("Try selecting a different SML - maybe this helps")));
-
-      // Audit failure
-      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "dns-resolution-failed", ex.getMessage ());
-    }
     catch (final SMPClientBadResponseException ex)
     {
       if (LOGGER.isDebugEnabled ())
@@ -874,18 +939,23 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       // Audit failure
       AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
     }
-    catch (final Exception ex)
+    catch (final SMPClientException ex)
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Participant Information Error", ex);
 
-      // Don't spam me
-      final boolean bInterestingException = !(ex instanceof SMPClientException);
-      if (bInterestingException)
-      {
-        new InternalErrorBuilder ().setRequestScope (aRequestScope).setDisplayLocale (aDisplayLocale).setThrowable (ex).handle ();
-      }
-      aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, bInterestingException)));
+      aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false)));
+
+      // Audit failure
+      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
+    }
+    catch (final RuntimeException ex)
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Participant Information Error", ex);
+
+      new InternalErrorBuilder ().setRequestScope (aRequestScope).setDisplayLocale (aDisplayLocale).setThrowable (ex).handle ();
+      aNodeList.addChild (error (div ("Error querying participant information.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, true)));
 
       // Audit failure
       AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());

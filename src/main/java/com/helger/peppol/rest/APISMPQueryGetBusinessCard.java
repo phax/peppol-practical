@@ -84,7 +84,7 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
     {
       for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
       {
-        aQueryParams = SMPQueryParams.createForSML (aCurSML, aPID.getScheme (), aPID.getValue ());
+        aQueryParams = SMPQueryParams.createForSML (aCurSML, aPID.getScheme (), aPID.getValue (), false);
         if (aQueryParams == null)
           continue;
         try
@@ -107,7 +107,7 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
     }
     else
     {
-      aQueryParams = SMPQueryParams.createForSML (aSML, aPID.getScheme (), aPID.getValue ());
+      aQueryParams = SMPQueryParams.createForSML (aSML, aPID.getScheme (), aPID.getValue (), true);
     }
     if (aQueryParams == null)
       throw new APIParamException ("Failed to resolve participant ID '" +

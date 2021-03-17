@@ -21,6 +21,9 @@ import java.net.URI;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
@@ -36,6 +39,8 @@ import com.helger.smpclient.url.SMPDNSResolutionException;
  */
 public final class SMPQueryParams
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMPQueryParams.class);
+
   private ESMPAPIType m_eSMPAPIType;
   private IIdentifierFactory m_aIF;
   private IParticipantIdentifier m_aParticipantID;
@@ -77,7 +82,8 @@ public final class SMPQueryParams
   @Nullable
   public static SMPQueryParams createForSML (@Nonnull final ISMLConfiguration aCurSML,
                                              @Nullable final String sParticipantIDScheme,
-                                             @Nullable final String sParticipantIDValue)
+                                             @Nullable final String sParticipantIDValue,
+                                             final boolean bLogOnError)
   {
     final SMPQueryParams ret = new SMPQueryParams ();
     ret.m_eSMPAPIType = aCurSML.getSMPAPIType ();
@@ -86,6 +92,8 @@ public final class SMPQueryParams
     if (ret.m_aParticipantID == null)
     {
       // Participant ID is invalid for this scheme
+      if (bLogOnError)
+        LOGGER.warn ("Failed to parse participant ID '" + sParticipantIDScheme + "' and '" + sParticipantIDValue + "'");
       return null;
     }
     try
@@ -95,6 +103,8 @@ public final class SMPQueryParams
     catch (final SMPDNSResolutionException ex)
     {
       // For BDXL lookup -> no such participant
+      if (bLogOnError)
+        LOGGER.warn ("Failed to resolve participant in DNS");
       return null;
     }
     return ret;
