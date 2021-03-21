@@ -23,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Locale;
 import java.util.Map;
@@ -624,7 +623,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       // List document type details
       if (aDocTypeIDs.isNotEmpty ())
       {
-        final LocalDateTime aNowDateTime = PDTFactory.getCurrentLocalDateTime ();
+        final OffsetDateTime aNowDateTime = PDTFactory.getCurrentOffsetDateTime ();
         final ICommonsOrderedSet <X509Certificate> aAllUsedEndpointCertifiactes = new CommonsLinkedHashSet <> ();
         long nTotalDurationMillis = 0;
 
@@ -800,11 +799,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             {
               aLICert.addChild (div ("Subject: " + aEndpointCert.getSubjectX500Principal ().getName ()));
               aLICert.addChild (div ("Issuer: " + aEndpointCert.getIssuerX500Principal ().getName ()));
-              final LocalDateTime aNotBefore = PDTFactory.createLocalDateTime (aEndpointCert.getNotBefore ());
+              final OffsetDateTime aNotBefore = PDTFactory.createOffsetDateTime (aEndpointCert.getNotBefore ());
               aLICert.addChild (div ("Not before: " + PDTToString.getAsString (aNotBefore, aDisplayLocale)));
               if (aNotBefore.isAfter (aNowDateTime))
                 aLICert.addChild (error ("This Endpoint Certificate is not yet valid!"));
-              final LocalDateTime aNotAfter = PDTFactory.createLocalDateTime (aEndpointCert.getNotAfter ());
+              final OffsetDateTime aNotAfter = PDTFactory.createOffsetDateTime (aEndpointCert.getNotAfter ());
               aLICert.addChild (div ("Not after: " + PDTToString.getAsString (aNotAfter, aDisplayLocale)));
               if (aNotAfter.isBefore (aNowDateTime))
                 aLICert.addChild (error ("This Endpoint Certificate is no longer valid!"));
