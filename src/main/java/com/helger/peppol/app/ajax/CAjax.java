@@ -36,38 +36,38 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 public final class CAjax
 {
   public static final IAjaxFunctionDeclaration DATATABLES = AjaxFunctionDeclaration.builder ("dataTables")
-                                                                                   .withExecutor (AjaxExecutorDataTables.class)
+                                                                                   .executor (AjaxExecutorDataTables.class)
                                                                                    .build ();
   public static final IAjaxFunctionDeclaration DATATABLES_I18N = AjaxFunctionDeclaration.builder ("datatables-i18n")
-                                                                                        .withExecutor (new AjaxExecutorDataTablesI18N (CPPApp.DEFAULT_LOCALE))
+                                                                                        .executor (new AjaxExecutorDataTablesI18N (CPPApp.DEFAULT_LOCALE))
                                                                                         .build ();
   public static final IAjaxFunctionDeclaration LOGIN = AjaxFunctionDeclaration.builder ("login")
-                                                                              .withExecutor (AjaxExecutorPublicLogin.class)
+                                                                              .executor (AjaxExecutorPublicLogin.class)
                                                                               .build ();
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW_PUB = AjaxFunctionDeclaration.builder ("updateMenuViewPub")
-                                                                                             .withExecutor (AjaxExecutorPublicUpdateMenuView.class)
+                                                                                             .executor (AjaxExecutorPublicUpdateMenuView.class)
                                                                                              .build ();
   private static final IPredicate <? super IRequestWebScopeWithoutResponse> FILTER_LOGIN = x -> LoggedInUserManager.getInstance ()
                                                                                                                    .isUserLoggedInInCurrentSession ();
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW_SEC = AjaxFunctionDeclaration.builder ("updateMenuViewSec")
-                                                                                             .withExecutor (AjaxExecutorSecureUpdateMenuView.class)
-                                                                                             .withFilter (FILTER_LOGIN)
+                                                                                             .executor (AjaxExecutorSecureUpdateMenuView.class)
+                                                                                             .filter (FILTER_LOGIN)
                                                                                              .build ();
   public static final IAjaxFunctionDeclaration COMMENT_ADD = AjaxFunctionDeclaration.builder ("addComment")
-                                                                                    .withExecutor (AjaxExecutorCommentAdd.class)
-                                                                                    .withFilter (FILTER_LOGIN)
+                                                                                    .executor (AjaxExecutorCommentAdd.class)
+                                                                                    .filter (FILTER_LOGIN)
                                                                                     .build ();
   public static final IAjaxFunctionDeclaration COMMENT_CREATE_THREAD = AjaxFunctionDeclaration.builder ("createThread")
-                                                                                              .withExecutor (AjaxExecutorCommentCreateThread.class)
-                                                                                              .withFilter (FILTER_LOGIN)
+                                                                                              .executor (AjaxExecutorCommentCreateThread.class)
+                                                                                              .filter (FILTER_LOGIN)
                                                                                               .build ();
   public static final IAjaxFunctionDeclaration COMMENT_DELETE = AjaxFunctionDeclaration.builder ("deleteComment")
-                                                                                       .withExecutor (AjaxExecutorCommentDelete.class)
-                                                                                       .withFilter (FILTER_LOGIN)
+                                                                                       .executor (AjaxExecutorCommentDelete.class)
+                                                                                       .filter (FILTER_LOGIN)
                                                                                        .build ();
   public static final IAjaxFunctionDeclaration COMMENT_SHOW_INPUT = AjaxFunctionDeclaration.builder ("showInputForm")
-                                                                                           .withExecutor (AjaxExecutorCommentShowInput.class)
-                                                                                           .withFilter (FILTER_LOGIN)
+                                                                                           .executor (AjaxExecutorCommentShowInput.class)
+                                                                                           .filter (FILTER_LOGIN)
                                                                                            .build ();
 
   private CAjax ()

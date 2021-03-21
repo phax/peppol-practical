@@ -22,8 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.collection.multimap.IMultiMapListBased;
-import com.helger.collection.multimap.MultiHashMapArrayListBased;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
@@ -63,7 +61,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   private final ObjectType m_aObjectType;
 
   // multi map from owning object to list <ICommentThread>
-  private final IMultiMapListBased <String, ICommentThread> m_aObjectToCommentThreads = new MultiHashMapArrayListBased <> ();
+  private final ICommonsMap <String, ICommonsList <ICommentThread>> m_aObjectToCommentThreads = new CommonsHashMap <> ();
 
   // Status map from comment thread ID to comment thread
   private final ICommonsMap <String, ICommentThread> m_aAllCommentThreads = new CommonsHashMap <> ();
@@ -123,8 +121,14 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
       throw new IllegalArgumentException ("Comment thread with ID '" + sCommentThreadID + "' already contained!");
 
     // Add to object-to-comment map
-    if (m_aObjectToCommentThreads.putSingle (sOwningObjectID, aCommentThread).isUnchanged ())
-      throw new IllegalStateException ("Failed to add comment " + aCommentThread + " to owner '" + sOwningObjectID + "'");
+    if (m_aObjectToCommentThreads.computeIfAbsent (sOwningObjectID, k -> new CommonsArrayList <> ())
+                                 .addObject (aCommentThread)
+                                 .isUnchanged ())
+      throw new IllegalStateException ("Failed to add comment " +
+                                       aCommentThread +
+                                       " to owner '" +
+                                       sOwningObjectID +
+                                       "'");
 
     // Add to all-commentthreads map
     m_aAllCommentThreads.put (sCommentThreadID, aCommentThread);
@@ -187,7 +191,11 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
       m_aRWLock.writeLock ().unlock ();
     }
 
-    AuditHelper.onAuditCreateSuccess (Comment.TYPE_COMMENT, sOwningObjectID, sCommentThreadID, sParentCommentID, aNewComment.getID ());
+    AuditHelper.onAuditCreateSuccess (Comment.TYPE_COMMENT,
+                                      sOwningObjectID,
+                                      sCommentThreadID,
+                                      sParentCommentID,
+                                      aNewComment.getID ());
     // Inform me if something happens
     new InternalErrorBuilder ().addErrorMessage ("Comment created")
                                .addCustomData ("Thread ID", aCommentThread.getID ())
@@ -208,9 +216,9 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
 
   @Nonnull
   @ReturnsMutableCopy
-  public IMultiMapListBased <String, ICommentThread> getAllCommentThreads ()
+  public ICommonsMap <String, ICommonsList <ICommentThread>> getAllCommentThreads ()
   {
-    return m_aRWLock.readLockedGet ( () -> new MultiHashMapArrayListBased <> (m_aObjectToCommentThreads));
+    return m_aRWLock.readLockedGet ( () -> m_aObjectToCommentThreads.getClone ());
   }
 
   @Nonnull
@@ -286,14 +294,24 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
       final ICommentThread aCommentThread = m_aAllCommentThreads.get (sCommentThreadID);
       if (aCommentThread == null)
       {
-        AuditHelper.onAuditModifyFailure (Comment.TYPE_COMMENT, "state", "no-such-id", sOwningObjectID, sCommentThreadID, sCommentID);
+        AuditHelper.onAuditModifyFailure (Comment.TYPE_COMMENT,
+                                          "state",
+                                          "no-such-id",
+                                          sOwningObjectID,
+                                          sCommentThreadID,
+                                          sCommentID);
         return EChange.UNCHANGED;
       }
 
       final ICommonsList <ICommentThread> ret = m_aObjectToCommentThreads.get (sOwningObjectID);
       if (ret == null || !ret.contains (aCommentThread))
       {
-        AuditHelper.onAuditModifyFailure (Comment.TYPE_COMMENT, "state", "invalid-owner", sOwningObjectID, sCommentThreadID, sCommentID);
+        AuditHelper.onAuditModifyFailure (Comment.TYPE_COMMENT,
+                                          "state",
+                                          "invalid-owner",
+                                          sOwningObjectID,
+                                          sCommentThreadID,
+                                          sCommentID);
         return EChange.UNCHANGED;
       }
 
@@ -330,7 +348,9 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
 
       for (final ICommentThread aCommentThread : aRemovedCommentThreads)
         if (m_aAllCommentThreads.remove (aCommentThread.getID ()) != aCommentThread)
-          throw new IllegalStateException ("Internal inconsistency removeAllCommentThreadsOfObject of '" + sOwningObjectID + "'");
+          throw new IllegalStateException ("Internal inconsistency removeAllCommentThreadsOfObject of '" +
+                                           sOwningObjectID +
+                                           "'");
 
       markAsChanged ();
     }
