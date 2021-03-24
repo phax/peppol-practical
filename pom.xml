@@ -425,13 +425,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <doclint>none</doclint>
-        </configuration>
-      </plugin>      
-      <plugin>
         <groupId>${jaxws-plugin.group}</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
         <version>${jaxws-plugin.version}</version>
@@ -488,6 +481,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
+          <doclint>none</doclint>
           <source>8</source>
         </configuration>
       </plugin> 
