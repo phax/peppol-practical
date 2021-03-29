@@ -38,6 +38,31 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2021-03-29 - Code List update</h3>
+    
+    <p>
+      The identifier verification page was updated to Peppol Code List 7.4.
+    </p>
+
+    <h3>2021-03-28 - phase4 1.2.0</h3>
+    
+    <p>
+      phase4 1.2.0 was released. 
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phase4/releases/tag/phase4-parent-pom-1.2.0">Download phase4</a></li>
+      <li><a href="https://github.com/phax/phase4#news-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
+    <h3>2021-03-11 - Peppol eDEC Code Lists 7.4 released</h3>
+    
+    <p>
+      The new Peppol eDEC Code Lists v7.4 were published today.
+      They contain the list of known Peppol Document Type identifier, Peppol Participant Identifier Schemes, Peppol Process identifiers and Peppol Transport Profiles.
+      All code lists are available in several formats from <a href="https://docs.peppol.eu/edelivery/codelists/">https://docs.peppol.eu/edelivery/codelists/</a>.
+      The list of changes is <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html">also available</a>. 
+    </p>
+
     <h3>2021-02-05 - New page: Identifier Information</h3>
     
     <p>
