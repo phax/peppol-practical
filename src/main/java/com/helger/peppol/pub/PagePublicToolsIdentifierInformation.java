@@ -192,9 +192,11 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
       {
         final ICommonsOrderedMap <String, String> aRuleSets = new CommonsLinkedHashMap <> ();
         aRuleSets.put ("Peppol Policy for use of Identifiers v4.0", "https://docs.peppol.eu/edelivery/");
-        aRuleSets.put ("Peppol Participant Identifier Code List v" + EPredefinedParticipantIdentifierScheme.CODE_LIST_VERSION,
+        aRuleSets.put ("Peppol Participant Identifier Code List v" +
+                       EPredefinedParticipantIdentifierScheme.CODE_LIST_VERSION,
                        "https://docs.peppol.eu/edelivery/codelists/");
-        aRuleSets.put ("Peppol Document Type Identifier Code List v" + EPredefinedDocumentTypeIdentifier.CODE_LIST_VERSION,
+        aRuleSets.put ("Peppol Document Type Identifier Code List v" +
+                       EPredefinedDocumentTypeIdentifier.CODE_LIST_VERSION,
                        "https://docs.peppol.eu/edelivery/codelists/");
         aRuleSets.put ("Peppol Process Identifier Code List v" + EPredefinedProcessIdentifier.CODE_LIST_VERSION,
                        "https://docs.peppol.eu/edelivery/codelists/");
@@ -219,11 +221,16 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_TYPE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                    .setCtrl (new HCEdit (new RequestField (FIELD_ID_VALUE)).setPlaceholder ("scheme::value"))
-                                                   .setHelpText (div ("The identifier value to be checked for consistency. It MUST contain the scheme (like ").addChild (code (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS))
+                                                   .setHelpText (div ("The identifier value to be checked for consistency. It MUST contain the scheme (like ").addChild (code (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS))
+                                                                                                                                                              .addChild (", ")
+                                                                                                                                                              .addChild (code (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS))
+                                                                                                                                                              .addChild (" or ")
+                                                                                                                                                              .addChild (code (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL))
                                                                                                                                                               .addChild (") AND the value as one long string"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Try to URL decode the identifier value?")
-                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_ID_DECODE, DEFAULT_DECODE)))
+                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_ID_DECODE,
+                                                                                                      DEFAULT_DECODE)))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_DECODE)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
