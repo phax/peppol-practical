@@ -16,9 +16,10 @@
  */
 package com.helger.peppol.app.ajax;
 
+import java.util.function.Predicate;
+
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.functional.IPredicate;
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.ajax.decl.AjaxFunctionDeclaration;
 import com.helger.photon.ajax.decl.IAjaxFunctionDeclaration;
@@ -47,8 +48,8 @@ public final class CAjax
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW_PUB = AjaxFunctionDeclaration.builder ("updateMenuViewPub")
                                                                                              .executor (AjaxExecutorPublicUpdateMenuView.class)
                                                                                              .build ();
-  private static final IPredicate <? super IRequestWebScopeWithoutResponse> FILTER_LOGIN = x -> LoggedInUserManager.getInstance ()
-                                                                                                                   .isUserLoggedInInCurrentSession ();
+  private static final Predicate <? super IRequestWebScopeWithoutResponse> FILTER_LOGIN = x -> LoggedInUserManager.getInstance ()
+                                                                                                                  .isUserLoggedInInCurrentSession ();
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW_SEC = AjaxFunctionDeclaration.builder ("updateMenuViewSec")
                                                                                              .executor (AjaxExecutorSecureUpdateMenuView.class)
                                                                                              .filter (FILTER_LOGIN)

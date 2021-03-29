@@ -17,10 +17,10 @@
 package com.helger.peppol.ui;
 
 import java.util.Locale;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.metadata.HCHead;
@@ -42,15 +42,16 @@ import com.helger.xservlet.forcedredirect.ForcedRedirectException;
  */
 public class AppLayoutHTMLProvider extends AbstractSWECHTMLProvider
 {
-  private final IFunction <LayoutExecutionContext, IHCNode> m_aFactory;
+  private final Function <LayoutExecutionContext, IHCNode> m_aFactory;
 
-  public AppLayoutHTMLProvider (@Nonnull final IFunction <LayoutExecutionContext, IHCNode> aFactory)
+  public AppLayoutHTMLProvider (@Nonnull final Function <LayoutExecutionContext, IHCNode> aFactory)
   {
     m_aFactory = aFactory;
   }
 
   @Override
-  protected void fillBody (@Nonnull final ISimpleWebExecutionContext aSWEC, @Nonnull final HCHtml aHtml) throws ForcedRedirectException
+  protected void fillBody (@Nonnull final ISimpleWebExecutionContext aSWEC,
+                           @Nonnull final HCHtml aHtml) throws ForcedRedirectException
   {
     final IRequestWebScopeWithoutResponse aRequestScope = aSWEC.getRequestScope ();
     final Locale aDisplayLocale = aSWEC.getDisplayLocale ();
