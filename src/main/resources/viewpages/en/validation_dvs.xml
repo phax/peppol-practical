@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 596 entries -->
+<!-- 601 entries -->
 <ul>
 <li><code>at.ebinterface:invoice:3.0</code> - ebInterface 3.0</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
@@ -138,8 +138,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:cii:1.3.1</code> - EN 16931 CII 1.3.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.2</code> - EN 16931 CII 1.3.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.3</code> - EN 16931 CII 1.3.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:cii:1.3.4</code> - EN 16931 CII 1.3.4</li>
-<li><code>eu.cen.en16931:edifact:1.0.0</code> - EN 16931 EDIFACT/ISO 20625 1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:cii:1.3.4</code> - EN 16931 CII 1.3.4 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:cii:1.3.5</code> - EN 16931 CII 1.3.5</li>
 <li><code>eu.cen.en16931:ubl:1.0.0</code> - EN 16931 UBL Invoice 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.1.0</code> - EN 16931 UBL Invoice 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.2.0</code> - EN 16931 UBL Invoice 1.2.0 <strong>(Deprecated)</strong></li>
@@ -149,7 +149,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl:1.3.1</code> - EN 16931 UBL Invoice 1.3.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.2</code> - EN 16931 UBL Invoice 1.3.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.3</code> - EN 16931 UBL Invoice 1.3.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl:1.3.4</code> - EN 16931 UBL Invoice 1.3.4</li>
+<li><code>eu.cen.en16931:ubl:1.3.4</code> - EN 16931 UBL Invoice 1.3.4 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl:1.3.5</code> - EN 16931 UBL Invoice 1.3.5</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.0.0</code> - EN 16931 UBL CreditNote 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.1.0</code> - EN 16931 UBL CreditNote 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.2.0</code> - EN 16931 UBL CreditNote 1.2.0 <strong>(Deprecated)</strong></li>
@@ -159,7 +160,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.1</code> - EN 16931 UBL CreditNote 1.3.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.2</code> - EN 16931 UBL CreditNote 1.3.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.3</code> - EN 16931 UBL CreditNote 1.3.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.4</code> - EN 16931 UBL CreditNote 1.3.4</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.4</code> - EN 16931 UBL CreditNote 1.3.4 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.5</code> - EN 16931 UBL CreditNote 1.3.5</li>
 <li><code>eu.peppol.bis2:t01:3.5.0</code> - OpenPEPPOL Order (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.6.0</code> - OpenPEPPOL Order (3.6.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t01:3.7.0</code> - OpenPEPPOL Order (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
@@ -326,6 +328,9 @@ A very small Java WS client is available for
 <li><code>fi.finvoice:finvoice:3.0</code> - Finvoice 3.0</li>
 <li><code>it.fatturapa:invoice:1.2.0</code> - fatturaPA 1.2.0</li>
 <li><code>it.fatturapa:invoice:1.2.1</code> - fatturaPA 1.2.1</li>
+<li><code>it.peppol:despatch-advice:2.2.9</code> - AGID Peppol Despatch Advice (2.2.9) (for BIS 3.0.6)</li>
+<li><code>it.peppol:order:2.2.9</code> - AGID Peppol Order  (2.2.9) (for BIS 3.0.6)</li>
+<li><code>it.peppol:order-response:2.2.9</code> - AGID Peppol Order Response (2.2.9) (for BIS 3.0.6)</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.0</code> - Energie eFactuur 1.0.0</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.1</code> - Energie eFactuur 1.0.1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2.0.0</code> - Energie eFactuur 2.0.0</li>

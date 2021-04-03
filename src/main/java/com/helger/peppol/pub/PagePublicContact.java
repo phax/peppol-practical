@@ -70,6 +70,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "dogloverclub.store",
                                                              "hineck.online",
                                                              "idgod.ch",
+                                                             "kickshades.online",
                                                              "oakley sunglasses",
                                                              "pharmacyoutlets.online",
                                                              "pharmacyusa.online",
