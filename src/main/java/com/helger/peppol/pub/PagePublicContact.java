@@ -82,6 +82,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "//bit.ly",
                                                              "//bloggybro.com",
                                                              "//cutt.ly",
+                                                             "//digitalsy.org.uk",
                                                              "//earningradar.com",
                                                              "//fixhacksite.com",
                                                              "//geekboy.co",
