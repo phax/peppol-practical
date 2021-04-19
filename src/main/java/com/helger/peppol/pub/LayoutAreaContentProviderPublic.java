@@ -25,7 +25,6 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.math.MathHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.property.CCSSProperties;
@@ -51,21 +50,19 @@ import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.app.url.LinkHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.breadcrumb.BootstrapBreadcrumb;
 import com.helger.photon.bootstrap4.breadcrumb.BootstrapBreadcrumbProvider;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
 import com.helger.photon.bootstrap4.dropdown.BootstrapDropdownMenu;
-import com.helger.photon.bootstrap4.ext.BootstrapSystemMessage;
 import com.helger.photon.bootstrap4.grid.BootstrapRow;
 import com.helger.photon.bootstrap4.layout.BootstrapContainer;
 import com.helger.photon.bootstrap4.navbar.BootstrapNavbar;
 import com.helger.photon.bootstrap4.navbar.BootstrapNavbarNav;
 import com.helger.photon.bootstrap4.navbar.BootstrapNavbarToggleable;
-import com.helger.photon.bootstrap4.pages.BootstrapWebPageUIHandler;
 import com.helger.photon.bootstrap4.uictrls.ext.BootstrapMenuItemRenderer;
 import com.helger.photon.bootstrap4.uictrls.ext.BootstrapMenuItemRendererHorz;
+import com.helger.photon.bootstrap4.uictrls.ext.BootstrapPageRenderer;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.appid.CApplicationID;
 import com.helger.photon.core.appid.PhotonGlobalState;
@@ -84,12 +81,8 @@ import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
 import com.helger.photon.security.util.SecurityHelper;
 import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
-import com.helger.photon.uicore.html.twitter.HCTweet;
-import com.helger.photon.uicore.page.IWebPage;
-import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.famfam.EFamFamIcon;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
-import com.helger.xservlet.forcedredirect.ForcedRedirectManager;
 
 /**
  * The viewport renderer (menu + content area)
@@ -98,31 +91,25 @@ import com.helger.xservlet.forcedredirect.ForcedRedirectManager;
  */
 public final class LayoutAreaContentProviderPublic
 {
-  private static final String PARAM_HTTP_ERROR = "httpError";
-  private static final String VALUE_HTTP_ERROR = "true";
-  private static final String PARAM_HTTP_STATUS_CODE = "httpStatusCode";
-  private static final String PARAM_HTTP_STATUS_MESSAGE = "httpStatusMessage";
-  private static final String PARAM_HTTP_REQUEST_URI = "httpRequestUri";
-
   private static final ICSSClassProvider CSS_CLASS_PAYPAL = DefaultCSSClassProvider.create ("paypal");
   private static final ICSSClassProvider CSS_CLASS_FOOTER_LINKS = DefaultCSSClassProvider.create ("footer-links");
 
-  private static final ICommonsList <IMenuObject> s_aFooterObjectsCol1 = new CommonsArrayList <> ();
-  private static final ICommonsList <IMenuObject> s_aFooterObjectsCol2 = new CommonsArrayList <> ();
-  private static final ICommonsList <IMenuObject> s_aFooterObjectsCol3 = new CommonsArrayList <> ();
-  private static final int s_nFooterRowCount;
+  private static final ICommonsList <IMenuObject> FOOTER_COL1 = new CommonsArrayList <> ();
+  private static final ICommonsList <IMenuObject> FOOTER_COL2 = new CommonsArrayList <> ();
+  private static final ICommonsList <IMenuObject> FOOTER_COL3 = new CommonsArrayList <> ();
+  private static final int FOOTER_ROW_COUNT;
 
   static
   {
     PhotonGlobalState.state (CApplicationID.APP_ID_PUBLIC).getMenuTree ().iterateAllMenuObjects (aCurrentObject -> {
       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1))
-        s_aFooterObjectsCol1.add (aCurrentObject);
+        FOOTER_COL1.add (aCurrentObject);
       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL2))
-        s_aFooterObjectsCol2.add (aCurrentObject);
+        FOOTER_COL2.add (aCurrentObject);
       if (aCurrentObject.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL3))
-        s_aFooterObjectsCol3.add (aCurrentObject);
+        FOOTER_COL3.add (aCurrentObject);
     });
-    s_nFooterRowCount = MathHelper.getMaxInt (s_aFooterObjectsCol1.size (), s_aFooterObjectsCol2.size (), s_aFooterObjectsCol3.size ());
+    FOOTER_ROW_COUNT = MathHelper.getMaxInt (FOOTER_COL1.size (), FOOTER_COL2.size (), FOOTER_COL3.size ());
   }
 
   private LayoutAreaContentProviderPublic ()
@@ -240,78 +227,18 @@ public final class LayoutAreaContentProviderPublic
     return new HCNodeList ().addChild (aMenu).addChild (aPayPal);
   }
 
-  @SuppressWarnings ("unchecked")
   @Nonnull
   public static IHCNode getPageContent (@Nonnull final LayoutExecutionContext aLEC)
   {
-    final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
-
-    // Get the requested menu item
-    final IMenuItemPage aSelectedMenuItem = aLEC.getSelectedMenuItem ();
-
-    // Resolve the page of the selected menu item (if found)
-    IWebPage <WebPageExecutionContext> aDisplayPage;
-    if (aSelectedMenuItem.matchesDisplayFilter ())
-    {
-      // Only if we have display rights!
-      aDisplayPage = (IWebPage <WebPageExecutionContext>) aSelectedMenuItem.getPage ();
-    }
-    else
-    {
-      // No rights -> goto start page
-      aDisplayPage = (IWebPage <WebPageExecutionContext>) aLEC.getMenuTree ().getDefaultMenuItem ().getPage ();
-    }
-
-    final WebPageExecutionContext aWPEC = new WebPageExecutionContext (aLEC, aDisplayPage);
-
-    // Build page content: header + content
-    final HCNodeList aPageContainer = new HCNodeList ();
-
-    // System message always
-    aPageContainer.addChild (BootstrapSystemMessage.createDefault ());
-
-    // Handle 404 case here (see error404.jsp)
-    if (VALUE_HTTP_ERROR.equals (aRequestScope.params ().getAsString (PARAM_HTTP_ERROR)))
-    {
-      final String sHttpStatusCode = aRequestScope.params ().getAsString (PARAM_HTTP_STATUS_CODE);
-      final String sHttpStatusMessage = aRequestScope.params ().getAsString (PARAM_HTTP_STATUS_MESSAGE);
-      final String sHttpRequestURI = aRequestScope.params ().getAsString (PARAM_HTTP_REQUEST_URI);
-      aPageContainer.addChild (new BootstrapErrorBox ().addChild ("HTTP error " +
-                                                                  sHttpStatusCode +
-                                                                  " (" +
-                                                                  sHttpStatusMessage +
-                                                                  ")" +
-                                                                  (StringHelper.hasText (sHttpRequestURI) ? " for request URI " +
-                                                                                                            sHttpRequestURI
-                                                                                                          : "")));
-    }
-    else
-    {
-      // Add the forced redirect content here
-      if (aWPEC.params ().containsKey (ForcedRedirectManager.REQUEST_PARAMETER_PRG_ACTIVE))
-        aPageContainer.addChild ((IHCNode) ForcedRedirectManager.getLastForcedRedirectContent (aDisplayPage.getID ()));
-    }
-
-    final String sHeaderText = aDisplayPage.getHeaderText (aWPEC);
-    {
-      final BootstrapRow aRow = new BootstrapRow ();
-      aRow.createColumn (10).addChild (BootstrapWebPageUIHandler.INSTANCE.createPageHeader (sHeaderText));
-      aRow.createColumn (2).addChild (HCTweet.createShareButton ());
-      aPageContainer.addChild (aRow);
-    }
-
-    // Main fill content
-    aDisplayPage.getContent (aWPEC);
-    // Add result
-    aPageContainer.addChild (aWPEC.getNodeList ());
+    final HCNodeList ret = BootstrapPageRenderer.getPageContent (aLEC);
 
     if (GlobalDebug.isProductionMode ())
     {
       // Add Google Analytics
-      aPageContainer.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false, true));
+      ret.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false, true));
     }
 
-    return aPageContainer;
+    return ret;
   }
 
   @Nullable
@@ -378,17 +305,17 @@ public final class LayoutAreaContentProviderPublic
                                   .addChild (" - Twitter: ")
                                   .addChild (new HCA (new SimpleURL ("https://twitter.com/philiphelger")).addChild ("@philiphelger")));
 
-      if (s_nFooterRowCount > 0)
+      if (FOOTER_ROW_COUNT > 0)
       {
         final BootstrapMenuItemRendererHorz aRenderer = new BootstrapMenuItemRendererHorz (aDisplayLocale);
         final HCDiv aTable = new HCDiv ();
         aTable.addClass (CSS_CLASS_FOOTER_LINKS);
-        for (int i = 0; i < s_nFooterRowCount; ++i)
+        for (int i = 0; i < FOOTER_ROW_COUNT; ++i)
         {
           final BootstrapRow aRow = aTable.addAndReturnChild (new BootstrapRow ());
-          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol1.getAtIndex (i)));
-          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol2.getAtIndex (i)));
-          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, s_aFooterObjectsCol3.getAtIndex (i)));
+          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, FOOTER_COL1.getAtIndex (i)));
+          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, FOOTER_COL2.getAtIndex (i)));
+          aRow.createColumn (4).addChild (_getRenderedFooterMenuObj (aLEC, aRenderer, FOOTER_COL3.getAtIndex (i)));
         }
         aFooter.addChild (aTable);
       }
