@@ -49,6 +49,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
+import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.locale.language.LanguageCache;
@@ -181,8 +182,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   }
 
   private void _printActivationDate (@Nonnull final IHCLI <?> aLIEndpoint,
-                                     final OffsetDateTime aServiceActivationDate,
-                                     final Locale aDisplayLocale)
+                                     @Nullable final XMLOffsetDateTime aServiceActivationDate,
+                                     @Nonnull final Locale aDisplayLocale)
   {
     if (aServiceActivationDate != null)
     {
@@ -195,8 +196,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   }
 
   private void _printExpirationDate (@Nonnull final IHCLI <?> aLIEndpoint,
-                                     final OffsetDateTime aServiceExpirationDate,
-                                     final Locale aDisplayLocale)
+                                     @Nullable final XMLOffsetDateTime aServiceExpirationDate,
+                                     @Nonnull final Locale aDisplayLocale)
   {
     if (aServiceExpirationDate != null)
     {
