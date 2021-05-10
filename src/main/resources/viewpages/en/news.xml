@@ -38,6 +38,21 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2021-05-10 - Document Validation extended</h3>
+ 
+    <p>
+      Added support for UBL.BE 1.2.7 rule sets.<br />
+      All the UBL 2.3 VESIDs changed from "csd04" to "cs01".
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>be.ubl:credit-note:1.2.7</code> - UBL.BE Credit Note 1.2.7</li>
+<li><code>be.ubl:invoice:1.2.7</code> - UBL.BE Invoice 1.2.7</li>
+</ul>
+
     <h3>2021-05-03 - Document Validation extended</h3>
     
     <p>
