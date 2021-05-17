@@ -104,6 +104,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "//www.follmex.",
                                                              "//www.godlikeproductions.com",
                                                              "//www.interactivewise.com",
+                                                             "//www.speed-seo.net",
                                                              "//www.talkwithcustomer.com",
                                                              "//www.talkwithwebvisitors.com",
                                                              "//www.targeted-visitors-4yoursite.xyz",
