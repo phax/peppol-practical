@@ -38,6 +38,12 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2021-06-10 - Updated CII to UBL conversion</h3>
+    <p>
+      Updated to version 1.4.2 of the conversion rules. This fixes e.g. the default customization ID.
+      <a href="/public/menuitem-tools-rest-api#cii2ubl">See the API description</a>.
+    </p>
+
     <h3>2021-05-10 - Document Validation extended</h3>
  
     <p>

@@ -330,7 +330,7 @@
   "conversionBuildTimestamp":"2021-01-05T20:55:24Z",
   "conversionDuractionMillis":0,
   "coversionErrors":[],
-  "ubl":"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;&lt;Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" xmlns:cec=\"urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2\" xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\"&gt;&lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017:extended:urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;&lt;cbc:ProfileID&gt;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&lt;/cbc:ProfileID&gt;&lt;cbc:ID&gt;TOSL108&lt;/cbc:ID&gt;&lt;cbc:IssueDate&gt;2013-06-30&lt;/cbc:IssueDate&gt;&lt;!-- details omitted for readability --&gt;&lt;/Invoice&gt;"
+  "ubl":"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;&lt;Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" xmlns:cec=\"urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2\" xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\"&gt;&lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;&lt;cbc:ProfileID&gt;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&lt;/cbc:ProfileID&gt;&lt;cbc:ID&gt;TOSL108&lt;/cbc:ID&gt;&lt;cbc:IssueDate&gt;2013-06-30&lt;/cbc:IssueDate&gt;&lt;!-- details omitted for readability --&gt;&lt;/Invoice&gt;"
 }
 </pre>
 
@@ -338,7 +338,7 @@
 <pre>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"&gt;
-  &lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017:extended:urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;
+  &lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;
   &lt;cbc:ProfileID&gt;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&lt;/cbc:ProfileID&gt;
   &lt;cbc:ID&gt;TOSL108&lt;/cbc:ID&gt;
   &lt;cbc:IssueDate&gt;2013-06-30&lt;/cbc:IssueDate&gt;
