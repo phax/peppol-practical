@@ -434,14 +434,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                     "Open IP in browser")).addChild (" ")
                                                                           .addChild (_createOpenInBrowser ("http://" + sURL3,
                                                                                                            "Open name in browser")));
-            final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
-            aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
-
-            if (!bXSDValidation)
-              aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
-            if (!bVerifySignatures)
-              aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
           }
+
+          // Show only once
+          final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
+          aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
+          if (!bXSDValidation)
+            aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
+          if (!bVerifySignatures)
+            aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
         }
         catch (final UnknownHostException ex)
         {
