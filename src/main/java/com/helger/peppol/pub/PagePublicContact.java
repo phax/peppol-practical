@@ -71,6 +71,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "hineck.online",
                                                              "idgod.ch",
                                                              "kickshades.online",
+                                                             "magicmat.shop",
                                                              "medicopostura.com",
                                                              "oakley sunglasses",
                                                              "pharmacyoutlets.online",
