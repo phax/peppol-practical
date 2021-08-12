@@ -38,6 +38,29 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2021-08-12 - Document Validation extended</h3>
+ 
+    <p>
+      Added support for XRechnung 2.1.1 rule sets.<br />
+      Added support for EN 16931 1.3.6a rule sets.<br />
+      Added support for UBL.BE 1.2.8 rule sets.
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>be.ubl:credit-note:1.2.8</code> - UBL.BE Credit Note 1.2.8</li>
+<li><code>be.ubl:invoice:1.2.8</code> - UBL.BE Invoice 1.2.8</li>
+<li><code>de.xrechnung:cii:2.1.1</code> - XRechnung CII 2.1.1</li>
+<li><code>de.xrechnung:ubl-creditnote:2.1.1</code> - XRechnung UBL CrediteNote 2.1.1</li>
+<li><code>de.xrechnung:ubl-invoice:2.1.1</code> - XRechnung UBL Invoice 2.1.1</li>
+<li><code>eu.cen.en16931:cii:1.3.6a</code> - EN 16931 CII 1.3.6a</li>
+<li><code>eu.cen.en16931:ubl:1.3.6a</code> - EN 16931 UBL Invoice 1.3.6a</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.6a</code> - EN 16931 UBL CreditNote 1.3.6a</li>
+</ul>
+
+
     <h3>2021-07-06 - Document Validation extended</h3>
  
     <p>
