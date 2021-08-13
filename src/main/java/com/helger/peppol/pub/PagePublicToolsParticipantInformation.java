@@ -790,8 +790,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 else
                 {
                   aLICert.addChild (error ().addChild (div ("The Endpoint Certificate appears to be an invalid Peppol certificate. Reason: " +
-                                                            eCertStatus.getReason ()))
-                                            .addChild (div ("Note: currently the Digicert OCSP server has issues and the request times out. So please crosscheck before reporting it.")));
+                                                            eCertStatus.getReason ())));
                 }
               }
 
