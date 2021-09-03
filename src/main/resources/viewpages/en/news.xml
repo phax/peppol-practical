@@ -38,6 +38,33 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+
+    <h3>2021-09-03 - Document Validation extended</h3>
+ 
+    <p>Added support for more SimplerInvoicing versions.</p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>org.simplerinvoicing:creditnote:2.0.3.2</code> - Simplerinvoicing CreditNote 2.0.3.2</li>
+<li><code>org.simplerinvoicing:invoice:2.0.3.2</code> - Simplerinvoicing Invoice 2.0.3.2</li>
+<li><code>org.simplerinvoicing:invoice20.g-account:1.0.2</code> - Simplerinvoicing 2.0 G-Account extension 1.0.2</li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3.1</code> - NLCIUS-CII 1.0.3.1</li>
+</ul>
+
+    <h3>2021-08-20 - phoss SMP 5.3.3</h3>
+    
+    <p>
+      phoss SMP 5.3.3 was released. 
+      This is a minor release that mainly updates the dependencies.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-5.3.3">Download phoss SMP 5.3.3</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2021-08-12 - Document Validation extended</h3>
  
     <p>
@@ -59,7 +86,6 @@
 <li><code>eu.cen.en16931:ubl:1.3.6a</code> - EN 16931 UBL Invoice 1.3.6a</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.6a</code> - EN 16931 UBL CreditNote 1.3.6a</li>
 </ul>
-
 
     <h3>2021-07-06 - Document Validation extended</h3>
  

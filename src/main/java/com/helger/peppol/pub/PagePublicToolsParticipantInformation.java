@@ -936,6 +936,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Participant Information Error", ex);
+      else
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
       aNodeList.addChild (error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
                                                                                                                                                   false)));
@@ -947,6 +950,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Participant Information Error", ex);
+      else
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
       aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false)));
 
@@ -957,6 +963,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Participant Information Error", ex);
+      else
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
       new InternalErrorBuilder ().setRequestScope (aRequestScope).setDisplayLocale (aDisplayLocale).setThrowable (ex).handle ();
       aNodeList.addChild (error (div ("Error querying participant information.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, true)));
