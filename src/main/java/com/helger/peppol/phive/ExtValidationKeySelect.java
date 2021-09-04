@@ -33,7 +33,9 @@ import com.helger.photon.uicore.html.select.HCExtSelect;
 @SuppressWarnings ("deprecation")
 public final class ExtValidationKeySelect extends HCExtSelect
 {
-  // Explicit exclude certain artefacts
+  // Explicit exclude certain artefacts (because the same artefacts are
+  // registered with a different name - e.g. "order" instead of "t01")
+  // Later versions only register the "order" version
   private static final ICommonsSet <VESID> LEGACY_IDS = new CommonsHashSet <> (PeppolValidation3_10_0.VID_OPENPEPPOL_T01_V3,
                                                                                PeppolValidation3_10_0.VID_OPENPEPPOL_T16_V3,
                                                                                PeppolValidation3_10_0.VID_OPENPEPPOL_T19_V3,
