@@ -68,6 +68,7 @@ public final class PagePublicContact extends AbstractAppWebPage
   // Must only contain lowercase values
   private static final String [] SPAM_KEYS = new String [] { "capshop.online",
                                                              "caredogbest.online",
+                                                             "coolshorts.online",
                                                              "dogloverclub.store",
                                                              "hineck.online",
                                                              "idgod.ch",
