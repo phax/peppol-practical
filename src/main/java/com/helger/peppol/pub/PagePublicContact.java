@@ -80,6 +80,7 @@ public final class PagePublicContact extends AbstractAppWebPage
                                                              "pharmacyusa.online",
                                                              "ray-ban sunglasses",
                                                              "thawking.online",
+                                                             "tonature.online",
                                                              "topfakeid.com",
                                                              "www.untouchableiptv.com",
                                                              "//www.alecpow.com",
