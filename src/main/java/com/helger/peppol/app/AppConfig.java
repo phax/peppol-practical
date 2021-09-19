@@ -34,7 +34,7 @@ import com.helger.scope.singleton.AbstractGlobalSingleton;
 public final class AppConfig extends AbstractGlobalSingleton
 {
   /** The name of the file containing the settings */
-  private static final IConfig s_aCF = ConfigFactory.getDefaultConfig ();
+  private static final IConfig CONFIG = ConfigFactory.getDefaultConfig ();
 
   @Deprecated
   @UsedViaReflection
@@ -44,7 +44,7 @@ public final class AppConfig extends AbstractGlobalSingleton
   @Nonnull
   public static IConfig getConfig ()
   {
-    return s_aCF;
+    return CONFIG;
   }
 
   @Nullable

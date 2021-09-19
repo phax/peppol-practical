@@ -86,19 +86,19 @@ public class WSDVS implements WSDVSPort
   // Re-created for every restart; in combination with s_aInvocationCounter it
   // is unique
   private static final String SESSION_ID = UUID.randomUUID ().toString ();
-  private static final AtomicInteger s_aInvocationCounter = new AtomicInteger ();
-  private static final IMutableStatisticsHandlerCounter s_aCounterTotal = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
-                                                                                                               "$total");
-  private static final IMutableStatisticsHandlerCounter s_aCounterAPISuccess = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
-                                                                                                                    "$api-success");
-  private static final IMutableStatisticsHandlerCounter s_aCounterAPIError = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
-                                                                                                                  "$api-error");
-  private static final IMutableStatisticsHandlerCounter s_aCounterValidationSuccess = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
-                                                                                                                           "$validation-success");
-  private static final IMutableStatisticsHandlerCounter s_aCounterValidationError = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
-                                                                                                                         "$validation-error");
-  private static final IMutableStatisticsHandlerTimer s_aTimer = StatisticsManager.getTimerHandler (WSDVS.class);
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static final AtomicInteger INVOCATION_COUNTER = new AtomicInteger ();
+  private static final IMutableStatisticsHandlerCounter STATS_COUNTER_TOTOAL = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
+                                                                                                                    "$total");
+  private static final IMutableStatisticsHandlerCounter STATS_COUNTER_API_SUCCESS = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
+                                                                                                                         "$api-success");
+  private static final IMutableStatisticsHandlerCounter STATS_COUNTER_API_ERROR = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
+                                                                                                                       "$api-error");
+  private static final IMutableStatisticsHandlerCounter STATS_COUNTER_VALIDATION_SUCCESS = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
+                                                                                                                                "$validation-success");
+  private static final IMutableStatisticsHandlerCounter STATS_COUNTER_VALIDATION_ERROR = StatisticsManager.getCounterHandler (WSDVS.class.getName () +
+                                                                                                                              "$validation-error");
+  private static final IMutableStatisticsHandlerTimer STATS_TIMER = StatisticsManager.getTimerHandler (WSDVS.class);
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
 
   @Resource
   private WebServiceContext m_aWSContext;
@@ -150,9 +150,9 @@ public class WSDVS implements WSDVSPort
     final String sRateLimitKey = "ip:" + aHttpRequest.getRemoteAddr ();
     final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey) : false;
 
-    final String sInvocationUniqueID = Integer.toString (s_aInvocationCounter.incrementAndGet ());
+    final String sInvocationUniqueID = Integer.toString (INVOCATION_COUNTER.incrementAndGet ());
 
-    s_aRWLock.writeLocked ( () -> {
+    RW_LOCK.writeLocked ( () -> {
       // Just append to file
       try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ().getFile ("wsdvs-logs.csv"),
                                                                          EAppend.APPEND,
@@ -190,7 +190,7 @@ public class WSDVS implements WSDVSPort
     try (final WebScoped aWebScoped = new WebScoped (aHttpRequest, aHttpResponse))
     {
       // Track total invocation
-      s_aCounterTotal.increment ();
+      STATS_COUNTER_TOTOAL.increment ();
 
       if (bOverRateLimit)
       {
@@ -310,23 +310,23 @@ public class WSDVS implements WSDVSPort
 
       if (LOGGER.isInfoEnabled ())
         LOGGER.info ("Finished validation after " + aSW.getMillis () + "ms; " + nWarnings + " warns; " + nErrors + " errors");
-      s_aTimer.addTime (aSW.getMillis ());
+      STATS_TIMER.addTime (aSW.getMillis ());
 
       // Track validation result
       if (ret.getMostSevereErrorLevel ().equals (ErrorLevelType.ERROR))
-        s_aCounterValidationError.increment ();
+        STATS_COUNTER_VALIDATION_ERROR.increment ();
       else
-        s_aCounterValidationSuccess.increment ();
+        STATS_COUNTER_VALIDATION_SUCCESS.increment ();
 
       // Track API result
       if (ret.isSuccess ())
-        s_aCounterAPISuccess.increment ();
+        STATS_COUNTER_API_SUCCESS.increment ();
       else
-        s_aCounterAPIError.increment ();
+        STATS_COUNTER_API_ERROR.increment ();
 
       final int nFinalWarnings = nWarnings;
       final int nFinalErrors = nErrors;
-      s_aRWLock.writeLocked ( () -> {
+      RW_LOCK.writeLocked ( () -> {
         // Just append to file
         try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ().getFile ("wsdvs-results.csv"),
                                                                            EAppend.APPEND,

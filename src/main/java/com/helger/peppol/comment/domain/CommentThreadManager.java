@@ -49,11 +49,11 @@ import com.helger.scope.singleton.AbstractGlobalSingleton;
 @ThreadSafe
 public final class CommentThreadManager extends AbstractGlobalSingleton
 {
-  private static final IMutableStatisticsHandlerCounter s_aStatsCounterThreadAdd = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+  private static final IMutableStatisticsHandlerCounter STATS_COUNTER_THREAD_ADD = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
                                                                                                                         "$threadAdd");
-  private static final IMutableStatisticsHandlerCounter s_aStatsCounterCommentAdd = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+  private static final IMutableStatisticsHandlerCounter STATS_COUNTER_COMMENT_ADD = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
                                                                                                                          "$commentAdd");
-  private static final IMutableStatisticsHandlerCounter s_aStatsCounterCommentRemove = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
+  private static final IMutableStatisticsHandlerCounter STATS_COUNTER_COMMENT_REMOVE = StatisticsManager.getCounterHandler (CommentThreadManager.class.getName () +
                                                                                                                             "$commentRemove");
 
   @GuardedBy ("m_aRWLock")
@@ -127,8 +127,8 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
 
     // Add to respective manager
     final ICommentThread ret = aMgr.createNewThread (aOwner.getID (), aComment);
-    s_aStatsCounterThreadAdd.increment ();
-    s_aStatsCounterCommentAdd.increment ();
+    STATS_COUNTER_THREAD_ADD.increment ();
+    STATS_COUNTER_COMMENT_ADD.increment ();
     return ret;
   }
 
@@ -146,7 +146,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
     // Add to respective manager
     final ESuccess ret = aMgr.addCommentToThread (aOwner.getID (), sCommentThreadID, sParentCommentID, aComment);
     if (ret.isSuccess ())
-      s_aStatsCounterCommentAdd.increment ();
+      STATS_COUNTER_COMMENT_ADD.increment ();
     return ret;
   }
 
@@ -164,7 +164,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
     // Remove from respective manager
     final EChange eChange = aMgr.updateCommentState (aOwner.getID (), sCommentThreadID, sCommentID, eNewState);
     if (eChange.isChanged ())
-      s_aStatsCounterCommentRemove.increment ();
+      STATS_COUNTER_COMMENT_REMOVE.increment ();
     return eChange;
   }
 
