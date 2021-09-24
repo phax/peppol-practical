@@ -477,6 +477,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       BDXRClientReadOnly aBDXR1Client = null;
 
       final Consumer <GenericJAXBMarshaller <?>> aSMPMarshallerCustomizer = m -> {
+        aSMPExceptions.clear ();
         // Remember exceptions
         m.readExceptionCallbacks ().add (aSMPExceptions::add);
       };
@@ -847,10 +848,21 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           aNodeList.addChild (warn ("No Business Card is available for that participant."));
         else
         {
-          final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
+          final ICommonsList <JAXBException> aPDExceptions = new CommonsArrayList <> ();
+          final Consumer <GenericJAXBMarshaller <?>> aPMarshallerCustomizer = m -> {
+            aPDExceptions.clear ();
+            // Remember errors
+            m.readExceptionCallbacks ().add (aPDExceptions::add);
+            m.setCharset (StandardCharsets.UTF_8);
+          };
+
+          final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, aPMarshallerCustomizer);
           if (aBC == null)
           {
-            aNodeList.addChild (error ("Failed to parse the response data as a Business Card."));
+            final BootstrapErrorBox aError = error ("Failed to parse the response data as a Business Card.");
+            for (final JAXBException aItem : aPDExceptions)
+              aError.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
+            aNodeList.addChild (aError);
 
             final String sBC = new String (aData, StandardCharsets.UTF_8);
             if (StringHelper.hasText (sBC))

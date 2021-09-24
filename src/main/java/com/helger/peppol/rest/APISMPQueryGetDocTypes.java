@@ -216,7 +216,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
         LOGGER.warn ("[API] No Business Card is available for that participant.");
       else
       {
-        final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, null);
+        final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, StandardCharsets.UTF_8);
         if (aBC == null)
         {
           LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));

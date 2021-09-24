@@ -159,7 +159,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>phoss-directory-parent-pom</artifactId>
-        <version>0.9.5</version>
+        <version>0.9.6-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -336,7 +336,6 @@
     <dependency>
       <groupId>es.moki.ratelimitj</groupId>
       <artifactId>ratelimitj-inmemory</artifactId>
-      <version>0.7.0</version>
     </dependency>
 
     <dependency>
