@@ -26,9 +26,11 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.bind.JAXBException;
 
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
@@ -80,6 +82,7 @@ import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
+import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.pd.businesscard.generic.PDBusinessCard;
 import com.helger.pd.businesscard.generic.PDBusinessEntity;
 import com.helger.pd.businesscard.generic.PDContact;
@@ -105,6 +108,7 @@ import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
+import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
@@ -283,6 +287,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
     // Try to print the basic information before an error occurs
     aNodeList.addChild (div ("Querying the following SMP for ").addChild (code (sParticipantIDUriEncoded)).addChild (":"));
+
+    final ICommonsList <JAXBException> aSMPExceptions = new CommonsArrayList <> ();
 
     try
     {
@@ -470,6 +476,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       SMPClientReadOnly aSMPClient = null;
       BDXRClientReadOnly aBDXR1Client = null;
 
+      final Consumer <GenericJAXBMarshaller <?>> aSMPMarshallerCustomizer = m -> {
+        // Remember exceptions
+        m.readExceptionCallbacks ().add (aSMPExceptions::add);
+      };
+
       {
         final StopWatch aSWGetDocTypes = StopWatch.createdStarted ();
         final HCUL aSGUL = new HCUL ();
@@ -483,6 +494,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
             aSMPClient.setXMLSchemaValidation (bXSDValidation);
             aSMPClient.setVerifySignature (bVerifySignatures);
+            aSMPClient.setMarshallerCustomizer (aSMPMarshallerCustomizer);
 
             // Get all HRefs and sort them by decoded URL
             final com.helger.xsds.peppol.smp1.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
@@ -511,6 +523,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
             aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR1Client.setVerifySignature (bVerifySignatures);
+            aBDXR1Client.setMarshallerCustomizer (aSMPMarshallerCustomizer);
 
             // Get all HRefs and sort them by decoded URL
             final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
@@ -940,8 +953,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         if (LOGGER.isWarnEnabled ())
           LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
-      aNodeList.addChild (error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                                                  false)));
+      final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                                                  false));
+      for (final JAXBException aItem : aSMPExceptions)
+        aErrorBox.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
+      aNodeList.addChild (aErrorBox);
 
       // Audit failure
       AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
@@ -954,7 +970,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         if (LOGGER.isWarnEnabled ())
           LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
-      aNodeList.addChild (error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false)));
+      final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false));
+      for (final JAXBException aItem : aSMPExceptions)
+        aErrorBox.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
+      aNodeList.addChild (aErrorBox);
 
       // Audit failure
       AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
