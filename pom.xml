@@ -89,7 +89,7 @@
       <dependency>
         <groupId>com.helger.masterdata</groupId>
         <artifactId>ph-masterdata-parent-pom</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -124,7 +124,7 @@
       <dependency>
         <groupId>com.helger.ubl</groupId>
         <artifactId>ph-ubl-parent-pom</artifactId>
-        <version>6.6.2</version>
+        <version>6.6.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -138,7 +138,7 @@
       <dependency>
         <groupId>com.helger.schematron</groupId>
         <artifactId>ph-schematron-parent-pom</artifactId>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
