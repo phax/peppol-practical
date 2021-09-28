@@ -18,31 +18,33 @@ package com.helger.peppol.supplementary.tools;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
+import java.util.Locale;
 
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.peppol.phive.ExtValidationKeyRegistry;
+import com.helger.peppol.phive.ExtValidationKeySelect;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
-import com.helger.phive.api.executorset.VESID;
 import com.helger.phive.engine.source.IValidationSourceXML;
 
 public final class MainListVESIDs
 {
   private static String _getPayload ()
   {
-    final ICommonsOrderedMap <VESID, IValidationExecutorSet <IValidationSourceXML>> aAll = ExtValidationKeyRegistry.getAllSortedByID ();
+    final ICommonsList <IValidationExecutorSet <IValidationSourceXML>> aAll = true ? ExtValidationKeySelect.getAllSortedCorrect (Locale.US)
+                                                                                   : ExtValidationKeyRegistry.getAllSortedByID ()
+                                                                                                             .copyOfValues ();
 
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ("<!-- ").append (aAll.size ()).append (" entries -->\n");
     aSB.append ("<ul>\n");
-    for (final Map.Entry <VESID, IValidationExecutorSet <IValidationSourceXML>> aEntry : aAll.entrySet ())
+    for (final IValidationExecutorSet <IValidationSourceXML> aEntry : aAll)
     {
       aSB.append ("<li><code>")
-         .append (aEntry.getKey ().getAsSingleID ())
+         .append (aEntry.getID ().getAsSingleID ())
          .append ("</code> - ")
-         .append (aEntry.getValue ().getDisplayName ())
-         .append (aEntry.getValue ().isDeprecated () ? " <strong>(Deprecated)</strong>" : "")
+         .append (aEntry.getDisplayName ())
+         .append (aEntry.isDeprecated () ? " <strong>(Deprecated)</strong>" : "")
          .append ("</li>\n");
     }
     return aSB.append ("</ul>\n").toString ();
