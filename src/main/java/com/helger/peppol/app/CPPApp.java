@@ -53,6 +53,10 @@ public final class CPPApp
   public static final String ROLE_COMMENT_MODERATOR_NAME = "Comment moderator";
   public static final String ROLE_COMMENT_MODERATOR_DESCRIPTION = null;
   public static final ICommonsMap <String, String> ROLE_COMMENT_MODERATOR_CUSTOMATTRS = null;
+  public static final String ROLE_PEPPOL_SENDERS_ID = "peppolsenders";
+  public static final String ROLE_PEPPOL_SENDERS_NAME = "Peppol Sender";
+  public static final String ROLE_PEPPOL_SENDERS_DESCRIPTION = null;
+  public static final ICommonsMap <String, String> ROLE_PEPPOL_SENDERS_CUSTOMATTRS = null;
 
   @CodingStyleguideUnaware
   public static final List <String> REQUIRED_ROLE_IDS_CONFIG = new CommonsArrayList <> (ROLE_CONFIG_ID).getAsUnmodifiable ();

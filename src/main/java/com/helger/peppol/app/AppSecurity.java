@@ -67,6 +67,11 @@ public final class AppSecurity
                                      CPPApp.ROLE_COMMENT_MODERATOR_NAME,
                                      CPPApp.ROLE_COMMENT_MODERATOR_DESCRIPTION,
                                      CPPApp.ROLE_COMMENT_MODERATOR_CUSTOMATTRS);
+    if (!aRoleMgr.containsWithID (CPPApp.ROLE_PEPPOL_SENDERS_ID))
+      aRoleMgr.createPredefinedRole (CPPApp.ROLE_PEPPOL_SENDERS_ID,
+                                     CPPApp.ROLE_PEPPOL_SENDERS_NAME,
+                                     CPPApp.ROLE_PEPPOL_SENDERS_DESCRIPTION,
+                                     CPPApp.ROLE_PEPPOL_SENDERS_CUSTOMATTRS);
 
     // User group Administrators
     if (!aUserGroupMgr.containsWithID (CPPApp.USERGROUP_ADMINISTRATORS_ID))
@@ -81,6 +86,7 @@ public final class AppSecurity
     aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CPPApp.ROLE_CONFIG_ID);
     aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CPPApp.ROLE_VIEW_ID);
     aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CPPApp.ROLE_COMMENT_MODERATOR_ID);
+    aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CPPApp.ROLE_PEPPOL_SENDERS_ID);
 
     // User group for Config users
     if (!aUserGroupMgr.containsWithID (CPPApp.USERGROUP_CONFIG_ID))

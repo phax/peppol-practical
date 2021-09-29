@@ -31,6 +31,9 @@ public final class CMenuSecure
   public static final String MENU_CRM_GROUPS = "crm-groups";
   public static final String MENU_CRM_SUBSCRIBERS = "crm-subscribers";
 
+  public static final String MENU_PEPPOL = "peppol";
+  public static final String MENU_PEPPOL_SEND_AS4 = "peppol-send-as4";
+
   public static final String MENU_COMMENTS = "comments";
   public static final String MENU_SCH_TOOLS = "schematron-tools";
 

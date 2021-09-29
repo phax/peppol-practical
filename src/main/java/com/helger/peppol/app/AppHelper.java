@@ -40,7 +40,7 @@ public final class AppHelper
   @Nonempty
   public static String getApplicationTitle ()
   {
-    return "Peppol practical" + (AppConfig.isTestVersion () ? " [TEST]" : "");
+    return "Peppol Practical" + (AppConfig.isTestVersion () ? " [TEST]" : "");
   }
 
   @Nullable

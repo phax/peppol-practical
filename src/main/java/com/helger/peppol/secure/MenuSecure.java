@@ -24,6 +24,7 @@ import com.helger.photon.bootstrap4.pages.BootstrapPagesMenuConfigurator;
 import com.helger.photon.core.menu.IMenuItemPage;
 import com.helger.photon.core.menu.IMenuTree;
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserAssignedToUserGroup;
+import com.helger.photon.core.menu.filter.MenuObjectFilterUserHasRole;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
 
@@ -38,6 +39,7 @@ public final class MenuSecure
     // We need this additional indirection layer, as the pages are initialized
     // statically!
     final MenuObjectFilterUserAssignedToUserGroup aFilterAdministrators = new MenuObjectFilterUserAssignedToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID);
+    final MenuObjectFilterUserHasRole aFilterPeppolSenders = new MenuObjectFilterUserHasRole (CPPApp.ROLE_PEPPOL_SENDERS_ID);
 
     // CRM
     {
@@ -46,6 +48,15 @@ public final class MenuSecure
                                                                                                                aMenuTree));
       aMenuTree.createItem (aCRM, new PageSecureCRMGroup (CMenuSecure.MENU_CRM_GROUPS));
       aMenuTree.createItem (aCRM, new PageSecureCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS));
+    }
+
+    // Peppol
+    {
+      final IMenuItemPage aPeppol = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_PEPPOL,
+                                                                                                                  "Peppol",
+                                                                                                                  aMenuTree));
+      aMenuTree.createItem (aPeppol, new PageSecurePeppolSendAS4 (CMenuSecure.MENU_PEPPOL_SEND_AS4))
+               .setDisplayFilter (aFilterPeppolSenders);
     }
 
     // Comments

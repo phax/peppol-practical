@@ -39,6 +39,18 @@
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
 
+    <h3>2021-09-19 - phoss SMP 5.4.0</h3>
+    
+    <p>
+      phoss SMP 5.4.0 was released. 
+      This release finally adds support for Participant Migration between SMPs.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-5.4.0">Download phoss SMP 5.4.0</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2021-09-03 - Document Validation extended</h3>
  
     <p>Added support for more SimplerInvoicing versions.</p>
