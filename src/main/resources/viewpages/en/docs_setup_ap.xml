@@ -125,10 +125,14 @@
 <h3>AS4 Message structure</h3>
 
 <p>
-  Peppol adds a specific limitation on the usage of AS4.
-  AS4 Messages must be signed and encrypted.
-  AS4 messages must have exactly one encrypted payload which is a Standard Business Document (SBD).
+  Peppol adds specific limitations on the usage of AS4.
+  AS4 Messages MUST be signed and encrypted.
+  AS4 messages MUST have exactly one encrypted payload which MUST be a Standard Business Document (SBD).
   Peppol AS4 message MUST use the MIME encoding for message transmission. 
+</p>
+
+<p>
+  <img src="../imgs/as4-message-structure.png" alt="Peppol AS4 message structure" />
 </p>
 
 <a name="as4receiver"></a>
@@ -164,7 +168,7 @@
   simplified way:
 </p>
 <p>
-  <img src="../imgs/ap-message-structure.png" alt="Peppol AS2 message structure" />
+  <img src="../imgs/as2-message-structure.png" alt="Peppol AS2 message structure" />
 </p>
 <p>
   The outermost container is an <a href="http://en.wikipedia.org/wiki/S/MIME">S/MIME</a> 
