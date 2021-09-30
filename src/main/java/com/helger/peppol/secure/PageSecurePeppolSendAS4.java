@@ -248,12 +248,11 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
           }
         };
 
-        SMPClientReadOnly aSMPClient;
         try
         {
-          aSMPClient = new SMPClientReadOnly (Phase4PeppolSender.URL_PROVIDER, aReceiverID, ESML.DIGIT_TEST);
+          final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (Phase4PeppolSender.URL_PROVIDER, aReceiverID, ESML.DIGIT_TEST);
 
-          // Try to send message
+          // What to remember
           final Wrapper <String> aEndpointURL = new Wrapper <> ();
           final Wrapper <X509Certificate> aEndpointCert = new Wrapper <> ();
           final Wrapper <EPeppolCertificateCheckResult> aEndpointCertCheck = new Wrapper <> ();
@@ -261,6 +260,17 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
           final Wrapper <byte []> aResponseBytes = new Wrapper <> ();
           final Wrapper <Ebms3SignalMessage> aResponseMsg = new Wrapper <> ();
 
+          LOGGER.info ("Sending Peppol AS4 message from '" +
+                       aSenderID.getURIEncoded () +
+                       "' to '" +
+                       aReceiverID.getURIEncoded () +
+                       "' using document type '" +
+                       aDocTypeID.getURIEncoded () +
+                       "' and process ID '" +
+                       aProcessID.getURIEncoded () +
+                       "'");
+
+          // Try to send message
           final ESimpleUserMessageSendResult eResult = Phase4PeppolSender.builder ()
                                                                          .cryptoFactory (AS4_CF)
                                                                          .documentTypeID (aDocTypeID)
@@ -282,6 +292,9 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
                                                                          .rawResponseConsumer (r -> aResponseBytes.set (r.getResponse ()))
                                                                          .signalMsgConsumer (aResponseMsg::set)
                                                                          .sendMessageAndCheckForReceipt (aSendEx::set);
+
+          LOGGER.info ("Sending Peppol AS4 message resulted in " + eResult);
+
           if (aEndpointURL.isSet ())
             aNL.addChild (div ("Sending to this endpoint URL: ").addChild (code (aEndpointURL.get ())));
           if (aEndpointCert.isSet ())
