@@ -21,6 +21,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.bootstrap4.pages.BootstrapPagesMenuConfigurator;
+import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.core.menu.IMenuItemPage;
 import com.helger.photon.core.menu.IMenuTree;
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserAssignedToUserGroup;
@@ -74,8 +75,11 @@ public final class MenuSecure
     {
       final IMenuItemPage aAdmin = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_ADMIN,
                                                                                                                  "Administration",
-                                                                                                                 aMenuTree))
-                                            .setDisplayFilter (aFilterAdministrators);
+                                                                                                                 aMenuTree));
+      // Must be accessible for all Config users
+      aMenuTree.createItem (aAdmin, new BasePageSecurityChangePassword <WebPageExecutionContext> (CMenuSecure.MENU_ADMIN_CHANGE_PASSWORD));
+
+      // Admins only
       aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS)).setDisplayFilter (aFilterAdministrators);
       aMenuTree.createItem (aAdmin, new PageSecureSMLConfiguration (CMenuSecure.MENU_SML_CONFIGURATION))
                .setDisplayFilter (aFilterAdministrators);
