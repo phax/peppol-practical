@@ -291,7 +291,7 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
           if (eResult.isSuccess ())
             aNL.addChild (success ("Successfully send AS4 message to Peppol receiver ").addChild (code (aReceiverID.getURIEncoded ())));
           else
-            aNL.addChild (error ("Failed to send AS4 message to Peppol receiver ").addChild (code (aReceiverID.getURIEncoded ())));
+            aNL.addChild (error ("Failed to send AS4 message to Peppol receiver ").addChild (code (aReceiverID.getURIEncoded ()).addChild (eResult.name ())));
 
           if (aResponseMsg.isSet ())
           {
