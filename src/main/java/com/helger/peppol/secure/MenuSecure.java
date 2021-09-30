@@ -75,8 +75,9 @@ public final class MenuSecure
                                                                                                                  "Administration",
                                                                                                                  aMenuTree))
                                             .setDisplayFilter (aFilterAdministrators);
-      aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS));
-      aMenuTree.createItem (aAdmin, new PageSecureSMLConfiguration (CMenuSecure.MENU_SML_CONFIGURATION));
+      aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS)).setDisplayFilter (aFilterAdministrators);
+      aMenuTree.createItem (aAdmin, new PageSecureSMLConfiguration (CMenuSecure.MENU_SML_CONFIGURATION))
+               .setDisplayFilter (aFilterAdministrators);
       BootstrapPagesMenuConfigurator.addAllItems (aMenuTree, aAdmin, aFilterAdministrators, CPPApp.DEFAULT_LOCALE);
     }
 

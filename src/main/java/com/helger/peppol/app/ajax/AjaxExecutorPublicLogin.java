@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.html.hc.render.HCRenderer;
 import com.helger.json.JsonObject;
-import com.helger.peppol.app.CPPApp;
 import com.helger.photon.ajax.executor.IAjaxExecutor;
 import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
@@ -57,7 +56,7 @@ public final class AjaxExecutorPublicLogin implements IAjaxExecutor, IHCBootstra
     final String sPassword = aRequestScope.params ().getAsString (CLogin.REQUEST_ATTR_PASSWORD);
 
     // Main login
-    final ELoginResult eLoginResult = LoggedInUserManager.getInstance ().loginUser (sLoginName, sPassword, CPPApp.REQUIRED_ROLE_IDS_VIEW);
+    final ELoginResult eLoginResult = LoggedInUserManager.getInstance ().loginUser (sLoginName, sPassword);
     if (eLoginResult.isSuccess ())
     {
       aAjaxResponse.json (new JsonObject ().add (JSON_LOGGEDIN, true));
