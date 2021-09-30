@@ -45,9 +45,10 @@ public final class MenuSecure
     {
       final IMenuItemPage aCRM = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_CRM,
                                                                                                                "CRM",
-                                                                                                               aMenuTree));
-      aMenuTree.createItem (aCRM, new PageSecureCRMGroup (CMenuSecure.MENU_CRM_GROUPS));
-      aMenuTree.createItem (aCRM, new PageSecureCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS));
+                                                                                                               aMenuTree))
+                                          .setDisplayFilter (aFilterAdministrators);
+      aMenuTree.createItem (aCRM, new PageSecureCRMGroup (CMenuSecure.MENU_CRM_GROUPS)).setDisplayFilter (aFilterAdministrators);
+      aMenuTree.createItem (aCRM, new PageSecureCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS)).setDisplayFilter (aFilterAdministrators);
     }
 
     // Peppol
@@ -61,12 +62,12 @@ public final class MenuSecure
 
     // Comments
     {
-      aMenuTree.createRootItem (new PageSecureCommentAdmin (CMenuSecure.MENU_COMMENTS));
+      aMenuTree.createRootItem (new PageSecureCommentAdmin (CMenuSecure.MENU_COMMENTS)).setDisplayFilter (aFilterAdministrators);
     }
 
     // Schematron tools
     {
-      aMenuTree.createRootItem (new PageSecureSchematronTools (CMenuSecure.MENU_SCH_TOOLS));
+      aMenuTree.createRootItem (new PageSecureSchematronTools (CMenuSecure.MENU_SCH_TOOLS)).setDisplayFilter (aFilterAdministrators);
     }
 
     // Administrator
