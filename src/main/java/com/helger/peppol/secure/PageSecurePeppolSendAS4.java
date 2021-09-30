@@ -22,6 +22,7 @@ import java.security.cert.X509Certificate;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
+import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.html.forms.HCTextArea;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.ui.AppCommonUI;
@@ -55,12 +57,11 @@ import com.helger.phase4.crypto.IAS4CryptoFactory;
 import com.helger.phase4.dump.AS4IncomingDumperFileBased;
 import com.helger.phase4.dump.AS4OutgoingDumperFileBased;
 import com.helger.phase4.ebms3header.Ebms3SignalMessage;
-import com.helger.phase4.marshaller.EEbms3DocumentType;
-import com.helger.phase4.marshaller.Ebms3WriterBuilder;
 import com.helger.phase4.messaging.domain.AS4UserMessage;
 import com.helger.phase4.messaging.domain.AbstractAS4Message;
 import com.helger.phase4.peppol.Phase4PeppolSender;
 import com.helger.phase4.sender.AbstractAS4UserMessageBuilder.ESimpleUserMessageSendResult;
+import com.helger.phase4.util.Phase4Exception;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -256,10 +257,12 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
           final Wrapper <String> aEndpointURL = new Wrapper <> ();
           final Wrapper <X509Certificate> aEndpointCert = new Wrapper <> ();
           final Wrapper <EPeppolCertificateCheckResult> aEndpointCertCheck = new Wrapper <> ();
+          final Wrapper <Phase4Exception> aSendEx = new Wrapper <> ();
           final Wrapper <byte []> aResponseBytes = new Wrapper <> ();
           final Wrapper <Ebms3SignalMessage> aResponseMsg = new Wrapper <> ();
 
           final ESimpleUserMessageSendResult eResult = Phase4PeppolSender.builder ()
+                                                                         .cryptoFactory (AS4_CF)
                                                                          .documentTypeID (aDocTypeID)
                                                                          .processID (aProcessID)
                                                                          .senderParticipantID (aSenderID)
@@ -278,7 +281,7 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
                                                                          .incomingDumper (new AS4IncomingDumperFileBased ())
                                                                          .rawResponseConsumer (r -> aResponseBytes.set (r.getResponse ()))
                                                                          .signalMsgConsumer (aResponseMsg::set)
-                                                                         .sendMessageAndCheckForReceipt ();
+                                                                         .sendMessageAndCheckForReceipt (aSendEx::set);
           if (aEndpointURL.isSet ())
             aNL.addChild (div ("Sending to this endpoint URL: ").addChild (code (aEndpointURL.get ())));
           if (aEndpointCert.isSet ())
@@ -291,25 +294,46 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
           if (eResult.isSuccess ())
             aNL.addChild (success ("Successfully send AS4 message to Peppol receiver ").addChild (code (aReceiverID.getURIEncoded ())));
           else
-            aNL.addChild (error ("Failed to send AS4 message to Peppol receiver ").addChild (code (aReceiverID.getURIEncoded ()).addChild (eResult.name ())));
+            aNL.addChild (error ().addChild (div ("Failed to send AS4 message to Peppol receiver ").addChild (code (aReceiverID.getURIEncoded ()))
+                                                                                                   .addChild (" with result ")
+                                                                                                   .addChild (code (eResult.name ())))
+                                  .addChild (AppCommonUI.getTechnicalDetailsUI (aSendEx.get (), true)));
 
+          boolean bShowRaw = true;
           if (aResponseMsg.isSet ())
           {
-            final String sSignalMessage = new Ebms3WriterBuilder <Ebms3SignalMessage> (EEbms3DocumentType.MESSAGING).getAsString (aResponseMsg.get ());
-            // Show payload
-            aNL.addChild (div ("Response ebMS Signal Message"));
-            aNL.addChild (new BootstrapPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ()).addChild (sSignalMessage));
+            // Don't do XSD validation here because there is no defined
+            // "SignalMessage" element
+            final String sSignalMessage = new GenericJAXBMarshaller <> (Ebms3SignalMessage.class,
+                                                                        GenericJAXBMarshaller.createSimpleJAXBElement (new QName (com.helger.phase4.ebms3header.ObjectFactory._Messaging_QNAME.getNamespaceURI (),
+                                                                                                                                  "SignalMessage"),
+                                                                                                                       Ebms3SignalMessage.class)).setFormattedOutput (true)
+                                                                                                                                                 .getAsString (aResponseMsg.get ());
+            if (StringHelper.hasText (sSignalMessage))
+            {
+              // Show payload
+              aNL.addChild (div ("Response ebMS Signal Message"));
+              aNL.addChild (new BootstrapPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ())
+                                                                        .addChild (sSignalMessage));
+              bShowRaw = false;
+            }
           }
-          else
-            if (aResponseBytes.isSet ())
+          if (aResponseBytes.isSet ())
+          {
+            if (bShowRaw)
             {
               aNL.addChild (div ("Response message - NOT a valid response"));
               aNL.addChild (new BootstrapPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ())
                                                                         .addChild (new String (aResponseBytes.get (),
                                                                                                StandardCharsets.UTF_8)));
             }
-            else
+            // Else already shown above
+          }
+          else
+          {
+            if (eResult.isSuccess ())
               aNL.addChild (error ("Received no response content :("));
+          }
         }
         catch (final SMPDNSResolutionException ex)
         {
