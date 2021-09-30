@@ -219,6 +219,9 @@ public class WSDVS implements WSDVSPort
       if (aVES == null)
         _throw ("Unsupported VESID " + aVESID.getAsSingleID () + " provided!");
 
+      if (aVES.isDeprecated ())
+        LOGGER.warn ("  VESID '" + aVESID.getAsSingleID () + "' is deprecated");
+
       Document aXMLDoc = null;
       try
       {
