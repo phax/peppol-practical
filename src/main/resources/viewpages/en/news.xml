@@ -39,6 +39,24 @@
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
 
+    <h3>2021-10-30 - phoss SMP 5.4.1</h3>
+    
+    <p>
+      phoss SMP 5.4.1 was released. 
+      This is a bugfix release without new features.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-5.4.1">Download phoss SMP 5.4.1</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
+    <h3>2021-10-14 - Updated CII to UBL conversion</h3>
+    <p>
+      Updated to version 1.4.4 of the conversion rules. This improves the handling of Credit Notes.
+      <a href="/public/menuitem-tools-rest-api#cii2ubl">See the API description</a>.
+    </p>
+
     <h3>2021-09-19 - phoss SMP 5.4.0</h3>
     
     <p>
