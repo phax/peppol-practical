@@ -66,13 +66,7 @@
     <m2e.jpa.activation>false</m2e.jpa.activation>
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
-    <jaxws-plugin.version>2.3.3</jaxws-plugin.version>
-    <!--
-    <jaxws-plugin.group>org.codehaus.mojo</jaxws-plugin.group>
-    <jaxws-plugin.version>2.5</jaxws-plugin.version>
-    <jaxws-plugin.group>com.helger.maven</jaxws-plugin.group>
-    <jaxws-plugin.version>2.6.1</jaxws-plugin.version>
-    -->
+    <jaxws-plugin.version>2.3.5</jaxws-plugin.version>
     <!-- For surefire plugin (use property for JaCoCo integration -->
     <argLine>-Xmx1024m</argLine>
   </properties>
@@ -138,7 +132,7 @@
       <dependency>
         <groupId>com.helger.schematron</groupId>
         <artifactId>ph-schematron-parent-pom</artifactId>
-        <version>6.2.3</version>
+        <version>6.2.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -166,7 +160,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>phoss-directory-parent-pom</artifactId>
-        <version>0.9.6-SNAPSHOT</version>
+        <version>0.9.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
