@@ -280,7 +280,7 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
                                                                          .senderPartyID ("POP000306")
                                                                          .payload (aAS4PayloadBytes)
                                                                          .smpClient (aSMPClient)
-                                                                         .endointURLConsumer (aEndpointURL::set)
+                                                                         .endpointURLConsumer (aEndpointURL::set)
                                                                          .certificateConsumer ( (cert, dt, res) -> {
                                                                            aEndpointCert.set (cert);
                                                                            aEndpointCertCheck.set (res);
