@@ -67,6 +67,7 @@
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
     <jaxws-plugin.version>2.3.5</jaxws-plugin.version>
+    <log4j.version>2.15.0</log4j.version>
     <!-- For surefire plugin (use property for JaCoCo integration -->
     <argLine>-Xmx1024m</argLine>
   </properties>
@@ -175,6 +176,27 @@
         <groupId>com.helger</groupId>
         <artifactId>en16931-cii2ubl</artifactId>
         <version>1.4.4</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-web</artifactId>
+        <version>${log4j.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
