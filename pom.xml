@@ -67,7 +67,7 @@
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
     <jaxws-plugin.version>2.3.5</jaxws-plugin.version>
-    <log4j.version>2.16.0</log4j.version>
+    <log4j.version>2.17.0</log4j.version>
     <!-- For surefire plugin (use property for JaCoCo integration -->
     <argLine>-Xmx1024m</argLine>
   </properties>
