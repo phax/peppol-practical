@@ -39,6 +39,40 @@
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
 
+    <h3>2022-01-12 - Document Validation extended</h3>
+ 
+    <p>
+      Added support for Peppol AU-NZ rules 1.0.6.
+      Added support for CIUS-PT rules 2.1.1.
+      Added support for the Peppol Directory BusinessCard formats.
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.6</code> - A-NZ PEPPOL BIS3 CreditNote (UBL) 1.0.6</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.6</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL) 1.0.6</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.6</code> - A-NZ PEPPOL BIS3 Invoice (UBL) 1.0.6</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.6</code> - A-NZ PEPPOL BIS3 Invoice Self-Billing (UBL) 1.0.6</li>
+<li><code>pt.gov.espap.cius-pt:ubl-creditnote:2.1.1</code> - CIUS-PT UBL CrediteNote 2.1.1</li>
+<li><code>pt.gov.espap.cius-pt:ubl-invoice:2.1.1</code> - CIUS-PT UBL Invoice 2.1.1</li>
+<li><code>eu.peppol.directory:businesscard:1.0.0</code> - Peppol Directory BusinessCard v1</li>
+<li><code>eu.peppol.directory:businesscard:2.0.0</code> - Peppol Directory BusinessCard v2</li>
+<li><code>eu.peppol.directory:businesscard:3.0.0</code> - Peppol Directory BusinessCard v3</li>
+</ul>
+
+    <h3>2022-01-12 - phoss SMP 5.5.3 - mitigate CVE-2021-22569</h3>
+    
+    <p>
+      phoss SMP 5.5.3 was released. This is a security release.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-5.5.3">Download phoss SMP 5.5.3</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2021-12-23 - Document Validation extended</h3>
  
     <p>
