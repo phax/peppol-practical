@@ -87,8 +87,8 @@
 </p>
 <ol>
   <li>As the very first step you need to sign the TIAs (Transport Infrastructure Agreements) with 
-      <a href="https://peppol.eu/get-involved/join-openpeppol/">OpenPEPPOL AISBL</a></li>
-  <li>Afterwards you need to apply for an <em>AP certificate</em> at OpenPEPPOL. 
+      <a href="https://peppol.eu/get-involved/join-openpeppol/">OpenPeppol AISBL</a></li>
+  <li>Afterwards you need to apply for an <em>AP certificate</em> at OpenPeppol. 
       This certificate is required to run the AP.</li>
   <li>At least one of the default Peppol BIS v2 (processes) must be implemented (according to the TIAs).
       A list of
@@ -295,7 +295,7 @@
         sender ID. If you are not registered as a sender have a look at the latest
         <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">Peppol policy for use of identifiers</a>
         as well as the
-        <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists">Participant Identifier Scheme code lists</a>
+        <a href="https://github.com/OpenPeppol/documentation/tree/master/Code%20Lists">Participant Identifier Scheme code lists</a>
         and search the VAT scheme suitable for your country (at the end of the list).
         Assuming you are from San Marino and your VAT number is <em>123456</em> than use the following 
         sender ID: <code>9951:123456</code>.   

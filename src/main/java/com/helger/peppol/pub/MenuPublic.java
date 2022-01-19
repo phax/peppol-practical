@@ -171,7 +171,7 @@ public final class MenuPublic
     {
       aMenuTree.createRootItem (CMenuPublic.MENU_PEPPOL_SERVICE_DESK,
                                 new SimpleURL ("https://openpeppol.atlassian.net/servicedesk/customer/portal/1"),
-                                new ConstantHasDisplayText ("OpenPEPPOL Service Desk (external)"));
+                                new ConstantHasDisplayText ("OpenPeppol Service Desk (external)"));
     }
 
     // Set default

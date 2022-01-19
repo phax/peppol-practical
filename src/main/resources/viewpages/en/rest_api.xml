@@ -197,9 +197,9 @@
                 "C":"AT"
               },
               "issuer":{
-                "name":"CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
+                "name":"CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPeppol AISBL,C=BE",
                 "C":"BE",
-                "O":"OpenPEPPOL AISBL",
+                "O":"OpenPeppol AISBL",
                 "OU":"FOR TEST ONLY",
                 "CN":"PEPPOL ACCESS POINT TEST CA - G2"
               },

@@ -33,9 +33,9 @@
 </div>
 
 <p>
-This page explains how to setup an OpenPEPPOL CIPA SMP from scratch.
+This page explains how to setup an OpenPeppol CIPA SMP from scratch.
 SMP is the abbreviation for <em>Service Metadata Publisher</em> which is the decentralized
-directory service of OpenPEPPOL.
+directory service of OpenPeppol.
 SMPs are normally only operated by Service Providers and not by endpoints.
 An SMP contains information about the endpoints of receivers - the URLs where to send the main
 documents to.
@@ -74,8 +74,8 @@ The information within the SMP is structured by participant ID, document type ID
 </p>
 <ol>
   <li>As the very first step you need to sign the TIAs (Transport Infrastructure Agreements) with 
-      <a href="https://peppol.eu/get-involved/join-openpeppol/">OpenPEPPOL AISBL</a></li>
-  <li>Afterwards you need to apply for an <em>SMP certificate</em> at OpenPEPPOL. 
+      <a href="https://peppol.eu/get-involved/join-openpeppol/">OpenPeppol AISBL</a></li>
+  <li>Afterwards you need to apply for an <em>SMP certificate</em> at OpenPeppol. 
       This certificate is required to run the SMP.</li>
   <li>You should have a look at the 
       <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official SMP specifications</a>.

@@ -147,17 +147,17 @@
 <li><code>eu.cen.en16931:cii:1.3.7</code> - EN 16931 CII 1.3.7</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.7</code> - EN 16931 UBL CreditNote 1.3.7</li>
 <li><code>eu.cen.en16931:ubl:1.3.7</code> - EN 16931 UBL Invoice 1.3.7</li>
-<li><code>eu.peppol.bis3:catalogue:3.13.0</code> - OpenPEPPOL Catalogue (3.13.0) (aka BIS 3.0.8)</li>
-<li><code>eu.peppol.bis3:catalogue-response:3.13.0</code> - OpenPEPPOL Catalogue Response (3.13.0) (aka BIS 3.0.8)</li>
-<li><code>eu.peppol.bis3:creditnote:3.13.0</code> - OpenPEPPOL Credit Note (3.13.0) (aka BIS Billing 3.0.12)</li>
-<li><code>eu.peppol.bis3:despatch-advice:3.13.0</code> - OpenPEPPOL Despatch Advice (3.13.0) (aka BIS 3.0.8)</li>
-<li><code>eu.peppol.bis3:invoice:3.13.0</code> - OpenPEPPOL Invoice (3.13.0) (aka BIS Billing 3.0.12)</li>
-<li><code>eu.peppol.bis3:invoice-message-response:3.13.0</code> - OpenPEPPOL Invoice Message Response (3.13.0) (aka BIS 3.0.8)</li>
-<li><code>eu.peppol.bis3:mlr:3.13.0</code> - OpenPEPPOL MLR (3.13.0) (aka BIS 3.0.8)</li>
-<li><code>eu.peppol.bis3:order:3.13.0</code> - OpenPEPPOL Order (3.13.0) (aka BIS 3.0.8)</li>
-<li><code>eu.peppol.bis3:order-agreement:3.13.0</code> - OpenPEPPOL Order Agreement (3.13.0) (aka BIS 3.0.8)</li>
-<li><code>eu.peppol.bis3:order-response:3.13.0</code> - OpenPEPPOL Order Response (3.13.0) (aka BIS 3.0.8)</li>
-<li><code>eu.peppol.bis3:punch-out:3.13.0</code> - OpenPEPPOL Punch Out (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:catalogue:3.13.0</code> - OpenPeppol Catalogue (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:catalogue-response:3.13.0</code> - OpenPeppol Catalogue Response (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:creditnote:3.13.0</code> - OpenPeppol Credit Note (3.13.0) (aka BIS Billing 3.0.12)</li>
+<li><code>eu.peppol.bis3:despatch-advice:3.13.0</code> - OpenPeppol Despatch Advice (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:invoice:3.13.0</code> - OpenPeppol Invoice (3.13.0) (aka BIS Billing 3.0.12)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:3.13.0</code> - OpenPeppol Invoice Message Response (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:mlr:3.13.0</code> - OpenPeppol MLR (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:order:3.13.0</code> - OpenPeppol Order (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:order-agreement:3.13.0</code> - OpenPeppol Order Agreement (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:order-response:3.13.0</code> - OpenPeppol Order Response (3.13.0) (aka BIS 3.0.8)</li>
+<li><code>eu.peppol.bis3:punch-out:3.13.0</code> - OpenPeppol Punch Out (3.13.0) (aka BIS 3.0.8)</li>
 </ul>
 
     <h3>2021-11-01 - Peppol PoAC Fall Release 2021 published</h3>
@@ -306,17 +306,17 @@
       Added VESIDs are:
     </p>
 <ul>
-<li><code>eu.peppol.bis3:catalogue:3.12.0</code> - OpenPEPPOL Catalogue (3.12.0) (aka BIS 3.0.7)</li>
-<li><code>eu.peppol.bis3:catalogue-response:3.12.0</code> - OpenPEPPOL Catalogue Response (3.12.0) (aka BIS 3.0.7)</li>
-<li><code>eu.peppol.bis3:creditnote:3.12.0</code> - OpenPEPPOL Credit Note (3.12.0) (aka BIS Billing 3.0.10)</li>
-<li><code>eu.peppol.bis3:despatch-advice:3.12.0</code> - OpenPEPPOL Despatch Advice (3.12.0) (aka BIS 3.0.7)</li>
-<li><code>eu.peppol.bis3:invoice:3.12.0</code> - OpenPEPPOL Invoice (3.12.0) (aka BIS Billing 3.0.10)</li>
-<li><code>eu.peppol.bis3:invoice-message-response:3.12.0</code> - OpenPEPPOL Invoice Message Response (3.12.0) (aka BIS 3.0.7)</li>
-<li><code>eu.peppol.bis3:mlr:3.12.0</code> - OpenPEPPOL MLR (3.12.0) (aka BIS 3.0.7)</li>
-<li><code>eu.peppol.bis3:order:3.12.0</code> - OpenPEPPOL Order (3.12.0) (aka BIS 3.0.7)</li>
-<li><code>eu.peppol.bis3:order-agreement:3.12.0</code> - OpenPEPPOL Order Agreement (3.12.0) (aka BIS 3.0.7)</li>
-<li><code>eu.peppol.bis3:order-response:3.12.0</code> - OpenPEPPOL Order Response (3.12.0) (aka BIS 3.0.7)</li>
-<li><code>eu.peppol.bis3:punch-out:3.12.0</code> - OpenPEPPOL Punch Out (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:catalogue:3.12.0</code> - OpenPeppol Catalogue (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:catalogue-response:3.12.0</code> - OpenPeppol Catalogue Response (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:creditnote:3.12.0</code> - OpenPeppol Credit Note (3.12.0) (aka BIS Billing 3.0.10)</li>
+<li><code>eu.peppol.bis3:despatch-advice:3.12.0</code> - OpenPeppol Despatch Advice (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:invoice:3.12.0</code> - OpenPeppol Invoice (3.12.0) (aka BIS Billing 3.0.10)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:3.12.0</code> - OpenPeppol Invoice Message Response (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:mlr:3.12.0</code> - OpenPeppol MLR (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:order:3.12.0</code> - OpenPeppol Order (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:order-agreement:3.12.0</code> - OpenPeppol Order Agreement (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:order-response:3.12.0</code> - OpenPeppol Order Response (3.12.0) (aka BIS 3.0.7)</li>
+<li><code>eu.peppol.bis3:punch-out:3.12.0</code> - OpenPeppol Punch Out (3.12.0) (aka BIS 3.0.7)</li>
 </ul>
 
     <h3>2021-04-03 - Document Validation extended</h3>
@@ -523,17 +523,17 @@
       Added VESIDs are:
     </p>
 <ul>
-<li><code>eu.peppol.bis3:catalogue:3.11.1</code> - OpenPEPPOL Catalogue (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
-<li><code>eu.peppol.bis3:catalogue-response:3.11.1</code> - OpenPEPPOL Catalogue Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
-<li><code>eu.peppol.bis3:creditnote:3.11.1</code> - OpenPEPPOL Credit Note (3.11.1) (aka BIS Billing 3.0.8 corrigendum)</li>
-<li><code>eu.peppol.bis3:despatch-advice:3.11.1</code> - OpenPEPPOL Despatch Advice (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
-<li><code>eu.peppol.bis3:invoice:3.11.1</code> - OpenPEPPOL Invoice (3.11.1) (aka BIS Billing 3.0.8 corrigendum)</li>
-<li><code>eu.peppol.bis3:invoice-message-response:3.11.1</code> - OpenPEPPOL Invoice Message Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
-<li><code>eu.peppol.bis3:mlr:3.11.1</code> - OpenPEPPOL MLR (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
-<li><code>eu.peppol.bis3:order:3.11.1</code> - OpenPEPPOL Order (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
-<li><code>eu.peppol.bis3:order-agreement:3.11.1</code> - OpenPEPPOL Order Agreement (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
-<li><code>eu.peppol.bis3:order-response:3.11.1</code> - OpenPEPPOL Order Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
-<li><code>eu.peppol.bis3:punch-out:3.11.1</code> - OpenPEPPOL Punch Out (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:catalogue:3.11.1</code> - OpenPeppol Catalogue (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:catalogue-response:3.11.1</code> - OpenPeppol Catalogue Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:creditnote:3.11.1</code> - OpenPeppol Credit Note (3.11.1) (aka BIS Billing 3.0.8 corrigendum)</li>
+<li><code>eu.peppol.bis3:despatch-advice:3.11.1</code> - OpenPeppol Despatch Advice (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:invoice:3.11.1</code> - OpenPeppol Invoice (3.11.1) (aka BIS Billing 3.0.8 corrigendum)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:3.11.1</code> - OpenPeppol Invoice Message Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:mlr:3.11.1</code> - OpenPeppol MLR (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:order:3.11.1</code> - OpenPeppol Order (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:order-agreement:3.11.1</code> - OpenPeppol Order Agreement (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:order-response:3.11.1</code> - OpenPeppol Order Response (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
+<li><code>eu.peppol.bis3:punch-out:3.11.1</code> - OpenPeppol Punch Out (3.11.1) (aka BIS 3.0.5 corrigendum)</li>
 </ul>
 
     <h3>2020-11-12 - Document Validation extended</h3>
@@ -568,17 +568,17 @@
       Added VESIDs are:
     </p>
     <ul>
-<li><code>eu.peppol.bis3:catalogue:3.11.0</code> - OpenPEPPOL Catalogue (3.11.0) (aka BIS 3.0.5)</li>
-<li><code>eu.peppol.bis3:catalogue-response:3.11.0</code> - OpenPEPPOL Catalogue Response (3.11.0) (aka BIS 3.0.5)</li>
-<li><code>eu.peppol.bis3:creditnote:3.11.0</code> - OpenPEPPOL Credit Note (3.11.0) (aka BIS Billing 3.0.8)</li>
-<li><code>eu.peppol.bis3:despatch-advice:3.11.0</code> - OpenPEPPOL Despatch Advice (3.11.0) (aka BIS 3.0.5)</li>
-<li><code>eu.peppol.bis3:invoice:3.11.0</code> - OpenPEPPOL Invoice (3.11.0) (aka BIS Billing 3.0.8)</li>
-<li><code>eu.peppol.bis3:invoice-message-response:3.11.0</code> - OpenPEPPOL Invoice Message Response (3.11.0) (aka BIS 3.0.5)</li>
-<li><code>eu.peppol.bis3:mlr:3.11.0</code> - OpenPEPPOL MLR (3.11.0) (aka BIS 3.0.5)</li>
-<li><code>eu.peppol.bis3:order:3.11.0</code> - OpenPEPPOL Order (3.11.0) (aka BIS 3.0.5)</li>
-<li><code>eu.peppol.bis3:order-agreement:3.11.0</code> - OpenPEPPOL Order Agreement (3.11.0) (aka BIS 3.0.5)</li>
-<li><code>eu.peppol.bis3:order-response:3.11.0</code> - OpenPEPPOL Order Response (3.11.0) (aka BIS 3.0.5)</li>
-<li><code>eu.peppol.bis3:punch-out:3.11.0</code> - OpenPEPPOL Punch Out (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:catalogue:3.11.0</code> - OpenPeppol Catalogue (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:catalogue-response:3.11.0</code> - OpenPeppol Catalogue Response (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:creditnote:3.11.0</code> - OpenPeppol Credit Note (3.11.0) (aka BIS Billing 3.0.8)</li>
+<li><code>eu.peppol.bis3:despatch-advice:3.11.0</code> - OpenPeppol Despatch Advice (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:invoice:3.11.0</code> - OpenPeppol Invoice (3.11.0) (aka BIS Billing 3.0.8)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:3.11.0</code> - OpenPeppol Invoice Message Response (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:mlr:3.11.0</code> - OpenPeppol MLR (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:order:3.11.0</code> - OpenPeppol Order (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:order-agreement:3.11.0</code> - OpenPeppol Order Agreement (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:order-response:3.11.0</code> - OpenPeppol Order Response (3.11.0) (aka BIS 3.0.5)</li>
+<li><code>eu.peppol.bis3:punch-out:3.11.0</code> - OpenPeppol Punch Out (3.11.0) (aka BIS 3.0.5)</li>
 <li><code>de.xrechnung:cii:2.0.0</code> - XRechnung CII 2.0.0</li>
 <li><code>de.xrechnung:ubl-creditnote:2.0.0</code> - XRechnung UBL CrediteNote 2.0.0</li>
 <li><code>de.xrechnung:ubl-invoice:2.0.0</code> - XRechnung UBL Invoice 2.0.0</li>
@@ -697,17 +697,17 @@
       Added VESIDs are:
     </p>
     <ul>
-<li><code>eu.peppol.bis3:catalogue:3.10.1</code> - OpenPEPPOL Catalogue (3.10.1) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:catalogue-response:3.10.1</code> - OpenPEPPOL Catalogue Response (3.10.1) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:creditnote:3.10.1</code> - OpenPEPPOL Credit Note (3.10.1) (aka BIS Billing 3.0.6 + Hotfix)</li>
-<li><code>eu.peppol.bis3:despatch-advice:3.10.1</code> - OpenPEPPOL Despatch Advice (3.10.1) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:invoice:3.10.1</code> - OpenPEPPOL Invoice (3.10.1) (aka BIS Billing 3.0.6 + Hotfix)</li>
-<li><code>eu.peppol.bis3:invoice-message-response:3.10.1</code> - OpenPEPPOL Invoice Message Response (3.10.1) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:mlr:3.10.1</code> - OpenPEPPOL MLR (3.10.1) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:order:3.10.1</code> - OpenPEPPOL Order (3.10.1) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:order-agreement:3.10.1</code> - OpenPEPPOL Order Agreement (3.10.1) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:order-response:3.10.1</code> - OpenPEPPOL Order Response (3.10.1) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:punch-out:3.10.1</code> - OpenPEPPOL Punch Out (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:catalogue:3.10.1</code> - OpenPeppol Catalogue (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:catalogue-response:3.10.1</code> - OpenPeppol Catalogue Response (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:creditnote:3.10.1</code> - OpenPeppol Credit Note (3.10.1) (aka BIS Billing 3.0.6 + Hotfix)</li>
+<li><code>eu.peppol.bis3:despatch-advice:3.10.1</code> - OpenPeppol Despatch Advice (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:invoice:3.10.1</code> - OpenPeppol Invoice (3.10.1) (aka BIS Billing 3.0.6 + Hotfix)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:3.10.1</code> - OpenPeppol Invoice Message Response (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:mlr:3.10.1</code> - OpenPeppol MLR (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:order:3.10.1</code> - OpenPeppol Order (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:order-agreement:3.10.1</code> - OpenPeppol Order Agreement (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:order-response:3.10.1</code> - OpenPeppol Order Response (3.10.1) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:punch-out:3.10.1</code> - OpenPeppol Punch Out (3.10.1) (aka BIS 3.0.4)</li>
     </ul>
   
     <h3>2020-06-09 - Document Validation - EHF G3 added</h3>
@@ -764,21 +764,21 @@
     </p>
     <ul>
 <li><code>at.ebinterface:invoice:6.0</code> - ebInterface 6.0</li>
-<li><code>eu.peppol.bis2:t10:6:at</code> - OpenPEPPOL Invoice (Austria)</li>
-<li><code>eu.peppol.bis2:t10:8:at-gov</code> - OpenPEPPOL Invoice (Austrian Government)</li>
-<li><code>eu.peppol.bis2:t14:6:at</code> - OpenPEPPOL Credit Note (Austria)</li>
-<li><code>eu.peppol.bis2:t14:8:at-gov</code> - OpenPEPPOL Credit Note (Austrian Government)</li>
-<li><code>eu.peppol.bis3:creditnote:3.10.0</code> - OpenPEPPOL Credit Note (3.10.0) (aka BIS Billing 3.0.6)</li>
-<li><code>eu.peppol.bis3:invoice:3.10.0</code> - OpenPEPPOL Invoice (3.10.0) (aka BIS Billing 3.0.6)</li>
-<li><code>eu.peppol.bis3:t01:3.10.0</code> - OpenPEPPOL Order (3.10.0) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:t110:3.10.0</code> - OpenPEPPOL Order Agreement (3.10.0) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:t111:3.10.0</code> - OpenPEPPOL Invoice Message Response (3.10.0) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:t16:3.10.0</code> - OpenPEPPOL Despatch Advice (3.10.0) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:t19:3.10.0</code> - OpenPEPPOL Catalogue (3.10.0) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:t58:3.10.0</code> - OpenPEPPOL Catalogue Response (3.10.0) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:t71:3.10.0</code> - OpenPEPPOL MLR (3.10.0) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:t76:3.10.0</code> - OpenPEPPOL Order Response (3.10.0) (aka BIS 3.0.4)</li>
-<li><code>eu.peppol.bis3:t77:3.10.0</code> - OpenPEPPOL Punch Out (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis2:t10:6:at</code> - OpenPeppol Invoice (Austria)</li>
+<li><code>eu.peppol.bis2:t10:8:at-gov</code> - OpenPeppol Invoice (Austrian Government)</li>
+<li><code>eu.peppol.bis2:t14:6:at</code> - OpenPeppol Credit Note (Austria)</li>
+<li><code>eu.peppol.bis2:t14:8:at-gov</code> - OpenPeppol Credit Note (Austrian Government)</li>
+<li><code>eu.peppol.bis3:creditnote:3.10.0</code> - OpenPeppol Credit Note (3.10.0) (aka BIS Billing 3.0.6)</li>
+<li><code>eu.peppol.bis3:invoice:3.10.0</code> - OpenPeppol Invoice (3.10.0) (aka BIS Billing 3.0.6)</li>
+<li><code>eu.peppol.bis3:t01:3.10.0</code> - OpenPeppol Order (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:t110:3.10.0</code> - OpenPeppol Order Agreement (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:t111:3.10.0</code> - OpenPeppol Invoice Message Response (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:t16:3.10.0</code> - OpenPeppol Despatch Advice (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:t19:3.10.0</code> - OpenPeppol Catalogue (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:t58:3.10.0</code> - OpenPeppol Catalogue Response (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:t71:3.10.0</code> - OpenPeppol MLR (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:t76:3.10.0</code> - OpenPeppol Order Response (3.10.0) (aka BIS 3.0.4)</li>
+<li><code>eu.peppol.bis3:t77:3.10.0</code> - OpenPeppol Punch Out (3.10.0) (aka BIS 3.0.4)</li>
     </ul>
 
 
@@ -862,7 +862,7 @@
     <h3>2020-02-11 - Document Validation - Peppol Hotfix added, EHF G2 updated</h3>
     
     <p>
-      Added support for OpenPEPPOL 3.9.1 validation rules - the changes are only in Invoice and CreditNote.
+      Added support for OpenPeppol 3.9.1 validation rules - the changes are only in Invoice and CreditNote.
       Updated to the latest EHF G2 validation rules.
     </p>
     
@@ -870,17 +870,17 @@
       Added VESIDs are:
     </p>
     <ul>
-<li><code>eu.peppol.bis3:creditnote:3.9.1</code> - OpenPEPPOL Credit Note (3.9.1) (aka BIS Billing 3.0.5 + Hotfix)</li>
-<li><code>eu.peppol.bis3:invoice:3.9.1</code> - OpenPEPPOL Invoice (3.9.1) (aka BIS Billing 3.0.5 + Hotfix)</li>
-<li><code>eu.peppol.bis3:t01:3.9.1</code> - OpenPEPPOL Order (3.9.1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t110:3.9.1</code> - OpenPEPPOL Order Agreement (3.9.1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t111:3.9.1</code> - OpenPEPPOL Invoice Message Response (3.9.1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t16:3.9.1</code> - OpenPEPPOL Despatch Advice (3.9.1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t19:3.9.1</code> - OpenPEPPOL Catalogue (3.9.1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t58:3.9.1</code> - OpenPEPPOL Catalogue Response (3.9.1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t71:3.9.1</code> - OpenPEPPOL MLR (3.9.1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t76:3.9.1</code> - OpenPEPPOL Order Response (3.9.1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t77:3.9.1</code> - OpenPEPPOL Punch Out (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:creditnote:3.9.1</code> - OpenPeppol Credit Note (3.9.1) (aka BIS Billing 3.0.5 + Hotfix)</li>
+<li><code>eu.peppol.bis3:invoice:3.9.1</code> - OpenPeppol Invoice (3.9.1) (aka BIS Billing 3.0.5 + Hotfix)</li>
+<li><code>eu.peppol.bis3:t01:3.9.1</code> - OpenPeppol Order (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t110:3.9.1</code> - OpenPeppol Order Agreement (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t111:3.9.1</code> - OpenPeppol Invoice Message Response (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t16:3.9.1</code> - OpenPeppol Despatch Advice (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t19:3.9.1</code> - OpenPeppol Catalogue (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t58:3.9.1</code> - OpenPeppol Catalogue Response (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t71:3.9.1</code> - OpenPeppol MLR (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t76:3.9.1</code> - OpenPeppol Order Response (3.9.1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t77:3.9.1</code> - OpenPeppol Punch Out (3.9.1) (aka BIS 3.0.3)</li>
 <li><code>no.ehf:catalogue:1.0.15</code> - EHF Catalogue 1.0.15</li>
 <li><code>no.ehf:catalogue-response:1.0.15</code> - EHF Catalogue Response 1.0.15</li>
 <li><code>no.ehf:creditnote:2.0.17</code> - EHF Creditnote 2.0.17</li>
@@ -915,7 +915,7 @@
     </p>
     <ul>
       <li><a href="https://docs.peppol.eu/edelivery/as4/specification/">Peppol AS4 profile v2</a></li>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-AS2-Profile-2.0-2019-03-14.pdf">Peppol AS2 profile v2</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-AS2-Profile-2.0-2019-03-14.pdf">Peppol AS2 profile v2</a></li>
     </ul>
   
     <h3>2020-01-24 - phoss SMP 5.2.1</h3>
@@ -1044,17 +1044,17 @@
       Updated VESIDs are:
     </p>
     <ul>
-<li><code>eu.peppol.bis3:creditnote:3.9.0</code> - OpenPEPPOL Credit Note (3.9.0) (aka BIS Billing 3.0.5)</li>
-<li><code>eu.peppol.bis3:invoice:3.9.0</code> - OpenPEPPOL Invoice (3.9.0) (aka BIS Billing 3.0.5)</li>
-<li><code>eu.peppol.bis3:t01:3.9.0</code> - OpenPEPPOL Order (3.9.0) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t110:3.9.0</code> - OpenPEPPOL Order Agreement (3.9.0) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t111:3.9.0</code> - OpenPEPPOL Invoice Message Response (3.9.0) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t16:3.9.0</code> - OpenPEPPOL Despatch Advice (3.9.0) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t19:3.9.0</code> - OpenPEPPOL Catalogue (3.9.0) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t58:3.9.0</code> - OpenPEPPOL Catalogue Response (3.9.0) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t71:3.9.0</code> - OpenPEPPOL MLR (3.9.0) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t76:3.9.0</code> - OpenPEPPOL Order Response (3.9.0) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t77:3.9.0</code> - OpenPEPPOL Punch Out (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:creditnote:3.9.0</code> - OpenPeppol Credit Note (3.9.0) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:invoice:3.9.0</code> - OpenPeppol Invoice (3.9.0) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:t01:3.9.0</code> - OpenPeppol Order (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t110:3.9.0</code> - OpenPeppol Order Agreement (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t111:3.9.0</code> - OpenPeppol Invoice Message Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t16:3.9.0</code> - OpenPeppol Despatch Advice (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t19:3.9.0</code> - OpenPeppol Catalogue (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t58:3.9.0</code> - OpenPeppol Catalogue Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t71:3.9.0</code> - OpenPeppol MLR (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t76:3.9.0</code> - OpenPeppol Order Response (3.9.0) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t77:3.9.0</code> - OpenPeppol Punch Out (3.9.0) (aka BIS 3.0.3)</li>
     </ul>
 
     <h3>2019-10-31 - Minor update</h3>
@@ -1077,17 +1077,17 @@
       New VESIDs are:
     </p>
     <ul>
-<li><code>eu.peppol.bis3:creditnote:3.9.0-rc1</code> - OpenPEPPOL Credit Note (3.9.0-rc1) (aka BIS Billing 3.0.5)</li>
-<li><code>eu.peppol.bis3:invoice:3.9.0-rc1</code> - OpenPEPPOL Invoice (3.9.0-rc1) (aka BIS Billing 3.0.5)</li>
-<li><code>eu.peppol.bis3:t01:3.9.0-rc1</code> - OpenPEPPOL Order (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t110:3.9.0-rc1</code> - OpenPEPPOL Order Agreement (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t111:3.9.0-rc1</code> - OpenPEPPOL Invoice Message Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t16:3.9.0-rc1</code> - OpenPEPPOL Despatch Advice (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t19:3.9.0-rc1</code> - OpenPEPPOL Catalogue (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t58:3.9.0-rc1</code> - OpenPEPPOL Catalogue Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t71:3.9.0-rc1</code> - OpenPEPPOL MLR (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t76:3.9.0-rc1</code> - OpenPEPPOL Order Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
-<li><code>eu.peppol.bis3:t77:3.9.0-rc1</code> - OpenPEPPOL Punch Out (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:creditnote:3.9.0-rc1</code> - OpenPeppol Credit Note (3.9.0-rc1) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:invoice:3.9.0-rc1</code> - OpenPeppol Invoice (3.9.0-rc1) (aka BIS Billing 3.0.5)</li>
+<li><code>eu.peppol.bis3:t01:3.9.0-rc1</code> - OpenPeppol Order (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t110:3.9.0-rc1</code> - OpenPeppol Order Agreement (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t111:3.9.0-rc1</code> - OpenPeppol Invoice Message Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t16:3.9.0-rc1</code> - OpenPeppol Despatch Advice (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t19:3.9.0-rc1</code> - OpenPeppol Catalogue (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t58:3.9.0-rc1</code> - OpenPeppol Catalogue Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t71:3.9.0-rc1</code> - OpenPeppol MLR (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t76:3.9.0-rc1</code> - OpenPeppol Order Response (3.9.0-rc1) (aka BIS 3.0.3)</li>
+<li><code>eu.peppol.bis3:t77:3.9.0-rc1</code> - OpenPeppol Punch Out (3.9.0-rc1) (aka BIS 3.0.3)</li>
 <li><code>eu.peppol.bis3.aunz.ubl:credit-note:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote (UBL)</li>
 <li><code>eu.peppol.bis3.aunz.ubl:credit-note-self-billing:1.0.1</code> - A-NZ PEPPOL BIS3 CreditNote Self-Billing (UBL)</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code> - A-NZ PEPPOL BIS3 Invoice (UBL)</li>
@@ -1146,7 +1146,7 @@
     <h3>2019-07-21 - Document validation extended</h3>
     
     <p>
-      The new OpenPEPPOL validation artefacts (v3.8.1) that will be mandatory from August 15th are now contained.
+      The new OpenPeppol validation artefacts (v3.8.1) that will be mandatory from August 15th are now contained.
       Also SimplerInvoicing validation artefacts were updated. 
     </p>
     <ul>
@@ -1157,17 +1157,17 @@
       New VESIDs are:
     </p>
     <ul>
-<li><code>eu.peppol.bis3:creditnote:3.8.1</code> - OpenPEPPOL Credit Note (3.8.1)</li>
-<li><code>eu.peppol.bis3:invoice:3.8.1</code> - OpenPEPPOL Invoice (3.8.1)</li>
-<li><code>eu.peppol.bis3:t01:3.8.1</code> - OpenPEPPOL Order (3.8.1)</li>
-<li><code>eu.peppol.bis3:t110:3.8.1</code> - OpenPEPPOL Order Agreement (3.8.1)</li>
-<li><code>eu.peppol.bis3:t111:3.8.1</code> - OpenPEPPOL Invoice Message Response (3.8.1)</li>
-<li><code>eu.peppol.bis3:t16:3.8.1</code> - OpenPEPPOL Despatch Advice (3.8.1)</li>
-<li><code>eu.peppol.bis3:t19:3.8.1</code> - OpenPEPPOL Catalogue (3.8.1)</li>
-<li><code>eu.peppol.bis3:t58:3.8.1</code> - OpenPEPPOL Catalogue Response (3.8.1)</li>
-<li><code>eu.peppol.bis3:t71:3.8.1</code> - OpenPEPPOL MLR (3.8.1)</li>
-<li><code>eu.peppol.bis3:t76:3.8.1</code> - OpenPEPPOL Order Response (3.8.1)</li>
-<li><code>eu.peppol.bis3:t77:3.8.1</code> - OpenPEPPOL Punch Out (3.8.1)</li>
+<li><code>eu.peppol.bis3:creditnote:3.8.1</code> - OpenPeppol Credit Note (3.8.1)</li>
+<li><code>eu.peppol.bis3:invoice:3.8.1</code> - OpenPeppol Invoice (3.8.1)</li>
+<li><code>eu.peppol.bis3:t01:3.8.1</code> - OpenPeppol Order (3.8.1)</li>
+<li><code>eu.peppol.bis3:t110:3.8.1</code> - OpenPeppol Order Agreement (3.8.1)</li>
+<li><code>eu.peppol.bis3:t111:3.8.1</code> - OpenPeppol Invoice Message Response (3.8.1)</li>
+<li><code>eu.peppol.bis3:t16:3.8.1</code> - OpenPeppol Despatch Advice (3.8.1)</li>
+<li><code>eu.peppol.bis3:t19:3.8.1</code> - OpenPeppol Catalogue (3.8.1)</li>
+<li><code>eu.peppol.bis3:t58:3.8.1</code> - OpenPeppol Catalogue Response (3.8.1)</li>
+<li><code>eu.peppol.bis3:t71:3.8.1</code> - OpenPeppol MLR (3.8.1)</li>
+<li><code>eu.peppol.bis3:t76:3.8.1</code> - OpenPeppol Order Response (3.8.1)</li>
+<li><code>eu.peppol.bis3:t77:3.8.1</code> - OpenPeppol Punch Out (3.8.1)</li>
 <li><code>org.simplerinvoicing:invoice:1.0</code> - Simplerinvoicing Invoice 1.0 <strong>(Deprecated)</strong></li>
     </ul>
     
@@ -1283,17 +1283,17 @@
       New VESIDs are:
     </p>
     <ul>
-<li><code>eu.peppol.bis3:creditnote:3.8.0</code> - OpenPEPPOL Credit Note (3.8.0)</li>
-<li><code>eu.peppol.bis3:invoice:3.8.0</code> - OpenPEPPOL Invoice (3.8.0)</li>
-<li><code>eu.peppol.bis3:t01:3.8.0</code> - OpenPEPPOL Order (3.8.0)</li>
-<li><code>eu.peppol.bis3:t110:3.8.0</code> - OpenPEPPOL Order Agreement (3.8.0)</li>
-<li><code>eu.peppol.bis3:t111:3.8.0</code> - OpenPEPPOL Invoice Message Response (3.8.0)</li>
-<li><code>eu.peppol.bis3:t16:3.8.0</code> - OpenPEPPOL Despatch Advice (3.8.0)</li>
-<li><code>eu.peppol.bis3:t19:3.8.0</code> - OpenPEPPOL Catalogue (3.8.0)</li>
-<li><code>eu.peppol.bis3:t58:3.8.0</code> - OpenPEPPOL Catalogue Response (3.8.0)</li>
-<li><code>eu.peppol.bis3:t71:3.8.0</code> - OpenPEPPOL MLR (3.8.0)</li>
-<li><code>eu.peppol.bis3:t76:3.8.0</code> - OpenPEPPOL Order Response (3.8.0)</li>
-<li><code>eu.peppol.bis3:t77:3.8.0</code> - OpenPEPPOL Punch Out (3.8.0)</li>
+<li><code>eu.peppol.bis3:creditnote:3.8.0</code> - OpenPeppol Credit Note (3.8.0)</li>
+<li><code>eu.peppol.bis3:invoice:3.8.0</code> - OpenPeppol Invoice (3.8.0)</li>
+<li><code>eu.peppol.bis3:t01:3.8.0</code> - OpenPeppol Order (3.8.0)</li>
+<li><code>eu.peppol.bis3:t110:3.8.0</code> - OpenPeppol Order Agreement (3.8.0)</li>
+<li><code>eu.peppol.bis3:t111:3.8.0</code> - OpenPeppol Invoice Message Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t16:3.8.0</code> - OpenPeppol Despatch Advice (3.8.0)</li>
+<li><code>eu.peppol.bis3:t19:3.8.0</code> - OpenPeppol Catalogue (3.8.0)</li>
+<li><code>eu.peppol.bis3:t58:3.8.0</code> - OpenPeppol Catalogue Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t71:3.8.0</code> - OpenPeppol MLR (3.8.0)</li>
+<li><code>eu.peppol.bis3:t76:3.8.0</code> - OpenPeppol Order Response (3.8.0)</li>
+<li><code>eu.peppol.bis3:t77:3.8.0</code> - OpenPeppol Punch Out (3.8.0)</li>
     </ul>
    
     <h3>2019-05-14 - Document validation extended</h3>
@@ -1376,13 +1376,13 @@
       <li><a href="http://docs.peppol.eu/poacc/billing/3.0/migration/">Official BIS Billing v3 migration plan</a></li>
     </ul>
 
-    <h3>2019-03-27 - 11<sup>th</sup> OpenPEPPOL General Assembly in Brussels</h3>
+    <h3>2019-03-27 - 11<sup>th</sup> OpenPeppol General Assembly in Brussels</h3>
     
     <p>
       The GA took place on March 27<sup>th</sup> from 09:00 till 12:30.
       The rest of Tuesday and Wednesday is filled with CC member meetings.
       The new PEPPOL Authorities Singapore and Australia were presented, we even had visitors from the US.
-      Additionally OpenPEPPOL and GS1 signed a Memorandum of Understanding to generate further benefits for their users.
+      Additionally OpenPeppol and GS1 signed a Memorandum of Understanding to generate further benefits for their users.
     </p>
     <ul>
       <li><a href="https://peppol.eu/event/openpeppol-11th-general-assembly-march-27th-2019/">GA invitation</a></li>
@@ -1435,9 +1435,9 @@
       The details of this transition period are currently worked on.
     </p>
     <ul>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf">PEPPOL Policy for use of identifier v3.2</a></li>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf">PEPPOL Policy for use of identifier v4.0</a></li>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-AS2-Profile-1.2-2019-01-28.pdf">AS2 profile 1.2</a> for preparation</li>
+      <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf">PEPPOL Policy for use of identifier v3.2</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf">PEPPOL Policy for use of identifier v4.0</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-AS2-Profile-1.2-2019-01-28.pdf">AS2 profile 1.2</a> for preparation</li>
       <li><a href="https://peppol.eu/release-of-peppol-as2-v-1-2-specification-and-peppol-policy-for-use-of-identifiers-v-4/">News item</a></li>
     </ul>
 
@@ -1463,8 +1463,8 @@
       Because of external time constraints we cannot make the review period any longer. 
     </p>
     <ul>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists">The folder containing the code list Excel files</a></li>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL%20Policy%20for%20use%20of%20identifiers%20v4.0%20Public%20Review%20Draft%201.pdf">PEPPOL Policy for use of identifier v4 PRD1</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/tree/master/Code%20Lists">The folder containing the code list Excel files</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/PEPPOL%20Policy%20for%20use%20of%20identifiers%20v4.0%20Public%20Review%20Draft%201.pdf">PEPPOL Policy for use of identifier v4 PRD1</a></li>
     </ul>
 
     <h3>2019-01-16 - Document validation updated</h3>
@@ -1517,7 +1517,7 @@
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
     </ul>
     
-    <h3>2018-10-30 - 10<sup>th</sup> OpenPEPPOL General Assembly in Brussels</h3>
+    <h3>2018-10-30 - 10<sup>th</sup> OpenPeppol General Assembly in Brussels</h3>
     
     <p>
       The next OpenEPPOL event in Brussels is the 10<sup>th</sup> GA as well as a set of
@@ -1529,27 +1529,27 @@
       <li><a href="https://peppol.eu/event/invitation-to-the-openpeppol-cc-member-meetings-brussels-30-and-31-october-2018/">CC member meetings invitation</a></li>
     </ul>
 
-    <h3>2018-09-28 - OpenPEPPOL Envelope specification 1.1.1 was released</h3>
+    <h3>2018-09-28 - OpenPeppol Envelope specification 1.1.1 was released</h3>
     
     <p>
-      The new version of the OpenPEPPOL Standard Business Document Header (SBDH) specification was released
+      The new version of the OpenPeppol Standard Business Document Header (SBDH) specification was released
       and is in effect immediately. It fixes a minor glitch in the 1.1 version. 
     </p>
     <ul>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-111_2018-09-28.pdf">Download the specification PDF</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPeppol-Envelope_Specification-111_2018-09-28.pdf">Download the specification PDF</a></li>
       <li><a href="https://peppol.eu/release-sbdh-v-1-1-1-specification/">News item</a></li>
     </ul>
 
-    <h3>2018-09-18 - OpenPEPPOL Envelope specification 1.1 was released</h3>
+    <h3>2018-09-18 - OpenPeppol Envelope specification 1.1 was released</h3>
     
     <p>
-      The new version of the OpenPEPPOL Standard Business Document Header (SBDH) specification was released
+      The new version of the OpenPeppol Standard Business Document Header (SBDH) specification was released
       and is in effect immediately. It is backwards compatible to version 1.0.
       Major improvements are the explicit provisioning of document type and process identifier schemes
       as well as the support for custom attributes inside the SBDH. 
     </p>
     <ul>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf">Download the specification PDF</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPeppol-Envelope_Specification-11_2018-08-31.pdf">Download the specification PDF</a></li>
       <li><a href="https://peppol.eu/openpeppol-release-of-sbdh1-1/">News item</a></li>
     </ul>
   
@@ -1593,10 +1593,10 @@
     </p>  
     <ul>
       <li>The new policy can be found at: 
-        <a href="https://github.com/OpenPEPPOL/documentation/raw/master/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-310.pdf">https://github.com/OpenPEPPOL/documentation/raw/master/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-310.pdf</a></li>
+        <a href="https://github.com/OpenPeppol/documentation/raw/master/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-310.pdf">https://github.com/OpenPeppol/documentation/raw/master/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-310.pdf</a></li>
       <li>
         The code list files can be found at:
-        <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists">https://github.com/OpenPEPPOL/documentation/tree/master/Code%20Lists</a>
+        <a href="https://github.com/OpenPeppol/documentation/tree/master/Code%20Lists">https://github.com/OpenPeppol/documentation/tree/master/Code%20Lists</a>
       </li>  
     </ul>
 
@@ -1622,7 +1622,7 @@
       <li><a href="/public/menuitem-validation-upload">Click here to validate your business document</a></li>
     </ul>
 
-    <h3>2018-05-21 - New OpenPEPPOL Support Process</h3>
+    <h3>2018-05-21 - New OpenPeppol Support Process</h3>
     
     <p>
       <strong>Important note:</strong> the existing email addresses <strong>rfc@peppol.eu</strong> and <strong>support@peppol.eu</strong>
@@ -1654,7 +1654,7 @@
     </p>
     <ul>
       <li><a href="https://peppol.eu/updated-peppol-as2-specification/">peppol.eu News item</a></li>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-AS2_Service_Specification-1.01-2018-02-09.pdf">PEPPOL AS2 Specification 1.01</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/ICT-Transport-AS2_Service_Specification-1.01-2018-02-09.pdf">PEPPOL AS2 Specification 1.01</a></li>
     </ul>
     
     <h3>2018-05-08 - Spring release artefacts are final</h3>
@@ -1673,7 +1673,7 @@
     <p>
       The page with
       <a href="/public/menuitem-docs-peppol-pki">PEPPOL PKI explanation</a>
-      was updated for the new OpenPEPPOL PKI v3.
+      was updated for the new OpenPeppol PKI v3.
     </p>
     
     <h3>2018-04-16 - phoss SMP 5.0.5</h3>
@@ -1681,19 +1681,19 @@
     <p>
       phoss SMP 5.0.5 was released. 
       This is a maintenance release with some bug fixes in the area of PEPPOL Directory.
-      This release is compliant with the new OpenPEPPOL v3 PKI.
+      This release is compliant with the new OpenPeppol v3 PKI.
     </p>
     <ul>
       <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.5">Download phoss SMP 5.0.5</a></li>
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
     </ul>
     
-    <h3>2018-04-11 - OpenPEPPOL Newsletter</h3>
+    <h3>2018-04-11 - OpenPeppol Newsletter</h3>
     
     <p>
       PEPPOL Members should be able to see it in
       <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/339869706/Newsletter+11.04.2018+-+PKI+Migration+Statutes+Changes+Additional+GA+etc.">Confluence</a>.
-      All others can download and read the <a href="/files/peppol/OpenPEPPOL Newsletter 2018-04-11.pdf">PDF version</a>.
+      All others can download and read the <a href="/files/peppol/OpenPeppol Newsletter 2018-04-11.pdf">PDF version</a>.
     </p>
     
     <p>
@@ -1701,7 +1701,7 @@
     </p>
     <ul>
       <li>16 April 2018: the certificate issuing process will begin and members are urged to request their PKI v3 certificate</li>
-      <li>31 August 2018: OpenPEPPOL will no longer issue the old certificate types</li> 
+      <li>31 August 2018: OpenPeppol will no longer issue the old certificate types</li> 
       <li>3 September 2018: the new certificates can be used in production</li>
       <li>30 November 2018: the old certificates will be revoked and cannot be used in the PEPPOL eDelivery Network</li>
     </ul>
@@ -1711,14 +1711,14 @@
     <p>
       phoss SMP 5.0.4 was released. 
       This is a maintenance release with some bug fixes and additional customizing possibilities.
-      This is the first release that supports the new OpenPEPPOL v3 PKI.
+      This is the first release that supports the new OpenPeppol v3 PKI.
     </p>
     <ul>
       <li><a href="https://github.com/phax/phoss-smp/releases/tag/peppol-smp-server-parent-pom-5.0.4">Download phoss SMP 5.0.4</a></li>
       <li><a href="https://hub.docker.com/r/phelger/smp/">Grab it from Docker Hub</a></li>
     </ul>
 
-    <h3>2018-03-21 - 9<sup>th</sup> OpenPEPPOL General Assembly</h3>
+    <h3>2018-03-21 - 9<sup>th</sup> OpenPeppol General Assembly</h3>
     
     <p>
       The 9<sup>th</sup> GA was held in Brussels.
@@ -1726,13 +1726,13 @@
     </p>
     <ul>
       <li><a href="https://peppol.eu/event/9th-openpeppol-general-assembly-brussels-wednesday-march-21st-2018/">peppol.eu news item</a></li>
-      <li><a href="https://openpeppol.atlassian.net/wiki/spaces/Public/pages/163217421/9th+OpenPEPPOL+General+Assembly+-+Invitation+and+background+documents">Details and background information in PEPPOL Confluence</a></li>
+      <li><a href="https://openpeppol.atlassian.net/wiki/spaces/Public/pages/163217421/9th+OpenPeppol+General+Assembly+-+Invitation+and+background+documents">Details and background information in PEPPOL Confluence</a></li>
     </ul>
   
     <h3>2018-02-28 - PEPPOL BIS Billing 3.0 published</h3>
     
     <p>
-      OpenPEPPOL published their EN16931 CIUS for PEPPOL invoices as version 3.0.
+      OpenPeppol published their EN16931 CIUS for PEPPOL invoices as version 3.0.
       By 2019-04-18 every PEPPOL member receiving invoices according to BIS 4A or BIS 5A must support this new BIS.
       Starting with 2019-12-31 only BIS 3.0 documents may be circulated.
     </p>
@@ -1799,7 +1799,7 @@
       Currently there is not fixed plan on when (and if) the format becomes mandatory to be used in the PEPPOL network.
     </p>
     <ul>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/raw/master/TransportInfrastructure/ICT-Transport-AS4_Service_Specification-1.0-2017-12-08.pdf">Download PDF specification</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/raw/master/TransportInfrastructure/ICT-Transport-AS4_Service_Specification-1.0-2017-12-08.pdf">Download PDF specification</a></li>
       <li><a href="https://peppol.eu/first-version-peppol-as4-profile-specification/">PEPPOL news site</a></li>
     </ul>
 
@@ -1940,10 +1940,10 @@
     <h3>2017-05-12 - Spring release - validation artefacts 3.4.0</h3>
     
     <p>
-      The BIS2 document validation with OpenPEPPOL validation artefacts 3.4.0 was released.
+      The BIS2 document validation with OpenPeppol validation artefacts 3.4.0 was released.
     </p>
     
-    <h3>2017-05-08/09 - OpenPEPPOL F2F meeting in Vienna</h3>
+    <h3>2017-05-08/09 - OpenPeppol F2F meeting in Vienna</h3>
     
     <p>
       We had a lovely two day F2F meeting hosted by BRZ.
@@ -2027,7 +2027,7 @@
     <h3>2017-01-26 - Validation updated</h3>
     
     <p>
-      Finally the BIS2 document validation with OpenPEPPOL validation artefacts 3.3.0 is available.
+      Finally the BIS2 document validation with OpenPeppol validation artefacts 3.3.0 is available.
       Additionally support for Simplerinvoicing 1.1 was added.
       <a href="/public/menuitem-validation-upload">Click here to validate your business document</a>.
     </p>
@@ -2041,7 +2041,7 @@
       now available:
     </p>
     <ul>
-      <li><a href="https://github.com/OpenPEPPOL/documentation/tree/master/F2F%20meetings/CC%20member%20meetings%20London%20November%202016/">Download directory</a></li>
+      <li><a href="https://github.com/OpenPeppol/documentation/tree/master/F2F%20meetings/CC%20member%20meetings%20London%20November%202016/">Download directory</a></li>
     </ul>
     
     <h3>2016-11-25</h3>
@@ -2080,7 +2080,7 @@
     <h3>2016-11-14 - Validation artefacts 3.3.0</h3>
     
     <p>
-      OpenPEPPOL PoACC fall release published.
+      OpenPeppol PoACC fall release published.
       They get mandatory by 2016-11-15 (12:00 CET).
     </p>
     
@@ -2108,9 +2108,9 @@
     <h3>2016-10-05 - Validation artefacts 3.3.0-RC1</h3>
     
     <p>
-      OpenPEPPOL PoACC fall release published for review.
+      OpenPeppol PoACC fall release published for review.
       They get mandatory by 2016-11-15 (12:00 CET).<br/>
-      In this version OpenPEPPOL decided to no longer maintain the ODS files, and instead 
+      In this version OpenPeppol decided to no longer maintain the ODS files, and instead 
         directly work on the Schematron files - what a pitty.
     </p>
     
@@ -2120,7 +2120,7 @@
       OASIS is pleased to announce the approval and publication of a new Committee Specification 
       by the members of the OASIS Business Document Exchange (BDXR) TC:<br/>
       Service Metadata Publishing (SMP) Version 1.0, Committee Specification 03<br />
-      Note: this SMP specification is not yet used in OpenPEPPOL, but there are plans to do so in the future.<br />
+      Note: this SMP specification is not yet used in OpenPeppol, but there are plans to do so in the future.<br />
       Note: my SMP Server 5.0.0-Beta1 already supports this specification version!
     </p>
     <ul>
@@ -2128,10 +2128,10 @@
       <li><a href="http://docs.oasis-open.org/bdxr/bdx-smp/v1.0/cs03/bdx-smp-v1.0-cs03.zip">Download the full ZIP package</a></li>
     </ul>
     
-    <h3>2016-09-19 - OpenPEPPOL planing to switch to AS4</h3>
+    <h3>2016-09-19 - OpenPeppol planing to switch to AS4</h3>
     
     <p>
-      In a Letter of Understanding (LoU) signed between the Commission and OpenPEPPOL, 
+      In a Letter of Understanding (LoU) signed between the Commission and OpenPeppol, 
       the parties agree a plan for the transition from AS2 to AS4 in the PEPPOL profile 
       of CEF eDelivery. As part of this, support for SMP/SML lookup and PKI specifications 
       as used in the PEPPOL eDelivery network will continue in the CEF eDelivery architecture. 
@@ -2174,7 +2174,7 @@
     <p>
       PEPPOL Validation Artefacts 3.2.0 were released.
       The latest version can be found at 
-      <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Validation%20Resources/BIS%20v2/">https://github.com/OpenPEPPOL/documentation/tree/master/Validation Resources/BIS v2/</a>
+      <a href="https://github.com/OpenPeppol/documentation/tree/master/Validation%20Resources/BIS%20v2/">https://github.com/OpenPeppol/documentation/tree/master/Validation Resources/BIS v2/</a>
     </p>
     
     <h3>2016-03-20 - SMP Server 4.1.2 release</h3>
@@ -2317,9 +2317,9 @@
     
     <p>
       New PEPPOL validation artefacts are out for review.
-      The <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Validation%20Resources/BIS%20v2/Deprecated/BIS2.0-VA-V3.1.0_RC1.zip">ZIP file</a>
+      The <a href="https://github.com/OpenPeppol/documentation/tree/master/Validation%20Resources/BIS%20v2/Deprecated/BIS2.0-VA-V3.1.0_RC1.zip">ZIP file</a>
       with the Schematron and XSLT files can be downloaded.
-      <a href="https://github.com/OpenPEPPOL/documentation/tree/master/Validation%20Resources/BIS%20v2/Deprecated/Release%20notes%20for%20openPEPPOL-VA-V3%201%200_RC1.pdf">Release notes</a>
+      <a href="https://github.com/OpenPeppol/documentation/tree/master/Validation%20Resources/BIS%20v2/Deprecated/Release%20notes%20for%20openPEPPOL-VA-V3%201%200_RC1.pdf">Release notes</a>
       are also available.<br />
       Deadline for submitting comments to <a href="mailto:rfc@peppol.eu">rfc@peppol.eu</a> is October 1<sup>st</sup> 2015.
     </p>

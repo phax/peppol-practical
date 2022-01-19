@@ -129,7 +129,7 @@ public final class PagePublicContact extends AbstractAppWebPage
     final String sRecaptchSecretKey = AppConfig.getRecaptchaSecretKey ();
     final boolean bRecaptchaEnabled = StringHelper.hasText (sRecaptchWebKey) && StringHelper.hasText (sRecaptchSecretKey);
 
-    aNodeList.addChild (p ("If you have general questions concerning Peppol technology, you may contact me using the form below. Please be aware, that I run this page on a voluntary basis and that the answers you may receive are my personal answers and not official OpenPEPPOL answers."));
+    aNodeList.addChild (p ("If you have general questions concerning Peppol technology, you may contact me using the form below. Please be aware, that I run this page on a voluntary basis and that the answers you may receive are my personal answers and not official OpenPeppol answers."));
 
     boolean bShowForm = true;
     final FormErrorList aFormErrors = new FormErrorList ();

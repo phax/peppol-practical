@@ -37,10 +37,10 @@
 
 
 <a name="pki3"></a>
-<h2>OpenPEPPOL PKI v3 - since 2018</h2>
+<h2>OpenPeppol PKI v3 - since 2018</h2>
 
 <p>
-  The PKI is called "OpenPEPPOL PKI v3" and the root certificates are valid from 2018 to 2028.
+  The PKI is called "OpenPeppol PKI v3" and the root certificates are valid from 2018 to 2028.
   The structure is very similar to the V2 one, but the STS CA is not present any more. So this is how it looks like:
 </p>
 
@@ -58,7 +58,7 @@
     February 2018: the new root certificates are available for download in 
       <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/193069072/Introduction+to+the+revised+PKI+Certificate+infrastructure+and+issuing+process">Confluence</a>
       and from
-      <a href="https://github.com/OpenPEPPOL/documentation/tree/master/TransportInfrastructure/RootCertificates%202018">GitHub</a>
+      <a href="https://github.com/OpenPeppol/documentation/tree/master/TransportInfrastructure/RootCertificates%202018">GitHub</a>
     </div>
     <div>
       Complete JKS files with all of the new root certificates are available at 
@@ -70,7 +70,7 @@
     16 April 2018: the certificate issuing process will begin and members are urged to request their PKI v3 certificate
   </li>
   <li>
-    31 August 2018: OpenPEPPOL will no longer issue the old certificate types
+    31 August 2018: OpenPeppol will no longer issue the old certificate types
   </li>
   <li>
     3 September 2018: the new certificates can be used in production
