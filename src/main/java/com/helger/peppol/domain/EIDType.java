@@ -128,25 +128,31 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
       else
       {
         if (sScheme.indexOf (CIdentifier.URL_SCHEME_VALUE_SEPARATOR) >= 0)
+        {
           aErrorList.add (_error ("The identifier scheme must not contain the character sequence '" +
                                   CIdentifier.URL_SCHEME_VALUE_SEPARATOR +
                                   "'"));
+        }
         if (sScheme.length () > PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH)
+        {
           aErrorList.add (_error ("The identifier scheme length of " +
                                   sScheme.length () +
                                   " must not exceed " +
                                   PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH +
                                   " characters"));
+        }
 
         // Participant specific
         if (!RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
                                                Pattern.CASE_INSENSITIVE,
                                                sScheme))
+        {
           aErrorList.add (_error ("The identifier scheme '" +
                                   sScheme +
                                   "' must match the regular expression '" +
                                   PeppolIdentifierHelper.PARTICIPANT_IDENTIFIER_SCHEME_REGEX +
                                   "'"));
+        }
 
         if (!sScheme.equals (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS))
           aErrorList.add (_error ("The identifier scheme '" + sScheme + "' is not a known Peppol participant identifier scheme"));
@@ -187,8 +193,19 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
                 aErrorList.add (_error ("The issuing agency '" + sIssuingAgency + "' is not part of the official Peppol code list"));
               else
               {
-                if (aPredefined.isDeprecated ())
-                  aErrorList.add (_warn ("The issuing agency '" + sIssuingAgency + "' is deprecated"));
+                aDetails.add (new KVPair ("In code list since version", aPredefined.getInitialRelease ().getAsString (false, true)));
+
+                final EPeppolCodeListItemState eState = aPredefined.getState ();
+                if (eState.isDeprecated ())
+                {
+                  aErrorList.add (_warn ("The issuing agency '" + sValue + "' is deprecated"));
+                  final Version aDR = aPredefined.getDeprecationRelease ();
+                  if (aDR != null)
+                    aDetails.add (new KVPair ("Deprecated in code list version", aDR.getAsString (false, true)));
+                }
+                else
+                  if (eState.isRemoved ())
+                    aErrorList.add (_warn ("The issuing agency '" + sValue + "' is targeted for removal"));
 
                 if (aPredefined instanceof EPredefinedParticipantIdentifierScheme)
                 {
@@ -210,16 +227,25 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
           {
             // POLICY 1
             if (sEffectiveValue.length () > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
+            {
               aErrorList.add (_error ("The effective value length of " +
                                       sEffectiveValue.length () +
                                       " must not exceed " +
                                       PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH +
                                       " characters"));
+            }
 
             // POLICY 1
-            final String sRegEx = "[0-9a-zA-Z]+";
-            if (!RegExHelper.stringMatchesPattern (sRegEx, sEffectiveValue))
-              aErrorList.add (_error ("The effective value '" + sEffectiveValue + "' must match the regular expression '" + sRegEx + "'"));
+            // 4.0: "[0-9a-zA-Z]+";
+            final String sRegEx41 = "[0-9a-zA-Z\\-\\._~]+";
+            if (!RegExHelper.stringMatchesPattern (sRegEx41, sEffectiveValue))
+            {
+              aErrorList.add (_error ("The effective value '" +
+                                      sEffectiveValue +
+                                      "' must match the regular expression '" +
+                                      sRegEx41 +
+                                      "'"));
+            }
           }
         }
 
@@ -251,15 +277,19 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
       else
       {
         if (sScheme.indexOf (CIdentifier.URL_SCHEME_VALUE_SEPARATOR) >= 0)
+        {
           aErrorList.add (_error ("The identifier scheme must not contain the character sequence '" +
                                   CIdentifier.URL_SCHEME_VALUE_SEPARATOR +
                                   "'"));
+        }
         if (sScheme.length () > PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH)
+        {
           aErrorList.add (_error ("The identifier scheme length of " +
                                   sScheme.length () +
                                   " must not exceed " +
                                   PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH +
                                   " characters"));
+        }
 
         // Document type specific check
         // PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD
@@ -286,11 +316,13 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
       {
         // POLICY 1
         if (sValue.length () > PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)
+        {
           aErrorList.add (_error ("The identifier value length of " +
                                   sValue.length () +
                                   " must not exceed " +
                                   PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH +
                                   " characters"));
+        }
 
         // POLICY 1
         if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
