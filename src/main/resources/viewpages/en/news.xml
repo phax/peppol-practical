@@ -38,7 +38,14 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
-  
+
+    <h3>2022-01-20 - OpenPeppol eDEC Code Lists v8.0 releases</h3>
+ 
+    <p>
+      The new version 8.0 of the code lists is finally available at
+      <a href="https://docs.peppol.eu/edelivery/codelists/">https://docs.peppol.eu/edelivery/codelists/</a>. 
+      The detailed list of changes is <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html">also available</a>. 
+    </p>
 
     <h3>2022-01-12 - Document Validation extended</h3>
  

@@ -80,6 +80,7 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
   private static final IMutableStatisticsHandlerCounter STATS_COUNT = StatisticsManager.getCounterHandler ("id.information");
   private static final IMutableStatisticsHandlerCounter STATS_COUNT_SUCCESS = StatisticsManager.getCounterHandler ("id.information.success");
   private static final IMutableStatisticsHandlerKeyedCounter STATS_ID_TYPE = StatisticsManager.getKeyedCounterHandler ("id.information.idtype");
+  private static final String IDENTIFIER_POLICY_VERSION = "4.1";
 
   public PagePublicToolsIdentifierInformation (@Nonnull @Nonempty final String sID)
   {
@@ -129,6 +130,8 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
 
         final ErrorList aIDErrors = new ErrorList ();
         final ICommonsList <KVPair> aDetails = new CommonsArrayList <> ();
+
+        // Perform the main validation
         eIDType.getValidator ().validate (sIDValue, aIDErrors, aDetails);
 
         final IHCNode aDetailsNode;
@@ -191,12 +194,10 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
       if (bShowHeader)
       {
         final ICommonsOrderedMap <String, String> aRuleSets = new CommonsLinkedHashMap <> ();
-        aRuleSets.put ("Peppol Policy for use of Identifiers v4.0", "https://docs.peppol.eu/edelivery/");
-        aRuleSets.put ("Peppol Participant Identifier Code List v" +
-                       EPredefinedParticipantIdentifierScheme.CODE_LIST_VERSION,
+        aRuleSets.put ("Peppol Policy for use of Identifiers v" + IDENTIFIER_POLICY_VERSION, "https://docs.peppol.eu/edelivery/");
+        aRuleSets.put ("Peppol Participant Identifier Code List v" + EPredefinedParticipantIdentifierScheme.CODE_LIST_VERSION,
                        "https://docs.peppol.eu/edelivery/codelists/");
-        aRuleSets.put ("Peppol Document Type Identifier Code List v" +
-                       EPredefinedDocumentTypeIdentifier.CODE_LIST_VERSION,
+        aRuleSets.put ("Peppol Document Type Identifier Code List v" + EPredefinedDocumentTypeIdentifier.CODE_LIST_VERSION,
                        "https://docs.peppol.eu/edelivery/codelists/");
         aRuleSets.put ("Peppol Process Identifier Code List v" + EPredefinedProcessIdentifier.CODE_LIST_VERSION,
                        "https://docs.peppol.eu/edelivery/codelists/");
@@ -229,8 +230,7 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
                                                                                                                                                               .addChild (") AND the value as one long string"))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_VALUE)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Try to URL decode the identifier value?")
-                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_ID_DECODE,
-                                                                                                      DEFAULT_DECODE)))
+                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_ID_DECODE, DEFAULT_DECODE)))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_ID_DECODE)));
 
       final BootstrapButtonToolbar aToolbar = aForm.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
