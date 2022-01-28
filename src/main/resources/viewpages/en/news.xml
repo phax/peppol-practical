@@ -39,6 +39,29 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2022-01-28 - Document Validation extended</h3>
+ 
+    <p>
+      Added support for XRechnung 2.2.0 rule sets.
+      Added support for Peppol Italy 2.3.0 rule sets.
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>it.peppol:despatch-advice:2.3.0</code> - AGID Peppol Despatch Advice (2.3.0) (for BIS 3.0.11)</li>
+<li><code>it.peppol:invoice:2.3.0</code> - AGID Peppol Invoice (2.3.0) (for BIS 3.0.11)</li>
+<li><code>it.peppol:order:2.3.0</code> - AGID Peppol Order (2.3.0) (for BIS 3.0.11)</li>
+<li><code>it.peppol:order-agreement:2.3.0</code> - AGID Peppol Order Agreement (2.3.0) (for BIS 3.0.11)</li>
+<li><code>it.peppol:order:2.3.0</code> - AGID Peppol Order (2.3.0) (for BIS 3.0.11)</li>
+<li><code>it.peppol:order-agreement:2.3.0</code> - AGID Peppol Order Agreement (2.3.0) (for BIS 3.0.11)</li>
+<li><code>de.xrechnung:cii:2.2.0</code> - XRechnung CII 2.2.0</li>
+<li><code>de.xrechnung:ubl-creditnote:2.2.0</code> - XRechnung UBL CrediteNote 2.2.0</li>
+<li><code>de.xrechnung:ubl-invoice:2.2.0</code> - XRechnung UBL Invoice 2.2.0</li>
+</ul>
+
+
     <h3>2022-01-20 - OpenPeppol eDEC Code Lists v8.0 releases</h3>
  
     <p>
