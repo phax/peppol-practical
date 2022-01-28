@@ -54,8 +54,7 @@
 <li><code>it.peppol:invoice:2.3.0</code> - AGID Peppol Invoice (2.3.0) (for BIS 3.0.11)</li>
 <li><code>it.peppol:order:2.3.0</code> - AGID Peppol Order (2.3.0) (for BIS 3.0.11)</li>
 <li><code>it.peppol:order-agreement:2.3.0</code> - AGID Peppol Order Agreement (2.3.0) (for BIS 3.0.11)</li>
-<li><code>it.peppol:order:2.3.0</code> - AGID Peppol Order (2.3.0) (for BIS 3.0.11)</li>
-<li><code>it.peppol:order-agreement:2.3.0</code> - AGID Peppol Order Agreement (2.3.0) (for BIS 3.0.11)</li>
+<li><code>it.peppol:order-response:2.3.0</code> - AGID Peppol Order Response (2.3.0) (for BIS 3.0.11)</li>
 <li><code>de.xrechnung:cii:2.2.0</code> - XRechnung CII 2.2.0</li>
 <li><code>de.xrechnung:ubl-creditnote:2.2.0</code> - XRechnung UBL CrediteNote 2.2.0</li>
 <li><code>de.xrechnung:ubl-invoice:2.2.0</code> - XRechnung UBL Invoice 2.2.0</li>
