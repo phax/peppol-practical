@@ -31,9 +31,9 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroWriter;
 
-public class MainCreateMappingXML
+public class MainCreateNiceNameMappingXML
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateMappingXML.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateNiceNameMappingXML.class);
 
   public static void main (final String [] args)
   {
