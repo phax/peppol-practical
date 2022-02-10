@@ -17,7 +17,6 @@
 package com.helger.peppol.crm;
 
 import java.util.Locale;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -25,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.tenancy.IBusinessObject;
@@ -69,7 +69,7 @@ public interface ICRMSubscriber extends IBusinessObject, IHasDisplayText
 
   @Nonnull
   @ReturnsMutableCopy
-  Set <ICRMGroup> getAllAssignedGroups ();
+  ICommonsSet <ICRMGroup> getAllAssignedGroups ();
 
   @Nonnegative
   int getAssignedGroupCount ();

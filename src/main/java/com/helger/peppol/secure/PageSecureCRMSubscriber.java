@@ -30,6 +30,7 @@ import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.compare.ESortOrder;
+import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EValidity;
@@ -57,6 +58,7 @@ import com.helger.photon.bootstrap4.button.BootstrapButton;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap4.form.BootstrapFormHelper;
 import com.helger.photon.bootstrap4.form.BootstrapViewForm;
 import com.helger.photon.bootstrap4.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
@@ -71,6 +73,7 @@ import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
+import com.helger.photon.uictrls.datatables.column.EDTColType;
 
 public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMSubscriber>
 {
@@ -294,6 +297,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     // List existing
     final HCTable aTable = new HCTable (new DTCol ("Name").setInitialSorting (ESortOrder.ASCENDING),
                                         new DTCol ("Email address"),
+                                        new DTCol ("Last Mod").setDisplayType (EDTColType.DATETIME, aDisplayLocale),
                                         new DTCol ("Groups"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID () + sIDSuffix);
 
@@ -306,9 +310,12 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                                                                         " ",
                                                                                         aCurObject.getName ())));
       aRow.addCell (aCurObject.getEmailAddress ());
+      aRow.addCell (PDTToString.getAsString (aCurObject.hasLastModificationDateTime () ? aCurObject.getLastModificationDateTime ()
+                                                                                       : aCurObject.getCreationDateTime (),
+                                             aDisplayLocale));
       aRow.addCell (HCExtHelper.nl2divList (aCurObject.getAllAssignedGroups ()
                                                       .stream ()
-                                                      .map (g -> g.getDisplayName ())
+                                                      .map (ICRMGroup::getDisplayName)
                                                       .collect (Collectors.joining ("\n"))));
       final IHCCell <?> aActionCell = aRow.addCell ();
       aActionCell.addChildren (createEditLink (aWPEC, aCurObject),
@@ -339,7 +346,9 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
       ++nCount;
     }
 
-    return new HCTextArea ().setValue (aSB.toString ()).setRows (Math.min (nCount, 20));
+    final HCTextArea aTA = new HCTextArea ().setValue (aSB.toString ()).setRows (Math.min (nCount, 20));
+    BootstrapFormHelper.markAsFormControl (aTA);
+    return aTA;
   }
 
   @Override

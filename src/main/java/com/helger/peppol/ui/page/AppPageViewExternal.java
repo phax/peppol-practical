@@ -62,7 +62,7 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
   }
 
   @Override
-  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  protected final void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
     super.fillContent (aWPEC);
 

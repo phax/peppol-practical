@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.comment.domain;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.annotation.Nonnegative;
@@ -41,10 +42,20 @@ public interface ICommentThread extends ITypedObject <String>
   DefaultTreeWithGlobalUniqueID <String, IComment> getTree ();
 
   /**
-   * @return The comment that started this thread
+   * @return The comment that started this thread. Never <code>null</code>.
    */
   @Nonnull
   IComment getInitialComment ();
+
+  /**
+   * @return The creation date time of the first comment that started this
+   *         thread. Never <code>null</code>.
+   */
+  @Nonnull
+  default LocalDateTime getInitialCommentCreationDateTime ()
+  {
+    return getInitialComment ().getCreationDateTime ();
+  }
 
   /**
    * Add a comment to this thread.

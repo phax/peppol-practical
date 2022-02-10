@@ -36,6 +36,7 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.grouping.AbstractHCDiv;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.textlevel.HCSpan;
+import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.jquery.JQuery;
 import com.helger.html.jquery.JQueryAjaxBuilder;
@@ -100,12 +101,14 @@ public final class CommentUI
   {
     ValueEnforcer.notNull (aLEC, "LEC");
     ValueEnforcer.notNull (aObject, "Object");
+    ValueEnforcer.notNull (aCommentAction, "CommentAction");
 
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
     final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
     final HCDiv ret = new HCDiv ();
     final String sResultDivID = ret.ensureID ().getID ();
     final boolean bUserCanCreateComments = CommentSecurity.canCurrentUserPostComments ();
+    final boolean bIsAdmin = aLEC.isLoggedInUserAdministrator ();
 
     // Get all existing comments
     final List <ICommentThread> aComments = CommentThreadManager.getInstance ().getAllCommentThreadsOfObject (aObject);
@@ -117,8 +120,7 @@ public final class CommentUI
       // Container for all threads
       final HCDiv aAllThreadsContainer = new HCDiv ().addClass (CCommentCSS.CSS_CLASS_COMMENT_CONTAINER);
       for (final ICommentThread aCommentThread : CollectionHelper.getSorted (aComments,
-                                                                             Comparator.comparing (a -> a.getInitialComment ()
-                                                                                                         .getCreationDateTime ())))
+                                                                             Comparator.comparing (ICommentThread::getInitialCommentCreationDateTime)))
       {
         // Container for this thread
         final HCDiv aThreadContainer = new HCDiv ();
@@ -158,7 +160,7 @@ public final class CommentUI
 
               // Is comment deleted?
               if (aComment.isDeleted ())
-                aHeader.addChild (ECommentText.MSG_IS_DELETED.getDisplayText (aDisplayLocale));
+                aHeader.addChild (new HCStrong ().addChild (ECommentText.MSG_IS_DELETED.getDisplayText (aDisplayLocale)));
 
               // Creation date
               aHeader.addChild (new HCSpan ().addChild (PDTToString.getAsString (aComment.getCreationDateTime (), aDisplayLocale))
@@ -169,6 +171,8 @@ public final class CommentUI
               final HCSpan aAuthor = new HCSpan ().addChild (sAuthor).addClass (CCommentCSS.CSS_CLASS_COMMENT_AUTHOR);
               if (bRegisteredUser)
                 aAuthor.addClass (CCommentCSS.CSS_CLASS_COMMENT_REGISTERED_USER);
+              if (bIsAdmin)
+                aAuthor.addChild (bRegisteredUser ? " [registered]" : " [not-registered]");
               aHeader.addChild (aAuthor);
 
               // Title
