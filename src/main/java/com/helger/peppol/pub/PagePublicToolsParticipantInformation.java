@@ -482,6 +482,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         m.readExceptionCallbacks ().add (aSMPExceptions::add);
       };
 
+      try
       {
         final StopWatch aSWGetDocTypes = StopWatch.createdStarted ();
         final HCUL aSGUL = new HCUL ();
@@ -611,6 +612,22 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
         aNodeList.addChild (aSGUL);
       }
+      catch (final SMPClientException ex)
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Participant DocTypes Error", ex);
+        else
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Participant DocTypes Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
+
+        final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false));
+        for (final JAXBException aItem : aSMPExceptions)
+          aErrorBox.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
+        aNodeList.addChild (aErrorBox);
+
+        // Audit failure
+        AuditHelper.onAuditExecuteFailure ("participant-doctypes", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
+      }
 
       // List document type details
       if (aDocTypeIDs.isNotEmpty ())
@@ -629,132 +646,172 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           LOGGER.info ("Now SMP querying '" + aParticipantID.getURIEncoded () + "' / '" + aDocTypeID.getURIEncoded () + "'");
 
           final StopWatch aSWGetDetails = StopWatch.createdStarted ();
-          switch (aQueryParams.getSMPAPIType ())
+          try
           {
-            case PEPPOL:
+            switch (aQueryParams.getSMPAPIType ())
             {
-              final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                      aDocTypeID);
-              aSWGetDetails.stop ();
-              if (aSSM != null)
+              case PEPPOL:
               {
-                final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
-                if (aSM.getRedirect () != null)
-                  aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
-                else
+                final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                        aDocTypeID);
+                aSWGetDetails.stop ();
+                if (aSSM != null)
                 {
-                  // For all processes
-                  final HCUL aULProcessID = new HCUL ();
-                  for (final com.helger.xsds.peppol.smp1.ProcessType aProcess : aSM.getServiceInformation ()
-                                                                                   .getProcessList ()
-                                                                                   .getProcess ())
-                    if (aProcess.getProcessIdentifier () != null)
-                    {
-                      final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
-                      aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
-                                                                                                         SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
-                      final HCUL aULEndpoint = new HCUL ();
-                      // For all endpoints of the process
-                      for (final com.helger.xsds.peppol.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
+                  final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                  if (aSM.getRedirect () != null)
+                    aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
+                  else
+                  {
+                    // For all processes
+                    final HCUL aULProcessID = new HCUL ();
+                    for (final com.helger.xsds.peppol.smp1.ProcessType aProcess : aSM.getServiceInformation ()
+                                                                                     .getProcessList ()
+                                                                                     .getProcess ())
+                      if (aProcess.getProcessIdentifier () != null)
                       {
-                        final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
-
-                        // Endpoint URL
-                        final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
-                                                                                              : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
-                        _printEndpointURL (aLIEndpoint, sEndpointRef);
-
-                        // Valid from
-                        _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
-
-                        // Valid to
-                        _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
-
-                        // Transport profile
-                        _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
-
-                        // Technical infos
-                        _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
-
-                        // Certificate (also add null values)
-                        final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ());
-                        aAllUsedEndpointCertifiactes.add (aCert);
-                      }
-                      aLIProcessID.addChild (aULEndpoint);
-                    }
-                  aLIDocTypeID.addChild (aULProcessID);
-                }
-              }
-              else
-              {
-                aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
-              }
-              break;
-            }
-            case OASIS_BDXR_V1:
-            {
-              final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                      aDocTypeID);
-              aSWGetDetails.stop ();
-              if (aSSM != null)
-              {
-                final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
-                if (aSM.getRedirect () != null)
-                  aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
-                else
-                {
-                  // For all processes
-                  final HCUL aULProcessID = new HCUL ();
-                  for (final com.helger.xsds.bdxr.smp1.ProcessType aProcess : aSM.getServiceInformation ().getProcessList ().getProcess ())
-                    if (aProcess.getProcessIdentifier () != null)
-                    {
-                      final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
-                      aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
-                                                                                                         SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
-                      final HCUL aULEndpoint = new HCUL ();
-                      // For all endpoints of the process
-                      for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
-                      {
-                        final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
-
-                        // Endpoint URL
-                        _printEndpointURL (aLIEndpoint, aEndpoint.getEndpointURI ());
-
-                        // Valid from
-                        _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
-
-                        // Valid to
-                        _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
-
-                        // Transport profile
-                        _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
-
-                        // Technical infos
-                        _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
-
-                        // Certificate (also add null values)
-                        try
+                        final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
+                        aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
+                                                                                                           SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
+                        final HCUL aULEndpoint = new HCUL ();
+                        // For all endpoints of the process
+                        for (final com.helger.xsds.peppol.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                         {
-                          final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
+                          final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
+
+                          // Endpoint URL
+                          final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
+                                                                                                : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+                          _printEndpointURL (aLIEndpoint, sEndpointRef);
+
+                          // Valid from
+                          _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
+
+                          // Valid to
+                          _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
+
+                          // Transport profile
+                          _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
+
+                          // Technical infos
+                          _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
+
+                          // Certificate (also add null values)
+                          final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ());
                           aAllUsedEndpointCertifiactes.add (aCert);
                         }
-                        catch (final CertificateException ex)
-                        {
-                          aAllUsedEndpointCertifiactes.add (null);
-                        }
+                        aLIProcessID.addChild (aULEndpoint);
                       }
-                      aLIProcessID.addChild (aULEndpoint);
-                    }
-                  aLIDocTypeID.addChild (aULProcessID);
+                    aLIDocTypeID.addChild (aULProcessID);
+                  }
                 }
+                else
+                {
+                  aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
+                }
+                break;
               }
-              else
+              case OASIS_BDXR_V1:
               {
-                aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
+                final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                        aDocTypeID);
+                aSWGetDetails.stop ();
+                if (aSSM != null)
+                {
+                  final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
+                  if (aSM.getRedirect () != null)
+                    aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
+                  else
+                  {
+                    // For all processes
+                    final HCUL aULProcessID = new HCUL ();
+                    for (final com.helger.xsds.bdxr.smp1.ProcessType aProcess : aSM.getServiceInformation ()
+                                                                                   .getProcessList ()
+                                                                                   .getProcess ())
+                      if (aProcess.getProcessIdentifier () != null)
+                      {
+                        final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
+                        aLIProcessID.addChild (div ("Process ID: ").addChild (AppCommonUI.createProcessID (aDocTypeID,
+                                                                                                           SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
+                        final HCUL aULEndpoint = new HCUL ();
+                        // For all endpoints of the process
+                        for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
+                        {
+                          final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
+
+                          // Endpoint URL
+                          _printEndpointURL (aLIEndpoint, aEndpoint.getEndpointURI ());
+
+                          // Valid from
+                          _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
+
+                          // Valid to
+                          _printExpirationDate (aLIEndpoint, aEndpoint.getServiceExpirationDate (), aDisplayLocale);
+
+                          // Transport profile
+                          _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
+
+                          // Technical infos
+                          _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
+
+                          // Certificate (also add null values)
+                          try
+                          {
+                            final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
+                            aAllUsedEndpointCertifiactes.add (aCert);
+                          }
+                          catch (final CertificateException ex)
+                          {
+                            aAllUsedEndpointCertifiactes.add (null);
+                          }
+                        }
+                        aLIProcessID.addChild (aULEndpoint);
+                      }
+                    aLIDocTypeID.addChild (aULProcessID);
+                  }
+                }
+                else
+                {
+                  aLIDocTypeID.addChild (error ("Failed to read service metadata from SMP (not found)"));
+                }
+                break;
               }
-              break;
             }
           }
+          catch (final SMPClientBadResponseException ex)
+          {
+            if (LOGGER.isDebugEnabled ())
+              LOGGER.debug ("Participant Information Error", ex);
+            else
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
+
+            final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                                                        false));
+            for (final JAXBException aItem : aSMPExceptions)
+              aErrorBox.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
+            aLIDocTypeID.addChild (aErrorBox);
+
+            // Audit failure
+            AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
+          }
+          catch (final SMPClientException ex)
+          {
+            if (LOGGER.isDebugEnabled ())
+              LOGGER.debug ("Participant Information Error", ex);
+            else
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
+
+            final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                 false));
+            for (final JAXBException aItem : aSMPExceptions)
+              aErrorBox.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
+            aLIDocTypeID.addChild (aErrorBox);
+
+            // Audit failure
+            AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
+          }
+
           if (bShowTime)
             aDocTypeDiv.addChild (" ").addChild (_createTimingNode (aSWGetDetails.getMillis ()));
           nTotalDurationMillis += aSWGetDetails.getMillis ();
@@ -956,39 +1013,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
       // Audit success
       AuditHelper.onAuditExecuteSuccess ("participant-information", aParticipantID.getURIEncoded ());
-    }
-    catch (final SMPClientBadResponseException ex)
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Participant Information Error", ex);
-      else
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
-
-      final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                                                                  false));
-      for (final JAXBException aItem : aSMPExceptions)
-        aErrorBox.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
-      aNodeList.addChild (aErrorBox);
-
-      // Audit failure
-      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
-    }
-    catch (final SMPClientException ex)
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Participant Information Error", ex);
-      else
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
-
-      final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false));
-      for (final JAXBException aItem : aSMPExceptions)
-        aErrorBox.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
-      aNodeList.addChild (aErrorBox);
-
-      // Audit failure
-      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
     }
     catch (final RuntimeException ex)
     {
