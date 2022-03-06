@@ -67,7 +67,7 @@
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
     <jaxws-plugin.version>2.3.5</jaxws-plugin.version>
-    <log4j.version>2.17.1</log4j.version>
+    <log4j.version>2.17.2</log4j.version>
     <!-- For surefire plugin (use property for JaCoCo integration -->
     <argLine>-Xmx1024m</argLine>
   </properties>
@@ -140,7 +140,7 @@
       <dependency>
         <groupId>com.helger.phive</groupId>
         <artifactId>phive-parent-pom</artifactId>
-        <version>7.2.2</version>
+        <version>7.2.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -161,7 +161,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>phoss-directory-parent-pom</artifactId>
-        <version>0.9.9</version>
+        <version>0.9.10</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
