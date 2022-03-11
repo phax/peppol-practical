@@ -1,0 +1,83 @@
+<!--
+
+    Copyright (C) 2014-2022 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<p>
+  This page contains a list of software and vendors that are known to support Peppol and/or eDelivery functionality.<br />
+  The list on this page is not complete.<br />
+  No guarantee on anything on this page.<br />
+  If you want to be included, or you are a vendor and want something changed, ping me.
+</p>
+
+<p>Other software lists:</p>
+<ul>
+  <li>OpenPeppol: <a href="https://peppol.eu/downloads/peppolimplementations/">Links to Software for Peppol Implementations</a></li>
+  <li>CEF: <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/CEFDIGITAL/eDelivery+AS4+conformant+solutions">eDelivery AS4 conformant solutions</a></li>
+  <li>CEF: <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/CEFDIGITAL/OASIS+SMP+conformant+solutions">OASIS SMP conformant solutions</a></li>
+</ul>
+
+<a name="as4"></a>
+<h2>AS4 solutions</h2>
+
+<p>This chapter deals with AS4 solutions only.</p>
+
+<ul>
+  <li><strong>AS4.NET</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse">https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse</a> - the only .NET based Open Source implementation we are aware of.</li>
+  <li><strong>Domibus</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/CEFDIGITAL/Domibus">https://ec.europa.eu/digital-building-blocks/wikis/display/CEFDIGITAL/Domibus</a> - Java based. Requires some extra package on dynamic discovery to be able to work with Peppol.</li>
+  <li><strong>Holodeck</strong> [Open Source] - <a href="http://holodeck-b2b.org/download/">http://holodeck-b2b.org/download/</a> - Java based. Requires some additional Peppol package that is not free.</li>
+  <li><strong>Oxalis</strong> [Open Source] - <a href="https://github.com/OxalisCommunity/Oxalis-AS4">https://github.com/OxalisCommunity/Oxalis-AS4</a> - Java based. Needs to be integrated into Oxalis.</li>
+  <li><strong>phase4</strong> [Open Source] - <a href="https://github.com/phax/phase4">https://github.com/phax/phase4</a> - Java based. Is a library and needs local integration.</li>
+</ul>
+
+<a name="smp"></a>
+<h2>SMP solutions</h2>
+
+<p>This chapter deals with Service Metadata Publisher (SMP) solutions only.</p>
+
+<ul>
+  <li><strong>phoss SMP</strong> [Open Source] - <a href="https://github.com/phax/phoss-smp">https://github.com/phax/phoss-smp</a> - Java based SMP solution.</li>
+</ul>
+
+<a name="validation"></a>
+<h2>Validation solutions</h2>
+
+<p>This chapter deals with validation solutions only.</p>
+
+<ul>
+  <li><strong>ecosio</strong> - <a href="https://ecosio.com/en/peppol-and-xml-document-validator/">https://ecosio.com/en/peppol-and-xml-document-validator/</a> - Form based validation for many formats.</li>
+  <li><strong>phive</strong> [Open Source] - <a href="https://github.com/phax/phive">https://github.com/phax/phive</a> - Java based validation engine.</li>
+  <li><strong>phive-rules</strong> [Open Source] - <a href="https://github.com/phax/phive-rules">https://github.com/phax/phive-rules</a> - Predefined rule sets for usage with phive.</li>
+</ul>
+
+<a name="hosted"></a>
+<h2>Hosted solutions</h2>
+
+<p>This chapter deals with hosted Peppol solutions only</p>
+
+<ul>
+  <li><strong>Storecove</strong> - <a href="https://www.storecove.com/">https://www.storecove.com/</a></li>
+  <li><strong>Tickstar</strong> - <a href="https://www.tickstar.com/">https://www.tickstar.com/</a></li>
+</ul>
+
+<a name="erp"></a>
+<h2>ERP solutions</h2>
+
+<p>This chapter deals with ERP solutions only</p>
+
+<ul>
+  <li>None I am aware of</li>
+</ul>

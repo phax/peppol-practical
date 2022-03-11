@@ -37,6 +37,7 @@ public final class CMenuPublic
   public static final String MENU_DOCS_PEPPOL_PKI = "docs-peppol-pki";
   public static final String MENU_DOCS_PEPPOL_CERT_UPDATE = "docs-peppol-cert-update";
   public static final String MENU_DOCS_PEPPOL_DICT = "docs-peppol-dict";
+  public static final String MENU_DOCS_SOFTWARE_VENDORS = "docs-software-vendors";
   public static final String MENU_NEWS = "news";
   public static final String MENU_TOOLS = "tools";
   public static final String MENU_TOOLS_PARTICIPANT_INFO = "tools-participant";

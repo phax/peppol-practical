@@ -39,6 +39,24 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2022-03-11 - Updated page</h3>
+ 
+    <p>
+      Now the DE4A production certificates are supported in the Participant Information and
+      the new page on <a href="/public/menuitem-docs-software-vendors">Software vendors and solutions</a> was added.
+    </p>
+
+    <h3>2022-02-24 - phoss SMP 5.6.1</h3>
+
+    <p>
+      phoss SMP 5.6.1 was released. It provides the necessary changes for the recent OpenPeppol SMP specification updates that are in effect by May 1<sup>st</sup>.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-5.6.1">Download phoss SMP 5.6.1</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2022-01-28 - Document Validation extended</h3>
  
     <p>
