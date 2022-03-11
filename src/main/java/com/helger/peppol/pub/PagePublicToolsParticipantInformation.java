@@ -972,16 +972,23 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 final BootstrapTable aIDTab = new BootstrapTable ().setCondensed (true);
                 aIDTab.addHeaderRow ().addCells ("Scheme", "Value");
                 for (final PDIdentifier aItem : aEntity.identifiers ())
-                  aIDTab.addBodyRow ().addCells (aItem.getScheme (), aItem.getValue ());
-                aLI.addChild (div ("Additional identifiers: ").addChild (aIDTab));
+                {
+                  // Avoid empty rows
+                  if (StringHelper.hasText (aItem.getScheme ()) || StringHelper.hasText (aItem.getValue ()))
+                    aIDTab.addBodyRow ().addCells (aItem.getScheme (), aItem.getValue ());
+                }
+                if (aIDTab.hasBodyRows ())
+                  aLI.addChild (div ("Additional identifiers: ").addChild (aIDTab));
               }
               // Website URLs
               if (aEntity.websiteURIs ().isNotEmpty ())
               {
                 final HCNodeList aWebsites = new HCNodeList ();
                 for (final String sItem : aEntity.websiteURIs ())
-                  aWebsites.addChild (div (HCA.createLinkedWebsite (sItem)));
-                aLI.addChild (div ("Website URLs: ").addChild (aWebsites));
+                  if (StringHelper.hasText (sItem))
+                    aWebsites.addChild (div (HCA.createLinkedWebsite (sItem)));
+                if (aWebsites.hasChildren ())
+                  aLI.addChild (div ("Website URLs: ").addChild (aWebsites));
               }
               // Contacts
               if (aEntity.contacts ().isNotEmpty ())
@@ -989,12 +996,20 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 final BootstrapTable aContactTab = new BootstrapTable ().setCondensed (true);
                 aContactTab.addHeaderRow ().addCells ("Type", "Name", "Phone", "Email");
                 for (final PDContact aItem : aEntity.contacts ())
-                  aContactTab.addBodyRow ()
-                             .addCell (aItem.getType ())
-                             .addCell (aItem.getName ())
-                             .addCell (aItem.getPhoneNumber ())
-                             .addCell (HCA_MailTo.createLinkedEmail (aItem.getEmail ()));
-                aLI.addChild (div ("Contact points: ").addChild (aContactTab));
+                {
+                  // Avoid empty rows
+                  if (StringHelper.hasText (aItem.getType ()) ||
+                      StringHelper.hasText (aItem.getName ()) ||
+                      StringHelper.hasText (aItem.getPhoneNumber ()) ||
+                      StringHelper.hasText (aItem.getEmail ()))
+                    aContactTab.addBodyRow ()
+                               .addCell (aItem.getType ())
+                               .addCell (aItem.getName ())
+                               .addCell (aItem.getPhoneNumber ())
+                               .addCell (HCA_MailTo.createLinkedEmail (aItem.getEmail ()));
+                }
+                if (aContactTab.hasBodyRows ())
+                  aLI.addChild (div ("Contact points: ").addChild (aContactTab));
               }
               if (aEntity.hasAdditionalInfo ())
               {
