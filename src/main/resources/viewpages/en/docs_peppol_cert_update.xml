@@ -95,7 +95,7 @@
   The AP certificate update consists of two basic steps:
 </p>
 <ol>
-  <li>update the the AP software itself</li>   
+  <li>update the AP software itself</li>   
   <li>update the certificate in all endpoints SMP endpoints</li> 
 </ol>
 
@@ -146,7 +146,7 @@
 </p>
 <ol>
   <li>notify the SML about your new certificate, ideally ahead of time</li> 
-  <li>update the the SMP software itself</li>   
+  <li>update the SMP software itself</li>   
 </ol>
 
 <p>
