@@ -443,7 +443,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
 
           // Show only once
-          final String sURL4 = sURL1 + "/" + sParticipantIDUriEncoded;
+          final String sURL4 = sURL1 + (sURL1.endsWith ("/") ? "" : "/") + sParticipantIDUriEncoded;
           aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
           if (!bXSDValidation)
             aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
