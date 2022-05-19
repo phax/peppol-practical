@@ -34,6 +34,7 @@ import com.helger.phive.api.executorset.VESID;
 import com.helger.phive.api.executorset.ValidationExecutorSetRegistry;
 import com.helger.phive.cii.CIIValidation;
 import com.helger.phive.ciuspt.CIUS_PTValidation;
+import com.helger.phive.ciusro.CIUS_ROValidation;
 import com.helger.phive.ebinterface.EbInterfaceValidation;
 import com.helger.phive.ehf.EHFValidation;
 import com.helger.phive.en16931.EN16931Validation;
@@ -86,6 +87,7 @@ public final class ExtValidationKeyRegistry
     CIUS_PTValidation.initCIUS_PT (VES_REGISTRY);
     ISDOCValidation.initISDOC (VES_REGISTRY);
     PeppolItalyValidation.init (VES_REGISTRY);
+    CIUS_ROValidation.initCIUS_RO (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
