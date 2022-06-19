@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 682 entries -->
+<!-- 686 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.0</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -110,6 +110,10 @@ A very small Java WS client is available for
 <li><code>pt.gov.espap.cius-pt:ubl-creditnote:2.1.1</code> - CIUS-PT UBL CrediteNote 2.1.1</li>
 <li><code>pt.gov.espap.cius-pt:ubl-invoice:2.0.0</code> - CIUS-PT UBL Invoice 2.0.0 <strong>(Deprecated)</strong></li>
 <li><code>pt.gov.espap.cius-pt:ubl-invoice:2.1.1</code> - CIUS-PT UBL Invoice 2.1.1</li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.3</code> - CIUS-RO UBL CrediteNote 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.4</code> - CIUS-RO UBL CrediteNote 1.0.4</li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.3</code> - CIUS-RO UBL Invoice 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.4</code> - CIUS-RO UBL Invoice 1.0.4</li>
 <li><code>no.ehf.g3:advanced-order-cancellation:3.0.0</code> - EHF Advanced Order Cancellation 3.0.0</li>
 <li><code>no.ehf.g3:advanced-order-change:3.0.0</code> - EHF Advanced Order Change 3.0.0</li>
 <li><code>no.ehf.g3:advanced-order-initiation:3.0.0</code> - EHF Advanced Order Initiation 3.0.0</li>
@@ -283,7 +287,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:t16:3.8.1</code> - OpenPeppol Despatch Advice (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t16:3.9.0</code> - OpenPeppol Despatch Advice (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t16:3.9.1</code> - OpenPeppol Despatch Advice (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t16:3.10.0</code> - OpenPeppol Despatch Advice (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:despatch-advice:3.10.0</code> - OpenPeppol Despatch Advice (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:3.10.1</code> - OpenPeppol Despatch Advice (3.10.1) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:3.11.0</code> - OpenPeppol Despatch Advice (3.11.0) (aka BIS 3.0.5) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:3.11.1</code> - OpenPeppol Despatch Advice (3.11.1) (aka BIS 3.0.6) <strong>(Deprecated)</strong></li>
@@ -339,7 +343,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:t01:3.8.1</code> - OpenPeppol Order (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t01:3.9.0</code> - OpenPeppol Order (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t01:3.9.1</code> - OpenPeppol Order (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t01:3.10.0</code> - OpenPeppol Order (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order:3.10.0</code> - OpenPeppol Order (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:3.10.1</code> - OpenPeppol Order (3.10.1) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:3.11.0</code> - OpenPeppol Order (3.11.0) (aka BIS 3.0.5) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:3.11.1</code> - OpenPeppol Order (3.11.1) (aka BIS 3.0.6) <strong>(Deprecated)</strong></li>
@@ -353,7 +357,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:t110:3.8.1</code> - OpenPeppol Order Agreement (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t110:3.9.0</code> - OpenPeppol Order Agreement (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:t110:3.9.1</code> - OpenPeppol Order Agreement (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t110:3.10.0</code> - OpenPeppol Order Agreement (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order-agreement:3.10.0</code> - OpenPeppol Order Agreement (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:3.10.1</code> - OpenPeppol Order Agreement (3.10.1) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:3.11.0</code> - OpenPeppol Order Agreement (3.11.0) (aka BIS 3.0.5) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:3.11.1</code> - OpenPeppol Order Agreement (3.11.1) (aka BIS 3.0.6) <strong>(Deprecated)</strong></li>

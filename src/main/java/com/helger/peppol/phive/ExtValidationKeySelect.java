@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
@@ -53,7 +54,10 @@ public final class ExtValidationKeySelect extends HCExtSelect
   @Nonempty
   public static ICommonsList <IValidationExecutorSet <IValidationSourceXML>> getAllSortedCorrect (@Nonnull final Locale aDisplayLocale)
   {
-    final ICommonsList <IValidationExecutorSet <IValidationSourceXML>> aAll = ExtValidationKeyRegistry.getAll ();
+    final ICommonsList <IValidationExecutorSet <IValidationSourceXML>> aAll = new CommonsArrayList <> ();
+    for (final IValidationExecutorSet <IValidationSourceXML> aEntry : ExtValidationKeyRegistry.getAll ())
+      if (!LEGACY_IDS.contains (aEntry.getID ()))
+        aAll.add (aEntry);
     final NaturalNumericOrderComparator aCS = new NaturalNumericOrderComparator (IComparator.getComparatorCollating (aDisplayLocale));
     return aAll.getSortedInline ( (x, y) -> aCS.compare (x.getDisplayName (), y.getDisplayName ()));
   }
@@ -63,9 +67,8 @@ public final class ExtValidationKeySelect extends HCExtSelect
     super (aRF);
 
     for (final IValidationExecutorSet <IValidationSourceXML> aEntry : getAllSortedCorrect (aDisplayLocale))
-      if (!LEGACY_IDS.contains (aEntry.getID ()))
-        addOption (aEntry.getID ().getAsSingleID (),
-                   aEntry.getDisplayName () + (aEntry.isDeprecated () ? " (deprecated!)" : ""));
+      addOption (aEntry.getID ().getAsSingleID (),
+                 aEntry.getDisplayName () + (aEntry.isDeprecated () ? " (deprecated!)" : ""));
     addOptionPleaseSelect (aDisplayLocale);
   }
 }
