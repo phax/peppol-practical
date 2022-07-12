@@ -38,6 +38,50 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+
+    <h3>2022-07-12 - OpenPeppol eDEC Code Lists v8.2 release</h3>
+ 
+    <p>
+      The new version 8.2 of the code lists is available at
+      <a href="https://docs.peppol.eu/edelivery/codelists/">https://docs.peppol.eu/edelivery/codelists/</a>. 
+      The detailed list of changes is <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html">also available</a>. 
+    </p>
+
+    <p>
+      Added support for A-NZ Peppol Invoice types 1.0.7.<br/>
+      Added experimental support for the latest OIOUBL artefacts from <a href="https://www.digitaliser.dk/group/56183/resources">https://www.digitaliser.dk/group/56183/resources</a><br/>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.7</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.7</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.7</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.7</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.7</code> - A-NZ Peppol BIS3 Invoice (UBL) 1.0.7</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.7</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.7</li>
+<li><code>dk.oioubl:application-response:1.12.3</code> - OIOUBL Application Response 1.12.3</li>
+<li><code>dk.oioubl:catalogue:1.12.3</code> - OIOUBL Catalogue 1.12.3</li>
+<li><code>dk.oioubl:catalogue-deletion:1.12.3</code> - OIOUBL Catalogue Deletion 1.12.3</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.12.3</code> - OIOUBL Catalogue Item Specification Update 1.12.3</li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.12.3</code> - OIOUBL Catalogue Pricing Update 1.12.3</li>
+<li><code>dk.oioubl:catalogue-request:1.12.3</code> - OIOUBL Catalogue Request 1.12.3</li>
+<li><code>dk.oioubl:credit-note:1.12.3</code> - OIOUBL Credit Note 1.12.3</li>
+<li><code>dk.oioubl:invoice:1.12.3</code> - OIOUBL Invoice 1.12.3</li>
+<li><code>dk.oioubl:order:1.12.3</code> - OIOUBL Order 1.12.3</li>
+<li><code>dk.oioubl:order-cancellation:1.12.3</code> - OIOUBL Order Cancellation 1.12.3</li>
+<li><code>dk.oioubl:order-change:1.12.3</code> - OIOUBL Order Change 1.12.3</li>
+<li><code>dk.oioubl:order-response:1.12.3</code> - OIOUBL Order Response 1.12.3</li>
+<li><code>dk.oioubl:order-response-simple:1.12.3</code> - OIOUBL Order Response Simple 1.12.3</li>
+<li><code>dk.oioubl:reminder:1.12.3</code> - OIOUBL Reminder 1.12.3</li>
+<li><code>dk.oioubl:statement:1.12.3</code> - OIOUBL Statement 1.12.3</li>
+<li><code>dk.oioubl:utility-statement:1.12.3</code> - OIOUBL Utility Statement 1.12.3</li>
+</ul>
+  
+    <h3>2022-07-01 - New Peppol Agreements take effect</h3>
+    
+    <p>
+      The new Peppol Agreements enter effect per today.
+      If you are a Peppol Service Provider and haven't re-signed the contract with OpenPeppol, do so immediately.
+      Failing to do so, may result in a certificate revocation in the future.  
+    </p>
   
     <h3>2022-06-19 - Document Validation extended</h3>
  
@@ -62,6 +106,17 @@
       <a href="https://docs.peppol.eu/edelivery/codelists/">https://docs.peppol.eu/edelivery/codelists/</a>. 
       The detailed list of changes is <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html">also available</a>. 
     </p>
+ 
+    <h3>2022-05-17 - phoss SMP 5.7.0</h3>
+
+    <p>
+      phoss SMP 5.7.0 was released. It improves the database support for Oracle and DB2.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-5.7.0">Download phoss SMP 5.7.0</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
  
     <h3>2022-05-09 - Document Validation extended</h3>
  

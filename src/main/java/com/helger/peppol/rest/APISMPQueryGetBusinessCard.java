@@ -135,7 +135,7 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
     final String sBCURL = aQueryParams.getSMPHostURI ().toString () + "/businesscard/" + aParticipantID.getURIEncoded ();
     LOGGER.info (sLogPrefix + "Querying BC from '" + sBCURL + "'");
     byte [] aData;
-    try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
+    try (final HttpClientManager aHttpClientMgr = new HttpClientManager ())
     {
       final HttpGet aGet = new HttpGet (sBCURL);
       aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());

@@ -55,6 +55,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetServiceInformation.class);
+  private static final String USER_AGENT = "Peppol-Practical/1.0 SMP-Query-API/1.0";
 
   @Override
   protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
@@ -149,6 +150,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
       case PEPPOL:
       {
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+        aSMPClient.httpClientSettings ().setUserAgent (USER_AGENT);
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
 
@@ -163,6 +165,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
       case OASIS_BDXR_V1:
       {
         final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+        aBDXR1Client.httpClientSettings ().setUserAgent (USER_AGENT);
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);
 
