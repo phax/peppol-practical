@@ -25,7 +25,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.apache.http.client.HttpResponseException;
+import org.apache.hc.client5.http.HttpResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,7 +111,9 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
       // Ensure to go into the exception handler
       if (aSML == null)
         throw new HttpResponseException (CHttp.HTTP_NOT_FOUND,
-                                         "The participant identifier '" + sParticipantID + "' could not be found in any SML.");
+                                         "The participant identifier '" +
+                                                               sParticipantID +
+                                                               "' could not be found in any SML.");
     }
     else
     {
@@ -125,7 +127,9 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
                                    "'");
 
     final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
-    final IDocumentTypeIdentifier aDocTypeID = aQueryParams.getIF ().createDocumentTypeIdentifier (aDTID.getScheme (), aDTID.getValue ());
+    final IDocumentTypeIdentifier aDocTypeID = aQueryParams.getIF ()
+                                                           .createDocumentTypeIdentifier (aDTID.getScheme (),
+                                                                                          aDTID.getValue ());
     if (aDocTypeID == null)
       throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
@@ -154,7 +158,8 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
 
-        final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID, aDocTypeID);
+        final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                aDocTypeID);
         if (aSSM != null)
         {
           final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
@@ -169,7 +174,8 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);
 
-        final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID, aDocTypeID);
+        final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
+                                                                                                                aDocTypeID);
         if (aSSM != null)
         {
           final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();

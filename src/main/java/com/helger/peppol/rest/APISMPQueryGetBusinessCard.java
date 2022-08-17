@@ -25,8 +25,8 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.hc.client5.http.HttpResponseException;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -103,7 +103,9 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
       // Ensure to go into the exception handler
       if (aSML == null)
         throw new HttpResponseException (CHttp.HTTP_NOT_FOUND,
-                                         "The participant identifier '" + sParticipantID + "' could not be found in any SML.");
+                                         "The participant identifier '" +
+                                                               sParticipantID +
+                                                               "' could not be found in any SML.");
     }
     else
     {
@@ -132,7 +134,9 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
 
     IJsonObject aJson = null;
 
-    final String sBCURL = aQueryParams.getSMPHostURI ().toString () + "/businesscard/" + aParticipantID.getURIEncoded ();
+    final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
+                          "/businesscard/" +
+                          aParticipantID.getURIEncoded ();
     LOGGER.info (sLogPrefix + "Querying BC from '" + sBCURL + "'");
     byte [] aData;
     try (final HttpClientManager aHttpClientMgr = new HttpClientManager ())

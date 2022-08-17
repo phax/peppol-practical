@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.client.HttpResponseException;
+import org.apache.hc.client5.http.HttpResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,10 @@ public class APIExceptionMapper extends AbstractAPIExceptionMapper
     if (AppConfig.isRestLogExceptions ())
       LOGGER.error (sMsg, t);
     else
-      LOGGER.error (sMsg + " - " + getResponseEntityWithoutStackTrace (t) + " (turn on REST exception logging to see all details)");
+      LOGGER.error (sMsg +
+                    " - " +
+                    getResponseEntityWithoutStackTrace (t) +
+                    " (turn on REST exception logging to see all details)");
   }
 
   private static void _setSimpleTextResponse (@Nonnull final UnifiedResponse aUnifiedResponse,

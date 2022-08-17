@@ -25,8 +25,8 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.hc.client5.http.HttpResponseException;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -114,7 +114,9 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
       // Ensure to go into the exception handler
       if (aSML == null)
         throw new HttpResponseException (CHttp.HTTP_NOT_FOUND,
-                                         "The participant identifier '" + sParticipantID + "' could not be found in any SML.");
+                                         "The participant identifier '" +
+                                                               sParticipantID +
+                                                               "' could not be found in any SML.");
     }
     else
     {
@@ -129,18 +131,19 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
 
     final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
 
-    LOGGER.info ("[API] Document types of '" +
-                 aParticipantID.getURIEncoded () +
-                 "' are queried using SMP API '" +
-                 aQueryParams.getSMPAPIType () +
-                 "' from '" +
-                 aQueryParams.getSMPHostURI () +
-                 "' using SML '" +
-                 aSML.getID () +
-                 "'; XSD validation=" +
-                 bXMLSchemaValidation +
-                 "; signature verification=" +
-                 bVerifySignature);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("[API] Document types of '" +
+                   aParticipantID.getURIEncoded () +
+                   "' are queried using SMP API '" +
+                   aQueryParams.getSMPAPIType () +
+                   "' from '" +
+                   aQueryParams.getSMPHostURI () +
+                   "' using SML '" +
+                   aSML.getID () +
+                   "'; XSD validation=" +
+                   bXMLSchemaValidation +
+                   "; signature verification=" +
+                   bVerifySignature);
 
     ICommonsSortedMap <String, String> aSGHrefs = null;
     switch (aQueryParams.getSMPAPIType ())
@@ -164,7 +167,8 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
             // Decoded href is important for unification
             final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
             if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-              LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
           }
         }
         break;
@@ -189,7 +193,8 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
             // Decoded href is important for unification
             final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
             if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-              LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
           }
         }
         break;
@@ -198,12 +203,18 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
 
     IJsonObject aJson = null;
     if (aSGHrefs != null)
-      aJson = SMPJsonResponseExt.convert (aQueryParams.getSMPAPIType (), aParticipantID, aSGHrefs, aQueryParams.getIF ());
+      aJson = SMPJsonResponseExt.convert (aQueryParams.getSMPAPIType (),
+                                          aParticipantID,
+                                          aSGHrefs,
+                                          aQueryParams.getIF ());
 
     if (bQueryBusinessCard)
     {
-      final String sBCURL = aQueryParams.getSMPHostURI ().toString () + "/businesscard/" + aParticipantID.getURIEncoded ();
-      LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
+      final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
+                            "/businesscard/" +
+                            aParticipantID.getURIEncoded ();
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
       byte [] aData;
       try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
       {
@@ -222,7 +233,8 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
         final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, StandardCharsets.UTF_8);
         if (aBC == null)
         {
-          LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));
+          if (LOGGER.isErrorEnabled ())
+            LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));
         }
         else
         {

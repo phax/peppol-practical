@@ -80,7 +80,7 @@ import com.helger.photon.core.servlet.LogoutServlet;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
 import com.helger.photon.security.util.SecurityHelper;
-import com.helger.photon.uicore.html.google.HCUniversalAnalytics;
+import com.helger.photon.uicore.html.google.HCGoogleAnalyticsV4;
 import com.helger.photon.uictrls.famfam.EFamFamIcon;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -124,7 +124,8 @@ public final class LayoutAreaContentProviderPublic
     final IUser aUser = LoggedInUserManager.getInstance ().getCurrentUser ();
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar ();
-    aNavbar.addBrand (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()), aLinkToStartPage);
+    aNavbar.addBrand (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()),
+                      aLinkToStartPage);
 
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant information")
                                                                         .setIcon (EFamFamIcon.USER_GREEN)
@@ -169,7 +170,8 @@ public final class LayoutAreaContentProviderPublic
       final BootstrapNavbarNav aNav = aToggleable.addAndReturnNav ();
       final BootstrapDropdownMenu aDropDown = new BootstrapDropdownMenu ();
       {
-        final HCDiv aDiv = new HCDiv ().addClass (CBootstrapCSS.P_2).addStyle (CCSSProperties.MIN_WIDTH.newValue ("400px"));
+        final HCDiv aDiv = new HCDiv ().addClass (CBootstrapCSS.P_2)
+                                       .addStyle (CCSSProperties.MIN_WIDTH.newValue ("400px"));
         aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false));
         aDropDown.addChild (aDiv);
       }
@@ -188,7 +190,8 @@ public final class LayoutAreaContentProviderPublic
   {
     // Main menu
     final IMenuTree aMenuTree = aLEC.getMenuTree ();
-    final MenuItemDeterminatorCallback aCallback = new MenuItemDeterminatorCallback (aMenuTree, aLEC.getSelectedMenuItemID ())
+    final MenuItemDeterminatorCallback aCallback = new MenuItemDeterminatorCallback (aMenuTree,
+                                                                                     aLEC.getSelectedMenuItemID ())
     {
       @Override
       protected boolean isMenuItemValidToBeDisplayed (@Nonnull final IMenuObject aMenuObj)
@@ -232,10 +235,10 @@ public final class LayoutAreaContentProviderPublic
   {
     final HCNodeList ret = BootstrapPageRenderer.getPageContent (aLEC);
 
-    if (GlobalDebug.isProductionMode ())
+    if (true || GlobalDebug.isProductionMode ())
     {
       // Add Google Analytics
-      ret.addChild (new HCUniversalAnalytics ("UA-55419519-1", true, true, false, true));
+      ret.addChild (new HCGoogleAnalyticsV4 ("G-00574HBRZE"));
     }
 
     return ret;
@@ -283,7 +286,8 @@ public final class LayoutAreaContentProviderPublic
     {
       final HCDiv aRow = aOuterContainer.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX));
       final HCDiv aCol1 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX));
-      final HCDiv aCol2 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.ML_3).addClass (CBootstrapCSS.FLEX_FILL));
+      final HCDiv aCol2 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.ML_3)
+                                                              .addClass (CBootstrapCSS.FLEX_FILL));
 
       // left
       // We need a wrapper span for easy AJAX content replacement
