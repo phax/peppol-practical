@@ -235,7 +235,7 @@ public final class LayoutAreaContentProviderPublic
   {
     final HCNodeList ret = BootstrapPageRenderer.getPageContent (aLEC);
 
-    if (true || GlobalDebug.isProductionMode ())
+    if (GlobalDebug.isProductionMode ())
     {
       // Add Google Analytics
       ret.addChild (new HCGoogleAnalyticsV4 ("G-00574HBRZE"));
