@@ -45,6 +45,7 @@ public final class SMPQueryParams
   private IIdentifierFactory m_aIF;
   private IParticipantIdentifier m_aParticipantID;
   private URI m_aSMPHostURI;
+  private boolean m_bTrustAllCerts = false;
 
   private SMPQueryParams ()
   {}
@@ -73,6 +74,11 @@ public final class SMPQueryParams
     return m_aSMPHostURI;
   }
 
+  public boolean isTrustAllCertificates ()
+  {
+    return m_bTrustAllCerts;
+  }
+
   @Nonnull
   private static ISMPURLProvider _getURLProvider (@Nonnull final ESMPAPIType eAPIType)
   {
@@ -99,12 +105,14 @@ public final class SMPQueryParams
     try
     {
       ret.m_aSMPHostURI = _getURLProvider (ret.m_eSMPAPIType).getSMPURIOfParticipant (ret.m_aParticipantID, aCurSML.getDNSZone ());
+      if (ret.m_eSMPAPIType != ESMPAPIType.PEPPOL && "https".equals (ret.m_aSMPHostURI.getScheme ()))
+        ret.m_bTrustAllCerts = true;
     }
     catch (final SMPDNSResolutionException ex)
     {
       // For BDXL lookup -> no such participant
       if (bLogOnError)
-        LOGGER.warn ("Failed to resolve participant in DNS");
+        LOGGER.warn ("Failed to resolve participant " + ret.m_aParticipantID + " in DNS");
       return null;
     }
     return ret;
