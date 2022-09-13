@@ -47,6 +47,13 @@
       See <a href="https://github.com/phax/phase4/releases/tag/phase4-parent-pom-1.4.0">release on GitHub</a>.   
     </p>
 
+    <h3>2022-09-09 - CEF eDelivery support email address changed</h3>
+    
+    <p>
+      The CEF eDelivery support email address changed.
+      Instead of the old <code>CEF-EDELIVERY-SUPPORT@...</code> you need to use <code>EC-EDELIVERY-SUPPORT@...</code> instead.
+    </p>
+
     <h3>2022-07-12 - OpenPeppol eDEC Code Lists v8.2 release</h3>
  
     <p>

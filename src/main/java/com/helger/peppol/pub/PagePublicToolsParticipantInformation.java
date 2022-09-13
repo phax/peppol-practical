@@ -20,6 +20,7 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
@@ -129,12 +130,14 @@ import com.helger.photon.uictrls.prism.EPrismLanguage;
 import com.helger.photon.uictrls.prism.HCPrismJS;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
+import com.helger.smpclient.bdxr2.BDXR2ClientReadOnly;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.xml.serialize.write.XMLWriter;
+import com.helger.xsds.bdxr.smp2.bc.IDType;
 
 public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 {
@@ -181,8 +184,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
   private void _printEndpointURL (@Nonnull final IHCLI <?> aLIEndpoint, final String sEndpointRef)
   {
-    aLIEndpoint.addChild (div ("Endpoint URL: ").addChild (StringHelper.hasNoText (sEndpointRef) ? em ("none")
-                                                                                                 : code (sEndpointRef)));
+    aLIEndpoint.addChild (div ("Endpoint URL: ").addChild (StringHelper.hasNoText (sEndpointRef) ? em ("none") : code (sEndpointRef)));
   }
 
   private void _printActivationDate (@Nonnull final IHCLI <?> aLIEndpoint,
@@ -287,8 +289,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     LOGGER.info ("Start querying the Participant information of '" + sParticipantIDUriEncoded + "'");
 
     // Try to print the basic information before an error occurs
-    aNodeList.addChild (div ("Querying the following SMP for ").addChild (code (sParticipantIDUriEncoded))
-                                                               .addChild (":"));
+    aNodeList.addChild (div ("Querying the following SMP for ").addChild (code (sParticipantIDUriEncoded)).addChild (":"));
 
     final ICommonsList <JAXBException> aSMPExceptions = new CommonsArrayList <> ();
 
@@ -300,8 +301,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       {
         final ICommonsList <ISMLConfiguration> aSortedList = aSMLConfigurationMgr.getAllSorted ();
         if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Sorted SML Configs: " +
-                        StringHelper.getImplodedMapped (", ", aSortedList, ISMLConfiguration::getID));
+          LOGGER.debug ("Sorted SML Configs: " + StringHelper.getImplodedMapped (", ", aSortedList, ISMLConfiguration::getID));
         for (final ISMLConfiguration aCurSML : aSortedList)
         {
           aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue, false);
@@ -334,18 +334,12 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           return;
         }
 
-        LOGGER.info ("Participant ID '" +
-                     sParticipantIDUriEncoded +
-                     "': auto detected SML " +
-                     aRealSMLConfiguration.getID ());
+        LOGGER.info ("Participant ID '" + sParticipantIDUriEncoded + "': auto detected SML " + aRealSMLConfiguration.getID ());
       }
       else
       {
         // SML configuration is not null
-        aQueryParams = SMPQueryParams.createForSML (aRealSMLConfiguration,
-                                                    sParticipantIDScheme,
-                                                    sParticipantIDValue,
-                                                    true);
+        aQueryParams = SMPQueryParams.createForSML (aRealSMLConfiguration, sParticipantIDScheme, sParticipantIDValue, true);
       }
 
       if (aQueryParams == null)
@@ -362,9 +356,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                                 : div ("Try selecting a different SML - maybe this helps")));
 
         // Audit failure
-        AuditHelper.onAuditExecuteFailure ("participant-information",
-                                           sParticipantIDUriEncoded,
-                                           "smp-query-params-null");
+        AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "smp-query-params-null");
         return;
       }
 
@@ -391,6 +383,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         final HCUL aUL = new HCUL ();
         aNodeList.addChild (aUL);
 
+        // Information only
         aUL.addItem (div ("SML used: ").addChild (code (aRealSMLConfiguration.getDisplayName () +
                                                         " / " +
                                                         aRealSMLConfiguration.getDNSZone ()))
@@ -405,6 +398,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
         if (aWPEC.params ().hasStringValue ("dnsjava", "true"))
         {
+          // Explicit query with the Dnsjava lookup
+          // Hidden feature to show more details
+          final StopWatch aSWDNSLookup = StopWatch.createdStarted ();
           LOGGER.info ("Start DNSJava lookup");
           Record [] aRecords = null;
           try
@@ -423,7 +419,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final InetAddress aNice = aARec.getAddress ();
               final String sURL3 = aNice != null ? aNice.getCanonicalHostName () : null;
 
-              final HCDiv aDiv1 = div ("[dnsjava] IP addressX: ").addChild (code (sURL2));
+              final HCDiv aDiv1 = div ("[dnsjava] IP address: ").addChild (code (sURL2));
               if (sURL3 != null)
                 aDiv1.addChild (" - reverse lookup: ").addChild (code (sURL3));
               else
@@ -434,58 +430,70 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 aDiv2.addChild (" ").addChild (_createOpenInBrowser ("http://" + sURL3, "Open name in browser"));
               aUL.addItem (aDiv1, aDiv2);
             }
+          aSWDNSLookup.stop ();
           LOGGER.info ("Finished DNSJava lookup - " +
-                       (aRecords == null ? "no results" : aRecords.length + " result records"));
+                       (aRecords == null ? "no results" : aRecords.length + " result records") +
+                       " after " +
+                       aSWDNSLookup.getMillis () +
+                       " milliseconds");
         }
 
-        try
+        // Lookup with Java Runtime API
         {
-          final InetAddress [] aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
-          for (final InetAddress aInetAddress : aInetAddresses)
+          final StopWatch aSWDNSLookup = StopWatch.createdStarted ();
+          InetAddress [] aInetAddresses = null;
+          try
           {
-            final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
-            final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
-            final String sURL3 = aNice.getCanonicalHostName ();
+            aInetAddresses = InetAddress.getAllByName (aSMPHost.getHost ());
+            for (final InetAddress aInetAddress : aInetAddresses)
+            {
+              final String sURL2 = new IPV4Addr (aInetAddress).getAsString ();
+              final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
+              final String sURL3 = aNice.getCanonicalHostName ();
 
-            aUL.addItem (div ("IP address: ").addChild (code (sURL2))
-                                             .addChild (" - reverse lookup: ")
-                                             .addChild (code (sURL3)),
-                         div (_createOpenInBrowser ("http://" + sURL2,
-                                                    "Open IP in browser")).addChild (" ")
-                                                                          .addChild (_createOpenInBrowser ("http://" +
-                                                                                                           sURL3,
-                                                                                                           "Open name in browser")));
+              aUL.addItem (div ("IP address: ").addChild (code (sURL2)).addChild (" - reverse lookup: ").addChild (code (sURL3)),
+                           div (_createOpenInBrowser ("http://" + sURL2,
+                                                      "Open IP in browser")).addChild (" ")
+                                                                            .addChild (_createOpenInBrowser ("http://" + sURL3,
+                                                                                                             "Open name in browser")));
+            }
+
+            // Show only once
+            final String sURL4 = sURL1 + (sURL1.endsWith ("/") ? "" : "/") + sParticipantIDUriEncoded;
+            aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
+            if (!bXSDValidation)
+              aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
+            if (!bVerifySignatures)
+              aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
           }
+          catch (final UnknownHostException ex)
+          {
+            LOGGER.error ("Failed to resolve SMP host '" +
+                          aSMPHost.getHost () +
+                          "' for the participant ID '" +
+                          sParticipantIDUriEncoded +
+                          "'");
 
-          // Show only once
-          final String sURL4 = sURL1 + (sURL1.endsWith ("/") ? "" : "/") + sParticipantIDUriEncoded;
-          aUL.addItem (div ("Query base URL: ").addChild (code (sURL4)), div (_createOpenInBrowser (sURL4)));
-          if (!bXSDValidation)
-            aUL.addItem (badgeWarn ("XML Schema validation of SMP responses is disabled."));
-          if (!bVerifySignatures)
-            aUL.addItem (badgeDanger ("Signature verification of SMP responses is disabled."));
-        }
-        catch (final UnknownHostException ex)
-        {
-          LOGGER.error ("Failed to resolve SMP host '" +
-                        aSMPHost.getHost () +
-                        "' for the participant ID '" +
-                        sParticipantIDUriEncoded +
-                        "'");
+            aNodeList.addChild (error (div ("Seems like the participant ID " +
+                                            sParticipantIDUriEncoded +
+                                            " is not registered to the selected network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                                         false))
+                                                                                           .addChild (bSMLAutoDetect ? null
+                                                                                                                     : div ("Try selecting a different SML - maybe this helps")));
 
-          aNodeList.addChild (error (div ("Seems like the participant ID " +
-                                          sParticipantIDUriEncoded +
-                                          " is not registered to the selected network.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                                       false))
-                                                                                         .addChild (bSMLAutoDetect ? null
-                                                                                                                   : div ("Try selecting a different SML - maybe this helps")));
-
-          // Audit failure
-          AuditHelper.onAuditExecuteFailure ("participant-information",
-                                             sParticipantIDUriEncoded,
-                                             "unknown-host",
-                                             ex.getMessage ());
-          return;
+            // Audit failure
+            AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, "unknown-host", ex.getMessage ());
+            return;
+          }
+          finally
+          {
+            aSWDNSLookup.stop ();
+            LOGGER.info ("Finished Java Runtime lookup - " +
+                         (aInetAddresses == null ? "no results" : aInetAddresses.length + " result records") +
+                         " after " +
+                         aSWDNSLookup.getMillis () +
+                         " milliseconds");
+          }
         }
       }
 
@@ -493,6 +501,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final ICommonsList <IDocumentTypeIdentifier> aDocTypeIDs = new CommonsArrayList <> ();
       SMPClientReadOnly aSMPClient = null;
       BDXRClientReadOnly aBDXR1Client = null;
+      BDXR2ClientReadOnly aBDXR2Client = null;
 
       final Consumer <GenericJAXBMarshaller <?>> aSMPMarshallerCustomizer = m -> {
         aSMPExceptions.clear ();
@@ -533,8 +542,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
               if (aSG.getExtension () != null && aSG.getExtension ().getAny () != null)
               {
-                aSGExtension = new HCPrismJS (EPrismLanguage.MARKUP).addChild (XMLWriter.getNodeAsString (aSG.getExtension ()
-                                                                                                             .getAny ()));
+                aSGExtension = new HCPrismJS (EPrismLanguage.MARKUP).addChild (XMLWriter.getNodeAsString (aSG.getExtension ().getAny ()));
               }
             }
             break;
@@ -545,6 +553,16 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR1Client.setVerifySignature (bVerifySignatures);
             aBDXR1Client.setMarshallerCustomizer (aSMPMarshallerCustomizer);
+            if (aQueryParams.isTrustAllCertificates ())
+              try
+              {
+                aBDXR1Client.httpClientSettings ().setSSLContextTrustAll ();
+                LOGGER.warn ("Disabled certificate verification on TLS when querying the SMP.");
+              }
+              catch (final GeneralSecurityException ex)
+              {
+                // Ignore
+              }
 
             // Get all HRefs and sort them by decoded URL
             final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
@@ -577,15 +595,53 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             }
             break;
           }
+          case OASIS_BDXR_V2:
+          {
+            aBDXR2Client = new BDXR2ClientReadOnly (aQueryParams.getSMPHostURI ());
+            aBDXR2Client.setXMLSchemaValidation (bXSDValidation);
+            aBDXR2Client.setVerifySignature (bVerifySignatures);
+            aBDXR2Client.setMarshallerCustomizer (aSMPMarshallerCustomizer);
+            if (aQueryParams.isTrustAllCertificates ())
+              try
+              {
+                aBDXR2Client.httpClientSettings ().setSSLContextTrustAll ();
+                LOGGER.warn ("Disabled certificate verification on TLS when querying the SMP.");
+              }
+              catch (final GeneralSecurityException ex)
+              {
+                // Ignore
+              }
+
+            // Get all HRefs and sort them by decoded URL
+            final com.helger.xsds.bdxr.smp2.ServiceGroupType aSG = aBDXR2Client.getServiceGroupOrNull (aParticipantID);
+            // Map from cleaned URL to original URL
+            if (aSG != null)
+            {
+              for (final com.helger.xsds.bdxr.smp2.ac.ServiceReferenceType aSR : aSG.getServiceReference ())
+              {
+                final IDType aDocTypeID = aSR.getID ();
+
+                final String sHref = aQueryParams.getSMPHostURI () +
+                                     BDXR2ClientReadOnly.PATH_OASIS_BDXR_SMP_2 +
+                                     aParticipantID.getURIPercentEncoded () +
+                                     "/" +
+                                     BDXR2ClientReadOnly.URL_PART_SERVICES +
+                                     "/" +
+                                     CIdentifier.getURIPercentEncoded (aDocTypeID);
+
+                // Decoded href is important for unification
+                if (aSGHrefs.put (sHref, sHref) != null)
+                  aSGUL.addItem (warn ("The ServiceGroup list contains the duplicate URL ").addChild (code (sHref)));
+              }
+              // TODO show extensions
+            }
+            break;
+          }
         }
 
         aSWGetDocTypes.stop ();
 
-        LOGGER.info ("Participant information of '" +
-                     aParticipantID.getURIEncoded () +
-                     "' returned " +
-                     aSGHrefs.size () +
-                     " entries");
+        LOGGER.info ("Participant information of '" + aParticipantID.getURIEncoded () + "' returned " + aSGHrefs.size () + " entries");
 
         final HCH3 aH3 = h3 ("ServiceGroup contents");
         if (bShowTime)
@@ -610,8 +666,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             {
               aDocTypeIDs.add (aDocType);
               aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
-                                                                            .addChild (AppCommonUI.createDocTypeID (aDocType,
-                                                                                                                    false)));
+                                                                            .addChild (AppCommonUI.createDocTypeID (aDocType, false)));
               aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
                                                                             .addChild (_createOpenInBrowser (sOriginalHref)));
             }
@@ -644,17 +699,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (LOGGER.isWarnEnabled ())
             LOGGER.warn ("Participant DocTypes Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
-        final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                             false));
+        final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false));
         for (final JAXBException aItem : aSMPExceptions)
           aErrorBox.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
         aNodeList.addChild (aErrorBox);
 
         // Audit failure
-        AuditHelper.onAuditExecuteFailure ("participant-doctypes",
-                                           sParticipantIDUriEncoded,
-                                           ex.getClass (),
-                                           ex.getMessage ());
+        AuditHelper.onAuditExecuteFailure ("participant-doctypes", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
       }
 
       // List document type details
@@ -671,11 +722,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           final HCDiv aDocTypeDiv = div (AppCommonUI.createDocTypeID (aDocTypeID, true));
           final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
 
-          LOGGER.info ("Now SMP querying '" +
-                       aParticipantID.getURIEncoded () +
-                       "' / '" +
-                       aDocTypeID.getURIEncoded () +
-                       "'");
+          LOGGER.info ("Now SMP querying '" + aParticipantID.getURIEncoded () + "' / '" + aDocTypeID.getURIEncoded () + "'");
 
           final StopWatch aSWGetDetails = StopWatch.createdStarted ();
           try
@@ -706,8 +753,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                                            SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                         final HCUL aULEndpoint = new HCUL ();
                         // For all endpoints of the process
-                        for (final com.helger.xsds.peppol.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
-                                                                                                .getEndpoint ())
+                        for (final com.helger.xsds.peppol.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                         {
                           final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
 
@@ -726,9 +772,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                           _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
 
                           // Technical infos
-                          _printTecInfo (aLIEndpoint,
-                                         aEndpoint.getTechnicalInformationUrl (),
-                                         aEndpoint.getTechnicalContactUrl ());
+                          _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
 
                           // Certificate (also add null values)
                           final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ());
@@ -769,8 +813,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                                            SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                         final HCUL aULEndpoint = new HCUL ();
                         // For all endpoints of the process
-                        for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
-                                                                                              .getEndpoint ())
+                        for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                         {
                           final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
 
@@ -787,9 +830,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                           _printTransportProfile (aLIEndpoint, aEndpoint.getTransportProfile ());
 
                           // Technical infos
-                          _printTecInfo (aLIEndpoint,
-                                         aEndpoint.getTechnicalInformationUrl (),
-                                         aEndpoint.getTechnicalContactUrl ());
+                          _printTecInfo (aLIEndpoint, aEndpoint.getTechnicalInformationUrl (), aEndpoint.getTechnicalContactUrl ());
 
                           // Certificate (also add null values)
                           try
@@ -813,6 +854,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 }
                 break;
               }
+              case OASIS_BDXR_V2:
+              {
+                // TODO
+                break;
+              }
             }
           }
           catch (final SMPClientBadResponseException ex)
@@ -830,10 +876,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aLIDocTypeID.addChild (aErrorBox);
 
             // Audit failure
-            AuditHelper.onAuditExecuteFailure ("participant-information",
-                                               sParticipantIDUriEncoded,
-                                               ex.getClass (),
-                                               ex.getMessage ());
+            AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
           }
           catch (final SMPClientException ex)
           {
@@ -850,10 +893,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aLIDocTypeID.addChild (aErrorBox);
 
             // Audit failure
-            AuditHelper.onAuditExecuteFailure ("participant-information",
-                                               sParticipantIDUriEncoded,
-                                               ex.getClass (),
-                                               ex.getMessage ());
+            AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
           }
 
           if (bShowTime)
@@ -973,8 +1013,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           else
           {
             final HCH4 aH4 = h4 ("Business Card contains " +
-                                 (aBC.businessEntities ().size () == 1 ? "1 entity" : aBC.businessEntities ().size () +
-                                                                                      " entities"));
+                                 (aBC.businessEntities ().size () == 1 ? "1 entity" : aBC.businessEntities ().size () + " entities"));
             if (bShowTime)
               aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
             aNodeList.addChild (aH4);
@@ -989,10 +1028,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               for (final PDName aName : aEntity.names ())
               {
                 final Locale aLanguage = LanguageCache.getInstance ().getLanguage (aName.getLanguageCode ());
-                final String sLanguageName = aLanguage == null ? ""
-                                                               : " (" +
-                                                                 aLanguage.getDisplayLanguage (aDisplayLocale) +
-                                                                 ")";
+                final String sLanguageName = aLanguage == null ? "" : " (" + aLanguage.getDisplayLanguage (aDisplayLocale) + ")";
                 aLI.addChild (div (aName.getName () + sLanguageName));
               }
 
@@ -1006,8 +1042,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                    sCountryCode +
                                                                    ")";
                 final EFamFamFlagIcon eIcon = EFamFamFlagIcon.getFromIDOrNull (sCountryCode);
-                aLI.addChild (div ("Country: " + sCountryName + " ").addChild (eIcon == null ? null
-                                                                                             : eIcon.getAsNode ()));
+                aLI.addChild (div ("Country: " + sCountryName + " ").addChild (eIcon == null ? null : eIcon.getAsNode ()));
               }
 
               // Geo info
@@ -1086,18 +1121,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         if (LOGGER.isWarnEnabled ())
           LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
-      new InternalErrorBuilder ().setRequestScope (aRequestScope)
-                                 .setDisplayLocale (aDisplayLocale)
-                                 .setThrowable (ex)
-                                 .handle ();
-      aNodeList.addChild (error (div ("Error querying participant information.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                               true)));
+      new InternalErrorBuilder ().setRequestScope (aRequestScope).setDisplayLocale (aDisplayLocale).setThrowable (ex).handle ();
+      aNodeList.addChild (error (div ("Error querying participant information.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, true)));
 
       // Audit failure
-      AuditHelper.onAuditExecuteFailure ("participant-information",
-                                         sParticipantIDUriEncoded,
-                                         ex.getClass (),
-                                         ex.getMessage ());
+      AuditHelper.onAuditExecuteFailure ("participant-information", sParticipantIDUriEncoded, ex.getClass (), ex.getMessage ());
     }
 
     aNodeList.addChild (new HCHR ());
@@ -1121,15 +1149,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       final String sSMLID = StringHelper.trim (aWPEC.params ().getAsString (FIELD_SML));
       final ISMLConfiguration aSMLConfiguration = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
       final boolean bSMLAutoDetect = ISMLConfigurationManager.ID_AUTO_DETECT.equals (sSMLID);
-      final boolean bQueryBusinessCard = aWPEC.params ()
-                                              .isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD,
-                                                                  DEFAULT_QUERY_BUSINESS_CARD);
+      final boolean bQueryBusinessCard = aWPEC.params ().isCheckBoxChecked (PARAM_QUERY_BUSINESS_CARD, DEFAULT_QUERY_BUSINESS_CARD);
       final boolean bShowTime = aWPEC.params ().isCheckBoxChecked (PARAM_SHOW_TIME, DEFAULT_SHOW_TIME);
       final boolean bXSDValidation = aWPEC.params ().isCheckBoxChecked (PARAM_XSD_VALIDATION, DEFAULT_XSD_VALIDATION);
-      final boolean bVerifySignatures = aWPEC.params ()
-                                             .isCheckBoxChecked (PARAM_VERIFY_SIGNATURES, DEFAULT_VERIFY_SIGNATURES);
-      final IIdentifierFactory aIF = aSMLConfiguration != null ? aSMLConfiguration.getSMPIdentifierType ()
-                                                                                  .getIdentifierFactory ()
+      final boolean bVerifySignatures = aWPEC.params ().isCheckBoxChecked (PARAM_VERIFY_SIGNATURES, DEFAULT_VERIFY_SIGNATURES);
+      final IIdentifierFactory aIF = aSMLConfiguration != null ? aSMLConfiguration.getSMPIdentifierType ().getIdentifierFactory ()
                                                                : SimpleIdentifierFactory.INSTANCE;
 
       // Legacy URL params?
@@ -1145,15 +1169,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         aFormErrors.addFieldError (FIELD_ID_SCHEME, "Please provide an identifier scheme");
       else
         if (!aIF.isParticipantIdentifierSchemeValid (sParticipantIDScheme))
-          aFormErrors.addFieldError (FIELD_ID_SCHEME,
-                                     "The participant identifier scheme '" + sParticipantIDScheme + "' is not valid!");
+          aFormErrors.addFieldError (FIELD_ID_SCHEME, "The participant identifier scheme '" + sParticipantIDScheme + "' is not valid!");
 
       if (StringHelper.hasNoText (sParticipantIDValue))
         aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
       else
         if (!aIF.isParticipantIdentifierValueValid (sParticipantIDValue))
-          aFormErrors.addFieldError (FIELD_ID_VALUE,
-                                     "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
+          aFormErrors.addFieldError (FIELD_ID_VALUE, "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
 
       if (aSMLConfiguration == null && !bSMLAutoDetect)
         aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
@@ -1204,8 +1226,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                                                       DEFAULT_QUERY_BUSINESS_CARD)))
                                                    .setErrorList (aFormErrors.getListOfField (PARAM_QUERY_BUSINESS_CARD)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Show query duration?")
-                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_SHOW_TIME,
-                                                                                                      DEFAULT_SHOW_TIME)))
+                                                   .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_SHOW_TIME, DEFAULT_SHOW_TIME)))
                                                    .setErrorList (aFormErrors.getListOfField (PARAM_SHOW_TIME)));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Enable XML Schema validation of responses?")
                                                    .setCtrl (new HCCheckBox (new RequestFieldBoolean (PARAM_XSD_VALIDATION,
