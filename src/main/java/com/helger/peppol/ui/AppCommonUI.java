@@ -67,6 +67,7 @@ import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.photon.bootstrap4.badge.BootstrapBadge;
 import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
@@ -457,7 +458,14 @@ public final class AppCommonUI
   public static IHCNode createDocTypeID (@Nonnull final IDocumentTypeIdentifier aDocTypeID, final boolean bInDetails)
   {
     final String sURI = aDocTypeID.getURIEncoded ();
-    return _createID (sURI, DOCTYPE_NAMES.get (sURI), bInDetails);
+    NiceNameEntry aNiceName = DOCTYPE_NAMES.get (sURI);
+    if (aNiceName == null &&
+        PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD.equals (aDocTypeID.getScheme ()))
+    {
+      // TODO make this nicer when official
+      aNiceName = new NiceNameEntry ("PINT Document Type", false, null);
+    }
+    return _createID (sURI, aNiceName, bInDetails);
   }
 
   @Nonnull
