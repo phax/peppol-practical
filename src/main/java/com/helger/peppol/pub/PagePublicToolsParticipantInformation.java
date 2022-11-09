@@ -110,6 +110,7 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
 import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
@@ -1005,108 +1006,119 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               aError.addChild (AppCommonUI.getTechnicalDetailsUI (aItem, false));
             aNodeList.addChild (aError);
 
+            if (bShowTime)
+              aNodeList.addChild (div (_createTimingNode (aSWGetBC.getMillis ())));
+
             final String sBC = new String (aData, StandardCharsets.UTF_8);
             if (StringHelper.hasText (sBC))
               aNodeList.addChild (new HCPrismJS (EPrismLanguage.MARKUP).addChild (sBC));
             LOGGER.error ("Failed to parse BC:\n" + sBC);
           }
           else
-          {
-            final HCH4 aH4 = h4 ("Business Card contains " +
-                                 (aBC.businessEntities ().size () == 1 ? "1 entity" : aBC.businessEntities ().size () + " entities"));
-            if (bShowTime)
-              aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
-            aNodeList.addChild (aH4);
-            aNodeList.addChild (div (_createOpenInBrowser (sBCURL)));
-
-            final HCUL aUL = new HCUL ();
-            for (final PDBusinessEntity aEntity : aBC.businessEntities ())
+            if (aBC.businessEntities ().isEmpty ())
             {
-              final HCLI aLI = aUL.addItem ();
-
-              // Name
-              for (final PDName aName : aEntity.names ())
-              {
-                final Locale aLanguage = LanguageCache.getInstance ().getLanguage (aName.getLanguageCode ());
-                final String sLanguageName = aLanguage == null ? "" : " (" + aLanguage.getDisplayLanguage (aDisplayLocale) + ")";
-                aLI.addChild (div (aName.getName () + sLanguageName));
-              }
-
-              // Country
-              {
-                final String sCountryCode = aEntity.getCountryCode ();
-                final Locale aCountryCode = CountryCache.getInstance ().getCountry (sCountryCode);
-                final String sCountryName = aCountryCode == null ? sCountryCode
-                                                                 : aCountryCode.getDisplayCountry (aDisplayLocale) +
-                                                                   " (" +
-                                                                   sCountryCode +
-                                                                   ")";
-                final EFamFamFlagIcon eIcon = EFamFamFlagIcon.getFromIDOrNull (sCountryCode);
-                aLI.addChild (div ("Country: " + sCountryName + " ").addChild (eIcon == null ? null : eIcon.getAsNode ()));
-              }
-
-              // Geo info
-              if (aEntity.hasGeoInfo ())
-              {
-                aLI.addChild (div ("Geographical information: ").addChildren (HCExtHelper.nl2brList (aEntity.getGeoInfo ())));
-              }
-              // Additional IDs
-              if (aEntity.identifiers ().isNotEmpty ())
-              {
-                final BootstrapTable aIDTab = new BootstrapTable ().setCondensed (true);
-                aIDTab.addHeaderRow ().addCells ("Scheme", "Value");
-                for (final PDIdentifier aItem : aEntity.identifiers ())
-                {
-                  // Avoid empty rows
-                  if (StringHelper.hasText (aItem.getScheme ()) || StringHelper.hasText (aItem.getValue ()))
-                    aIDTab.addBodyRow ().addCells (aItem.getScheme (), aItem.getValue ());
-                }
-                if (aIDTab.hasBodyRows ())
-                  aLI.addChild (div ("Additional identifiers: ").addChild (aIDTab));
-              }
-              // Website URLs
-              if (aEntity.websiteURIs ().isNotEmpty ())
-              {
-                final HCNodeList aWebsites = new HCNodeList ();
-                for (final String sItem : aEntity.websiteURIs ())
-                  if (StringHelper.hasText (sItem))
-                    aWebsites.addChild (div (HCA.createLinkedWebsite (sItem)));
-                if (aWebsites.hasChildren ())
-                  aLI.addChild (div ("Website URLs: ").addChild (aWebsites));
-              }
-              // Contacts
-              if (aEntity.contacts ().isNotEmpty ())
-              {
-                final BootstrapTable aContactTab = new BootstrapTable ().setCondensed (true);
-                aContactTab.addHeaderRow ().addCells ("Type", "Name", "Phone", "Email");
-                for (final PDContact aItem : aEntity.contacts ())
-                {
-                  // Avoid empty rows
-                  if (StringHelper.hasText (aItem.getType ()) ||
-                      StringHelper.hasText (aItem.getName ()) ||
-                      StringHelper.hasText (aItem.getPhoneNumber ()) ||
-                      StringHelper.hasText (aItem.getEmail ()))
-                    aContactTab.addBodyRow ()
-                               .addCell (aItem.getType ())
-                               .addCell (aItem.getName ())
-                               .addCell (aItem.getPhoneNumber ())
-                               .addCell (HCA_MailTo.createLinkedEmail (aItem.getEmail ()));
-                }
-                if (aContactTab.hasBodyRows ())
-                  aLI.addChild (div ("Contact points: ").addChild (aContactTab));
-              }
-              if (aEntity.hasAdditionalInfo ())
-              {
-                aLI.addChild (div ("Additional information: ").addChildren (HCExtHelper.nl2brList (aEntity.getAdditionalInfo ())));
-              }
-              if (aEntity.hasRegistrationDate ())
-              {
-                aLI.addChild (div ("Registration date: ").addChild (PDTToString.getAsString (aEntity.getRegistrationDate (),
-                                                                                             aDisplayLocale)));
-              }
+              final BootstrapWarnBox aWarnBox = warn ("A valid Business Card was found, but it is empty.");
+              if (bShowTime)
+                aWarnBox.addChild (" [").addChild (_createTimingNode (aSWGetBC.getMillis ())).addChild ("]");
+              aNodeList.addChild (aWarnBox);
             }
-            aNodeList.addChild (aUL);
-          }
+            else
+            {
+              final HCH4 aH4 = h4 ("Business Card contains " +
+                                   (aBC.businessEntities ().size () == 1 ? "1 entity" : aBC.businessEntities ().size () + " entities"));
+              if (bShowTime)
+                aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
+              aNodeList.addChild (aH4);
+              aNodeList.addChild (div (_createOpenInBrowser (sBCURL)));
+
+              final HCUL aUL = new HCUL ();
+              for (final PDBusinessEntity aEntity : aBC.businessEntities ())
+              {
+                final HCLI aLI = aUL.addItem ();
+
+                // Name
+                for (final PDName aName : aEntity.names ())
+                {
+                  final Locale aLanguage = LanguageCache.getInstance ().getLanguage (aName.getLanguageCode ());
+                  final String sLanguageName = aLanguage == null ? "" : " (" + aLanguage.getDisplayLanguage (aDisplayLocale) + ")";
+                  aLI.addChild (div (aName.getName () + sLanguageName));
+                }
+
+                // Country
+                {
+                  final String sCountryCode = aEntity.getCountryCode ();
+                  final Locale aCountryCode = CountryCache.getInstance ().getCountry (sCountryCode);
+                  final String sCountryName = aCountryCode == null ? sCountryCode
+                                                                   : aCountryCode.getDisplayCountry (aDisplayLocale) +
+                                                                     " (" +
+                                                                     sCountryCode +
+                                                                     ")";
+                  final EFamFamFlagIcon eIcon = EFamFamFlagIcon.getFromIDOrNull (sCountryCode);
+                  aLI.addChild (div ("Country: " + sCountryName + " ").addChild (eIcon == null ? null : eIcon.getAsNode ()));
+                }
+
+                // Geo info
+                if (aEntity.hasGeoInfo ())
+                {
+                  aLI.addChild (div ("Geographical information: ").addChildren (HCExtHelper.nl2brList (aEntity.getGeoInfo ())));
+                }
+                // Additional IDs
+                if (aEntity.identifiers ().isNotEmpty ())
+                {
+                  final BootstrapTable aIDTab = new BootstrapTable ().setCondensed (true);
+                  aIDTab.addHeaderRow ().addCells ("Scheme", "Value");
+                  for (final PDIdentifier aItem : aEntity.identifiers ())
+                  {
+                    // Avoid empty rows
+                    if (StringHelper.hasText (aItem.getScheme ()) || StringHelper.hasText (aItem.getValue ()))
+                      aIDTab.addBodyRow ().addCells (aItem.getScheme (), aItem.getValue ());
+                  }
+                  if (aIDTab.hasBodyRows ())
+                    aLI.addChild (div ("Additional identifiers: ").addChild (aIDTab));
+                }
+                // Website URLs
+                if (aEntity.websiteURIs ().isNotEmpty ())
+                {
+                  final HCNodeList aWebsites = new HCNodeList ();
+                  for (final String sItem : aEntity.websiteURIs ())
+                    if (StringHelper.hasText (sItem))
+                      aWebsites.addChild (div (HCA.createLinkedWebsite (sItem)));
+                  if (aWebsites.hasChildren ())
+                    aLI.addChild (div ("Website URLs: ").addChild (aWebsites));
+                }
+                // Contacts
+                if (aEntity.contacts ().isNotEmpty ())
+                {
+                  final BootstrapTable aContactTab = new BootstrapTable ().setCondensed (true);
+                  aContactTab.addHeaderRow ().addCells ("Type", "Name", "Phone", "Email");
+                  for (final PDContact aItem : aEntity.contacts ())
+                  {
+                    // Avoid empty rows
+                    if (StringHelper.hasText (aItem.getType ()) ||
+                        StringHelper.hasText (aItem.getName ()) ||
+                        StringHelper.hasText (aItem.getPhoneNumber ()) ||
+                        StringHelper.hasText (aItem.getEmail ()))
+                      aContactTab.addBodyRow ()
+                                 .addCell (aItem.getType ())
+                                 .addCell (aItem.getName ())
+                                 .addCell (aItem.getPhoneNumber ())
+                                 .addCell (HCA_MailTo.createLinkedEmail (aItem.getEmail ()));
+                  }
+                  if (aContactTab.hasBodyRows ())
+                    aLI.addChild (div ("Contact points: ").addChild (aContactTab));
+                }
+                if (aEntity.hasAdditionalInfo ())
+                {
+                  aLI.addChild (div ("Additional information: ").addChildren (HCExtHelper.nl2brList (aEntity.getAdditionalInfo ())));
+                }
+                if (aEntity.hasRegistrationDate ())
+                {
+                  aLI.addChild (div ("Registration date: ").addChild (PDTToString.getAsString (aEntity.getRegistrationDate (),
+                                                                                               aDisplayLocale)));
+                }
+              }
+              aNodeList.addChild (aUL);
+            }
         }
       }
 
