@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 706 entries -->
+<!-- 732 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.0</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -176,6 +176,7 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:cii:1.3.6a</code> - EN 16931 CII 1.3.6a</li>
 <li><code>eu.cen.en16931:cii:1.3.7</code> - EN 16931 CII 1.3.7</li>
 <li><code>eu.cen.en16931:cii:1.3.8</code> - EN 16931 CII 1.3.8</li>
+<li><code>eu.cen.en16931:cii:1.3.9</code> - EN 16931 CII 1.3.9</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.0.0</code> - EN 16931 UBL CreditNote 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.1.0</code> - EN 16931 UBL CreditNote 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.2.0</code> - EN 16931 UBL CreditNote 1.2.0 <strong>(Deprecated)</strong></li>
@@ -191,6 +192,7 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.6a</code> - EN 16931 UBL CreditNote 1.3.6a</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.7</code> - EN 16931 UBL CreditNote 1.3.7</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.8</code> - EN 16931 UBL CreditNote 1.3.8</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.9</code> - EN 16931 UBL CreditNote 1.3.9</li>
 <li><code>eu.cen.en16931:ubl:1.0.0</code> - EN 16931 UBL Invoice 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.1.0</code> - EN 16931 UBL Invoice 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.2.0</code> - EN 16931 UBL Invoice 1.2.0 <strong>(Deprecated)</strong></li>
@@ -206,6 +208,7 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl:1.3.6a</code> - EN 16931 UBL Invoice 1.3.6a</li>
 <li><code>eu.cen.en16931:ubl:1.3.7</code> - EN 16931 UBL Invoice 1.3.7</li>
 <li><code>eu.cen.en16931:ubl:1.3.8</code> - EN 16931 UBL Invoice 1.3.8</li>
+<li><code>eu.cen.en16931:ubl:1.3.9</code> - EN 16931 UBL Invoice 1.3.9</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.0</code> - Energie eFactuur 1.0.0</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.1</code> - Energie eFactuur 1.0.1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2.0.0</code> - Energie eFactuur 2.0.0</li>
@@ -224,37 +227,54 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3.1</code> - NLCIUS-CII 1.0.3.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3.2</code> - NLCIUS-CII 1.0.3.2 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3.3</code> - NLCIUS-CII 1.0.3.3</li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3.4</code> - NLCIUS-CII 1.0.3.4</li>
 <li><code>dk.oioubl:application-response:2.0.2</code> - OIOUBL Application Response 2.0.2</li>
 <li><code>dk.oioubl:application-response:1.12.3</code> - OIOUBL Application Response 1.12.3</li>
+<li><code>dk.oioubl:application-response:1.13.0</code> - OIOUBL Application Response 1.13.0</li>
 <li><code>dk.oioubl:catalogue:2.0.2</code> - OIOUBL Catalogue 2.0.2</li>
 <li><code>dk.oioubl:catalogue:1.12.3</code> - OIOUBL Catalogue 1.12.3</li>
+<li><code>dk.oioubl:catalogue:1.13.0</code> - OIOUBL Catalogue 1.13.0</li>
 <li><code>dk.oioubl:catalogue-deletion:2.0.2</code> - OIOUBL Catalogue Deletion 2.0.2</li>
 <li><code>dk.oioubl:catalogue-deletion:1.12.3</code> - OIOUBL Catalogue Deletion 1.12.3</li>
+<li><code>dk.oioubl:catalogue-deletion:1.13.0</code> - OIOUBL Catalogue Deletion 1.13.0</li>
 <li><code>dk.oioubl:catalogue-item-specification-update:2.0.2</code> - OIOUBL Catalogue Item Specification Update 2.0.2</li>
 <li><code>dk.oioubl:catalogue-item-specification-update:1.12.3</code> - OIOUBL Catalogue Item Specification Update 1.12.3</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.13.0</code> - OIOUBL Catalogue Item Specification Update 1.13.0</li>
 <li><code>dk.oioubl:catalogue-pricing-update:2.0.2</code> - OIOUBL Catalogue Pricing Update 2.0.2</li>
 <li><code>dk.oioubl:catalogue-pricing-update:1.12.3</code> - OIOUBL Catalogue Pricing Update 1.12.3</li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.13.0</code> - OIOUBL Catalogue Pricing Update 1.13.0</li>
 <li><code>dk.oioubl:catalogue-request:2.0.2</code> - OIOUBL Catalogue Request 2.0.2</li>
 <li><code>dk.oioubl:catalogue-request:1.12.3</code> - OIOUBL Catalogue Request 1.12.3</li>
+<li><code>dk.oioubl:catalogue-request:1.13.0</code> - OIOUBL Catalogue Request 1.13.0</li>
 <li><code>dk.oioubl:credit-note:2.0.2</code> - OIOUBL Credit Note 2.0.2</li>
 <li><code>dk.oioubl:credit-note:1.12.3</code> - OIOUBL Credit Note 1.12.3</li>
+<li><code>dk.oioubl:credit-note:1.13.0</code> - OIOUBL Credit Note 1.13.0</li>
 <li><code>dk.oioubl:invoice:2.0.2</code> - OIOUBL Invoice 2.0.2</li>
 <li><code>dk.oioubl:invoice:1.12.3</code> - OIOUBL Invoice 1.12.3</li>
+<li><code>dk.oioubl:invoice:1.13.0</code> - OIOUBL Invoice 1.13.0</li>
 <li><code>dk.oioubl:order:2.0.2</code> - OIOUBL Order 2.0.2</li>
 <li><code>dk.oioubl:order:1.12.3</code> - OIOUBL Order 1.12.3</li>
+<li><code>dk.oioubl:order:1.13.0</code> - OIOUBL Order 1.13.0</li>
 <li><code>dk.oioubl:order-cancellation:2.0.2</code> - OIOUBL Order Cancellation 2.0.2</li>
 <li><code>dk.oioubl:order-cancellation:1.12.3</code> - OIOUBL Order Cancellation 1.12.3</li>
+<li><code>dk.oioubl:order-cancellation:1.13.0</code> - OIOUBL Order Cancellation 1.13.0</li>
 <li><code>dk.oioubl:order-change:2.0.2</code> - OIOUBL Order Change 2.0.2</li>
 <li><code>dk.oioubl:order-change:1.12.3</code> - OIOUBL Order Change 1.12.3</li>
+<li><code>dk.oioubl:order-change:1.13.0</code> - OIOUBL Order Change 1.13.0</li>
 <li><code>dk.oioubl:order-response:2.0.2</code> - OIOUBL Order Response 2.0.2</li>
 <li><code>dk.oioubl:order-response:1.12.3</code> - OIOUBL Order Response 1.12.3</li>
+<li><code>dk.oioubl:order-response:1.13.0</code> - OIOUBL Order Response 1.13.0</li>
 <li><code>dk.oioubl:order-response-simple:2.0.2</code> - OIOUBL Order Response Simple 2.0.2</li>
 <li><code>dk.oioubl:order-response-simple:1.12.3</code> - OIOUBL Order Response Simple 1.12.3</li>
+<li><code>dk.oioubl:order-response-simple:1.13.0</code> - OIOUBL Order Response Simple 1.13.0</li>
 <li><code>dk.oioubl:reminder:2.0.2</code> - OIOUBL Reminder 2.0.2</li>
 <li><code>dk.oioubl:reminder:1.12.3</code> - OIOUBL Reminder 1.12.3</li>
+<li><code>dk.oioubl:reminder:1.13.0</code> - OIOUBL Reminder 1.13.0</li>
 <li><code>dk.oioubl:statement:2.0.2</code> - OIOUBL Statement 2.0.2</li>
 <li><code>dk.oioubl:statement:1.12.3</code> - OIOUBL Statement 1.12.3</li>
+<li><code>dk.oioubl:statement:1.13.0</code> - OIOUBL Statement 1.13.0</li>
 <li><code>dk.oioubl:utility-statement:1.12.3</code> - OIOUBL Utility Statement 1.12.3</li>
+<li><code>dk.oioubl:utility-statement:1.13.0</code> - OIOUBL Utility Statement 1.13.0</li>
 <li><code>eu.peppol.bis3:invoice-cii:3.14.0</code> - OpenPeppol CII Invoice (3.14.0) (aka BIS Billing 3.0.13)</li>
 <li><code>eu.peppol.bis2:t19:3.5.0</code> - OpenPeppol Catalogue (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t19:3.6.0</code> - OpenPeppol Catalogue (3.6.0) <strong>(Deprecated)</strong></li>
@@ -417,6 +437,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.directory:businesscard:1.0.0</code> - Peppol Directory BusinessCard v1</li>
 <li><code>eu.peppol.directory:businesscard:2.0.0</code> - Peppol Directory BusinessCard v2</li>
 <li><code>eu.peppol.directory:businesscard:3.0.0</code> - Peppol Directory BusinessCard v3</li>
+<li><code>eu.peppol.reporting:eusr:1.0.0-RC2</code> - Peppol End User Statistics Report v1.0.0-RC2</li>
+<li><code>eu.peppol.reporting:tsr:1.0.0</code> - Peppol Transaction Statistics Report v1.0.0</li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG Peppol BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.2</code> - SG Peppol BIS3 CreditNote (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.3</code> - SG Peppol BIS3 CreditNote (UBL) 1.0.3</li>
@@ -428,6 +450,7 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.2</code> - Simplerinvoicing 2.0 G-Account extension 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.3</code> - Simplerinvoicing 2.0 G-Account extension 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.4</code> - Simplerinvoicing 2.0 G-Account extension 1.0.4</li>
+<li><code>org.simplerinvoicing:invoice20.g-account:1.0.5</code> - Simplerinvoicing 2.0 G-Account extension 1.0.5</li>
 <li><code>org.simplerinvoicing:creditnote:2.0</code> - Simplerinvoicing CreditNote 2.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.1</code> - Simplerinvoicing CreditNote 2.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.2</code> - Simplerinvoicing CreditNote 2.0.2 <strong>(Deprecated)</strong></li>
@@ -436,6 +459,7 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:creditnote:2.0.3.2</code> - Simplerinvoicing CreditNote 2.0.3.2 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.3.3</code> - Simplerinvoicing CreditNote 2.0.3.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.3.4</code> - Simplerinvoicing CreditNote 2.0.3.4</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3.5</code> - Simplerinvoicing CreditNote 2.0.3.5</li>
 <li><code>org.simplerinvoicing:invoice:1.0</code> - Simplerinvoicing Invoice 1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2 <strong>(Deprecated)</strong></li>
@@ -449,6 +473,7 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:invoice:2.0.3.2</code> - Simplerinvoicing Invoice 2.0.3.2 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:2.0.3.3</code> - Simplerinvoicing Invoice 2.0.3.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:2.0.3.4</code> - Simplerinvoicing Invoice 2.0.3.4</li>
+<li><code>org.simplerinvoicing:invoice:2.0.3.5</code> - Simplerinvoicing Invoice 2.0.3.5</li>
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:order:1.2.3</code> - Simplerinvoicing Order 1.2.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:order:1.2.4</code> - Simplerinvoicing Order 1.2.4</li>
@@ -772,6 +797,7 @@ A very small Java WS client is available for
 <li><code>at.ebinterface:invoice:4.3</code> - ebInterface 4.3</li>
 <li><code>at.ebinterface:invoice:5.0</code> - ebInterface 5.0</li>
 <li><code>at.ebinterface:invoice:6.0</code> - ebInterface 6.0</li>
+<li><code>at.ebinterface:invoice:6.1</code> - ebInterface 6.1</li>
 <li><code>at.ebinterface:invoice:3.02</code> - ebInterface 3.02</li>
 <li><code>it.fatturapa:invoice:1.2.0</code> - fatturaPA 1.2.0</li>
 <li><code>it.fatturapa:invoice:1.2.1</code> - fatturaPA 1.2.1</li>
