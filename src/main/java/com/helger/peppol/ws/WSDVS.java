@@ -114,7 +114,9 @@ public class WSDVS implements WSDVSPort
       // Note: duration must be > 1 second
       m_aRequestRateLimiter = new InMemorySlidingWindowRequestRateLimiter (RequestLimitRule.of (Duration.ofSeconds (2),
                                                                                                 nRequestsPerSec * 2));
-      LOGGER.info ("Installed validation API rate limiter with a maximum of " + nRequestsPerSec + " requests per second");
+      LOGGER.info ("Installed validation API rate limiter with a maximum of " +
+                   nRequestsPerSec +
+                   " requests per second");
     }
     else
     {
@@ -125,8 +127,7 @@ public class WSDVS implements WSDVSPort
 
   private static void _throw (@Nonnull final String s) throws ValidateFaultError
   {
-    if (LOGGER.isErrorEnabled ())
-      LOGGER.error ("Error in SOAP WS validation: " + s);
+    LOGGER.error ("Error in SOAP WS validation: " + s);
 
     throw new ValidateFaultError (s, s);
   }
@@ -144,17 +145,22 @@ public class WSDVS implements WSDVSPort
   @Nonnull
   public ResponseType validate (@Nonnull final RequestType aValidationRequest) throws ValidateFaultError
   {
-    final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ().get (MessageContext.SERVLET_REQUEST);
-    final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ().get (MessageContext.SERVLET_RESPONSE);
+    final HttpServletRequest aHttpRequest = (HttpServletRequest) m_aWSContext.getMessageContext ()
+                                                                             .get (MessageContext.SERVLET_REQUEST);
+    final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
+                                                                                .get (MessageContext.SERVLET_RESPONSE);
 
     final String sRateLimitKey = "ip:" + aHttpRequest.getRemoteAddr ();
-    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey) : false;
+    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey)
+                                                                 : false;
 
     final String sInvocationUniqueID = Integer.toString (INVOCATION_COUNTER.incrementAndGet ());
 
     RW_LOCK.writeLocked ( () -> {
       // Just append to file
-      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ().getFile ("wsdvs-logs.csv"),
+      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (
+                                                                         WebFileIO.getDataIO ()
+                                                                                  .getFile ("wsdvs-logs.csv"),
                                                                          EAppend.APPEND,
                                                                          StandardCharsets.ISO_8859_1)))
       {
@@ -174,17 +180,16 @@ public class WSDVS implements WSDVSPort
       }
     });
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Start validating business document with SOAP WS; source [" +
-                   aHttpRequest.getRemoteAddr () +
-                   ":" +
-                   aHttpRequest.getRemotePort () +
-                   "]; VESID '" +
-                   aValidationRequest.getVESID () +
-                   "'; Payload: " +
-                   StringHelper.getLength (aValidationRequest.getXML ()) +
-                   " bytes;" +
-                   (bOverRateLimit ? " RATE LIMIT EXCEEDED" : ""));
+    LOGGER.info ("Start validating business document with SOAP WS; source [" +
+                 aHttpRequest.getRemoteAddr () +
+                 ":" +
+                 aHttpRequest.getRemotePort () +
+                 "]; VESID '" +
+                 aValidationRequest.getVESID () +
+                 "'; Payload: " +
+                 StringHelper.getLength (aValidationRequest.getXML ()) +
+                 " bytes;" +
+                 (bOverRateLimit ? " RATE LIMIT EXCEEDED" : ""));
 
     // Start request scope
     try (final WebScoped aWebScoped = new WebScoped (aHttpRequest, aHttpResponse))
@@ -198,7 +203,8 @@ public class WSDVS implements WSDVSPort
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("REST search rate limit exceeded for " + sRateLimitKey);
 
-        final HttpServletResponse aResponse = (HttpServletResponse) m_aWSContext.getMessageContext ().get (MessageContext.SERVLET_RESPONSE);
+        final HttpServletResponse aResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
+                                                                                .get (MessageContext.SERVLET_RESPONSE);
         try
         {
           aResponse.sendError (CHttp.HTTP_TOO_MANY_REQUESTS);
@@ -235,20 +241,21 @@ public class WSDVS implements WSDVSPort
         _throw ("Invalid XML provided!");
 
       final String sDisplayLocale = aValidationRequest.getDisplayLocale ();
-      final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ().getLocale (sDisplayLocale)
+      final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ()
+                                                                                       .getLocale (sDisplayLocale)
                                                                           : CPPApp.DEFAULT_LOCALE;
       if (aDisplayLocale == null)
         _throw ("Invalid display locale '" + sDisplayLocale + "' provided!");
 
       // All input parameters are valid!
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Validating by SOAP WS using " + aVESID.getAsSingleID ());
+      LOGGER.info ("Validating by SOAP WS using " + aVESID.getAsSingleID ());
 
       final StopWatch aSW = StopWatch.createdStarted ();
 
       // Start validating
       final ValidationResultList aVRL = ValidationExecutionManager.executeValidation (aVES,
-                                                                                      ValidationSourceXML.create ("uploaded-file", aXMLDoc),
+                                                                                      ValidationSourceXML.create ("uploaded-file",
+                                                                                                                  aXMLDoc),
                                                                                       aDisplayLocale);
 
       // Result object
@@ -311,8 +318,13 @@ public class WSDVS implements WSDVSPort
 
       aSW.stop ();
 
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Finished validation after " + aSW.getMillis () + "ms; " + nWarnings + " warns; " + nErrors + " errors");
+      LOGGER.info ("Finished validation after " +
+                   aSW.getMillis () +
+                   "ms; " +
+                   nWarnings +
+                   " warns; " +
+                   nErrors +
+                   " errors");
       STATS_TIMER.addTime (aSW.getMillis ());
 
       // Track validation result
@@ -331,7 +343,9 @@ public class WSDVS implements WSDVSPort
       final int nFinalErrors = nErrors;
       RW_LOCK.writeLocked ( () -> {
         // Just append to file
-        try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ().getFile ("wsdvs-results.csv"),
+        try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (
+                                                                           WebFileIO.getDataIO ()
+                                                                                    .getFile ("wsdvs-results.csv"),
                                                                            EAppend.APPEND,
                                                                            StandardCharsets.ISO_8859_1)))
         {
@@ -353,8 +367,7 @@ public class WSDVS implements WSDVSPort
     }
     finally
     {
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Finished validating business document with SOAP WS");
+      LOGGER.info ("Finished validating business document with SOAP WS");
     }
   }
 }

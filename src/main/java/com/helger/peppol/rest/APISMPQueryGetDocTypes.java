@@ -131,19 +131,18 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
 
     final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("[API] Document types of '" +
-                   aParticipantID.getURIEncoded () +
-                   "' are queried using SMP API '" +
-                   aQueryParams.getSMPAPIType () +
-                   "' from '" +
-                   aQueryParams.getSMPHostURI () +
-                   "' using SML '" +
-                   aSML.getID () +
-                   "'; XSD validation=" +
-                   bXMLSchemaValidation +
-                   "; signature verification=" +
-                   bVerifySignature);
+    LOGGER.info ("[API] Document types of '" +
+                 aParticipantID.getURIEncoded () +
+                 "' are queried using SMP API '" +
+                 aQueryParams.getSMPAPIType () +
+                 "' from '" +
+                 aQueryParams.getSMPHostURI () +
+                 "' using SML '" +
+                 aSML.getID () +
+                 "'; XSD validation=" +
+                 bXMLSchemaValidation +
+                 "; signature verification=" +
+                 bVerifySignature);
 
     ICommonsSortedMap <String, String> aSGHrefs = null;
     switch (aQueryParams.getSMPAPIType ())
@@ -167,8 +166,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
             // Decoded href is important for unification
             final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
             if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-              if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
+              LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
           }
         }
         break;
@@ -193,8 +191,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
             // Decoded href is important for unification
             final String sHref = CIdentifier.createPercentDecoded (aSMR.getHref ());
             if (aSGHrefs.put (sHref, aSMR.getHref ()) != null)
-              if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
+              LOGGER.warn ("[API] The ServiceGroup list contains the duplicate URL '" + sHref + "'");
           }
         }
         break;
@@ -213,8 +210,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
       final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
                             "/businesscard/" +
                             aParticipantID.getURIEncoded ();
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
+      LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
       byte [] aData;
       try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
       {
@@ -233,8 +229,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
         final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, StandardCharsets.UTF_8);
         if (aBC == null)
         {
-          if (LOGGER.isErrorEnabled ())
-            LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));
+          LOGGER.error ("[API] Failed to parse BC:\n" + new String (aData));
         }
         else
         {
