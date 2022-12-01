@@ -18,6 +18,7 @@
 -->
 <p>
   This page lists some of the terms and abbreviations often used in Peppol.
+  You can consider this an unofficial Peppol glossary.
   If you are missing a term <a href="/public/menuitem-contact">drop me a note</a>.
 </p>
 
@@ -48,7 +49,10 @@
       </td>
     </tr>
     <tr>
-      <td>AS2</td>
+      <td>
+        AS2
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td>Application Statement 2</td>
       <td>
         Transport protocol specified in
@@ -57,15 +61,18 @@
       </td>
     </tr>
     <tr>
-      <td>
-        AS4
-      </td>
+      <td>AS4</td>
       <td>Application Statement 4</td>
       <td>
         Transport protocol specified by <em>OASIS</em>.
         It was used in the eSENS project and adopted by <em>CEF</em>.
         The Peppol AS4 profile v2 is the mandatory transport protocol in the Peppol eDelivery network since 2020-02-01.
       </td>
+    </tr>
+    <tr>
+      <td>BC</td>
+      <td>Business Card</td>
+      <td>The document type for describing the non-functional aspects of a Peppol participant for listing in the <em>PD</em>.</td>
     </tr>
     <tr>
       <td>BIS</td>
@@ -81,9 +88,11 @@
       </td>
     </tr>
     <tr>
-      <td>Business Card</td>
-      <td></td>
-      <td>The document type for describing the non-functional aspects of a Peppol participant for listing in the <em>PD</em>.</td>
+      <td>CC</td>
+      <td>Coordinating Community</td>
+      <td>
+        OpenPeppol internal community that is supposed to deal with cross-community topics.
+      </td>
     </tr>
     <tr>
       <td>CEF</td>
@@ -112,12 +121,11 @@
       </td>
     </tr>
     <tr>
-      <td>
-        CIUS
-      </td>
-      <td>Core Invoice User Specification</td>
+      <td>CIUS</td>
+      <td>Core Invoice Usage Specification</td>
       <td>
         Defines how to adopt the <em>EN</em> to local requirements.
+        It implies, that a CIUS is more narrow then the underlying specification.
         Billing BIS 3 is a CIUS of the <em>EN</em>.
       </td>
     </tr>
@@ -148,9 +156,7 @@
       </td>
     </tr>
     <tr>
-      <td>
-        EN
-      </td>
+      <td>EN</td>
       <td>European Norm</td>
       <td>Usually this refers to the EN 16931-1, the European Norm on e-Invoicing.</td>
     </tr>
@@ -163,9 +169,7 @@
       </td>
     </tr>
     <tr>
-      <td>
-        IRM
-      </td>
+      <td>IRM</td>
       <td>Invoice Response Message</td>
       <td>
         Special <em>BLR</em> for invoices.
@@ -191,6 +195,11 @@
         The technical receipt of acknowledgment for AS2 transmissions defined in 
         <a href="http://www.ietf.org/rfc/rfc3798.txt">RFC 3798</a>.
       </td>
+    </tr>
+    <tr>
+      <td>MLA</td>
+      <td>Message Level Agreement</td>
+      <td>Working title for a work group that should deal with structured response messages</td>
     </tr>
     <tr>
       <td>MLR</td>
@@ -234,7 +243,7 @@
       </td>
     </tr>
     <tr>
-      <td>POAC</td>
+      <td>PoAC</td>
       <td>Post-Award Domain Community</td>
       <td>
         Peppol internal team to manage the post-award assets.
@@ -260,7 +269,7 @@
       </td>
     </tr>
     <tr>
-      <td>PRAC</td>
+      <td>PrAC</td>
       <td>Pre-Award Domain Community</td>
       <td>
         Peppol internal team to manage the pre-award assets.
@@ -317,6 +326,11 @@
       </td>
     </tr>
     <tr>
+      <td>SP</td>
+      <td>Service Provider</td>
+      <td>A company or entity offering Peppol Services.</td>
+    </tr>
+    <tr>
       <td>
         START
         <br/><em><small>deprecated</small></em>
@@ -336,9 +350,15 @@
       </td>
     </tr>
     <tr>
-      <td>TIA</td>
+      <td>
+        TIA
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td>Transport Infrastructure Agreement</td>
-      <td>The contract between the Peppol user and the Peppol Authority</td>
+      <td>
+        The contract between the Peppol user and the Peppol Authority.
+        Since July 2022 this has been superseded by the "Peppol Agreement Framework".
+      </td>
     </tr>
     <tr>
       <td>
