@@ -95,11 +95,15 @@
       </td>
     </tr>
     <tr>
-      <td>CEF</td>
+      <td>
+        CEF
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td>Connecting Europe Facility</td>
       <td>
         An instrument of the <em>EC</em> for funding and informing about e-Delivery, e-Invoicing etc. solutions.
         See <a href="https://ec.europa.eu/digital-single-market/en/connecting-europe-facility">https://ec.europa.eu/digital-single-market/en/connecting-europe-facility</a>.
+        The successor of CEF is the <em>DEP</em> programme.
       </td>
     </tr>
     <tr>
@@ -140,6 +144,15 @@
       <td>
         Basic part of Internet technology that maps domain names to IP addresses for technical routing.
         Used by <em>SML</em>.
+      </td>
+    </tr>
+    <tr>
+      <td>DEP</td>
+      <td>Digital Europe Programme</td>
+      <td>
+        The Digital Europe Programme (DIGITAL) is a new EU funding programme focused on bringing digital technology to 
+        businesses, citizens and public administrations.
+        See <a href="https://digital-strategy.ec.europa.eu/en/activities/digital-programme">https://digital-strategy.ec.europa.eu/en/activities/digital-programme</a>.
       </td>
     </tr>
     <tr>
