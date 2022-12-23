@@ -41,9 +41,10 @@
     <h3>2022-12-23 - Document Validation extended</h3>
  
     <p>
+      Updated the page and removed some out of date information, updated links etc.<br/>
       Added support for A-NZ Peppol Invoice types 1.0.8.<br/>
       Added support for Romanian CIUS rule set 1.0.8.<br/>
-      Added support for Peppol 2022-11 rule set (as 3.15.0).<br />
+      Added support for Peppol 2022-11 rule set (as 3.15.0).<br/>
       Added support for UBL.BE 1.30 rule sets.
     </p>
 
