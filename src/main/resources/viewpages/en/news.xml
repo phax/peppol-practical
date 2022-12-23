@@ -38,6 +38,41 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+    <h3>2022-12-23 - Document Validation extended</h3>
+ 
+    <p>
+      Added support for A-NZ Peppol Invoice types 1.0.8.<br/>
+      Added support for Romanian CIUS rule set 1.0.8.<br/>
+      Added support for Peppol 2022-11 rule set (as 3.15.0).<br />
+      Added support for UBL.BE 1.30 rule sets.
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.8</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.8</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.8</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.8</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.8</code> - A-NZ Peppol BIS3 Invoice (UBL) 1.0.8</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.8</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.8</li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.8</code> - CIUS-RO UBL CrediteNote 1.0.8</li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.8</code> - CIUS-RO UBL Invoice 1.0.8</li>
+<li><code>eu.peppol.bis3:invoice-cii:3.15.0</code> - OpenPeppol CII Invoice (3.15.0) (aka BIS Billing 3.0.14)</li>
+<li><code>eu.peppol.bis3:catalogue:3.15.0</code> - OpenPeppol Catalogue (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:catalogue-response:3.15.0</code> - OpenPeppol Catalogue Response (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:despatch-advice:3.15.0</code> - OpenPeppol Despatch Advice (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:3.15.0</code> - OpenPeppol Invoice Message Response (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:mlr:3.15.0</code> - OpenPeppol MLR (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:order:3.15.0</code> - OpenPeppol Order (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:order-agreement:3.15.0</code> - OpenPeppol Order Agreement (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:order-response:3.15.0</code> - OpenPeppol Order Response (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:punch-out:3.15.0</code> - OpenPeppol Punch Out (3.15.0) (aka BIS 3.0.10)</li>
+<li><code>eu.peppol.bis3:creditnote:3.15.0</code> - OpenPeppol UBL Credit Note (3.15.0) (aka BIS Billing 3.0.14)</li>
+<li><code>eu.peppol.bis3:invoice:3.15.0</code> - OpenPeppol UBL Invoice (3.15.0) (aka BIS Billing 3.0.14)</li>
+<li><code>be.ubl:credit-note:1.30</code> - UBL.BE Credit Note 1.30</li>
+<li><code>be.ubl:invoice:1.30</code> - UBL.BE Invoice 1.30</li>
+</ul>
+
     <h3>2022-11-21 - Document Validation extended</h3>
  
     <p>
