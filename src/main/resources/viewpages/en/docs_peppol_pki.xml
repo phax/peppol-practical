@@ -17,9 +17,9 @@
 
 -->
 <p>
-  This article outlines the details of the PEPPOL PKI.
+  This article outlines the details of the Peppol PKI.
   It shows how the PKI is structured and where it is used.
-  See the page on <a href="/public/menuitem-docs-peppol-cert-update">PEPPOL Certificate update</a> for the specifics on this process.
+  See the page on <a href="/public/menuitem-docs-peppol-cert-update">Peppol Certificate update</a> for the specifics on this process.
 </p>
 
 <div class="card">
@@ -28,9 +28,8 @@
   </div>
   <div class="card-body">
     <ol>
-      <li><a href="#pki3">PEPPOL PKI v3</a></li>
-      <li><a href="#pki2">PEPPOL PKI v2 (legacy)</a></li>
-      <li><a href="#usage">Certificate usage in PEPPOL</a></li>
+      <li><a href="#pki3">Peppol PKI v3</a></li>
+      <li><a href="#usage">Certificate usage in Peppol</a></li>
     </ol>
   </div>
 </div>
@@ -41,11 +40,11 @@
 
 <p>
   The PKI is called "OpenPeppol PKI v3" and the root certificates are valid from 2018 to 2028.
-  The structure is very similar to the V2 one, but the STS CA is not present any more. So this is how it looks like:
+  The structure is very similar to the previous V2 one, but the STS CA is not present any more. So this is how it looks like:
 </p>
 
 <p>
-  <img src="../imgs/pki-structure-v3.png" alt="PEPPOL PKI v3 structure" />
+  <img src="../imgs/pki-structure-v3.png" alt="Peppol PKI v3 structure" />
 </p>
 
 <p>
@@ -92,7 +91,7 @@
 
 <ul>
   <li>
-    PEPPOL Directory <span class="badge badge-success">done</span>:
+    Peppol Directory <span class="badge badge-success">done</span>:
     Supports both PKIs in parallel - both in test and production.
   </li>
   <li>
@@ -101,35 +100,8 @@
   </li>
 </ul>
 
-<a name="pki2"></a>
-<h2>Introduction to the PEPPOL PKI (v2, until 2018 - out of date)</h2>
-
-<div class="alert alert-danger">
-  Do not use the PEPPOL PKI v2 anymore. It is here for historical purposes only.
-  The root certificates of PKI v2 expired on January 27<sup>th</sup> 2020.
-</div>
-
-<p>
-  The PEPPOL PKI (Public Key Infrastructure) is an integral part of the
-  PEPPOL security model. It consists of two separate trees - one for pilot/test usage and one
-  for production usage.
-  See the following image for a fully fledged view of the complete PEPPOL PKI.
-</p>
-
-<p>
-  <img src="../imgs/pki-structure.png" alt="PEPPOL PKI v2 structure" />
-</p>
-
-<p>
-  In the above image you see two root certificates - the pilot root and the production root.
-  These are the issuing certificates for the "AP Root" (AccessPoint), 
-  the "SMP Root" (Service Metadata Publisher) and the "STS Root" (Secure Token Service - unused!).
-  Each AP and SMP certificate used in practice is based on the respective AP or SMP ROOT certificate
-  (see the red boxes ).
-</p>
-
 <a name="usage"></a>
-<h2>Certificate usage in PEPPOL</h2>
+<h2>Certificate usage in Peppol</h2>
 
 <p>
   This section tries to give a rough overview where certificates are used for what purpose.
@@ -140,21 +112,21 @@
     <strong>SMP Server</strong>
     <ul>
       <li>
-        Uses the PEPPOL SMP certificate to sign responses to 
+        Uses the Peppol SMP certificate to sign responses to 
         <code>SignedServiceMetadata</code> requests
         (as in <code>http://smp.example.org/{participantID}/services/{docTypeID}</code>)
       </li>
       <li>
-        Uses the PEPPOL SMP certificate as a client certificate when communicating with the SML
+        Uses the Peppol SMP certificate as a client certificate when communicating with the SML
         (for service group creation and deletion) 
       </li>
       <li>
-        Requires the public part of the PEPPOL AP certificate for usage in the public
+        Requires the public part of the Peppol AP certificate for usage in the public
         endpoints (the information that is queried from the outside).
       </li>
       <li>
-        Optionally uses the PEPPOL SMP certificate as a client certificate when communicating with the 
-        PEPPOL Directory (for business card updates and deletions) 
+        Optionally uses the Peppol SMP certificate as a client certificate when communicating with the 
+        Peppol Directory (for business card updates and deletions) 
       </li>
     </ul>
   </li>
@@ -162,7 +134,7 @@
     <strong>SMP Client</strong>
     <ul>
       <li>
-        Verifies that the response from the SMP server was signed by a valid PEPPOL SMP certificate
+        Verifies that the response from the SMP server was signed by a valid Peppol SMP certificate
       </li>
     </ul>
   </li>
@@ -171,12 +143,11 @@
     <ul>
       <li>
         Requires an SSL certificate for https usage. 
-        This SSL certificate is <strong>NOT</strong> issued by PEPPOL but must be issued by a trusted
-        third party.
+        This SSL certificate is <strong>NOT</strong> issued by Peppol but must be issued by a trusted third party.
         This SSL certificate should not be self-signed! 
       </li>
       <li>
-        Verifies that the incoming document was signed with a PEPPOL AP certificate.
+        Verifies that the incoming document was signed with a Peppol AP certificate.
       </li>
     </ul>
   </li>
@@ -184,23 +155,23 @@
     <strong>AP Client</strong> (sending documents)
     <ul>
       <li>
-        Signs the AS2 message with the PEPPOL AP certificate.
-        Includes the public part of the certificate into the AS2 message.
+        Signs the AS4 message with the Peppol AP certificate.
+        Includes the public part of the certificate into the AS4 message.
       </li>
     </ul>
   </li>
   <li>
     <strong>SMK/SML</strong>
     <ul>
-      <li>The SMK requires requests to contain an SMP Pilot Certificate to perform writing operations</li>
-      <li>The SML requires requests to contain an SMP Production Certificate to perform writing operations</li>
+      <li>The SMK requires requests to contain an SMP Pilot Certificate to perform writing operations (mTLS)</li>
+      <li>The SML requires requests to contain an SMP Production Certificate to perform writing operations (mTLS)</li>
     </ul>
   </li>
   <li>
-    <strong>PEPPOL Directory</strong>
+    <strong>Peppol Directory</strong>
     <ul>
-      <li>The test PEPPOL Directory requires requests to contain an SMP Pilot Certificate to perform writing operations</li>
-      <li>The production PEPPOL Directory requires requests to contain an SMP Production Certificate to perform writing operations</li>
+      <li>The test Peppol Directory requires requests to contain an SMP Pilot Certificate to perform writing operations (mTLS)</li>
+      <li>The production Peppol Directory requires requests to contain an SMP Production Certificate to perform writing operations (mTLS)</li>
     </ul>
   </li>
 </ul>
