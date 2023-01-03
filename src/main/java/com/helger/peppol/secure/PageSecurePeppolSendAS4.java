@@ -102,7 +102,8 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
                                                                                                        .getURIEncoded ()
                                                             : null;
   // Namespace URI must be present
-  private static final Supplier <String> DEFAULT_PAYLOAD = () -> DEFAULTS ? "<?xml version='1.0' encoding='UTF-8'?>\n<!-- ... --->" : null;
+  private static final Supplier <String> DEFAULT_PAYLOAD = () -> DEFAULTS ? "<?xml version='1.0' encoding='UTF-8'?>\n<!-- ... -->"
+                                                                          : null;
 
   private static final IAS4CryptoFactory AS4_CF;
   static
@@ -235,7 +236,8 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
         aNL.addChild (h3 ("Sending document"));
 
         // Show payload
-        aNL.addChild (new BootstrapPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ()).addChild (sAS4PayloadDoc));
+        aNL.addChild (new BootstrapPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ())
+                                                                  .addChild (sAS4PayloadDoc));
 
         final IAS4ClientBuildMessageCallback aBuildMessageCallback = new IAS4ClientBuildMessageCallback ()
         {
@@ -250,7 +252,9 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
 
         try
         {
-          final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (Phase4PeppolSender.URL_PROVIDER, aReceiverID, ESML.DIGIT_TEST);
+          final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (Phase4PeppolSender.URL_PROVIDER,
+                                                                      aReceiverID,
+                                                                      ESML.DIGIT_TEST);
 
           // What to remember
           final Wrapper <String> aEndpointURL = new Wrapper <> ();
@@ -302,7 +306,8 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
                                                                                                                      .getSubjectX500Principal ()
                                                                                                                      .getName ())));
           if (aEndpointCertCheck.isSet ())
-            aNL.addChild (div ("The certificate verification resulted in: ").addChild (code (aEndpointCertCheck.get ().name ())));
+            aNL.addChild (div ("The certificate verification resulted in: ").addChild (code (aEndpointCertCheck.get ()
+                                                                                                               .name ())));
 
           if (eResult.isSuccess ())
             aNL.addChild (success ("Successfully send AS4 message to Peppol receiver ").addChild (code (aReceiverID.getURIEncoded ())));
@@ -350,7 +355,8 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
         }
         catch (final SMPDNSResolutionException ex)
         {
-          aNL.addChild (error (div ("Error creating the SMP client.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex, false)));
+          aNL.addChild (error (div ("Error creating the SMP client.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
+                                                                                                                    false)));
         }
 
         if (true)
@@ -358,28 +364,34 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
         else
           aWPEC.postRedirectGetInternal (aNL);
       }
+      else
+        aNodeList.addChild (getUIHandler ().createIncorrectInputBox (aWPEC));
     }
 
     aNodeList.addChild (h3 ("Send new Peppol AS4 message (Test network only)"));
 
     final BootstrapForm aForm = aNodeList.addAndReturnChild (new BootstrapForm (aWPEC));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Sending participant ID")
-                                                 .setCtrl (new HCEdit (new RequestField (FIELD_SENDER_ID, DEFAULT_SENDER_ID)))
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_SENDER_ID,
+                                                                                         DEFAULT_SENDER_ID)))
                                                  .setHelpText (span ("The sending Peppol participant identifier. Must include the ").addChild (code (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME))
                                                                                                                                     .addChild (" prefix."))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SENDER_ID)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Receiving participant ID")
-                                                 .setCtrl (new HCEdit (new RequestField (FIELD_RECEIVER_ID, DEFAULT_RECEIVER_ID)))
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_RECEIVER_ID,
+                                                                                         DEFAULT_RECEIVER_ID)))
                                                  .setHelpText (span ("The receiving Peppol participant identifier. Must include the ").addChild (code (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME))
                                                                                                                                       .addChild (" prefix."))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_RECEIVER_ID)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Document type ID")
-                                                 .setCtrl (new HCEdit (new RequestField (FIELD_DOCTYPE_ID, DEFAULT_DOCTYPE_ID)))
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_DOCTYPE_ID,
+                                                                                         DEFAULT_DOCTYPE_ID)))
                                                  .setHelpText (span ("The Peppol document type identifier. Must include the ").addChild (code (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS))
                                                                                                                               .addChild (" prefix."))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_DOCTYPE_ID)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Process ID")
-                                                 .setCtrl (new HCEdit (new RequestField (FIELD_PROCESS_ID, DEFAULT_PROCESS_ID)))
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_PROCESS_ID,
+                                                                                         DEFAULT_PROCESS_ID)))
                                                  .setHelpText (span ("The Peppol process identifier. Must include the ").addChild (code (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME))
                                                                                                                         .addChild (" prefix."))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_PROCESS_ID)));
