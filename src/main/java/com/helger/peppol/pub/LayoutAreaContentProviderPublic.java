@@ -305,9 +305,7 @@ public final class LayoutAreaContentProviderPublic
 
       aFooter.addChild (new HCP ().addChild (AppHelper.getApplicationTitle () + " - created by Philip Helger")
                                   .addChild (" - GitHub: ")
-                                  .addChild (new HCA (new SimpleURL ("https://github.com/phax")).addChild ("phax"))
-                                  .addChild (" - Twitter: ")
-                                  .addChild (new HCA (new SimpleURL ("https://twitter.com/philiphelger")).addChild ("@philiphelger")));
+                                  .addChild (new HCA (new SimpleURL ("https://github.com/phax")).addChild ("phax")));
 
       if (FOOTER_ROW_COUNT > 0)
       {

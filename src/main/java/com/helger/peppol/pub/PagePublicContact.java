@@ -117,7 +117,7 @@ public final class PagePublicContact extends AbstractAppWebPage
 
   private static boolean _isSpamBody (@Nonnull final String sTopic)
   {
-    final String sLowerCase = sTopic.toLowerCase (Locale.US);
+    final String sLowerCase = sTopic.toLowerCase (Locale.ROOT);
     for (final String s : SPAM_KEYS)
       if (sLowerCase.contains (s))
         return true;
