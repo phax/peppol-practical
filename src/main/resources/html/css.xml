@@ -19,5 +19,4 @@
 -->
 <items>
   <css path="/css/default.css"/>
-  <css path="/css/print.css" media="print"/>
 </items>
