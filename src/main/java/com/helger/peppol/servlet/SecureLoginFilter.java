@@ -17,8 +17,6 @@
 package com.helger.peppol.servlet;
 
 import javax.annotation.Nonnull;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
 
 import com.helger.commons.state.EContinue;
 import com.helger.peppol.app.CPPApp;
@@ -28,6 +26,9 @@ import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.util.SecurityHelper;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * A special servlet filter that checks that a user can only access the config

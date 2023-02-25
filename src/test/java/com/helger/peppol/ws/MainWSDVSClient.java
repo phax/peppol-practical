@@ -18,8 +18,6 @@ package com.helger.peppol.ws;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.xml.ws.BindingProvider;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +37,8 @@ import com.helger.phive.peppol.PeppolValidation3_14_0;
 import com.helger.wsclient.WSClientConfig;
 import com.helger.wsclient.WSHelper;
 
+import jakarta.xml.ws.BindingProvider;
+
 public final class MainWSDVSClient
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainWSDVSClient.class);
@@ -48,7 +48,8 @@ public final class MainWSDVSClient
     WSHelper.enableSoapLogging (true);
 
     LOGGER.info ("Starting the engines");
-    final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("ws/invoice1.xml"), StandardCharsets.UTF_8);
+    final String sXML = StreamHelper.getAllBytesAsString (new ClassPathResource ("ws/invoice1.xml"),
+                                                          StandardCharsets.UTF_8);
 
     final WSDVSService aService = new WSDVSService (new FileSystemResource ("src/main/webapp/WEB-INF/wsdl/pp-dvs.wsdl").getAsURL ());
     final WSDVSPort aPort = aService.getWSDVSPort ();
@@ -76,7 +77,14 @@ public final class MainWSDVSClient
     final int nMaxPos = aResponse.getResultCount ();
     for (final ValidationResultType aResult : aResponse.getResult ())
     {
-      LOGGER.info ("  [" + nPos + "/" + nMaxPos + "] " + aResult.getArtifactType () + " - " + aResult.getArtifactPath ());
+      LOGGER.info ("  [" +
+                   nPos +
+                   "/" +
+                   nMaxPos +
+                   "] " +
+                   aResult.getArtifactType () +
+                   " - " +
+                   aResult.getArtifactPath ());
       ++nPos;
 
       LOGGER.info ("  Success: " + aResult.getSuccess ());

@@ -17,7 +17,6 @@
 package com.helger.peppol.servlet;
 
 import javax.annotation.Nonnull;
-import javax.servlet.ServletContext;
 
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
@@ -42,6 +41,8 @@ import com.helger.photon.core.appid.CApplicationID;
 import com.helger.photon.core.appid.PhotonGlobalState;
 import com.helger.photon.core.locale.ILocaleManager;
 import com.helger.photon.core.menu.MenuTree;
+
+import jakarta.servlet.ServletContext;
 
 /**
  * This listener is invoked during the servlet initialization. This is basically

@@ -18,7 +18,6 @@ package com.helger.peppol.rest;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.hc.client5.http.HttpResponseException;
 import org.slf4j.Logger;
@@ -32,6 +31,8 @@ import com.helger.photon.api.AbstractAPIExceptionMapper;
 import com.helger.photon.api.InvokableAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Special API exception mapper for the SMP REST API.

@@ -31,7 +31,6 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.bind.JAXBException;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.slf4j.Logger;
@@ -139,6 +138,8 @@ import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xsds.bdxr.smp2.bc.IDType;
+
+import jakarta.xml.bind.JAXBException;
 
 public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 {
