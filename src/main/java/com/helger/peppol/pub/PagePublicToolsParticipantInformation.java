@@ -83,6 +83,7 @@ import com.helger.html.hc.impl.HCTextNode;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.jaxb.validation.DoNothingValidationEventHandler;
 import com.helger.pd.businesscard.generic.PDBusinessCard;
 import com.helger.pd.businesscard.generic.PDBusinessEntity;
 import com.helger.pd.businesscard.generic.PDContact;
@@ -184,10 +185,31 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     return badgeInfo ("took " + nMillis + " milliseconds");
   }
 
-  private void _printEndpointURL (@Nonnull final IHCLI <?> aLIEndpoint, final String sEndpointRef)
+  private void _printEndpointURL (@Nonnull final IHCLI <?> aLIEndpoint,
+                                  final String sEndpointRef,
+                                  final boolean bIsPeppol)
   {
     aLIEndpoint.addChild (div ("Endpoint URL: ").addChild (StringHelper.hasNoText (sEndpointRef) ? em ("none")
                                                                                                  : code (sEndpointRef)));
+    if (bIsPeppol)
+    {
+      if (StringHelper.hasNoText (sEndpointRef))
+        aLIEndpoint.addChild (div (badgeDanger ("The endpoint URL is missing")));
+      else
+      {
+        final URL aURL = URLHelper.getAsURL (sEndpointRef);
+        if (aURL == null)
+          aLIEndpoint.addChild (div (badgeDanger ("The endpoint URL is invalid")));
+        else
+        {
+          if (!"https".equals (aURL.getProtocol ()))
+            aLIEndpoint.addChild (div (badgeDanger ("The endpoint URL must use https")));
+          final int nPort = aURL.getPort ();
+          if (nPort != -1 && nPort != 443)
+            aLIEndpoint.addChild (div (badgeDanger ("The port must be 443")));
+        }
+      }
+    }
   }
 
   private void _printActivationDate (@Nonnull final IHCLI <?> aLIEndpoint,
@@ -793,7 +815,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                           // Endpoint URL
                           final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
                                                                                                 : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
-                          _printEndpointURL (aLIEndpoint, sEndpointRef);
+                          _printEndpointURL (aLIEndpoint, sEndpointRef, true);
 
                           // Valid from
                           _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
@@ -854,7 +876,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                           final IHCLI <?> aLIEndpoint = aULEndpoint.addItem ();
 
                           // Endpoint URL
-                          _printEndpointURL (aLIEndpoint, aEndpoint.getEndpointURI ());
+                          _printEndpointURL (aLIEndpoint, aEndpoint.getEndpointURI (), false);
 
                           // Valid from
                           _printActivationDate (aLIEndpoint, aEndpoint.getServiceActivationDate (), aDisplayLocale);
@@ -1007,6 +1029,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         }
       }
 
+      // Query for Business Card
       if (bQueryBusinessCard)
       {
         final StopWatch aSWGetBC = StopWatch.createdStarted ();
@@ -1034,6 +1057,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           final ICommonsList <JAXBException> aPDExceptions = new CommonsArrayList <> ();
           final Consumer <GenericJAXBMarshaller <?>> aPMarshallerCustomizer = m -> {
             aPDExceptions.clear ();
+            m.setValidationEventHandler (new DoNothingValidationEventHandler ());
             // Remember errors
             m.readExceptionCallbacks ().add (aPDExceptions::add);
             m.setCharset (StandardCharsets.UTF_8);
