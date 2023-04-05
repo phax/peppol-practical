@@ -434,24 +434,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>**/NOTICE</exclude>
-            <exclude>**/LICENSE</exclude>
-            <exclude>src/main/resources/rules/**</exclude>
-            <exclude>src/main/webapp/*.jsp</exclude>
-            <!-- Minified CSS/JS files - usually generated -->
-            <exclude>**/*.min.css</exclude>
-            <exclude>**/*.min.js</exclude>
-            <exclude>**/*.txt</exclude>
-            <exclude>**/*.jks</exclude>
-            <exclude>**/google*.html</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>${jaxws-plugin.group}</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
         <version>${jaxws-plugin.version}</version>
