@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.cii.d16b.CIID16BReader;
+import com.helger.cii.d16b.CIID16BCrossIndustryInvoiceTypeMarshaller;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.error.IError;
@@ -84,7 +84,8 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
     final StopWatch aSW = StopWatch.createdStarted ();
 
     // Params
-    final boolean bSimpleResponse = aRequestScope.params ().getAsBoolean (PARAM_SIMPLE_RESPONSE, DEFAULT_SIMPLE_RESPONSE);
+    final boolean bSimpleResponse = aRequestScope.params ()
+                                                 .getAsBoolean (PARAM_SIMPLE_RESPONSE, DEFAULT_SIMPLE_RESPONSE);
     final boolean bXMLBeautify = aRequestScope.params ().getAsBoolean (PARAM_XML_BEAUTIFY, DEFAULT_XML_BEAUTIFY);
 
     final String sLogPrefix = "[API] ";
@@ -94,9 +95,9 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
 
     // Parse XML
     LOGGER.info (sLogPrefix + "Parsing CII");
-    final CrossIndustryInvoiceType aCIIInvoice = CIID16BReader.crossIndustryInvoice ()
-                                                              .setValidationEventHandler (new WrappedCollectingValidationEventHandler (aErrorList))
-                                                              .read (aRequestScope.getRequest ().getInputStream ());
+    final CrossIndustryInvoiceType aCIIInvoice = new CIID16BCrossIndustryInvoiceTypeMarshaller ().setValidationEventHandler (new WrappedCollectingValidationEventHandler (aErrorList))
+                                                                                                 .read (aRequestScope.getRequest ()
+                                                                                                                     .getInputStream ());
     final long nParsingMillis = aSW.stopAndGetMillis ();
     aJson.add ("parsingDuractionMillis", nParsingMillis);
 
