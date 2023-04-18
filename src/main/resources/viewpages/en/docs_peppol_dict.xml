@@ -237,6 +237,21 @@
       </td>
     </tr>
     <tr>
+      <td>PA</td>
+      <td>Peppol Authority</td>
+      <td>
+        A local authority managing and supporting the regional Service Providers.
+        Jurisdictions not having their own PA, are managed and supported by OpenPeppol directly.   
+      </td>
+    </tr>
+    <tr>
+      <td>PAC</td>
+      <td>Peppol Authority Community</td>
+      <td>
+        OpenPeppol internal group of Peppol Authorities.
+      </td>
+    </tr>
+    <tr>
       <td>PD</td>
       <td>Peppol Directory</td>
       <td>
@@ -342,6 +357,14 @@
       <td>SP</td>
       <td>Service Provider</td>
       <td>A company or entity offering Peppol Services.</td>
+    </tr>
+    <tr>
+      <td>SPC</td>
+      <td>Service Provider Community</td>
+      <td>
+        OpenPeppol internal group of Service Providers.
+        See <a href="https://openpeppol.atlassian.net/wiki/spaces/SPC/overview">https://openpeppol.atlassian.net/wiki/spaces/SPC/overview</a> for details.
+      </td>
     </tr>
     <tr>
       <td>
