@@ -70,6 +70,7 @@
     <log4j.version>2.20.0</log4j.version>
     <!-- For surefire plugin (use property for JaCoCo integration -->
     <argLine>-Xmx1024m</argLine>
+    <ph-jaxb-plugin.version>4.0.1</ph-jaxb-plugin.version>
   </properties>
   
   <dependencyManagement>
@@ -126,7 +127,7 @@
       <dependency>
         <groupId>com.helger.cii</groupId>
         <artifactId>ph-cii-parent-pom</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -154,7 +155,7 @@
       <dependency>
         <groupId>com.helger.phase4</groupId>
         <artifactId>phase4-parent-pom</artifactId>
-        <version>2.0.0-rc1</version>
+        <version>2.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -168,7 +169,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>en16931-cii2ubl</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.2</version>
       </dependency>
 
       <dependency>
@@ -401,7 +402,7 @@
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-jscompress-maven-plugin</artifactId>
-        <version>3.0.0</version><!--$NO-MVN-MAN-VER$-->
+        <version>3.0.1</version><!--$NO-MVN-MAN-VER$-->
         <executions>
           <execution>
             <goals>
@@ -461,8 +462,6 @@
             <xjcArg>-Xph-annotate</xjcArg>
             <xjcArg>-Xph-fields-private</xjcArg>
             <xjcArg>-Xph-code-quality</xjcArg>
-            <xjcArg>-Xph-implements</xjcArg>
-            <xjcArg>java.io.Serializable</xjcArg>
             <xjcArg>-Xph-equalshashcode</xjcArg>
             <xjcArg>-Xph-tostring</xjcArg>
             <xjcArg>-Xph-list-extension</xjcArg>
@@ -470,10 +469,6 @@
             <xjcArg>-b</xjcArg>
             <xjcArg>src/main/jaxb/peppol-commons.episode</xjcArg>
           </xjcArgs>
-          <!-- Required to work with a JDK 1.8 JVM! -->
-          <vmArgs>
-            <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-          </vmArgs>
           <extension>true</extension>
           <verbose>false</verbose>
           <xnocompile>true</xnocompile>
@@ -482,7 +477,7 @@
           <dependency>
             <groupId>com.helger</groupId>
             <artifactId>ph-jaxb-plugin</artifactId>
-            <version>4.0.0</version>
+            <version>${ph-jaxb-plugin.version}</version>
           </dependency>
         </dependencies>
       </plugin>
