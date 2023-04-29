@@ -49,7 +49,7 @@ import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
-import com.helger.ubl21.UBL21Writer;
+import com.helger.ubl21.UBL21Marshaller;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 import oasis.names.specification.ubl.schema.xsd.creditnote_21.CreditNoteType;
@@ -107,7 +107,6 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
         aParseErrors.add (createItem (aError, aDisplayLocale));
       aJson.addJson ("parsingErrors", aParseErrors);
     }
-
     String sUBL = null;
     boolean bSuccess = false;
     if (aCIIInvoice != null)
@@ -138,14 +137,13 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
           aConversionErrors.add (createItem (aError, aDisplayLocale));
         aJson.addJson ("coversionErrors", aConversionErrors);
       }
-
       if (aUBL != null)
       {
         if (aUBL instanceof InvoiceType)
-          sUBL = UBL21Writer.invoice ().setFormattedOutput (bXMLBeautify).getAsString ((InvoiceType) aUBL);
+          sUBL = UBL21Marshaller.invoice ().setFormattedOutput (bXMLBeautify).getAsString ((InvoiceType) aUBL);
         else
           if (aUBL instanceof CreditNoteType)
-            sUBL = UBL21Writer.creditNote ().setFormattedOutput (bXMLBeautify).getAsString ((CreditNoteType) aUBL);
+            sUBL = UBL21Marshaller.creditNote ().setFormattedOutput (bXMLBeautify).getAsString ((CreditNoteType) aUBL);
           else
             throw new IllegalStateException ("Whaaaatttt");
 
@@ -153,7 +151,6 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
         bSuccess = true;
       }
     }
-
     if (bSuccess)
       LOGGER.info (sLogPrefix + "Successfully finished conversion");
     else

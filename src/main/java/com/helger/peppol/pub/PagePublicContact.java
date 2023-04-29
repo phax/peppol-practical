@@ -31,6 +31,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.httpclient.HttpClientSettings;
 import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
@@ -70,50 +71,50 @@ public final class PagePublicContact extends AbstractAppWebPage
   }
 
   // Must only contain lowercase values
-  private static final String [] SPAM_KEYS = new String [] { "Get Yours Here:",
-                                                             "boostleadgeneration.com",
-                                                             "dogloverclub.store",
-                                                             "idgod.ch",
-                                                             "magicmat.shop",
-                                                             "medicopostura.com",
-                                                             "oakley sunglasses",
-                                                             "ray-ban sunglasses",
-                                                             "topfakeid.com",
-                                                             "www.untouchableiptv.com",
-                                                             "//www.alecpow.com",
-                                                             "//bit.ly",
-                                                             "//bloggybro.com",
-                                                             "//cutt.ly",
-                                                             "//digitalsy.org.uk",
-                                                             "//earningradar.com",
-                                                             "//fixhacksite.com",
-                                                             "//geekboy.co",
-                                                             "//getcontent.rocks",
-                                                             "//jgmbh.de",
-                                                             "//magly.space",
-                                                             "//screenshot.photos",
-                                                             "//seoclerkspro.com",
-                                                             "//shipped-order.com",
-                                                             "//socialvideoschedule.com ",
-                                                             "//speed-seo.net/",
-                                                             "//talkwithcustomer.com",
-                                                             "//talkwithwebvisitors.com",
-                                                             "//thecanadianreport.ca",
-                                                             "//yazing.com",
-                                                             "//www.ads-that-stay-up-forever.xyz",
-                                                             "//www.alecpow.com",
-                                                             "//www.biglep.com",
-                                                             "//www.electronicdomains.com",
-                                                             "//www.follmex.",
-                                                             "//www.godlikeproductions.com",
-                                                             "//www.interactivewise.com",
-                                                             "//www.speed-seo.net",
-                                                             "//www.talkwithcustomer.com",
-                                                             "//www.talkwithwebvisitors.com",
-                                                             "//www.targeted-visitors-4yoursite.xyz",
-                                                             "//www.thepricer.org",
-                                                             "//www.vidnami.com",
-                                                             "//www.zerocost-ad-posting.xyz" };
+  private static final String [] SPAM_KEYS = { "Get Yours Here:",
+                                               "boostleadgeneration.com",
+                                               "dogloverclub.store",
+                                               "idgod.ch",
+                                               "magicmat.shop",
+                                               "medicopostura.com",
+                                               "oakley sunglasses",
+                                               "ray-ban sunglasses",
+                                               "topfakeid.com",
+                                               "www.untouchableiptv.com",
+                                               "//www.alecpow.com",
+                                               "//bit.ly",
+                                               "//bloggybro.com",
+                                               "//cutt.ly",
+                                               "//digitalsy.org.uk",
+                                               "//earningradar.com",
+                                               "//fixhacksite.com",
+                                               "//geekboy.co",
+                                               "//getcontent.rocks",
+                                               "//jgmbh.de",
+                                               "//magly.space",
+                                               "//screenshot.photos",
+                                               "//seoclerkspro.com",
+                                               "//shipped-order.com",
+                                               "//socialvideoschedule.com ",
+                                               "//speed-seo.net/",
+                                               "//talkwithcustomer.com",
+                                               "//talkwithwebvisitors.com",
+                                               "//thecanadianreport.ca",
+                                               "//yazing.com",
+                                               "//www.ads-that-stay-up-forever.xyz",
+                                               "//www.alecpow.com",
+                                               "//www.biglep.com",
+                                               "//www.electronicdomains.com",
+                                               "//www.follmex.",
+                                               "//www.godlikeproductions.com",
+                                               "//www.interactivewise.com",
+                                               "//www.speed-seo.net",
+                                               "//www.talkwithcustomer.com",
+                                               "//www.talkwithwebvisitors.com",
+                                               "//www.targeted-visitors-4yoursite.xyz",
+                                               "//www.thepricer.org",
+                                               "//www.vidnami.com",
+                                               "//www.zerocost-ad-posting.xyz" };
 
   private static boolean _isSpamBody (@Nonnull final String sTopic)
   {
@@ -164,7 +165,8 @@ public final class PagePublicContact extends AbstractAppWebPage
           if (!CaptchaStateSessionSingleton.getInstance ().isChecked ())
           {
             // Check only if no other errors occurred
-            if (ReCaptchaServerSideValidator.check (sRecaptchSecretKey, sReCaptchaResponse).isFailure ())
+            if (ReCaptchaServerSideValidator.check (sRecaptchSecretKey, sReCaptchaResponse, new HttpClientSettings ())
+                                            .isFailure ())
               aFormErrors.addFieldError (FIELD_CAPTCHA, "Please confirm you are not a robot!");
             else
               CaptchaStateSessionSingleton.getInstance ().setChecked ();
@@ -213,12 +215,10 @@ public final class PagePublicContact extends AbstractAppWebPage
                          "'");
             ScopedMailAPI.getInstance ().queueMail (InternalErrorSettings.getSMTPSettings (), aEmailData);
           }
-
         aNodeList.addChild (success ("Thank you for your message. Please note that I run this page on a voluntary basis on my expenses - you may consider a donation."));
         bShowForm = false;
       }
     }
-
     if (bShowForm)
     {
       final BootstrapForm aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC));
@@ -251,7 +251,6 @@ public final class PagePublicContact extends AbstractAppWebPage
         aBG.cssClasses ().addClass (CBootstrapCSS.D_NONE);
         aForm.addFormGroup (aBG);
       }
-
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Your message")
                                                    .setCtrl (new HCTextAreaAutosize (new RequestField (FIELD_TEXT)).setRows (5))
                                                    .setErrorList (aFormErrors.getListOfField (FIELD_TEXT)));
