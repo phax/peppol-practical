@@ -25,7 +25,8 @@
 </p>
 
 <ul class="nav nav-tabs">
-  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2022</a></li>
+  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2023</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2022" data-toggle="tab">2022</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2021" data-toggle="tab">2021</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2020" data-toggle="tab">2020</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2019" data-toggle="tab">2019</a></li>
@@ -39,6 +40,169 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2023-05-01 - Document Validation extended</h3>
+ 
+    <p>
+      Added support for CEN EN 16931 1.3.10 rule set.<br/>
+      Added support for Energie EFactuur 3.1.0 rule set.<br/>
+      Added support for Japan PINT Invoice 0.1.2 rule set.<br/>
+      Added support for SimpleInvoicing 2023-03 rule set.<br />
+      Added support for Peppol Reporting rule set.<br />
+      Added support for UBL 2.4-CSD01 rule set.<br />
+      Added support for XRechnung 2.3.1 rule set.<br />
+      Added support for fatturaPA 1.2.2 rule set.<br />
+      Deprecated a few old formats.
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>eu.cen.en16931:cii:1.3.10</code> - EN 16931 CII 1.3.10</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.10</code> - EN 16931 UBL CreditNote 1.3.10</li>
+<li><code>eu.cen.en16931:ubl:1.3.10</code> - EN 16931 UBL Invoice 1.3.10</li>
+<li><code>nl.energie-efactuur:energie-efactuur:3.1.0</code> - Energie eFactuur 3.1.0</li>
+<li><code>org.peppol.jp.pint:credit-note:0.1.2</code> - Japan PINT Credit Note (UBL) 0.1.2</li>
+<li><code>org.peppol.jp.pint:invoice:0.1.2</code> - Japan PINT Invoice (UBL) 0.1.2</li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3.5</code> - NLCIUS-CII 1.0.3.5</li>
+<li><code>org.simplerinvoicing:invoice20.g-account:1.0.6</code> - Simplerinvoicing 2.0 G-Account extension 1.0.6</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3.6</code> - Simplerinvoicing CreditNote 2.0.3.6</li>
+<li><code>org.simplerinvoicing:invoice:2.0.3.6</code> - Simplerinvoicing Invoice 2.0.3.6</li>
+<li><code>eu.peppol.reporting:eusr:1.0.0</code> - Peppol End User Statistics Report v1.0.0</li>
+<li><code>eu.peppol.reporting:tsr:1.0.1</code> - Peppol Transaction Statistics Report v1.0.1</li>
+<li><code>org.oasis-open:applicationresponse:2.4-cds01</code> - UBL Application Response 2.4-cds01</li>
+<li><code>org.oasis-open:attacheddocument:2.4-cds01</code> - UBL Attached Document 2.4-cds01</li>
+<li><code>org.oasis-open:awardednotification:2.4-cds01</code> - UBL Awarded Notification 2.4-cds01</li>
+<li><code>org.oasis-open:billoflading:2.4-cds01</code> - UBL Bill Of Lading 2.4-cds01</li>
+<li><code>org.oasis-open:businessinformation:2.4-cds01</code> - UBL Business Information 2.4-cds01</li>
+<li><code>org.oasis-open:callfortenders:2.4-cds01</code> - UBL Call For Tenders 2.4-cds01</li>
+<li><code>org.oasis-open:catalogue:2.4-cds01</code> - UBL Catalogue 2.4-cds01</li>
+<li><code>org.oasis-open:cataloguedeletion:2.4-cds01</code> - UBL Catalogue Deletion 2.4-cds01</li>
+<li><code>org.oasis-open:catalogueitemspecificationupdate:2.4-cds01</code> - UBL Catalogue Item Specification Update 2.4-cds01</li>
+<li><code>org.oasis-open:cataloguepricingupdate:2.4-cds01</code> - UBL Catalogue Pricing Update 2.4-cds01</li>
+<li><code>org.oasis-open:cataloguerequest:2.4-cds01</code> - UBL Catalogue Request 2.4-cds01</li>
+<li><code>org.oasis-open:certificateoforigin:2.4-cds01</code> - UBL Certificate Of Origin 2.4-cds01</li>
+<li><code>org.oasis-open:commontransportationreport:2.4-cds01</code> - UBL Common Transportation Report 2.4-cds01</li>
+<li><code>org.oasis-open:contractawardnotice:2.4-cds01</code> - UBL Contract Award Notice 2.4-cds01</li>
+<li><code>org.oasis-open:contractnotice:2.4-cds01</code> - UBL Contract Notice 2.4-cds01</li>
+<li><code>org.oasis-open:creditnote:2.4-cds01</code> - UBL Credit Note 2.4-cds01</li>
+<li><code>org.oasis-open:debitnote:2.4-cds01</code> - UBL Debit Note 2.4-cds01</li>
+<li><code>org.oasis-open:despatchadvice:2.4-cds01</code> - UBL Despatch Advice 2.4-cds01</li>
+<li><code>org.oasis-open:digitalagreement:2.4-cds01</code> - UBL Digital Agreement 2.4-cds01</li>
+<li><code>org.oasis-open:digitalcapability:2.4-cds01</code> - UBL Digital Capability 2.4-cds01</li>
+<li><code>org.oasis-open:documentstatus:2.4-cds01</code> - UBL Document Status 2.4-cds01</li>
+<li><code>org.oasis-open:documentstatusrequest:2.4-cds01</code> - UBL Document Status Request 2.4-cds01</li>
+<li><code>org.oasis-open:enquiry:2.4-cds01</code> - UBL Enquiry 2.4-cds01</li>
+<li><code>org.oasis-open:enquiryresponse:2.4-cds01</code> - UBL Enquiry Response 2.4-cds01</li>
+<li><code>org.oasis-open:exceptioncriteria:2.4-cds01</code> - UBL Exception Criteria 2.4-cds01</li>
+<li><code>org.oasis-open:exceptionnotification:2.4-cds01</code> - UBL Exception Notification 2.4-cds01</li>
+<li><code>org.oasis-open:exportcustomsdeclaration:2.4-cds01</code> - UBL Export Customs Declaration 2.4-cds01</li>
+<li><code>org.oasis-open:expressionofinterestrequest:2.4-cds01</code> - UBL Expression Of Interest Request 2.4-cds01</li>
+<li><code>org.oasis-open:expressionofinterestresponse:2.4-cds01</code> - UBL Expression Of Interest Response 2.4-cds01</li>
+<li><code>org.oasis-open:forecast:2.4-cds01</code> - UBL Forecast 2.4-cds01</li>
+<li><code>org.oasis-open:forecastrevision:2.4-cds01</code> - UBL Forecast Revision 2.4-cds01</li>
+<li><code>org.oasis-open:forwardinginstructions:2.4-cds01</code> - UBL Forwarding Instructions 2.4-cds01</li>
+<li><code>org.oasis-open:freightinvoice:2.4-cds01</code> - UBL Freight Invoice 2.4-cds01</li>
+<li><code>org.oasis-open:fulfilmentcancellation:2.4-cds01</code> - UBL Fulfilment Cancellation 2.4-cds01</li>
+<li><code>org.oasis-open:goodscertificate:2.4-cds01</code> - UBL Goods Certificate 2.4-cds01</li>
+<li><code>org.oasis-open:goodsitemitinerary:2.4-cds01</code> - UBL Goods Item Itinerary 2.4-cds01</li>
+<li><code>org.oasis-open:goodsitempassport:2.4-cds01</code> - UBL Goods Item Passport 2.4-cds01</li>
+<li><code>org.oasis-open:guaranteecertificate:2.4-cds01</code> - UBL Guarantee Certificate 2.4-cds01</li>
+<li><code>org.oasis-open:importcustomsdeclaration:2.4-cds01</code> - UBL Import Customs Declaration 2.4-cds01</li>
+<li><code>org.oasis-open:instructionforreturns:2.4-cds01</code> - UBL Instruction For Returns 2.4-cds01</li>
+<li><code>org.oasis-open:inventoryreport:2.4-cds01</code> - UBL Inventory Report 2.4-cds01</li>
+<li><code>org.oasis-open:invoice:2.4-cds01</code> - UBL Invoice 2.4-cds01</li>
+<li><code>org.oasis-open:iteminformationrequest:2.4-cds01</code> - UBL Item Information Request 2.4-cds01</li>
+<li><code>org.oasis-open:manifest:2.4-cds01</code> - UBL Manifest 2.4-cds01</li>
+<li><code>org.oasis-open:order:2.4-cds01</code> - UBL Order 2.4-cds01</li>
+<li><code>org.oasis-open:ordercancellation:2.4-cds01</code> - UBL Order Cancellation 2.4-cds01</li>
+<li><code>org.oasis-open:orderchange:2.4-cds01</code> - UBL Order Change 2.4-cds01</li>
+<li><code>org.oasis-open:orderresponse:2.4-cds01</code> - UBL Order Response 2.4-cds01</li>
+<li><code>org.oasis-open:orderresponsesimple:2.4-cds01</code> - UBL Order Response Simple 2.4-cds01</li>
+<li><code>org.oasis-open:packinglist:2.4-cds01</code> - UBL Packing List 2.4-cds01</li>
+<li><code>org.oasis-open:priorinformationnotice:2.4-cds01</code> - UBL Prior Information Notice 2.4-cds01</li>
+<li><code>org.oasis-open:productactivity:2.4-cds01</code> - UBL Product Activity 2.4-cds01</li>
+<li><code>org.oasis-open:proofofreexportation:2.4-cds01</code> - UBL Proof Of Reexportation 2.4-cds01</li>
+<li><code>org.oasis-open:proofofreexportationreminder:2.4-cds01</code> - UBL Proof Of Reexportation Reminder 2.4-cds01</li>
+<li><code>org.oasis-open:proofofreexportationrequest:2.4-cds01</code> - UBL Proof Of Reexportation Request 2.4-cds01</li>
+<li><code>org.oasis-open:purchasereceipt:2.4-cds01</code> - UBL Purchase Receipt 2.4-cds01</li>
+<li><code>org.oasis-open:qualificationapplicationrequest:2.4-cds01</code> - UBL Qualification Application Request 2.4-cds01</li>
+<li><code>org.oasis-open:qualificationapplicationresponse:2.4-cds01</code> - UBL Qualification Application Response 2.4-cds01</li>
+<li><code>org.oasis-open:quotation:2.4-cds01</code> - UBL Quotation 2.4-cds01</li>
+<li><code>org.oasis-open:receiptadvice:2.4-cds01</code> - UBL Receipt Advice 2.4-cds01</li>
+<li><code>org.oasis-open:reminder:2.4-cds01</code> - UBL Reminder 2.4-cds01</li>
+<li><code>org.oasis-open:remittanceadvice:2.4-cds01</code> - UBL Remittance Advice 2.4-cds01</li>
+<li><code>org.oasis-open:requestforquotation:2.4-cds01</code> - UBL Request For Quotation 2.4-cds01</li>
+<li><code>org.oasis-open:retailevent:2.4-cds01</code> - UBL Retail Event 2.4-cds01</li>
+<li><code>org.oasis-open:selfbilledcreditnote:2.4-cds01</code> - UBL Self Billed Credit Note 2.4-cds01</li>
+<li><code>org.oasis-open:selfbilledinvoice:2.4-cds01</code> - UBL Self Billed Invoice 2.4-cds01</li>
+<li><code>org.oasis-open:statement:2.4-cds01</code> - UBL Statement 2.4-cds01</li>
+<li><code>org.oasis-open:stockavailabilityreport:2.4-cds01</code> - UBL Stock Availability Report 2.4-cds01</li>
+<li><code>org.oasis-open:tender:2.4-cds01</code> - UBL Tender 2.4-cds01</li>
+<li><code>org.oasis-open:tendercontract:2.4-cds01</code> - UBL Tender Contract 2.4-cds01</li>
+<li><code>org.oasis-open:tenderreceipt:2.4-cds01</code> - UBL Tender Receipt 2.4-cds01</li>
+<li><code>org.oasis-open:tenderstatus:2.4-cds01</code> - UBL Tender Status 2.4-cds01</li>
+<li><code>org.oasis-open:tenderstatusrequest:2.4-cds01</code> - UBL Tender Status Request 2.4-cds01</li>
+<li><code>org.oasis-open:tenderwithdrawal:2.4-cds01</code> - UBL Tender Withdrawal 2.4-cds01</li>
+<li><code>org.oasis-open:tendererqualification:2.4-cds01</code> - UBL Tenderer Qualification 2.4-cds01</li>
+<li><code>org.oasis-open:tendererqualificationresponse:2.4-cds01</code> - UBL Tenderer Qualification Response 2.4-cds01</li>
+<li><code>org.oasis-open:tradeitemlocationprofile:2.4-cds01</code> - UBL Trade Item Location Profile 2.4-cds01</li>
+<li><code>org.oasis-open:transitcustomsdeclaration:2.4-cds01</code> - UBL Transit Customs Declaration 2.4-cds01</li>
+<li><code>org.oasis-open:transportexecutionplan:2.4-cds01</code> - UBL Transport Execution Plan 2.4-cds01</li>
+<li><code>org.oasis-open:transportexecutionplanrequest:2.4-cds01</code> - UBL Transport Execution Plan Request 2.4-cds01</li>
+<li><code>org.oasis-open:transportprogressstatus:2.4-cds01</code> - UBL Transport Progress Status 2.4-cds01</li>
+<li><code>org.oasis-open:transportprogressstatusrequest:2.4-cds01</code> - UBL Transport Progress Status Request 2.4-cds01</li>
+<li><code>org.oasis-open:transportservicedescription:2.4-cds01</code> - UBL Transport Service Description 2.4-cds01</li>
+<li><code>org.oasis-open:transportservicedescriptionrequest:2.4-cds01</code> - UBL Transport Service Description Request 2.4-cds01</li>
+<li><code>org.oasis-open:transportationstatus:2.4-cds01</code> - UBL Transportation Status 2.4-cds01</li>
+<li><code>org.oasis-open:transportationstatusrequest:2.4-cds01</code> - UBL Transportation Status Request 2.4-cds01</li>
+<li><code>org.oasis-open:unawardednotification:2.4-cds01</code> - UBL Unawarded Notification 2.4-cds01</li>
+<li><code>org.oasis-open:unsubscribefromprocedurerequest:2.4-cds01</code> - UBL Unsubscribe From Procedure Request 2.4-cds01</li>
+<li><code>org.oasis-open:unsubscribefromprocedureresponse:2.4-cds01</code> - UBL Unsubscribe From Procedure Response 2.4-cds01</li>
+<li><code>org.oasis-open:utilitystatement:2.4-cds01</code> - UBL Utility Statement 2.4-cds01</li>
+<li><code>org.oasis-open:waybill:2.4-cds01</code> - UBL Waybill 2.4-cds01</li>
+<li><code>org.oasis-open:weightstatement:2.4-cds01</code> - UBL Weight Statement 2.4-cds01</li>
+<li><code>de.xrechnung:cii:2.3.1</code> - XRechnung CII 2.3.1</li>
+<li><code>de.xrechnung:ubl-creditnote:2.3.1</code> - XRechnung UBL CrediteNote 2.3.1</li>
+<li><code>de.xrechnung:ubl-invoice:2.3.1</code> - XRechnung UBL Invoice 2.3.1</li>
+<li><code>it.fatturapa:invoice:1.2.2</code> - fatturaPA 1.2.2</li>
+</ul>
+
+    <h3>2023-04-14 - Peppol Reporting specifications published</h3>
+ 
+    <p>
+      The final versions of the Peppol Reporting specifications are now available online.
+      See <a href="https://docs.peppol.eu/edelivery/specs/reporting/eusr/">End User Statistics Reporting</a> specification 1.0.0 and
+      <a href="https://docs.peppol.eu/edelivery/specs/reporting/tsr/">Transaction Statistics Reporting</a> specification 1.0.1.
+      Additionally the <a href="https://docs.peppol.eu/edelivery/">Peppol Business Message Envelope</a> specification 2.0.0 was published.<br /> 
+      The is <strong>no obligation yet</strong> to collect and transmit these reports. The necessary details will follow.
+    </p>
+
+    <h3>2023-04-13 - Release of phase4 2.0.0</h3>
+    
+    <p>
+      phase4 2.0.0 is a minor update to the 1.4.x series.
+      The main difference is the minimum requirement of Java 11 and JakartaEE 9 as the baseline, 
+        so requiring Apache Tomcat v10.0.x or Jetty 11.x as the minimum.<br />
+      See <a href="https://github.com/phax/phase4/releases/tag/phase4-parent-pom-2.0.0">release on GitHub</a>.   
+    </p>
+
+     <h3>2023-04-12 - OpenPeppol eDEC Code Lists v8.5.1 release</h3>
+ 
+    <p>
+      The new version 8.5.1 of the code lists is available at
+      <a href="https://docs.peppol.eu/edelivery/codelists/">https://docs.peppol.eu/edelivery/codelists/</a>. 
+      The detailed list of changes is <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html">also available</a>. 
+    </p>
+
+    <h3>2023-02-24 - OpenPeppol eDEC Code Lists v8.4 release</h3>
+ 
+    <p>
+      The new version 8.4 of the code lists is available at
+      <a href="https://docs.peppol.eu/edelivery/codelists/">https://docs.peppol.eu/edelivery/codelists/</a>. 
+      The detailed list of changes is <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html">also available</a>. 
+    </p>
+
     <h3>2023-01-23 - OpenPeppol eDEC Code Lists v8.3.1 release</h3>
  
     <p>
@@ -46,6 +210,9 @@
       <a href="https://docs.peppol.eu/edelivery/codelists/">https://docs.peppol.eu/edelivery/codelists/</a>. 
       The detailed list of changes is <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html">also available</a>. 
     </p>
+    
+  </div>
+  <div id="tabs-2022" class="tab-pane" role="tabpanel">
 
     <h3>2022-12-23 - Document Validation extended</h3>
  
