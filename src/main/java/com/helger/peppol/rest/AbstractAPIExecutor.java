@@ -37,6 +37,8 @@ import es.moki.ratelimitj.inmemory.request.InMemorySlidingWindowRequestRateLimit
 
 public abstract class AbstractAPIExecutor implements IAPIExecutor
 {
+  protected static final String USER_AGENT = "Peppol-Practical/1.0 SMP-Query-API/1.0";
+
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractAPIExecutor.class);
 
   protected final InMemorySlidingWindowRequestRateLimiter m_aRequestRateLimiter;
@@ -75,7 +77,8 @@ public abstract class AbstractAPIExecutor implements IAPIExecutor
                                @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
     final String sRateLimitKey = "ip:" + aRequestScope.getRemoteAddr ();
-    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey) : false;
+    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey)
+                                                                 : false;
 
     if (bOverRateLimit)
     {
