@@ -51,6 +51,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
+import com.helger.smpclient.httpclient.SMPHttpClientSettings;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
@@ -139,7 +140,11 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
                           aParticipantID.getURIEncoded ();
     LOGGER.info (sLogPrefix + "Querying BC from '" + sBCURL + "'");
     byte [] aData;
-    try (final HttpClientManager aHttpClientMgr = new HttpClientManager ())
+
+    final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
+    aHCS.setUserAgent (USER_AGENT);
+
+    try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (aHCS))
     {
       final HttpGet aGet = new HttpGet (sBCURL);
       aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());

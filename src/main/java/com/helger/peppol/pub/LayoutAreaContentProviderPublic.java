@@ -325,8 +325,8 @@ public final class LayoutAreaContentProviderPublic
       aFooter.addChild (new HCP ().addChild (new HCSmall ().addChild ("Disclaimer: This page is a personal project of Philip Helger." +
                                                                       " The content is neither provided nor approved by OpenPeppol AISBL." +
                                                                       " The official Peppol website is ")
-                                                           .addChild (new HCA (new SimpleURL ("https://www.peppol.eu")).addChild ("www.peppol.eu")
-                                                                                                                       .setTargetBlank ())));
+                                                           .addChild (new HCA (new SimpleURL ("https://www.peppol.org")).addChild ("www.peppol.org")
+                                                                                                                        .setTargetBlank ())));
 
       ret.addChild (aFooter);
     }
