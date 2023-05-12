@@ -58,6 +58,8 @@
         Transport protocol specified in
         <a href="http://www.ietf.org/rfc/rfc4130.txt">RFC 4130</a>.
         This was the default transport protocol until 2020-01-31.
+        It was replaced with <em>AS4</em>.
+        The usage of AS2 is supported until 2023-09-06 - see <a href="https://docs.peppol.eu/edelivery/codelists/">Transport Profiles Code List</a>. 
       </td>
     </tr>
     <tr>
@@ -72,19 +74,25 @@
     <tr>
       <td>BC</td>
       <td>Business Card</td>
-      <td>The document type for describing the non-functional aspects of a Peppol participant for listing in the <em>PD</em>.</td>
+      <td>
+        The document type for describing the non-functional aspects of a Peppol participant for listing in the <em>PD</em>.
+        It is maintained decentralized in the <em>SMP</em>.
+      </td>
     </tr>
     <tr>
       <td>BIS</td>
       <td>Business Interoperability Specification</td>
-      <td>A Peppol created specification that define how a business document exchange should take place and how the UBL elements are bound to semantical elements.</td>
+      <td>
+        A Peppol created specification that define how a business document exchange should take place and how the UBL elements are bound to semantical elements.
+        The most known BIS is "Peppol BIS Billing 3" which defines the exchange of invoices and credit notes.
+      </td>
     </tr>
     <tr>
       <td>BLR</td>
       <td>Business Level Response</td>
       <td>
         Business document to be exchanged stating business level validation results (see also <em>MLR</em>).
-        Peppol does not contain a single BLR - it contains an Order Response and an Invoice Response.
+        Peppol does not contain a single BLR - it contains different responses for different document types, like Order Response or Invoice Response.
       </td>
     </tr>
     <tr>
@@ -109,7 +117,9 @@
     <tr>
       <td>CII</td>
       <td>UN/CEFACT Cross Industry Invoice</td>
-      <td>One of the two formats identified by the <em>EN</em> to be supported.</td>
+      <td>
+        One of the two formats identified by the <em>EN</em> to be supported by public entities.
+      </td>
     </tr>
     <tr>
       <td>
@@ -130,7 +140,7 @@
       <td>
         Defines how to adopt the <em>EN</em> to local requirements.
         It implies, that a CIUS is more narrow then the underlying specification.
-        Billing BIS 3 is a CIUS of the <em>EN</em>.
+        Billing <em>BIS</em> 3 is a CIUS of the <em>EN</em>.
       </td>
     </tr>
     <tr>
@@ -143,7 +153,7 @@
       <td>Domain Name System</td>
       <td>
         Basic part of Internet technology that maps domain names to IP addresses for technical routing.
-        Used by <em>SML</em>.
+        Used by <em>SML</em>, <em>SMP</em> and <em>AP</em>.
       </td>
     </tr>
     <tr>
@@ -158,7 +168,9 @@
     <tr>
       <td>EC</td>
       <td>European Commission</td>
-      <td>Generic term for all entities directly or indirectly related to them (DG DIGIT etc.).</td>
+      <td>
+        Generic term for all entities directly or indirectly related to them (DG DIGIT etc.).
+      </td>
     </tr>
     <tr>
       <td>EDEC</td>
@@ -171,7 +183,10 @@
     <tr>
       <td>EN</td>
       <td>European Norm</td>
-      <td>Usually this refers to the EN 16931-1, the European Norm on e-Invoicing.</td>
+      <td>
+        Usually this refers to the EN 16931-1, the European Norm on e-Invoicing.
+        Outside of the Peppol world a multitude of different ENs exist.
+      </td>
     </tr>
     <tr>
       <td>EUSR</td>
