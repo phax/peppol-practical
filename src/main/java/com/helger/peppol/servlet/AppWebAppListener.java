@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.dns.config.DNSConfig;
 import com.helger.httpclient.HttpDebugger;
@@ -41,6 +42,7 @@ import com.helger.photon.core.appid.CApplicationID;
 import com.helger.photon.core.appid.PhotonGlobalState;
 import com.helger.photon.core.locale.ILocaleManager;
 import com.helger.photon.core.menu.MenuTree;
+import com.helger.xservlet.requesttrack.RequestTrackerSettings;
 
 import jakarta.servlet.ServletContext;
 
@@ -92,6 +94,12 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     VendorInfo.setVendorEmail ("philip@helger.com");
     VendorInfo.setVendorLocation ("Vienna, Austria");
     VendorInfo.setInceptionYear (2014);
+
+    if (!GlobalDebug.isProductionMode ())
+    {
+      RequestTrackerSettings.setLongRunningRequestsCheckEnabled (false);
+      RequestTrackerSettings.setParallelRunningRequestsCheckEnabled (false);
+    }
   }
 
   @Override
