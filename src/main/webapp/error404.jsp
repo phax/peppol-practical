@@ -19,11 +19,11 @@
 // In Jetty, the request attributes are already URL encoded!
 final String sTarget = request.getContextPath () + "/public/?httpError=true"
                        +"&httpStatusCode="
-                       +String.valueOf(request.getAttribute ("javax.servlet.error.status_code"))
+                       +String.valueOf(request.getAttribute ("jakarta.servlet.error.status_code"))
                        +"&httpStatusMessage="
-                       +String.valueOf(request.getAttribute ("javax.servlet.error.message"))
+                       +String.valueOf(request.getAttribute ("jakarta.servlet.error.message"))
                        +"&httpRequestUri="
-                       +String.valueOf(request.getAttribute ("javax.servlet.error.request_uri"))
+                       +String.valueOf(request.getAttribute ("jakarta.servlet.error.request_uri"))
                        +"&httpReferrer="
                        +request.getHeader ("Referer");
 response.sendRedirect (sTarget);
