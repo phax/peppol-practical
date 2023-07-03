@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 884 entries -->
+<!-- 885 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.0</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -484,6 +484,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.reporting:eusr:1.0.0</code> - Peppol End User Statistics Report v1.0.0</li>
 <li><code>eu.peppol.reporting:eusr:1.0.0-RC2</code> - Peppol End User Statistics Report v1.0.0-RC2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.reporting:eusr:1.0.1</code> - Peppol End User Statistics Report v1.0.1</li>
+<li><code>eu.peppol.reporting:eusr:1.1.0</code> - Peppol End User Statistics Report v1.1.0</li>
 <li><code>eu.peppol.reporting:tsr:1.0.0</code> - Peppol Transaction Statistics Report v1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.reporting:tsr:1.0.1</code> - Peppol Transaction Statistics Report v1.0.1</li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG Peppol BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
