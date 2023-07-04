@@ -82,6 +82,22 @@
 <li><code>org.simplerinvoicing:invoice:2.0.3.7</code> - Simplerinvoicing Invoice 2.0.3.7</li>
 </ul>
 
+    <h3>2023-06-30 - OpenPeppol Reporting release</h3>
+    
+    <p>
+The Peppol End Users Statistics Reporting Technical Specification v1.1.0 has been released today.
+  It is an error correction version that replaces version 1.0.0, released on April 14th, 2023.<br/>
+The new specification can be found at <a href="https://docs.peppol.eu/edelivery/specs/reporting/">https://docs.peppol.eu/edelivery/specs/reporting/</a>.<br/>
+A detailed explanation on the reason for the need for error correction and how this has been 
+  implemented in the End Users Statistics Reporting Technical Specification v1.1.0 will follow shortly.
+  We will also invite members to presentations and webinars to elaborate further and answer questions.<br/>
+The Managing Committee has set the implementation period to 6 months after the last date of publication, 
+  therefore both the End Users Statistics Reporting v1.1.0 and the Transaction Statistics Reporting v1.0.1 
+  become <strong>mandatory as of 1 January 2024</strong>.
+  This means that January 2024 will be the first Statistics Reporting Period and the first Statistics Reports 
+  must be submitted <strong>in early February 2024</strong>.
+    </p>
+
     <h3>2023-06-30 - OpenPeppol PINT release</h3>
     
     <p>
