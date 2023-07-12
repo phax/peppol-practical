@@ -51,6 +51,7 @@ import com.helger.phive.peppol.legacy.PeppolLegacyThirdpartyValidation;
 import com.helger.phive.peppol.legacy.PeppolLegacyValidation;
 import com.helger.phive.peppol.legacy.PeppolLegacyValidationAUNZ;
 import com.helger.phive.peppol.legacy.PeppolLegacyValidationSG;
+import com.helger.phive.setu.SETUValidation;
 import com.helger.phive.simplerinvoicing.SimplerInvoicingValidation;
 import com.helger.phive.svefaktura.SvefakturaValidation;
 import com.helger.phive.teapps.TEAPPSValidation;
@@ -88,6 +89,7 @@ public final class ExtValidationKeyRegistry
     ISDOCValidation.initISDOC (VES_REGISTRY);
     PeppolItalyValidation.init (VES_REGISTRY);
     CIUS_ROValidation.initCIUS_RO (VES_REGISTRY);
+    SETUValidation.initISDOC (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
