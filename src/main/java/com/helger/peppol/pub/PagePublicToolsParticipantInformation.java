@@ -562,6 +562,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case PEPPOL:
           {
             aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+            aSMPClient.setSecureValidation (false);
             aSMPClient.setXMLSchemaValidation (bXSDValidation);
             aSMPClient.setVerifySignature (bVerifySignatures);
             aSMPClient.setMarshallerCustomizer (aSMPMarshallerCustomizer);
@@ -592,6 +593,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case OASIS_BDXR_V1:
           {
             aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+            aBDXR1Client.setSecureValidation (false);
             aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR1Client.setVerifySignature (bVerifySignatures);
             aBDXR1Client.setMarshallerCustomizer (aSMPMarshallerCustomizer);
@@ -640,6 +642,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case OASIS_BDXR_V2:
           {
             aBDXR2Client = new BDXR2ClientReadOnly (aQueryParams.getSMPHostURI ());
+            aBDXR2Client.setSecureValidation (false);
             aBDXR2Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR2Client.setVerifySignature (bVerifySignatures);
             aBDXR2Client.setMarshallerCustomizer (aSMPMarshallerCustomizer);
