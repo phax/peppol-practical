@@ -149,6 +149,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
       case PEPPOL:
       {
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+        aSMPClient.setSecureValidation (false);
         aSMPClient.httpClientSettings ().setUserAgent (USER_AGENT);
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
@@ -174,6 +175,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
       {
         aSGHrefs = new CommonsTreeMap <> ();
         final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+        aBDXR1Client.setSecureValidation (false);
         aBDXR1Client.httpClientSettings ().setUserAgent (USER_AGENT);
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);

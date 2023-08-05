@@ -153,6 +153,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
       case PEPPOL:
       {
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+        aSMPClient.setSecureValidation (false);
         aSMPClient.httpClientSettings ().setUserAgent (USER_AGENT);
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
@@ -169,6 +170,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
       case OASIS_BDXR_V1:
       {
         final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+        aBDXR1Client.setSecureValidation (false);
         aBDXR1Client.httpClientSettings ().setUserAgent (USER_AGENT);
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);
