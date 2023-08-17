@@ -78,7 +78,7 @@
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons-parent-pom</artifactId>
-        <version>11.1.0</version>
+        <version>11.1.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -99,7 +99,7 @@
       <dependency>
         <groupId>com.helger.web</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>10.1.4</version>
+        <version>10.1.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -162,7 +162,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>phoss-directory-parent-pom</artifactId>
-        <version>0.12.0</version>
+        <version>0.12.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
