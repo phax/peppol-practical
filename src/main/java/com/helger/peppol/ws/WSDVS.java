@@ -64,7 +64,7 @@ import com.helger.phive.api.result.ValidationResult;
 import com.helger.phive.api.result.ValidationResultList;
 import com.helger.phive.engine.source.IValidationSourceXML;
 import com.helger.phive.engine.source.ValidationSourceXML;
-import com.helger.photon.app.io.WebFileIO;
+import com.helger.photon.io.WebFileIO;
 import com.helger.schematron.svrl.SVRLResourceError;
 import com.helger.servlet.request.RequestHelper;
 import com.helger.web.scope.mgr.WebScoped;
