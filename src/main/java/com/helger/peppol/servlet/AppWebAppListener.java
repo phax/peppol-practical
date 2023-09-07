@@ -16,8 +16,13 @@
  */
 package com.helger.peppol.servlet;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.helger.commons.debug.GlobalDebug;
@@ -56,6 +61,8 @@ import jakarta.servlet.ServletContext;
  */
 public final class AppWebAppListener extends WebAppListenerBootstrap
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (AppWebAppListener.class);
+
   @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
   {
@@ -107,6 +114,15 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     // The default soft fail handler already logs stuff out
     CertificateRevocationChecker.setAllowSoftFail (true);
     CertificateRevocationChecker.setRevocationCheckMode (ERevocationCheckMode.OCSP);
+
+    try
+    {
+      final URL url = new URL ("http://www.orf.at");
+      final HttpURLConnection con = (HttpURLConnection) url.openConnection ();
+      LOGGER.info ("!!! URL Connection of type " + con.getClass ().getName ());
+    }
+    catch (final Exception ex)
+    {}
   }
 
   @Override
