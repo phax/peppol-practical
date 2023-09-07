@@ -105,7 +105,8 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     {
       final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aWPEC);
       final BootstrapForm aForm = aToolbar.addAndReturnChild (new BootstrapForm (aWPEC).setFormType (EBootstrapFormType.INLINE));
-      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VESID), aDisplayLocale)));
+      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VESID),
+                                                                                         aDisplayLocale)));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ActionSelect (new RequestField (CPageParam.PARAM_ACTION))));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_STYLE_OUTPUT,
                                                                                                       DEFAULT_STYLE_OUTPUT)),
@@ -150,14 +151,18 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
               // Pre-process
               final PSSchema aPreprocessedSchema = aPreprocessor.getAsPreprocessedSchema (aSchema);
               if (aPreprocessedSchema == null)
-                throw new SchematronPreprocessException ("Failed to preprocess schema " + aSchema + " with query binding " + aQueryBinding);
+                throw new SchematronPreprocessException ("Failed to preprocess schema " +
+                                                         aSchema +
+                                                         " with query binding " +
+                                                         aQueryBinding);
               // Convert to XML string
               final String sXML = MicroWriter.getNodeAsString (aPreprocessedSchema.getAsMicroElement (), XWS);
 
               IHCNode aCode;
               if (bStyleOutput)
               {
-                final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ()).addChild (sXML);
+                final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ())
+                                                                              .addChild (sXML);
                 aCode = aPrism;
               }
               else
@@ -173,7 +178,8 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
               {
                 final HCUL aUL = new HCUL ();
                 aErrHdl.getAllErrors ().forEach (x -> aUL.addItem (x.getErrorText (aDisplayLocale)));
-                aTabContent = new HCNodeList ().addChild (error ("Errors in the Schematron:").addChild (aUL)).addChild (aCode);
+                aTabContent = new HCNodeList ().addChild (error ("Errors in the Schematron:").addChild (aUL))
+                                               .addChild (aCode);
               }
             }
             catch (final Exception ex)
@@ -229,7 +235,8 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
                 // Highlight
                 if (bStyleOutput)
                 {
-                  final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ()).addChild (sXML);
+                  final HCPrismJS aPrism = new HCPrismJS (EPrismLanguage.MARKUP).addPlugin (new PrismPluginLineNumbers ())
+                                                                                .addChild (sXML);
 
                   aTabContent = aPrism;
                 }
@@ -246,7 +253,9 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
               if (aType == EValidationType.SCHEMATRON_XSLT)
               {
                 final IHCNode aTabContent = info ("This is already XSLT");
-                aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
+                aTabBox.addTab ("t" + aTabBox.getTabCount (),
+                                FilenameHelper.getBaseName (aRes.getPath ()),
+                                aTabContent);
               }
           }
           if (aTabBox.hasNoTabs ())
