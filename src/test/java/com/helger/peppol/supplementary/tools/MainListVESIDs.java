@@ -25,7 +25,7 @@ import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.peppol.phive.ExtValidationKeyRegistry;
 import com.helger.peppol.phive.ExtValidationKeySelect;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
-import com.helger.phive.engine.source.IValidationSourceXML;
+import com.helger.phive.xml.source.IValidationSourceXML;
 
 public final class MainListVESIDs
 {

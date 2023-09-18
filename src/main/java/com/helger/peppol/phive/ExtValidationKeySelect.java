@@ -27,11 +27,11 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.compare.NaturalNumericOrderComparator;
+import com.helger.diver.api.version.VESID;
 import com.helger.html.request.IHCRequestField;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
-import com.helger.phive.api.executorset.VESID;
-import com.helger.phive.engine.source.IValidationSourceXML;
 import com.helger.phive.peppol.legacy.PeppolValidation3_10_0;
+import com.helger.phive.xml.source.IValidationSourceXML;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 
 @SuppressWarnings ("deprecation")
