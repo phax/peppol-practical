@@ -294,7 +294,9 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
                                                                          .outgoingDumper (new AS4OutgoingDumperFileBased ())
                                                                          .incomingDumper (new AS4IncomingDumperFileBased ())
                                                                          .rawResponseConsumer (r -> aResponseBytes.set (r.getResponse ()))
-                                                                         .signalMsgConsumer (aResponseMsg::set)
+                                                                         .signalMsgConsumer ( (signalMsg,
+                                                                                               mmd,
+                                                                                               state) -> aResponseMsg.set (signalMsg))
                                                                          .sendMessageAndCheckForReceipt (aSendEx::set);
 
           LOGGER.info ("Sending Peppol AS4 message resulted in " + eResult);

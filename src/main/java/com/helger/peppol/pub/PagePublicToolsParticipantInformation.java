@@ -27,6 +27,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
@@ -90,6 +91,7 @@ import com.helger.pd.businesscard.generic.PDContact;
 import com.helger.pd.businesscard.generic.PDIdentifier;
 import com.helger.pd.businesscard.generic.PDName;
 import com.helger.pd.businesscard.helper.PDBusinessCardHelper;
+import com.helger.pd.businesscard.helper.PDBusinessCardHelper.EBusinessCardVersion;
 import com.helger.peppol.app.mgr.ISMLConfigurationManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.domain.ISMLConfiguration;
@@ -1058,7 +1060,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         else
         {
           final ICommonsList <JAXBException> aPDExceptions = new CommonsArrayList <> ();
-          final Consumer <GenericJAXBMarshaller <?>> aPMarshallerCustomizer = m -> {
+          final BiConsumer <GenericJAXBMarshaller <?>, EBusinessCardVersion> aPMarshallerCustomizer = (m, v) -> {
             aPDExceptions.clear ();
             m.setValidationEventHandler (new DoNothingValidationEventHandler ());
             // Remember errors
