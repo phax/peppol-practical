@@ -58,8 +58,13 @@ public final class ExtValidationKeySelect extends HCExtSelect
     for (final IValidationExecutorSet <IValidationSourceXML> aEntry : ExtValidationKeyRegistry.getAll ())
       if (!LEGACY_IDS.contains (aEntry.getID ()))
         aAll.add (aEntry);
+
     final NaturalNumericOrderComparator aCS = new NaturalNumericOrderComparator (IComparator.getComparatorCollating (aDisplayLocale));
-    return aAll.getSortedInline ( (x, y) -> aCS.compare (x.getDisplayName (), y.getDisplayName ()));
+    return aAll.getSortedInline ( (x, y) -> {
+      if (false)
+        return x.getID ().compareTo (y.getID ());
+      return aCS.compare (x.getDisplayName (), y.getDisplayName ());
+    });
   }
 
   public ExtValidationKeySelect (@Nonnull final IHCRequestField aRF, @Nonnull final Locale aDisplayLocale)

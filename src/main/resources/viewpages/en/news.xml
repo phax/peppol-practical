@@ -40,6 +40,37 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2023-11-07 - Document Validation extended</h3>
+ 
+    <p>
+      Due to technical reasons, the trailing zeroes were removed from VESID versions. So <code>2.3.0</code> is now <code>2.3</code> only.
+      However, no issues during querying are expected.<br />
+      Added support for CEN EN 16931 1.3.11 rule set.<br/>
+      Added support for updated Peppol Reporting rule set.<br/>
+      Added support for updated Peppol BIS 3 Singapore rule set.<br/>
+      Added support for XRechnung 3.0.1 rule sets
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>eu.cen.en16931:cii:1.3.11</code> - EN 16931 CII 1.3.11</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.11</code> - EN 16931 UBL CreditNote 1.3.11</li>
+<li><code>eu.cen.en16931:ubl:1.3.11</code> - EN 16931 UBL Invoice 1.3.11</li>
+<li><code>eu.peppol.reporting:tsr:1.0.2</code> - Peppol Transaction Statistics Report v1.0.2 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.reporting:tsr:1.0.3</code> - Peppol Transaction Statistics Report v1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.reporting:tsr:1.0.4</code> - Peppol Transaction Statistics Report v1.0.4</li>
+<li><code>eu.peppol.reporting:eusr:1.1.1</code> - Peppol End User Statistics Report v1.1.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.reporting:eusr:1.1.2</code> - Peppol End User Statistics Report v1.1.2 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.reporting:eusr:1.1.3</code> - Peppol End User Statistics Report v1.1.3</li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:2023.7</code> - SG Peppol BIS3 CreditNote (UBL) 2023.7</li>
+<li><code>eu.peppol.bis3.sg.ubl:invoice:2023.7</code> - SG Peppol BIS3 Invoice (UBL) 2023.7</li>
+<li><code>de.xrechnung:cii:3.0.1</code> - XRechnung CII 3.0.1</li>
+<li><code>de.xrechnung:ubl-creditnote:3.0.1</code> - XRechnung UBL CreditNote 3.0.1</li>
+<li><code>de.xrechnung:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1</li>
+</ul>
+
     <h3>2023-09-07 - Document Validation extended</h3>
  
     <p>
