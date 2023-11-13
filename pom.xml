@@ -106,9 +106,15 @@
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>9.0.8</version>
+        <version>9.1.0</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <!--error in 9.1.0 parent pom -->
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>peppol-directory-businesscard</artifactId>
+        <version>9.1.0</version>
       </dependency>
       <dependency>
         <groupId>com.helger.photon</groupId>
@@ -148,7 +154,7 @@
       <dependency>
         <groupId>com.helger.phive.rules</groupId>
         <artifactId>phive-rules-parent-pom</artifactId>
-        <version>3.1.4</version>
+        <version>3.1.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -161,15 +167,13 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
-        <artifactId>phoss-directory-parent-pom</artifactId>
-        <version>0.12.3</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.helger</groupId>
         <artifactId>en16931-cii2ubl</artifactId>
         <version>2.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>es.moki.ratelimitj</groupId>
+        <artifactId>ratelimitj-inmemory</artifactId>
+        <version>0.7.0</version>
       </dependency>
       
       <dependency>
@@ -340,8 +344,8 @@
     </dependency>
     
     <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>phoss-directory-businesscard</artifactId>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>peppol-directory-businesscard</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
