@@ -133,13 +133,11 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
                  aSML +
                  "'");
 
-    IJsonObject aJson = null;
-
     final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
                           "/businesscard/" +
                           aParticipantID.getURIEncoded ();
     LOGGER.info (sLogPrefix + "Querying BC from '" + sBCURL + "'");
-    byte [] aData;
+    byte [] aBCBytes;
 
     final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
     aHCS.setUserAgent (USER_AGENT);
@@ -147,32 +145,33 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (aHCS))
     {
       final HttpGet aGet = new HttpGet (sBCURL);
-      aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
+      aBCBytes = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
     }
     catch (final Exception ex)
     {
-      aData = null;
+      aBCBytes = null;
     }
 
-    if (aData == null)
+    IJsonObject aBCJson = null;
+    if (aBCBytes == null)
       LOGGER.warn (sLogPrefix + "No Business Card is available for that participant.");
     else
     {
-      final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aData, StandardCharsets.UTF_8);
+      final PDBusinessCard aBC = PDBusinessCardHelper.parseBusinessCard (aBCBytes, StandardCharsets.UTF_8);
       if (aBC == null)
       {
-        LOGGER.error (sLogPrefix + "Failed to parse BC:\n" + new String (aData));
+        LOGGER.error (sLogPrefix + "Failed to parse BC:\n" + new String (aBCBytes));
       }
       else
       {
         // Business Card found
-        aJson = aBC.getAsJson ();
+        aBCJson = aBC.getAsJson ();
       }
     }
 
     aSW.stop ();
 
-    if (aJson == null)
+    if (aBCJson == null)
     {
       LOGGER.error ("[API] Failed to perform the BusinessCard SMP lookup");
       aUnifiedResponse.setStatus (CHttp.HTTP_NOT_FOUND);
@@ -181,10 +180,10 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
     {
       LOGGER.info ("[API] Succesfully finished BusinessCard lookup lookup after " + aSW.getMillis () + " milliseconds");
 
-      aJson.add ("queryDateTime", DateTimeFormatter.ISO_ZONED_DATE_TIME.format (aQueryDT));
-      aJson.add ("queryDurationMillis", aSW.getMillis ());
+      aBCJson.add ("queryDateTime", DateTimeFormatter.ISO_ZONED_DATE_TIME.format (aQueryDT));
+      aBCJson.add ("queryDurationMillis", aSW.getMillis ());
 
-      final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aJson);
+      final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aBCJson);
       aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8)
                       .setMimeType (CMimeType.APPLICATION_JSON)
                       .enableCaching (3 * CGlobal.SECONDS_PER_HOUR);
