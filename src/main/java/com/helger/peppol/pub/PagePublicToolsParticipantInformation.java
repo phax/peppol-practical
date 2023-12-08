@@ -1273,7 +1273,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (StringHelper.hasNoText (sParticipantIDValue))
         aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
       else
-        if (!aIF.isParticipantIdentifierValueValid (sParticipantIDValue))
+        if (!aIF.isParticipantIdentifierValueValid (sParticipantIDScheme, sParticipantIDValue))
           aFormErrors.addFieldError (FIELD_ID_VALUE,
                                      "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
 

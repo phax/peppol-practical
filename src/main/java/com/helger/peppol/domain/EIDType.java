@@ -63,7 +63,9 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
   private final String m_sDisplayName;
   private final IIDTypeValidator m_aValidator;
 
-  EIDType (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sDisplayName, @Nonnull final IIDTypeValidator aValidator)
+  EIDType (@Nonnull @Nonempty final String sID,
+           @Nonnull @Nonempty final String sDisplayName,
+           @Nonnull final IIDTypeValidator aValidator)
   {
     m_sID = sID;
     m_sDisplayName = sDisplayName;
@@ -115,7 +117,9 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
     // This is quicker than splitting with RegEx!
     final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sID, 2);
     if (aSplitted.size () != 2)
-      aErrorList.add (_error ("The separator '" + CIdentifier.URL_SCHEME_VALUE_SEPARATOR + "' between scheme and value is missing"));
+      aErrorList.add (_error ("The separator '" +
+                              CIdentifier.URL_SCHEME_VALUE_SEPARATOR +
+                              "' between scheme and value is missing"));
     else
     {
       // Okay, we have exactly 2 parts
@@ -155,12 +159,16 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
         }
 
         if (!sScheme.equals (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS))
-          aErrorList.add (_error ("The identifier scheme '" + sScheme + "' is not a known Peppol participant identifier scheme"));
+          aErrorList.add (_error ("The identifier scheme '" +
+                                  sScheme +
+                                  "' is not a known Peppol participant identifier scheme"));
 
         // Fallback check
         if (aErrorList.getErrorCount () == nErrors)
           if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sScheme))
-            aErrorList.add (_error ("The identifier scheme '" + sScheme + "' is not valid according to the final Peppol rules"));
+            aErrorList.add (_error ("The identifier scheme '" +
+                                    sScheme +
+                                    "' is not valid according to the final Peppol rules"));
       }
 
       nErrors = aErrorList.getErrorCount ();
@@ -185,15 +193,22 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
           {
             final String sRegEx = "[0-9]{4}";
             if (!RegExHelper.stringMatchesPattern (sRegEx, sIssuingAgency))
-              aErrorList.add (_error ("The issuing agency '" + sIssuingAgency + "' must match the regular expression '" + sRegEx + "'"));
+              aErrorList.add (_error ("The issuing agency '" +
+                                      sIssuingAgency +
+                                      "' must match the regular expression '" +
+                                      sRegEx +
+                                      "'"));
             else
             {
               final IParticipantIdentifierScheme aPredefined = ParticipantIdentifierSchemeManager.getSchemeOfISO6523Code (sIssuingAgency);
               if (aPredefined == null)
-                aErrorList.add (_error ("The issuing agency '" + sIssuingAgency + "' is not part of the official Peppol code list"));
+                aErrorList.add (_error ("The issuing agency '" +
+                                        sIssuingAgency +
+                                        "' is not part of the official Peppol code list"));
               else
               {
-                aDetails.add (new KVPair ("In code list since version", aPredefined.getInitialRelease ().getAsString (false, true)));
+                aDetails.add (new KVPair ("In code list since version",
+                                          aPredefined.getInitialRelease ().getAsString (false, true)));
 
                 final EPeppolCodeListItemState eState = aPredefined.getState ();
                 if (eState.isDeprecated ())
@@ -251,8 +266,10 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
 
         // Fallback check
         if (aErrorList.getErrorCount () == nErrors)
-          if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sValue))
-            aErrorList.add (_error ("The identifier value '" + sValue + "' is not valid according to the Peppol rules"));
+          if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sScheme, sValue))
+            aErrorList.add (_error ("The identifier value '" +
+                                    sValue +
+                                    "' is not valid according to the Peppol rules"));
       }
     }
   }
@@ -264,7 +281,9 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
     // This is quicker than splitting with RegEx!
     final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sID, 2);
     if (aSplitted.size () != 2)
-      aErrorList.add (_error ("The separator '" + CIdentifier.URL_SCHEME_VALUE_SEPARATOR + "' between scheme and value is missing"));
+      aErrorList.add (_error ("The separator '" +
+                              CIdentifier.URL_SCHEME_VALUE_SEPARATOR +
+                              "' between scheme and value is missing"));
     else
     {
       // Okay, we have exactly 2 parts
@@ -295,12 +314,16 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
         // PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD
         // is PfuoI 4.2
         if (!sScheme.equals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS))
-          aErrorList.add (_error ("The identifier scheme '" + sScheme + "' is not a known Peppol document type identifier scheme"));
+          aErrorList.add (_error ("The identifier scheme '" +
+                                  sScheme +
+                                  "' is not a known Peppol document type identifier scheme"));
 
         // Fallback check
         if (aErrorList.getErrorCount () == nErrors)
           if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierSchemeValid (sScheme))
-            aErrorList.add (_error ("The identifier scheme '" + sScheme + "' is not valid according to the Peppol rules"));
+            aErrorList.add (_error ("The identifier scheme '" +
+                                    sScheme +
+                                    "' is not valid according to the Peppol rules"));
       }
 
       nErrors = aErrorList.getErrorCount ();
@@ -326,16 +349,21 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
 
         // POLICY 1
         if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
-          aErrorList.add (_error ("The identifier value '" + sValue + "' must not contain characters from outside ISO-8859-1"));
+          aErrorList.add (_error ("The identifier value '" +
+                                  sValue +
+                                  "' must not contain characters from outside ISO-8859-1"));
 
         final IPeppolPredefinedDocumentTypeIdentifier aPredefined = PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID (sValue);
         if (aPredefined == null)
         {
-          aErrorList.add (_error ("The identifier value '" + sValue + "' is not part of the official Peppol code list"));
+          aErrorList.add (_error ("The identifier value '" +
+                                  sValue +
+                                  "' is not part of the official Peppol code list"));
         }
         else
         {
-          aDetails.add (new KVPair ("In code list since version", aPredefined.getInitialRelease ().getAsString (false, true)));
+          aDetails.add (new KVPair ("In code list since version",
+                                    aPredefined.getInitialRelease ().getAsString (false, true)));
 
           final EPeppolCodeListItemState eState = aPredefined.getState ();
           if (eState.isDeprecated ())
@@ -372,8 +400,10 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
 
         // Fallback check
         if (aErrorList.getErrorCount () == nErrors)
-          if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sValue))
-            aErrorList.add (_error ("The identifier value '" + sValue + "' is not valid according to the Peppol rules"));
+          if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sScheme, sValue))
+            aErrorList.add (_error ("The identifier value '" +
+                                    sValue +
+                                    "' is not valid according to the Peppol rules"));
       }
     }
   }
@@ -385,7 +415,9 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
     // This is quicker than splitting with RegEx!
     final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sID, 2);
     if (aSplitted.size () != 2)
-      aErrorList.add (_error ("The separator '" + CIdentifier.URL_SCHEME_VALUE_SEPARATOR + "' between scheme and value is missing"));
+      aErrorList.add (_error ("The separator '" +
+                              CIdentifier.URL_SCHEME_VALUE_SEPARATOR +
+                              "' between scheme and value is missing"));
     else
     {
       // Okay, we have exactly 2 parts
@@ -410,12 +442,16 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
 
         // Process specific check
         if (!sScheme.equals (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL))
-          aErrorList.add (_error ("The identifier scheme '" + sScheme + "' is not a known Peppol process identifier scheme"));
+          aErrorList.add (_error ("The identifier scheme '" +
+                                  sScheme +
+                                  "' is not a known Peppol process identifier scheme"));
 
         // Fallback check
         if (aErrorList.getErrorCount () == nErrors)
           if (!PeppolIdentifierFactory.INSTANCE.isProcessIdentifierSchemeValid (sScheme))
-            aErrorList.add (_error ("The identifier scheme '" + sScheme + "' is not valid according to the Peppol rules"));
+            aErrorList.add (_error ("The identifier scheme '" +
+                                    sScheme +
+                                    "' is not valid according to the Peppol rules"));
       }
 
       nErrors = aErrorList.getErrorCount ();
@@ -439,7 +475,9 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
 
         // POLICY 1
         if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
-          aErrorList.add (_error ("The identifier value '" + sValue + "' must not contain characters from outside ISO-8859-1"));
+          aErrorList.add (_error ("The identifier value '" +
+                                  sValue +
+                                  "' must not contain characters from outside ISO-8859-1"));
 
         // POLICY 25
         final String sRegEx = ".*\\s.*";
@@ -448,7 +486,9 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
 
         final IPeppolPredefinedProcessIdentifier aPredefined = PredefinedProcessIdentifierManager.getProcessIdentifierOfID (sValue);
         if (aPredefined == null)
-          aErrorList.add (_error ("The identifier value '" + sValue + "' is not part of the official Peppol code list"));
+          aErrorList.add (_error ("The identifier value '" +
+                                  sValue +
+                                  "' is not part of the official Peppol code list"));
         else
         {
           final EPeppolCodeListItemState eState = aPredefined.getState ();
@@ -461,8 +501,10 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
 
         // Fallback check
         if (aErrorList.getErrorCount () == nErrors)
-          if (!PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sValue))
-            aErrorList.add (_error ("The identifier value '" + sValue + "' is not valid according to the Peppol rules"));
+          if (!PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sScheme, sValue))
+            aErrorList.add (_error ("The identifier value '" +
+                                    sValue +
+                                    "' is not valid according to the Peppol rules"));
       }
     }
   }
