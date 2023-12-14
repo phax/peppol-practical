@@ -1,0 +1,73 @@
+<p>
+  This page contains some general thought about the Message Level Response (MLR) and eventual successors. 
+</p>
+
+<h2>MLR - Message Level Response</h2>
+
+<h3>Introduction</h3>
+
+<p>
+  The MLR is a message between End Users (C1 and C4) executed by Service Providers (C2 and C3).
+  The official specification can be found at
+  <a href="https://docs.peppol.eu/poacc/upgrade-3/profiles/36-mlr/" target="_blank">https://docs.peppol.eu/poacc/upgrade-3/profiles/36-mlr/</a>.<br />
+  The MLR is a regular Peppol document like Invoice or Order and as such needs to be transmitted like any other Peppol document
+    wrapped in an SBDH and send via AS4.<br /> 
+  The MLR is an optional document and is NOT mandatory. So not every sender of a business document supports the reception of MLRs.
+    To check if MLR reception is supported, an SMP lookup is needed.<br/>
+  Please note that the usage of C1, C2, C3 and C4 should be reversed to be precise but in this document, the usage of 
+    C1, C2, C3 and C4 always refers to the role for the transmission of the source document to avoid confusion.<br/>
+  Please note, that an MLR message can be send as a response to any business document as long as its reception is supported.
+</p>
+
+<h3>Scope</h3>
+
+<p>
+  The scope in which the MLR MAY be used is clearly defined in the 
+    <a href="https://docs.peppol.eu/poacc/upgrade-3/profiles/36-mlr/#scope" target="_blank">specification chapter 2.2</a>.
+  As the sender is obliged to only send valid (=validated) content, validation on receiver side is an optional task.
+  And don't mix MLR with BLR (Business Level Response - e.g. Invoice Response) because they have different meanings.   
+</p>
+
+<h3>Proposed technical process</h3>
+
+<p>
+  The following process description shows a best practice process <strong>proposal</strong>.
+  The assumption is, that receiver side validation was performed and the response should be transmitted back to C1.
+</p>
+
+<ol>
+  <li>You validate synchronously (that's important) and found at least one error</li>
+  <li>You synchronously check if the sender of the business document (C1) supports MLR or not via an SMP query</li>
+  <li>
+    Case 1 - Sender supports MLR:
+    <ol>
+      <li>Send back a positive AS4 Receipt</li>
+      <li>Create the MLR and trigger an explicit AS4 transmission of the MLR</li>
+      <li>Note: make sure the AS4 Receipt is received by the sender BEFORE the MLR is send (asynchronous processing required)</li>
+    </ol>
+    Case 2 - Sender does not support MLR:
+    <ol>
+      <li>Send back a synchronous AS4 Error with the error details</li>
+      <li>Note: do not use SOAP Faults but an AS4 <code>SignalMessage</code> with an <code>Error</code> element inside</li>
+    </ol>
+  </li>
+</ol>
+
+<h3>Open Source software</h3>
+
+<p>
+  My <a href="https://github.com/phax/peppol-commons#peppol-mlr" target="_blank">peppol-commons</a> project received an extension
+    to deal with MLR in the <code>peppol-mlr</code> module. It allows to create the MLR payload in a consistent way.
+  For the SMP lookup the same project has a <code>peppol-smp-client</code> module.
+  Wrapping the MLR in SBDH and sending the message can be done with any compliant Peppol AS4 solution like <a href="https://github.com/phax/phase4">phase4</a>. 
+</p>
+
+<h2>MLS - Message Level Status</h2>
+
+<p>Currently in the process of specification. More when ready.</p>
+
+<p>
+  The intention of the MLS is to be a message between C2 and C3 instead of a message between C1 and C4 like the MLR.
+  This makes it easier to mandate it, because only Service Providers are forced to support it. 
+</p>
+

@@ -40,6 +40,23 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2023-12-14 - Documentation on MLR was added</h3>
+ 
+    <p>
+      A general overview of <a href="/public/menuitem-docs-peppol-mlr">Peppol MLR (Message Level Response)</a> was added.
+    </p>
+
+    <h3>2023-12-11 - phoss SMP 7.1.0</h3>
+
+    <p>
+      phoss SMP 7.1.0 was released. It supports the Peppol SMP specification 1.3.0 and the Peppol Code Lists v8.7.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-7.1.0">Download phoss SMP 7.1.0</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2023-12-10 - Document Validation extended</h3>
  
     <p>
@@ -81,7 +98,7 @@
       This is a minor version update over the previous 1.2.0 specification and changes the signature and
         digest algorithms from <code>SHA-1</code> to <code>SHA-256</code>.
       Additionally the eDEC Code Lists v8.7 were released.
-      All details as usual on <a href="https://docs.peppol.eu/edelivery/">https://docs.peppol.eu/edelivery/</a>.
+      All details as usual on <a href="https://docs.peppol.eu/edelivery/" target="_blank">https://docs.peppol.eu/edelivery/</a>.
     </p>
 
     <h3>2023-11-07 - Document Validation extended</h3>
