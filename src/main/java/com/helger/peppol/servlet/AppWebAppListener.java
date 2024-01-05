@@ -115,14 +115,16 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     CertificateRevocationChecker.setAllowSoftFail (true);
     CertificateRevocationChecker.setRevocationCheckMode (ERevocationCheckMode.OCSP);
 
-    try
-    {
-      final URL url = new URL ("http://www.orf.at");
-      final HttpURLConnection con = (HttpURLConnection) url.openConnection ();
-      LOGGER.info ("!!! URL Connection of type " + con.getClass ().getName ());
-    }
-    catch (final Exception ex)
-    {}
+    if (false)
+      try
+      {
+        final URL url = new URL ("http://www.orf.at");
+        final HttpURLConnection con = (HttpURLConnection) url.openConnection ();
+        // On server: sun.net.www.protocol.http.HttpURLConnection
+        LOGGER.info ("!!! URL Connection of type " + con.getClass ().getName ());
+      }
+      catch (final Exception ex)
+      {}
   }
 
   @Override
