@@ -140,7 +140,7 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
     byte [] aBCBytes;
 
     final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
-    aHCS.setUserAgent (USER_AGENT);
+    SMP_HCS_MODIFIER.accept (aHCS);
 
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (aHCS))
     {

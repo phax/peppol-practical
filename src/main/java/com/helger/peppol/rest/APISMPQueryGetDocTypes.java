@@ -56,6 +56,7 @@ import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
+import com.helger.smpclient.httpclient.SMPHttpClientSettings;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -150,7 +151,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
       {
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
         aSMPClient.setSecureValidation (false);
-        aSMPClient.httpClientSettings ().setUserAgent (USER_AGENT);
+        aSMPClient.withHttpClientSettings (SMP_HCS_MODIFIER);
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
 
@@ -176,7 +177,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
         aSGHrefs = new CommonsTreeMap <> ();
         final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
         aBDXR1Client.setSecureValidation (false);
-        aBDXR1Client.httpClientSettings ().setUserAgent (USER_AGENT);
+        aBDXR1Client.withHttpClientSettings (SMP_HCS_MODIFIER);
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);
 
@@ -201,19 +202,24 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
 
     IJsonObject aJson = null;
     if (aSGHrefs != null)
+    {
       aJson = SMPJsonResponseExt.convert (aQueryParams.getSMPAPIType (),
                                           aParticipantID,
                                           aSGHrefs,
                                           aQueryParams.getIF ());
+    }
 
     if (bQueryBusinessCard)
     {
+      final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
+      SMP_HCS_MODIFIER.accept (aHCS);
+
       final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
                             "/businesscard/" +
                             aParticipantID.getURIEncoded ();
       LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
       byte [] aData;
-      try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
+      try (HttpClientManager aHttpClientMgr = HttpClientManager.create (aHCS))
       {
         final HttpGet aGet = new HttpGet (sBCURL);
         aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());

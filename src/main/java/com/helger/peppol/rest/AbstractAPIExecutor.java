@@ -18,6 +18,7 @@ package com.helger.peppol.rest;
 
 import java.time.Duration;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
@@ -30,6 +31,7 @@ import com.helger.peppol.app.AppConfig;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.photon.api.IAPIExecutor;
 import com.helger.servlet.response.UnifiedResponse;
+import com.helger.smpclient.httpclient.SMPHttpClientSettings;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 import es.moki.ratelimitj.core.limiter.request.RequestLimitRule;
@@ -37,7 +39,11 @@ import es.moki.ratelimitj.inmemory.request.InMemorySlidingWindowRequestRateLimit
 
 public abstract class AbstractAPIExecutor implements IAPIExecutor
 {
-  protected static final String USER_AGENT = "Peppol-Practical/1.0 SMP-Query-API/1.0";
+  private static final String USER_AGENT = "Peppol-Practical/1.0 SMP-Query-API/1.0";
+  protected static final Consumer <? super SMPHttpClientSettings> SMP_HCS_MODIFIER = hcs -> {
+    hcs.setUserAgent (USER_AGENT);
+    hcs.setUseKeepAlive (false);
+  };
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractAPIExecutor.class);
 
