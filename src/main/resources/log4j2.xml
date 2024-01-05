@@ -22,8 +22,19 @@
     <Console name="STDOUT" target="SYSTEM_OUT">
       <PatternLayout pattern="[%date{ISO8601}] [PP] [%-5level] [%thread] %msg -- %location%n" />
     </Console>
+    <File name="HttpLog" fileName="/var/log/tomcat/peppol-http.log">
+      <PatternLayout pattern="%d %-5level [%logger] %msg%n%xThrowable" />
+    </File>
   </Appenders>
   <Loggers>
+    <!-- 
+    <Logger name="org.apache.hc.client5.http" level="DEBUG">
+      <AppenderRef ref="HttpLog"/>
+    </Logger>
+    <Logger name="org.apache.hc.client5.http" level="DEBUG">
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
+     -->
     <Root level="info">
       <AppenderRef ref="STDOUT" />
     </Root>
