@@ -82,6 +82,7 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.httpclient.HttpClientManager;
+import com.helger.httpclient.HttpClientSettings;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jaxb.validation.DoNothingValidationEventHandler;
@@ -136,6 +137,7 @@ import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.bdxr2.BDXR2ClientReadOnly;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.httpclient.SMPHttpClientSettings;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
@@ -545,6 +547,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       SMPClientReadOnly aSMPClient = null;
       BDXRClientReadOnly aBDXR1Client = null;
       BDXR2ClientReadOnly aBDXR2Client = null;
+      final Consumer <? super HttpClientSettings> HCS_MODIFIER = hcs -> {
+        hcs.setUseKeepAlive (false);
+      };
 
       final Consumer <GenericJAXBMarshaller <?>> aSMPMarshallerCustomizer = m -> {
         aSMPExceptions.clear ();
@@ -564,6 +569,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case PEPPOL:
           {
             aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+            aSMPClient.withHttpClientSettings (HCS_MODIFIER);
             aSMPClient.setSecureValidation (false);
             aSMPClient.setXMLSchemaValidation (bXSDValidation);
             aSMPClient.setVerifySignature (bVerifySignatures);
@@ -595,6 +601,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case OASIS_BDXR_V1:
           {
             aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+            aBDXR1Client.withHttpClientSettings (HCS_MODIFIER);
             aBDXR1Client.setSecureValidation (false);
             aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR1Client.setVerifySignature (bVerifySignatures);
@@ -644,6 +651,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case OASIS_BDXR_V2:
           {
             aBDXR2Client = new BDXR2ClientReadOnly (aQueryParams.getSMPHostURI ());
+            aBDXR2Client.withHttpClientSettings (HCS_MODIFIER);
             aBDXR2Client.setSecureValidation (false);
             aBDXR2Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR2Client.setVerifySignature (bVerifySignatures);
@@ -1044,7 +1052,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         final String sBCURL = aSMPHost.toExternalForm () + "/businesscard/" + aParticipantID.getURIEncoded ();
         LOGGER.info ("Querying BC from '" + sBCURL + "'");
         byte [] aData;
-        try (HttpClientManager aHttpClientMgr = new HttpClientManager ())
+
+        final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
+        HCS_MODIFIER.accept (aHCS);
+
+        try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (aHCS))
         {
           final HttpGet aGet = new HttpGet (sBCURL);
           aData = aHttpClientMgr.execute (aGet, new ResponseHandlerByteArray ());
