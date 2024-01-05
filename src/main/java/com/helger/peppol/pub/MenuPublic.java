@@ -28,7 +28,6 @@ import com.helger.photon.core.menu.IMenuItemPage;
 import com.helger.photon.core.menu.IMenuTree;
 import com.helger.photon.core.menu.filter.MenuObjectFilterNoUserLoggedIn;
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserLoggedIn;
-import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
 
 @Immutable
@@ -53,9 +52,9 @@ public final class MenuPublic
 
     // Setup stuff
     {
-      final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_DOCS,
-                                                                                                                 "Technical documentation",
-                                                                                                                 aMenuTree));
+      final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <> (CMenuPublic.MENU_DOCS,
+                                                                                          "Technical documentation",
+                                                                                          aMenuTree));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SETUP_AP_PH,
                                                      "Setup Peppol AP",
@@ -112,9 +111,9 @@ public final class MenuPublic
 
     // Tools stuff
     {
-      final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_TOOLS,
-                                                                                                                 "Tools",
-                                                                                                                 aMenuTree));
+      final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <> (CMenuPublic.MENU_TOOLS,
+                                                                                          "Tools",
+                                                                                          aMenuTree));
       aMenuTree.createItem (aSetup,
                             new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsIdentifierInformation (CMenuPublic.MENU_TOOLS_ID_INFO));
@@ -128,9 +127,9 @@ public final class MenuPublic
 
     // Validation stuff
     {
-      final IMenuItemPage aValidation = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuPublic.MENU_VALIDATION,
-                                                                                                                      "Document Validation",
-                                                                                                                      aMenuTree));
+      final IMenuItemPage aValidation = aMenuTree.createRootItem (new BasePageShowChildren <> (CMenuPublic.MENU_VALIDATION,
+                                                                                               "Document Validation",
+                                                                                               aMenuTree));
       final IMenuItemPage aUpload = aMenuTree.createItem (aValidation,
                                                           new PagePublicToolsDocumentValidation (CMenuPublic.MENU_VALIDATION_UPLOAD));
       aMenuTree.createRedirect ("validation-bis2", aUpload);
@@ -174,7 +173,7 @@ public final class MenuPublic
 
     // Logged in user stuff
     {
-      aMenuTree.createRootItem (new BasePageSecurityChangePassword <WebPageExecutionContext> (CMenuPublic.MENU_CHANGE_PASSWORD))
+      aMenuTree.createRootItem (new BasePageSecurityChangePassword <> (CMenuPublic.MENU_CHANGE_PASSWORD))
                .setDisplayFilter (new MenuObjectFilterUserLoggedIn ());
     }
 

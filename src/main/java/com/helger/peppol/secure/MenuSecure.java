@@ -26,7 +26,6 @@ import com.helger.photon.core.menu.IMenuItemPage;
 import com.helger.photon.core.menu.IMenuTree;
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserAssignedToUserGroup;
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserHasRole;
-import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
 
 @Immutable
@@ -44,43 +43,48 @@ public final class MenuSecure
 
     // CRM
     {
-      final IMenuItemPage aCRM = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_CRM,
-                                                                                                               "CRM",
-                                                                                                               aMenuTree))
+      final IMenuItemPage aCRM = aMenuTree.createRootItem (new BasePageShowChildren <> (CMenuSecure.MENU_CRM,
+                                                                                        "CRM",
+                                                                                        aMenuTree))
                                           .setDisplayFilter (aFilterAdministrators);
-      aMenuTree.createItem (aCRM, new PageSecureCRMGroup (CMenuSecure.MENU_CRM_GROUPS)).setDisplayFilter (aFilterAdministrators);
-      aMenuTree.createItem (aCRM, new PageSecureCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS)).setDisplayFilter (aFilterAdministrators);
+      aMenuTree.createItem (aCRM, new PageSecureCRMGroup (CMenuSecure.MENU_CRM_GROUPS))
+               .setDisplayFilter (aFilterAdministrators);
+      aMenuTree.createItem (aCRM, new PageSecureCRMSubscriber (CMenuSecure.MENU_CRM_SUBSCRIBERS))
+               .setDisplayFilter (aFilterAdministrators);
     }
 
     // Peppol
     {
-      final IMenuItemPage aPeppol = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_PEPPOL,
-                                                                                                                  "Peppol",
-                                                                                                                  aMenuTree));
+      final IMenuItemPage aPeppol = aMenuTree.createRootItem (new BasePageShowChildren <> (CMenuSecure.MENU_PEPPOL,
+                                                                                           "Peppol",
+                                                                                           aMenuTree));
       aMenuTree.createItem (aPeppol, new PageSecurePeppolSendAS4 (CMenuSecure.MENU_PEPPOL_SEND_AS4))
                .setDisplayFilter (aFilterPeppolSenders);
     }
 
     // Comments
     {
-      aMenuTree.createRootItem (new PageSecureCommentAdmin (CMenuSecure.MENU_COMMENTS)).setDisplayFilter (aFilterAdministrators);
+      aMenuTree.createRootItem (new PageSecureCommentAdmin (CMenuSecure.MENU_COMMENTS))
+               .setDisplayFilter (aFilterAdministrators);
     }
 
     // Schematron tools
     {
-      aMenuTree.createRootItem (new PageSecureSchematronTools (CMenuSecure.MENU_SCH_TOOLS)).setDisplayFilter (aFilterAdministrators);
+      aMenuTree.createRootItem (new PageSecureSchematronTools (CMenuSecure.MENU_SCH_TOOLS))
+               .setDisplayFilter (aFilterAdministrators);
     }
 
     // Administrator
     {
-      final IMenuItemPage aAdmin = aMenuTree.createRootItem (new BasePageShowChildren <WebPageExecutionContext> (CMenuSecure.MENU_ADMIN,
-                                                                                                                 "Administration",
-                                                                                                                 aMenuTree));
+      final IMenuItemPage aAdmin = aMenuTree.createRootItem (new BasePageShowChildren <> (CMenuSecure.MENU_ADMIN,
+                                                                                          "Administration",
+                                                                                          aMenuTree));
       // Must be accessible for all Config users
-      aMenuTree.createItem (aAdmin, new BasePageSecurityChangePassword <WebPageExecutionContext> (CMenuSecure.MENU_ADMIN_CHANGE_PASSWORD));
+      aMenuTree.createItem (aAdmin, new BasePageSecurityChangePassword <> (CMenuSecure.MENU_ADMIN_CHANGE_PASSWORD));
 
       // Admins only
-      aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS)).setDisplayFilter (aFilterAdministrators);
+      aMenuTree.createItem (aAdmin, new PageSecureAdminAddons (CMenuSecure.MENU_ADMIN_ADDONS))
+               .setDisplayFilter (aFilterAdministrators);
       aMenuTree.createItem (aAdmin, new PageSecureSMLConfiguration (CMenuSecure.MENU_SML_CONFIGURATION))
                .setDisplayFilter (aFilterAdministrators);
       BootstrapPagesMenuConfigurator.addAllItems (aMenuTree, aAdmin, aFilterAdministrators, CPPApp.DEFAULT_LOCALE);
