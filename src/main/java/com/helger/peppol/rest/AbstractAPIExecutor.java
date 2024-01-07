@@ -40,9 +40,8 @@ import es.moki.ratelimitj.inmemory.request.InMemorySlidingWindowRequestRateLimit
 public abstract class AbstractAPIExecutor implements IAPIExecutor
 {
   private static final String USER_AGENT = "Peppol-Practical/1.0 SMP-Query-API/1.0";
-  protected static final Consumer <? super SMPHttpClientSettings> SMP_HCS_MODIFIER = hcs -> {
+  public static final Consumer <? super SMPHttpClientSettings> SMP_HCS_MODIFIER = hcs -> {
     hcs.setUserAgent (USER_AGENT);
-    hcs.setUseKeepAlive (false);
   };
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractAPIExecutor.class);
