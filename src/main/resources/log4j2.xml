@@ -31,10 +31,10 @@
     <Logger name="org.apache.hc.client5.http" level="DEBUG">
       <AppenderRef ref="HttpLog"/>
     </Logger>
+     -->
     <Logger name="org.apache.hc.client5.http" level="DEBUG">
       <AppenderRef ref="STDOUT"/>
     </Logger>
-     -->
     <Root level="info">
       <AppenderRef ref="STDOUT" />
     </Root>
