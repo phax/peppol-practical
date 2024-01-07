@@ -82,7 +82,6 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.httpclient.HttpClientManager;
-import com.helger.httpclient.HttpClientSettings;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jaxb.validation.DoNothingValidationEventHandler;
@@ -97,6 +96,7 @@ import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper.EBusinessCardVersion;
 import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.peppol.domain.SMPQueryParams;
+import com.helger.peppol.rest.AbstractAPIExecutor;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.ui.AppCommonUI;
@@ -433,12 +433,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         aUL.addItem (div ("Query API: " + aRealSMLConfiguration.getSMPAPIType ().getDisplayName ()));
 
         final String sURL1 = aSMPHost.toExternalForm ();
-        aUL.addItem (div ("Resolved name: ").addChild (code (sURL1)), div (_createOpenInBrowser (sURL1)));
+        aUL.addItem (div ("Resolved name: ").addChild (code (sURL1)),
+                     div (_createOpenInBrowser (sURL1, "Open in browser [may fail]")));
 
+        // Explicit query with the Dnsjava lookup
+        // Hidden feature to show more details
         if (aWPEC.params ().hasStringValue ("dnsjava", "true"))
         {
-          // Explicit query with the Dnsjava lookup
-          // Hidden feature to show more details
           final StopWatch aSWDNSLookup = StopWatch.createdStarted ();
           LOGGER.info ("Start DNSJava lookup");
           Record [] aRecords = null;
@@ -464,9 +465,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               else
                 aDiv1.addChild (" - reverse lookup failed");
 
-              final HCDiv aDiv2 = div (_createOpenInBrowser ("http://" + sURL2, "Open IP in browser"));
-              if (sURL3 != null)
-                aDiv2.addChild (" ").addChild (_createOpenInBrowser ("http://" + sURL3, "Open name in browser"));
+              final HCDiv aDiv2 = div (_createOpenInBrowser ("http://" + sURL2, "Open IP in browser [may fail]"));
+              if (sURL3 != null && !sURL2.equals (sURL3))
+                aDiv2.addChild (" ")
+                     .addChild (_createOpenInBrowser ("http://" + sURL3, "Open reverse lookup in browser [may fail]"));
               aUL.addItem (aDiv1, aDiv2);
             }
           aSWDNSLookup.stop ();
@@ -490,14 +492,16 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               final InetAddress aNice = InetAddress.getByAddress (aInetAddress.getAddress ());
               final String sURL3 = aNice.getCanonicalHostName ();
 
-              aUL.addItem (div ("IP address: ").addChild (code (sURL2))
-                                               .addChild (" - reverse lookup: ")
-                                               .addChild (code (sURL3)),
-                           div (_createOpenInBrowser ("http://" + sURL2,
-                                                      "Open IP in browser")).addChild (" ")
-                                                                            .addChild (_createOpenInBrowser ("http://" +
-                                                                                                             sURL3,
-                                                                                                             "Open name in browser")));
+              final HCLI aItem = aUL.addItem ();
+              aItem.addChild (div ("IP address: ").addChild (code (sURL2))
+                                                  .addChild (" - reverse lookup: ")
+                                                  .addChild (code (sURL3)));
+              final HCDiv aButtons = div (_createOpenInBrowser ("http://" + sURL2, "Open IP in browser [may fail]"));
+              if (!sURL2.equals (sURL3))
+                aButtons.addChild (" ")
+                        .addChild (_createOpenInBrowser ("http://" + sURL3,
+                                                         "Open reverse lookup in browser [may fail]"));
+              aItem.addChild (aButtons);
             }
 
             // Show only once
@@ -547,9 +551,6 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       SMPClientReadOnly aSMPClient = null;
       BDXRClientReadOnly aBDXR1Client = null;
       BDXR2ClientReadOnly aBDXR2Client = null;
-      final Consumer <? super HttpClientSettings> HCS_MODIFIER = hcs -> {
-        hcs.setUseKeepAlive (false);
-      };
 
       final Consumer <GenericJAXBMarshaller <?>> aSMPMarshallerCustomizer = m -> {
         aSMPExceptions.clear ();
@@ -569,7 +570,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case PEPPOL:
           {
             aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
-            aSMPClient.withHttpClientSettings (HCS_MODIFIER);
+            aSMPClient.withHttpClientSettings (AbstractAPIExecutor.SMP_HCS_MODIFIER);
             aSMPClient.setSecureValidation (false);
             aSMPClient.setXMLSchemaValidation (bXSDValidation);
             aSMPClient.setVerifySignature (bVerifySignatures);
@@ -601,7 +602,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case OASIS_BDXR_V1:
           {
             aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
-            aBDXR1Client.withHttpClientSettings (HCS_MODIFIER);
+            aBDXR1Client.withHttpClientSettings (AbstractAPIExecutor.SMP_HCS_MODIFIER);
             aBDXR1Client.setSecureValidation (false);
             aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR1Client.setVerifySignature (bVerifySignatures);
@@ -651,7 +652,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case OASIS_BDXR_V2:
           {
             aBDXR2Client = new BDXR2ClientReadOnly (aQueryParams.getSMPHostURI ());
-            aBDXR2Client.withHttpClientSettings (HCS_MODIFIER);
+            aBDXR2Client.withHttpClientSettings (AbstractAPIExecutor.SMP_HCS_MODIFIER);
             aBDXR2Client.setSecureValidation (false);
             aBDXR2Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR2Client.setVerifySignature (bVerifySignatures);
@@ -753,8 +754,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       }
       catch (final SMPClientException ex)
       {
-        if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Participant DocTypes Error", ex);
+        if (LOGGER.isDebugEnabled () || true)
+          LOGGER.info ("Participant DocTypes Error", ex);
         else
           LOGGER.warn ("Participant DocTypes Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
@@ -1054,7 +1055,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         byte [] aData;
 
         final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
-        HCS_MODIFIER.accept (aHCS);
+        AbstractAPIExecutor.SMP_HCS_MODIFIER.accept (aHCS);
 
         try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (aHCS))
         {
