@@ -42,8 +42,8 @@
     Case 1 - Sender supports MLR:
     <ol>
       <li>Send back a positive AS4 Receipt</li>
-      <li>Create the MLR and trigger an explicit AS4 transmission of the MLR</li>
-      <li>Note: make sure the AS4 Receipt is received by the sender BEFORE the MLR is send (asynchronous processing required)</li>
+      <li>Create the MLR and trigger an explicit AS4 transmission of the MLR<br/>
+          Note: make sure the AS4 Receipt is received by the sender BEFORE the MLR is send (asynchronous processing required)</li>
     </ol>
     Case 2 - Sender does not support MLR:
     <ol>
