@@ -1077,7 +1077,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             aPDExceptions.clear ();
             m.setValidationEventHandler (new DoNothingValidationEventHandler ());
             // Remember errors
-            m.readExceptionCallbacks ().add (aPDExceptions::add);
+            m.readExceptionCallbacks ().set (aPDExceptions::add);
             m.setCharset (StandardCharsets.UTF_8);
           };
 
