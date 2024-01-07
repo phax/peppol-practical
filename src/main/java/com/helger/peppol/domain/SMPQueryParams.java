@@ -86,10 +86,10 @@ public final class SMPQueryParams
   }
 
   @Nullable
-  public static SMPQueryParams createForSML (@Nonnull final ISMLConfiguration aCurSML,
-                                             @Nullable final String sParticipantIDScheme,
-                                             @Nullable final String sParticipantIDValue,
-                                             final boolean bLogOnError)
+  public static SMPQueryParams createForSMLOrNull (@Nonnull final ISMLConfiguration aCurSML,
+                                                   @Nullable final String sParticipantIDScheme,
+                                                   @Nullable final String sParticipantIDValue,
+                                                   final boolean bLogOnError)
   {
     final SMPQueryParams ret = new SMPQueryParams ();
     ret.m_eSMPAPIType = aCurSML.getSMPAPIType ();

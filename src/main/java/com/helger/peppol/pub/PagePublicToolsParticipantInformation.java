@@ -326,7 +326,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
     try
     {
-      SMPQueryParams aQueryParams = null;
+      // Determine the SML if it auto dectect is enabled
+      // Determine the SMP query parameters
+      SMPQueryParams aSMPQueryParams = null;
       ISMLConfiguration aRealSMLConfiguration = aSMLConfiguration;
       if (bSMLAutoDetect)
       {
@@ -334,14 +336,17 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Sorted SML Configs: " +
                         StringHelper.getImplodedMapped (", ", aSortedList, ISMLConfiguration::getID));
+
         for (final ISMLConfiguration aCurSML : aSortedList)
         {
-          aQueryParams = SMPQueryParams.createForSML (aCurSML, sParticipantIDScheme, sParticipantIDValue, false);
-          if (aQueryParams == null)
+          aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, sParticipantIDScheme, sParticipantIDValue, false);
+          if (aSMPQueryParams == null)
             continue;
+
           try
           {
-            InetAddress.getByName (aQueryParams.getSMPHostURI ().getHost ());
+            // Use system default DNS lookup
+            InetAddress.getByName (aSMPQueryParams.getSMPHostURI ().getHost ());
             // Found it
             aRealSMLConfiguration = aCurSML;
             break;
@@ -374,14 +379,15 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       else
       {
         // SML configuration is not null
-        aQueryParams = SMPQueryParams.createForSML (aRealSMLConfiguration,
-                                                    sParticipantIDScheme,
-                                                    sParticipantIDValue,
-                                                    true);
+        aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aRealSMLConfiguration,
+                                                       sParticipantIDScheme,
+                                                       sParticipantIDValue,
+                                                       true);
       }
 
-      if (aQueryParams == null)
+      if (aSMPQueryParams == null)
       {
+        // Failed to determine SMP query params
         LOGGER.error ("Participant ID '" +
                       sParticipantIDUriEncoded +
                       "': failed to resolve SMP query parameters for SML '" +
@@ -403,9 +409,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       LOGGER.info ("Participant information of '" +
                    sParticipantIDUriEncoded +
                    "' is queried using SMP API '" +
-                   aQueryParams.getSMPAPIType () +
+                   aSMPQueryParams.getSMPAPIType () +
                    "' from '" +
-                   aQueryParams.getSMPHostURI () +
+                   aSMPQueryParams.getSMPHostURI () +
                    "' using SML '" +
                    aRealSMLConfiguration +
                    "'; XSD validation=" +
@@ -413,8 +419,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                    "; verify signatures=" +
                    bVerifySignatures);
 
-      final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
-      final URL aSMPHost = URLHelper.getAsURL (aQueryParams.getSMPHostURI ());
+      final IParticipantIdentifier aParticipantID = aSMPQueryParams.getParticipantID ();
+      final URL aSMPHost = URLHelper.getAsURL (aSMPQueryParams.getSMPHostURI ());
 
       {
         if (LOGGER.isDebugEnabled ())
@@ -431,7 +437,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                        .addChild (aRealSMLConfiguration.isProduction () ? badgeSuccess ("production SML")
                                                                                         : badgeWarn ("test SML")));
 
-        aUL.addItem (div ("Query API: " + aRealSMLConfiguration.getSMPAPIType ().getDisplayName ()));
+        aUL.addItem (div ("Query API: ").addChild (code (aRealSMLConfiguration.getSMPAPIType ().getDisplayName ())));
 
         final String sURL1 = aSMPHost.toExternalForm ();
         aUL.addItem (div ("Resolved name: ").addChild (code (sURL1)),
@@ -566,11 +572,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         final ICommonsSortedMap <String, String> aSGHrefs = new CommonsTreeMap <> ();
         IHCNode aSGExtension = null;
 
-        switch (aQueryParams.getSMPAPIType ())
+        switch (aSMPQueryParams.getSMPAPIType ())
         {
           case PEPPOL:
           {
-            aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+            aSMPClient = new SMPClientReadOnly (aSMPQueryParams.getSMPHostURI ());
             aSMPClient.withHttpClientSettings (AbstractAPIExecutor.SMP_HCS_MODIFIER);
             aSMPClient.setSecureValidation (false);
             aSMPClient.setXMLSchemaValidation (bXSDValidation);
@@ -602,13 +608,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
           case OASIS_BDXR_V1:
           {
-            aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+            aBDXR1Client = new BDXRClientReadOnly (aSMPQueryParams.getSMPHostURI ());
             aBDXR1Client.withHttpClientSettings (AbstractAPIExecutor.SMP_HCS_MODIFIER);
             aBDXR1Client.setSecureValidation (false);
             aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR1Client.setVerifySignature (bVerifySignatures);
             aBDXR1Client.setMarshallerCustomizer (aSMPMarshallerCustomizer);
-            if (aQueryParams.isTrustAllCertificates ())
+            if (aSMPQueryParams.isTrustAllCertificates ())
               try
               {
                 aBDXR1Client.httpClientSettings ().setSSLContextTrustAll ();
@@ -652,13 +658,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           }
           case OASIS_BDXR_V2:
           {
-            aBDXR2Client = new BDXR2ClientReadOnly (aQueryParams.getSMPHostURI ());
+            aBDXR2Client = new BDXR2ClientReadOnly (aSMPQueryParams.getSMPHostURI ());
             aBDXR2Client.withHttpClientSettings (AbstractAPIExecutor.SMP_HCS_MODIFIER);
             aBDXR2Client.setSecureValidation (false);
             aBDXR2Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR2Client.setVerifySignature (bVerifySignatures);
             aBDXR2Client.setMarshallerCustomizer (aSMPMarshallerCustomizer);
-            if (aQueryParams.isTrustAllCertificates ())
+            if (aSMPQueryParams.isTrustAllCertificates ())
               try
               {
                 aBDXR2Client.httpClientSettings ().setSSLContextTrustAll ();
@@ -678,7 +684,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               {
                 final IDType aDocTypeID = aSR.getID ();
 
-                final String sHref = aQueryParams.getSMPHostURI () +
+                final String sHref = aSMPQueryParams.getSMPHostURI () +
                                      BDXR2ClientReadOnly.PATH_OASIS_BDXR_SMP_2 +
                                      aParticipantID.getURIPercentEncoded () +
                                      "/" +
@@ -722,7 +728,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (nPathStart >= 0)
           {
             final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
-            final IDocumentTypeIdentifier aDocType = aQueryParams.getIF ().parseDocumentTypeIdentifier (sDocType);
+            final IDocumentTypeIdentifier aDocType = aSMPQueryParams.getIF ().parseDocumentTypeIdentifier (sDocType);
             if (aDocType != null)
             {
               aDocTypeIDs.add (aDocType);
@@ -797,7 +803,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           final StopWatch aSWGetDetails = StopWatch.createdStarted ();
           try
           {
-            switch (aQueryParams.getSMPAPIType ())
+            switch (aSMPQueryParams.getSMPAPIType ())
             {
               case PEPPOL:
               {
@@ -1024,7 +1030,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                      " / 0x" +
                                      _inGroupsOf (aEndpointCert.getSerialNumber ().toString (16), 4)));
 
-              if (aQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
+              if (aSMPQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
               {
                 // Check Peppol certificate status
                 final EPeppolCertificateCheckResult eCertStatus = PeppolCertificateChecker.checkPeppolAPCertificate (aEndpointCert,

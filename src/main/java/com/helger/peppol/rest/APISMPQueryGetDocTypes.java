@@ -95,7 +95,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
     {
       for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
       {
-        aQueryParams = SMPQueryParams.createForSML (aCurSML, aPID.getScheme (), aPID.getValue (), false);
+        aQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, aPID.getScheme (), aPID.getValue (), false);
         if (aQueryParams == null)
           continue;
         try
@@ -120,7 +120,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
     }
     else
     {
-      aQueryParams = SMPQueryParams.createForSML (aSML, aPID.getScheme (), aPID.getValue (), true);
+      aQueryParams = SMPQueryParams.createForSMLOrNull (aSML, aPID.getScheme (), aPID.getValue (), true);
     }
     if (aQueryParams == null)
       throw new APIParamException ("Failed to resolve participant ID '" +
