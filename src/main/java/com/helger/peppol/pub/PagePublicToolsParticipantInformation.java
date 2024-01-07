@@ -45,10 +45,10 @@ import org.xbill.DNS.Type;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
@@ -56,6 +56,7 @@ import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.locale.country.CountryCache;
 import com.helger.commons.locale.language.LanguageCache;
+import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
@@ -776,7 +777,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       if (aDocTypeIDs.isNotEmpty ())
       {
         final OffsetDateTime aNowDateTime = PDTFactory.getCurrentOffsetDateTime ();
-        final ICommonsOrderedSet <X509Certificate> aAllUsedEndpointCertifiactes = new CommonsLinkedHashSet <> ();
+        final MutableInt aEndpointCertificateIndex = new MutableInt (0);
+        final ICommonsOrderedMap <X509Certificate, String> aAllUsedEndpointCertifiactes = new CommonsLinkedHashMap <> ();
         long nTotalDurationMillis = 0;
 
         aNodeList.addChild (h3 ("Document type details"));
@@ -847,7 +849,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
                           // Certificate (also add null values)
                           final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (aEndpoint.getCertificate ());
-                          aAllUsedEndpointCertifiactes.add (aCert);
+                          final String sCertIndex = aAllUsedEndpointCertifiactes.computeIfAbsent (aCert,
+                                                                                                  k -> Integer.toString (aEndpointCertificateIndex.incAndGet ()));
+                          if (aCert != null)
+                            aLIEndpoint.addChild ("Certificate: #" + sCertIndex);
                         }
                         aLIProcessID.addChild (aULEndpoint);
                       }
@@ -907,15 +912,19 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                          aEndpoint.getTechnicalContactUrl ());
 
                           // Certificate (also add null values)
+                          X509Certificate aCert;
                           try
                           {
-                            final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
-                            aAllUsedEndpointCertifiactes.add (aCert);
+                            aCert = CertificateHelper.convertByteArrayToCertficateDirect (aEndpoint.getCertificate ());
                           }
                           catch (final CertificateException ex)
                           {
-                            aAllUsedEndpointCertifiactes.add (null);
+                            aCert = null;
                           }
+                          final String sCertIndex = aAllUsedEndpointCertifiactes.computeIfAbsent (aCert,
+                                                                                                  k -> Integer.toString (aEndpointCertificateIndex.incAndGet ()));
+                          if (aCert != null)
+                            aLIEndpoint.addChild ("Certificate: #" + sCertIndex);
                         }
                         aLIProcessID.addChild (aULEndpoint);
                       }
@@ -991,9 +1000,13 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         else
         {
           final HCUL aULCerts = new HCUL ();
-          for (final X509Certificate aEndpointCert : aAllUsedEndpointCertifiactes)
+          for (final Map.Entry <X509Certificate, String> aEntry : aAllUsedEndpointCertifiactes.entrySet ())
           {
+            final X509Certificate aEndpointCert = aEntry.getKey ();
+            final String sCertIndex = aEntry.getValue ();
+
             final IHCLI <?> aLICert = aULCerts.addItem ();
+            aLICert.addChild (div ("Certificate #" + sCertIndex));
             if (aEndpointCert != null)
             {
               aLICert.addChild (div ("Subject: " + aEndpointCert.getSubjectX500Principal ().getName ()));
