@@ -339,7 +339,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
         for (final ISMLConfiguration aCurSML : aSortedList)
         {
-          aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, sParticipantIDScheme, sParticipantIDValue, false);
+          aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML,
+                                                               sParticipantIDScheme,
+                                                               sParticipantIDValue,
+                                                               false);
           if (aSMPQueryParams == null)
             continue;
 
@@ -380,9 +383,9 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       {
         // SML configuration is not null
         aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aRealSMLConfiguration,
-                                                       sParticipantIDScheme,
-                                                       sParticipantIDValue,
-                                                       true);
+                                                             sParticipantIDScheme,
+                                                             sParticipantIDValue,
+                                                             true);
       }
 
       if (aSMPQueryParams == null)
@@ -1033,6 +1036,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               if (aSMPQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
               {
                 // Check Peppol certificate status
+                // * Do not cache
+                // * Use global certificate check mode
                 final EPeppolCertificateCheckResult eCertStatus = PeppolCertificateChecker.checkPeppolAPCertificate (aEndpointCert,
                                                                                                                      aNowDateTime,
                                                                                                                      ETriState.FALSE,
