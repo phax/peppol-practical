@@ -25,7 +25,8 @@
 </p>
 
 <ul class="nav nav-tabs">
-  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2023</a></li>
+  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2024</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2023" data-toggle="tab">2023</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2022" data-toggle="tab">2022</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2021" data-toggle="tab">2021</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2020" data-toggle="tab">2020</a></li>
@@ -39,6 +40,34 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+
+    <h3>2024-01-10 - OCSP problems continue - phase4 update</h3>
+ 
+    <p>
+      Unfortunately the problems of calling an OCSP server from Java applications persist and seems to affects
+        Java 17.0.4 and later as well as Java 21 (all versions). Java 11 does not seem to be affected.
+        See <a href="https://github.com/phax/phase4/issues/124#issuecomment-1884398195">GitHub issue</a> for technical details.
+      Therefore, an updated version of peppol-commons (9.2.3) as well as an updated version of phase4 (2.7.2)
+        was made available, that changes the default revocation check from OCSP to CRL.
+    </p>
+    <p>    
+      Due to some other security and interoperability improvements it is recommended to update to phase4 2.7.2
+        or later.
+    </p>
+
+    <h3>2024-01-01 - New Peppol Specifications activated</h3>
+    
+    <ul>
+      <li>Peppol Business Message Envelope (SBDH) v2.0.1 specification is in effect</li>
+      <li>Peppol Reporting specifications are in effect - collect in January, report from February onwards</li>
+      <li>Peppol Policy for use of Identifiers v4.2.0 is in effect</li>
+    </ul>
+    <p>
+      All the Peppol specifications can be found at <a href="https://docs.peppol.eu/edelivery/">https://docs.peppol.eu/edelivery/</a>.
+    </p>
+
+  </div>
+  <div id="tabs-2023" class="tab-pane" role="tabpanel">
 
     <h3>2023-12-14 - Documentation on MLR was added</h3>
  
