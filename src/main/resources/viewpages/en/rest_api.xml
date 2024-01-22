@@ -18,7 +18,7 @@
 -->
 <div class="alert alert-info">
   <div>
-    This site offers a small REST API to perform arbitrary PEPPOL SMP lookups with a JSON result.
+    This site offers a small REST API to perform arbitrary Peppol SMP lookups with a JSON result.
     The API is proprietary.
     The result data format is proprietary JSON. 
   </div>
@@ -42,9 +42,8 @@
   If an SML is required, the following SML identifiers are available:
 </div>
 <ul>
-  <li><code>digitprod</code> - the production PEPPOL SML</li>
-  <li><code>digittest</code> - the test PEPPOL SML (aka SMK)</li>
-  <li><code>smk-toop</code> - the pilot TOOP SML (aka SMK)</li>
+  <li><code>digitprod</code> - the production Peppol SML</li>
+  <li><code>digittest</code> - the test Peppol SML (aka SMK)</li>
   <li><code>autodetect</code> - find the matching SML automatically</li>
 </ul>
 
@@ -53,7 +52,8 @@
 <h2 class="mt-2">API: <small class="text-muted">SMP query all document types of a participant</small></h2>
 
 <p>
-  To retrieve all document types from a participant registered in an SMP.
+  To retrieve all document types from a participant registered in an SMP.<br />
+  Note: please see <a href="https://github.com/phax/smp-query-webapp">https://github.com/phax/smp-query-webapp</a> if you want to run this in production on-site.
 </p>
 <div>
   <strong>HTTP method:</strong>
@@ -95,13 +95,13 @@
     {
       "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1",
       "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
-      "niceName":"Peppol PEPPOL BIS Billing UBL CreditNote V3",
+      "niceName":"Peppol Peppol BIS Billing UBL CreditNote V3",
       "isDeprecated":false
     },
     {
       "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns014%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1",
       "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1",
-      "niceName":"Peppol PEPPOL Billing profile CreditNote V2",
+      "niceName":"Peppol Peppol Billing profile CreditNote V2",
       "isDeprecated":false
     },
     {
@@ -141,7 +141,9 @@
 <h2 class="mt-2">API: <small class="text-muted">SMP query all endpoints of a participant for a certain document type</small></h2>
 
 <p>
-  To retrieve all endpoints of an SMP participant for a single document type. This API gives you AS2 and AS4 endpoints.
+  To retrieve all endpoints of an SMP participant for a single document type.
+  This API gives you AS4 and other endpoints.<br />
+  Note: please see <a href="https://github.com/phax/smp-query-webapp">https://github.com/phax/smp-query-webapp</a> if you want to run this in production on-site.
 </p>
 
 <div>
@@ -231,7 +233,8 @@
 <h2 class="mt-2">API: <small class="text-muted">SMP query the Business Card of a participant</small></h2>
 
 <p>
-  To retrieve the Business Card of a participant stored in an SMP.
+  To retrieve the Business Card of a participant stored in an SMP.<br />
+  Note: please see <a href="https://github.com/phax/smp-query-webapp">https://github.com/phax/smp-query-webapp</a> if you want to run this in production on-site.
 </p>
 <div>
   <strong>HTTP method:</strong>
