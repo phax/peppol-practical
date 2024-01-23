@@ -17,7 +17,7 @@
 
 -->
 <p>
-  This article explains one of the biggest mysteries in PEPPOL: how does the 
+  This article explains one of the biggest mysteries in Peppol: how does the 
   document exchange work and what roles does the SML (Service Metadata Locator) 
   play in it.
 </p>
@@ -25,28 +25,28 @@
 <h2>Prerequisites</h2>
 
 <p>
-  To start a document exchange in PEPPOL, you need to have the following information
+  To start a document exchange in Peppol, you need to have the following information
   before you can start submitting anything:
   <ul>
-    <li>The <strong>PEPPOL Participant Identifier</strong> (PPID) of the recipient (currently this must be exchanged out-of-band but with the upcoming PEPPOL Directory there is help in sight)</li>
+    <li>The <strong>Peppol Participant Identifier</strong> (PPID) of the recipient (currently this must be exchanged out-of-band but with the upcoming Peppol Directory there is help in sight)</li>
     <li>On which <strong>SML</strong> is the PPID registered (production SML or test SMK)</li>
     <li>The <strong>document type ID</strong> and the <strong>process ID</strong> to be used</li>
-    <li>The <strong>business document to be exchanged</strong> is of course needed</li>
+    <li>The <strong>business document to be exchanged</strong> is of course also needed</li>
   </ul>
 </p>
 
 <h2>How it works</h2>
 
 <p>
-  Lets start at the beginning. The first thing you need to do, is to find the SMP where the
-  document receiver has registered its endpoints. Therefore the PPID and the SML information are required.
+  Lets start at the beginning. The first thing you need to do, is to find the SMP where the document receiver has registered its endpoints.
+  Therefore the PPID and the SML information are required.
   <ul>
     <li>
       PPID with scheme <code>iso6523-actorid-upis</code> and value <code>9915:test</code>
     </li>
     <li>
-      SML to use = DG DIGIT SMK (= the Test SML). The DNS zone for the SMK is 
-      <code>acc.edelivery.tech.ec.europa.eu.</code>
+      SML to use = DG DIGIT SMK (= the Test SML).
+      The DNS zone for the SMK is <code>acc.edelivery.tech.ec.europa.eu.</code>
     </li>
   </ul>
 </p>
@@ -61,22 +61,23 @@
       <code>"http://B-" + hexstring(md5(lowercase(ID-VALUE))) + "." + ID-SCHEME + "." + SML-ZONE-NAME</code>
     </p>
     <p>
-      <code>ID-SCHEME</code> and <code>ID-VALUE</code> are taken from the PPID 
-      and the <code>SML-ZONE-NAME</code> is taken from the SMP.
-      That implies that a different identifier (as good as MD5 can do it) will create a different
-      DNS name.
+      <code>ID-SCHEME</code> and <code>ID-VALUE</code> are taken from the PPID
+      and the <code>SML-ZONE-NAME</code> is taken from the SML used.
+      That implies that a different identifier (as good as MD5 can do it) will create a different DNS name.
     </p>
     <p>
       For the identifier <code>iso6523-actorid-upis::9915:test</code> and the <code>SMK</code> the created URL is
       <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code>
     </p>
+    <p>
+      Note: Due to this way of URL creation, the usage of <code>https</code> is <strong>not</strong> possible, because each SMP would need a TLS certificate for <code>*.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code> which renders the trust part useless. 
+    </p>
   </li>
   <li>
     <p>
-      This URL is resolved via the Domain Name System (DNS) to the IP address <code>85.158.224.220</code> which 
-      is the IP of the server <code>http://test-infra.peppol.at</code>.
+      This URL is resolved via the Domain Name System (DNS) to the IP address <code>85.158.225.152</code> which is the IP of the server <code>http://test-infra.peppol.at</code>.
       This is exactly the server name that was used when registering the SMP to the SMK.
-      See below for details on what happens on SMP to SML registration.
+      See below for a link on what happens on SMP to SML registration.
     </p>
   </li>
   <li>
@@ -99,25 +100,24 @@
   <li>
     <p>
       Now that the SMP URL is known, the SMP query with the document type 
-      (following the schema <code>http://<i>smp.url</i>/<i>participant</i>/services/<i>documenttype</i></code>)
+      (following the schema <code>http://<i>smp.url</i>/<i>participantID</i>/services/<i>documentTypeID</i></code>)
       can be performed).
-      The resulting signed document must be parsed so that the endpoint
-      matching the desired process ID and transport protocol can be retrieved.
+      The resulting signed document must be parsed so that the endpoint matching the desired process ID and transport protocol can be retrieved.
       This is finally the URL to which the business document is to be send. 
     </p>
     <p>
-      All the above mentioned steps are usually handled by the SMP client software.
+      All the above mentioned steps are usually handled by the SMP client software, like my
+      <a href="https://github.com/phax/peppol-commons#peppol-smp-client">OpenSource SMP client</a> or my
+      <a href="https://github.com/phax/smp-query-webapp">OpenSource standalone SMP query application</a>.
     </p>
   </li>
   <li>
     <p>
-      The last step is the transmission of the business document to the endpoint URL
-      determined in the previous step.
-      Additionally components like special validation services etc. may be used depending 
-      on the effective setup but I wont cover them in this article.
+      The last step is the transmission of the business document to the endpoint URL determined in the previous step.
+      Additionally, components like special validation services etc. may be used depending on the effective setup but I wont cover them in this article.
     </p>
     <p>  
-      This is the task of the AccessPoint client.
+      This is the task of the AccessPoint client (or Sending AP).
     </p>
   </li>
 </ol>
@@ -125,9 +125,9 @@
 <p>
   And how was the SML involved in all of this? Not at all!
   Only the Domain Name System is queried upon a document exchange.
-  And if the DNS fails, there are more severe issues than not being able to send documents via PEPPOL.
-  And that is one of the intelligent parts of the PEPPOL network:
-  no central single point of failure that can stop the document exchange for everybody. 
+  And if the DNS fails, there are more severe issues than not being able to send documents via Peppol.
+  And that is one of the intelligent parts of the Peppol network:
+  No central single point of failure that can stop the document exchange for everybody. 
 </p>
 
 <h2>Appendix - SMP/SML interaction</h2>
