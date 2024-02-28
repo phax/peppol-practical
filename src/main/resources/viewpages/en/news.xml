@@ -47,6 +47,7 @@
       This site was extended with a new functionality to simply check, if a Participant is contained in the Peppol Network or not.
       It works for the Peppol Production and the Test/Pilot Network.<br />
       <a href="/public/menuitem-tools-pid-check">Give it a try</a>.
+      Additionally a <a href="/public/menuitem-tools-pid-check-be">specific lookup for Belgium</a> is also available.
     </p>
 
     <h3>2024-02-27 - phoss SMP 7.1.1</h3>
