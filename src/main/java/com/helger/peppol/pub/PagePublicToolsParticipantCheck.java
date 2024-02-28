@@ -18,27 +18,15 @@ package com.helger.peppol.pub;
 
 import javax.annotation.Nonnull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.xbill.DNS.AAAARecord;
-import org.xbill.DNS.ARecord;
-import org.xbill.DNS.Lookup;
-import org.xbill.DNS.Name;
-import org.xbill.DNS.Record;
-import org.xbill.DNS.TextParseException;
-import org.xbill.DNS.Type;
-
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.SimpleURL;
-import com.helger.html.hc.html.HC_Target;
 import com.helger.html.hc.html.forms.EHCFormMethod;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCLabel;
 import com.helger.html.hc.html.forms.HCRadioButton;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.html.jscode.html.JSHtml;
 import com.helger.peppol.app.mgr.ISMLConfigurationManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.domain.ISMLConfiguration;
@@ -51,6 +39,7 @@ import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
+import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormCheck;
@@ -72,8 +61,6 @@ public class PagePublicToolsParticipantCheck extends AbstractAppWebPage
 
   public static final String DEFAULT_ID_SCHEME = PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsParticipantCheck.class);
-
   public PagePublicToolsParticipantCheck (@Nonnull @Nonempty final String sID)
   {
     super (sID, "Participant Check");
@@ -85,48 +72,9 @@ public class PagePublicToolsParticipantCheck extends AbstractAppWebPage
                                      final boolean bIsProdSML)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-
-    final String sHost = aSMPQueryParams.getSMPHostURI ().getHost ();
     final IParticipantIdentifier aPID = aSMPQueryParams.getParticipantID ();
 
-    LOGGER.info ("Checking for existance of '" + aPID.getURIEncoded () + "' in DNS via '" + sHost + "'");
-
-    Name aParsedName = null;
-    try
-    {
-      aParsedName = Name.fromString (sHost);
-    }
-    catch (final TextParseException ex)
-    {
-      // ignore
-    }
-
-    // Check IP v4 and IP v6
-    Record [] aRecords = new Lookup (aParsedName, Type.A).run ();
-    if (aRecords == null)
-      aRecords = new Lookup (aParsedName, Type.AAAA).run ();
-
-    boolean bFoundAny = false;
-    if (aRecords != null)
-      for (final Record aRecord : aRecords)
-        if (aRecord instanceof ARecord)
-        {
-          // IP v4
-          final ARecord aARec = (ARecord) aRecord;
-          final String sResolvedIP = aARec.rdataToString ();
-          LOGGER.info ("[A] --> '" + sResolvedIP + "'");
-          bFoundAny = true;
-        }
-        else
-          if (aRecord instanceof AAAARecord)
-          {
-            // IP v6
-            final AAAARecord aARec = (AAAARecord) aRecord;
-            final String sResolvedIP = aARec.rdataToString ();
-            LOGGER.info ("[AAAA] --> '" + sResolvedIP + "'");
-            bFoundAny = true;
-          }
-
+    final boolean bFoundAny = SMPQueryParams.isParticipantRegistered (aSMPQueryParams);
     if (bFoundAny)
     {
       aNodeList.addChild (success ("The Peppol Participant ID ").addChild (code (aPID.getURIEncoded ()))
@@ -152,10 +100,9 @@ public class PagePublicToolsParticipantCheck extends AbstractAppWebPage
                                                                   : "https://test-directory.peppol.eu") +
                                                       "/participant/" +
                                                       aPID.getURIPercentEncoded ());
-      aToolbar.addChild (new BootstrapButton ().addChild ("Peppol Directory Lookup")
-                                               .setOnClick (JSHtml.windowOpen ()
-                                                                  .arg (aDirectoryURL.getAsStringWithEncodedParameters ())
-                                                                  .arg (HC_Target.BLANK.getName ())));
+      aToolbar.addChild (new BootstrapLinkButton ().addChild ("Peppol Directory Lookup")
+                                                   .setHref (aDirectoryURL)
+                                                   .setTargetBlank ());
       aNodeList.addChild (aToolbar);
     }
     else

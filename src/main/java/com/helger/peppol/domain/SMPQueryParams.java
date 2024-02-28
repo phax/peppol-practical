@@ -23,6 +23,13 @@ import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xbill.DNS.AAAARecord;
+import org.xbill.DNS.ARecord;
+import org.xbill.DNS.Lookup;
+import org.xbill.DNS.Name;
+import org.xbill.DNS.Record;
+import org.xbill.DNS.TextParseException;
+import org.xbill.DNS.Type;
 
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -118,5 +125,54 @@ public final class SMPQueryParams
       return null;
     }
     return ret;
+  }
+
+  public static boolean isParticipantRegistered (@Nonnull final SMPQueryParams aSMPQueryParams)
+  {
+    final String sHost = aSMPQueryParams.getSMPHostURI ().getHost ();
+
+    LOGGER.info ("Checking for existance of '" +
+                 aSMPQueryParams.getParticipantID ().getURIEncoded () +
+                 "' in DNS via '" +
+                 sHost +
+                 "'");
+
+    Name aParsedName = null;
+    try
+    {
+      aParsedName = Name.fromString (sHost);
+    }
+    catch (final TextParseException ex)
+    {
+      // ignore
+    }
+
+    // Check IP v4 and IP v6
+    Record [] aRecords = new Lookup (aParsedName, Type.A).run ();
+    if (aRecords == null)
+      aRecords = new Lookup (aParsedName, Type.AAAA).run ();
+
+    boolean bFoundAny = false;
+    if (aRecords != null)
+      for (final Record aRecord : aRecords)
+        if (aRecord instanceof ARecord)
+        {
+          // IP v4
+          final ARecord aARec = (ARecord) aRecord;
+          final String sResolvedIP = aARec.rdataToString ();
+          LOGGER.info ("[A] --> '" + sResolvedIP + "'");
+          bFoundAny = true;
+        }
+        else
+          if (aRecord instanceof AAAARecord)
+          {
+            // IP v6
+            final AAAARecord aARec = (AAAARecord) aRecord;
+            final String sResolvedIP = aARec.rdataToString ();
+            LOGGER.info ("[AAAA] --> '" + sResolvedIP + "'");
+            bFoundAny = true;
+          }
+
+    return bFoundAny;
   }
 }
