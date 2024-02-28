@@ -42,6 +42,7 @@ public final class CMenuPublic
   public static final String MENU_NEWS = "news";
   public static final String MENU_TOOLS = "tools";
   public static final String MENU_TOOLS_PARTICIPANT_CHECK = "tools-pid-check";
+  public static final String MENU_TOOLS_PARTICIPANT_CHECK_BE = "tools-pid-check-be";
   public static final String MENU_TOOLS_PARTICIPANT_INFO = "tools-participant";
   public static final String MENU_TOOLS_ID_INFO = "tools-id-info";
   public static final String MENU_TOOLS_SMP_SML = "tools-smp-sml";
