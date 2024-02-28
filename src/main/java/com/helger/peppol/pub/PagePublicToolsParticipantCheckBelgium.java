@@ -18,6 +18,9 @@ package com.helger.peppol.pub;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
@@ -49,6 +52,8 @@ public class PagePublicToolsParticipantCheckBelgium extends AbstractAppWebPage
 {
   public static final String FIELD_ID_VALUE = "value";
 
+  private static final Logger LOGGER = LoggerFactory.getLogger (PagePublicToolsParticipantCheckBelgium.class);
+
   public PagePublicToolsParticipantCheckBelgium (@Nonnull @Nonempty final String sID)
   {
     super (sID, "Belgium Participant Check");
@@ -59,6 +64,8 @@ public class PagePublicToolsParticipantCheckBelgium extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+
+    LOGGER.info ("Performing Belgium Participant Check for '" + sParticipantIDValue + "'");
 
     final ISMLConfiguration aSMLConfiguration = aSMLConfigurationMgr.getSMLInfoOfID (ESML.DIGIT_PRODUCTION.getID ());
     final SMPQueryParams aSMPQP_CBE = SMPQueryParams.createForSMLOrNull (aSMLConfiguration,
