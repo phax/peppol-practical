@@ -114,6 +114,7 @@ public final class MenuPublic
       final IMenuItemPage aSetup = aMenuTree.createRootItem (new BasePageShowChildren <> (CMenuPublic.MENU_TOOLS,
                                                                                           "Tools",
                                                                                           aMenuTree));
+      aMenuTree.createItem (aSetup, new PagePublicToolsParticipantCheck (CMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK));
       aMenuTree.createItem (aSetup,
                             new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsIdentifierInformation (CMenuPublic.MENU_TOOLS_ID_INFO));

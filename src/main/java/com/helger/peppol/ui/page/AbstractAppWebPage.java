@@ -19,6 +19,11 @@ package com.helger.peppol.ui.page;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.url.SimpleURL;
+import com.helger.html.hc.IHCNode;
+import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
+import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
+import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
 import com.helger.photon.bootstrap4.pages.AbstractBootstrapWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
@@ -27,5 +32,26 @@ public abstract class AbstractAppWebPage extends AbstractBootstrapWebPage <WebPa
   public AbstractAppWebPage (@Nonnull @Nonempty final String sID, @Nonnull final String sName)
   {
     super (sID, sName);
+  }
+
+  @Nonnull
+  protected static BootstrapLinkButton _createOpenInBrowser (@Nonnull final String sURL)
+  {
+    return _createOpenInBrowser (sURL, "Open in browser");
+  }
+
+  @Nonnull
+  protected static BootstrapLinkButton _createOpenInBrowser (@Nonnull final String sURL, @Nonnull final String sLabel)
+  {
+    return new BootstrapLinkButton (EBootstrapButtonSize.SMALL).setButtonType (EBootstrapButtonType.OUTLINE_INFO)
+                                                               .setHref (new SimpleURL (sURL))
+                                                               .addChild (sLabel)
+                                                               .setTargetBlank ();
+  }
+
+  @Nonnull
+  protected IHCNode _createTimingNode (final long nMillis)
+  {
+    return badgeInfo ("took " + nMillis + " milliseconds");
   }
 }

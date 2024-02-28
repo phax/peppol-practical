@@ -127,17 +127,17 @@ public final class LayoutAreaContentProviderPublic
     aNavbar.addBrand (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()),
                       aLinkToStartPage);
 
-    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant information")
+    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant Information")
                                                                         .setIcon (EFamFamIcon.USER_GREEN)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
-    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Document validation")
+    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Document Validation")
                                                                         .setIcon (EFamFamIcon.SCRIPT_GO)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_VALIDATION_UPLOAD))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
-    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("ID information")
+    aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("ID Information")
                                                                         .setIcon (EFamFamIcon.CUP)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_ID_INFO))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)

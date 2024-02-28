@@ -77,7 +77,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
 
   public PagePublicToolsTestEndpoints (@Nonnull @Nonempty final String sID)
   {
-    super (sID, "Test endpoints");
+    super (sID, "Test Endpoints");
     setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <TestEndpoint, WebPageExecutionContext> ()
     {
       @Override
@@ -85,22 +85,23 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                 @Nonnull final BootstrapForm aForm,
                                 @Nonnull final TestEndpoint aSelectedObject)
       {
-        aForm.addChild (question ("Are you sure you want to delete the test endpoint '" +
+        aForm.addChild (question ("Are you sure you want to delete the Test Endpoint '" +
                                   aSelectedObject.getParticipantIDValue () +
-                                  "' for transport profile '" +
+                                  "' for Transport Profile '" +
                                   AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
                                   "'?"));
       }
 
       @Override
       @OverrideOnDemand
-      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final TestEndpoint aSelectedObject)
+      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
+                                    @Nonnull final TestEndpoint aSelectedObject)
       {
         final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
         if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
-          aWPEC.postRedirectGetInternal (success ("The test endpoint was successfully deleted!"));
+          aWPEC.postRedirectGetInternal (success ("The Test Endpoint was successfully deleted!"));
         else
-          aWPEC.postRedirectGetInternal (error ("Error deleting the test endpoint!"));
+          aWPEC.postRedirectGetInternal (error ("Error deleting the Test Endpoint!"));
       }
     });
   }
@@ -111,7 +112,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   {
     return aWPEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO)
                 .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM)
-                .add (PagePublicToolsParticipantInformation.FIELD_ID_SCHEME, PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME)
+                .add (PagePublicToolsParticipantInformation.FIELD_ID_SCHEME,
+                      PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantID ())
                 .add (PagePublicToolsParticipantInformation.FIELD_SML, aTestEndpoint.getSML ().getID ());
   }
@@ -153,7 +155,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
-  protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final TestEndpoint aSelectedObject)
+  protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
+                                     @Nonnull final TestEndpoint aSelectedObject)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
@@ -176,10 +179,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                                                        aSelectedObject.getDeletionDateTime (),
                                                                                        aSelectedObject.getDeletionUserID ())));
     }
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Company name").setCtrl (aSelectedObject.getCompanyName ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Company name")
+                                                 .setCtrl (aSelectedObject.getCompanyName ()));
     if (StringHelper.hasText (aSelectedObject.getContactPerson ()))
     {
-      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person").setCtrl (aSelectedObject.getContactPerson ()));
+      aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
+                                                   .setCtrl (aSelectedObject.getContactPerson ()));
     }
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Participant information")
                                                  .setCtrl (aSelectedObject.getParticipantIDIssuer () +
@@ -190,7 +195,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                            " (" +
                                                            aSelectedObject.getTransportProfile ().getID () +
                                                            ")"));
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SML").setCtrl (aSelectedObject.getSML ().getDisplayName ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SML")
+                                                 .setCtrl (aSelectedObject.getSML ().getDisplayName ()));
   }
 
   @Override
@@ -270,7 +276,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER, "Please select a participant identifier issuing agency");
     else
       if (eScheme == null)
-        aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER, "Please select a valid participant identifier issuing agency");
+        aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER,
+                                   "Please select a valid participant identifier issuing agency");
 
     if (StringHelper.hasNoText (sParticipantIDValue))
       aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_VALUE, "Please provide a participant identifier value");
@@ -388,8 +395,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       aActionCell.addChild (new HCTextNode (" "));
 
       // Visible for all
-      aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC, aCurObject)).setTitle ("Show participant information")
-                                                                                   .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
+      aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC,
+                                                                aCurObject)).setTitle ("Show participant information")
+                                                                            .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
     }
     aNodeList.addChild (aTable);
 

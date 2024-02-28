@@ -60,7 +60,6 @@ import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
-import com.helger.commons.url.SimpleURL;
 import com.helger.commons.url.URLHelper;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -115,9 +114,6 @@ import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
-import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
-import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
-import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
@@ -166,28 +162,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
   public PagePublicToolsParticipantInformation (@Nonnull @Nonempty final String sID)
   {
-    super (sID, "Participant information");
-  }
-
-  @Nonnull
-  private static BootstrapLinkButton _createOpenInBrowser (@Nonnull final String sURL)
-  {
-    return _createOpenInBrowser (sURL, "Open in browser");
-  }
-
-  @Nonnull
-  private static BootstrapLinkButton _createOpenInBrowser (@Nonnull final String sURL, @Nonnull final String sLabel)
-  {
-    return new BootstrapLinkButton (EBootstrapButtonSize.SMALL).setButtonType (EBootstrapButtonType.OUTLINE_INFO)
-                                                               .setHref (new SimpleURL (sURL))
-                                                               .addChild (sLabel)
-                                                               .setTargetBlank ();
-  }
-
-  @Nonnull
-  private IHCNode _createTimingNode (final long nMillis)
-  {
-    return badgeInfo ("took " + nMillis + " milliseconds");
+    super (sID, "Participant Information");
   }
 
   private void _printEndpointURL (@Nonnull final IHCLI <?> aLIEndpoint,

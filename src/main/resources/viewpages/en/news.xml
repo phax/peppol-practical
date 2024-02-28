@@ -41,6 +41,25 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2024-02-28 - Added Participant Check</h3>
+
+    <p>
+      This site was extended with a new functionality to simply check, if a Participant is contained in the Peppol Network or not.
+      It works for the Peppol Production and the Test/Pilot Network.<br />
+      <a href="/public/menuitem-tools-pid-check">Give it a try</a>.
+    </p>
+
+    <h3>2024-02-27 - phoss SMP 7.1.1</h3>
+
+    <p>
+      phoss SMP 7.1.1 was released. It fixes some security issues and removes expired, unused certificates from the trust store.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-7.1.1">Download phoss SMP 7.1.1</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2024-02-19 - Document Validation extended</h3>
  
     <p>
