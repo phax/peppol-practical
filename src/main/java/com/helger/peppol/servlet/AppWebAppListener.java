@@ -107,6 +107,8 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     {
       RequestTrackerSettings.setLongRunningRequestsCheckEnabled (false);
       RequestTrackerSettings.setParallelRunningRequestsCheckEnabled (false);
+      // Default is 60
+      RequestTrackerSettings.setParallelRunningRequestBarrier (80);
     }
 
     // Allow soft fails for OCSP checks to identify the source of the error
