@@ -67,30 +67,30 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 934 entries -->
+<!-- 929 entries -->
 <ul>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.2</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.3</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.4</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.4 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.5</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.5 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.6</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.6 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.7</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.7 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.8</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.8 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.9</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.9</li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.10</code> - A-NZ Peppol BIS3 CreditNote (UBL) 1.0.10</li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.1</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.2</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.3</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.4</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.4 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.5</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.5 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.6</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.6 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.7</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.7 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.8</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.8 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.9</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.9</li>
-<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.10</code> - A-NZ Peppol BIS3 CreditNote Self-Billing (UBL) 1.0.10</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.2</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.3</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.4</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.4 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.5</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.5 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.6</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.6 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.7</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.7 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.8</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.8 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.9</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.9</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.10</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.10</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.1</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.2</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.3</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.4</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.4 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.5</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.5 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.6</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.6 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.7</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.7 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.8</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.8 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.9</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.9</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.10</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.10</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice:1</code> - A-NZ Peppol BIS3 Invoice (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.1</code> - A-NZ Peppol BIS3 Invoice (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.2</code> - A-NZ Peppol BIS3 Invoice (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
@@ -128,13 +128,13 @@ A very small Java WS client is available for
 <li><code>it.peppol:order-response:2.3</code> - AGID Peppol Order Response (2.3.0) (for BIS 3.0.11)</li>
 <li><code>it.peppol:order-response:3.0.2</code> - AGID Peppol Order Response (3.0.2) (for BIS 3.0.14)</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
-<li><code>pt.gov.espap.cius-pt:ubl-creditnote:2</code> - CIUS-PT UBL CreditNote 2 <strong>(Deprecated)</strong></li>
-<li><code>pt.gov.espap.cius-pt:ubl-creditnote:2.1.1</code> - CIUS-PT UBL CreditNote 2.1.1</li>
+<li><code>pt.gov.espap.cius-pt:ubl-creditnote:2</code> - CIUS-PT UBL Credit Note 2 <strong>(Deprecated)</strong></li>
+<li><code>pt.gov.espap.cius-pt:ubl-creditnote:2.1.1</code> - CIUS-PT UBL Credit Note 2.1.1</li>
 <li><code>pt.gov.espap.cius-pt:ubl-invoice:2</code> - CIUS-PT UBL Invoice 2 <strong>(Deprecated)</strong></li>
 <li><code>pt.gov.espap.cius-pt:ubl-invoice:2.1.1</code> - CIUS-PT UBL Invoice 2.1.1</li>
-<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.3</code> - CIUS-RO UBL CreditNote 1.0.3 <strong>(Deprecated)</strong></li>
-<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.4</code> - CIUS-RO UBL CreditNote 1.0.4 <strong>(Deprecated)</strong></li>
-<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.8</code> - CIUS-RO UBL CreditNote 1.0.8</li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.3</code> - CIUS-RO UBL Credit Note 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.4</code> - CIUS-RO UBL Credit Note 1.0.4 <strong>(Deprecated)</strong></li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.8</code> - CIUS-RO UBL Credit Note 1.0.8</li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.3</code> - CIUS-RO UBL Invoice 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.4</code> - CIUS-RO UBL Invoice 1.0.4 <strong>(Deprecated)</strong></li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.8</code> - CIUS-RO UBL Invoice 1.0.8</li>
@@ -157,7 +157,7 @@ A very small Java WS client is available for
 <li><code>no.ehf:despatch-advice:1.0.10</code> - EHF Despatch Advice 1.0.10 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:despatch-advice:1.0.11</code> - EHF Despatch Advice 1.0.11 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:despatch-advice:1.0.12</code> - EHF Despatch Advice 1.0.12</li>
-<li><code>no.ehf.g3:forward-billing-creditnote:3.0.1</code> - EHF Forward Billing CreditNote 3.0.1</li>
+<li><code>no.ehf.g3:forward-billing-creditnote:3.0.1</code> - EHF Forward Billing Credit Note 3.0.1</li>
 <li><code>no.ehf.g3:forward-billing-invoice:3.0.1</code> - EHF Forward Billing Invoice 3.0.1</li>
 <li><code>no.ehf:invoice:2.0.15</code> - EHF Invoice 2.0.15 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:invoice:2.0.16</code> - EHF Invoice 2.0.16 <strong>(Deprecated)</strong></li>
@@ -199,24 +199,24 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:cii:1.3.9</code> - EN 16931 CII 1.3.9 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.10</code> - EN 16931 CII 1.3.10</li>
 <li><code>eu.cen.en16931:cii:1.3.11</code> - EN 16931 CII 1.3.11</li>
-<li><code>eu.cen.en16931:ubl-creditnote:1</code> - EN 16931 UBL CreditNote 1 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.1</code> - EN 16931 UBL CreditNote 1.1 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.2</code> - EN 16931 UBL CreditNote 1.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3</code> - EN 16931 UBL CreditNote 1.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.2.1</code> - EN 16931 UBL CreditNote 1.2.1 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.2.3</code> - EN 16931 UBL CreditNote 1.2.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.1</code> - EN 16931 UBL CreditNote 1.3.1 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.2</code> - EN 16931 UBL CreditNote 1.3.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.3</code> - EN 16931 UBL CreditNote 1.3.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.4</code> - EN 16931 UBL CreditNote 1.3.4 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.5</code> - EN 16931 UBL CreditNote 1.3.5 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.6</code> - EN 16931 UBL CreditNote 1.3.6 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.6-a</code> - EN 16931 UBL CreditNote 1.3.6-a <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.7</code> - EN 16931 UBL CreditNote 1.3.7 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.8</code> - EN 16931 UBL CreditNote 1.3.8 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.9</code> - EN 16931 UBL CreditNote 1.3.9 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.10</code> - EN 16931 UBL CreditNote 1.3.10</li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.11</code> - EN 16931 UBL CreditNote 1.3.11</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1</code> - EN 16931 UBL Credit Note 1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.1</code> - EN 16931 UBL Credit Note 1.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.2</code> - EN 16931 UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3</code> - EN 16931 UBL Credit Note 1.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.2.1</code> - EN 16931 UBL Credit Note 1.2.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.2.3</code> - EN 16931 UBL Credit Note 1.2.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.1</code> - EN 16931 UBL Credit Note 1.3.1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.2</code> - EN 16931 UBL Credit Note 1.3.2 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.3</code> - EN 16931 UBL Credit Note 1.3.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.4</code> - EN 16931 UBL Credit Note 1.3.4 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.5</code> - EN 16931 UBL Credit Note 1.3.5 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.6</code> - EN 16931 UBL Credit Note 1.3.6 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.6-a</code> - EN 16931 UBL Credit Note 1.3.6-a <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.7</code> - EN 16931 UBL Credit Note 1.3.7 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.8</code> - EN 16931 UBL Credit Note 1.3.8 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.9</code> - EN 16931 UBL Credit Note 1.3.9 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.10</code> - EN 16931 UBL Credit Note 1.3.10</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.11</code> - EN 16931 UBL Credit Note 1.3.11</li>
 <li><code>eu.cen.en16931:ubl:1</code> - EN 16931 UBL Invoice 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.1</code> - EN 16931 UBL Invoice 1.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.2</code> - EN 16931 UBL Invoice 1.2 <strong>(Deprecated)</strong></li>
@@ -253,6 +253,10 @@ A very small Java WS client is available for
 <li><code>cz.isdoc:isdoc:6.0.2</code> - ISDOC 6.0.2</li>
 <li><code>org.peppol.jp.pint:credit-note:0.1.2</code> - Japan PINT Credit Note (UBL) 0.1.2</li>
 <li><code>org.peppol.jp.pint:invoice:0.1.2</code> - Japan PINT Invoice (UBL) 0.1.2</li>
+<li><code>org.peppol.pint.my:creditnote:1</code> - Malaysia PINT Credit Note (UBL) 1.0.0</li>
+<li><code>org.peppol.pint.my:creditnote-self-billing:1</code> - Malaysia PINT Credit Note Self-Billing (UBL) 1.0.0</li>
+<li><code>org.peppol.pint.my:invoice:1</code> - Malaysia PINT Invoice (UBL) 1.0.0</li>
+<li><code>org.peppol.pint.my:invoice-self-billing:1</code> - Malaysia PINT Invoice Self-Billing (UBL) 1.0.0</li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3</code> - NLCIUS-CII 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-1</code> - NLCIUS-CII 1.0.3.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-2</code> - NLCIUS-CII 1.0.3.2 <strong>(Deprecated)</strong></li>
@@ -359,7 +363,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:creditnote:3.13</code> - OpenPeppol Credit Note (3.13.0) (aka BIS Billing 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t14:6:at</code> - OpenPeppol Credit Note (Austria) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t14:8:at-gov</code> - OpenPeppol Credit Note (Austrian Government) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.ubl:creditnote:1</code> - OpenPeppol CreditNote BIS3 (UBL) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.ubl:creditnote:1</code> - OpenPeppol Credit Note BIS3 (UBL) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t16:3.5</code> - OpenPeppol Despatch Advice (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t16:3.6</code> - OpenPeppol Despatch Advice (3.6.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t16:3.7</code> - OpenPeppol Despatch Advice (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
@@ -482,9 +486,9 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:order-response:2023.11</code> - OpenPeppol Order Response (2023.11) (aka BIS 3.0.12)</li>
 <li><code>eu.peppol.bis3:order-response-advanced:2023.5</code> - OpenPeppol Order Response Advanced (2023.5) (aka BIS 3.0.11)</li>
 <li><code>eu.peppol.bis3:order-response-advanced:2023.11</code> - OpenPeppol Order Response Advanced (2023.11) (aka BIS 3.0.12)</li>
-<li><code>org.peppol.pint:credit-note:1</code> - OpenPeppol PINT Credit Note (UBL) 1.0.0</li>
+<li><code>org.peppol.pint:credit-note:1</code> - OpenPeppol PINT Credit Note (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint:credit-note:1.0.1</code> - OpenPeppol PINT Credit Note (UBL) 1.0.1</li>
-<li><code>org.peppol.pint:invoice:1</code> - OpenPeppol PINT Invoice (UBL) 1.0.0</li>
+<li><code>org.peppol.pint:invoice:1</code> - OpenPeppol PINT Invoice (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint:invoice:1.0.1</code> - OpenPeppol PINT Invoice (UBL) 1.0.1</li>
 <li><code>eu.peppol.bis2:t77:3.5</code> - OpenPeppol Punch Out (3.5.0) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis2:t77:3.6</code> - OpenPeppol Punch Out (3.6.0) <strong>(Deprecated)</strong></li>
@@ -514,24 +518,15 @@ A very small Java WS client is available for
 <li><code>eu.peppol.directory:businesscard:1</code> - Peppol Directory BusinessCard v1</li>
 <li><code>eu.peppol.directory:businesscard:2</code> - Peppol Directory BusinessCard v2</li>
 <li><code>eu.peppol.directory:businesscard:3</code> - Peppol Directory BusinessCard v3</li>
-<li><code>eu.peppol.reporting:eusr:1</code> - Peppol End User Statistics Report v1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:eusr:1-RC2</code> - Peppol End User Statistics Report v1.0.0-RC2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:eusr:1.0.1</code> - Peppol End User Statistics Report v1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:eusr:1.1</code> - Peppol End User Statistics Report v1.1.0 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:eusr:1.1.1</code> - Peppol End User Statistics Report v1.1.1 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:eusr:1.1.2</code> - Peppol End User Statistics Report v1.1.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:eusr:1.1.3</code> - Peppol End User Statistics Report v1.1.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:eusr:1.1.4</code> - Peppol End User Statistics Report v1.1.4</li>
-<li><code>eu.peppol.reporting:tsr:1</code> - Peppol Transaction Statistics Report v1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:tsr:1.0.1</code> - Peppol Transaction Statistics Report v1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:tsr:1.0.2</code> - Peppol Transaction Statistics Report v1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:tsr:1.0.3</code> - Peppol Transaction Statistics Report v1.0.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.reporting:tsr:1.0.4</code> - Peppol Transaction Statistics Report v1.0.4</li>
+<li><code>eu.peppol.reporting:eusr:1.1.4</code> - Peppol End User Statistics Report v1.1.4 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.reporting:eusr:1.1.5</code> - Peppol End User Statistics Report v1.1.5</li>
+<li><code>eu.peppol.reporting:tsr:1.0.4</code> - Peppol Transaction Statistics Report v1.0.4 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.reporting:tsr:1.0.5</code> - Peppol Transaction Statistics Report v1.0.5</li>
 <li><code>nl.setu:timecard:1.4</code> - SETU Timcard 1.4</li>
-<li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG Peppol BIS3 CreditNote (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.2</code> - SG Peppol BIS3 CreditNote (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.3</code> - SG Peppol BIS3 CreditNote (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.sg.ubl:creditnote:2023.7</code> - SG Peppol BIS3 CreditNote (UBL) 2023.7</li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG Peppol BIS3 Credit Note (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.2</code> - SG Peppol BIS3 Credit Note (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.3</code> - SG Peppol BIS3 Credit Note (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:2023.7</code> - SG Peppol BIS3 Credit Note (UBL) 2023.7</li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1</code> - SG Peppol BIS3 Invoice (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1.0.2</code> - SG Peppol BIS3 Invoice (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1.0.3</code> - SG Peppol BIS3 Invoice (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
@@ -545,18 +540,18 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.6</code> - Simplerinvoicing 2.0 G-Account extension 1.0.6 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.7</code> - Simplerinvoicing 2.0 G-Account extension 1.0.7</li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.8</code> - Simplerinvoicing 2.0 G-Account extension 1.0.8</li>
-<li><code>org.simplerinvoicing:creditnote:2</code> - Simplerinvoicing CreditNote 2.0 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.1</code> - Simplerinvoicing CreditNote 2.0.1 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.2</code> - Simplerinvoicing CreditNote 2.0.2 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3</code> - Simplerinvoicing CreditNote 2.0.3 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-1</code> - Simplerinvoicing CreditNote 2.0.3.1 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-2</code> - Simplerinvoicing CreditNote 2.0.3.2 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-3</code> - Simplerinvoicing CreditNote 2.0.3.3 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-4</code> - Simplerinvoicing CreditNote 2.0.3.4 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-5</code> - Simplerinvoicing CreditNote 2.0.3.5 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-6</code> - Simplerinvoicing CreditNote 2.0.3.6 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-7</code> - Simplerinvoicing CreditNote 2.0.3.7</li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-8</code> - Simplerinvoicing CreditNote 2.0.3.8</li>
+<li><code>org.simplerinvoicing:creditnote:2</code> - Simplerinvoicing Credit Note 2.0 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.1</code> - Simplerinvoicing Credit Note 2.0.1 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.2</code> - Simplerinvoicing Credit Note 2.0.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3</code> - Simplerinvoicing Credit Note 2.0.3 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-1</code> - Simplerinvoicing Credit Note 2.0.3.1 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-2</code> - Simplerinvoicing Credit Note 2.0.3.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-3</code> - Simplerinvoicing Credit Note 2.0.3.3 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-4</code> - Simplerinvoicing Credit Note 2.0.3.4 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-5</code> - Simplerinvoicing Credit Note 2.0.3.5 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-6</code> - Simplerinvoicing Credit Note 2.0.3.6 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-7</code> - Simplerinvoicing Credit Note 2.0.3.7</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-8</code> - Simplerinvoicing Credit Note 2.0.3.8</li>
 <li><code>org.simplerinvoicing:invoice:1</code> - Simplerinvoicing Invoice 1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2 <strong>(Deprecated)</strong></li>
@@ -971,15 +966,15 @@ A very small Java WS client is available for
 <li><code>de.xrechnung:cii:2.1.1</code> - XRechnung CII 2.1.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:cii:2.3.1</code> - XRechnung CII 2.3.1</li>
 <li><code>de.xrechnung:cii:3.0.1</code> - XRechnung CII 3.0.1</li>
-<li><code>de.xrechnung:ubl-creditnote:2</code> - XRechnung UBL CreditNote 2 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:ubl-creditnote:1.2</code> - XRechnung UBL CreditNote 1.2 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:ubl-creditnote:2.2</code> - XRechnung UBL CreditNote 2.2</li>
-<li><code>de.xrechnung:ubl-creditnote:1.2.1</code> - XRechnung UBL CreditNote 1.2.1 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:ubl-creditnote:1.2.2</code> - XRechnung UBL CreditNote 1.2.2 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:ubl-creditnote:2.0.1</code> - XRechnung UBL CreditNote 2.0.1 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:ubl-creditnote:2.1.1</code> - XRechnung UBL CreditNote 2.1.1 <strong>(Deprecated)</strong></li>
-<li><code>de.xrechnung:ubl-creditnote:2.3.1</code> - XRechnung UBL CreditNote 2.3.1</li>
-<li><code>de.xrechnung:ubl-creditnote:3.0.1</code> - XRechnung UBL CreditNote 3.0.1</li>
+<li><code>de.xrechnung:ubl-creditnote:2</code> - XRechnung UBL Credit Note 2 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-creditnote:1.2</code> - XRechnung UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-creditnote:2.2</code> - XRechnung UBL Credit Note 2.2</li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.1</code> - XRechnung UBL Credit Note 1.2.1 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-creditnote:1.2.2</code> - XRechnung UBL Credit Note 1.2.2 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-creditnote:2.0.1</code> - XRechnung UBL Credit Note 2.0.1 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-creditnote:2.1.1</code> - XRechnung UBL Credit Note 2.1.1 <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung:ubl-creditnote:2.3.1</code> - XRechnung UBL Credit Note 2.3.1</li>
+<li><code>de.xrechnung:ubl-creditnote:3.0.1</code> - XRechnung UBL Credit Note 3.0.1</li>
 <li><code>de.xrechnung:ubl-invoice:2</code> - XRechnung UBL Invoice 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:1.2</code> - XRechnung UBL Invoice 1.2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:2.2</code> - XRechnung UBL Invoice 2.2</li>

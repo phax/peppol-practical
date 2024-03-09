@@ -41,6 +41,26 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2024-03-10 - Document Validation extended</h3>
+ 
+    <p>
+      Added support for Peppol PINT Malaysia rules 1.0.0<br/>
+      Updated the Peppol Network Reporting validation rules<br/>
+      Removed deprecated Peppol Network Reporting validation rules
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>org.peppol.pint.my:creditnote:1</code> - Malaysia PINT Credit Note (UBL) 1.0.0</li>
+<li><code>org.peppol.pint.my:creditnote-self-billing:1</code> - Malaysia PINT Credit Note Self-Billing (UBL) 1.0.0</li>
+<li><code>org.peppol.pint.my:invoice:1</code> - Malaysia PINT Invoice (UBL) 1.0.0</li>
+<li><code>org.peppol.pint.my:invoice-self-billing:1</code> - Malaysia PINT Invoice Self-Billing (UBL) 1.0.0</li>
+<li><code>eu.peppol.reporting:eusr:1.1.5</code> - Peppol End User Statistics Report v1.1.5</li>
+<li><code>eu.peppol.reporting:tsr:1.0.5</code> - Peppol Transaction Statistics Report v1.0.5</li>
+</ul>
+
     <h3>2024-02-28 - Added Participant Check</h3>
 
     <p>
