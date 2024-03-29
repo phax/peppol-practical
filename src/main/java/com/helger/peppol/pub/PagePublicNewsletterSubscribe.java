@@ -144,7 +144,8 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
     final BootstrapForm aForm = getUIHandler ().createFormSelf (aWPEC);
     aForm.setLeft (3);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Your salutation")
-                                                 .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION), aDisplayLocale))
+                                                 .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION),
+                                                                                   aDisplayLocale))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Your name")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_NAME)))
@@ -157,7 +158,7 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
       if (aAllCRMGroups.size () == 1)
       {
         // No need for selection - use hidden field
-        aForm.addChild (new HCHiddenField (FIELD_GROUP, aAllCRMGroups.getFirst ().getID ()));
+        aForm.addChild (new HCHiddenField (FIELD_GROUP, aAllCRMGroups.getFirstOrNull ().getID ()));
       }
       else
         if (aAllCRMGroups.isNotEmpty ())
@@ -167,8 +168,11 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
           for (final ICRMGroup aCRMGroup : aAllCRMGroups.getSorted (IHasDisplayName.getComparatorCollating (aDisplayLocale)))
           {
             final String sCRMGroupID = aCRMGroup.getID ();
-            final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP, sCRMGroupID, false);
-            aGroups.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB)).addChild (" " + aCRMGroup.getDisplayName ()));
+            final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
+                                                                                          sCRMGroupID,
+                                                                                          false);
+            aGroups.addChild (new HCDiv ().addChild (new HCCheckBox (aRFB))
+                                          .addChild (" " + aCRMGroup.getDisplayName ()));
           }
           aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Mailing lists to subscribe to")
                                                        .setCtrl (aGroups)

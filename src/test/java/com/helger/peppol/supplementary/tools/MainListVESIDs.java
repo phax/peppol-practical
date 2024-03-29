@@ -44,7 +44,7 @@ public final class MainListVESIDs
          .append (aEntry.getID ().getAsSingleID ())
          .append ("</code> - ")
          .append (aEntry.getDisplayName ())
-         .append (aEntry.isDeprecated () ? " <strong>(Deprecated)</strong>" : "")
+         .append (aEntry.getStatus ().isDeprecated () ? " <strong>(Deprecated)</strong>" : "")
          .append ("</li>\n");
     }
     return aSB.append ("</ul>\n").toString ();

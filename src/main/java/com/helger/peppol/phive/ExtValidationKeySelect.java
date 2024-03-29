@@ -73,7 +73,7 @@ public final class ExtValidationKeySelect extends HCExtSelect
 
     for (final IValidationExecutorSet <IValidationSourceXML> aEntry : getAllSortedCorrect (aDisplayLocale))
       addOption (aEntry.getID ().getAsSingleID (),
-                 aEntry.getDisplayName () + (aEntry.isDeprecated () ? " (deprecated!)" : ""));
+                 aEntry.getDisplayName () + (aEntry.getStatus ().isDeprecated () ? " (deprecated!)" : ""));
     addOptionPleaseSelect (aDisplayLocale);
   }
 }
