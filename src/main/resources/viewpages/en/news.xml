@@ -41,7 +41,7 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
-    <h3>2024-03-10 - Document Validation extended</h3>
+    <h3>2024-03-29 - Document Validation extended</h3>
  
     <p>
       Added support for Peppol PINT Malaysia rules 1.0.0<br/>
@@ -53,6 +53,37 @@
       Added VESIDs are:
     </p>
 <ul>
+<li><code>no.ehf.g3:advanced-order-cancellation:3.0.3</code> - EHF Advanced Order Cancellation 3.0.3</li>
+<li><code>no.ehf.g3:advanced-order-change:3.0.3</code> - EHF Advanced Order Change 3.0.3</li>
+<li><code>no.ehf.g3:advanced-order-initiation:3.0.3</code> - EHF Advanced Order Initiation 3.0.3</li>
+<li><code>no.ehf.g3:advanced-order-response:3.0.3</code> - EHF Advanced Order Response 3.0.3</li>
+<li><code>no.ehf.g3:catalogue:3.0.3</code> - EHF Catalogue 3.0.3</li>
+<li><code>no.ehf.g3:catalogue-response:3.0.3</code> - EHF Catalogue Response 3.0.3</li>
+<li><code>no.ehf.g3:despatch-advice:3.0.2</code> - EHF Despatch Advice 3.0.2</li>
+<li><code>no.ehf.g3:forward-billing-creditnote:3.0.3</code> - EHF Forward Billing Credit Note 3.0.3</li>
+<li><code>no.ehf.g3:forward-billing-invoice:3.0.3</code> - EHF Forward Billing Invoice 3.0.3</li>
+<li><code>no.ehf.g3:order:3.0.3</code> - EHF Order 3.0.3</li>
+<li><code>no.ehf.g3:order-agreement:3.0.3</code> - EHF Order Agreement 3.0.3</li>
+<li><code>no.ehf.g3:order-response:3.0.3</code> - EHF Order Response 3.0.3</li>
+<li><code>no.ehf.g3:payment-request:3.0.2</code> - EHF Payment Request 3.0.2</li>
+<li><code>no.ehf.g3:punch-out:3.0.3</code> - EHF Punch Out 3.0.3</li>
+<li><code>no.ehf.g3:reminder:3.0.3</code> - EHF Reminder 3.0.3</li>
+<li><code>dk.oioubl:application-response:1.13.2</code> - OIOUBL Application Response 1.13.2</li>
+<li><code>dk.oioubl:catalogue:1.13.2</code> - OIOUBL Catalogue 1.13.2</li>
+<li><code>dk.oioubl:catalogue-deletion:1.13.2</code> - OIOUBL Catalogue Deletion 1.13.2</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.13.2</code> - OIOUBL Catalogue Item Specification Update 1.13.2</li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.13.2</code> - OIOUBL Catalogue Pricing Update 1.13.2</li>
+<li><code>dk.oioubl:catalogue-request:1.13.2</code> - OIOUBL Catalogue Request 1.13.2</li>
+<li><code>dk.oioubl:credit-note:1.13.2</code> - OIOUBL Credit Note 1.13.2</li>
+<li><code>dk.oioubl:invoice:1.13.2</code> - OIOUBL Invoice 1.13.2</li>
+<li><code>dk.oioubl:order:1.13.2</code> - OIOUBL Order 1.13.2</li>
+<li><code>dk.oioubl:order-cancellation:1.13.2</code> - OIOUBL Order Cancellation 1.13.2</li>
+<li><code>dk.oioubl:order-change:1.13.2</code> - OIOUBL Order Change 1.13.2</li>
+<li><code>dk.oioubl:order-response:1.13.2</code> - OIOUBL Order Response 1.13.2</li>
+<li><code>dk.oioubl:order-response-simple:1.13.2</code> - OIOUBL Order Response Simple 1.13.2</li>
+<li><code>dk.oioubl:reminder:1.13.2</code> - OIOUBL Reminder 1.13.2</li>
+<li><code>dk.oioubl:statement:1.13.2</code> - OIOUBL Statement 1.13.2</li>
+<li><code>dk.oioubl:utility-statement:1.13.2</code> - OIOUBL Utility Statement 1.13.2</li>
 <li><code>org.peppol.pint.my:creditnote:1</code> - Malaysia PINT Credit Note (UBL) 1.0.0</li>
 <li><code>org.peppol.pint.my:creditnote-self-billing:1</code> - Malaysia PINT Credit Note Self-Billing (UBL) 1.0.0</li>
 <li><code>org.peppol.pint.my:invoice:1</code> - Malaysia PINT Invoice (UBL) 1.0.0</li>
