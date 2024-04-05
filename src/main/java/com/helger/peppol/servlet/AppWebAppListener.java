@@ -103,12 +103,16 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     VendorInfo.setVendorLocation ("Vienna, Austria");
     VendorInfo.setInceptionYear (2014);
 
-    if (!GlobalDebug.isProductionMode ())
+    if (GlobalDebug.isProductionMode ())
     {
-      RequestTrackerSettings.setLongRunningRequestsCheckEnabled (false);
       RequestTrackerSettings.setParallelRunningRequestsCheckEnabled (false);
       // Default is 60
       RequestTrackerSettings.setParallelRunningRequestBarrier (80);
+    }
+    else
+    {
+      RequestTrackerSettings.setLongRunningRequestsCheckEnabled (false);
+      RequestTrackerSettings.setParallelRunningRequestsCheckEnabled (false);
     }
 
     // Allow soft fails for OCSP checks to identify the source of the error
