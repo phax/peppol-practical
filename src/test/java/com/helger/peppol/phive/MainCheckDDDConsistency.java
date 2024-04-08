@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.mutable.MutableInt;
+import com.helger.commons.string.StringHelper;
 import com.helger.ddd.model.DDDValueProviderList;
 import com.helger.ddd.model.DDDValueProviderPerSyntax;
 import com.helger.diver.api.version.VESID;
@@ -37,13 +38,18 @@ public class MainCheckDDDConsistency
     for (final Map.Entry <String, DDDValueProviderPerSyntax> e1 : aVPL.valueProvidersPerSyntaxes ().entrySet ())
     {
       LOGGER.info ("Syntax " + e1.getKey ());
-      e1.getValue ().forEachSelector ( (sf, sv, df, dv) -> {
+      e1.getValue ().forEachSelector ( (src, df, dv) -> {
+        final String sSrcString = StringHelper.imploder ()
+                                              .source (src,
+                                                       x -> x.getSourceField ().name () + "=" + x.getSourceValue ())
+                                              .separator ("; ")
+                                              .build ();
         switch (df)
         {
           case VESID:
             aChecks.inc ();
             final String sVESID = dv;
-            LOGGER.info ("  " + sVESID);
+            LOGGER.info ("  " + sSrcString + " -- " + sVESID);
             if (ExtValidationKeyRegistry.getFromIDOrNull (VESID.parseID (sVESID)) == null)
               throw new IllegalStateException ("VES ID " + sVESID + " is unknown");
             break;
