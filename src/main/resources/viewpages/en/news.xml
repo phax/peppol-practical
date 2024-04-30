@@ -41,6 +41,36 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2024-04-30 - First OpenPeppol conference approaching</h3>
+ 
+    <p>
+      Please follow the link to the conference registration page to book your place:
+      <a href="https://www.eventbrite.be/e/conference-einvoicing-and-ereporting-the-latest-developments-tickets-860959652497" target="_blank">https://www.eventbrite.be/e/conference-einvoicing-and-ereporting-the-latest-developments-tickets-860959652497</a><br />
+    </p>
+    <p>
+      The conference programme has been updated as new speakers have been confirmed.
+      The latest programme is attached, and will continue be updated on the Peppol website here:
+      <a href="https://peppol.org/news/conference-program-einvoicing-and-ereporting-may-2024/" target="_blank">https://peppol.org/news/conference-program-einvoicing-and-ereporting-may-2024/</a>
+    </p>
+
+    <h3>2024-04-24 - phoss SMP 7.1.2</h3>
+
+    <p>
+      phoss SMP 7.1.2 was released. It supports the Peppol SMP specification 1.3.0 and the Peppol Code Lists v8.8.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-7.1.2">Download phoss SMP 7.1.2</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
+    <h3>2024-04-22 - Updated Peppol eDEC specifications</h3>
+    
+    <p>
+      OpenPeppol today released the eDEC Code Lists v8.8 were released.
+      All details as usual on <a href="https://docs.peppol.eu/edelivery/" target="_blank">https://docs.peppol.eu/edelivery/</a>.
+    </p>
+
     <h3>2024-03-29 - Document Validation extended</h3>
  
     <p>

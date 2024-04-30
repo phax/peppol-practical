@@ -415,7 +415,7 @@ public final class AppCommonUI
   private static IHCNode _createFormattedID (@Nonnull final String sID,
                                              @Nullable final String sName,
                                              @Nullable final EBootstrapBadgeType eType,
-                                             final boolean bIsDeprecated,
+                                             @Nullable final IHCNode aWarningsNode,
                                              final boolean bInDetails)
   {
     if (sName == null)
@@ -428,10 +428,9 @@ public final class AppCommonUI
 
     final HCNodeList ret = new HCNodeList ();
     ret.addChild (new BootstrapBadge (eType).addChild (sName));
-    if (bIsDeprecated)
+    if (aWarningsNode != null)
     {
-      ret.addChild (" ")
-         .addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Identifier is deprecated"));
+      ret.addChild (" ").addChild (aWarningsNode);
     }
     if (bInDetails)
     {
@@ -446,11 +445,22 @@ public final class AppCommonUI
                                     final boolean bInDetails)
   {
     if (aNiceName == null)
-      return _createFormattedID (sID, null, null, false, bInDetails);
+      return _createFormattedID (sID, null, null, null, bInDetails);
+
+    final HCNodeList aWarnings = new HCNodeList ();
+    if (aNiceName.isDeprecated ())
+      aWarnings.addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild ("Identifier is deprecated"));
+    if (StringHelper.hasText (aNiceName.getWarning ()))
+    {
+      if (aWarnings.hasChildren ())
+        aWarnings.addChild (" ");
+      aWarnings.addChild (new BootstrapBadge (EBootstrapBadgeType.WARNING).addChild (aNiceName.getWarning ()));
+    }
+
     return _createFormattedID (sID,
                                aNiceName.getName (),
                                EBootstrapBadgeType.SUCCESS,
-                               aNiceName.isDeprecated (),
+                               aWarnings.hasChildren () ? aWarnings : null,
                                bInDetails);
   }
 
@@ -463,7 +473,10 @@ public final class AppCommonUI
         PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD.equals (aDocTypeID.getScheme ()))
     {
       // TODO make this nicer when official
-      aNiceName = new NiceNameEntry ("PINT Document Type", false, null);
+      aNiceName = new NiceNameEntry ("PINT Document Type",
+                                     false,
+                                     null,
+                                     sURI.indexOf ('*') > 0 ? null : "The required star is missing in the ID");
     }
     return _createID (sURI, aNiceName, bInDetails);
   }
@@ -484,10 +497,10 @@ public final class AppCommonUI
     if (aNN != null)
     {
       if (aNN.containsProcessID (aProcessID))
-        return _createFormattedID (sURI, "Matching Process Identifier", EBootstrapBadgeType.SUCCESS, false, bInDetails);
-      return _createFormattedID (sURI, "Unexpected Process Identifier", EBootstrapBadgeType.WARNING, false, bInDetails);
+        return _createFormattedID (sURI, "Matching Process Identifier", EBootstrapBadgeType.SUCCESS, null, bInDetails);
+      return _createFormattedID (sURI, "Unexpected Process Identifier", EBootstrapBadgeType.WARNING, null, bInDetails);
     }
-    return _createFormattedID (sURI, null, null, false, bInDetails);
+    return _createFormattedID (sURI, null, null, null, bInDetails);
   }
 
   @Nonnull
