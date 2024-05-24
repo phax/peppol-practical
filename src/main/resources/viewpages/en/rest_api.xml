@@ -143,6 +143,7 @@
 <p>
   To retrieve all endpoints of an SMP participant for a single document type.
   This API gives you AS4 and other endpoints.<br />
+  Note: this API also supports querying for Peppol wildcard when using scheme <code>peppol-doctype-wildcard</code>.<br />
   Note: please see <a href="https://github.com/phax/smp-query-webapp">https://github.com/phax/smp-query-webapp</a> if you want to run this in production on-site.
 </p>
 

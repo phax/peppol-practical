@@ -45,11 +45,13 @@ import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.bdxr2.BDXR2ClientReadOnly;
 import com.helger.smpclient.json.SMPJsonResponse;
+import com.helger.smpclient.peppol.PeppolWildcardSelector.EMode;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -159,8 +161,11 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
 
-        final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID,
-                                                                                                                aDocTypeID);
+        final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM;
+        if (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD.equals (aDocTypeID.getScheme ()))
+          aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aParticipantID, aDocTypeID, EMode.BUSDOX_THEN_WILDCARD);
+        else
+          aSSM = aSMPClient.getServiceMetadataOrNull (aParticipantID, aDocTypeID);
         if (aSSM != null)
         {
           final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();

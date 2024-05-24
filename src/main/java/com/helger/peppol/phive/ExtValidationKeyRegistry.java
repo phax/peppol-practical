@@ -59,6 +59,7 @@ import com.helger.phive.ublbe.UBLBEValidation;
 import com.helger.phive.xml.source.IValidationSourceXML;
 import com.helger.phive.xrechnung.XRechnungValidation;
 
+@SuppressWarnings ("deprecation")
 @Immutable
 public final class ExtValidationKeyRegistry
 {

@@ -43,7 +43,7 @@ import com.helger.peppolid.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifie
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PredefinedDocumentTypeIdentifierManager;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
-import com.helger.peppolid.peppol.pidscheme.IParticipantIdentifierScheme;
+import com.helger.peppolid.peppol.pidscheme.IPeppolParticipantIdentifierScheme;
 import com.helger.peppolid.peppol.pidscheme.ParticipantIdentifierSchemeManager;
 import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PredefinedProcessIdentifierManager;
@@ -200,7 +200,7 @@ public enum EIDType implements IHasID <String>, IHasDisplayName
                                       "'"));
             else
             {
-              final IParticipantIdentifierScheme aPredefined = ParticipantIdentifierSchemeManager.getSchemeOfISO6523Code (sIssuingAgency);
+              final IPeppolParticipantIdentifierScheme aPredefined = ParticipantIdentifierSchemeManager.getSchemeOfISO6523Code (sIssuingAgency);
               if (aPredefined == null)
                 aErrorList.add (_error ("The issuing agency '" +
                                         sIssuingAgency +
