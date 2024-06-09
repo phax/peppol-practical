@@ -26,8 +26,8 @@
 <p>Other software lists:</p>
 <ul>
   <li>OpenPeppol: <a href="https://peppol.eu/downloads/peppolimplementations/">Links to Software for Peppol Implementations</a></li>
-  <li>CEF: <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/CEFDIGITAL/eDelivery+AS4+conformant+solutions">eDelivery AS4 conformant solutions</a></li>
-  <li>CEF: <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/CEFDIGITAL/OASIS+SMP+conformant+solutions">OASIS SMP conformant solutions</a></li>
+  <li>CEF: <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eDelivery+AS4+conformant+solutions">eDelivery AS4 conformant solutions</a></li>
+  <li>CEF: <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/OASIS+SMP+conformant+solutions">OASIS SMP conformant solutions</a></li>
 </ul>
 
 <a name="as4"></a>
@@ -36,8 +36,8 @@
 <p>This chapter deals with AS4 solutions only.</p>
 
 <ul>
-  <li><strong>AS4.NET</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse">https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse</a> - the only .NET based Open Source implementation we are aware of.</li>
-  <li><strong>Domibus</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/CEFDIGITAL/Domibus">https://ec.europa.eu/digital-building-blocks/wikis/display/CEFDIGITAL/Domibus</a> - Java based. Requires some extra package on dynamic discovery to be able to work with Peppol.</li>
+  <li><strong>AS4.NET</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse">https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse</a> - the only .NET based Open Source implementation we are aware of. Not maintained for a long time. Does not contain Peppol-specifics.</li>
+  <li><strong>Domibus</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/Domibus">https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/Domibus</a> - Java based. Requires some extra package on dynamic discovery to be able to work with Peppol.</li>
   <li><strong>Holodeck</strong> [Open Source] - <a href="http://holodeck-b2b.org/download/">http://holodeck-b2b.org/download/</a> - Java based. Requires some additional Peppol package that is not free.</li>
   <li><strong>Oxalis</strong> [Open Source] - <a href="https://github.com/OxalisCommunity/Oxalis-AS4">https://github.com/OxalisCommunity/Oxalis-AS4</a> - Java based. Needs to be integrated into Oxalis.</li>
   <li><strong>phase4</strong> [Open Source] - <a href="https://github.com/phax/phase4">https://github.com/phax/phase4</a> - Java based. Is a library and needs local integration.</li>

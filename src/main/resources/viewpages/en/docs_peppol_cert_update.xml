@@ -177,7 +177,7 @@
   <span class="badge badge-info">Note:</span> you need to manually update your SMP certificate in your SMP software at exactly the date you specified in that update request, otherwise you won't be able to perform changes in the SML.
 </p>
 <p>
-  If your certificate is already expired, you need to contact <a href="/public/menuitem-docs-sml-support">CEF support</a>
+  If your certificate is already expired, you need to contact <a href="/public/menuitem-docs-sml-support">EC eDelivery support</a>
   and provide the following information: old certificate subject and certificate serial number as well as
   the new certificate file (PEM encoded, should start with <code>-----BEGIN CERTIFICATE-----</code> and end with <code>-----END CERTIFICATE-----</code>).<br />
   <span class="badge badge-info">Note:</span> you may already update your SMP software with the new certificate, because the old certificate is anyway useless.<br />

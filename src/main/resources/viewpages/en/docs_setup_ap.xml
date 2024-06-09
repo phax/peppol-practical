@@ -41,7 +41,7 @@
       It is an Open Source project written in Java.
       It supports Peppol specific AS4 but comes without professional support.
       Especially the interoperability of the AS4 implementation is not good as they passed the 
-      <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery+AS4+conformant+solutions">CEF conformance test</a> only partially.  
+      <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eDelivery+AS4+conformant+solutions">EC conformance test</a> only partially.  
     </li>
     <li>
       The solution described in this document is <a href="https://github.com/phax/phase4">phase4</a> 
@@ -103,7 +103,7 @@
 <p>
   The <a href="https://docs.peppol.eu/edelivery/as4/specification/">Peppol AS4 profile</a> 
   is based on the 
-  <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery+AS4+-+1.14">CEF eDelivery AS4 1.14 profile</a>
+  <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eDelivery+AS4+-+1.14">CEF eDelivery AS4 1.14 profile</a>
   which in turn is a (non-perfect) profile of the
   <a href="https://docs.oasis-open.org/ebxml-msg/ebms/v3.0/profiles/AS4-profile/v1.0/">OASIS AS4 profile v1.0</a>
   which (you guessed it) is a profile of the

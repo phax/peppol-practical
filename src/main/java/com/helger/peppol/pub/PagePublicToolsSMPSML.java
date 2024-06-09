@@ -937,7 +937,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.addChild (info ().addChildren (div ("Prepare the update of your Peppol SMP certificate in the future."),
                                              div ("This works only if your SMP certificate is NOT expired yet." +
                                                   " If your SMP certificate is already expired contact EC-EDELIVERY-SUPPORT@ec.europa.eu with your SMP ID, the new certificate and the requested exchange date!"),
-                                             div ("Note: this is a custom extension that only works with the CEF SML instances!")));
+                                             div ("Note: this is a custom extension that only works with the EC SML instances!")));
         aForm.addChild (warn ("It is your responsibility to update the Peppol certificate in your SMP at the specified time!"));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID),

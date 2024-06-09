@@ -233,9 +233,8 @@ public final class PagePublicContact extends AbstractAppWebPage
       aSelect.addOption ("SML/SMK");
       aSelect.addOption ("SMP");
       aSelect.addOption ("AccessPoint (AP)/AS4");
-      aSelect.addOption ("Validation");
+      aSelect.addOption ("Document Validation");
       aSelect.addOption ("Peppol Directory");
-      aSelect.addOption ("CEF");
       aSelect.addOption ("General question");
       aSelect.addOptionPleaseSelect (aDisplayLocale);
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Topic")
