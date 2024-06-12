@@ -74,7 +74,7 @@ public class PagePublicToolsParticipantCheck extends AbstractAppWebPage
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final IParticipantIdentifier aPID = aSMPQueryParams.getParticipantID ();
 
-    final boolean bFoundAny = SMPQueryParams.isParticipantRegistered (aSMPQueryParams);
+    final boolean bFoundAny = aSMPQueryParams.isSMPRegisteredInDNS ();
     if (bFoundAny)
     {
       aNodeList.addChild (success ("The Peppol Participant ID ").addChild (code (aPID.getURIEncoded ()))

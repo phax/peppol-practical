@@ -16,8 +16,6 @@
  */
 package com.helger.peppol.rest;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -80,24 +78,17 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
     final ZonedDateTime aQueryDT = PDTFactory.getCurrentZonedDateTimeUTC ();
     final StopWatch aSW = StopWatch.createdStarted ();
 
-    SMPQueryParams aQueryParams = null;
+    SMPQueryParams aSMPQueryParams = null;
     if (bSMLAutoDetect)
     {
       for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
       {
-        aQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, aPID.getScheme (), aPID.getValue (), false);
-        if (aQueryParams == null)
-          continue;
-        try
+        aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, aPID.getScheme (), aPID.getValue (), false);
+        if (aSMPQueryParams != null && aSMPQueryParams.isSMPRegisteredInDNS ())
         {
-          InetAddress.getByName (aQueryParams.getSMPHostURI ().getHost ());
           // Found it
           aSML = aCurSML;
           break;
-        }
-        catch (final UnknownHostException ex)
-        {
-          // continue
         }
       }
 
@@ -110,30 +101,30 @@ public final class APISMPQueryGetBusinessCard extends AbstractAPIExecutor
     }
     else
     {
-      aQueryParams = SMPQueryParams.createForSMLOrNull (aSML, aPID.getScheme (), aPID.getValue (), true);
+      aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSML, aPID.getScheme (), aPID.getValue (), true);
     }
-    if (aQueryParams == null)
+    if (aSMPQueryParams == null)
       throw new APIParamException ("Failed to resolve participant ID '" +
                                    sParticipantID +
                                    "' for the provided SML '" +
                                    aSML.getID () +
                                    "'");
 
-    final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
+    final IParticipantIdentifier aParticipantID = aSMPQueryParams.getParticipantID ();
     final String sLogPrefix = "[API] ";
 
     LOGGER.info (sLogPrefix +
                  "BusinessCard of '" +
                  aParticipantID.getURIEncoded () +
                  "' is queried using SMP API '" +
-                 aQueryParams.getSMPAPIType () +
+                 aSMPQueryParams.getSMPAPIType () +
                  "' from '" +
-                 aQueryParams.getSMPHostURI () +
+                 aSMPQueryParams.getSMPHostURI () +
                  "' using SML '" +
                  aSML +
                  "'");
 
-    final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
+    final String sBCURL = aSMPQueryParams.getSMPHostURI ().toString () +
                           "/businesscard/" +
                           aParticipantID.getURIEncoded ();
     LOGGER.info (sLogPrefix + "Querying BC from '" + sBCURL + "'");

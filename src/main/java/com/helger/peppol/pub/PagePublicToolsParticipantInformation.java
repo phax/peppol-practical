@@ -37,6 +37,7 @@ import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
+import org.xbill.DNS.AAAARecord;
 import org.xbill.DNS.ARecord;
 import org.xbill.DNS.Lookup;
 import org.xbill.DNS.Record;
@@ -343,20 +344,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                                                sParticipantIDScheme,
                                                                sParticipantIDValue,
                                                                false);
-          if (aSMPQueryParams == null)
-            continue;
-
-          try
+          if (aSMPQueryParams != null && aSMPQueryParams.isSMPRegisteredInDNS ())
           {
-            // Use system default DNS lookup
-            InetAddress.getByName (aSMPQueryParams.getSMPHostURI ().getHost ());
             // Found it
             aRealSMLConfiguration = aCurSML;
             break;
-          }
-          catch (final UnknownHostException ex)
-          {
-            // continue
           }
         }
 
@@ -455,7 +447,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           Record [] aRecords = null;
           try
           {
+            // First IPv4 then IPv6
             aRecords = new Lookup (aSMPHost.getHost (), Type.A).run ();
+            if (aRecords == null)
+              aRecords = new Lookup (aSMPHost.getHost (), Type.AAAA).run ();
           }
           catch (final TextParseException ex)
           {
@@ -464,10 +459,20 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           if (aRecords != null)
             for (final Record aRecord : aRecords)
             {
-              final ARecord aARec = (ARecord) aRecord;
-              final String sURL2 = aARec.rdataToString ();
-              final InetAddress aNice = aARec.getAddress ();
-              final String sURL3 = aNice != null ? aNice.getCanonicalHostName () : null;
+              final String sURL2 = aRecord.rdataToString ();
+              final String sURL3;
+              if (aRecord instanceof ARecord)
+              {
+                final ARecord aARec = (ARecord) aRecord;
+                final InetAddress aNice = aARec.getAddress ();
+                sURL3 = aNice != null ? aNice.getCanonicalHostName () : null;
+              }
+              else
+              {
+                final AAAARecord aARec = (AAAARecord) aRecord;
+                final InetAddress aNice = aARec.getAddress ();
+                sURL3 = aNice != null ? aNice.getCanonicalHostName () : null;
+              }
 
               final HCDiv aDiv1 = div ("[dnsjava] IP address: ").addChild (code (sURL2));
               if (sURL3 != null)

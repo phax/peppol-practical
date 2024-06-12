@@ -16,7 +16,9 @@
  */
 package com.helger.peppol.domain;
 
+import java.net.InetAddress;
 import java.net.URI;
+import java.net.UnknownHostException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -86,6 +88,79 @@ public final class SMPQueryParams
     return m_bTrustAllCerts;
   }
 
+  private boolean _isSMPRegisteredInDNSViaInetAddress ()
+  {
+    // Extract host part
+    final String sHost = m_aSMPHostURI.getHost ();
+
+    LOGGER.info ("Checking for existance of '" + m_aParticipantID.getURIEncoded () + "' in DNS via '" + sHost + "'");
+    try
+    {
+      // Use system default DNS lookup
+      InetAddress.getByName (sHost);
+      // Found it
+      return true;
+    }
+    catch (final UnknownHostException ex)
+    {
+      return false;
+    }
+  }
+
+  private boolean _isSMPRegisteredInDNSViaDnsJava ()
+  {
+    // Extract host part
+    final String sHost = m_aSMPHostURI.getHost ();
+
+    LOGGER.info ("Checking for existance of '" + m_aParticipantID.getURIEncoded () + "' in DNS via '" + sHost + "'");
+
+    // Convert to structured host name
+    Name aParsedName = null;
+    try
+    {
+      aParsedName = Name.fromString (sHost);
+    }
+    catch (final TextParseException ex)
+    {
+      // ignore
+    }
+
+    // Check IP v4 and IP v6
+    Record [] aRecords = new Lookup (aParsedName, Type.A).run ();
+    if (aRecords == null)
+      aRecords = new Lookup (aParsedName, Type.AAAA).run ();
+
+    boolean bFoundAny = false;
+    if (aRecords != null)
+      for (final Record aRecord : aRecords)
+        if (aRecord instanceof ARecord)
+        {
+          // IP v4
+          final ARecord aSpecificRec = (ARecord) aRecord;
+          final String sResolvedIP = aSpecificRec.rdataToString ();
+          LOGGER.info ("[A] --> '" + sResolvedIP + "'");
+          bFoundAny = true;
+        }
+        else
+          if (aRecord instanceof AAAARecord)
+          {
+            // IP v6
+            final AAAARecord aSpecificRec = (AAAARecord) aRecord;
+            final String sResolvedIP = aSpecificRec.rdataToString ();
+            LOGGER.info ("[AAAA] --> '" + sResolvedIP + "'");
+            bFoundAny = true;
+          }
+
+    return bFoundAny;
+  }
+
+  public boolean isSMPRegisteredInDNS ()
+  {
+    if (false)
+      return _isSMPRegisteredInDNSViaInetAddress ();
+    return _isSMPRegisteredInDNSViaDnsJava ();
+  }
+
   @Nonnull
   private static ISMPURLProvider _getURLProvider (@Nonnull final ESMPAPIType eAPIType)
   {
@@ -125,54 +200,5 @@ public final class SMPQueryParams
       return null;
     }
     return ret;
-  }
-
-  public static boolean isParticipantRegistered (@Nonnull final SMPQueryParams aSMPQueryParams)
-  {
-    final String sHost = aSMPQueryParams.getSMPHostURI ().getHost ();
-
-    LOGGER.info ("Checking for existance of '" +
-                 aSMPQueryParams.getParticipantID ().getURIEncoded () +
-                 "' in DNS via '" +
-                 sHost +
-                 "'");
-
-    Name aParsedName = null;
-    try
-    {
-      aParsedName = Name.fromString (sHost);
-    }
-    catch (final TextParseException ex)
-    {
-      // ignore
-    }
-
-    // Check IP v4 and IP v6
-    Record [] aRecords = new Lookup (aParsedName, Type.A).run ();
-    if (aRecords == null)
-      aRecords = new Lookup (aParsedName, Type.AAAA).run ();
-
-    boolean bFoundAny = false;
-    if (aRecords != null)
-      for (final Record aRecord : aRecords)
-        if (aRecord instanceof ARecord)
-        {
-          // IP v4
-          final ARecord aARec = (ARecord) aRecord;
-          final String sResolvedIP = aARec.rdataToString ();
-          LOGGER.info ("[A] --> '" + sResolvedIP + "'");
-          bFoundAny = true;
-        }
-        else
-          if (aRecord instanceof AAAARecord)
-          {
-            // IP v6
-            final AAAARecord aARec = (AAAARecord) aRecord;
-            final String sResolvedIP = aARec.rdataToString ();
-            LOGGER.info ("[AAAA] --> '" + sResolvedIP + "'");
-            bFoundAny = true;
-          }
-
-    return bFoundAny;
   }
 }

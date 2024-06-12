@@ -16,8 +16,6 @@
  */
 package com.helger.peppol.rest;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -90,24 +88,17 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
     final ZonedDateTime aQueryDT = PDTFactory.getCurrentZonedDateTimeUTC ();
     final StopWatch aSW = StopWatch.createdStarted ();
 
-    SMPQueryParams aQueryParams = null;
+    SMPQueryParams aSMPQueryParams = null;
     if (bSMLAutoDetect)
     {
       for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
       {
-        aQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, aPID.getScheme (), aPID.getValue (), false);
-        if (aQueryParams == null)
-          continue;
-        try
+        aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, aPID.getScheme (), aPID.getValue (), false);
+        if (aSMPQueryParams != null && aSMPQueryParams.isSMPRegisteredInDNS ())
         {
-          InetAddress.getByName (aQueryParams.getSMPHostURI ().getHost ());
           // Found it
           aSML = aCurSML;
           break;
-        }
-        catch (final UnknownHostException ex)
-        {
-          // continue
         }
       }
 
@@ -120,23 +111,23 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
     }
     else
     {
-      aQueryParams = SMPQueryParams.createForSMLOrNull (aSML, aPID.getScheme (), aPID.getValue (), true);
+      aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSML, aPID.getScheme (), aPID.getValue (), true);
     }
-    if (aQueryParams == null)
+    if (aSMPQueryParams == null)
       throw new APIParamException ("Failed to resolve participant ID '" +
                                    sParticipantID +
                                    "' for the provided SML '" +
                                    aSML.getID () +
                                    "'");
 
-    final IParticipantIdentifier aParticipantID = aQueryParams.getParticipantID ();
+    final IParticipantIdentifier aParticipantID = aSMPQueryParams.getParticipantID ();
 
     LOGGER.info ("[API] Document types of '" +
                  aParticipantID.getURIEncoded () +
                  "' are queried using SMP API '" +
-                 aQueryParams.getSMPAPIType () +
+                 aSMPQueryParams.getSMPAPIType () +
                  "' from '" +
-                 aQueryParams.getSMPHostURI () +
+                 aSMPQueryParams.getSMPHostURI () +
                  "' using SML '" +
                  aSML.getID () +
                  "'; XSD validation=" +
@@ -145,11 +136,11 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
                  bVerifySignature);
 
     ICommonsSortedMap <String, String> aSGHrefs = null;
-    switch (aQueryParams.getSMPAPIType ())
+    switch (aSMPQueryParams.getSMPAPIType ())
     {
       case PEPPOL:
       {
-        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aQueryParams.getSMPHostURI ());
+        final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPQueryParams.getSMPHostURI ());
         aSMPClient.setSecureValidation (false);
         aSMPClient.withHttpClientSettings (SMP_HCS_MODIFIER);
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
@@ -175,7 +166,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
       case OASIS_BDXR_V1:
       {
         aSGHrefs = new CommonsTreeMap <> ();
-        final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aQueryParams.getSMPHostURI ());
+        final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aSMPQueryParams.getSMPHostURI ());
         aBDXR1Client.setSecureValidation (false);
         aBDXR1Client.withHttpClientSettings (SMP_HCS_MODIFIER);
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
@@ -203,10 +194,10 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
     IJsonObject aJson = null;
     if (aSGHrefs != null)
     {
-      aJson = SMPJsonResponseExt.convert (aQueryParams.getSMPAPIType (),
+      aJson = SMPJsonResponseExt.convert (aSMPQueryParams.getSMPAPIType (),
                                           aParticipantID,
                                           aSGHrefs,
-                                          aQueryParams.getIF ());
+                                          aSMPQueryParams.getIF ());
     }
 
     if (bQueryBusinessCard)
@@ -214,7 +205,7 @@ public final class APISMPQueryGetDocTypes extends AbstractAPIExecutor
       final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
       SMP_HCS_MODIFIER.accept (aHCS);
 
-      final String sBCURL = aQueryParams.getSMPHostURI ().toString () +
+      final String sBCURL = aSMPQueryParams.getSMPHostURI ().toString () +
                             "/businesscard/" +
                             aParticipantID.getURIEncoded ();
       LOGGER.info ("[API] Querying BC from '" + sBCURL + "'");
