@@ -55,6 +55,9 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
 {
+  public static final String PARAM_VERIFY_SIGNATURE = "verifySignature";
+  public static final String PARAM_XML_SCHEMA_VALIDATION = "xmlSchemaValidation";
+
   private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetServiceInformation.class);
 
   @Override
@@ -81,8 +84,8 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
     if (aDTID == null)
       throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
-    final boolean bXMLSchemaValidation = aRequestScope.params ().getAsBoolean ("xmlSchemaValidation", true);
-    final boolean bVerifySignature = aRequestScope.params ().getAsBoolean ("verifySignature", true);
+    final boolean bXMLSchemaValidation = aRequestScope.params ().getAsBoolean (PARAM_XML_SCHEMA_VALIDATION, true);
+    final boolean bVerifySignature = aRequestScope.params ().getAsBoolean (PARAM_VERIFY_SIGNATURE, true);
 
     final ZonedDateTime aQueryDT = PDTFactory.getCurrentZonedDateTimeUTC ();
     final StopWatch aSW = StopWatch.createdStarted ();
