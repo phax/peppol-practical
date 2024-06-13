@@ -128,10 +128,14 @@ public final class SMPQueryParams
     // Check IP v4 and IP v6
     Record [] aRecords = new Lookup (aParsedName, Type.A).run ();
     if (aRecords == null)
+    {
+      LOGGER.info ("Found no A record. Checking for AAAA record now.");
       aRecords = new Lookup (aParsedName, Type.AAAA).run ();
+    }
 
     boolean bFoundAny = false;
     if (aRecords != null)
+    {
       for (final Record aRecord : aRecords)
         if (aRecord instanceof ARecord)
         {
@@ -150,14 +154,23 @@ public final class SMPQueryParams
             LOGGER.info ("[AAAA] --> '" + sResolvedIP + "'");
             bFoundAny = true;
           }
+    }
+    else
+      LOGGER.warn ("Found neither A nor AAAA record");
 
     return bFoundAny;
   }
 
   public boolean isSMPRegisteredInDNS ()
   {
-    if (false)
+    if (true)
+    {
+      // Internal caching is quite good and subsequent calls only take ~1ms
       return _isSMPRegisteredInDNSViaInetAddress ();
+    }
+
+    // This takes 25 seconds on the first call and doesn't deliver a result
+    // Also afterwards, it takes a bit longer
     return _isSMPRegisteredInDNSViaDnsJava ();
   }
 
