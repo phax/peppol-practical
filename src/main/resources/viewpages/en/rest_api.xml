@@ -30,6 +30,7 @@
   <li><a href="#smpserviceinfo">SMP query all endpoints of a participant for a certain document type</a></li>
   <li><a href="#smpbusinesscard">SMP query the Business Card of a participant</a></li>
   <li><a href="#cii2ubl">Convert EN 16931 CII to EN 16931 UBL documents</a></li>
+  <li><a href="#ppidexistance">Check if a participant is registered in the Peppol Network</a></li>
 </ul>
 
 <h2>Base parameters</h2>
@@ -348,4 +349,38 @@
   &lt;cbc:IssueDate&gt;2013-06-30&lt;/cbc:IssueDate&gt;
   &lt;!-- details omitted for readability --&gt;
 &lt;/Invoice&gt;
+</pre>
+
+<!-- ######################## -->
+<a name="ppidexistance"></a>
+<h2 class="mt-2">API: <small class="text-muted">Check if a participant is registered in the Peppol Network</small></h2>
+
+<div>
+  <strong>HTTP method:</strong>
+  <code>GET</code>
+</div>
+<div>
+  <strong>URL layout:</strong>
+  <code>/ppidexistance/<em>SML-ID</em>/<em>participant-ID</em></code>
+</div>
+<div class="pl-4">
+  <code>SML-ID</code> is the SML identifier mentioned above.<br />
+  <code>participant-ID</code> is the URL encoded participant identifier to be queried (e.g. <code>iso6523-actorid-upis%3a%3a9915%3atest</code>)
+</div>
+
+<p class="mt-2">
+  <strong>Example URL:</strong>
+  <a href="/api/ppidexistance/digittest/iso6523-actorid-upis%3a%3a9915%3ahelger" target="_blank">/ppidexistance/digittest/iso6523-actorid-upis%3a%3a9915%3ahelger</a>
+</p>
+
+<p><strong>Example Response:</strong></p>
+<pre>
+{
+    "participantID": "iso6523-actorid-upis::9915:helger",
+    "sml": "digittest",
+    "smpHostURI": "http://B-297f5399d9cfcd22495c7e8ce7015132.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    "exists": true,
+    "queryDateTime": "2024-06-14T10:00:20.6907058Z",
+    "queryDurationMillis": 1
+}
 </pre>
