@@ -30,7 +30,7 @@
   <li><a href="#smpserviceinfo">SMP query all endpoints of a participant for a certain document type</a></li>
   <li><a href="#smpbusinesscard">SMP query the Business Card of a participant</a></li>
   <li><a href="#cii2ubl">Convert EN 16931 CII to EN 16931 UBL documents</a></li>
-  <li><a href="#ppidexistance">Check if a participant is registered in the Peppol Network</a></li>
+  <li><a href="#ppidexistence">Check if a participant is registered in the Peppol Network</a></li>
 </ul>
 
 <h2>Base parameters</h2>
@@ -352,7 +352,7 @@
 </pre>
 
 <!-- ######################## -->
-<a name="ppidexistance"></a>
+<a name="ppidexistence"></a>
 <h2 class="mt-2">API: <small class="text-muted">Check if a participant is registered in the Peppol Network</small></h2>
 
 <div>
@@ -361,16 +361,16 @@
 </div>
 <div>
   <strong>URL layout:</strong>
-  <code>/ppidexistance/<em>SML-ID</em>/<em>participant-ID</em></code>
+  <code>/ppidexistence/<em>SML-ID</em>/<em>participant-ID</em></code>
 </div>
 <div class="pl-4">
-  <code>SML-ID</code> is the SML identifier mentioned above.<br />
+  <code>SML-ID</code> is the SML identifier mentioned above. Note: <code>autodetect</code> is not supported for this API.<br />
   <code>participant-ID</code> is the URL encoded participant identifier to be queried (e.g. <code>iso6523-actorid-upis%3a%3a9915%3atest</code>)
 </div>
 
 <p class="mt-2">
   <strong>Example URL:</strong>
-  <a href="/api/ppidexistance/digittest/iso6523-actorid-upis%3a%3a9915%3ahelger" target="_blank">/ppidexistance/digittest/iso6523-actorid-upis%3a%3a9915%3ahelger</a>
+  <a href="/api/ppidexistence/digittest/iso6523-actorid-upis%3a%3a9915%3ahelger" target="_blank">/ppidexistence/digittest/iso6523-actorid-upis%3a%3a9915%3ahelger</a>
 </p>
 
 <p><strong>Example Response:</strong></p>

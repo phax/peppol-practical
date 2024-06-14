@@ -45,9 +45,9 @@ import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APIQueryParticipantExistance extends AbstractAPIExecutor
+public final class APIQueryParticipantExistence extends AbstractAPIExecutor
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (APIQueryParticipantExistance.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (APIQueryParticipantExistence.class);
 
   @Override
   protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,

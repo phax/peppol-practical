@@ -73,12 +73,12 @@ public final class PPAPI
     }
 
     {
-      final APIDescriptor aSMPQueryBusinessCard = new APIDescriptor (APIPath.get ("/ppidexistance/{" +
+      final APIDescriptor aSMPQueryBusinessCard = new APIDescriptor (APIPath.get ("/ppidexistence/{" +
                                                                                   PARAM_SML_ID +
                                                                                   "}/{" +
                                                                                   PARAM_PARTICIPANT_ID +
                                                                                   "}"),
-                                                                     new APIQueryParticipantExistance ());
+                                                                     new APIQueryParticipantExistence ());
       aSMPQueryBusinessCard.setExceptionMapper (aExceptionMapper);
       aAPIRegistry.registerAPI (aSMPQueryBusinessCard);
     }

@@ -41,6 +41,13 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2024-06-14 - Extended REST API</h3>
+    
+    <p>
+      Added a new REST API to check for the existence of a participant on the Peppol Network
+      See <a href="/public/menuitem-tools-rest-api#ppidexistence">the REST API page</a> for details.
+    </p>
+
     <h3>2024-05-24 - Document Validation extended</h3>
  
     <p>
