@@ -97,6 +97,34 @@
       </td>
     </tr>
     <tr>
+      <td>C1</td>
+      <td>Corner 1</td>
+      <td>
+        The "Sending End User" is Corner 1 in the 4 Corner Model.
+      </td>
+    </tr>
+    <tr>
+      <td>C2</td>
+      <td>Corner 2</td>
+      <td>
+        The "Sending End User's Service Provider" is Corner 2 in the 4 Corner Model.
+      </td>
+    </tr>
+    <tr>
+      <td>C3</td>
+      <td>Corner 3</td>
+      <td>
+        The "Receiving End User's Service Provider" is Corner 3 in the 4 Corner Model.
+      </td>
+    </tr>
+    <tr>
+      <td>C4</td>
+      <td>Corner 4</td>
+      <td>
+        The "Receiving End User" is Corner 4 in the 4 Corner Model.
+      </td>
+    </tr>
+    <tr>
       <td>CC</td>
       <td>Coordinating Community</td>
       <td>
