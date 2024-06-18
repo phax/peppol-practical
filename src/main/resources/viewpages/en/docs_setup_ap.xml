@@ -37,9 +37,9 @@
       Supports for Peppol dynamic discovery is not Open Source.
     </li>
     <li>
-      <a href="https://github.com/difi/oxalis">Oxalis</a> is a prebuild solution.
+      <a href="https://github.com/OxalisCommunity/oxalis">Oxalis</a> is a prebuild solution.
       It is an Open Source project written in Java.
-      It supports Peppol specific AS4 but comes without professional support.
+      It supports primarily Peppol specific AS4.
       Especially the interoperability of the AS4 implementation is not good as they passed the 
       <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eDelivery+AS4+conformant+solutions">EC conformance test</a> only partially.  
     </li>
