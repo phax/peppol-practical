@@ -101,6 +101,7 @@ import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.rest.AbstractAPIExecutor;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.smp.ESMPTransportProfileState;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLConfigurationSelect;
@@ -116,6 +117,7 @@ import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
+import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
@@ -253,7 +255,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     if (eTransportProfile != null)
     {
       // Known transport profile
-      aDiv.addChild (badgeSuccess (eTransportProfile.getName ()))
+      final ESMPTransportProfileState eState = eTransportProfile.getState ();
+      aDiv.addChild (badge ().setBadgeType (eState.isDeleted () ? EBootstrapBadgeType.DANGER
+                                                                : eState.isDeprecated () ? EBootstrapBadgeType.WARNING
+                                                                                         : EBootstrapBadgeType.SUCCESS)
+                             .addChild (eTransportProfile.getName ()))
           .addChild (small (" (").addChild (code (sTransportProfile)).addChild (")"));
     }
     else
