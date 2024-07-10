@@ -115,9 +115,9 @@ import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.photon.audit.AuditHelper;
+import com.helger.photon.bootstrap4.CBootstrapCSS;
 import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
 import com.helger.photon.bootstrap4.alert.BootstrapWarnBox;
-import com.helger.photon.bootstrap4.badge.EBootstrapBadgeType;
 import com.helger.photon.bootstrap4.button.BootstrapLinkButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonSize;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
@@ -256,11 +256,17 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     {
       // Known transport profile
       final ESMPTransportProfileState eState = eTransportProfile.getState ();
-      aDiv.addChild (badge ().setBadgeType (eState.isDeleted () ? EBootstrapBadgeType.DANGER
-                                                                : eState.isDeprecated () ? EBootstrapBadgeType.WARNING
-                                                                                         : EBootstrapBadgeType.SUCCESS)
-                             .addChild (eTransportProfile.getName ()))
-          .addChild (small (" (").addChild (code (sTransportProfile)).addChild (")"));
+      if (eState.isDeleted ())
+        aDiv.addChild (badgeDanger ().addChild (eTransportProfile.getName ()))
+            .addChild (badgeDanger ("Identifier is removed").addClass (CBootstrapCSS.ML_2));
+      else
+        if (eState.isDeprecated ())
+          aDiv.addChild (badgeWarn ().addChild (eTransportProfile.getName ()))
+              .addChild (badgeWarn ("Identifier is deprecated").addClass (CBootstrapCSS.ML_2));
+        else
+          aDiv.addChild (badgeSuccess ().addChild (eTransportProfile.getName ()));
+
+      aDiv.addChild (small (" (").addChild (code (sTransportProfile)).addChild (")"));
     }
     else
     {
