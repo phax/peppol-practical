@@ -363,11 +363,14 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     // Toolbar on top
     final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
     if (bUserIsLoggedIn)
-      aToolbar.addButtonNew ("Create new test endpoint", createCreateURL (aWPEC));
+      aToolbar.addButtonNew ("List your existing Test Endpoints", createCreateURL (aWPEC));
     else
-      aToolbar.addChild (badgeInfo ("You need to be logged in to create test endpoints."));
+      aToolbar.addChild (badgeInfo ("You need to be logged in to register Test Endpoints."));
 
-    aNodeList.addChild (info ("Test endpoints are special Peppol participant identifiers whose sole purpose is the usage for testing. So if you are a Peppol AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients."));
+    aNodeList.addChild (info ("Test Endpoints are special Peppol Participant Identifiers whose sole purpose is the usage for testing." +
+                              " They must already exist and are NOT created by this tool." +
+                              " So if you are a Peppol AccessPoint provider and want to test your implementation you may use the below listed participant identifiers as test recipients." +
+                              " Please note that there is very little quality assurance on this list. Everybody can list its own Participant ID."));
 
     // List existing
     final HCTable aTable = new HCTable (new DTCol ("Participant ID"),
