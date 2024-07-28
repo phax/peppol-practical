@@ -36,6 +36,7 @@ public class SMPTransportProfileSelect extends HCExtSelect
     super (aRF);
     addOptionPleaseSelect (aDisplayLocale);
     for (final ESMPTransportProfile e : ESMPTransportProfile.values ())
-      addOption (e.getID (), e.getName () + " (" + e.getID () + ")");
+      if (e.getState ().isActive ())
+        addOption (e.getID (), e.getName () + " (" + e.getID () + ")");
   }
 }

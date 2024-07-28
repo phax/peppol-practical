@@ -133,15 +133,26 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     if (eFormAction.isReadonly ())
       return true;
 
+    final LoggedInUserManager aLIUM = LoggedInUserManager.getInstance ();
+
     if (eFormAction.isEdit ())
-      return aSelectedObject.getCreationUserID ().equals (LoggedInUserManager.getInstance ().getCurrentUserID ());
+      return !aSelectedObject.isDeleted () &&
+             (aSelectedObject.getCreationUserID ().equals (aLIUM.getCurrentUserID ()) ||
+              aLIUM.isCurrentUserAdministrator ());
 
     if (eFormAction.isDelete ())
       return !aSelectedObject.isDeleted () &&
-             aSelectedObject.getCreationUserID ().equals (LoggedInUserManager.getInstance ().getCurrentUserID ());
+             (aSelectedObject.getCreationUserID ().equals (aLIUM.getCurrentUserID ()) ||
+              aLIUM.isCurrentUserAdministrator ());
 
-    // Only logged in users can modify something
-    return LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
+    if (eFormAction.isUndelete ())
+      return aSelectedObject.isDeleted () && aLIUM.isCurrentUserAdministrator ();
+
+    if (eFormAction.isCopy ())
+      return false;
+
+    // Only logged in users can create something
+    return aLIUM.isUserLoggedInInCurrentSession ();
   }
 
   @Override
