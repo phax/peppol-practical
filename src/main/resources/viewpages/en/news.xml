@@ -41,6 +41,34 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2024-07-30 - Document Validation extended</h3>
+ 
+    <p>
+      Added Peppol PINT base 1.0.2 rules.<br/>
+      Added Peppol PINT A-NZ 1.0.1 rules.<br/>
+      Added Peppol PINT JP 1.0.2 rules.<br/>
+      Added Peppol PINT SG 1.1.0 rules.<br/>
+      Added UBL.BE 1.31 rules and deprecated 1.30 rules.
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>org.peppol.pint:credit-note:1.0.2</code> - OpenPeppol PINT Credit Note (UBL) 1.0.2</li>
+<li><code>org.peppol.pint:invoice:1.0.2</code> - OpenPeppol PINT Invoice (UBL) 1.0.2</li>
+<li><code>org.peppol.pint.aunz:creditnote:1.0.1</code> - Peppol PINT A-NZ Credit Note (UBL) 1.0.1</li>
+<li><code>org.peppol.pint.aunz:creditnote-self-billing:1.0.1</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.0.1</li>
+<li><code>org.peppol.pint.aunz:invoice:1.0.1</code> - Peppol PINT A-NZ Invoice (UBL) 1.0.1</li>
+<li><code>org.peppol.pint.aunz:invoice-self-billing:1.0.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.0.1</li>
+<li><code>org.peppol.pint.jp:credit-note:1.0.2</code> - Peppol PINT Japan Credit Note (UBL) 1.0.2</li>
+<li><code>org.peppol.pint.jp:invoice:1.0.2</code> - Peppol PINT Japan Invoice (UBL) 1.0.2</li>
+<li><code>org.peppol.pint.sg:creditnote:1.1</code> - Peppol PINT Singapore Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.sg:invoice:1.1</code> - Peppol PINT Singapore Invoice (UBL) 1.1.0</li>
+<li><code>be.ubl:credit-note:1.31</code> - UBL.BE Credit Note 1.31</li>
+<li><code>be.ubl:invoice:1.31</code> - UBL.BE Invoice 1.31</li>
+</ul>
+
     <h3>2024-07-08 - Document Validation extended</h3>
  
     <p>
