@@ -16,6 +16,12 @@
   <item id="cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:09:1.0" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:10:1.0" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:11:1.0" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:flyttet:ver1.0" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:fdc:hr-xml:2007:assignment:1.0" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:fdc:hr-xml:2007:humanresource:1.0" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:fdc:hr-xml:2007:staffingorder:1.0" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:hr-xml:2007:timesheet:1.0" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" name="Peppol predefined" deprecated="false" />
