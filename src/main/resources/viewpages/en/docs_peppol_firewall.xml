@@ -1,0 +1,75 @@
+<!--
+
+    Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<p>
+  This article outlines the required minimum firewall openings for default Peppol components.
+  This list does not consider application specific firewall requirements.<br />
+  Please also remember the "connect once, connect everywhere" principle of Peppol, meaning that every
+    Peppol AccessPoint (AP) MUST be capable of exchanging business documents with any other Peppol AP. 
+</p>
+
+<div class="card">
+  <div class="card-header">
+    Table of contents
+  </div>
+  <div class="card-body">
+    <ol>
+      <li><a href="#outbound">Outbound requirements</a></li>
+      <li><a href="#inbound">Inbound requirements</a></li>
+    </ol>
+  </div>
+</div>
+
+
+<a name="outbound"></a>
+<h2>Firewall requirements for outbound connections</h2>
+
+<h3>AP</h3>
+<ul>
+  <li>Allow TCP port <code>443</code> to <code>*</code> (all IPs) - for sending messages to another AP</li>  
+  <li>Allow TCP port <code>80</code> to <code>*</code> (all IPs) - for querying any SMP</li>  
+</ul>
+
+<h3>SMP</h3>
+<ul>
+  <li>Allow TCP port <code>443</code> to Peppol Directory
+    <ul>
+      <li>Production: <code>directory.peppol.eu</code></li>
+      <li>Test: <code>test-directory.peppol.eu</code></li>
+    </ul>
+  </li>
+  <li>Allow TCP port <code>443</code> to SMK/SML
+    <ul>
+      <li>Production: <code>edelivery.tech.ec.europa.eu</code></li>
+      <li>Test: <code>acc.edelivery.tech.ec.europa.eu</code></li>
+    </ul>
+  </li>
+</ul>
+
+<a name="inbound"></a>
+<h2>Firewall requirements for inbound connections</h2>
+
+<h3>AP</h3>
+<ul>
+  <li>Allow TCP port <code>443</code> from <code>*</code> (all IPs) - for receiving messages from another AP</li>  
+</ul>
+
+<h3>SMP</h3>
+<ul>
+  <li>Allow TCP port <code>80</code> from <code>*</code> (all IPs) - for being queried from any AP</li>  
+</ul>
