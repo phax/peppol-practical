@@ -114,8 +114,10 @@
   The update of the AP software is vendor specific.
   Usually you have to either provide a new keystore file, containing the new private key (with the full chain)
   or you update your existing keystore file and add the new private key. If you added a new private key
-  to an existing keystore, you might need to update the configuration as well, and provide the new alias.<br />
-  <span class="badge badge-info">Note:</span> some AP software may need a special keystore that only contains a single key. Please contact your
+  to an existing keystore, you might need to update the configuration as well, and provide the new alias ("pointer") to be used.
+</p>
+<p>  
+  Note: some AP software may need a special keystore that only contains a single key. Please contact your
   vendor for specific questions.
 </p>
 
@@ -123,19 +125,23 @@
 <h4>Update the SMP endpoints</h4>
 
 <p>
-  The public part of your AP certificate is referenced in all SMP endpoint that link to your Access Point.
-  Therefore this certificate must also be updated immediately after you updated the AP software, as this
-  certificate is used by sending clients, to verify the integrity of your technical acknowledgement
-  (AS2 MDN or AS4 Receipt).
-  The SMP usually expects your PEM encoded public certificate.<br />
+  The public part of your AP certificate is referenced in all SMP endpoints that link to your Access Point.
+    Therefore this certificate must also be updated immediately after you updated the AP software, as this
+    certificate is used by sending clients, to verify the integrity of your technical acknowledgement (AS4 Receipt).
+    The SMP usually expects your PEM encoded public certificate.<br />
   When using <em>phoss SMP</em> you can use the "Bulk change certificate" page to update the certificates of all
-  relevant endpoints at once.<br />
-  <span class="badge badge-warning">Note:</span> never publish your AP private key in an SMP endpoint
+    relevant endpoints at once.<br />
+  <span class="badge badge-warning">Warning:</span> never publish your AP private key in an SMP endpoint
 </p>
 
 <p>
-  <span class="badge badge-info">Note:</span> besides the change in the AP and the SMP endpoints, the AP
-  certificate must not be updated in any other Peppol component.
+  Note: when you use "SMP forwarding" (one SMP instance routing different document types for one participant ID to different APs),
+    you must also inform the forwarding SMP about your new public AP certificate. There is no standardized process to do this.
+    <strong>Never</strong> share the private AP key with the forwarding SMP. 
+</p>
+
+<p>
+  Note: besides the change in the AP and the SMP endpoints, the AP certificate must not be updated in any other Peppol component.
 </p>
 
 <a name="smp"></a>
@@ -160,28 +166,37 @@
 <h4>Notifying the SML</h4>
 
 <p>
-  Updating the SML is mandatory - you <strong>must</strong> do this.<br />
-  <span class="badge badge-info">Note:</span> remember to only use test SMP certificates with the SMK and production 
-  SMP certificates with the SML.
+  Updating the SML is mandatory - you <strong>must</strong> do this.
+</p>
+<p>  
+  Note: remember to only use test SMP certificates with the SMK, and production SMP certificates with the SML.
 </p>
 
 <p>
-  The SML links your SMP-ID with your SMP certificate and your public endpoint URL.
-  In case of a certificate update, the SML offers a special Webservice interface to indicate a future certificate change.
+  The SMK/SML links your SMP-ID with your SMP certificate and your public SMP URL.
+  In case of a certificate update, the SML offers a special SOAP interface to indicate a future certificate change.
   This interface can only be used, if the certificate exchange happens in the future, and the date provided must at least
-  be tomorrow (the day after the date of request). Additionally your existing certificate may not be expired yet.
-  You can perform this certificate update request e.g. via <a href="/public/menuitem-tools-smp-sml">this site</a> but keep
-  in mind that this requires your private key. Common SMP software like <a href="https://github.com/phax/phoss-smp">phoss SMP</a>
-  contains this functionality "out of the box".<br />
-  <span class="badge badge-warning">Note:</span> the SML only needs the public certificate of your new SMP certificate - don't provide them with your private key!<br />
-  <span class="badge badge-info">Note:</span> you need to manually update your SMP certificate in your SMP software at exactly the date you specified in that update request, otherwise you won't be able to perform changes in the SML.
+    be tomorrow (the day after the date of request).
+  The SML will replace the certificate at the provided date at 02:00am Brussels Time (CET/CEST).
+  Additionally, your existing certificate may not be expired yet for this to work.
+  You can perform this certificate update request e.g. via <a href="/public/menuitem-tools-smp-sml">this site</a> but keep in mind that this requires your private key.
+  Common SMP software like <a href="https://github.com/phax/phoss-smp">phoss SMP</a> contains this functionality "out of the box".<br/>
+  Note: you need to manually update your SMP certificate in your SMP software at exactly the date you specified in that update request, otherwise you won't be able to perform changes in the SML anymore.
+</p>
+<p>  
+  <span class="badge badge-warning">Warning:</span> the SML only needs the public certificate of your new SMP certificate - don't provide them with your private key!<br />
 </p>
 <p>
   If your certificate is already expired, you need to contact <a href="/public/menuitem-docs-sml-support">EC eDelivery support</a>
-  and provide the following information: old certificate subject and certificate serial number as well as
-  the new certificate file (PEM encoded, should start with <code>-----BEGIN CERTIFICATE-----</code> and end with <code>-----END CERTIFICATE-----</code>).<br />
-  <span class="badge badge-info">Note:</span> you may already update your SMP software with the new certificate, because the old certificate is anyway useless.<br />
-  <span class="badge badge-info">Note:</span> no further action or service call to the SML is necessary, if you are using this manual process.  
+    by email and provide the following information:
+</p>
+<ul>
+  <li>old certificate subject and certificate serial number</li>
+  <li>new certificate file (PEM encoded, should start with <code>-----BEGIN CERTIFICATE-----</code> and end with <code>-----END CERTIFICATE-----</code>)</li>
+</ul>
+<p>    
+  Note: you may already update your SMP software with the new SMP certificate, because the old certificate is anyway useless.<br />
+  Note: no further action or service call to the SML is necessary, if you are using this manual process.  
 </p>
 
 <a name="smpitself"></a>
@@ -190,15 +205,16 @@
 <p>
   The update of your SMP certificate in your SMP software heavily depends on the software used.
   In most cases, the keystore is referenced in some kind of configuration file.
-  Either you update that keystore or you configure a completely new keystore.<br />
-  E.g. in <em>phoss SMP</em> the keystore is configured in two properties files: <code>smp-server.properties</code> and <code>application.properties</code> (previously <code>pd-client.properties</code>).
-  If you provide a new keystore, ensure to adopt the path in both files. 
-  A restart of the SMP web application is required to make it work, if the path changed.
-  If you modified the existing keystore, no restart is required if you manually press the "Reload keystore" button in the administration GUI. 
-  After a certificate change it is recommended to visit the "Certificate information" page, to check if the modification was successful or not.
+  Either you update that keystore or you configure a completely new keystore.
+</p>
+<p>
+  In recent <em>phoss SMP</em> versions, the keystore is configured in one properties file: <code>application.properties</code>.
+  If the keystore path changed, a restart of the SMP web application is required to make it work.
+  If you modified the existing keystore on the fly, no restart is required if you manually press the "Reload keystore" button in the administration GUI. 
+  After a certificate change it is recommended to visit the "Certificate information" page, to check if the changes were accepted or not.
 </p>
 
 <p>
-  <span class="badge badge-info">Note:</span> the SMP ID must <strong>not</strong> be changed during the update process. The SMP ID <strong>must never change</strong>.<br />
-  <span class="badge badge-info">Note:</span> no special action is needed for Peppol Directory. All business card will be available, independent of the certificate status.
+  Note: the SMP ID must <strong>not</strong> be changed during the update process. The SMP ID <strong>must never change</strong>.<br />
+  Note: no special action is needed for Peppol Directory. All Business Cards will be available, independent of the certificate status.
 </p>
