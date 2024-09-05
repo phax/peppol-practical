@@ -49,6 +49,7 @@ public final class CMenuPublic
   public static final String MENU_TOOLS_SMP_SML = "tools-smp-sml";
   public static final String MENU_TOOLS_TEST_ENDPOINTS = "tools-test-endpoints";
   public static final String MENU_TOOLS_REST_API = "tools-rest-api";
+  public static final String MENU_TOOLS_DDD = "tools-ddd";
   public static final String MENU_VALIDATION = "validation";
   public static final String MENU_VALIDATION_UPLOAD = "validation-upload";
   public static final String MENU_VALIDATION_DVS = "validation-ws2";

@@ -41,6 +41,13 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2024-09-09 - New page to run the Document Details Determinator (DDD)</h3>
+    
+    <p>
+      A new page on <a href="/public/menuitem-tools-ddd">Document Details Determination</a> was added.<br/>     
+      It uses the DDD OpenSource library to deduce the VESID (amongst other) things from a business document.
+    </p>
+
     <h3>2024-08-20 - New page on firewall rules</h3>
     
     <p>

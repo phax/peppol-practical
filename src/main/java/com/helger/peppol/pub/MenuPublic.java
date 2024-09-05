@@ -133,6 +133,8 @@ public final class MenuPublic
                             new AppPageViewExternal (CMenuPublic.MENU_TOOLS_REST_API,
                                                      "REST API",
                                                      new ClassPathResource ("viewpages/en/rest_api.xml")));
+
+      aMenuTree.createItem (aSetup, new PagePublicToolsDDD (CMenuPublic.MENU_TOOLS_DDD));
     }
 
     // Validation stuff

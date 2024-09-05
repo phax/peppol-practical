@@ -354,6 +354,10 @@
       <groupId>com.helger.phase4</groupId>
       <artifactId>phase4-peppol-client</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ddd</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>com.github.spotbugs</groupId>
@@ -399,11 +403,6 @@
     <dependency>
       <groupId>com.helger.photon</groupId>
       <artifactId>ph-oton-jetty</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ddd</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
