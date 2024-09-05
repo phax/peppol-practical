@@ -41,12 +41,25 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
-    <h3>2024-09-09 - New page to run the Document Details Determinator (DDD)</h3>
+    <h3>2024-09-06 - New page to run the Document Details Determinator (DDD)</h3>
     
     <p>
       A new page on <a href="/public/menuitem-tools-ddd">Document Details Determination</a> was added.<br/>     
-      It uses the DDD OpenSource library to deduce the VESID (amongst other) things from a business document.
+      It uses the DDD OpenSource library to deduce the VESID (amongst other) things from a business document.<br/>
+      Added support for Peppol Italy rules 3.0.2.
     </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>it.peppol:creditnote:3.1</code> - AGID Peppol Credit Note (3.1.0) (for BIS 3.0.17)</li>
+<li><code>it.peppol:despatch-advice:3.1</code> - AGID Peppol Despatch Advice (3.1.0) (for BIS 3.0.17)</li>
+<li><code>it.peppol:invoice:3.1</code> - AGID Peppol Invoice (3.1.0) (for BIS 3.0.17)</li>
+<li><code>it.peppol:order:3.1</code> - AGID Peppol Order (3.1.0) (for BIS 3.0.17)</li>
+<li><code>it.peppol:order-agreement:3.1</code> - AGID Peppol Order Agreement (3.1.0) (for BIS 3.0.17)</li>
+<li><code>it.peppol:order-response:3.1</code> - AGID Peppol Order Response (3.1.0) (for BIS 3.0.17)</li>
+</ul>
 
     <h3>2024-08-20 - New page on firewall rules</h3>
     
