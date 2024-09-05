@@ -132,6 +132,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     else
       if (sKeyStorePassword == null)
       {
+        // Empty string is okay
         aFormErrors.addFieldError (FIELD_KEYSTORE_PW, "The key store password is missing!");
       }
       else
