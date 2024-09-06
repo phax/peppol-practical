@@ -31,6 +31,7 @@ import org.w3c.dom.Document;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.state.IValidityIndicator;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.EJavaVersion;
 import com.helger.commons.wrapper.Wrapper;
 import com.helger.config.IConfig;
 import com.helger.css.property.CCSSProperties;
@@ -255,6 +256,11 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
           final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (Phase4PeppolSender.URL_PROVIDER,
                                                                       aReceiverID,
                                                                       ESML.DIGIT_TEST);
+          if (EJavaVersion.getCurrentVersion ().isNewerOrEqualsThan (EJavaVersion.JDK_17))
+          {
+            // Disable SHA-1 error when running with Java 17 or higher
+            aSMPClient.setSecureValidation (false);
+          }
 
           // What to remember
           final Wrapper <String> aEndpointURL = new Wrapper <> ();
