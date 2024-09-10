@@ -17,7 +17,7 @@
     limitations under the License.
 
 -->
-<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb">
   <bindings xmlns:tns="http://busdox.org/transport/identifiers/1.0/" if-exists="true" scd="x-schema::tns">
     <schemaBindings map="false">
       <package name="com.helger.peppol.identifier"/>
