@@ -42,7 +42,7 @@
 <h3>AP</h3>
 <ul>
   <li>Allow TCP port <code>443</code> to <code>*</code> (all IPs) - for sending messages to another AP</li>  
-  <li>Allow TCP port <code>80</code> to <code>*</code> (all IPs) - for querying any SMP</li>  
+  <li>Allow TCP port <code>80</code> to <code>*</code> (all IPs) - for querying any SMP and to download CRL files from http://pki-crl.symauth.com/</li>
 </ul>
 
 <h3>SMP</h3>
