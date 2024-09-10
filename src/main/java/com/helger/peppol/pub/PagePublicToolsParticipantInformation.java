@@ -757,7 +757,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 final URL aURL = URLHelper.getAsURL (sOriginalHref);
                 if (aURL != null)
                 {
-                  if (!"http:".equals (aURL.getProtocol ()))
+                  if (!"http".equals (aURL.getProtocol ()))
                     aLI.addChild (div (badgeDanger ("Peppol SMP URLs MUST be using http an not " +
                                                     aURL.getProtocol ())));
                   if (aURL.getPort () != -1 && aURL.getPort () != 80)
