@@ -130,7 +130,6 @@ import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.form.RequestFieldBoolean;
 import com.helger.photon.core.interror.InternalErrorBuilder;
-import com.helger.photon.icon.fontawesome.EFontAwesome4Icon;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.famfam.EFamFamFlagIcon;
@@ -752,11 +751,24 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             if (aDocType != null)
             {
               aDocTypeIDs.add (aDocType);
-              aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
-                                                                            .addChild (AppCommonUI.createDocTypeID (aDocType,
-                                                                                                                    false)));
-              aLI.addChild (div (EFontAwesome4Icon.ARROW_RIGHT.getAsNode ()).addChild (" ")
-                                                                            .addChild (_createOpenInBrowser (sOriginalHref)));
+              aLI.addChild (div (AppCommonUI.createDocTypeID (aDocType, false)));
+              if (aSMPQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
+              {
+                final URL aURL = URLHelper.getAsURL (sOriginalHref);
+                if (aURL != null)
+                {
+                  if (!"http:".equals (aURL.getProtocol ()))
+                    aLI.addChild (div (badgeDanger ("Peppol SMP URLs MUST be using http an not " +
+                                                    aURL.getProtocol ())));
+                  if (aURL.getPort () != -1 && aURL.getPort () != 80)
+                    aLI.addChild (div (badgeDanger ("Peppol SMP URLs MUST be using port 80 and not " +
+                                                    aURL.getPort ())));
+                  if (!aURL.getPath ().startsWith ("/iso6523-actorid-upis"))
+                    aLI.addChild (div (badgeDanger ("Peppol SMP URLs MUST be in the root path!")));
+                }
+              }
+
+              aLI.addChild (div (_createOpenInBrowser (sOriginalHref)));
             }
             else
             {
