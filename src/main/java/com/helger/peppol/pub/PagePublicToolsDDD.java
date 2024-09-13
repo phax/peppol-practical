@@ -96,8 +96,8 @@ public final class PagePublicToolsDDD extends AbstractBootstrapWebPage <WebPageE
 
             aUL.addItem (span ("Profile Name: ").addChild (aDocDetails.hasProfileName () ? code (aDocDetails.getProfileName ())
                                                                                          : em ("not found")));
-            aUL.addItem (span ("Syntax ID ID: ").addChild (aDocDetails.hasSyntaxID () ? code (aDocDetails.getSyntaxID ())
-                                                                                      : em ("not found")));
+            aUL.addItem (span ("Syntax ID: ").addChild (aDocDetails.hasSyntaxID () ? code (aDocDetails.getSyntaxID ())
+                                                                                   : em ("not found")));
             aUL.addItem (span ("Sender ID: ").addChild (aDocDetails.hasSenderID () ? code (aDocDetails.getSenderID ()
                                                                                                       .getURIEncoded ())
                                                                                    : em ("not found")));
