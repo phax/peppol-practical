@@ -41,7 +41,11 @@ public class MainCheckDDDConsistency
       e1.getValue ().forEachSelector ( (src, df, dv) -> {
         final String sSrcString = StringHelper.imploder ()
                                               .source (src,
-                                                       x -> x.getSourceField ().name () + "=" + x.getSourceValue ())
+                                                       x -> '[' +
+                                                            x.getSourceField ().name () +
+                                                            '=' +
+                                                            x.getSourceValue () +
+                                                            ']')
                                               .separator ("; ")
                                               .build ();
         switch (df)
