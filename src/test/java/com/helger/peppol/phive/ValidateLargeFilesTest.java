@@ -29,9 +29,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.timing.StopWatch;
-import com.helger.diver.api.version.VESID;
+import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.phive.api.execute.ValidationExecutionManager;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
+import com.helger.phive.api.validity.IValidityDeterminator;
 import com.helger.phive.xml.source.IValidationSourceXML;
 import com.helger.phive.xml.source.ValidationSourceXML;
 
@@ -45,17 +46,23 @@ public final class ValidateLargeFilesTest
   {
     final IReadableResource aRes = new ClassPathResource ("external/validation/Large_Invoice_sample1.xml");
     assertTrue (aRes.exists ());
-    final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (VESID.parseID ("eu.peppol.bis3:invoice:2023.11"));
+    final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (DVRCoordinate.parseOrThrow ("eu.peppol.bis3:invoice:2023.11"));
     // Start validating #1
     final StopWatch aSW = StopWatch.createdStarted ();
     LOGGER.info ("Start validating");
-    var aVRL = ValidationExecutionManager.executeValidation (aVES, ValidationSourceXML.create (aRes), Locale.US);
+    var aVRL = ValidationExecutionManager.executeValidation (IValidityDeterminator.createDefault (),
+                                                             aVES,
+                                                             ValidationSourceXML.create (aRes),
+                                                             Locale.US);
     aSW.stop ();
     LOGGER.info ("End validating after " + aSW.getDuration ());
     // Validation #2
     aSW.restart ();
     LOGGER.info ("Start validating2");
-    aVRL = ValidationExecutionManager.executeValidation (aVES, ValidationSourceXML.create (aRes), Locale.US);
+    aVRL = ValidationExecutionManager.executeValidation (IValidityDeterminator.createDefault (),
+                                                         aVES,
+                                                         ValidationSourceXML.create (aRes),
+                                                         Locale.US);
     aSW.stop ();
     LOGGER.info ("End validating 2after " + aSW.getDuration ());
 

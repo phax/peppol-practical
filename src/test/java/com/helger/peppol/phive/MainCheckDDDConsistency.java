@@ -25,7 +25,7 @@ import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.string.StringHelper;
 import com.helger.ddd.model.DDDValueProviderList;
 import com.helger.ddd.model.DDDValueProviderPerSyntax;
-import com.helger.diver.api.version.VESID;
+import com.helger.diver.api.coord.DVRCoordinate;
 
 public class MainCheckDDDConsistency
 {
@@ -54,7 +54,7 @@ public class MainCheckDDDConsistency
             aChecks.inc ();
             final String sVESID = dv;
             LOGGER.info ("  " + sSrcString + " -- " + sVESID);
-            if (ExtValidationKeyRegistry.getFromIDOrNull (VESID.parseID (sVESID)) == null)
+            if (ExtValidationKeyRegistry.getFromIDOrNull (DVRCoordinate.parseOrNull (sVESID)) == null)
               throw new IllegalStateException ("VES ID " + sVESID + " is unknown");
             break;
         }

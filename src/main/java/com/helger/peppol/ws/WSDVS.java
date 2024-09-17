@@ -46,7 +46,7 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerTimer;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
-import com.helger.diver.api.version.VESID;
+import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.phive.ExtValidationKeyRegistry;
@@ -62,6 +62,8 @@ import com.helger.phive.api.execute.ValidationExecutionManager;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
 import com.helger.phive.api.result.ValidationResult;
 import com.helger.phive.api.result.ValidationResultList;
+import com.helger.phive.api.validity.EExtendedValidity;
+import com.helger.phive.api.validity.IValidityDeterminator;
 import com.helger.phive.xml.source.IValidationSourceXML;
 import com.helger.phive.xml.source.ValidationSourceXML;
 import com.helger.photon.io.WebFileIO;
@@ -218,7 +220,7 @@ public class WSDVS implements WSDVSPort
 
       // Interpret parameters
       final String sVESID = aValidationRequest.getVESID ();
-      final VESID aVESID = VESID.parseIDOrNull (sVESID);
+      final DVRCoordinate aVESID = DVRCoordinate.parseOrNull (sVESID);
       if (aVESID == null)
         _throw ("Syntactically invalid VESID '" + sVESID + "' provided!");
       final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
@@ -253,7 +255,8 @@ public class WSDVS implements WSDVSPort
       final StopWatch aSW = StopWatch.createdStarted ();
 
       // Start validating
-      final ValidationResultList aVRL = ValidationExecutionManager.executeValidation (aVES,
+      final ValidationResultList aVRL = ValidationExecutionManager.executeValidation (IValidityDeterminator.createDefault (),
+                                                                                      aVES,
                                                                                       ValidationSourceXML.create ("uploaded-file",
                                                                                                                   aXMLDoc),
                                                                                       aDisplayLocale);
@@ -268,16 +271,18 @@ public class WSDVS implements WSDVSPort
       for (final ValidationResult aVR : aVRL)
       {
         final ValidationResultType aVRT = new ValidationResultType ();
-        if (aVR.isIgnored ())
+        if (aVR.isSkipped ())
         {
           bValidationInterrupted = true;
           aVRT.setSuccess (TriStateType.UNDEFINED);
         }
         else
         {
-          aVRT.setSuccess (aVR.isSuccess () ? TriStateType.TRUE : TriStateType.FALSE);
+          final EExtendedValidity eValidity = IValidityDeterminator.createDefault ()
+                                                                   .getValidity (null, aVR.getErrorList ());
+          aVRT.setSuccess (eValidity.isValid () ? TriStateType.TRUE : TriStateType.FALSE);
         }
-        aVRT.setArtifactType (aVR.getValidationArtefact ().getValidationArtefactType ().getID ());
+        aVRT.setArtifactType (aVR.getValidationArtefact ().getValidationType ().getID ());
         aVRT.setArtifactPath (aVR.getValidationArtefact ().getRuleResource ().getPath ());
 
         for (final IError aError : aVR.getErrorList ())

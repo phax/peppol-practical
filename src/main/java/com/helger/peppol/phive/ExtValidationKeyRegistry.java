@@ -29,7 +29,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.name.IHasDisplayName;
-import com.helger.diver.api.version.VESID;
+import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
 import com.helger.phive.api.executorset.ValidationExecutorSetRegistry;
 import com.helger.phive.cii.CIIValidation;
@@ -46,7 +46,6 @@ import com.helger.phive.isdoc.ISDOCValidation;
 import com.helger.phive.oioubl.OIOUBLValidation;
 import com.helger.phive.peppol.PeppolValidation;
 import com.helger.phive.peppol.italy.PeppolItalyValidation;
-import com.helger.phive.peppol.legacy.PeppolLegacyThirdpartyValidation;
 import com.helger.phive.peppol.legacy.PeppolLegacyValidation;
 import com.helger.phive.peppol.legacy.PeppolLegacyValidationAUNZ;
 import com.helger.phive.peppol.legacy.PeppolLegacyValidationSG;
@@ -70,7 +69,6 @@ public final class ExtValidationKeyRegistry
     PeppolLegacyValidation.init (VES_REGISTRY);
     PeppolLegacyValidationAUNZ.init (VES_REGISTRY);
     PeppolLegacyValidationSG.init (VES_REGISTRY);
-    PeppolLegacyThirdpartyValidation.init (VES_REGISTRY);
     SimplerInvoicingValidation.initSimplerInvoicing (VES_REGISTRY);
     EN16931Validation.initEN16931 (VES_REGISTRY);
     EHFValidation.initEHF (VES_REGISTRY);
@@ -98,26 +96,26 @@ public final class ExtValidationKeyRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <VESID, IValidationExecutorSet <IValidationSourceXML>> getAllSortedByDisplayName (@Nonnull final Locale aDisplayLocale)
+  public static ICommonsOrderedMap <DVRCoordinate, IValidationExecutorSet <IValidationSourceXML>> getAllSortedByDisplayName (@Nonnull final Locale aDisplayLocale)
   {
-    final ICommonsMap <VESID, IValidationExecutorSet <IValidationSourceXML>> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
-                                                                                                           IValidationExecutorSet::getID,
-                                                                                                           x -> x);
+    final ICommonsMap <DVRCoordinate, IValidationExecutorSet <IValidationSourceXML>> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
+                                                                                                                   IValidationExecutorSet::getID,
+                                                                                                                   x -> x);
     return aMap.getSortedByValue (IHasDisplayName.getComparatorCollating (aDisplayLocale));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <VESID, IValidationExecutorSet <IValidationSourceXML>> getAllSortedByID ()
+  public static ICommonsOrderedMap <DVRCoordinate, IValidationExecutorSet <IValidationSourceXML>> getAllSortedByID ()
   {
-    final ICommonsMap <VESID, IValidationExecutorSet <IValidationSourceXML>> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
-                                                                                                           IValidationExecutorSet::getID,
-                                                                                                           x -> x);
+    final ICommonsMap <DVRCoordinate, IValidationExecutorSet <IValidationSourceXML>> aMap = new CommonsHashMap <> (VES_REGISTRY.getAll (),
+                                                                                                                   IValidationExecutorSet::getID,
+                                                                                                                   x -> x);
     return aMap.getSortedByKey (Comparator.naturalOrder ());
   }
 
   @Nullable
-  public static IValidationExecutorSet <IValidationSourceXML> getFromIDOrNull (@Nullable final VESID aID)
+  public static IValidationExecutorSet <IValidationSourceXML> getFromIDOrNull (@Nullable final DVRCoordinate aID)
   {
     return VES_REGISTRY.getOfID (aID);
   }

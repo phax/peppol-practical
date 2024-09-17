@@ -27,7 +27,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.compare.NaturalNumericOrderComparator;
-import com.helger.diver.api.version.VESID;
+import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.html.request.IHCRequestField;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
 import com.helger.phive.peppol.legacy.PeppolValidation3_10_0;
@@ -40,15 +40,15 @@ public final class ExtValidationKeySelect extends HCExtSelect
   // Explicit exclude certain artefacts (because the same artefacts are
   // registered with a different name - e.g. "order" instead of "t01")
   // Later versions only register the "order" version
-  private static final ICommonsSet <VESID> LEGACY_IDS = new CommonsHashSet <> (PeppolValidation3_10_0.VID_OPENPEPPOL_T01_V3,
-                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T16_V3,
-                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T19_V3,
-                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T58_V3,
-                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T71_V3,
-                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T76_V3,
-                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T77_V3,
-                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T110_V3,
-                                                                               PeppolValidation3_10_0.VID_OPENPEPPOL_T111_V3);
+  private static final ICommonsSet <DVRCoordinate> LEGACY_IDS = new CommonsHashSet <> (PeppolValidation3_10_0.VID_OPENPEPPOL_T01_V3,
+                                                                                       PeppolValidation3_10_0.VID_OPENPEPPOL_T16_V3,
+                                                                                       PeppolValidation3_10_0.VID_OPENPEPPOL_T19_V3,
+                                                                                       PeppolValidation3_10_0.VID_OPENPEPPOL_T58_V3,
+                                                                                       PeppolValidation3_10_0.VID_OPENPEPPOL_T71_V3,
+                                                                                       PeppolValidation3_10_0.VID_OPENPEPPOL_T76_V3,
+                                                                                       PeppolValidation3_10_0.VID_OPENPEPPOL_T77_V3,
+                                                                                       PeppolValidation3_10_0.VID_OPENPEPPOL_T110_V3,
+                                                                                       PeppolValidation3_10_0.VID_OPENPEPPOL_T111_V3);
 
   @Nonnull
   @Nonempty

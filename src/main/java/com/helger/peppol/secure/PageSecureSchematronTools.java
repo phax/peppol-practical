@@ -27,7 +27,7 @@ import org.w3c.dom.Document;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.diver.api.version.VESID;
+import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.grouping.HCUL;
@@ -38,7 +38,7 @@ import com.helger.peppol.phive.ExtValidationKeySelect;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.phive.api.EValidationType;
 import com.helger.phive.api.IValidationType;
-import com.helger.phive.api.execute.IValidationExecutor;
+import com.helger.phive.api.executor.IValidationExecutor;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
 import com.helger.phive.xml.source.IValidationSourceXML;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
@@ -116,7 +116,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     }
 
     final String sVESID = aWPEC.params ().getAsString (FIELD_VESID);
-    final VESID aVESID = VESID.parseIDOrNull (sVESID);
+    final DVRCoordinate aVESID = DVRCoordinate.parseOrNull (sVESID);
     final boolean bStyleOutput = aWPEC.params ().isCheckBoxChecked (FIELD_STYLE_OUTPUT, DEFAULT_STYLE_OUTPUT);
     final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
 
@@ -138,7 +138,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
         for (final IValidationExecutor <?> aVE : aVES.getAllExecutors ())
         {
           final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
-          final IValidationType aType = aVE.getValidationArtefact ().getValidationArtefactType ();
+          final IValidationType aType = aVE.getValidationArtefact ().getValidationType ();
           if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH)
           {
             IHCNode aTabContent;
@@ -217,7 +217,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
           for (final IValidationExecutor <IValidationSourceXML> aVE : aVES.getAllExecutors ())
           {
             final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
-            final IValidationType aType = aVE.getValidationArtefact ().getValidationArtefactType ();
+            final IValidationType aType = aVE.getValidationArtefact ().getValidationType ();
             if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH)
             {
               IHCNode aTabContent;
