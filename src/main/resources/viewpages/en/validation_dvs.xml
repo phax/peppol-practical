@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1012 entries -->
+<!-- 931 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -144,10 +144,12 @@ A very small Java WS client is available for
 <li><code>pt.gov.espap.cius-pt:ubl-invoice:2.1.1</code> - CIUS-PT UBL Invoice 2.1.1</li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.3</code> - CIUS-RO UBL Credit Note 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.4</code> - CIUS-RO UBL Credit Note 1.0.4 <strong>(Deprecated)</strong></li>
-<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.8</code> - CIUS-RO UBL Credit Note 1.0.8</li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.8</code> - CIUS-RO UBL Credit Note 1.0.8 <strong>(Deprecated)</strong></li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.9</code> - CIUS-RO UBL Credit Note 1.0.9</li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.3</code> - CIUS-RO UBL Invoice 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.4</code> - CIUS-RO UBL Invoice 1.0.4 <strong>(Deprecated)</strong></li>
-<li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.8</code> - CIUS-RO UBL Invoice 1.0.8</li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.8</code> - CIUS-RO UBL Invoice 1.0.8 <strong>(Deprecated)</strong></li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.9</code> - CIUS-RO UBL Invoice 1.0.9</li>
 <li><code>no.ehf.g3:advanced-order-cancellation:3</code> - EHF Advanced Order Cancellation 3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:advanced-order-cancellation:3.0.3</code> - EHF Advanced Order Cancellation 3.0.3</li>
 <li><code>no.ehf.g3:advanced-order-change:3</code> - EHF Advanced Order Change 3 <strong>(Deprecated)</strong></li>
@@ -354,13 +356,6 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:utility-statement:1.14.2</code> - OIOUBL Utility Statement 1.14.2</li>
 <li><code>eu.peppol.bis3:invoice-cii:3.14</code> - OpenPeppol CII Invoice (3.14.0) (aka BIS Billing 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-cii:3.15</code> - OpenPeppol CII Invoice (3.15.0) (aka BIS Billing 3.0.14) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t19:3.5</code> - OpenPeppol Catalogue (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t19:3.6</code> - OpenPeppol Catalogue (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t19:3.7</code> - OpenPeppol Catalogue (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t19:3.8</code> - OpenPeppol Catalogue (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t19:3.8.1</code> - OpenPeppol Catalogue (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t19:3.9</code> - OpenPeppol Catalogue (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t19:3.9.1</code> - OpenPeppol Catalogue (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue:2023.5</code> - OpenPeppol Catalogue (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue:2024.5</code> - OpenPeppol Catalogue (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:catalogue:3.10</code> - OpenPeppol Catalogue (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -371,14 +366,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:catalogue:3.13</code> - OpenPeppol Catalogue (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue:3.14</code> - OpenPeppol Catalogue (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue:3.15</code> - OpenPeppol Catalogue (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:catalogue:2023.11</code> - OpenPeppol Catalogue (2023.11) (aka BIS 3.0.12)</li>
-<li><code>eu.peppol.bis2:t58:3.5</code> - OpenPeppol Catalogue Response (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t58:3.6</code> - OpenPeppol Catalogue Response (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t58:3.7</code> - OpenPeppol Catalogue Response (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t58:3.8</code> - OpenPeppol Catalogue Response (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t58:3.8.1</code> - OpenPeppol Catalogue Response (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t58:3.9</code> - OpenPeppol Catalogue Response (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t58:3.9.1</code> - OpenPeppol Catalogue Response (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:catalogue:2023.11</code> - OpenPeppol Catalogue (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:2023.5</code> - OpenPeppol Catalogue Response (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:2024.5</code> - OpenPeppol Catalogue Response (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:catalogue-response:3.10</code> - OpenPeppol Catalogue Response (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -389,30 +377,13 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:catalogue-response:3.13</code> - OpenPeppol Catalogue Response (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:3.14</code> - OpenPeppol Catalogue Response (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:3.15</code> - OpenPeppol Catalogue Response (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:catalogue-response:2023.11</code> - OpenPeppol Catalogue Response (2023.11) (aka BIS 3.0.12)</li>
-<li><code>eu.peppol.bis2:t14:3.5</code> - OpenPeppol Credit Note (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t14:3.6</code> - OpenPeppol Credit Note (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t14:3.7</code> - OpenPeppol Credit Note (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:creditnote:3.8</code> - OpenPeppol Credit Note (3.8.0) (aka BIS Billing 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:creditnote:3.8.1</code> - OpenPeppol Credit Note (3.8.1) (aka BIS Billing 3.0.4) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:creditnote:3.9</code> - OpenPeppol Credit Note (3.9.0) (aka BIS Billing 3.0.5) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:creditnote:3.9.1</code> - OpenPeppol Credit Note (3.9.1) (aka BIS Billing 3.0.5 + Hotfix) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:catalogue-response:2023.11</code> - OpenPeppol Catalogue Response (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.10</code> - OpenPeppol Credit Note (3.10.0) (aka BIS Billing 3.0.6) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.10.1</code> - OpenPeppol Credit Note (3.10.1) (aka BIS Billing 3.0.7) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.11</code> - OpenPeppol Credit Note (3.11.0) (aka BIS Billing 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.11.1</code> - OpenPeppol Credit Note (3.11.1) (aka BIS Billing 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.12</code> - OpenPeppol Credit Note (3.12.0) (aka BIS Billing 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.13</code> - OpenPeppol Credit Note (3.13.0) (aka BIS Billing 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t14:6:at</code> - OpenPeppol Credit Note (Austria) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t14:8:at-gov</code> - OpenPeppol Credit Note (Austrian Government) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.ubl:creditnote:1</code> - OpenPeppol Credit Note BIS3 (UBL) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t16:3.5</code> - OpenPeppol Despatch Advice (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t16:3.6</code> - OpenPeppol Despatch Advice (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t16:3.7</code> - OpenPeppol Despatch Advice (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t16:3.8</code> - OpenPeppol Despatch Advice (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t16:3.8.1</code> - OpenPeppol Despatch Advice (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t16:3.9</code> - OpenPeppol Despatch Advice (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t16:3.9.1</code> - OpenPeppol Despatch Advice (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:2023.5</code> - OpenPeppol Despatch Advice (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:2024.5</code> - OpenPeppol Despatch Advice (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:despatch-advice:3.10</code> - OpenPeppol Despatch Advice (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -423,28 +394,13 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:despatch-advice:3.13</code> - OpenPeppol Despatch Advice (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:3.14</code> - OpenPeppol Despatch Advice (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:3.15</code> - OpenPeppol Despatch Advice (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:despatch-advice:2023.11</code> - OpenPeppol Despatch Advice (2023.11) (aka BIS 3.0.12)</li>
-<li><code>eu.peppol.bis2:t10:3.5</code> - OpenPeppol Invoice (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t10:3.6</code> - OpenPeppol Invoice (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t10:3.7</code> - OpenPeppol Invoice (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice:3.8</code> - OpenPeppol Invoice (3.8.0) (aka BIS Billing 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice:3.8.1</code> - OpenPeppol Invoice (3.8.1) (aka BIS Billing 3.0.4) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice:3.9</code> - OpenPeppol Invoice (3.9.0) (aka BIS Billing 3.0.5) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice:3.9.1</code> - OpenPeppol Invoice (3.9.1) (aka BIS Billing 3.0.5 + Hotfix) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:despatch-advice:2023.11</code> - OpenPeppol Despatch Advice (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.10</code> - OpenPeppol Invoice (3.10.0) (aka BIS Billing 3.0.6) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.10.1</code> - OpenPeppol Invoice (3.10.1) (aka BIS Billing 3.0.7) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.11</code> - OpenPeppol Invoice (3.11.0) (aka BIS Billing 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.11.1</code> - OpenPeppol Invoice (3.11.1) (aka BIS Billing 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.12</code> - OpenPeppol Invoice (3.12.0) (aka BIS Billing 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.13</code> - OpenPeppol Invoice (3.13.0) (aka BIS Billing 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t10:6:at</code> - OpenPeppol Invoice (Austria) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t10:8:at-gov</code> - OpenPeppol Invoice (Austrian Government) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.ubl:invoice:1</code> - OpenPeppol Invoice BIS3 (UBL) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t111:3.7</code> - OpenPeppol Invoice Message Response (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t111:3.8</code> - OpenPeppol Invoice Message Response (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t111:3.8.1</code> - OpenPeppol Invoice Message Response (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t111:3.9</code> - OpenPeppol Invoice Message Response (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t111:3.9.1</code> - OpenPeppol Invoice Message Response (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-message-response:2023.5</code> - OpenPeppol Invoice Message Response (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-message-response:2024.5</code> - OpenPeppol Invoice Message Response (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:invoice-message-response:3.10</code> - OpenPeppol Invoice Message Response (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -455,14 +411,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:invoice-message-response:3.13</code> - OpenPeppol Invoice Message Response (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-message-response:3.14</code> - OpenPeppol Invoice Message Response (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-message-response:3.15</code> - OpenPeppol Invoice Message Response (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice-message-response:2023.11</code> - OpenPeppol Invoice Message Response (2023.11) (aka BIS 3.0.12)</li>
-<li><code>eu.peppol.bis2:t71:3.5</code> - OpenPeppol MLR (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t71:3.6</code> - OpenPeppol MLR (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t71:3.7</code> - OpenPeppol MLR (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t71:3.8</code> - OpenPeppol MLR (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t71:3.8.1</code> - OpenPeppol MLR (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t71:3.9</code> - OpenPeppol MLR (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t71:3.9.1</code> - OpenPeppol MLR (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:invoice-message-response:2023.11</code> - OpenPeppol Invoice Message Response (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:mlr:2023.5</code> - OpenPeppol MLR (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:mlr:2024.5</code> - OpenPeppol MLR (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:mlr:3.10</code> - OpenPeppol MLR (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -473,14 +422,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:mlr:3.13</code> - OpenPeppol MLR (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:mlr:3.14</code> - OpenPeppol MLR (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:mlr:3.15</code> - OpenPeppol MLR (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:mlr:2023.11</code> - OpenPeppol MLR (2023.11) (aka BIS 3.0.12)</li>
-<li><code>eu.peppol.bis2:t01:3.5</code> - OpenPeppol Order (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t01:3.6</code> - OpenPeppol Order (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t01:3.7</code> - OpenPeppol Order (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t01:3.8</code> - OpenPeppol Order (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t01:3.8.1</code> - OpenPeppol Order (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t01:3.9</code> - OpenPeppol Order (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t01:3.9.1</code> - OpenPeppol Order (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:mlr:2023.11</code> - OpenPeppol MLR (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:2023.5</code> - OpenPeppol Order (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:2024.5</code> - OpenPeppol Order (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:order:3.10</code> - OpenPeppol Order (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -491,14 +433,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:order:3.13</code> - OpenPeppol Order (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:3.14</code> - OpenPeppol Order (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:3.15</code> - OpenPeppol Order (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order:2023.11</code> - OpenPeppol Order (2023.11) (aka BIS 3.0.12)</li>
-<li><code>eu.peppol.bis2:t110:3.5</code> - OpenPeppol Order Agreement (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t110:3.6</code> - OpenPeppol Order Agreement (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t110:3.7</code> - OpenPeppol Order Agreement (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t110:3.8</code> - OpenPeppol Order Agreement (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t110:3.8.1</code> - OpenPeppol Order Agreement (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t110:3.9</code> - OpenPeppol Order Agreement (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t110:3.9.1</code> - OpenPeppol Order Agreement (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order:2023.11</code> - OpenPeppol Order (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:2023.5</code> - OpenPeppol Order Agreement (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:2024.5</code> - OpenPeppol Order Agreement (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:order-agreement:3.10</code> - OpenPeppol Order Agreement (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -509,20 +444,13 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:order-agreement:3.13</code> - OpenPeppol Order Agreement (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:3.14</code> - OpenPeppol Order Agreement (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:3.15</code> - OpenPeppol Order Agreement (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order-agreement:2023.11</code> - OpenPeppol Order Agreement (2023.11) (aka BIS 3.0.12)</li>
+<li><code>eu.peppol.bis3:order-agreement:2023.11</code> - OpenPeppol Order Agreement (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-cancellation:2023.5</code> - OpenPeppol Order Cancellation (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-cancellation:2024.5</code> - OpenPeppol Order Cancellation (2024.5) (aka BIS 3.0.13)</li>
-<li><code>eu.peppol.bis3:order-cancellation:2023.11</code> - OpenPeppol Order Cancellation (2023.11) (aka BIS 3.0.12)</li>
+<li><code>eu.peppol.bis3:order-cancellation:2023.11</code> - OpenPeppol Order Cancellation (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-change:2023.5</code> - OpenPeppol Order Change (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-change:2024.5</code> - OpenPeppol Order Change (2024.5) (aka BIS 3.0.13)</li>
-<li><code>eu.peppol.bis3:order-change:2023.11</code> - OpenPeppol Order Change (2023.11) (aka BIS 3.0.12)</li>
-<li><code>eu.peppol.bis2:t76:3.5</code> - OpenPeppol Order Response (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t76:3.6</code> - OpenPeppol Order Response (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t76:3.7</code> - OpenPeppol Order Response (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t76:3.8</code> - OpenPeppol Order Response (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t76:3.8.1</code> - OpenPeppol Order Response (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t76:3.9</code> - OpenPeppol Order Response (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t76:3.9.1</code> - OpenPeppol Order Response (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order-change:2023.11</code> - OpenPeppol Order Change (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response:2023.5</code> - OpenPeppol Order Response (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response:2024.5</code> - OpenPeppol Order Response (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:order-response:3.10</code> - OpenPeppol Order Response (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -533,23 +461,16 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:order-response:3.13</code> - OpenPeppol Order Response (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response:3.14</code> - OpenPeppol Order Response (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response:3.15</code> - OpenPeppol Order Response (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order-response:2023.11</code> - OpenPeppol Order Response (2023.11) (aka BIS 3.0.12)</li>
+<li><code>eu.peppol.bis3:order-response:2023.11</code> - OpenPeppol Order Response (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response-advanced:2023.5</code> - OpenPeppol Order Response Advanced (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response-advanced:2024.5</code> - OpenPeppol Order Response Advanced (2024.5) (aka BIS 3.0.13)</li>
-<li><code>eu.peppol.bis3:order-response-advanced:2023.11</code> - OpenPeppol Order Response Advanced (2023.11) (aka BIS 3.0.12)</li>
+<li><code>eu.peppol.bis3:order-response-advanced:2023.11</code> - OpenPeppol Order Response Advanced (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint:credit-note:1</code> - OpenPeppol PINT Credit Note (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint:credit-note:1.0.1</code> - OpenPeppol PINT Credit Note (UBL) 1.0.1</li>
 <li><code>org.peppol.pint:credit-note:1.0.2</code> - OpenPeppol PINT Credit Note (UBL) 1.0.2</li>
 <li><code>org.peppol.pint:invoice:1</code> - OpenPeppol PINT Invoice (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint:invoice:1.0.1</code> - OpenPeppol PINT Invoice (UBL) 1.0.1</li>
 <li><code>org.peppol.pint:invoice:1.0.2</code> - OpenPeppol PINT Invoice (UBL) 1.0.2</li>
-<li><code>eu.peppol.bis2:t77:3.5</code> - OpenPeppol Punch Out (3.5.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t77:3.6</code> - OpenPeppol Punch Out (3.6.0) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis2:t77:3.7</code> - OpenPeppol Punch Out (3.7.0) (aka BIS 2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t77:3.8</code> - OpenPeppol Punch Out (3.8.0) (aka BIS 3.0.1) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t77:3.8.1</code> - OpenPeppol Punch Out (3.8.1) (aka BIS 3.0.2) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t77:3.9</code> - OpenPeppol Punch Out (3.9.0) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:t77:3.9.1</code> - OpenPeppol Punch Out (3.9.1) (aka BIS 3.0.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:punch-out:2023.5</code> - OpenPeppol Punch Out (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:punch-out:2024.5</code> - OpenPeppol Punch Out (2024.5) (aka BIS 3.0.13)</li>
 <li><code>eu.peppol.bis3:punch-out:3.10</code> - OpenPeppol Punch Out (3.10.0) (aka BIS 3.0.4) <strong>(Deprecated)</strong></li>
@@ -560,17 +481,17 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:punch-out:3.13</code> - OpenPeppol Punch Out (3.13.0) (aka BIS 3.0.8) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:punch-out:3.14</code> - OpenPeppol Punch Out (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:punch-out:3.15</code> - OpenPeppol Punch Out (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:punch-out:2023.11</code> - OpenPeppol Punch Out (2023.11) (aka BIS 3.0.12)</li>
+<li><code>eu.peppol.bis3:punch-out:2023.11</code> - OpenPeppol Punch Out (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:2023.5</code> - OpenPeppol UBL Credit Note (2023.5) (aka BIS Billing 3.0.15) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:2024.5</code> - OpenPeppol UBL Credit Note (2024.5) (aka BIS Billing 3.0.17)</li>
 <li><code>eu.peppol.bis3:creditnote:3.14</code> - OpenPeppol UBL Credit Note (3.14.0) (aka BIS Billing 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.15</code> - OpenPeppol UBL Credit Note (3.15.0) (aka BIS Billing 3.0.14) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:creditnote:2023.11</code> - OpenPeppol UBL Credit Note (2023.11) (aka BIS Billing 3.0.16)</li>
+<li><code>eu.peppol.bis3:creditnote:2023.11</code> - OpenPeppol UBL Credit Note (2023.11) (aka BIS Billing 3.0.16) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:2023.5</code> - OpenPeppol UBL Invoice (2023.5) (aka BIS Billing 3.0.15) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:2024.5</code> - OpenPeppol UBL Invoice (2024.5) (aka BIS Billing 3.0.17)</li>
 <li><code>eu.peppol.bis3:invoice:3.14</code> - OpenPeppol UBL Invoice (3.14.0) (aka BIS Billing 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.15</code> - OpenPeppol UBL Invoice (3.15.0) (aka BIS Billing 3.0.14) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice:2023.11</code> - OpenPeppol UBL Invoice (2023.11) (aka BIS Billing 3.0.16)</li>
+<li><code>eu.peppol.bis3:invoice:2023.11</code> - OpenPeppol UBL Invoice (2023.11) (aka BIS Billing 3.0.16) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.directory:businesscard:1</code> - Peppol Directory BusinessCard v1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.directory:businesscard:2</code> - Peppol Directory BusinessCard v2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.directory:businesscard:3</code> - Peppol Directory BusinessCard v3</li>
@@ -677,363 +598,363 @@ A very small Java WS client is available for
 <li><code>org.oasis-open:applicationresponse:2.1</code> - UBL Application Response 2.1</li>
 <li><code>org.oasis-open:applicationresponse:2.2</code> - UBL Application Response 2.2</li>
 <li><code>org.oasis-open:applicationresponse:2.3</code> - UBL Application Response 2.3</li>
-<li><code>org.oasis-open:applicationresponse:2.4-cds01</code> - UBL Application Response 2.4-cds01</li>
+<li><code>org.oasis-open:applicationresponse:2.4</code> - UBL Application Response 2.4</li>
 <li><code>org.oasis-open:attacheddocument:2</code> - UBL Attached Document 2.0</li>
 <li><code>org.oasis-open:attacheddocument:2.1</code> - UBL Attached Document 2.1</li>
 <li><code>org.oasis-open:attacheddocument:2.2</code> - UBL Attached Document 2.2</li>
 <li><code>org.oasis-open:attacheddocument:2.3</code> - UBL Attached Document 2.3</li>
-<li><code>org.oasis-open:attacheddocument:2.4-cds01</code> - UBL Attached Document 2.4-cds01</li>
+<li><code>org.oasis-open:attacheddocument:2.4</code> - UBL Attached Document 2.4</li>
 <li><code>org.oasis-open:awardednotification:2.1</code> - UBL Awarded Notification 2.1</li>
 <li><code>org.oasis-open:awardednotification:2.2</code> - UBL Awarded Notification 2.2</li>
 <li><code>org.oasis-open:awardednotification:2.3</code> - UBL Awarded Notification 2.3</li>
-<li><code>org.oasis-open:awardednotification:2.4-cds01</code> - UBL Awarded Notification 2.4-cds01</li>
+<li><code>org.oasis-open:awardednotification:2.4</code> - UBL Awarded Notification 2.4</li>
 <li><code>org.oasis-open:billoflading:2</code> - UBL Bill Of Lading 2.0</li>
 <li><code>org.oasis-open:billoflading:2.1</code> - UBL Bill Of Lading 2.1</li>
 <li><code>org.oasis-open:billoflading:2.2</code> - UBL Bill Of Lading 2.2</li>
 <li><code>org.oasis-open:billoflading:2.3</code> - UBL Bill Of Lading 2.3</li>
-<li><code>org.oasis-open:billoflading:2.4-cds01</code> - UBL Bill Of Lading 2.4-cds01</li>
+<li><code>org.oasis-open:billoflading:2.4</code> - UBL Bill Of Lading 2.4</li>
 <li><code>org.oasis-open:businesscard:2.2</code> - UBL Business Card 2.2</li>
 <li><code>org.oasis-open:businesscard:2.3</code> - UBL Business Card 2.3</li>
-<li><code>org.oasis-open:businesscard:2.4-cds01</code> - UBL Business Card 2.4-cds01</li>
-<li><code>org.oasis-open:businessinformation:2.4-cds01</code> - UBL Business Information 2.4-cds01</li>
+<li><code>org.oasis-open:businesscard:2.4</code> - UBL Business Card 2.4</li>
+<li><code>org.oasis-open:businessinformation:2.4</code> - UBL Business Information 2.4</li>
 <li><code>org.oasis-open:callfortenders:2.1</code> - UBL Call For Tenders 2.1</li>
 <li><code>org.oasis-open:callfortenders:2.2</code> - UBL Call For Tenders 2.2</li>
 <li><code>org.oasis-open:callfortenders:2.3</code> - UBL Call For Tenders 2.3</li>
-<li><code>org.oasis-open:callfortenders:2.4-cds01</code> - UBL Call For Tenders 2.4-cds01</li>
+<li><code>org.oasis-open:callfortenders:2.4</code> - UBL Call For Tenders 2.4</li>
 <li><code>org.oasis-open:catalogue:2</code> - UBL Catalogue 2.0</li>
 <li><code>org.oasis-open:catalogue:2.1</code> - UBL Catalogue 2.1</li>
 <li><code>org.oasis-open:catalogue:2.2</code> - UBL Catalogue 2.2</li>
 <li><code>org.oasis-open:catalogue:2.3</code> - UBL Catalogue 2.3</li>
-<li><code>org.oasis-open:catalogue:2.4-cds01</code> - UBL Catalogue 2.4-cds01</li>
+<li><code>org.oasis-open:catalogue:2.4</code> - UBL Catalogue 2.4</li>
 <li><code>org.oasis-open:cataloguedeletion:2</code> - UBL Catalogue Deletion 2.0</li>
 <li><code>org.oasis-open:cataloguedeletion:2.1</code> - UBL Catalogue Deletion 2.1</li>
 <li><code>org.oasis-open:cataloguedeletion:2.2</code> - UBL Catalogue Deletion 2.2</li>
 <li><code>org.oasis-open:cataloguedeletion:2.3</code> - UBL Catalogue Deletion 2.3</li>
-<li><code>org.oasis-open:cataloguedeletion:2.4-cds01</code> - UBL Catalogue Deletion 2.4-cds01</li>
+<li><code>org.oasis-open:cataloguedeletion:2.4</code> - UBL Catalogue Deletion 2.4</li>
 <li><code>org.oasis-open:catalogueitemspecificationupdate:2</code> - UBL Catalogue Item Specification Update 2.0</li>
 <li><code>org.oasis-open:catalogueitemspecificationupdate:2.1</code> - UBL Catalogue Item Specification Update 2.1</li>
 <li><code>org.oasis-open:catalogueitemspecificationupdate:2.2</code> - UBL Catalogue Item Specification Update 2.2</li>
 <li><code>org.oasis-open:catalogueitemspecificationupdate:2.3</code> - UBL Catalogue Item Specification Update 2.3</li>
-<li><code>org.oasis-open:catalogueitemspecificationupdate:2.4-cds01</code> - UBL Catalogue Item Specification Update 2.4-cds01</li>
+<li><code>org.oasis-open:catalogueitemspecificationupdate:2.4</code> - UBL Catalogue Item Specification Update 2.4</li>
 <li><code>org.oasis-open:cataloguepricingupdate:2</code> - UBL Catalogue Pricing Update 2.0</li>
 <li><code>org.oasis-open:cataloguepricingupdate:2.1</code> - UBL Catalogue Pricing Update 2.1</li>
 <li><code>org.oasis-open:cataloguepricingupdate:2.2</code> - UBL Catalogue Pricing Update 2.2</li>
 <li><code>org.oasis-open:cataloguepricingupdate:2.3</code> - UBL Catalogue Pricing Update 2.3</li>
-<li><code>org.oasis-open:cataloguepricingupdate:2.4-cds01</code> - UBL Catalogue Pricing Update 2.4-cds01</li>
+<li><code>org.oasis-open:cataloguepricingupdate:2.4</code> - UBL Catalogue Pricing Update 2.4</li>
 <li><code>org.oasis-open:cataloguerequest:2</code> - UBL Catalogue Request 2.0</li>
 <li><code>org.oasis-open:cataloguerequest:2.1</code> - UBL Catalogue Request 2.1</li>
 <li><code>org.oasis-open:cataloguerequest:2.2</code> - UBL Catalogue Request 2.2</li>
 <li><code>org.oasis-open:cataloguerequest:2.3</code> - UBL Catalogue Request 2.3</li>
-<li><code>org.oasis-open:cataloguerequest:2.4-cds01</code> - UBL Catalogue Request 2.4-cds01</li>
+<li><code>org.oasis-open:cataloguerequest:2.4</code> - UBL Catalogue Request 2.4</li>
 <li><code>org.oasis-open:certificateoforigin:2</code> - UBL Certificate Of Origin 2.0</li>
 <li><code>org.oasis-open:certificateoforigin:2.1</code> - UBL Certificate Of Origin 2.1</li>
 <li><code>org.oasis-open:certificateoforigin:2.2</code> - UBL Certificate Of Origin 2.2</li>
 <li><code>org.oasis-open:certificateoforigin:2.3</code> - UBL Certificate Of Origin 2.3</li>
-<li><code>org.oasis-open:certificateoforigin:2.4-cds01</code> - UBL Certificate Of Origin 2.4-cds01</li>
+<li><code>org.oasis-open:certificateoforigin:2.4</code> - UBL Certificate Of Origin 2.4</li>
 <li><code>org.oasis-open:commontransportationreport:2.3</code> - UBL Common Transportation Report 2.3</li>
-<li><code>org.oasis-open:commontransportationreport:2.4-cds01</code> - UBL Common Transportation Report 2.4-cds01</li>
+<li><code>org.oasis-open:commontransportationreport:2.4</code> - UBL Common Transportation Report 2.4</li>
 <li><code>org.oasis-open:contractawardnotice:2.1</code> - UBL Contract Award Notice 2.1</li>
 <li><code>org.oasis-open:contractawardnotice:2.2</code> - UBL Contract Award Notice 2.2</li>
 <li><code>org.oasis-open:contractawardnotice:2.3</code> - UBL Contract Award Notice 2.3</li>
-<li><code>org.oasis-open:contractawardnotice:2.4-cds01</code> - UBL Contract Award Notice 2.4-cds01</li>
+<li><code>org.oasis-open:contractawardnotice:2.4</code> - UBL Contract Award Notice 2.4</li>
 <li><code>org.oasis-open:contractnotice:2.1</code> - UBL Contract Notice 2.1</li>
 <li><code>org.oasis-open:contractnotice:2.2</code> - UBL Contract Notice 2.2</li>
 <li><code>org.oasis-open:contractnotice:2.3</code> - UBL Contract Notice 2.3</li>
-<li><code>org.oasis-open:contractnotice:2.4-cds01</code> - UBL Contract Notice 2.4-cds01</li>
+<li><code>org.oasis-open:contractnotice:2.4</code> - UBL Contract Notice 2.4</li>
 <li><code>org.oasis-open:creditnote:2</code> - UBL Credit Note 2.0</li>
 <li><code>org.oasis-open:creditnote:2.1</code> - UBL Credit Note 2.1</li>
 <li><code>org.oasis-open:creditnote:2.2</code> - UBL Credit Note 2.2</li>
 <li><code>org.oasis-open:creditnote:2.3</code> - UBL Credit Note 2.3</li>
-<li><code>org.oasis-open:creditnote:2.4-cds01</code> - UBL Credit Note 2.4-cds01</li>
+<li><code>org.oasis-open:creditnote:2.4</code> - UBL Credit Note 2.4</li>
 <li><code>org.oasis-open:debitnote:2</code> - UBL Debit Note 2.0</li>
 <li><code>org.oasis-open:debitnote:2.1</code> - UBL Debit Note 2.1</li>
 <li><code>org.oasis-open:debitnote:2.2</code> - UBL Debit Note 2.2</li>
 <li><code>org.oasis-open:debitnote:2.3</code> - UBL Debit Note 2.3</li>
-<li><code>org.oasis-open:debitnote:2.4-cds01</code> - UBL Debit Note 2.4-cds01</li>
+<li><code>org.oasis-open:debitnote:2.4</code> - UBL Debit Note 2.4</li>
 <li><code>org.oasis-open:despatchadvice:2</code> - UBL Despatch Advice 2.0</li>
 <li><code>org.oasis-open:despatchadvice:2.1</code> - UBL Despatch Advice 2.1</li>
 <li><code>org.oasis-open:despatchadvice:2.2</code> - UBL Despatch Advice 2.2</li>
 <li><code>org.oasis-open:despatchadvice:2.3</code> - UBL Despatch Advice 2.3</li>
-<li><code>org.oasis-open:despatchadvice:2.4-cds01</code> - UBL Despatch Advice 2.4-cds01</li>
+<li><code>org.oasis-open:despatchadvice:2.4</code> - UBL Despatch Advice 2.4</li>
 <li><code>org.oasis-open:digitalagreement:2.2</code> - UBL Digital Agreement 2.2</li>
 <li><code>org.oasis-open:digitalagreement:2.3</code> - UBL Digital Agreement 2.3</li>
-<li><code>org.oasis-open:digitalagreement:2.4-cds01</code> - UBL Digital Agreement 2.4-cds01</li>
+<li><code>org.oasis-open:digitalagreement:2.4</code> - UBL Digital Agreement 2.4</li>
 <li><code>org.oasis-open:digitalcapability:2.2</code> - UBL Digital Capability 2.2</li>
 <li><code>org.oasis-open:digitalcapability:2.3</code> - UBL Digital Capability 2.3</li>
-<li><code>org.oasis-open:digitalcapability:2.4-cds01</code> - UBL Digital Capability 2.4-cds01</li>
+<li><code>org.oasis-open:digitalcapability:2.4</code> - UBL Digital Capability 2.4</li>
 <li><code>org.oasis-open:documentstatus:2.1</code> - UBL Document Status 2.1</li>
 <li><code>org.oasis-open:documentstatus:2.2</code> - UBL Document Status 2.2</li>
 <li><code>org.oasis-open:documentstatus:2.3</code> - UBL Document Status 2.3</li>
-<li><code>org.oasis-open:documentstatus:2.4-cds01</code> - UBL Document Status 2.4-cds01</li>
+<li><code>org.oasis-open:documentstatus:2.4</code> - UBL Document Status 2.4</li>
 <li><code>org.oasis-open:documentstatusrequest:2.1</code> - UBL Document Status Request 2.1</li>
 <li><code>org.oasis-open:documentstatusrequest:2.2</code> - UBL Document Status Request 2.2</li>
 <li><code>org.oasis-open:documentstatusrequest:2.3</code> - UBL Document Status Request 2.3</li>
-<li><code>org.oasis-open:documentstatusrequest:2.4-cds01</code> - UBL Document Status Request 2.4-cds01</li>
+<li><code>org.oasis-open:documentstatusrequest:2.4</code> - UBL Document Status Request 2.4</li>
 <li><code>org.oasis-open:enquiry:2.2</code> - UBL Enquiry 2.2</li>
 <li><code>org.oasis-open:enquiry:2.3</code> - UBL Enquiry 2.3</li>
-<li><code>org.oasis-open:enquiry:2.4-cds01</code> - UBL Enquiry 2.4-cds01</li>
+<li><code>org.oasis-open:enquiry:2.4</code> - UBL Enquiry 2.4</li>
 <li><code>org.oasis-open:enquiryresponse:2.2</code> - UBL Enquiry Response 2.2</li>
 <li><code>org.oasis-open:enquiryresponse:2.3</code> - UBL Enquiry Response 2.3</li>
-<li><code>org.oasis-open:enquiryresponse:2.4-cds01</code> - UBL Enquiry Response 2.4-cds01</li>
+<li><code>org.oasis-open:enquiryresponse:2.4</code> - UBL Enquiry Response 2.4</li>
 <li><code>org.oasis-open:exceptioncriteria:2.1</code> - UBL Exception Criteria 2.1</li>
 <li><code>org.oasis-open:exceptioncriteria:2.2</code> - UBL Exception Criteria 2.2</li>
 <li><code>org.oasis-open:exceptioncriteria:2.3</code> - UBL Exception Criteria 2.3</li>
-<li><code>org.oasis-open:exceptioncriteria:2.4-cds01</code> - UBL Exception Criteria 2.4-cds01</li>
+<li><code>org.oasis-open:exceptioncriteria:2.4</code> - UBL Exception Criteria 2.4</li>
 <li><code>org.oasis-open:exceptionnotification:2.1</code> - UBL Exception Notification 2.1</li>
 <li><code>org.oasis-open:exceptionnotification:2.2</code> - UBL Exception Notification 2.2</li>
 <li><code>org.oasis-open:exceptionnotification:2.3</code> - UBL Exception Notification 2.3</li>
-<li><code>org.oasis-open:exceptionnotification:2.4-cds01</code> - UBL Exception Notification 2.4-cds01</li>
+<li><code>org.oasis-open:exceptionnotification:2.4</code> - UBL Exception Notification 2.4</li>
 <li><code>org.oasis-open:exportcustomsdeclaration:2.3</code> - UBL Export Customs Declaration 2.3</li>
-<li><code>org.oasis-open:exportcustomsdeclaration:2.4-cds01</code> - UBL Export Customs Declaration 2.4-cds01</li>
+<li><code>org.oasis-open:exportcustomsdeclaration:2.4</code> - UBL Export Customs Declaration 2.4</li>
 <li><code>org.oasis-open:expressionofinterestrequest:2.2</code> - UBL Expression Of Interest Request 2.2</li>
 <li><code>org.oasis-open:expressionofinterestrequest:2.3</code> - UBL Expression Of Interest Request 2.3</li>
-<li><code>org.oasis-open:expressionofinterestrequest:2.4-cds01</code> - UBL Expression Of Interest Request 2.4-cds01</li>
+<li><code>org.oasis-open:expressionofinterestrequest:2.4</code> - UBL Expression Of Interest Request 2.4</li>
 <li><code>org.oasis-open:expressionofinterestresponse:2.2</code> - UBL Expression Of Interest Response 2.2</li>
 <li><code>org.oasis-open:expressionofinterestresponse:2.3</code> - UBL Expression Of Interest Response 2.3</li>
-<li><code>org.oasis-open:expressionofinterestresponse:2.4-cds01</code> - UBL Expression Of Interest Response 2.4-cds01</li>
+<li><code>org.oasis-open:expressionofinterestresponse:2.4</code> - UBL Expression Of Interest Response 2.4</li>
 <li><code>org.oasis-open:forecast:2.1</code> - UBL Forecast 2.1</li>
 <li><code>org.oasis-open:forecast:2.2</code> - UBL Forecast 2.2</li>
 <li><code>org.oasis-open:forecast:2.3</code> - UBL Forecast 2.3</li>
-<li><code>org.oasis-open:forecast:2.4-cds01</code> - UBL Forecast 2.4-cds01</li>
+<li><code>org.oasis-open:forecast:2.4</code> - UBL Forecast 2.4</li>
 <li><code>org.oasis-open:forecastrevision:2.1</code> - UBL Forecast Revision 2.1</li>
 <li><code>org.oasis-open:forecastrevision:2.2</code> - UBL Forecast Revision 2.2</li>
 <li><code>org.oasis-open:forecastrevision:2.3</code> - UBL Forecast Revision 2.3</li>
-<li><code>org.oasis-open:forecastrevision:2.4-cds01</code> - UBL Forecast Revision 2.4-cds01</li>
+<li><code>org.oasis-open:forecastrevision:2.4</code> - UBL Forecast Revision 2.4</li>
 <li><code>org.oasis-open:forwardinginstructions:2</code> - UBL Forwarding Instructions 2.0</li>
 <li><code>org.oasis-open:forwardinginstructions:2.1</code> - UBL Forwarding Instructions 2.1</li>
 <li><code>org.oasis-open:forwardinginstructions:2.2</code> - UBL Forwarding Instructions 2.2</li>
 <li><code>org.oasis-open:forwardinginstructions:2.3</code> - UBL Forwarding Instructions 2.3</li>
-<li><code>org.oasis-open:forwardinginstructions:2.4-cds01</code> - UBL Forwarding Instructions 2.4-cds01</li>
+<li><code>org.oasis-open:forwardinginstructions:2.4</code> - UBL Forwarding Instructions 2.4</li>
 <li><code>org.oasis-open:freightinvoice:2</code> - UBL Freight Invoice 2.0</li>
 <li><code>org.oasis-open:freightinvoice:2.1</code> - UBL Freight Invoice 2.1</li>
 <li><code>org.oasis-open:freightinvoice:2.2</code> - UBL Freight Invoice 2.2</li>
 <li><code>org.oasis-open:freightinvoice:2.3</code> - UBL Freight Invoice 2.3</li>
-<li><code>org.oasis-open:freightinvoice:2.4-cds01</code> - UBL Freight Invoice 2.4-cds01</li>
+<li><code>org.oasis-open:freightinvoice:2.4</code> - UBL Freight Invoice 2.4</li>
 <li><code>org.oasis-open:fulfilmentcancellation:2.1</code> - UBL Fulfilment Cancellation 2.1</li>
 <li><code>org.oasis-open:fulfilmentcancellation:2.2</code> - UBL Fulfilment Cancellation 2.2</li>
 <li><code>org.oasis-open:fulfilmentcancellation:2.3</code> - UBL Fulfilment Cancellation 2.3</li>
-<li><code>org.oasis-open:fulfilmentcancellation:2.4-cds01</code> - UBL Fulfilment Cancellation 2.4-cds01</li>
+<li><code>org.oasis-open:fulfilmentcancellation:2.4</code> - UBL Fulfilment Cancellation 2.4</li>
 <li><code>org.oasis-open:goodscertificate:2.3</code> - UBL Goods Certificate 2.3</li>
-<li><code>org.oasis-open:goodscertificate:2.4-cds01</code> - UBL Goods Certificate 2.4-cds01</li>
+<li><code>org.oasis-open:goodscertificate:2.4</code> - UBL Goods Certificate 2.4</li>
 <li><code>org.oasis-open:goodsitemitinerary:2.1</code> - UBL Goods Item Itinerary 2.1</li>
 <li><code>org.oasis-open:goodsitemitinerary:2.2</code> - UBL Goods Item Itinerary 2.2</li>
 <li><code>org.oasis-open:goodsitemitinerary:2.3</code> - UBL Goods Item Itinerary 2.3</li>
-<li><code>org.oasis-open:goodsitemitinerary:2.4-cds01</code> - UBL Goods Item Itinerary 2.4-cds01</li>
+<li><code>org.oasis-open:goodsitemitinerary:2.4</code> - UBL Goods Item Itinerary 2.4</li>
 <li><code>org.oasis-open:goodsitempassport:2.3</code> - UBL Goods Item Passport 2.3</li>
-<li><code>org.oasis-open:goodsitempassport:2.4-cds01</code> - UBL Goods Item Passport 2.4-cds01</li>
+<li><code>org.oasis-open:goodsitempassport:2.4</code> - UBL Goods Item Passport 2.4</li>
 <li><code>org.oasis-open:guaranteecertificate:2.1</code> - UBL Guarantee Certificate 2.1</li>
 <li><code>org.oasis-open:guaranteecertificate:2.2</code> - UBL Guarantee Certificate 2.2</li>
 <li><code>org.oasis-open:guaranteecertificate:2.3</code> - UBL Guarantee Certificate 2.3</li>
-<li><code>org.oasis-open:guaranteecertificate:2.4-cds01</code> - UBL Guarantee Certificate 2.4-cds01</li>
+<li><code>org.oasis-open:guaranteecertificate:2.4</code> - UBL Guarantee Certificate 2.4</li>
 <li><code>org.oasis-open:importcustomsdeclaration:2.3</code> - UBL Import Customs Declaration 2.3</li>
-<li><code>org.oasis-open:importcustomsdeclaration:2.4-cds01</code> - UBL Import Customs Declaration 2.4-cds01</li>
+<li><code>org.oasis-open:importcustomsdeclaration:2.4</code> - UBL Import Customs Declaration 2.4</li>
 <li><code>org.oasis-open:instructionforreturns:2.1</code> - UBL Instruction For Returns 2.1</li>
 <li><code>org.oasis-open:instructionforreturns:2.2</code> - UBL Instruction For Returns 2.2</li>
 <li><code>org.oasis-open:instructionforreturns:2.3</code> - UBL Instruction For Returns 2.3</li>
-<li><code>org.oasis-open:instructionforreturns:2.4-cds01</code> - UBL Instruction For Returns 2.4-cds01</li>
+<li><code>org.oasis-open:instructionforreturns:2.4</code> - UBL Instruction For Returns 2.4</li>
 <li><code>org.oasis-open:inventoryreport:2.1</code> - UBL Inventory Report 2.1</li>
 <li><code>org.oasis-open:inventoryreport:2.2</code> - UBL Inventory Report 2.2</li>
 <li><code>org.oasis-open:inventoryreport:2.3</code> - UBL Inventory Report 2.3</li>
-<li><code>org.oasis-open:inventoryreport:2.4-cds01</code> - UBL Inventory Report 2.4-cds01</li>
+<li><code>org.oasis-open:inventoryreport:2.4</code> - UBL Inventory Report 2.4</li>
 <li><code>org.oasis-open:invoice:2</code> - UBL Invoice 2.0</li>
 <li><code>org.oasis-open:invoice:2.1</code> - UBL Invoice 2.1</li>
 <li><code>org.oasis-open:invoice:2.2</code> - UBL Invoice 2.2</li>
 <li><code>org.oasis-open:invoice:2.3</code> - UBL Invoice 2.3</li>
-<li><code>org.oasis-open:invoice:2.4-cds01</code> - UBL Invoice 2.4-cds01</li>
+<li><code>org.oasis-open:invoice:2.4</code> - UBL Invoice 2.4</li>
 <li><code>org.oasis-open:iteminformationrequest:2.1</code> - UBL Item Information Request 2.1</li>
 <li><code>org.oasis-open:iteminformationrequest:2.2</code> - UBL Item Information Request 2.2</li>
 <li><code>org.oasis-open:iteminformationrequest:2.3</code> - UBL Item Information Request 2.3</li>
-<li><code>org.oasis-open:iteminformationrequest:2.4-cds01</code> - UBL Item Information Request 2.4-cds01</li>
+<li><code>org.oasis-open:iteminformationrequest:2.4</code> - UBL Item Information Request 2.4</li>
 <li><code>org.oasis-open:manifest:2.3</code> - UBL Manifest 2.3</li>
-<li><code>org.oasis-open:manifest:2.4-cds01</code> - UBL Manifest 2.4-cds01</li>
+<li><code>org.oasis-open:manifest:2.4</code> - UBL Manifest 2.4</li>
 <li><code>org.oasis-open:order:2</code> - UBL Order 2.0</li>
 <li><code>org.oasis-open:order:2.1</code> - UBL Order 2.1</li>
 <li><code>org.oasis-open:order:2.2</code> - UBL Order 2.2</li>
 <li><code>org.oasis-open:order:2.3</code> - UBL Order 2.3</li>
-<li><code>org.oasis-open:order:2.4-cds01</code> - UBL Order 2.4-cds01</li>
+<li><code>org.oasis-open:order:2.4</code> - UBL Order 2.4</li>
 <li><code>org.oasis-open:ordercancellation:2</code> - UBL Order Cancellation 2.0</li>
 <li><code>org.oasis-open:ordercancellation:2.1</code> - UBL Order Cancellation 2.1</li>
 <li><code>org.oasis-open:ordercancellation:2.2</code> - UBL Order Cancellation 2.2</li>
 <li><code>org.oasis-open:ordercancellation:2.3</code> - UBL Order Cancellation 2.3</li>
-<li><code>org.oasis-open:ordercancellation:2.4-cds01</code> - UBL Order Cancellation 2.4-cds01</li>
+<li><code>org.oasis-open:ordercancellation:2.4</code> - UBL Order Cancellation 2.4</li>
 <li><code>org.oasis-open:orderchange:2</code> - UBL Order Change 2.0</li>
 <li><code>org.oasis-open:orderchange:2.1</code> - UBL Order Change 2.1</li>
 <li><code>org.oasis-open:orderchange:2.2</code> - UBL Order Change 2.2</li>
 <li><code>org.oasis-open:orderchange:2.3</code> - UBL Order Change 2.3</li>
-<li><code>org.oasis-open:orderchange:2.4-cds01</code> - UBL Order Change 2.4-cds01</li>
+<li><code>org.oasis-open:orderchange:2.4</code> - UBL Order Change 2.4</li>
 <li><code>org.oasis-open:orderresponse:2</code> - UBL Order Response 2.0</li>
 <li><code>org.oasis-open:orderresponse:2.1</code> - UBL Order Response 2.1</li>
 <li><code>org.oasis-open:orderresponse:2.2</code> - UBL Order Response 2.2</li>
 <li><code>org.oasis-open:orderresponse:2.3</code> - UBL Order Response 2.3</li>
-<li><code>org.oasis-open:orderresponse:2.4-cds01</code> - UBL Order Response 2.4-cds01</li>
+<li><code>org.oasis-open:orderresponse:2.4</code> - UBL Order Response 2.4</li>
 <li><code>org.oasis-open:orderresponsesimple:2</code> - UBL Order Response Simple 2.0</li>
 <li><code>org.oasis-open:orderresponsesimple:2.1</code> - UBL Order Response Simple 2.1</li>
 <li><code>org.oasis-open:orderresponsesimple:2.2</code> - UBL Order Response Simple 2.2</li>
 <li><code>org.oasis-open:orderresponsesimple:2.3</code> - UBL Order Response Simple 2.3</li>
-<li><code>org.oasis-open:orderresponsesimple:2.4-cds01</code> - UBL Order Response Simple 2.4-cds01</li>
+<li><code>org.oasis-open:orderresponsesimple:2.4</code> - UBL Order Response Simple 2.4</li>
 <li><code>org.oasis-open:packinglist:2</code> - UBL Packing List 2.0</li>
 <li><code>org.oasis-open:packinglist:2.1</code> - UBL Packing List 2.1</li>
 <li><code>org.oasis-open:packinglist:2.2</code> - UBL Packing List 2.2</li>
 <li><code>org.oasis-open:packinglist:2.3</code> - UBL Packing List 2.3</li>
-<li><code>org.oasis-open:packinglist:2.4-cds01</code> - UBL Packing List 2.4-cds01</li>
+<li><code>org.oasis-open:packinglist:2.4</code> - UBL Packing List 2.4</li>
 <li><code>org.oasis-open:priorinformationnotice:2.1</code> - UBL Prior Information Notice 2.1</li>
 <li><code>org.oasis-open:priorinformationnotice:2.2</code> - UBL Prior Information Notice 2.2</li>
 <li><code>org.oasis-open:priorinformationnotice:2.3</code> - UBL Prior Information Notice 2.3</li>
-<li><code>org.oasis-open:priorinformationnotice:2.4-cds01</code> - UBL Prior Information Notice 2.4-cds01</li>
+<li><code>org.oasis-open:priorinformationnotice:2.4</code> - UBL Prior Information Notice 2.4</li>
 <li><code>org.oasis-open:productactivity:2.1</code> - UBL Product Activity 2.1</li>
 <li><code>org.oasis-open:productactivity:2.2</code> - UBL Product Activity 2.2</li>
 <li><code>org.oasis-open:productactivity:2.3</code> - UBL Product Activity 2.3</li>
-<li><code>org.oasis-open:productactivity:2.4-cds01</code> - UBL Product Activity 2.4-cds01</li>
+<li><code>org.oasis-open:productactivity:2.4</code> - UBL Product Activity 2.4</li>
 <li><code>org.oasis-open:proofofreexportation:2.3</code> - UBL Proof Of Reexportation 2.3</li>
-<li><code>org.oasis-open:proofofreexportation:2.4-cds01</code> - UBL Proof Of Reexportation 2.4-cds01</li>
+<li><code>org.oasis-open:proofofreexportation:2.4</code> - UBL Proof Of Reexportation 2.4</li>
 <li><code>org.oasis-open:proofofreexportationreminder:2.3</code> - UBL Proof Of Reexportation Reminder 2.3</li>
-<li><code>org.oasis-open:proofofreexportationreminder:2.4-cds01</code> - UBL Proof Of Reexportation Reminder 2.4-cds01</li>
+<li><code>org.oasis-open:proofofreexportationreminder:2.4</code> - UBL Proof Of Reexportation Reminder 2.4</li>
 <li><code>org.oasis-open:proofofreexportationrequest:2.3</code> - UBL Proof Of Reexportation Request 2.3</li>
-<li><code>org.oasis-open:proofofreexportationrequest:2.4-cds01</code> - UBL Proof Of Reexportation Request 2.4-cds01</li>
-<li><code>org.oasis-open:purchasereceipt:2.4-cds01</code> - UBL Purchase Receipt 2.4-cds01</li>
+<li><code>org.oasis-open:proofofreexportationrequest:2.4</code> - UBL Proof Of Reexportation Request 2.4</li>
+<li><code>org.oasis-open:purchasereceipt:2.4</code> - UBL Purchase Receipt 2.4</li>
 <li><code>org.oasis-open:qualificationapplicationrequest:2.2</code> - UBL Qualification Application Request 2.2</li>
 <li><code>org.oasis-open:qualificationapplicationrequest:2.3</code> - UBL Qualification Application Request 2.3</li>
-<li><code>org.oasis-open:qualificationapplicationrequest:2.4-cds01</code> - UBL Qualification Application Request 2.4-cds01</li>
+<li><code>org.oasis-open:qualificationapplicationrequest:2.4</code> - UBL Qualification Application Request 2.4</li>
 <li><code>org.oasis-open:qualificationapplicationresponse:2.2</code> - UBL Qualification Application Response 2.2</li>
 <li><code>org.oasis-open:qualificationapplicationresponse:2.3</code> - UBL Qualification Application Response 2.3</li>
-<li><code>org.oasis-open:qualificationapplicationresponse:2.4-cds01</code> - UBL Qualification Application Response 2.4-cds01</li>
+<li><code>org.oasis-open:qualificationapplicationresponse:2.4</code> - UBL Qualification Application Response 2.4</li>
 <li><code>org.oasis-open:quotation:2</code> - UBL Quotation 2.0</li>
 <li><code>org.oasis-open:quotation:2.1</code> - UBL Quotation 2.1</li>
 <li><code>org.oasis-open:quotation:2.2</code> - UBL Quotation 2.2</li>
 <li><code>org.oasis-open:quotation:2.3</code> - UBL Quotation 2.3</li>
-<li><code>org.oasis-open:quotation:2.4-cds01</code> - UBL Quotation 2.4-cds01</li>
+<li><code>org.oasis-open:quotation:2.4</code> - UBL Quotation 2.4</li>
 <li><code>org.oasis-open:receiptadvice:2</code> - UBL Receipt Advice 2.0</li>
 <li><code>org.oasis-open:receiptadvice:2.1</code> - UBL Receipt Advice 2.1</li>
 <li><code>org.oasis-open:receiptadvice:2.2</code> - UBL Receipt Advice 2.2</li>
 <li><code>org.oasis-open:receiptadvice:2.3</code> - UBL Receipt Advice 2.3</li>
-<li><code>org.oasis-open:receiptadvice:2.4-cds01</code> - UBL Receipt Advice 2.4-cds01</li>
+<li><code>org.oasis-open:receiptadvice:2.4</code> - UBL Receipt Advice 2.4</li>
 <li><code>org.oasis-open:reminder:2</code> - UBL Reminder 2.0</li>
 <li><code>org.oasis-open:reminder:2.1</code> - UBL Reminder 2.1</li>
 <li><code>org.oasis-open:reminder:2.2</code> - UBL Reminder 2.2</li>
 <li><code>org.oasis-open:reminder:2.3</code> - UBL Reminder 2.3</li>
-<li><code>org.oasis-open:reminder:2.4-cds01</code> - UBL Reminder 2.4-cds01</li>
+<li><code>org.oasis-open:reminder:2.4</code> - UBL Reminder 2.4</li>
 <li><code>org.oasis-open:remittanceadvice:2</code> - UBL Remittance Advice 2.0</li>
 <li><code>org.oasis-open:remittanceadvice:2.1</code> - UBL Remittance Advice 2.1</li>
 <li><code>org.oasis-open:remittanceadvice:2.2</code> - UBL Remittance Advice 2.2</li>
 <li><code>org.oasis-open:remittanceadvice:2.3</code> - UBL Remittance Advice 2.3</li>
-<li><code>org.oasis-open:remittanceadvice:2.4-cds01</code> - UBL Remittance Advice 2.4-cds01</li>
+<li><code>org.oasis-open:remittanceadvice:2.4</code> - UBL Remittance Advice 2.4</li>
 <li><code>org.oasis-open:requestforquotation:2</code> - UBL Request For Quotation 2.0</li>
 <li><code>org.oasis-open:requestforquotation:2.1</code> - UBL Request For Quotation 2.1</li>
 <li><code>org.oasis-open:requestforquotation:2.2</code> - UBL Request For Quotation 2.2</li>
 <li><code>org.oasis-open:requestforquotation:2.3</code> - UBL Request For Quotation 2.3</li>
-<li><code>org.oasis-open:requestforquotation:2.4-cds01</code> - UBL Request For Quotation 2.4-cds01</li>
+<li><code>org.oasis-open:requestforquotation:2.4</code> - UBL Request For Quotation 2.4</li>
 <li><code>org.oasis-open:retailevent:2.1</code> - UBL Retail Event 2.1</li>
 <li><code>org.oasis-open:retailevent:2.2</code> - UBL Retail Event 2.2</li>
 <li><code>org.oasis-open:retailevent:2.3</code> - UBL Retail Event 2.3</li>
-<li><code>org.oasis-open:retailevent:2.4-cds01</code> - UBL Retail Event 2.4-cds01</li>
+<li><code>org.oasis-open:retailevent:2.4</code> - UBL Retail Event 2.4</li>
 <li><code>org.oasis-open:selfbilledcreditnote:2</code> - UBL Self Billed Credit Note 2.0</li>
 <li><code>org.oasis-open:selfbilledcreditnote:2.1</code> - UBL Self Billed Credit Note 2.1</li>
 <li><code>org.oasis-open:selfbilledcreditnote:2.2</code> - UBL Self Billed Credit Note 2.2</li>
 <li><code>org.oasis-open:selfbilledcreditnote:2.3</code> - UBL Self Billed Credit Note 2.3</li>
-<li><code>org.oasis-open:selfbilledcreditnote:2.4-cds01</code> - UBL Self Billed Credit Note 2.4-cds01</li>
+<li><code>org.oasis-open:selfbilledcreditnote:2.4</code> - UBL Self Billed Credit Note 2.4</li>
 <li><code>org.oasis-open:selfbilledinvoice:2</code> - UBL Self Billed Invoice 2.0</li>
 <li><code>org.oasis-open:selfbilledinvoice:2.1</code> - UBL Self Billed Invoice 2.1</li>
 <li><code>org.oasis-open:selfbilledinvoice:2.2</code> - UBL Self Billed Invoice 2.2</li>
 <li><code>org.oasis-open:selfbilledinvoice:2.3</code> - UBL Self Billed Invoice 2.3</li>
-<li><code>org.oasis-open:selfbilledinvoice:2.4-cds01</code> - UBL Self Billed Invoice 2.4-cds01</li>
+<li><code>org.oasis-open:selfbilledinvoice:2.4</code> - UBL Self Billed Invoice 2.4</li>
 <li><code>org.oasis-open:statement:2</code> - UBL Statement 2.0</li>
 <li><code>org.oasis-open:statement:2.1</code> - UBL Statement 2.1</li>
 <li><code>org.oasis-open:statement:2.2</code> - UBL Statement 2.2</li>
 <li><code>org.oasis-open:statement:2.3</code> - UBL Statement 2.3</li>
-<li><code>org.oasis-open:statement:2.4-cds01</code> - UBL Statement 2.4-cds01</li>
+<li><code>org.oasis-open:statement:2.4</code> - UBL Statement 2.4</li>
 <li><code>org.oasis-open:stockavailabilityreport:2.1</code> - UBL Stock Availability Report 2.1</li>
 <li><code>org.oasis-open:stockavailabilityreport:2.2</code> - UBL Stock Availability Report 2.2</li>
 <li><code>org.oasis-open:stockavailabilityreport:2.3</code> - UBL Stock Availability Report 2.3</li>
-<li><code>org.oasis-open:stockavailabilityreport:2.4-cds01</code> - UBL Stock Availability Report 2.4-cds01</li>
+<li><code>org.oasis-open:stockavailabilityreport:2.4</code> - UBL Stock Availability Report 2.4</li>
 <li><code>org.oasis-open:tender:2.1</code> - UBL Tender 2.1</li>
 <li><code>org.oasis-open:tender:2.2</code> - UBL Tender 2.2</li>
 <li><code>org.oasis-open:tender:2.3</code> - UBL Tender 2.3</li>
-<li><code>org.oasis-open:tender:2.4-cds01</code> - UBL Tender 2.4-cds01</li>
+<li><code>org.oasis-open:tender:2.4</code> - UBL Tender 2.4</li>
 <li><code>org.oasis-open:tendercontract:2.2</code> - UBL Tender Contract 2.2</li>
 <li><code>org.oasis-open:tendercontract:2.3</code> - UBL Tender Contract 2.3</li>
-<li><code>org.oasis-open:tendercontract:2.4-cds01</code> - UBL Tender Contract 2.4-cds01</li>
+<li><code>org.oasis-open:tendercontract:2.4</code> - UBL Tender Contract 2.4</li>
 <li><code>org.oasis-open:tenderreceipt:2.1</code> - UBL Tender Receipt 2.1</li>
 <li><code>org.oasis-open:tenderreceipt:2.2</code> - UBL Tender Receipt 2.2</li>
 <li><code>org.oasis-open:tenderreceipt:2.3</code> - UBL Tender Receipt 2.3</li>
-<li><code>org.oasis-open:tenderreceipt:2.4-cds01</code> - UBL Tender Receipt 2.4-cds01</li>
+<li><code>org.oasis-open:tenderreceipt:2.4</code> - UBL Tender Receipt 2.4</li>
 <li><code>org.oasis-open:tenderstatus:2.2</code> - UBL Tender Status 2.2</li>
 <li><code>org.oasis-open:tenderstatus:2.3</code> - UBL Tender Status 2.3</li>
-<li><code>org.oasis-open:tenderstatus:2.4-cds01</code> - UBL Tender Status 2.4-cds01</li>
+<li><code>org.oasis-open:tenderstatus:2.4</code> - UBL Tender Status 2.4</li>
 <li><code>org.oasis-open:tenderstatusrequest:2.2</code> - UBL Tender Status Request 2.2</li>
 <li><code>org.oasis-open:tenderstatusrequest:2.3</code> - UBL Tender Status Request 2.3</li>
-<li><code>org.oasis-open:tenderstatusrequest:2.4-cds01</code> - UBL Tender Status Request 2.4-cds01</li>
+<li><code>org.oasis-open:tenderstatusrequest:2.4</code> - UBL Tender Status Request 2.4</li>
 <li><code>org.oasis-open:tenderwithdrawal:2.2</code> - UBL Tender Withdrawal 2.2</li>
 <li><code>org.oasis-open:tenderwithdrawal:2.3</code> - UBL Tender Withdrawal 2.3</li>
-<li><code>org.oasis-open:tenderwithdrawal:2.4-cds01</code> - UBL Tender Withdrawal 2.4-cds01</li>
+<li><code>org.oasis-open:tenderwithdrawal:2.4</code> - UBL Tender Withdrawal 2.4</li>
 <li><code>org.oasis-open:tendererqualification:2.1</code> - UBL Tenderer Qualification 2.1</li>
 <li><code>org.oasis-open:tendererqualification:2.2</code> - UBL Tenderer Qualification 2.2</li>
 <li><code>org.oasis-open:tendererqualification:2.3</code> - UBL Tenderer Qualification 2.3</li>
-<li><code>org.oasis-open:tendererqualification:2.4-cds01</code> - UBL Tenderer Qualification 2.4-cds01</li>
+<li><code>org.oasis-open:tendererqualification:2.4</code> - UBL Tenderer Qualification 2.4</li>
 <li><code>org.oasis-open:tendererqualificationresponse:2.1</code> - UBL Tenderer Qualification Response 2.1</li>
 <li><code>org.oasis-open:tendererqualificationresponse:2.2</code> - UBL Tenderer Qualification Response 2.2</li>
 <li><code>org.oasis-open:tendererqualificationresponse:2.3</code> - UBL Tenderer Qualification Response 2.3</li>
-<li><code>org.oasis-open:tendererqualificationresponse:2.4-cds01</code> - UBL Tenderer Qualification Response 2.4-cds01</li>
+<li><code>org.oasis-open:tendererqualificationresponse:2.4</code> - UBL Tenderer Qualification Response 2.4</li>
 <li><code>org.oasis-open:tradeitemlocationprofile:2.1</code> - UBL Trade Item Location Profile 2.1</li>
 <li><code>org.oasis-open:tradeitemlocationprofile:2.2</code> - UBL Trade Item Location Profile 2.2</li>
 <li><code>org.oasis-open:tradeitemlocationprofile:2.3</code> - UBL Trade Item Location Profile 2.3</li>
-<li><code>org.oasis-open:tradeitemlocationprofile:2.4-cds01</code> - UBL Trade Item Location Profile 2.4-cds01</li>
+<li><code>org.oasis-open:tradeitemlocationprofile:2.4</code> - UBL Trade Item Location Profile 2.4</li>
 <li><code>org.oasis-open:transitcustomsdeclaration:2.3</code> - UBL Transit Customs Declaration 2.3</li>
-<li><code>org.oasis-open:transitcustomsdeclaration:2.4-cds01</code> - UBL Transit Customs Declaration 2.4-cds01</li>
+<li><code>org.oasis-open:transitcustomsdeclaration:2.4</code> - UBL Transit Customs Declaration 2.4</li>
 <li><code>org.oasis-open:transportexecutionplan:2.1</code> - UBL Transport Execution Plan 2.1</li>
 <li><code>org.oasis-open:transportexecutionplan:2.2</code> - UBL Transport Execution Plan 2.2</li>
 <li><code>org.oasis-open:transportexecutionplan:2.3</code> - UBL Transport Execution Plan 2.3</li>
-<li><code>org.oasis-open:transportexecutionplan:2.4-cds01</code> - UBL Transport Execution Plan 2.4-cds01</li>
+<li><code>org.oasis-open:transportexecutionplan:2.4</code> - UBL Transport Execution Plan 2.4</li>
 <li><code>org.oasis-open:transportexecutionplanrequest:2.1</code> - UBL Transport Execution Plan Request 2.1</li>
 <li><code>org.oasis-open:transportexecutionplanrequest:2.2</code> - UBL Transport Execution Plan Request 2.2</li>
 <li><code>org.oasis-open:transportexecutionplanrequest:2.3</code> - UBL Transport Execution Plan Request 2.3</li>
-<li><code>org.oasis-open:transportexecutionplanrequest:2.4-cds01</code> - UBL Transport Execution Plan Request 2.4-cds01</li>
+<li><code>org.oasis-open:transportexecutionplanrequest:2.4</code> - UBL Transport Execution Plan Request 2.4</li>
 <li><code>org.oasis-open:transportprogressstatus:2.1</code> - UBL Transport Progress Status 2.1</li>
 <li><code>org.oasis-open:transportprogressstatus:2.2</code> - UBL Transport Progress Status 2.2</li>
 <li><code>org.oasis-open:transportprogressstatus:2.3</code> - UBL Transport Progress Status 2.3</li>
-<li><code>org.oasis-open:transportprogressstatus:2.4-cds01</code> - UBL Transport Progress Status 2.4-cds01</li>
+<li><code>org.oasis-open:transportprogressstatus:2.4</code> - UBL Transport Progress Status 2.4</li>
 <li><code>org.oasis-open:transportprogressstatusrequest:2.1</code> - UBL Transport Progress Status Request 2.1</li>
 <li><code>org.oasis-open:transportprogressstatusrequest:2.2</code> - UBL Transport Progress Status Request 2.2</li>
 <li><code>org.oasis-open:transportprogressstatusrequest:2.3</code> - UBL Transport Progress Status Request 2.3</li>
-<li><code>org.oasis-open:transportprogressstatusrequest:2.4-cds01</code> - UBL Transport Progress Status Request 2.4-cds01</li>
+<li><code>org.oasis-open:transportprogressstatusrequest:2.4</code> - UBL Transport Progress Status Request 2.4</li>
 <li><code>org.oasis-open:transportservicedescription:2.1</code> - UBL Transport Service Description 2.1</li>
 <li><code>org.oasis-open:transportservicedescription:2.2</code> - UBL Transport Service Description 2.2</li>
 <li><code>org.oasis-open:transportservicedescription:2.3</code> - UBL Transport Service Description 2.3</li>
-<li><code>org.oasis-open:transportservicedescription:2.4-cds01</code> - UBL Transport Service Description 2.4-cds01</li>
+<li><code>org.oasis-open:transportservicedescription:2.4</code> - UBL Transport Service Description 2.4</li>
 <li><code>org.oasis-open:transportservicedescriptionrequest:2.1</code> - UBL Transport Service Description Request 2.1</li>
 <li><code>org.oasis-open:transportservicedescriptionrequest:2.2</code> - UBL Transport Service Description Request 2.2</li>
 <li><code>org.oasis-open:transportservicedescriptionrequest:2.3</code> - UBL Transport Service Description Request 2.3</li>
-<li><code>org.oasis-open:transportservicedescriptionrequest:2.4-cds01</code> - UBL Transport Service Description Request 2.4-cds01</li>
+<li><code>org.oasis-open:transportservicedescriptionrequest:2.4</code> - UBL Transport Service Description Request 2.4</li>
 <li><code>org.oasis-open:transportationstatus:2</code> - UBL Transportation Status 2.0</li>
 <li><code>org.oasis-open:transportationstatus:2.1</code> - UBL Transportation Status 2.1</li>
 <li><code>org.oasis-open:transportationstatus:2.2</code> - UBL Transportation Status 2.2</li>
 <li><code>org.oasis-open:transportationstatus:2.3</code> - UBL Transportation Status 2.3</li>
-<li><code>org.oasis-open:transportationstatus:2.4-cds01</code> - UBL Transportation Status 2.4-cds01</li>
+<li><code>org.oasis-open:transportationstatus:2.4</code> - UBL Transportation Status 2.4</li>
 <li><code>org.oasis-open:transportationstatusrequest:2.1</code> - UBL Transportation Status Request 2.1</li>
 <li><code>org.oasis-open:transportationstatusrequest:2.2</code> - UBL Transportation Status Request 2.2</li>
 <li><code>org.oasis-open:transportationstatusrequest:2.3</code> - UBL Transportation Status Request 2.3</li>
-<li><code>org.oasis-open:transportationstatusrequest:2.4-cds01</code> - UBL Transportation Status Request 2.4-cds01</li>
+<li><code>org.oasis-open:transportationstatusrequest:2.4</code> - UBL Transportation Status Request 2.4</li>
 <li><code>org.oasis-open:unawardednotification:2.1</code> - UBL Unawarded Notification 2.1</li>
 <li><code>org.oasis-open:unawardednotification:2.2</code> - UBL Unawarded Notification 2.2</li>
 <li><code>org.oasis-open:unawardednotification:2.3</code> - UBL Unawarded Notification 2.3</li>
-<li><code>org.oasis-open:unawardednotification:2.4-cds01</code> - UBL Unawarded Notification 2.4-cds01</li>
+<li><code>org.oasis-open:unawardednotification:2.4</code> - UBL Unawarded Notification 2.4</li>
 <li><code>org.oasis-open:unsubscribefromprocedurerequest:2.2</code> - UBL Unsubscribe From Procedure Request 2.2</li>
 <li><code>org.oasis-open:unsubscribefromprocedurerequest:2.3</code> - UBL Unsubscribe From Procedure Request 2.3</li>
-<li><code>org.oasis-open:unsubscribefromprocedurerequest:2.4-cds01</code> - UBL Unsubscribe From Procedure Request 2.4-cds01</li>
+<li><code>org.oasis-open:unsubscribefromprocedurerequest:2.4</code> - UBL Unsubscribe From Procedure Request 2.4</li>
 <li><code>org.oasis-open:unsubscribefromprocedureresponse:2.2</code> - UBL Unsubscribe From Procedure Response 2.2</li>
 <li><code>org.oasis-open:unsubscribefromprocedureresponse:2.3</code> - UBL Unsubscribe From Procedure Response 2.3</li>
-<li><code>org.oasis-open:unsubscribefromprocedureresponse:2.4-cds01</code> - UBL Unsubscribe From Procedure Response 2.4-cds01</li>
+<li><code>org.oasis-open:unsubscribefromprocedureresponse:2.4</code> - UBL Unsubscribe From Procedure Response 2.4</li>
 <li><code>org.oasis-open:utilitystatement:2.1</code> - UBL Utility Statement 2.1</li>
 <li><code>org.oasis-open:utilitystatement:2.2</code> - UBL Utility Statement 2.2</li>
 <li><code>org.oasis-open:utilitystatement:2.3</code> - UBL Utility Statement 2.3</li>
-<li><code>org.oasis-open:utilitystatement:2.4-cds01</code> - UBL Utility Statement 2.4-cds01</li>
+<li><code>org.oasis-open:utilitystatement:2.4</code> - UBL Utility Statement 2.4</li>
 <li><code>org.oasis-open:waybill:2</code> - UBL Waybill 2.0</li>
 <li><code>org.oasis-open:waybill:2.1</code> - UBL Waybill 2.1</li>
 <li><code>org.oasis-open:waybill:2.2</code> - UBL Waybill 2.2</li>
 <li><code>org.oasis-open:waybill:2.3</code> - UBL Waybill 2.3</li>
-<li><code>org.oasis-open:waybill:2.4-cds01</code> - UBL Waybill 2.4-cds01</li>
+<li><code>org.oasis-open:waybill:2.4</code> - UBL Waybill 2.4</li>
 <li><code>org.oasis-open:weightstatement:2.2</code> - UBL Weight Statement 2.2</li>
 <li><code>org.oasis-open:weightstatement:2.3</code> - UBL Weight Statement 2.3</li>
-<li><code>org.oasis-open:weightstatement:2.4-cds01</code> - UBL Weight Statement 2.4-cds01</li>
+<li><code>org.oasis-open:weightstatement:2.4</code> - UBL Weight Statement 2.4</li>
 <li><code>de.xrechnung:cii:2</code> - XRechnung CII 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:cii:3</code> - XRechnung CII 3</li>
 <li><code>de.xrechnung:cii:1.2</code> - XRechnung CII 1.2 <strong>(Deprecated)</strong></li>
@@ -1067,8 +988,6 @@ A very small Java WS client is available for
 <li><code>de.xrechnung:ubl-invoice:2.3.1</code> - XRechnung UBL Invoice 2.3.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1</li>
 <li><code>de.xrechnung:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2</li>
-<li><code>be.efff:credit-note:3</code> - e-FFF Credit Note 3 <strong>(Deprecated)</strong></li>
-<li><code>be.efff:invoice:3</code> - e-FFF Invoice 3 <strong>(Deprecated)</strong></li>
 <li><code>at.ebinterface:invoice:3</code> - ebInterface 3.0 <strong>(Deprecated)</strong></li>
 <li><code>at.ebinterface:invoice:4</code> - ebInterface 4.0 <strong>(Deprecated)</strong></li>
 <li><code>at.ebinterface:invoice:4.1</code> - ebInterface 4.1 <strong>(Deprecated)</strong></li>

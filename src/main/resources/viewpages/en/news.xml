@@ -41,6 +41,22 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2024-09-17 - Document Validation extended</h3>
+    
+    <p>
+      Added support for CIUS_RO 1.0.9.<br />
+      Removed old Peppol rules (v3.5 to 3.9.1) as well as old eFFF Invoice<br/>
+      Changed UBL versions "2.4-cds01" to "2.4".
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>ro.gov.mfinante.cius-ro:ubl-creditnote:1.0.9</code> - CIUS-RO UBL Credit Note 1.0.9</li>
+<li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.9</code> - CIUS-RO UBL Invoice 1.0.9</li>
+</ul>
+
     <h3>2024-09-06 - New page to run the Document Details Determinator (DDD)</h3>
     
     <p>
