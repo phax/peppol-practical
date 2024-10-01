@@ -158,6 +158,10 @@ public final class MenuPublic
                                                          new ClassPathResource ("viewpages/en/en16931.xml")));
     }
 
+    aMenuTree.createRootItem (CMenuPublic.MENU_GITHUB_PEPPOL,
+                              new SimpleURL ("https://github.com/phax/peppol"),
+                              new ConstantHasDisplayText ("Peppol OSS Suite (external)"));
+
     aMenuTree.createRootSeparator ();
 
     // Newsletter stuff

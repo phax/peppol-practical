@@ -54,6 +54,7 @@ public final class CMenuPublic
   public static final String MENU_VALIDATION_UPLOAD = "validation-upload";
   public static final String MENU_VALIDATION_DVS = "validation-ws2";
   public static final String MENU_EN16931 = "en16931";
+  public static final String MENU_GITHUB_PEPPOL = "github-peppol";
   public static final String MENU_LOGIN = "login";
   public static final String MENU_SIGN_UP = "signup";
   public static final String MENU_CHANGE_PASSWORD = "changepassword";
