@@ -322,10 +322,10 @@ public final class LayoutAreaContentProviderPublic
         aFooter.addChild (aTable);
       }
 
-      aFooter.addChild (new HCP ().addChild (new HCSmall ().addChild (new HCDiv ().addChild ("Disclaimer: This page is a personal project of Philip Helger."))
-                                                           .addChild (new HCDiv ().addChild ("The content is neither provided nor approved by OpenPeppol AISBL. The official Peppol website is ")
-                                                                                  .addChild (new HCA (new SimpleURL ("https://peppol.org")).addChild ("peppol.org")
-                                                                                                                                           .setTargetBlank ()))));
+      aFooter.addChildren (new HCDiv ().addChild (new HCSmall ().addChild ("Disclaimer: This page is a personal project of Philip Helger.")),
+                           new HCDiv ().addChild (new HCSmall ().addChild ("The content is neither provided nor approved by OpenPeppol AISBL. The official Peppol website is ")
+                                                                .addChild (new HCA (new SimpleURL ("https://peppol.org")).addChild ("peppol.org")
+                                                                                                                         .setTargetBlank ())));
 
       ret.addChild (aFooter);
     }
