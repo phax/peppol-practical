@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 931 entries -->
+<!-- 934 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -225,8 +225,9 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:cii:1.3.8</code> - EN 16931 CII 1.3.8 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.9</code> - EN 16931 CII 1.3.9 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.10</code> - EN 16931 CII 1.3.10 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:cii:1.3.11</code> - EN 16931 CII 1.3.11</li>
+<li><code>eu.cen.en16931:cii:1.3.11</code> - EN 16931 CII 1.3.11 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.12</code> - EN 16931 CII 1.3.12</li>
+<li><code>eu.cen.en16931:cii:1.3.13</code> - EN 16931 CII 1.3.13</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1</code> - EN 16931 UBL Credit Note 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.1</code> - EN 16931 UBL Credit Note 1.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.2</code> - EN 16931 UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
@@ -244,8 +245,9 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.8</code> - EN 16931 UBL Credit Note 1.3.8 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.9</code> - EN 16931 UBL Credit Note 1.3.9 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.10</code> - EN 16931 UBL Credit Note 1.3.10 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.11</code> - EN 16931 UBL Credit Note 1.3.11</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.11</code> - EN 16931 UBL Credit Note 1.3.11 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.12</code> - EN 16931 UBL Credit Note 1.3.12</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.13</code> - EN 16931 UBL Credit Note 1.3.13</li>
 <li><code>eu.cen.en16931:ubl:1</code> - EN 16931 UBL Invoice 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.1</code> - EN 16931 UBL Invoice 1.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.2</code> - EN 16931 UBL Invoice 1.2 <strong>(Deprecated)</strong></li>
@@ -263,8 +265,9 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl:1.3.8</code> - EN 16931 UBL Invoice 1.3.8 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.9</code> - EN 16931 UBL Invoice 1.3.9 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.10</code> - EN 16931 UBL Invoice 1.3.10 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl:1.3.11</code> - EN 16931 UBL Invoice 1.3.11</li>
+<li><code>eu.cen.en16931:ubl:1.3.11</code> - EN 16931 UBL Invoice 1.3.11 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.12</code> - EN 16931 UBL Invoice 1.3.12</li>
+<li><code>eu.cen.en16931:ubl:1.3.13</code> - EN 16931 UBL Invoice 1.3.13</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1</code> - Energie eFactuur 1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2</code> - Energie eFactuur 2</li>
 <li><code>nl.energie-efactuur:energie-efactuur:3</code> - Energie eFactuur 3</li>
