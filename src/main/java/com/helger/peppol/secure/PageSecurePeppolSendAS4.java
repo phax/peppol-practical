@@ -22,7 +22,6 @@ import java.security.cert.X509Certificate;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
-import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +39,6 @@ import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.html.forms.HCTextArea;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.ui.AppCommonUI;
@@ -58,10 +56,11 @@ import com.helger.phase4.crypto.IAS4CryptoFactory;
 import com.helger.phase4.dump.AS4IncomingDumperFileBased;
 import com.helger.phase4.dump.AS4OutgoingDumperFileBased;
 import com.helger.phase4.ebms3header.Ebms3SignalMessage;
-import com.helger.phase4.messaging.domain.AS4UserMessage;
-import com.helger.phase4.messaging.domain.AbstractAS4Message;
+import com.helger.phase4.marshaller.Ebms3SignalMessageMarshaller;
+import com.helger.phase4.model.message.AS4UserMessage;
+import com.helger.phase4.model.message.AbstractAS4Message;
 import com.helger.phase4.peppol.Phase4PeppolSender;
-import com.helger.phase4.sender.AbstractAS4UserMessageBuilder.ESimpleUserMessageSendResult;
+import com.helger.phase4.sender.EAS4UserMessageSendResult;
 import com.helger.phase4.util.Phase4Exception;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -133,7 +132,7 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
           LOGGER.info ("Loaded Peppol Key");
           AS4_CF = new AS4CryptoFactoryInMemoryKeyStore (aLKS.getKeyStore (),
                                                          aConfig.getAsString ("peppol.as4.keystore.key.alias"),
-                                                         aConfig.getAsString ("peppol.as4.keystore.key.password"),
+                                                         aConfig.getAsCharArray ("peppol.as4.keystore.key.password"),
                                                          aLTS.getKeyStore ());
         }
         else
@@ -281,29 +280,29 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
                        "'");
 
           // Try to send message
-          final ESimpleUserMessageSendResult eResult = Phase4PeppolSender.builder ()
-                                                                         .cryptoFactory (AS4_CF)
-                                                                         .documentTypeID (aDocTypeID)
-                                                                         .processID (aProcessID)
-                                                                         .senderParticipantID (aSenderID)
-                                                                         .receiverParticipantID (aReceiverID)
-                                                                         .senderPartyID ("POP000306")
-                                                                         .payload (aAS4PayloadBytes)
-                                                                         .smpClient (aSMPClient)
-                                                                         .endpointURLConsumer (aEndpointURL::set)
-                                                                         .certificateConsumer ( (cert, dt, res) -> {
-                                                                           aEndpointCert.set (cert);
-                                                                           aEndpointCertCheck.set (res);
-                                                                         })
-                                                                         .validationConfiguration (null)
-                                                                         .buildMessageCallback (aBuildMessageCallback)
-                                                                         .outgoingDumper (new AS4OutgoingDumperFileBased ())
-                                                                         .incomingDumper (new AS4IncomingDumperFileBased ())
-                                                                         .rawResponseConsumer (r -> aResponseBytes.set (r.getResponse ()))
-                                                                         .signalMsgConsumer ( (signalMsg,
-                                                                                               mmd,
-                                                                                               state) -> aResponseMsg.set (signalMsg))
-                                                                         .sendMessageAndCheckForReceipt (aSendEx::set);
+          final EAS4UserMessageSendResult eResult = Phase4PeppolSender.builder ()
+                                                                      .cryptoFactory (AS4_CF)
+                                                                      .documentTypeID (aDocTypeID)
+                                                                      .processID (aProcessID)
+                                                                      .senderParticipantID (aSenderID)
+                                                                      .receiverParticipantID (aReceiverID)
+                                                                      .senderPartyID ("POP000306")
+                                                                      .payload (aAS4PayloadBytes)
+                                                                      .smpClient (aSMPClient)
+                                                                      .endpointURLConsumer (aEndpointURL::set)
+                                                                      .certificateConsumer ( (cert, dt, res) -> {
+                                                                        aEndpointCert.set (cert);
+                                                                        aEndpointCertCheck.set (res);
+                                                                      })
+                                                                      .validationConfiguration (null)
+                                                                      .buildMessageCallback (aBuildMessageCallback)
+                                                                      .outgoingDumper (new AS4OutgoingDumperFileBased ())
+                                                                      .incomingDumper (new AS4IncomingDumperFileBased ())
+                                                                      .rawResponseConsumer (r -> aResponseBytes.set (r.getResponseContent ()))
+                                                                      .signalMsgConsumer ( (signalMsg,
+                                                                                            mmd,
+                                                                                            state) -> aResponseMsg.set (signalMsg))
+                                                                      .sendMessageAndCheckForReceipt (aSendEx::set);
 
           LOGGER.info ("Sending Peppol AS4 message resulted in " + eResult);
 
@@ -330,11 +329,8 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
           {
             // Don't do XSD validation here because there is no defined
             // "SignalMessage" element
-            final String sSignalMessage = new GenericJAXBMarshaller <> (Ebms3SignalMessage.class,
-                                                                        GenericJAXBMarshaller.createSimpleJAXBElement (new QName (com.helger.phase4.ebms3header.ObjectFactory._Messaging_QNAME.getNamespaceURI (),
-                                                                                                                                  "SignalMessage"),
-                                                                                                                       Ebms3SignalMessage.class)).setFormattedOutput (true)
-                                                                                                                                                 .getAsString (aResponseMsg.get ());
+            final String sSignalMessage = new Ebms3SignalMessageMarshaller ().setFormattedOutput (true)
+                                                                             .getAsString (aResponseMsg.get ());
             if (StringHelper.hasText (sSignalMessage))
             {
               // Show payload
