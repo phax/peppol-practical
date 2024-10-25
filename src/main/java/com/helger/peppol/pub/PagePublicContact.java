@@ -46,7 +46,6 @@ import com.helger.photon.core.interror.InternalErrorSettings;
 import com.helger.photon.icon.fontawesome.EFontAwesome4Icon;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.google.CaptchaStateSessionSingleton;
-import com.helger.photon.uicore.html.google.HCReCaptchaV2;
 import com.helger.photon.uicore.html.google.ReCaptchaServerSideValidator;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
@@ -147,7 +146,7 @@ public final class PagePublicContact extends AbstractAppWebPage
       final String sTopic = aWPEC.params ().getAsStringTrimmed (FIELD_TOPIC);
       final String sHoneyPot = aWPEC.params ().getAsString (FIELD_HONEYPOT);
       final String sText = aWPEC.params ().getAsStringTrimmed (FIELD_TEXT);
-      final String sReCaptchaResponse = aWPEC.params ().getAsStringTrimmed (HCReCaptchaV2.RESPONSE_PARAMETER_NAME);
+      final String sReCaptchaResponse = aWPEC.params ().getAsStringTrimmed (HCReCaptchaV3.RESPONSE_PARAMETER_NAME);
 
       if (StringHelper.hasNoText (sName))
         aFormErrors.addFieldError (FIELD_NAME, "Your name must be provided.");
@@ -258,7 +257,9 @@ public final class PagePublicContact extends AbstractAppWebPage
         if (!CaptchaStateSessionSingleton.getInstance ().isChecked ())
         {
           // Add visible Captcha
-          aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (HCReCaptchaV2.create (sRecaptchWebKey, aDisplayLocale))
+          aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new HCReCaptchaV3 (sRecaptchWebKey,
+                                                                                    aDisplayLocale.getLanguage (),
+                                                                                    aForm.ensureID ().getID ()))
                                                        .setErrorList (aFormErrors.getListOfField (FIELD_CAPTCHA)));
         }
 
