@@ -824,7 +824,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
         {
           final HCDiv aDocTypeDiv = div (AppCommonUI.createDocTypeID (aDocTypeID, true));
-          final IHCLI <?> aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
+          final HCLI aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
 
           LOGGER.info ("Now SMP querying '" +
                        aParticipantID.getURIEncoded () +
@@ -844,6 +844,25 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 aSWGetDetails.stop ();
                 if (aSSM != null)
                 {
+                  // Determine the signature algorithm used
+                  {
+                    final var aSignedInfo = aSSM.getSignature ().getSignedInfo ();
+                    if (aSignedInfo != null)
+                    {
+                      final var aSM = aSignedInfo.getSignatureMethod ();
+                      if (aSM != null)
+                      {
+                        final String sSignatureHashAlgo = aSM.getAlgorithm ();
+                        // Must be SHA-256
+                        if (!"http://www.w3.org/2001/04/xmldsig-more#rsa-sha256".equals (sSignatureHashAlgo))
+                        {
+                          LOGGER.warn ("Found usage of the wrong signature algorithm '" + sSignatureHashAlgo + "'");
+                          aLIDocTypeID.addChild (error (div ("Using the wrong signature algorithm: ").addChild (code (sSignatureHashAlgo))));
+                        }
+                      }
+                    }
+                  }
+
                   final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
                   if (aSM.getRedirect () != null)
                     aLIDocTypeID.addChild (div ("Redirect to " + aSM.getRedirect ().getHref ()));
