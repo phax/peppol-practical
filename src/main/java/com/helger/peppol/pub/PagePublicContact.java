@@ -16,22 +16,34 @@
  */
 package com.helger.peppol.pub;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.io.entity.ByteArrayEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.email.EmailAddress;
 import com.helger.commons.email.EmailAddressHelper;
+import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.url.SimpleURL;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCHiddenField;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.HttpClientSettings;
+import com.helger.httpclient.response.ResponseHandlerJson;
+import com.helger.json.IJson;
 import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
@@ -46,7 +58,6 @@ import com.helger.photon.core.interror.InternalErrorSettings;
 import com.helger.photon.icon.fontawesome.EFontAwesome4Icon;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.google.CaptchaStateSessionSingleton;
-import com.helger.photon.uicore.html.google.ReCaptchaServerSideValidator;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
@@ -124,6 +135,46 @@ public final class PagePublicContact extends AbstractAppWebPage
     return false;
   }
 
+  @Nonnull
+  private static ESuccess _check (@Nonnull @Nonempty final String sServerSideKey,
+                                  @Nullable final String sReCaptchaResponse,
+                                  @Nonnull final HttpClientSettings aHCS)
+  {
+    ValueEnforcer.notEmpty (sServerSideKey, "ServerSideKey");
+    ValueEnforcer.notNull (aHCS, "HttpClientSettings");
+
+    if (StringHelper.hasNoText (sReCaptchaResponse))
+      return ESuccess.SUCCESS;
+
+    try (HttpClientManager aMgr = HttpClientManager.create (aHCS))
+    {
+      final HttpPost aPost = new HttpPost (new SimpleURL ("https://www.google.com/recaptcha/api/siteverify").add ("secret",
+                                                                                                                  sServerSideKey)
+                                                                                                            .add ("response",
+                                                                                                                  sReCaptchaResponse)
+                                                                                                            .getAsURI ());
+      // Empty body - required to avoid HTTP 411
+      aPost.setEntity (new ByteArrayEntity (ArrayHelper.EMPTY_BYTE_ARRAY, ContentType.APPLICATION_JSON));
+
+      final ResponseHandlerJson aRH = new ResponseHandlerJson ();
+      final IJson aJson = aMgr.execute (aPost, aRH);
+      if (aJson != null && aJson.isObject ())
+      {
+        final boolean bSuccess = aJson.getAsObject ().getAsBoolean ("success", false);
+
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("ReCpatcha Response for '" + sReCaptchaResponse + "': " + aJson.getAsJsonString ());
+
+        return ESuccess.valueOf (bSuccess);
+      }
+    }
+    catch (final IOException ex)
+    {
+      LOGGER.warn ("Error checking ReCaptcha response", ex);
+    }
+    return ESuccess.FAILURE;
+  }
+
   @Override
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
@@ -164,8 +215,7 @@ public final class PagePublicContact extends AbstractAppWebPage
           if (!CaptchaStateSessionSingleton.getInstance ().isChecked ())
           {
             // Check only if no other errors occurred
-            if (ReCaptchaServerSideValidator.check (sRecaptchSecretKey, sReCaptchaResponse, new HttpClientSettings ())
-                                            .isFailure ())
+            if (_check (sRecaptchSecretKey, sReCaptchaResponse, new HttpClientSettings ()).isFailure ())
               aFormErrors.addFieldError (FIELD_CAPTCHA, "Please confirm you are not a robot!");
             else
               CaptchaStateSessionSingleton.getInstance ().setChecked ();
