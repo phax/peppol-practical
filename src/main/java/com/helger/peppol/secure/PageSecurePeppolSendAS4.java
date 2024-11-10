@@ -112,14 +112,14 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
     final IKeyStoreType eTrustStoreType = EKeyStoreType.getFromIDCaseInsensitiveOrNull (aConfig.getAsString ("peppol.as4.truststore.type"));
     final LoadedKeyStore aLTS = KeyStoreHelper.loadKeyStore (eTrustStoreType,
                                                              aConfig.getAsString ("peppol.as4.truststore.path"),
-                                                             aConfig.getAsString ("peppol.as4.truststore.password"));
+                                                             aConfig.getAsCharArray ("peppol.as4.truststore.password"));
     if (aLTS.isSuccess ())
     {
       LOGGER.info ("Loaded Peppol Trust Store");
       final IKeyStoreType eKeyStoreType = EKeyStoreType.getFromIDCaseInsensitiveOrNull (aConfig.getAsString ("peppol.as4.keystore.type"));
       final LoadedKeyStore aLKS = KeyStoreHelper.loadKeyStore (eKeyStoreType,
                                                                aConfig.getAsString ("peppol.as4.keystore.path"),
-                                                               aConfig.getAsString ("peppol.as4.keystore.password"));
+                                                               aConfig.getAsCharArray ("peppol.as4.keystore.password"));
       if (aLKS.isSuccess ())
       {
         LOGGER.info ("Loaded Peppol Key Store");
