@@ -40,7 +40,7 @@ import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.peppol.utils.CertificateRevocationChecker;
+import com.helger.peppol.utils.CertificateRevocationCheckerDefaults;
 import com.helger.photon.ajax.IAjaxRegistry;
 import com.helger.photon.api.IAPIRegistry;
 import com.helger.photon.bootstrap4.servlet.WebAppListenerBootstrap;
@@ -117,7 +117,7 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
 
     // Allow soft fails for OCSP checks to identify the source of the error
     // The default soft fail handler already logs stuff out
-    CertificateRevocationChecker.setAllowSoftFail (true);
+    CertificateRevocationCheckerDefaults.setAllowSoftFail (true);
     // Default in peppol-commons became CRL_BEFORE_OCSP
 
     if (false)

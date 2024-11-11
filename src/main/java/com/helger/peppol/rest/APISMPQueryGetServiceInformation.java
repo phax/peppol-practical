@@ -50,6 +50,7 @@ import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.bdxr2.BDXR2ClientReadOnly;
 import com.helger.smpclient.json.SMPJsonResponse;
 import com.helger.smpclient.peppol.PeppolWildcardSelector.EMode;
+import com.helger.smpclient.peppol.Pfuoi420;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -155,6 +156,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
 
+        @Pfuoi420
         final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM;
         if (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD.equals (aDocTypeID.getScheme ()))
           aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aParticipantID, aDocTypeID, EMode.BUSDOX_THEN_WILDCARD);

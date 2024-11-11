@@ -106,7 +106,8 @@ import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.utils.EPeppolCertificateCheckResult;
-import com.helger.peppol.utils.PeppolCertificateChecker;
+import com.helger.peppol.utils.PeppolCAChecker;
+import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -310,6 +311,11 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     }
     return aSB.toString ();
   }
+
+  // Contain AP + eB2B
+  private static final PeppolCAChecker PEPPOL_CA_AP_FULL = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
+                                                                                PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP,
+                                                                                PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_EB2B_AP);
 
   private void _queryParticipant (@Nonnull final WebPageExecutionContext aWPEC,
                                   final String sParticipantIDScheme,
@@ -1086,10 +1092,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                 // Check Peppol certificate status
                 // * Do not cache
                 // * Use global certificate check mode
-                final EPeppolCertificateCheckResult eCertStatus = PeppolCertificateChecker.checkPeppolAPCertificate (aEndpointCert,
-                                                                                                                     aNowDateTime,
-                                                                                                                     ETriState.FALSE,
-                                                                                                                     null);
+                final EPeppolCertificateCheckResult eCertStatus = PEPPOL_CA_AP_FULL.checkCertificate (aEndpointCert,
+                                                                                                      aNowDateTime,
+                                                                                                      ETriState.FALSE,
+                                                                                                      null);
                 if (eCertStatus.isValid ())
                   aLICert.addChild (success ("The Endpoint Certificate appears to be a valid Peppol certificate."));
                 else
