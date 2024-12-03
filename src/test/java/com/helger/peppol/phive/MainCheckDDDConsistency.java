@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.phive;
 
+import java.util.Comparator;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -35,7 +36,9 @@ public class MainCheckDDDConsistency
   {
     final MutableInt aChecks = new MutableInt (0);
     final DDDValueProviderList aVPL = DDDValueProviderList.getDefaultValueProviderList ();
-    for (final Map.Entry <String, DDDValueProviderPerSyntax> e1 : aVPL.valueProvidersPerSyntaxes ().entrySet ())
+    for (final Map.Entry <String, DDDValueProviderPerSyntax> e1 : aVPL.valueProvidersPerSyntaxes ()
+                                                                      .getSortedByKey (Comparator.naturalOrder ())
+                                                                      .entrySet ())
     {
       LOGGER.info ("Syntax " + e1.getKey ());
       e1.getValue ().forEachSelector ( (src, df, dv) -> {
