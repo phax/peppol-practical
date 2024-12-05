@@ -25,6 +25,7 @@ import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.peppol.phive.ExtValidationKeyRegistry;
 import com.helger.peppol.phive.ExtValidationKeySelect;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
+import com.helger.phive.api.executorset.ValidationExecutorSetAlias;
 import com.helger.phive.xml.source.IValidationSourceXML;
 
 public final class MainListVESIDs
@@ -40,10 +41,20 @@ public final class MainListVESIDs
     aSB.append ("<ul>\n");
     for (final IValidationExecutorSet <IValidationSourceXML> aEntry : aAll)
     {
+      final String sAliasHint;
+      if (aEntry instanceof ValidationExecutorSetAlias <?>)
+      {
+        // final var aAlias = (ValidationExecutorSetAlias <?>) aEntry;
+        // TODO read alias details (phive 10.1.1+)
+        sAliasHint = " (alias)";
+      }
+      else
+        sAliasHint = "";
       aSB.append ("<li><code>")
          .append (aEntry.getID ().getAsSingleID ())
          .append ("</code> - ")
          .append (aEntry.getDisplayName ())
+         .append (sAliasHint)
          .append (aEntry.getStatus ().isDeprecated () ? " <strong>(Deprecated)</strong>" : "")
          .append ("</li>\n");
     }
