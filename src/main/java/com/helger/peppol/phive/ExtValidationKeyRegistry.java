@@ -57,6 +57,7 @@ import com.helger.phive.ubl.UBLValidation;
 import com.helger.phive.ublbe.UBLBEValidation;
 import com.helger.phive.xml.source.IValidationSourceXML;
 import com.helger.phive.xrechnung.XRechnungValidation;
+import com.helger.phive.zugferd.ZugferdValidation;
 
 @SuppressWarnings ("deprecation")
 @Immutable
@@ -73,7 +74,7 @@ public final class ExtValidationKeyRegistry
     EN16931Validation.initEN16931 (VES_REGISTRY);
     EHFValidation.initEHF (VES_REGISTRY);
     UBLValidation.initUBLAllVersions (VES_REGISTRY);
-    CIIValidation.initCIID16B (VES_REGISTRY);
+    CIIValidation.initCII (VES_REGISTRY);
     EnergieEFactuurValidation.initEnergieEFactuur (VES_REGISTRY);
     OIOUBLValidation.initOIOUBL (VES_REGISTRY);
     EbInterfaceValidation.initEbInterface (VES_REGISTRY);
@@ -89,6 +90,7 @@ public final class ExtValidationKeyRegistry
     PeppolItalyValidation.init (VES_REGISTRY);
     CIUS_ROValidation.initCIUS_RO (VES_REGISTRY);
     SETUValidation.initSETU (VES_REGISTRY);
+    ZugferdValidation.initZugferd (VES_REGISTRY);
   }
 
   private ExtValidationKeyRegistry ()
