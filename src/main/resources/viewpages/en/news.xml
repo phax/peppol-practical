@@ -106,6 +106,15 @@
 <li><code>de.zugferd:minimum:2.3.2</code> - ZUGFeRD 2.3.2 (MINIMUM)</li>
 </ul>
 
+    <h3>2024-11-17 - phase4 major release v3.0.0</h3>
+    
+    <p>
+      The new major release phase4 v3 simplifies support for multi-profile, multi-certificate handling.
+      Also the customizability as well as the consistency checks were improved.<br/>
+      See the <a href="https://github.com/phax/phase4/releases/tag/phase4-parent-pom-3.0.0">release page</a>
+        and make sure to check out the <a href="https://github.com/phax/phase4/wiki/Migrations">Migrations Wiki page</a> for all the breaking changes. 
+    </p>
+
     <h3>2024-10-25 - Document Validation extended</h3>
     
     <p>
