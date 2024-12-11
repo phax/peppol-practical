@@ -33,6 +33,8 @@ import org.xbill.DNS.Record;
 import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
+import com.helger.peppol.servicedomain.EPeppolNetwork;
+import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
@@ -51,6 +53,7 @@ public final class SMPQueryParams
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPQueryParams.class);
 
   private ESMPAPIType m_eSMPAPIType;
+  private EPeppolNetwork m_ePeppolNetwork;
   private IIdentifierFactory m_aIF;
   private IParticipantIdentifier m_aParticipantID;
   private URI m_aSMPHostURI;
@@ -63,6 +66,12 @@ public final class SMPQueryParams
   public ESMPAPIType getSMPAPIType ()
   {
     return m_eSMPAPIType;
+  }
+
+  @Nullable
+  public EPeppolNetwork getPeppolNetwork ()
+  {
+    return m_ePeppolNetwork;
   }
 
   @Nonnull
@@ -188,6 +197,11 @@ public final class SMPQueryParams
   {
     final SMPQueryParams ret = new SMPQueryParams ();
     ret.m_eSMPAPIType = aCurSML.getSMPAPIType ();
+    if (ret.m_eSMPAPIType == ESMPAPIType.PEPPOL)
+    {
+      ret.m_ePeppolNetwork = ESML.DIGIT_PRODUCTION.getID ().equals (aCurSML.getID ()) ? EPeppolNetwork.PRODUCTION
+                                                                                      : EPeppolNetwork.TEST;
+    }
     ret.m_aIF = aCurSML.getSMPIdentifierType ().getIdentifierFactory ();
     ret.m_aParticipantID = ret.m_aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
     if (ret.m_aParticipantID == null)

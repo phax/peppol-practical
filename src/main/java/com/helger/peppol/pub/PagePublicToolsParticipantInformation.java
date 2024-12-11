@@ -99,6 +99,7 @@ import com.helger.peppol.businesscard.helper.PDBusinessCardHelper.EBusinessCardV
 import com.helger.peppol.domain.ISMLConfiguration;
 import com.helger.peppol.domain.SMPQueryParams;
 import com.helger.peppol.rest.AbstractAPIExecutor;
+import com.helger.peppol.servicedomain.EPeppolNetwork;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.ESMPTransportProfileState;
@@ -320,7 +321,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   private void _queryParticipant (@Nonnull final WebPageExecutionContext aWPEC,
                                   final String sParticipantIDScheme,
                                   final String sParticipantIDValue,
-                                  final ISMLConfiguration aSMLConfiguration,
+                                  @Nullable final ISMLConfiguration aSelectedSMLConfiguration,
                                   final boolean bSMLAutoDetect,
                                   final boolean bQueryBusinessCard,
                                   final boolean bShowTime,
@@ -347,7 +348,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
       // Determine the SML if it auto dectect is enabled
       // Determine the SMP query parameters
       SMPQueryParams aSMPQueryParams = null;
-      ISMLConfiguration aRealSMLConfiguration = aSMLConfiguration;
+      ISMLConfiguration aRealSMLConfiguration = aSelectedSMLConfiguration;
       if (bSMLAutoDetect)
       {
         final ICommonsList <ISMLConfiguration> aSortedList = aSMLConfigurationMgr.getAllSorted ();
@@ -1192,7 +1193,20 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
               if (bShowTime)
                 aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
               aNodeList.addChild (aH4);
-              aNodeList.addChild (div (_createOpenInBrowser (sBCURL)));
+
+              final HCDiv aButtonDiv = aNodeList.addAndReturnChild (div (_createOpenInBrowser (sBCURL)));
+
+              final EPeppolNetwork ePN = aSMPQueryParams.getPeppolNetwork ();
+              if (ePN != null)
+              {
+                // TODO bug in Directory URL peppol-commons 9.6.0
+                aButtonDiv.addChild (" ")
+                          .addChild (_createOpenInBrowser ((ePN.isProduction () ? "https://directory.peppol.eu"
+                                                                                : ePN.getDirectoryURL ()) +
+                                                           "/participant/" +
+                                                           aParticipantID.getURIEncoded (),
+                                                           "Show in Peppol Directory"));
+              }
 
               final HCUL aUL = new HCUL ();
               for (final PDBusinessEntity aEntity : aBC.businessEntities ())
