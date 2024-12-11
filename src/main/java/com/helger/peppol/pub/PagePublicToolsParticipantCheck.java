@@ -19,6 +19,8 @@ package com.helger.peppol.pub;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
 import com.helger.commons.url.SimpleURL;
@@ -135,6 +137,8 @@ public class PagePublicToolsParticipantCheck extends AbstractAppWebPage
       // Validate fields
       sParticipantIDScheme = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_SCHEME));
       sParticipantIDValue = StringHelper.trim (aWPEC.params ().getAsString (FIELD_ID_VALUE));
+      // Allow for multiple values to be provided, separated by whitespace
+      final ICommonsList <String> aPIDValues = RegExHelper.getSplitToList (sParticipantIDValue, "\\s+");
       sSML = aWPEC.params ().getAsStringTrimmed (FIELD_SML);
       final boolean bIsProdSML = SML_PROD.equals (sSML);
       final ISMLConfiguration aSMLConfiguration = aSMLConfigurationMgr.getSMLInfoOfID (bIsProdSML ? ESML.DIGIT_PRODUCTION.getID ()
@@ -150,31 +154,45 @@ public class PagePublicToolsParticipantCheck extends AbstractAppWebPage
           aFormErrors.addFieldError (FIELD_ID_SCHEME,
                                      "The participant identifier scheme '" + sParticipantIDScheme + "' is not valid!");
 
-      if (StringHelper.hasNoText (sParticipantIDValue))
+      if (aPIDValues.isEmpty ())
         aFormErrors.addFieldError (FIELD_ID_VALUE, "Please provide an identifier value");
       else
-        if (!aIF.isParticipantIdentifierValueValid (sParticipantIDScheme, sParticipantIDValue))
-          aFormErrors.addFieldError (FIELD_ID_VALUE,
-                                     "The participant identifier value '" + sParticipantIDValue + "' is not valid!");
-
-      final IParticipantIdentifier aPID = aIF.createParticipantIdentifier (sParticipantIDScheme, sParticipantIDValue);
-      if (aFormErrors.isEmpty () && aPID == null)
-        aFormErrors.addFieldError (FIELD_ID_VALUE,
-                                   "Either the participant identifier scheme or the value are not valid!");
+      {
+        // Check each provided value
+        for (final String sPIDValue : aPIDValues)
+          if (!aIF.isParticipantIdentifierValueValid (sParticipantIDScheme, sPIDValue))
+            aFormErrors.addFieldError (FIELD_ID_VALUE,
+                                       "The participant identifier value '" + sPIDValue + "' is not valid!");
+      }
 
       if (aSMLConfiguration == null)
         aFormErrors.addFieldError (FIELD_SML, "A valid SML must be selected!");
 
       if (aFormErrors.isEmpty ())
       {
-        final SMPQueryParams aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSMLConfiguration,
-                                                                                  sParticipantIDScheme,
-                                                                                  sParticipantIDValue,
-                                                                                  true);
-        if (aSMPQueryParams != null)
+        // Check each provided value
+        for (final String sPIDValue : aPIDValues)
         {
-          _checkParticipant (aWPEC, aSMLConfiguration, aSMPQueryParams, bIsProdSML);
-          bQueried = true;
+          final IParticipantIdentifier aPID = aIF.createParticipantIdentifier (sParticipantIDScheme, sPIDValue);
+          if (aPID == null)
+          {
+            aNodeList.addChild (error ("The combination of participant identifier scheme (").addChild (code (sParticipantIDScheme))
+                                                                                            .addChild (") and value (")
+                                                                                            .addChild (code (sPIDValue))
+                                                                                            .addChild (") is invalid!"));
+          }
+          else
+          {
+            final SMPQueryParams aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSMLConfiguration,
+                                                                                      sParticipantIDScheme,
+                                                                                      sPIDValue,
+                                                                                      true);
+            if (aSMPQueryParams != null)
+            {
+              _checkParticipant (aWPEC, aSMLConfiguration, aSMPQueryParams, bIsProdSML);
+              bQueried = true;
+            }
+          }
         }
       }
     }
@@ -182,7 +200,7 @@ public class PagePublicToolsParticipantCheck extends AbstractAppWebPage
     if (bShowInput)
     {
       final BootstrapForm aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC)
-                                                                              .setMethod (EHCFormMethod.GET)
+                                                                              .setMethod (EHCFormMethod.POST)
                                                                               .setLeft (3, 3, 3, 2, 2));
       if (bQueried)
       {
