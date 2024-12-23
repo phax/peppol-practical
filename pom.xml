@@ -67,7 +67,7 @@
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
     <jaxws-plugin.version>4.0.3</jaxws-plugin.version>
-    <log4j.version>2.24.2</log4j.version>
+    <log4j.version>2.24.3</log4j.version>
     <!-- For surefire plugin (use property for JaCoCo integration -->
     <argLine>-Xmx1024m</argLine>
     <ph-jaxb-plugin.version>4.0.3</ph-jaxb-plugin.version>
@@ -146,7 +146,7 @@
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>9.6.1</version>
+        <version>9.7.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -167,7 +167,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>en16931-cii2ubl</artifactId>
-        <version>2.2.5</version>
+        <version>2.2.6</version>
       </dependency>
       
       <dependency>
