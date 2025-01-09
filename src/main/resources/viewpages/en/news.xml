@@ -41,6 +41,70 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2025-01-09 - Document Validation extended</h3>
+    
+    <p>
+      Using eDEC Code Lists v9.0.<br/>
+      Added Peppol AU-NZ 1.0.11 rules.<br/>
+      Added Factur-X 1.0.3 and 1.0.5 rules.<br/>
+      Added XRechnung Extension rules.<br/>
+      Added ZUGFeRD 2.0.1 and 2.1.0 rules.
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.12</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.12</li>
+<li><code>eu.peppol.bis3.aunz.ubl:creditnote-self-billing:1.0.12</code> - A-NZ Peppol BIS3 Credit Note Self-Billing (UBL) 1.0.12</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice:1.0.12</code> - A-NZ Peppol BIS3 Invoice (UBL) 1.0.12</li>
+<li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.12</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.12</li>
+<li><code>fr.factur-x:basic:1.0.3</code> - Factur-X 1.0.3 (BASIC) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basicwl:1.0.3</code> - Factur-X 1.0.3 (BASIC WL) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:en16931:1.0.3</code> - Factur-X 1.0.3 (EN 16931) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:extended:1.0.3</code> - Factur-X 1.0.3 (EXTENDED) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:minimum:1.0.3</code> - Factur-X 1.0.3 (MINIMUM) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basic:1.0.5</code> - Factur-X 1.0.5 (BASIC) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basicwl:1.0.5</code> - Factur-X 1.0.5 (BASIC WL) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:en16931:1.0.5</code> - Factur-X 1.0.5 (EN 16931) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:extended:1.0.5</code> - Factur-X 1.0.5 (EXTENDED) (alias) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:minimum:1.0.5</code> - Factur-X 1.0.5 (MINIMUM) (alias) <strong>(Deprecated)</strong></li>
+<li><code>dk.oioubl:credit-note:3.0.1</code> - OIOUBL Credit Note 3.0.1</li>
+<li><code>dk.oioubl:invoice:3.0.1</code> - OIOUBL Invoice 3.0.1</li>
+<li><code>dk.oioubl:invoice-response:3.0.1</code> - OIOUBL Invoice Response 3.0.1</li>
+<li><code>dk.oioubl:mlr:3.0.1</code> - OIOUBL Message Level Response 3.0.1</li>
+<li><code>de.xrechnung.extension:cii:3</code> - XRechnung CII 3 Extension</li>
+<li><code>de.xrechnung.extension:cii:2.2</code> - XRechnung CII 2.2 Extension <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung.extension:cii:2.3.1</code> - XRechnung CII 2.3.1Extension <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung.extension:cii:3.0.1</code> - XRechnung CII 3.0.1 Extension</li>
+<li><code>de.xrechnung.extension:cii:3.0.2</code> - XRechnung CII 3.0.2 Extension</li>
+<li><code>de.xrechnung.extension:ubl-invoice:3</code> - XRechnung UBL Invoice 3 Extension</li>
+<li><code>de.xrechnung.extension:ubl-invoice:2.2</code> - XRechnung UBL Invoice 2.2 Extension <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung.extension:ubl-invoice:2.0.1</code> - XRechnung UBL Invoice 2.0.1 Extension <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung.extension:ubl-invoice:2.1.1</code> - XRechnung UBL Invoice 2.1.1 Extension <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung.extension:ubl-invoice:2.3.1</code> - XRechnung UBL Invoice 2.3.1 Extension <strong>(Deprecated)</strong></li>
+<li><code>de.xrechnung.extension:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1 Extension</li>
+<li><code>de.xrechnung.extension:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 Extension</li>
+<li><code>de.zugferd:basic:2.1</code> - ZUGFeRD 2.1 (BASIC) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:basicwl:2.1</code> - ZUGFeRD 2.1 (BASIC WL) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:en16931:2.1</code> - ZUGFeRD 2.1 (EN 16931) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:extended:2.1</code> - ZUGFeRD 2.1 (EXTENDED) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:minimum:2.1</code> - ZUGFeRD 2.1 (MINIMUM) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:basic:2.0.1</code> - ZUGFeRD 2.0.1 (BASIC) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:basicwl:2.0.1</code> - ZUGFeRD 2.0.1 (BASIC WL) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:en16931:2.0.1</code> - ZUGFeRD 2.0.1 (EN 16931) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:extended:2.0.1</code> - ZUGFeRD 2.0.1 (EXTENDED) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:minimum:2.0.1</code> - ZUGFeRD 2.0.1 (MINIMUM) <strong>(Deprecated)</strong></li>
+</ul>
+
+    <h3>2025-01-06 - eDEC Code Lists updated</h3>
+    
+    <p>
+      The latest version v9.0 of the eDEC Code Lists was published at
+      <a href="https://docs.peppol.eu/edelivery/codelists/" target="_blank">https://docs.peppol.eu/edelivery/codelists/</a>.<br />
+      See the <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html" target="_blank">Change Log</a> for the details.
+    </p>
+
     <h3>2024-12-06 - Document Validation extended</h3>
     
     <p>
