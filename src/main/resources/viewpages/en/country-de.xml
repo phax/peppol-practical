@@ -1,0 +1,110 @@
+<h2>Legal Requirements</h2>
+
+<p>
+  Germany introduced mandatory B2B eInvoicing with the
+  <a href="https://www.recht.bund.de/bgbl/1/2024/108/VO.html">Wachstumschancengesetz</a> (2024).<br />
+  It uses a phased approach for introduction:
+</p>
+<ul>
+  <li><strong>2025-01-01</strong>
+    <ul>
+      <li>Paper invoices no longer have priority</li>
+      <li>Each business MAY send electronic invoices (compliant to the law)</li>
+      <li>Each business MUST be able to receive electronic invoices (compliant to the law)</li>
+      <li>Other electronic formats (like PDF) MAY be used if both parties consent</li>
+    </ul>
+  </li>
+  <li><string>2027-01-01</string>
+    <ul>
+      <li>Businesses with a turnover &gt; &euro; 800 000 MUST send electronic invoices</li>
+      <li>Businesses with a turnover &le; &euro; 800 000 MAY continue to send other invoices</li>
+    </ul>
+  </li>
+  <li><string>2028-01-01</string>
+    <ul>
+      <li>All businesses MUST send electronic invoices</li>
+      <li>EDI systems MUST be adopted to the legal requirements.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>
+  On top of this timeline the VIDA requirements (mandatory cross-border electronic invoices per ~2030) will be added.
+</p>
+
+<p>
+  The following information from the German Ministry of Finance might also be helpful:
+</p>
+
+<ul>
+  <li>Official statement on the usage of electronic invoices for German domestic B2B exchanges:
+      <a href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Umsatzsteuer/2024-10-15-einfuehrung-e-rechnung.html" target="_blank">official BMF page</a> (German only)</li>
+  <li>Official FAQs from the Ministry of Finance:
+      <a href="https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html" target="_blank">FAQ on mandatory e-Invoicing per January 2025</a></li>    
+</ul>
+
+<h2>e-Invoice Formats</h2>
+
+<p>
+  The EN 16931 invoice formats are considered the baseline for e-Invoices.<br /> 
+  Germany uses XML and hybrid invoice formats.
+  The German specific XML-format is called <em>XRechnung</em> (don't translate to X-Invoice or so!)
+  and the hybrid format (XML inside PDF) is called <em>ZUGFeRD</em>.<br />
+  Personally, I <strong>recommend to use XRechnung</strong> as it is an easy-to-use XML format with a clear versioning and good documentation.
+</p>
+
+<h3>XRechnung</h3>
+
+<p>
+  XRechnung is an XML based invoice format based on EN 16931.
+  It is maintained by KoSIT (Koordinierungsstelle für IT-Standards), a government unit located in the city of Bremen.
+  The official website is <a href="https://xeinkauf.de/xrechnung/">https://xeinkauf.de/xrechnung/</a>.
+</p>
+
+<p>Here are some facts around XRechnung</p>
+<ul>
+  <li>Latest version: <strong>3.0.2</strong></li>
+  <li>Downloads: <a href="https://xeinkauf.de/xrechnung/">https://xeinkauf.de/xrechnung/</a></li>
+  <li>Development repositories: <a href="https://projekte.kosit.org/xrechnung/">https://projekte.kosit.org/xrechnung/</a> 
+      and <a href="https://github.com/itplr-kosit/">https://github.com/itplr-kosit/</a></li>
+  <li>Validation rules: Schematron rules are available</li>
+  <li>Visualization: several XSLT based solutions are available</li>
+  <li>Supported in Peppol: yes</li>
+</ul>
+
+<p>
+  Older versions of the XRechnung specification are also available, but it is recommended to always stay on the latest version.<br />
+  Both the current and the old versions of XRechnung are following the EN 16931 rules.
+</p>
+
+<h3>ZUGFeRD</h3>
+
+<p>
+  ZUGFeRD is a hybrid invoice.
+</p>
+
+<p>
+  Here are some common-sense drawbacks of ZUGFeRD:
+</p>
+
+<ul>
+  <li>By using PDF with an embedded XML, it's hard for non-technical people to access the primary electronic invoice.
+      Especially nowadays where browsers and mail clients directly render the PDF, the access to the embedded file may 
+        even be impossible.</li>
+  <li>The versioning of ZUGFeRD invoices is very bad. 
+      All instances of ZUGFeRD 2.x use the same specification identifier so there is no way to pick the correct 
+        validation rules and you need to assume to always uses the latest version validation rules.</li>
+  <li>Old versions of the specification are not officially available. Currently only the latest two versions can be accessed</li>
+  <li>Each ZUGFeRD version comes in 5 different profiles (Minimum, Basic WL, Basic, EN 16931 and Extended), of which
+      two (Minimum and Basic WL) are not even sufficient to fulfill the German legal requirements on invoices.</li>
+  <li>Earlier versions of ZUGFeRD did not build on top of the EN16931 that's why they are not considered valid
+      electronic invoices. Only ZUGFeRD invoices using version 2.0.1 and later using one of the profiles "Basic",
+      "EN 16931" and "Extended" are consider electronic invoices in Germany.</li>
+  <li>ZUGFeRD and Factur-X try to share the same specification, but use different Customization IDs.</li>
+  <li>The name of the XML invoice inside the ZUGFeRD PDFs changed from 2.0.1 (<code>zugferd-invoice.xml</code>)
+      to 2.1 (<code>factur-x.xml</code>) - this is a backwards incompatible change</li>
+  <li>ZUGFeRD created an "XRechnung profile" which means a PDF including an XRechnung XML invoice - this heavily adds
+      to the confusion.</li>
+  <li>The German Ministry of Finance clarified, that the PDF part of a hybrid invoices can be discarded - only the
+      XML part is relevant and requires archiving etc.</li>
+</ul>
