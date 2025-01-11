@@ -158,9 +158,20 @@ public final class MenuPublic
                                                          new ClassPathResource ("viewpages/en/en16931.xml")));
     }
 
+    // Country specific stuff
+    {
+      final IMenuItemPage aCountries = aMenuTree.createRootItem (new BasePageShowChildren <> (CMenuPublic.MENU_COUNTRIES,
+                                                                                              "Countries",
+                                                                                              aMenuTree));
+      aMenuTree.createItem (aCountries,
+                            new AppPageViewExternal (CMenuPublic.MENU_COUNTRY_DE,
+                                                     "Germany",
+                                                     new ClassPathResource ("viewpages/en/country_de.xml")));
+    }
+
     aMenuTree.createRootItem (CMenuPublic.MENU_GITHUB_PEPPOL,
                               new SimpleURL ("https://github.com/phax/peppol"),
-                              new ConstantHasDisplayText ("Peppol OSS Suite (external)"));
+                              new ConstantHasDisplayText ("Open Source Peppol (external)"));
 
     aMenuTree.createRootSeparator ();
 
