@@ -72,13 +72,13 @@ public class PagePublicToolsParticipantCheckBelgium extends AbstractAppWebPage
                                                                          PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME,
                                                                          "0208:" + sParticipantIDValue,
                                                                          false);
-    final boolean bIsCBE = aSMPQP_CBE.isSMPRegisteredInDNS ();
+    final boolean bIsCBE = aSMPQP_CBE == null ? false : aSMPQP_CBE.isSMPRegisteredInDNS ();
 
     final SMPQueryParams aSMPQP_VAT = SMPQueryParams.createForSMLOrNull (aSMLConfiguration,
                                                                          PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME,
                                                                          "9925:" + sParticipantIDValue,
                                                                          false);
-    final boolean bIsVAT = aSMPQP_VAT.isSMPRegisteredInDNS ();
+    final boolean bIsVAT = aSMPQP_VAT == null ? false : aSMPQP_VAT.isSMPRegisteredInDNS ();
     if (bIsCBE || bIsVAT)
     {
       if (bIsCBE)
