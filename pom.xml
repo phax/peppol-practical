@@ -106,7 +106,7 @@
       <dependency>
         <groupId>com.helger.photon</groupId>
         <artifactId>ph-oton-parent-pom</artifactId>
-        <version>9.2.7</version>
+        <version>9.2.8</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -160,7 +160,7 @@
       <dependency>
         <groupId>com.helger.phase4</groupId>
         <artifactId>phase4-parent-pom</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
