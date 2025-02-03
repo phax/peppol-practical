@@ -40,7 +40,6 @@ import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;
 import com.helger.peppol.ui.AppCommonUI;
-import com.helger.peppol.utils.CertificateRevocationCheckerDefaults;
 import com.helger.photon.ajax.IAjaxRegistry;
 import com.helger.photon.api.IAPIRegistry;
 import com.helger.photon.bootstrap4.servlet.WebAppListenerBootstrap;
@@ -48,6 +47,7 @@ import com.helger.photon.core.appid.CApplicationID;
 import com.helger.photon.core.appid.PhotonGlobalState;
 import com.helger.photon.core.locale.ILocaleManager;
 import com.helger.photon.core.menu.MenuTree;
+import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.xservlet.requesttrack.RequestTrackerSettings;
 
 import jakarta.servlet.ServletContext;
