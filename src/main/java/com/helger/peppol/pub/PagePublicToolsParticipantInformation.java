@@ -1101,6 +1101,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                   aLICert.addChild (success ("The Endpoint Certificate appears to be a valid Peppol certificate."));
                 else
                 {
+                  // TODO add Nemhandel check here
                   aLICert.addChild (error ().addChild (div ("The Endpoint Certificate appears to be an invalid Peppol certificate. Reason: " +
                                                             eCertStatus.getReason ())));
                 }
