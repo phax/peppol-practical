@@ -41,8 +41,14 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+  
+    <h3>2025-02-23 - Added details on German e-Invoicing mandate</h3>
+    
+    <p>
+      At <a href="/public/menuitem-country-de">this page</a> I tried to summarize some of the technical details on eInvoicing in Germany.
+    </p>
 
-    <h3>2025-02-23 - Document Validation extended</h3>
+    <h3>2025-02-22 - Document Validation extended</h3>
     
     <p>
       Integrated Peppol rule hotfix for November 2024 release.<br/>

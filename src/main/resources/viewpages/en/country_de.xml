@@ -85,15 +85,27 @@
   <li>Downloads: <a href="https://xeinkauf.de/xrechnung/" target="_blank">https://xeinkauf.de/xrechnung/</a></li>
   <li>Development repositories: <a href="https://projekte.kosit.org/xrechnung/" target="_blank">https://projekte.kosit.org/xrechnung/</a> 
       and <a href="https://github.com/itplr-kosit/" target="_blank">https://github.com/itplr-kosit/</a></li>
-  <li>Validation rules: XML Schema and Schematron rules are available</li>
-  <li>Visualization: several XSLT based solutions are available</li>
+  <li>Validation rules: XML Schema and Schematron rules are available.
+    <ul>
+      <li>via the online tool <a href="https://ecosio.com/en/peppol-and-xml-document-validator/?src=peppol-helger-com" target="_blank">ecosio Validator</a></li>
+      <li>via the online API <a href="/public/menuitem-validation-ws2">provided on this site</a></li>
+      <li>
+        via the download tool <a href="https://github.com/itplr-kosit/validator" target="_blank">KoSIT Validator</a>, requiring a Java runtime.
+        Additionally, you need the <a href="https://github.com/itplr-kosit/validator-configuration-xrechnung/" target="_blank">XRechnung validation rules</a> to perform actual validation.
+      </li>
+    </ul>  
+  </li>
+  <li>
+    Visualization: several XSLT based solutions are available.
+    See the <a href="https://github.com/phax/en16931-visualization/" target="_blank">collection of open source visualization tools</a> for more details.
+  </li>
   <li>Supported in Peppol: yes</li>
 </ul>
 
 <p>
   Older versions of the XRechnung specification are also available, but it is recommended to always stay on the latest version.<br />
   Both the current and the old versions of XRechnung are following the EN 16931 rules.<br />
-  Note: XRechnung comes in two general shapes - "regular" and "extension". Try to only use the regular version - the extension requires bilateral 
+  Note: XRechnung comes in two general shapes - "regular" and "extension". Try to only use the regular (or CIUS) version - the extension requires bilateral 
     agreement and are for specific use cases only.
 </p>
 
@@ -110,7 +122,7 @@
   <li>Development repository: not public</li>
   <li>Validation rules: XML Schemas and Schematron rules are available</li>
   <li>Visualization: as the PDF is an integral part of the format, no additional visualization is needed</li>
-  <li>Supported in Peppol: yes, as Factur-X invoices</li>
+  <li>Supported in Peppol: yes, but only as Factur-X invoices between French end users</li>
 </ul>
 
 <p>Here are some common-sense drawbacks of ZUGFeRD:</p>
@@ -119,6 +131,8 @@
   <li>By using PDF with an embedded XML, it's hard for non-technical people to access the primary electronic invoice.
       Especially nowadays where browsers and mail clients directly render the PDF, the access to the embedded file may 
         even be impossible.</li>
+  <li>People receiving a ZUGFeRD invoice may not even know, that they receive an electronic invoices because the attachment
+      is well hidden.</li>      
   <li>Transmitted data is obviously larger, compared to plain XML transmission.</li>      
   <li>The versioning of ZUGFeRD invoices is very bad. 
       All instances of ZUGFeRD 2.x use the same specification identifier so there is no way to pick the correct 
@@ -137,3 +151,13 @@
   <li>The German Ministry of Finance clarified, that the PDF part of a hybrid invoices can be discarded - only the
       XML part is relevant and requires archiving etc. So why send it in such a complicated structure?</li>
 </ul>
+
+<h3>Personal recommendations</h3>
+
+<p>
+  Of course I totally understand that receiving a PDF makes it easier, especially for SMEs.
+  Therefore, my recommendation - if you believe the receiver is not able to handle the XML properly -
+  is to send an XML and a PDF next to each other (like two attachments of an email). Compared to the
+  "XML in PDF" version of ZUGFeRD it's quite obvious for the receiver what is the original invoice (XML)
+  and what is the copy (PDF).
+</p>
