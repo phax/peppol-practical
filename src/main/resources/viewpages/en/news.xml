@@ -42,6 +42,35 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2025-02-23 - Document Validation extended</h3>
+    
+    <p>
+      Integrated Peppol rule hotfix for November 2024 release.<br/>
+      Added OIOUBL 1.15.0-rc rules, and deprecated 1.13.2 rules.
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>dk.oioubl:application-response:1.15-rc</code> - OIOUBL Application Response 1.15.0-rc</li>
+<li><code>dk.oioubl:catalogue:1.15-rc</code> - OIOUBL Catalogue 1.15.0-rc</li>
+<li><code>dk.oioubl:catalogue-deletion:1.15-rc</code> - OIOUBL Catalogue Deletion 1.15.0-rc</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.15-rc</code> - OIOUBL Catalogue Item Specification Update 1.15.0-rc</li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.15-rc</code> - OIOUBL Catalogue Pricing Update 1.15.0-rc</li>
+<li><code>dk.oioubl:catalogue-request:1.15-rc</code> - OIOUBL Catalogue Request 1.15.0-rc</li>
+<li><code>dk.oioubl:credit-note:1.15-rc</code> - OIOUBL Credit Note 1.15.0-rc</li>
+<li><code>dk.oioubl:invoice:1.15-rc</code> - OIOUBL Invoice 1.15.0-rc</li>
+<li><code>dk.oioubl:order:1.15-rc</code> - OIOUBL Order 1.15.0-rc</li>
+<li><code>dk.oioubl:order-cancellation:1.15-rc</code> - OIOUBL Order Cancellation 1.15.0-rc</li>
+<li><code>dk.oioubl:order-change:1.15-rc</code> - OIOUBL Order Change 1.15.0-rc</li>
+<li><code>dk.oioubl:order-response:1.15-rc</code> - OIOUBL Order Response 1.15.0-rc</li>
+<li><code>dk.oioubl:order-response-simple:1.15-rc</code> - OIOUBL Order Response Simple 1.15.0-rc</li>
+<li><code>dk.oioubl:reminder:1.15-rc</code> - OIOUBL Reminder 1.15.0-rc</li>
+<li><code>dk.oioubl:statement:1.15-rc</code> - OIOUBL Statement 1.15.0-rc</li>
+<li><code>dk.oioubl:utility-statement:1.15-rc</code> - OIOUBL Utility Statement 1.15.0-rc</li>
+</ul>
+
     <h3>2025-01-09 - Document Validation extended</h3>
     
     <p>

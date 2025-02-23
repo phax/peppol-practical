@@ -153,14 +153,14 @@
       <dependency>
         <groupId>com.helger.phive.rules</groupId>
         <artifactId>phive-rules-parent-pom</artifactId>
-        <version>3.2.5</version>
+        <version>3.2.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.phase4</groupId>
         <artifactId>phase4-parent-pom</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
