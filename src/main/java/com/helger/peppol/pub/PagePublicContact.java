@@ -58,6 +58,7 @@ import com.helger.photon.core.interror.InternalErrorSettings;
 import com.helger.photon.icon.fontawesome.EFontAwesome4Icon;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.google.CaptchaStateSessionSingleton;
+import com.helger.photon.uicore.html.google.HCReCaptchaV3;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
