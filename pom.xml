@@ -92,21 +92,21 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-css-parent-pom</artifactId>
-        <version>7.0.3</version>
+        <version>7.0.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.web</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>10.3.0</version>
+        <version>10.4.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.photon</groupId>
         <artifactId>ph-oton-parent-pom</artifactId>
-        <version>9.2.9</version>
+        <version>9.3.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -139,14 +139,14 @@
       <dependency>
         <groupId>com.helger.phive</groupId>
         <artifactId>phive-parent-pom</artifactId>
-        <version>10.1.0</version>
+        <version>10.1.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>10.0.0</version>
+        <version>10.0.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -447,7 +447,7 @@
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>7.0.3</version><!--$NO-MVN-MAN-VER$-->
+        <version>7.0.4</version><!--$NO-MVN-MAN-VER$-->
         <executions>
           <execution>
             <goals>

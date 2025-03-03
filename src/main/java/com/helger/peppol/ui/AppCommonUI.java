@@ -56,7 +56,7 @@ import com.helger.html.jquery.JQueryAjaxBuilder;
 import com.helger.html.jscode.JSAnonymousFunction;
 import com.helger.html.jscode.JSAssocArray;
 import com.helger.html.jscode.JSPackage;
-import com.helger.html.jscode.JSVar;
+import com.helger.html.jscode.JSParam;
 import com.helger.html.jscode.html.JSHtml;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.AjaxExecutorPublicLogin;
@@ -211,7 +211,7 @@ public final class AppCommonUI
     {
       final JSPackage aOnClick = new JSPackage ();
       final JSAnonymousFunction aJSSuccess = new JSAnonymousFunction ();
-      final JSVar aJSData = aJSSuccess.param ("data");
+      final JSParam aJSData = aJSSuccess.param ("data");
       aJSSuccess.body ()
                 ._if (aJSData.ref (AjaxExecutorPublicLogin.JSON_LOGGEDIN),
                       JSHtml.windowLocationReload (),
@@ -331,9 +331,9 @@ public final class AppCommonUI
     if (aObject instanceof IUser)
     {
       final IUser aTypedObj = (IUser) aObject;
-      final String sRealDisplayName = sDisplayName != null ? sDisplayName
-                                                           : SecurityHelper.getUserDisplayName (aTypedObj,
-                                                                                                aDisplayLocale);
+      final String sRealDisplayName = sDisplayName != null ? sDisplayName : SecurityHelper.getUserDisplayName (
+                                                                                                               aTypedObj,
+                                                                                                               aDisplayLocale);
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
