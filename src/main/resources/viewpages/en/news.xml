@@ -42,6 +42,14 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2025-03-04 - eDEC Code Lists updated</h3>
+    
+    <p>
+      The latest version v9.1 of the eDEC Code Lists was published at
+      <a href="https://docs.peppol.eu/edelivery/codelists/" target="_blank">https://docs.peppol.eu/edelivery/codelists/</a>.<br />
+      See the <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html" target="_blank">Change Log</a> for the details.
+    </p>
+
     <h3>2025-02-23 - Added details on German e-Invoicing mandate</h3>
     
     <p>

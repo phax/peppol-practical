@@ -39,7 +39,7 @@
   <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:waybill:1" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:weight_statement:1" name="Peppol predefined" deprecated="false" />
-  <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:oo:bis:reporting:1" name="Peppol predefined" deprecated="true" />
+  <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:oo:bis:reporting:1" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:advanced_ordering:3" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:catalogue_only:3" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3" name="Peppol predefined" deprecated="false" />
@@ -79,6 +79,13 @@
   <item id="cenbii-procid-ubl::urn:kosit:profile:reporting:1.0" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:peppol:bis:billing" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:peppol:bis:selfbilling" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:peppol:bis:taxreporting" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:peppol:eb2b:billing" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:peppol:eb2b:oneway" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:peppol:eb2b:order" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:peppol:eb2b:order_desadv_billing" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:peppol:eb2b:ordering" name="Peppol predefined" deprecated="false" />
+  <item id="cenbii-procid-ubl::urn:peppol:eb2b:ordering_desadv_billing" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:peppol:france:billing:non-regulated" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:peppol:france:billing:regulated" name="Peppol predefined" deprecated="false" />
   <item id="cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0" name="Peppol predefined" deprecated="true" />

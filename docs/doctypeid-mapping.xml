@@ -24,6 +24,9 @@
   <item id="busdox-docid-qns::http://www.ketenstandaard.nl/onderhoudsopdracht/SALES/005::MaintenanceInstruction##dico:maintenanceinstruction@nl-1.0::1.0" name="Peppol DICO Maintenance Instruction" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:dico:2018:maintenance:1.0" />
   </item>
+  <item id="busdox-docid-qns::http://www.ketenstandaard.nl/onderhoudsstatus/SALES/005::MaintenanceStatus##dico:maintenancestatus@nl-1.0::1.0" name="Peppol DICO Maintenance Status" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:fdc:dico:2018:maintenance:1.0" />
+  </item>
   <item id="busdox-docid-qns::urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" name="Peppol EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Handling Exception)" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
@@ -115,7 +118,7 @@
   <item id="busdox-docid-qns::urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:varslingfeiletkvittering::1.0" name="Peppol INNBYGGERPOST_DPI_VARSLINGFEILETKVITTERING_1_0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:fdc:peppol:end-user-reporting:1.0::EndUserReport##urn:fdc:peppol.eu:oo:trns:end-user-report:1::1.0" name="Peppol End User Report" deprecated="true">
+  <item id="busdox-docid-qns::urn:fdc:peppol:end-user-reporting:1.0::EndUserReport##urn:fdc:peppol.eu:oo:trns:end-user-report:1::1.0" name="Peppol End User Report" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:oo:bis:reporting:1" />
   </item>
   <item id="busdox-docid-qns::urn:fdc:peppol:end-user-statistics-report:1.1::EndUserStatisticsReport##urn:fdc:peppol.eu:edec:trns:end-user-statistics-report:1.1::1.1" name="Peppol End User Statistics Report v1.1" deprecated="false">
@@ -124,7 +127,7 @@
   <item id="busdox-docid-qns::urn:fdc:peppol:transaction-statistics-report:1.0::TransactionStatisticsReport##urn:fdc:peppol.eu:edec:trns:transaction-statistics-reporting:1.0::1.0" name="Peppol Transaction Statistics Report v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:edec:bis:reporting:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:fdc:peppol:transaction-statistics-reporting:1.0::TransactionStatisticsReport##urn:fdc:peppol.eu:oo:trns:transaction-statistics-reporting:1::1.0" name="Peppol Transaction Statistics Report" deprecated="true">
+  <item id="busdox-docid-qns::urn:fdc:peppol:transaction-statistics-reporting:1.0::TransactionStatisticsReport##urn:fdc:peppol.eu:oo:trns:transaction-statistics-reporting:1::1.0" name="Peppol Transaction Statistics Report" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:oo:bis:reporting:1" />
   </item>
   <item id="busdox-docid-qns::urn:iso:std:iso:20022:tech:xsd:camt.029.001.03::Document##urn:fdc:bits.no:2017:iso20022:1.5::03" name="Peppol EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Message)" deprecated="false">
@@ -236,7 +239,7 @@
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biitrns019:ver2.0:extended:urn:www.peppol.eu:bis:peppol1a:ver4.0::2.1" name="Peppol Catalogue profile V4" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:nen.nl:nlcius:v1.0::2.1" name="Peppol SI-UBL 2.0 CreditNote" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:nen.nl:nlcius:v1.0::2.1" name="Peppol SI-UBL 2.0 Credit Note" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0#conformant#urn:fdc:anskaffelser.no:2019:ehf:forward-billing:3.0::2.2" name="Peppol EHF Forward Billing 3.0 (Credit Note)" deprecated="false">
@@ -248,71 +251,84 @@
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0#extended#urn:fdc:www.efaktura.gov.pl:ver2.0::2.1" name="Peppol PL Faktura korygująca ver. 4.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:www.efaktura.gov.pl:ver2.0:corr_inv:ver4.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1" name="Peppol BIS Billing UBL CreditNote V3" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1" name="Peppol BIS Billing UBL Credit Note V3" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:non-regulated" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:selfbilling:3.0::2.1" name="Peppol BIS SelfBilling UBL CreditNote V3" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:selfbilling:3.0::2.1" name="Peppol BIS Self-Billing UBL Credit Note V3" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:non-regulated" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_3.0::2.1" name="Peppol XRechnung UBL CreditNote V3.0 Extension" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:peppol:france:billing:cius:1.0::2.1" name="Peppol France UBL Credit Note CIUS" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:non-regulated" />
+  </item>
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_3.0::2.1" name="Peppol XRechnung UBL Credit Note V3.0 Extension" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0::2.1" name="Peppol XRechnung UBL CreditNote V3.0" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0::2.1" name="Peppol XRechnung UBL Credit Note V3.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1" name="Peppol XRechnung UBL CreditNote V1.1" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1" name="Peppol XRechnung UBL Credit Note V1.1" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1" name="Peppol XRechnung UBL CreditNote V1.2" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1" name="Peppol XRechnung UBL Credit Note V1.2" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1" name="Peppol XRechnung UBL CreditNote V1.3 Extension" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1" name="Peppol XRechnung UBL Credit Note V1.3 Extension" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::2.1" name="Peppol XRechnung UBL CreditNote V1.3" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::2.1" name="Peppol XRechnung UBL Credit Note V1.3" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0#conformant#urn:xoev-de:kosit:extension:xrechnung_2.0::2.1" name="Peppol XRechnung UBL CreditNote V2.0 Extension" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0#conformant#urn:xoev-de:kosit:extension:xrechnung_2.0::2.1" name="Peppol XRechnung UBL Credit Note V2.0 Extension" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::2.1" name="Peppol XRechnung UBL CreditNote V2.0" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::2.1" name="Peppol XRechnung UBL Credit Note V2.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.1#conformant#urn:xoev-de:kosit:extension:xrechnung_2.1::2.1" name="Peppol XRechnung UBL CreditNote V2.1 Extension" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.1#conformant#urn:xoev-de:kosit:extension:xrechnung_2.1::2.1" name="Peppol XRechnung UBL Credit Note V2.1 Extension" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.1::2.1" name="Peppol XRechnung UBL CreditNote V2.1" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.1::2.1" name="Peppol XRechnung UBL Credit Note V2.1" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2#conformant#urn:xoev-de:kosit:extension:xrechnung_2.2::2.1" name="Peppol XRechnung UBL CreditNote V2.2 Extension" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2#conformant#urn:xoev-de:kosit:extension:xrechnung_2.2::2.1" name="Peppol XRechnung UBL Credit Note V2.2 Extension" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2::2.1" name="Peppol XRechnung UBL CreditNote V2.2" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2::2.1" name="Peppol XRechnung UBL Credit Note V2.2" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3#conformant#urn:xoev-de:kosit:extension:xrechnung_2.3::2.1" name="Peppol XRechnung UBL CreditNote V2.3 Extension" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3#conformant#urn:xoev-de:kosit:extension:xrechnung_2.3::2.1" name="Peppol XRechnung UBL Credit Note V2.3 Extension" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3::2.1" name="Peppol XRechnung UBL CreditNote V2.3" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3::2.1" name="Peppol XRechnung UBL Credit Note V2.3" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214::2.1" name="Peppol UBL.BE Credit Note 3.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1" name="Peppol AU-NZ Peppol BIS Billing 3.0 CreditNote" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1" name="Peppol AU-NZ Peppol BIS Billing 3.0 Credit Note" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1" name="Peppol SG Peppol BIS Billing 3.0 Credit Note" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" name="Peppol AU-NZ Self-Billing 3.0 CreditNote" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" name="Peppol AU-NZ Self-Billing 3.0 Credit Note" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017::2.1" name="Peppol EN 16931 UBL CreditNote" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:peppol:eb2b:1.0::2.1" name="Peppol EN 16931 Credit Note - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:peppol:france:billing:extended:1.0::2.1" name="Peppol France UBL Credit Note Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:non-regulated" />
+  </item>
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017::2.1" name="Peppol EN 16931 UBL Credit Note" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:en16931:any" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:fdc:www.efaktura.gov.pl:ver1.0:trns:account_corr:ver1.0::2.1" name="Peppol PEF.PL Accounting Note v1" deprecated="false">
@@ -321,25 +337,25 @@
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@aunz-1::2.1" name="Peppol A-NZ PINT Credit Note v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1" name="Peppol MY PINT Credit Note v1.0" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1" name="Peppol MY PINT Credit Note v1.0" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@aunz-1::2.1" name="Peppol A-NZ PINT Self-Billing Credit Note v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@my-1::2.1" name="Peppol MY PINT Self-Billing Credit Note v1.0" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@my-1::2.1" name="Peppol MY PINT Self-Billing Credit Note v1.0" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::2.0" name="Peppol Standalone Credit Note according to EHF V1" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii05:ver2.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0" name="Peppol Billing profile CreditNote V1" deprecated="true">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0" name="Peppol Billing profile Credit Note V1" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii05:ver1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0" name="Peppol Procurement profile CreditNote V1" deprecated="true">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0" name="Peppol Procurement profile Credit Note V1" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii06:ver1.0" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1" name="Peppol Billing profile CreditNote V2" deprecated="true">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1" name="Peppol Billing profile Credit Note V2" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii05:ver2.0" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0:extended:e-fff:ver3.0::2.1" name="e-FFF 3.0 CreditNote" deprecated="true">
@@ -439,7 +455,7 @@
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:non-regulated" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:selfbilling:3.0::2.1" name="Peppol BIS SelfBilling UBL Invoice V3" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:selfbilling:3.0::2.1" name="Peppol BIS Self-Billing UBL Invoice V3" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:non-regulated" />
@@ -502,6 +518,11 @@
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" name="Peppol AU-NZ Self-Billing 3.0 Invoice" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" />
   </item>
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:peppol:eb2b:1.0::2.1" name="Peppol EN 16931 Invoice - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:peppol:france:billing:extended:1.0::2.1" name="Peppol France UBL Invoice Extension" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:non-regulated" />
@@ -521,7 +542,7 @@
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1" name="Peppol JP PINT Invoice v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@my-1::2.1" name="Peppol MY PINT Invoice v1.0" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@my-1::2.1" name="Peppol MY PINT Invoice v1.0" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:nontaxinvoice-1@jp-1::2.1" name="Peppol JP BIS Invoice for Non-tax Registered Businesses" deprecated="false">
@@ -533,7 +554,7 @@
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@jp-1::2.1" name="Peppol JP BIS Self-Billing Invoice" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </item>
-  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@my-1::2.1" name="Peppol MY PINT Self-Billing Invoice v1.0" deprecated="false">
+  <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@my-1::2.1" name="Peppol MY PINT Self-Billing Invoice v1.0" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </item>
   <item id="busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0#urn:www.difi.no:ehf:faktura:ver1::2.0" name="Peppol EHF Invoice V1" deprecated="true">
@@ -763,9 +784,75 @@
   <item id="busdox-docid-qns::urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0" name="Peppol OIOUBL UtilityStatement V2.02" deprecated="false">
     <procid scheme="oioubl-procid-ubl" value="Reference-Utility-1.0" />
   </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:bilateral##eb2b:bilateral::0" name="Peppol Bilaterally agreed Document - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:oneway" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:bilateral##eb2b:despatch_advice::0" name="Peppol Bilaterally agreed Despatch Advice - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:bilateral##eb2b:invoice::0" name="Peppol Bilaterally agreed Invoice - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:bilateral##eb2b:order::0" name="Peppol Bilaterally agreed Order - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:bilateral##eb2b:order_response::0" name="Peppol Bilaterally agreed Order Response - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:edifact:DESADV##eb2b::0" name="Peppol EDIFACT Despatch Advice - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:edifact:INVOIC##eb2b::0" name="Peppol EDIFACT Invoice - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:edifact:ORDERS##eb2b::0" name="Peppol EDIFACT Order - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:edifact:ORDRSP##eb2b::0" name="Peppol EDIFACT Order Response - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:pdf+xml##eb2b:factur-x:1.0::0" name="Peppol Hybrid Invoice - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:pdf+xml##eb2b:order-x:1.0::0" name="Peppol Hybrid Order - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order" />
+  </item>
   <item id="busdox-docid-qns::urn:peppol:doctype:pdf+xml##urn:cen.eu:en16931:2017#conformant#urn:peppol:france:billing:Factur-X:1.0::D22B" name="Peppol France Factur-X" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:non-regulated" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:x12:810##eb2b::0" name="Peppol X12 Invoice - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:x12:850##eb2b::0" name="Peppol X12 Order - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:x12:855##eb2b::0" name="Peppol X12 Order Response - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
+  </item>
+  <item id="busdox-docid-qns::urn:peppol:doctype:x12:856##eb2b::0" name="Peppol X12 Despatch Advice - eB2B Extension" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" />
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" />
   </item>
   <item id="busdox-docid-qns::urn:un:unece:uncefact:data:standard:CrossDomainAcknowledgementAndResponse:100::CrossDomainAcknowledgementAndResponse##urn:peppol:france:billing:cdv:1.0::D22B" name="Peppol France CDAR" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:france:billing:regulated" />
@@ -842,7 +929,16 @@
   <item id="busdox-docid-qns::urn:www.peppol.eu:schema:xsd:VirtualCompanyDossierPackage-1::VirtualCompanyDossierPackage##urn:www.cenbii.eu:transaction:biicoretrdm992:ver0.1:#urn:www.peppol.eu:bis:peppol992a:ver1.0::0.1" name="Peppol Virtual Company Dossier Package" deprecated="true">
     <procid scheme="cenbii-procid-ubl" value="none" />
   </item>
-  <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1::2.1" name="Peppol PINT CreditNote v1.0" deprecated="false">
+  <item id="peppol-doctype-wildcard::urn:fdc:peppol:tax-data-document:1.0::TaxData##urn:peppol:pint:taxdata-1@ae-1::1.0" name="Peppol AE Tax Data Document v1.0" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:taxreporting" />
+  </item>
+  <item id="peppol-doctype-wildcard::urn:fdc:peppol:tax-data-status:1.0::TaxDataStatus##urn:peppol:pint:taxdatastatus-1@ae-1::1.0" name="Peppol AE Tax Data Status v1.0" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:taxreporting" />
+  </item>
+  <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1::2.1" name="Peppol PINT Credit Note v1.0" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </item>
+  <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@ae-1::2.1" name="Peppol AE PINT Credit Note v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </item>
   <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@aunz-1::2.1" name="Peppol A-NZ PINT Credit Note v1.0" deprecated="false">
@@ -854,6 +950,9 @@
   <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@sg-1::2.1" name="Peppol SG PINT Credit Note v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </item>
+  <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@ae-1::2.1" name="Peppol AE PINT Self-Billing Credit Note v1.0" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
+  </item>
   <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@aunz-1::2.1" name="Peppol A-NZ PINT Self-Billing Credit Note v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </item>
@@ -861,6 +960,9 @@
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </item>
   <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1::2.1" name="Peppol PINT Invoice v1.0" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </item>
+  <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@ae-1::2.1" name="Peppol AE PINT Invoice v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </item>
   <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@aunz-1::2.1" name="Peppol A-NZ PINT Invoice v1.0" deprecated="false">
@@ -877,6 +979,9 @@
   </item>
   <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:nontaxinvoice-1@jp-1::2.1" name="Peppol JP BIS Invoice for Non-tax Registered Businesses" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </item>
+  <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@ae-1::2.1" name="Peppol AE PINT Self-Billing Invoice v1.0" deprecated="false">
+    <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </item>
   <item id="peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@aunz-1::2.1" name="Peppol A-NZ PINT Self-Billing Invoice v1.0" deprecated="false">
     <procid scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
