@@ -35,6 +35,7 @@ import com.helger.smpclient.json.SMPJsonResponse;
 public final class SMPJsonResponseExt
 {
   private static final String JSON_NICE_NAME = "niceName";
+  private static final String JSON_STATE = "state";
   private static final String JSON_IS_DEPRECATED = "isDeprecated";
 
   private SMPJsonResponseExt ()
@@ -60,7 +61,8 @@ public final class SMPJsonResponseExt
             if (aNN != null)
             {
               aUrlEntry.add (JSON_NICE_NAME, aNN.getName ());
-              aUrlEntry.add (JSON_IS_DEPRECATED, aNN.isDeprecated ());
+              aUrlEntry.add (JSON_STATE, aNN.getState ().getID ());
+              aUrlEntry.add (JSON_IS_DEPRECATED, aNN.getState ().isDeprecated ());
             }
           }
         }

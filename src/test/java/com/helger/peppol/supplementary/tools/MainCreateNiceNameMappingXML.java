@@ -49,13 +49,16 @@ public class MainCreateNiceNameMappingXML
         final IMicroElement eItem = eRoot.appendElement ("item")
                                          .setAttribute ("id", aEntry.getKey ())
                                          .setAttribute ("name", aNNE.getName ())
-                                         .setAttribute ("deprecated", aNNE.isDeprecated ());
+                                         .setAttribute ("state", aNNE.getState ().getID ());
         if (aNNE.hasProcessIDs ())
           for (final IProcessIdentifier aProcID : aNNE.getAllProcIDs ())
-            eItem.appendElement ("procid").setAttribute ("scheme", aProcID.getScheme ()).setAttribute ("value", aProcID.getValue ());
+            eItem.appendElement ("procid")
+                 .setAttribute ("scheme", aProcID.getScheme ())
+                 .setAttribute ("value", aProcID.getValue ());
       }
       MicroWriter.writeToFile (aDoc, new File ("docs/doctypeid-mapping.xml"));
     }
+
     {
       final IMicroDocument aDoc = new MicroDocument ();
       final IMicroElement eRoot = aDoc.appendElement ("root");
@@ -66,7 +69,7 @@ public class MainCreateNiceNameMappingXML
         eRoot.appendElement ("item")
              .setAttribute ("id", aEntry.getKey ())
              .setAttribute ("name", aEntry.getValue ().getName ())
-             .setAttribute ("deprecated", aEntry.getValue ().isDeprecated ());
+             .setAttribute ("state", aEntry.getValue ().getState ().getID ());
       MicroWriter.writeToFile (aDoc, new File ("docs/processid-mapping.xml"));
     }
     LOGGER.info ("Done");
