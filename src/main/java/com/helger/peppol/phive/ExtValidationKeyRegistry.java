@@ -57,6 +57,7 @@ import com.helger.phive.ubl.UBLValidation;
 import com.helger.phive.ublbe.UBLBEValidation;
 import com.helger.phive.xml.source.IValidationSourceXML;
 import com.helger.phive.xrechnung.XRechnungValidation;
+import com.helger.phive.zatca.ZATCAValidation;
 import com.helger.phive.zugferd.ZugferdValidation;
 
 @SuppressWarnings ("deprecation")
@@ -90,6 +91,7 @@ public final class ExtValidationKeyRegistry
     PeppolItalyValidation.init (VES_REGISTRY);
     CIUS_ROValidation.initCIUS_RO (VES_REGISTRY);
     SETUValidation.initSETU (VES_REGISTRY);
+    ZATCAValidation.initZATCA (VES_REGISTRY);
     ZugferdValidation.initZugferd (VES_REGISTRY);
   }
 

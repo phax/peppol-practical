@@ -42,6 +42,37 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2025-03-11 - Document Validation extended</h3>
+    
+    <p>
+      Added Peppol PINT rules November 2024 release<br/>
+      Deprecated Peppol BIS May 2024 rules.
+    </p>
+    
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>org.peppol.pint.aunz:creditnote:1.1</code> - Peppol PINT A-NZ Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.aunz:creditnote-self-billing:1.1</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.aunz:invoice:1.1</code> - Peppol PINT A-NZ Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.aunz:invoice-self-billing:1.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp:credit-note:1.1</code> - Peppol PINT Japan Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.ntr:credit-note:1.1</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp:invoice:1.1</code> - Peppol PINT Japan Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.ntr:invoice:1.1</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.sb:credit-note:1.1</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.sb:invoice:1.1</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:creditnote:1.1</code> - Peppol PINT Malaysia Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:creditnote-self-billing:1.1</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:invoice:1.1</code> - Peppol PINT Malaysia Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:invoice-self-billing:1.1</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.sg:creditnote:1.2</code> - Peppol PINT Singapore Credit Note (UBL) 1.2.0</li>
+<li><code>org.peppol.pint.sg:invoice:1.2</code> - Peppol PINT Singapore Invoice (UBL) 1.2.0</li>
+<li><code>sa.zatca:ubl-invoice:2.0.3</code> - ZATCA/FATOORA Invoice (SDK 2.0.3) <strong>(Deprecated)</strong></li>
+<li><code>sa.zatca:ubl-invoice:2.3.8</code> - ZATCA/FATOORA Invoice (SDK 2.3.8)</li>
+</ul>
+
     <h3>2025-03-04 - eDEC Code Lists updated</h3>
     
     <p>
