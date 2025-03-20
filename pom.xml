@@ -146,14 +146,14 @@
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>10.0.2</version>
+        <version>10.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.phive.rules</groupId>
         <artifactId>phive-rules-parent-pom</artifactId>
-        <version>3.2.7</version>
+        <version>3.2.8</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
