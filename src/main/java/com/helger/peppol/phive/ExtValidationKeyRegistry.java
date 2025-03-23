@@ -67,12 +67,13 @@ public final class ExtValidationKeyRegistry
   public static final ValidationExecutorSetRegistry <IValidationSourceXML> VES_REGISTRY = new ValidationExecutorSetRegistry <> ();
   static
   {
+    // Must be first
+    EN16931Validation.initEN16931 (VES_REGISTRY);
     PeppolValidation.initStandard (VES_REGISTRY);
     PeppolLegacyValidationBisEurope.init (VES_REGISTRY);
     PeppolLegacyValidationBisAUNZ.init (VES_REGISTRY);
     PeppolLegacyValidationSG.init (VES_REGISTRY);
     SimplerInvoicingValidation.initSimplerInvoicing (VES_REGISTRY);
-    EN16931Validation.initEN16931 (VES_REGISTRY);
     EHFValidation.initEHF (VES_REGISTRY);
     UBLValidation.initUBLAllVersions (VES_REGISTRY);
     CIIValidation.initCII (VES_REGISTRY);
