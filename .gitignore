@@ -3,6 +3,7 @@ hs_err_pid*
 
 .settings/ 
 bin/
+generated/
 target/
 
 .classpath 
