@@ -42,12 +42,16 @@ public class MainCheckDDDConsistency
   public static void main (final String [] args)
   {
     final MutableInt aChecks = new MutableInt (0);
+
+    // For each value provider of each syntax
     final DDDValueProviderList aVPL = DDDValueProviderList.getDefaultValueProviderList ();
     for (final Map.Entry <String, DDDValueProviderPerSyntax> e1 : aVPL.valueProvidersPerSyntaxes ()
                                                                       .getSortedByKey (Comparator.naturalOrder ())
                                                                       .entrySet ())
     {
       LOGGER.info ("Syntax " + e1.getKey ());
+
+      // Check each VESID selector
       e1.getValue ().forEachSelector (new ISelectorCallback ()
       {
         public void acceptFlag (final ICommonsList <VPSourceValue> aSourceValues, final String sFlag)
@@ -66,15 +70,14 @@ public class MainCheckDDDConsistency
                                                               ']')
                                                 .separator ("; ")
                                                 .build ();
-          switch (eDeterminedField)
+          // We only care about the VESID
+          if (eDeterminedField == EDDDDeterminedField.VESID)
           {
-            case VESID:
-              aChecks.inc ();
-              final String sVESID = sDeterminedValue;
-              LOGGER.info ("  " + sSrcString + " -- " + sVESID);
-              if (ExtValidationKeyRegistry.getFromIDOrNull (DVRCoordinate.parseOrNull (sVESID)) == null)
-                throw new IllegalStateException ("VES ID " + sVESID + " is unknown");
-              break;
+            aChecks.inc ();
+            final String sVESID = sDeterminedValue;
+            LOGGER.info ("  " + sSrcString + " -- " + sVESID);
+            if (ExtValidationKeyRegistry.getFromIDOrNull (DVRCoordinate.parseOrNull (sVESID)) == null)
+              throw new IllegalStateException ("VES ID '" + sVESID + "' is unknown");
           }
         }
       });
