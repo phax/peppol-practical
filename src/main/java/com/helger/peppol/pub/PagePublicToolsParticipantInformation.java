@@ -1188,8 +1188,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             else
             {
               final HCH4 aH4 = h4 ("Business Card contains " +
-                                   (aBC.businessEntities ().size () > 0 ? "1 entity" : aBC.businessEntities ()
-                                                                                           .size () + " entities"));
+                                   (aBC.businessEntities ().size () > 0 ? "1 entity" : aBC.businessEntities ().size () +
+                                                                                       " entities"));
               if (bShowTime)
                 aH4.addChild (" ").addChild (_createTimingNode (aSWGetBC.getMillis ()));
               aNodeList.addChild (aH4);
@@ -1402,7 +1402,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     {
       final BootstrapForm aForm = aNodeList.addAndReturnChild (getUIHandler ().createFormSelf (aWPEC)
                                                                               .setMethod (EHCFormMethod.GET)
-                                                                              .setLeft (3));
+                                                                              .setLeft (-1, 12, -1, 3, 2));
       aForm.addChild (info ().addChildren (div ("Show all processes, document types and endpoints of a participant."),
                                            div ("You may want to try scheme ").addChild (code (DEFAULT_ID_SCHEME))
                                                                               .addChild (" and value ")
