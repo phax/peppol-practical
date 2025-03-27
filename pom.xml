@@ -167,12 +167,6 @@
       </dependency>
       
       <dependency>
-        <groupId>es.moki.ratelimitj</groupId>
-        <artifactId>ratelimitj-inmemory</artifactId>
-        <version>0.7.0</version>
-      </dependency>
-      
-      <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-api</artifactId>
         <version>${log4j.version}</version>
@@ -277,11 +271,6 @@
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>es.moki.ratelimitj</groupId>
-      <artifactId>ratelimitj-inmemory</artifactId>
     </dependency>
 
     <dependency>

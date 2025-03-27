@@ -38,6 +38,7 @@ import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
+import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.ui.AbstractAppWebPageForm;
 import com.helger.peppol.sharedui.ui.select.ParticipantIdentifierSchemeSelect;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
@@ -267,7 +268,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
 
     final String sCompanyName = aWPEC.params ().getAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.params ().getAsString (FIELD_CONTACT_PERSON);

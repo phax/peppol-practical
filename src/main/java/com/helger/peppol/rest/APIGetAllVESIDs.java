@@ -32,7 +32,7 @@ import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APIGetAllVESIDs extends AbstractRateLimitingAPIExecutor
+public final class APIGetAllVESIDs extends AbstractPPAPIExecutor
 {
   @Override
   protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,

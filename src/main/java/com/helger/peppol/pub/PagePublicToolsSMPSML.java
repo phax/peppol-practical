@@ -57,9 +57,9 @@ import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
+import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
 import com.helger.peppol.sharedui.ui.SharedUI;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
@@ -281,7 +281,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -420,7 +420,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -562,7 +562,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -627,7 +627,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);

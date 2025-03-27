@@ -29,7 +29,7 @@ import com.helger.commons.state.ETriState;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 
-public abstract class AbstractJsonBasedAPIExecutor extends AbstractRateLimitingAPIExecutor
+public abstract class AbstractJsonBasedAPIExecutor extends AbstractPPAPIExecutor
 {
   @Nonnull
   protected static String getErrorLevel (@Nonnull final IErrorLevel aErrorLevel)

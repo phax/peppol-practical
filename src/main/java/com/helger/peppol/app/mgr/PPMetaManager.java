@@ -26,8 +26,6 @@ import com.helger.commons.exception.InitializationException;
 import com.helger.dao.DAOException;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
-import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
-import com.helger.peppol.sharedui.mgr.SMLConfigurationManager;
 import com.helger.peppol.testendpoint.TestEndpointManager;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
@@ -42,13 +40,11 @@ public final class PPMetaManager extends AbstractGlobalSingleton
   public static final String CRMGROUP_XML = "crm/group.xml";
   public static final String CRMSUBSCRIBER_XML = "crm/subscriber.xml";
   public static final String TEST_ENDPOINT_XML = "test-endpoint.xml";
-  private static final String SML_INFO_XML = "sml-info.xml";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PPMetaManager.class);
 
   private CRMGroupManager m_aCRMGroupMgr;
   private CRMSubscriberManager m_aCRMSubscriberMgr;
-  private SMLConfigurationManager m_aSMLConfigurationMgr;
   private TestEndpointManager m_aTestEndpointMgr;
 
   @Deprecated
@@ -63,8 +59,6 @@ public final class PPMetaManager extends AbstractGlobalSingleton
     {
       m_aCRMGroupMgr = new CRMGroupManager (CRMGROUP_XML);
       m_aCRMSubscriberMgr = new CRMSubscriberManager (CRMSUBSCRIBER_XML);
-      // Before TestEndpoint manager!
-      m_aSMLConfigurationMgr = new SMLConfigurationManager (SML_INFO_XML);
       m_aTestEndpointMgr = new TestEndpointManager (TEST_ENDPOINT_XML);
 
       LOGGER.info (getClass ().getName () + " was initialized");
@@ -91,12 +85,6 @@ public final class PPMetaManager extends AbstractGlobalSingleton
   public static CRMSubscriberManager getCRMSubscriberMgr ()
   {
     return getInstance ().m_aCRMSubscriberMgr;
-  }
-
-  @Nonnull
-  public static ISMLConfigurationManager getSMLConfigurationMgr ()
-  {
-    return getInstance ().m_aSMLConfigurationMgr;
   }
 
   @Nonnull

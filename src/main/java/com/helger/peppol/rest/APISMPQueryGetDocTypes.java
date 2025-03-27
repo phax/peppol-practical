@@ -42,13 +42,14 @@ import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
-import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
+import com.helger.peppol.sharedui.api.APIParamException;
 import com.helger.peppol.sharedui.api.SMPJsonResponseExt;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
+import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -59,7 +60,7 @@ import com.helger.smpclient.httpclient.SMPHttpClientSettings;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APISMPQueryGetDocTypes extends AbstractRateLimitingAPIExecutor
+public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
 {
   public static final String PARAM_VERIFY_SIGNATURE = "verifySignature";
   public static final String PARAM_XML_SCHEMA_VALIDATION = "xmlSchemaValidation";
@@ -74,7 +75,7 @@ public final class APISMPQueryGetDocTypes extends AbstractRateLimitingAPIExecuto
                                        @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
                                        @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
     final boolean bSMLAutoDetect = ISMLConfigurationManager.ID_AUTO_DETECT.equals (sSMLID);
     ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
@@ -147,7 +148,7 @@ public final class APISMPQueryGetDocTypes extends AbstractRateLimitingAPIExecuto
       {
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPQueryParams.getSMPHostURI ());
         aSMPClient.setSecureValidation (false);
-        aSMPClient.withHttpClientSettings (SMP_HCS_MODIFIER);
+        aSMPClient.withHttpClientSettings (m_aHCSModifier);
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
 
@@ -173,7 +174,7 @@ public final class APISMPQueryGetDocTypes extends AbstractRateLimitingAPIExecuto
         aSGHrefs = new CommonsTreeMap <> ();
         final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aSMPQueryParams.getSMPHostURI ());
         aBDXR1Client.setSecureValidation (false);
-        aBDXR1Client.withHttpClientSettings (SMP_HCS_MODIFIER);
+        aBDXR1Client.withHttpClientSettings (m_aHCSModifier);
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);
 
@@ -208,7 +209,7 @@ public final class APISMPQueryGetDocTypes extends AbstractRateLimitingAPIExecuto
     if (bQueryBusinessCard)
     {
       final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
-      SMP_HCS_MODIFIER.accept (aHCS);
+      m_aHCSModifier.accept (aHCS);
 
       final String sBCURL = aSMPQueryParams.getSMPHostURI ().toString () +
                             "/businesscard/" +

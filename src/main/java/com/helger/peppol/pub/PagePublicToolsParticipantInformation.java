@@ -87,7 +87,6 @@ import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jaxb.validation.DoNothingValidationEventHandler;
-import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.generic.PDBusinessEntity;
 import com.helger.peppol.businesscard.generic.PDContact;
@@ -95,11 +94,12 @@ import com.helger.peppol.businesscard.generic.PDIdentifier;
 import com.helger.peppol.businesscard.generic.PDName;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper.EBusinessCardVersion;
-import com.helger.peppol.rest.AbstractRateLimitingAPIExecutor;
+import com.helger.peppol.rest.AbstractPPAPIExecutor;
 import com.helger.peppol.servicedomain.EPeppolNetwork;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
+import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
 import com.helger.peppol.sharedui.ui.SharedUI;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
@@ -331,7 +331,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final IRequestWebScopeWithoutResponse aRequestScope = aWPEC.getRequestScope ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
 
     final String sParticipantIDUriEncoded = CIdentifier.getURIEncoded (sParticipantIDScheme, sParticipantIDValue);
 
@@ -591,6 +591,8 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         m.readExceptionCallbacks ().add (aSMPExceptions::add);
       };
 
+      final Consumer <? super SMPHttpClientSettings> aHCSModifier = hcs -> hcs.setUserAgent (AbstractPPAPIExecutor.DEFAULT_USER_AGENT);
+
       try
       {
         final StopWatch aSWGetDocTypes = StopWatch.createdStarted ();
@@ -603,7 +605,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case PEPPOL:
           {
             aSMPClient = new SMPClientReadOnly (aSMPQueryParams.getSMPHostURI ());
-            aSMPClient.withHttpClientSettings (AbstractRateLimitingAPIExecutor.SMP_HCS_MODIFIER);
+            aSMPClient.withHttpClientSettings (aHCSModifier);
             aSMPClient.setSecureValidation (false);
             aSMPClient.setXMLSchemaValidation (bXSDValidation);
             aSMPClient.setVerifySignature (bVerifySignatures);
@@ -635,7 +637,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case OASIS_BDXR_V1:
           {
             aBDXR1Client = new BDXRClientReadOnly (aSMPQueryParams.getSMPHostURI ());
-            aBDXR1Client.withHttpClientSettings (AbstractRateLimitingAPIExecutor.SMP_HCS_MODIFIER);
+            aBDXR1Client.withHttpClientSettings (aHCSModifier);
             aBDXR1Client.setSecureValidation (false);
             aBDXR1Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR1Client.setVerifySignature (bVerifySignatures);
@@ -685,7 +687,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           case OASIS_BDXR_V2:
           {
             aBDXR2Client = new BDXR2ClientReadOnly (aSMPQueryParams.getSMPHostURI ());
-            aBDXR2Client.withHttpClientSettings (AbstractRateLimitingAPIExecutor.SMP_HCS_MODIFIER);
+            aBDXR2Client.withHttpClientSettings (aHCSModifier);
             aBDXR2Client.setSecureValidation (false);
             aBDXR2Client.setXMLSchemaValidation (bXSDValidation);
             aBDXR2Client.setVerifySignature (bVerifySignatures);
@@ -1135,7 +1137,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         byte [] aData;
 
         final SMPHttpClientSettings aHCS = new SMPHttpClientSettings ();
-        AbstractRateLimitingAPIExecutor.SMP_HCS_MODIFIER.accept (aHCS);
+        aHCSModifier.accept (aHCS);
 
         try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (aHCS))
         {
@@ -1333,7 +1335,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
     final FormErrorList aFormErrors = new FormErrorList ();
     final boolean bShowInput = true;
 

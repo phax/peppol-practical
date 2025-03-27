@@ -47,8 +47,8 @@ import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 import com.helger.diver.api.coord.DVRCoordinate;
-import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.CPPApp;
+import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
 import com.helger.peppol.wsclient2.ItemType;
@@ -109,7 +109,7 @@ public class WSDVS implements WSDVSPort
 
   public WSDVS ()
   {
-    final long nRequestsPerSec = AppConfig.getValidationAPIMaxRequestsPerSecond ();
+    final long nRequestsPerSec = SharedUIConfig.getValidationAPIMaxRequestsPerSecond ();
     if (nRequestsPerSec > 0)
     {
       // 2 request per second, per key
@@ -153,15 +153,15 @@ public class WSDVS implements WSDVSPort
                                                                                 .get (MessageContext.SERVLET_RESPONSE);
 
     final String sRateLimitKey = "ip:" + aHttpRequest.getRemoteAddr ();
-    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey)
+    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (
+                                                                                                                   sRateLimitKey)
                                                                  : false;
 
     final String sInvocationUniqueID = Integer.toString (INVOCATION_COUNTER.incrementAndGet ());
 
     RW_LOCK.writeLocked ( () -> {
       // Just append to file
-      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (
-                                                                         WebFileIO.getDataIO ()
+      try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
                                                                                   .getFile ("wsdvs-logs.csv"),
                                                                          EAppend.APPEND,
                                                                          StandardCharsets.ISO_8859_1)))
@@ -348,8 +348,7 @@ public class WSDVS implements WSDVSPort
       final int nFinalErrors = nErrors;
       RW_LOCK.writeLocked ( () -> {
         // Just append to file
-        try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (
-                                                                           WebFileIO.getDataIO ()
+        try (final CSVWriter w = new CSVWriter (FileHelper.getPrintWriter (WebFileIO.getDataIO ()
                                                                                     .getFile ("wsdvs-results.csv"),
                                                                            EAppend.APPEND,
                                                                            StandardCharsets.ISO_8859_1)))

@@ -29,7 +29,6 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.dns.config.DNSConfig;
 import com.helger.httpclient.HttpDebugger;
-import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
 import com.helger.peppol.app.CPPApp;
@@ -38,6 +37,7 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;
+import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.ajax.IAjaxRegistry;
@@ -53,8 +53,8 @@ import com.helger.xservlet.requesttrack.RequestTrackerSettings;
 import jakarta.servlet.ServletContext;
 
 /**
- * This listener is invoked during the servlet initialization. This is basically
- * a ServletContextListener.
+ * This listener is invoked during the servlet initialization. This is basically a
+ * ServletContextListener.
  *
  * @author Philip Helger
  */
@@ -65,25 +65,25 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   @Override
   protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
   {
-    return AppConfig.getGlobalDebug ();
+    return SharedUIConfig.getGlobalDebug ();
   }
 
   @Override
   protected String getInitParameterProduction (@Nonnull final ServletContext aSC)
   {
-    return AppConfig.getGlobalProduction ();
+    return SharedUIConfig.getGlobalProduction ();
   }
 
   @Override
   protected String getDataPath (@Nonnull final ServletContext aSC)
   {
-    return AppConfig.getDataPath ();
+    return SharedUIConfig.getDataPath ();
   }
 
   @Override
   protected boolean shouldCheckFileAccess (@Nonnull final ServletContext aSC)
   {
-    return AppConfig.isCheckFileAccess ();
+    return SharedUIConfig.isCheckFileAccess ();
   }
 
   @Override

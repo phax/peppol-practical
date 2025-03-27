@@ -35,17 +35,18 @@ import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
-import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.sharedui.api.APIParamException;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
+import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APIQueryParticipantExistence extends AbstractRateLimitingAPIExecutor
+public final class APIQueryParticipantExistence extends AbstractPPAPIExecutor
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (APIQueryParticipantExistence.class);
 
@@ -56,7 +57,7 @@ public final class APIQueryParticipantExistence extends AbstractRateLimitingAPIE
                                        @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
                                        @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
     final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     if (aSML == null)

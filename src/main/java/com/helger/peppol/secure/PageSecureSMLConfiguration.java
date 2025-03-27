@@ -35,9 +35,9 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.html.textlevel.HCCode;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
-import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
+import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.ui.select.SMPAPITypeSelect;
 import com.helger.peppol.sharedui.ui.select.SMPIdentifierTypeSelect;
 import com.helger.peppol.sml.CSMLDefault;
@@ -94,7 +94,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
       @Override
       protected void performAction (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final ISMLConfiguration aSelectedObject)
       {
-        final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+        final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
         if (aSMLConfigurationMgr.removeSMLInfo (aSelectedObject.getID ()).isChanged ())
           aWPEC.postRedirectGetInternal (success ("The SML configuration '" +
                                                   aSelectedObject.getDisplayName () +
@@ -110,7 +110,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
   @Override
   protected ISMLConfiguration getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
     return aSMLConfigurationMgr.getSMLInfoOfID (sID);
   }
 
@@ -243,7 +243,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final boolean bEdit = eFormAction.isEdit ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
 
     final String sID = aWPEC.params ().getAsString (FIELD_ID);
     final String sDisplayName = aWPEC.params ().getAsString (FIELD_DISPLAY_NAME);
@@ -351,7 +351,7 @@ public class PageSecureSMLConfiguration extends AbstractBootstrapWebPageForm <IS
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = PPMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
 
     aNodeList.addChild (info ("This page lets you create custom SML configurations that can be used for registration."));
 

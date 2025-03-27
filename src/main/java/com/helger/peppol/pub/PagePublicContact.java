@@ -44,8 +44,8 @@ import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.HttpClientSettings;
 import com.helger.httpclient.response.ResponseHandlerJson;
 import com.helger.json.IJson;
-import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.AppHelper;
+import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
@@ -183,8 +183,8 @@ public final class PagePublicContact extends AbstractAppWebPage
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
-    final String sRecaptchWebKey = AppConfig.getRecaptchaWebKey ();
-    final String sRecaptchSecretKey = AppConfig.getRecaptchaSecretKey ();
+    final String sRecaptchWebKey = SharedUIConfig.getRecaptchaWebKey ();
+    final String sRecaptchSecretKey = SharedUIConfig.getRecaptchaSecretKey ();
     final boolean bRecaptchaEnabled = StringHelper.hasText (sRecaptchWebKey) &&
                                       StringHelper.hasText (sRecaptchSecretKey);
 

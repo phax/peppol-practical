@@ -22,6 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
@@ -40,7 +41,7 @@ public final class AppHelper
   @Nonempty
   public static String getApplicationTitle ()
   {
-    return "Peppol Practical" + (AppConfig.isTestVersion () ? " [TEST]" : "");
+    return "Peppol Practical" + (SharedUIConfig.isTestVersion () ? " [TEST]" : "");
   }
 
   @Nullable
