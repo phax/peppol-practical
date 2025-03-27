@@ -33,7 +33,7 @@ import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
-import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
+import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.peppol.sharedui.validate.ui.HCVESSelect;
 import com.helger.phive.api.EValidationType;

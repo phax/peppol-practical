@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
+import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 

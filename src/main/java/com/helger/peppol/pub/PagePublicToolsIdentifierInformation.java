@@ -46,7 +46,7 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.sharedui.domain.EIDType;
 import com.helger.peppol.sharedui.domain.KVPair;
-import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
+import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
@@ -80,7 +80,7 @@ public class PagePublicToolsIdentifierInformation extends AbstractAppWebPage
   private static final IMutableStatisticsHandlerCounter STATS_COUNT = StatisticsManager.getCounterHandler ("id.information");
   private static final IMutableStatisticsHandlerCounter STATS_COUNT_SUCCESS = StatisticsManager.getCounterHandler ("id.information.success");
   private static final IMutableStatisticsHandlerKeyedCounter STATS_ID_TYPE = StatisticsManager.getKeyedCounterHandler ("id.information.idtype");
-  private static final String IDENTIFIER_POLICY_VERSION = "4.1";
+  private static final String IDENTIFIER_POLICY_VERSION = "4.2";
 
   public PagePublicToolsIdentifierInformation (@Nonnull @Nonempty final String sID)
   {

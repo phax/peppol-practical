@@ -33,9 +33,9 @@ import com.helger.html.hc.html.forms.AbstractHCForm;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
+import com.helger.peppol.sharedui.SharedUIHelper;
+import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -65,7 +65,8 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     super (sID, "Sign up");
   }
 
-  protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrorList aFormErrors)
+  protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
+                                                 @Nonnull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -105,10 +106,12 @@ public final class PagePublicSignUp extends AbstractAppWebPage
         }
 
     final List <String> aPasswordErrors = GlobalPasswordSettings.getPasswordConstraintList ()
-                                                                .getInvalidPasswordDescriptions (sPlainTextPassword, aDisplayLocale);
+                                                                .getInvalidPasswordDescriptions (sPlainTextPassword,
+                                                                                                 aDisplayLocale);
     for (final String sPasswordError : aPasswordErrors)
       aFormErrors.addFieldError (FIELD_PASSWORD, "Error: " + sPasswordError);
-    if (!aFormErrors.hasEntryForField (FIELD_PASSWORD) && !EqualsHelper.equals (sPlainTextPassword, sPlainTextPasswordConfirm))
+    if (!aFormErrors.hasEntryForField (FIELD_PASSWORD) &&
+        !EqualsHelper.equals (sPlainTextPassword, sPlainTextPasswordConfirm))
       aFormErrors.addFieldError (FIELD_PASSWORD_CONFIRM, "The two provided passwords don't match!");
 
     if (aFormErrors.isEmpty ())
@@ -154,7 +157,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     final List <IHCNode> aPasswordHelpText = HCExtHelper.list2divList (GlobalPasswordSettings.getPasswordConstraintList ()
                                                                                              .getAllPasswordConstraintDescriptions (aDisplayLocale));
 
-    aForm.addChild (info ("Sign up to ").addChild (strong (AppHelper.getApplicationTitle ()))
+    aForm.addChild (info ("Sign up to ").addChild (strong (SharedUIHelper.getApplicationTitle ()))
                                         .addChild (" easily by filling out this form. No further information and no credit card information is needed."));
 
     final BootstrapForm aRealForm = (BootstrapForm) aForm;

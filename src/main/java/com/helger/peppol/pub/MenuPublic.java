@@ -22,6 +22,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.text.display.ConstantHasDisplayText;
 import com.helger.commons.url.SimpleURL;
+import com.helger.peppol.sharedui.page.pub.PagePublicContact;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.core.menu.IMenuItemPage;

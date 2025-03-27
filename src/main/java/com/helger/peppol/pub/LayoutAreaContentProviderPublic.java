@@ -45,8 +45,8 @@ import com.helger.html.hc.html.textlevel.HCSmall;
 import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.sharedui.CSharedUI;
+import com.helger.peppol.sharedui.SharedUIHelper;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.app.url.LinkHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
@@ -124,8 +124,8 @@ public final class LayoutAreaContentProviderPublic
     final IUser aUser = LoggedInUserManager.getInstance ().getCurrentUser ();
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar ();
-    aNavbar.addBrand (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1).addChild (AppHelper.getApplicationTitle ()),
-                      aLinkToStartPage);
+    aNavbar.addBrand (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1)
+                                   .addChild (SharedUIHelper.getApplicationTitle ()), aLinkToStartPage);
 
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant Information")
                                                                         .setIcon (EFamFamIcon.USER_GREEN)
@@ -303,7 +303,7 @@ public final class LayoutAreaContentProviderPublic
     {
       final BootstrapContainer aFooter = new BootstrapContainer ().setFluid (true).setID (CLayout.LAYOUT_AREAID_FOOTER);
 
-      aFooter.addChild (new HCP ().addChild (AppHelper.getApplicationTitle () + " - created by Philip Helger")
+      aFooter.addChild (new HCP ().addChild (SharedUIHelper.getApplicationTitle () + " - created by Philip Helger")
                                   .addChild (" - GitHub: ")
                                   .addChild (new HCA (new SimpleURL ("https://github.com/phax")).addChild ("phax")));
 

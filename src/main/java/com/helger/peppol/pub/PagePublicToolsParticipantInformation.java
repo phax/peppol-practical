@@ -100,7 +100,7 @@ import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
-import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
+import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.sharedui.ui.SharedCommonUI;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.sml.ESMPAPIType;

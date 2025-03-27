@@ -27,8 +27,8 @@ import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.pub.LayoutAreaContentProviderPublic;
+import com.helger.peppol.sharedui.SharedUIHelper;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.app.url.LinkHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
@@ -69,9 +69,9 @@ public final class LayoutAreaContentProviderSecure
 
     final BootstrapNavbar aNavbar = new BootstrapNavbar ();
     aNavbar.addBrand (new HCNodeList ().addChild (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO1)
-                                                               .addChild (AppHelper.getApplicationTitle ()))
-                                       .addChild (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO2).addChild (" Administration")),
-                      aLinkToStartPage);
+                                                               .addChild (SharedUIHelper.getApplicationTitle ()))
+                                       .addChild (new HCSpan ().addClass (AppCommonUI.CSS_CLASS_LOGO2)
+                                                               .addChild (" Administration")), aLinkToStartPage);
 
     final BootstrapNavbarToggleable aToggleable = aNavbar.addAndReturnToggleable ();
 
@@ -121,7 +121,8 @@ public final class LayoutAreaContentProviderSecure
     // Content
     {
       final HCDiv aRow = aOuterContainer.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX));
-      final HCDiv aCol1 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX).addClass (CBootstrapCSS.MR_2));
+      final HCDiv aCol1 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX)
+                                                              .addClass (CBootstrapCSS.MR_2));
       final HCDiv aCol2 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.FLEX_FILL));
 
       // left

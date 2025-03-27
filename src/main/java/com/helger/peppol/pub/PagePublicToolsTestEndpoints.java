@@ -34,12 +34,12 @@ import com.helger.html.hc.html.tabular.IHCCell;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
-import com.helger.peppol.app.AppHelper;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.sharedui.SharedUIHelper;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
-import com.helger.peppol.sharedui.ui.AbstractAppWebPageForm;
+import com.helger.peppol.sharedui.page.AbstractAppWebPageForm;
 import com.helger.peppol.sharedui.ui.select.ParticipantIdentifierSchemeSelect;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.sharedui.ui.select.SMPTransportProfileSelect;
@@ -89,7 +89,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
         aForm.addChild (question ("Are you sure you want to delete the Test Endpoint '" +
                                   aSelectedObject.getParticipantIDValue () +
                                   "' for Transport Profile '" +
-                                  AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
+                                  SharedUIHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
                                   "'?"));
       }
 
@@ -203,7 +203,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                            ":" +
                                                            aSelectedObject.getParticipantIDValue ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Transport profile")
-                                                 .setCtrl (AppHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
+                                                 .setCtrl (SharedUIHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
                                                            " (" +
                                                            aSelectedObject.getTransportProfile ().getID () +
                                                            ")"));
@@ -224,39 +224,45 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     aRealForm.setLeft (3);
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
-                                                                                             aSelectedObject == null ? null
+                                                                                             aSelectedObject == null
+                                                                                                                     ? null
                                                                                                                      : aSelectedObject.getCompanyName ())))
                                                      .setHelpText ("The name of the company operating the test AccessPoint")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_COMPANY_NAME)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_CONTACT_PERSON,
-                                                                                             aSelectedObject == null ? null
+                                                                                             aSelectedObject == null
+                                                                                                                     ? null
                                                                                                                      : aSelectedObject.getContactPerson ())))
                                                      .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier issuing agency")
                                                      .setCtrl (new ParticipantIdentifierSchemeSelect (new RequestField (FIELD_PARTICIPANT_ID_ISSUER,
-                                                                                                                        aSelectedObject == null ? null
-                                                                                                                                                : aSelectedObject.getParticipantIDIssuer ()),
+                                                                                                                        aSelectedObject ==
+                                                                                                                                                     null ? null
+                                                                                                                                                          : aSelectedObject.getParticipantIDIssuer ()),
                                                                                                       aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISSUER)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE,
-                                                                                             aSelectedObject == null ? null
+                                                                                             aSelectedObject == null
+                                                                                                                     ? null
                                                                                                                      : aSelectedObject.getParticipantIDValue ())))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
                                                      .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE,
-                                                                                                                aSelectedObject == null ? null
-                                                                                                                                        : aSelectedObject.getTransportProfile ()
-                                                                                                                                                         .getID ()),
+                                                                                                                aSelectedObject ==
+                                                                                                                                         null ? null
+                                                                                                                                              : aSelectedObject.getTransportProfile ()
+                                                                                                                                                               .getID ()),
                                                                                               aDisplayLocale))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
     aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                      .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML,
-                                                                                                             aSelectedObject == null ? null
-                                                                                                                                     : aSelectedObject.getSML ()
-                                                                                                                                                      .getID ()),
+                                                                                                             aSelectedObject ==
+                                                                                                                        null ? null
+                                                                                                                             : aSelectedObject.getSML ()
+                                                                                                                                              .getID ()),
                                                                                            false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
   }
@@ -273,11 +279,11 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final String sCompanyName = aWPEC.params ().getAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.params ().getAsString (FIELD_CONTACT_PERSON);
     final String sParticipantIDIssuer = aWPEC.params ().getAsString (FIELD_PARTICIPANT_ID_ISSUER);
-    final EPredefinedParticipantIdentifierScheme eScheme = AppHelper.getParticipantIdentifierSchemeOfID (sParticipantIDIssuer);
+    final EPredefinedParticipantIdentifierScheme eScheme = SharedUIHelper.getParticipantIdentifierSchemeOfID (sParticipantIDIssuer);
     final String sParticipantIDValue = aWPEC.params ().getAsString (FIELD_PARTICIPANT_ID_VALUE);
     final String sTransportProfile = aWPEC.params ().getAsString (FIELD_TRANSPORT_PROFILE);
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
-    final String sTransportProfileName = AppHelper.getSMPTransportProfileShortName (eTransportProfile);
+    final String sTransportProfileName = SharedUIHelper.getSMPTransportProfileShortName (eTransportProfile);
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
 
@@ -387,7 +393,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       final HCRow aRow = aTable.addBodyRow ();
       aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
       aRow.addCell (aCurObject.getCompanyName ());
-      aRow.addCell (AppHelper.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
+      aRow.addCell (SharedUIHelper.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
       aRow.addCell (aCurObject.getSML ().getDisplayName ());
 
       final IHCCell <?> aActionCell = aRow.addCell ();
@@ -410,9 +416,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       aActionCell.addChild (new HCTextNode (" "));
 
       // Visible for all
-      aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC,
-                                                                aCurObject)).setTitle ("Show participant information")
-                                                                            .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
+      aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC, aCurObject)).setTitle (
+                                                                                              "Show participant information")
+                                                                                   .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
     }
     aNodeList.addChild (aTable);
 
