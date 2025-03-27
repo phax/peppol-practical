@@ -40,8 +40,8 @@ import com.helger.html.hc.html.forms.HCTextArea;
 import com.helger.html.hc.html.grouping.HCDiv;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppConfig;
+import com.helger.peppol.sharedui.ui.SharedUI;
 import com.helger.peppol.sml.ESML;
-import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.utils.EPeppolCertificateCheckResult;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -322,7 +322,7 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
             aNL.addChild (error ().addChild (div ("Failed to send AS4 message to Peppol receiver ").addChild (code (aReceiverID.getURIEncoded ()))
                                                                                                    .addChild (" with result ")
                                                                                                    .addChild (code (eResult.name ())))
-                                  .addChild (AppCommonUI.getTechnicalDetailsUI (aSendEx.get (), true)));
+                                  .addChild (SharedUI.getTechnicalDetailsUI (aSendEx.get (), true)));
 
           boolean bShowRaw = true;
           if (aResponseMsg.isSet ())
@@ -359,8 +359,8 @@ public class PageSecurePeppolSendAS4 extends AbstractBootstrapWebPage <WebPageEx
         }
         catch (final SMPDNSResolutionException ex)
         {
-          aNL.addChild (error (div ("Error creating the SMP client.")).addChild (AppCommonUI.getTechnicalDetailsUI (ex,
-                                                                                                                    false)));
+          aNL.addChild (error (div ("Error creating the SMP client.")).addChild (SharedUI.getTechnicalDetailsUI (ex,
+                                                                                                                 false)));
         }
 
         if (true)

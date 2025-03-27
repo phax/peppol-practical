@@ -27,7 +27,7 @@ import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
-import com.helger.peppol.domain.ISMLConfiguration;
+import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;

@@ -34,6 +34,7 @@ import com.helger.ddd.model.DDDValueProviderPerSyntax.ISelectorCallback;
 import com.helger.ddd.model.EDDDDeterminedField;
 import com.helger.ddd.model.VPSourceValue;
 import com.helger.diver.api.coord.DVRCoordinate;
+import com.helger.peppol.sharedui.validate.VESRegistry;
 
 public class MainCheckDDDConsistency
 {
@@ -76,7 +77,7 @@ public class MainCheckDDDConsistency
             aChecks.inc ();
             final String sVESID = sDeterminedValue;
             LOGGER.info ("  " + sSrcString + " -- " + sVESID);
-            if (ExtValidationKeyRegistry.getFromIDOrNull (DVRCoordinate.parseOrNull (sVESID)) == null)
+            if (VESRegistry.getFromIDOrNull (DVRCoordinate.parseOrNull (sVESID)) == null)
               throw new IllegalStateException ("VES ID '" + sVESID + "' is unknown");
           }
         }

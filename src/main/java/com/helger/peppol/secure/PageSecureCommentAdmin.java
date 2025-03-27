@@ -51,7 +51,7 @@ import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.peppol.comment.ui.CommentAction;
 import com.helger.peppol.comment.ui.CommentUI;
 import com.helger.peppol.comment.ui.ECommentAction;
-import com.helger.peppol.ui.page.AbstractAppWebPage;
+import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.nav.BootstrapTabBox;
 import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDataTables;

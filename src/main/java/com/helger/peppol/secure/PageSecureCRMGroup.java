@@ -36,7 +36,7 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.crm.ICRMGroup;
-import com.helger.peppol.ui.page.AbstractAppWebPageForm;
+import com.helger.peppol.sharedui.ui.AbstractAppWebPageForm;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;

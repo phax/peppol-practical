@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.domain.ISMLConfiguration;
+import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.photon.security.object.StubObject;

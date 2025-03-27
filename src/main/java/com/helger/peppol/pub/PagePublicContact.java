@@ -46,7 +46,7 @@ import com.helger.httpclient.response.ResponseHandlerJson;
 import com.helger.json.IJson;
 import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.AppHelper;
-import com.helger.peppol.ui.page.AbstractAppWebPage;
+import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
 import com.helger.photon.bootstrap4.button.BootstrapSubmitButton;

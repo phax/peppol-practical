@@ -36,10 +36,10 @@ import com.helger.commons.timing.StopWatch;
 import com.helger.json.IJsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
-import com.helger.peppol.app.mgr.ISMLConfigurationManager;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.domain.ISMLConfiguration;
-import com.helger.peppol.domain.SMPQueryParams;
+import com.helger.peppol.sharedui.domain.ISMLConfiguration;
+import com.helger.peppol.sharedui.domain.SMPQueryParams;
+import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -54,7 +54,7 @@ import com.helger.smpclient.peppol.Pfuoi420;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APISMPQueryGetServiceInformation extends AbstractAPIExecutor
+public final class APISMPQueryGetServiceInformation extends AbstractRateLimitingAPIExecutor
 {
   public static final String PARAM_VERIFY_SIGNATURE = "verifySignature";
   public static final String PARAM_XML_SCHEMA_VALIDATION = "xmlSchemaValidation";

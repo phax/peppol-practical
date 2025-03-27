@@ -31,7 +31,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.dao.DAOException;
-import com.helger.peppol.domain.ISMLConfiguration;
+import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.io.dao.AbstractPhotonSimpleDAO;

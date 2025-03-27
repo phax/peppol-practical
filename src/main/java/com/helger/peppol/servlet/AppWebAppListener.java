@@ -35,10 +35,10 @@ import com.helger.peppol.app.AppSecurity;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.phive.ExtValidationKeyRegistry;
 import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;
+import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.ajax.IAjaxRegistry;
 import com.helger.photon.api.IAPIRegistry;
@@ -203,6 +203,6 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   @Override
   protected void beforeContextDestroyed (@Nonnull final ServletContext aSC)
   {
-    ExtValidationKeyRegistry.cleanupOnShutdown ();
+    VESRegistry.cleanupOnShutdown ();
   }
 }

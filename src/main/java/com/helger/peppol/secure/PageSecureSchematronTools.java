@@ -33,9 +33,9 @@ import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
-import com.helger.peppol.phive.ExtValidationKeyRegistry;
-import com.helger.peppol.phive.ExtValidationKeySelect;
-import com.helger.peppol.ui.page.AbstractAppWebPage;
+import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
+import com.helger.peppol.sharedui.validate.VESRegistry;
+import com.helger.peppol.sharedui.validate.ui.HCVESSelect;
 import com.helger.phive.api.EValidationType;
 import com.helger.phive.api.IValidationType;
 import com.helger.phive.api.executor.IValidationExecutor;
@@ -105,7 +105,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     {
       final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aWPEC);
       final BootstrapForm aForm = aToolbar.addAndReturnChild (new BootstrapForm (aWPEC).setFormType (EBootstrapFormType.INLINE));
-      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ExtValidationKeySelect (new RequestField (FIELD_VESID),
+      aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new HCVESSelect (new RequestField (FIELD_VESID),
                                                                                          aDisplayLocale)));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ActionSelect (new RequestField (CPageParam.PARAM_ACTION))));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_STYLE_OUTPUT,
@@ -118,7 +118,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
     final String sVESID = aWPEC.params ().getAsString (FIELD_VESID);
     final DVRCoordinate aVESID = DVRCoordinate.parseOrNull (sVESID);
     final boolean bStyleOutput = aWPEC.params ().isCheckBoxChecked (FIELD_STYLE_OUTPUT, DEFAULT_STYLE_OUTPUT);
-    final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
+    final IValidationExecutorSet <IValidationSourceXML> aVES = VESRegistry.getFromIDOrNull (aVESID);
 
     if (aVES != null)
     {

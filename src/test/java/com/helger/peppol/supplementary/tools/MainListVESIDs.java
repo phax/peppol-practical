@@ -22,8 +22,8 @@ import java.util.Locale;
 
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.peppol.phive.ExtValidationKeyRegistry;
-import com.helger.peppol.phive.ExtValidationKeySelect;
+import com.helger.peppol.sharedui.validate.VESRegistry;
+import com.helger.peppol.sharedui.validate.ui.HCVESSelect;
 import com.helger.phive.api.executorset.IValidationExecutorSet;
 import com.helger.phive.api.executorset.ValidationExecutorSetAlias;
 import com.helger.phive.xml.source.IValidationSourceXML;
@@ -32,8 +32,8 @@ public final class MainListVESIDs
 {
   private static String _getPayload ()
   {
-    final ICommonsList <IValidationExecutorSet <IValidationSourceXML>> aAll = true ? ExtValidationKeySelect.getAllSortedCorrect (Locale.US)
-                                                                                   : ExtValidationKeyRegistry.getAllSortedByID ()
+    final ICommonsList <IValidationExecutorSet <IValidationSourceXML>> aAll = true ? HCVESSelect.getAllSortedCorrect (Locale.US)
+                                                                                   : VESRegistry.getAllSortedByID ()
                                                                                                              .copyOfValues ();
 
     final StringBuilder aSB = new StringBuilder ();

@@ -25,18 +25,14 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.mime.CMimeType;
 import com.helger.json.IJsonArray;
-import com.helger.json.JsonArray;
-import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
-import com.helger.peppol.phive.ExtValidationKeyRegistry;
-import com.helger.phive.api.executorset.IValidationExecutorSet;
-import com.helger.phive.xml.source.IValidationSourceXML;
+import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-public final class APIGetAllVESIDs extends AbstractAPIExecutor
+public final class APIGetAllVESIDs extends AbstractRateLimitingAPIExecutor
 {
   @Override
   protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
@@ -45,13 +41,7 @@ public final class APIGetAllVESIDs extends AbstractAPIExecutor
                                        @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
                                        @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
-    final IJsonArray aJson = new JsonArray ();
-    for (final IValidationExecutorSet <IValidationSourceXML> aVES : ExtValidationKeyRegistry.getAll ())
-    {
-      aJson.add (new JsonObject ().add ("vesid", aVES.getID ().getAsSingleID ())
-                                  .add ("name", aVES.getDisplayName ())
-                                  .add ("deprecated", aVES.getStatus ().isDeprecated ()));
-    }
+    final IJsonArray aJson = VESRegistry.getAllAsJson ();
 
     final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aJson);
     aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8)

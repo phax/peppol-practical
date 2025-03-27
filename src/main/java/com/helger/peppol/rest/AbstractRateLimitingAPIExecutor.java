@@ -37,18 +37,18 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import es.moki.ratelimitj.core.limiter.request.RequestLimitRule;
 import es.moki.ratelimitj.inmemory.request.InMemorySlidingWindowRequestRateLimiter;
 
-public abstract class AbstractAPIExecutor implements IAPIExecutor
+public abstract class AbstractRateLimitingAPIExecutor implements IAPIExecutor
 {
-  private static final String USER_AGENT = "Peppol-Practical/1.0 SMP-Query-API/1.0";
+  private static final String USER_AGENT = "Peppol-Practical/1.0";
   public static final Consumer <? super SMPHttpClientSettings> SMP_HCS_MODIFIER = hcs -> {
     hcs.setUserAgent (USER_AGENT);
   };
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractAPIExecutor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractRateLimitingAPIExecutor.class);
 
   protected final InMemorySlidingWindowRequestRateLimiter m_aRequestRateLimiter;
 
-  protected AbstractAPIExecutor ()
+  protected AbstractRateLimitingAPIExecutor ()
   {
     final long nRequestsPerSec = AppConfig.getRESTAPIMaxRequestsPerSecond ();
     if (nRequestsPerSec > 0)
@@ -82,7 +82,8 @@ public abstract class AbstractAPIExecutor implements IAPIExecutor
                                @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
   {
     final String sRateLimitKey = "ip:" + aRequestScope.getRemoteAddr ();
-    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (sRateLimitKey)
+    final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (
+                                                                                                                   sRateLimitKey)
                                                                  : false;
 
     if (bOverRateLimit)

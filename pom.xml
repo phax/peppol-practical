@@ -151,20 +151,6 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.helger.phive.rules</groupId>
-        <artifactId>phive-rules-parent-pom</artifactId>
-        <version>3.2.8</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.phase4</groupId>
-        <artifactId>phase4-parent-pom</artifactId>
-        <version>3.0.6</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
         <groupId>com.helger</groupId>
         <artifactId>en16931-cii2ubl</artifactId>
         <version>2.3.0</version>
@@ -173,6 +159,11 @@
         <groupId>com.helger</groupId>
         <artifactId>en16931-ubl2cii</artifactId>
         <version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>peppol-shared-ui</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
       </dependency>
       
       <dependency>
@@ -257,115 +248,15 @@
       <groupId>com.helger.phive</groupId>
       <artifactId>phive-result</artifactId>
     </dependency>
-    
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-cii</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-cius-pt</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-cius-ro</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-ebinterface</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-ehf</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-en16931</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-energieefactuur</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-facturae</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-fatturapa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-finvoice</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-isdoc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-oioubl</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-peppol</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-peppol-italy</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-peppol-legacy</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-setu</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-simplerinvoicing</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-svefaktura</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-teapps</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-ubl</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-ublbe</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-xrechnung</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-zatca</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phive.rules</groupId>
-      <artifactId>phive-rules-zugferd</artifactId>
-    </dependency>
-    
+
     <dependency>
       <groupId>com.helger.peppol</groupId>
-      <artifactId>peppol-directory-businesscard</artifactId>
+      <artifactId>peppol-shared-ui</artifactId>
     </dependency>
+    
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>en16931-cii2ubl</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.phase4</groupId>
-      <artifactId>phase4-peppol-client</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -388,10 +279,6 @@
       <artifactId>jaxws-rt</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>dnsjava</groupId>
-      <artifactId>dnsjava</artifactId>
-    </dependency>
     <dependency>
       <groupId>es.moki.ratelimitj</groupId>
       <artifactId>ratelimitj-inmemory</artifactId>
@@ -437,6 +324,14 @@
     </resources>
     
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>17</source>
+          <target>17</target>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-jscompress-maven-plugin</artifactId>

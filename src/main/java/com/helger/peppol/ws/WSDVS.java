@@ -49,7 +49,7 @@ import com.helger.commons.timing.StopWatch;
 import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.phive.ExtValidationKeyRegistry;
+import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
 import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;
@@ -223,7 +223,7 @@ public class WSDVS implements WSDVSPort
       final DVRCoordinate aVESID = DVRCoordinate.parseOrNull (sVESID);
       if (aVESID == null)
         _throw ("Syntactically invalid VESID '" + sVESID + "' provided!");
-      final IValidationExecutorSet <IValidationSourceXML> aVES = ExtValidationKeyRegistry.getFromIDOrNull (aVESID);
+      final IValidationExecutorSet <IValidationSourceXML> aVES = VESRegistry.getFromIDOrNull (aVESID);
       if (aVES == null)
         _throw ("Unsupported VESID " + aVESID.getAsSingleID () + " provided!");
 

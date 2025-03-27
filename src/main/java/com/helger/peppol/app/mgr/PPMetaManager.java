@@ -26,6 +26,8 @@ import com.helger.commons.exception.InitializationException;
 import com.helger.dao.DAOException;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
+import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
+import com.helger.peppol.sharedui.mgr.SMLConfigurationManager;
 import com.helger.peppol.testendpoint.TestEndpointManager;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
@@ -65,11 +67,11 @@ public final class PPMetaManager extends AbstractGlobalSingleton
       m_aSMLConfigurationMgr = new SMLConfigurationManager (SML_INFO_XML);
       m_aTestEndpointMgr = new TestEndpointManager (TEST_ENDPOINT_XML);
 
-      LOGGER.info ("MetaManager was initialized");
+      LOGGER.info (getClass ().getName () + " was initialized");
     }
     catch (final DAOException ex)
     {
-      throw new InitializationException ("Failed to init MetaManager", ex);
+      throw new InitializationException ("Failed to init " + getClass ().getName (), ex);
     }
   }
 
