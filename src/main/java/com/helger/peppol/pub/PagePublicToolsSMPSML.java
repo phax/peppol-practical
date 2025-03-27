@@ -56,12 +56,12 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
-import com.helger.peppol.app.CPPApp;
+import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
-import com.helger.peppol.sharedui.ui.SharedUI;
+import com.helger.peppol.sharedui.ui.SharedCommonUI;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
@@ -237,7 +237,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final Exception ex)
         {
           final String sMsg = "The key store could not be loaded with the provided password. ";
-          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + SharedUI.getTechnicalDetailsString (ex, true));
+          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + SharedCommonUI.getTechnicalDetailsString (ex, true));
           aKeyStore = null;
         }
       }
@@ -261,7 +261,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       catch (final Exception ex)
       {
         final String sMsg = "Failed to use the provided key store for TLS connection. ";
-        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + SharedUI.getTechnicalDetailsString (ex, true));
+        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + SharedCommonUI.getTechnicalDetailsString (ex, true));
       }
     }
     return aSocketFactory;
@@ -298,10 +298,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CPPApp.PATTERN_SMP_ID);
+                                                 CSharedUI.PATTERN_SMP_ID);
 
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
@@ -323,7 +323,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final UnknownHostException ex)
         {
           final String sMsg = "The provided IP address does not resolve to a valid host. ";
-          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, sMsg + SharedUI.getTechnicalDetailsString (ex, false));
+          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
+                                     sMsg + SharedCommonUI.getTechnicalDetailsString (ex, false));
         }
       }
 
@@ -402,7 +403,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (SharedUI.getTechnicalDetailsUI (ex, true)));
+        aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -437,10 +438,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CPPApp.PATTERN_SMP_ID);
+                                                 CSharedUI.PATTERN_SMP_ID);
 
     if (StringHelper.hasNoText (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
@@ -463,7 +464,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         {
           aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
                                      "The provided IP address does not resolve to a valid host. " +
-                                                             SharedUI.getTechnicalDetailsString (ex, false));
+                                                             SharedCommonUI.getTechnicalDetailsString (ex, false));
         }
       }
 
@@ -543,7 +544,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (SharedUI.getTechnicalDetailsUI (ex, true)));
+        aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sPhysicalAddress,
@@ -575,10 +576,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.hasNoText (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CPPApp.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CPPApp.PATTERN_SMP_ID);
+                                                 CSharedUI.PATTERN_SMP_ID);
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
                                                                                     SECURITY_PROVIDER,
@@ -610,7 +611,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' from the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (SharedUI.getTechnicalDetailsUI (ex, true)));
+        aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
                                            aSMLInfo.getManagementServiceURL (),
@@ -781,7 +782,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (SharedUI.getTechnicalDetailsUI (ex, true)));
+        aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
                                            sMigrationPublicCert,

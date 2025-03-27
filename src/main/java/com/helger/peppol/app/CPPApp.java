@@ -24,8 +24,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.type.ObjectType;
+import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.photon.security.CSecurity;
 
 /**
@@ -36,15 +36,9 @@ import com.helger.photon.security.CSecurity;
 @Immutable
 public final class CPPApp
 {
-  public static final Locale LOCALE_DE = LocaleCache.getInstance ().getLocale ("de", "DE");
-  public static final Locale LOCALE_EN = LocaleCache.getInstance ().getLocale ("en", "US");
-  public static final Locale DEFAULT_LOCALE = LOCALE_EN;
+  public static final Locale DEFAULT_LOCALE = CSharedUI.LOCALE_EN;
 
   // Security roles
-  public static final String ROLE_CONFIG_ID = "config";
-  public static final String ROLE_CONFIG_NAME = "Config user";
-  public static final String ROLE_CONFIG_DESCRIPTION = null;
-  public static final ICommonsMap <String, String> ROLE_CONFIG_CUSTOMATTRS = null;
   public static final String ROLE_VIEW_ID = "view";
   public static final String ROLE_VIEW_NAME = "View user";
   public static final String ROLE_VIEW_DESCRIPTION = null;
@@ -58,8 +52,6 @@ public final class CPPApp
   public static final String ROLE_PEPPOL_SENDERS_DESCRIPTION = null;
   public static final ICommonsMap <String, String> ROLE_PEPPOL_SENDERS_CUSTOMATTRS = null;
 
-  @CodingStyleguideUnaware
-  public static final List <String> REQUIRED_ROLE_IDS_CONFIG = new CommonsArrayList <> (ROLE_CONFIG_ID).getAsUnmodifiable ();
   @CodingStyleguideUnaware
   public static final List <String> REQUIRED_ROLE_IDS_VIEW = new CommonsArrayList <> (ROLE_VIEW_ID).getAsUnmodifiable ();
 
@@ -89,8 +81,6 @@ public final class CPPApp
   public static final ICommonsMap <String, String> USER_ADMINISTRATOR_CUSTOMATTRS = null;
 
   public static final ObjectType OT_PAGE = new ObjectType ("webpage");
-
-  public static final String PATTERN_SMP_ID = "[a-zA-Z0-9\\-\\.]+";
 
   private CPPApp ()
   {}

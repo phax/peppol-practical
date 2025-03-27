@@ -19,7 +19,7 @@ package com.helger.peppol.servlet;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.state.EContinue;
-import com.helger.peppol.app.CPPApp;
+import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.ui.PPLoginManager;
 import com.helger.photon.core.servlet.AbstractUnifiedResponseFilter;
 import com.helger.photon.security.login.LoggedInUserManager;
@@ -31,8 +31,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * A special servlet filter that checks that a user can only access the config
- * application after authenticating.
+ * A special servlet filter that checks that a user can only access the config application after
+ * authenticating.
  *
  * @author Philip Helger
  */
@@ -61,7 +61,7 @@ public final class SecureLoginFilter extends AbstractUnifiedResponseFilter
 
     // Check if the currently logged in user has the required roles
     final String sCurrentUserID = LoggedInUserManager.getInstance ().getCurrentUserID ();
-    if (!SecurityHelper.hasUserAllRoles (sCurrentUserID, CPPApp.REQUIRED_ROLE_IDS_CONFIG))
+    if (!SecurityHelper.hasUserAllRoles (sCurrentUserID, CSharedUI.REQUIRED_ROLE_IDS_CONFIG))
     {
       aUnifiedResponse.setStatus (HttpServletResponse.SC_FORBIDDEN);
       return EContinue.BREAK;

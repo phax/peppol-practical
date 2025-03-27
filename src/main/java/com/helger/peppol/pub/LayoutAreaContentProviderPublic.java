@@ -46,7 +46,7 @@ import com.helger.html.hc.html.textlevel.HCSpan;
 import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.AppHelper;
-import com.helger.peppol.app.CPPApp;
+import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.app.url.LinkHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
@@ -152,7 +152,7 @@ public final class LayoutAreaContentProviderPublic
                  .addClass (CBootstrapCSS.MX_2)
                  .addChild ("Welcome ")
                  .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser, aDisplayLocale)));
-      if (SecurityHelper.hasUserRole (aUser.getID (), CPPApp.ROLE_CONFIG_ID))
+      if (SecurityHelper.hasUserRole (aUser.getID (), CSharedUI.ROLE_CONFIG_ID))
       {
         aToggleable.addChild (new BootstrapButton ().setOnClick (LinkHelper.getURLWithContext (AbstractSecureApplicationServlet.SERVLET_DEFAULT_PATH))
                                                     .addChild ("Administration")

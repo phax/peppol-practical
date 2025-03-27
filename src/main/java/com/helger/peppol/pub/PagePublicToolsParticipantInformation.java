@@ -101,7 +101,7 @@ import com.helger.peppol.sharedui.domain.SMPQueryParams;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.ui.AbstractAppWebPage;
-import com.helger.peppol.sharedui.ui.SharedUI;
+import com.helger.peppol.sharedui.ui.SharedCommonUI;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -555,7 +555,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
 
             aNodeList.addChild (error (div ("Seems like the participant ID " +
                                             sParticipantIDUriEncoded +
-                                            " is not registered to the selected network.")).addChild (SharedUI.getTechnicalDetailsUI (ex,
+                                            " is not registered to the selected network.")).addChild (SharedCommonUI.getTechnicalDetailsUI (ex,
                                                                                                                                       false))
                                                                                            .addChild (bSMLAutoDetect ? null
                                                                                                                      : div ("Try selecting a different SML - maybe this helps")));
@@ -760,7 +760,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             if (aDocType != null)
             {
               aDocTypeIDs.add (aDocType);
-              aLI.addChild (div (SharedUI.createDocTypeID (aDocType, false)));
+              aLI.addChild (div (SharedCommonUI.createDocTypeID (aDocType, false)));
               if (aSMPQueryParams.getSMPAPIType () == ESMPAPIType.PEPPOL)
               {
                 final URL aURL = URLHelper.getAsURL (sOriginalHref);
@@ -807,10 +807,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         else
           LOGGER.warn ("Participant DocTypes Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
-        final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (SharedUI.getTechnicalDetailsUI (ex,
+        final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (SharedCommonUI.getTechnicalDetailsUI (ex,
                                                                                                                           false));
         for (final JAXBException aItem : aSMPExceptions)
-          aErrorBox.addChild (SharedUI.getTechnicalDetailsUI (aItem, false));
+          aErrorBox.addChild (SharedCommonUI.getTechnicalDetailsUI (aItem, false));
         aNodeList.addChild (aErrorBox);
 
         // Audit failure
@@ -832,7 +832,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
         final HCUL aULDocTypeIDs = new HCUL ();
         for (final IDocumentTypeIdentifier aDocTypeID : aDocTypeIDs.getSortedInline (IDocumentTypeIdentifier.comparator ()))
         {
-          final HCDiv aDocTypeDiv = div (SharedUI.createDocTypeID (aDocTypeID, true));
+          final HCDiv aDocTypeDiv = div (SharedCommonUI.createDocTypeID (aDocTypeID, true));
           final HCLI aLIDocTypeID = aULDocTypeIDs.addAndReturnItem (aDocTypeDiv);
 
           LOGGER.info ("Now SMP querying '" +
@@ -885,7 +885,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                       if (aProcess.getProcessIdentifier () != null)
                       {
                         final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
-                        aLIProcessID.addChild (div ("Process ID: ").addChild (SharedUI.createProcessID (aDocTypeID,
+                        aLIProcessID.addChild (div ("Process ID: ").addChild (SharedCommonUI.createProcessID (aDocTypeID,
                                                                                                         SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                         final HCUL aULEndpoint = new HCUL ();
                         // For all endpoints of the process
@@ -951,7 +951,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                       if (aProcess.getProcessIdentifier () != null)
                       {
                         final IHCLI <?> aLIProcessID = aULProcessID.addItem ();
-                        aLIProcessID.addChild (div ("Process ID: ").addChild (SharedUI.createProcessID (aDocTypeID,
+                        aLIProcessID.addChild (div ("Process ID: ").addChild (SharedCommonUI.createProcessID (aDocTypeID,
                                                                                                         SimpleProcessIdentifier.wrap (aProcess.getProcessIdentifier ()))));
                         final HCUL aULEndpoint = new HCUL ();
                         // For all endpoints of the process
@@ -1017,10 +1017,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             else
               LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
-            final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (SharedUI.getTechnicalDetailsUI (ex,
+            final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP. Try disabling 'XML Schema validation'.")).addChild (SharedCommonUI.getTechnicalDetailsUI (ex,
                                                                                                                                                                      false));
             for (final JAXBException aItem : aSMPExceptions)
-              aErrorBox.addChild (SharedUI.getTechnicalDetailsUI (aItem, false));
+              aErrorBox.addChild (SharedCommonUI.getTechnicalDetailsUI (aItem, false));
             aLIDocTypeID.addChild (aErrorBox);
 
             // Audit failure
@@ -1036,10 +1036,10 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
             else
               LOGGER.warn ("Participant Information Error: " + ex.getClass ().getName () + " - " + ex.getMessage ());
 
-            final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (SharedUI.getTechnicalDetailsUI (ex,
+            final BootstrapErrorBox aErrorBox = error (div ("Error querying SMP.")).addChild (SharedCommonUI.getTechnicalDetailsUI (ex,
                                                                                                                               false));
             for (final JAXBException aItem : aSMPExceptions)
-              aErrorBox.addChild (SharedUI.getTechnicalDetailsUI (aItem, false));
+              aErrorBox.addChild (SharedCommonUI.getTechnicalDetailsUI (aItem, false));
             aLIDocTypeID.addChild (aErrorBox);
 
             // Audit failure
@@ -1168,7 +1168,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
           {
             final BootstrapErrorBox aError = error ("Failed to parse the response data as a Business Card.");
             for (final JAXBException aItem : aPDExceptions)
-              aError.addChild (SharedUI.getTechnicalDetailsUI (aItem, false));
+              aError.addChild (SharedCommonUI.getTechnicalDetailsUI (aItem, false));
             aNodeList.addChild (aError);
 
             if (bShowTime)
@@ -1318,7 +1318,7 @@ public class PagePublicToolsParticipantInformation extends AbstractAppWebPage
                                  .setDisplayLocale (aDisplayLocale)
                                  .setThrowable (ex)
                                  .handle ();
-      aNodeList.addChild (error (div ("Error querying participant information.")).addChild (SharedUI.getTechnicalDetailsUI (ex,
+      aNodeList.addChild (error (div ("Error querying participant information.")).addChild (SharedCommonUI.getTechnicalDetailsUI (ex,
                                                                                                                             true)));
 
       // Audit failure

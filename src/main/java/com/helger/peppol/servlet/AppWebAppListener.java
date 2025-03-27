@@ -37,7 +37,10 @@ import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;
+import com.helger.peppol.sharedui.CSharedUI;
+import com.helger.peppol.sharedui.api.CSharedUIAjax;
 import com.helger.peppol.sharedui.config.SharedUIConfig;
+import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.ajax.IAjaxRegistry;
@@ -135,16 +138,16 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   @Override
   protected void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
   {
-    aLocaleMgr.registerLocale (CPPApp.LOCALE_DE);
-    aLocaleMgr.registerLocale (CPPApp.LOCALE_EN);
+    aLocaleMgr.registerLocale (CSharedUI.LOCALE_DE);
+    aLocaleMgr.registerLocale (CSharedUI.LOCALE_EN);
     aLocaleMgr.setDefaultLocale (CPPApp.DEFAULT_LOCALE);
   }
 
   @Override
   protected void initAjax (@Nonnull final IAjaxRegistry aAjaxRegistry)
   {
-    aAjaxRegistry.registerFunction (CAjax.DATATABLES);
-    aAjaxRegistry.registerFunction (CAjax.DATATABLES_I18N);
+    aAjaxRegistry.registerFunction (CSharedUIAjax.DATATABLES);
+    aAjaxRegistry.registerFunction (CSharedUIAjax.DATATABLES_I18N);
     aAjaxRegistry.registerFunction (CAjax.LOGIN);
     aAjaxRegistry.registerFunction (CAjax.UPDATE_MENU_VIEW_PUB);
     aAjaxRegistry.registerFunction (CAjax.UPDATE_MENU_VIEW_SEC);
@@ -194,6 +197,7 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   protected void initManagers ()
   {
     // Load managers
+    SharedUIMetaManager.getInstance ();
     PPMetaManager.getInstance ();
 
     // Setup error handler

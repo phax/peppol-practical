@@ -49,23 +49,19 @@ import com.helger.peppol.app.ajax.AjaxExecutorPublicLogin;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.pub.CMenuPublic;
-import com.helger.peppol.sharedui.ui.SharedUI;
+import com.helger.peppol.sharedui.ui.SharedCommonUI;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap4.ext.BootstrapSystemMessage;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap4.form.EBootstrapFormType;
 import com.helger.photon.bootstrap4.pages.BootstrapPagesMenuConfigurator;
-import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.core.login.CLogin;
 import com.helger.photon.core.menu.IMenuObject;
-import com.helger.photon.core.requestparam.RequestParameterHandlerURLPathNamed;
-import com.helger.photon.core.requestparam.RequestParameterManager;
 import com.helger.photon.security.mgr.PhotonSecurityManager;
 import com.helger.photon.security.role.IRole;
 import com.helger.photon.security.user.IUser;
@@ -73,11 +69,6 @@ import com.helger.photon.security.usergroup.IUserGroup;
 import com.helger.photon.security.util.SecurityHelper;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
-import com.helger.photon.uictrls.datatables.DataTablesLengthMenu;
-import com.helger.photon.uictrls.datatables.EDataTablesFilterType;
-import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTables;
-import com.helger.photon.uictrls.datatables.ajax.AjaxExecutorDataTablesI18N;
-import com.helger.photon.uictrls.datatables.plugins.DataTablesPluginSearchHighlight;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 @Immutable
@@ -86,32 +77,12 @@ public final class AppCommonUI
   public static final ICSSClassProvider CSS_CLASS_LOGO1 = DefaultCSSClassProvider.create ("logo1");
   public static final ICSSClassProvider CSS_CLASS_LOGO2 = DefaultCSSClassProvider.create ("logo2");
 
-  private static final DataTablesLengthMenu LENGTH_MENU = new DataTablesLengthMenu ().addItem (25)
-                                                                                     .addItem (50)
-                                                                                     .addItem (100)
-                                                                                     .addItemAll ();
-
   private AppCommonUI ()
   {}
 
   public static void init ()
   {
-    RequestParameterManager.getInstance ().setParameterHandler (new RequestParameterHandlerURLPathNamed ());
-
-    BootstrapDataTables.setConfigurator ( (aLEC, aTable, aDataTables) -> {
-      final IRequestWebScopeWithoutResponse aRequestScope = aLEC.getRequestScope ();
-      aDataTables.setAutoWidth (false)
-                 .setLengthMenu (LENGTH_MENU)
-                 .setAjaxBuilder (new JQueryAjaxBuilder ().url (CAjax.DATATABLES.getInvocationURL (aRequestScope))
-                                                          .data (new JSAssocArray ().add (AjaxExecutorDataTables.OBJECT_ID,
-                                                                                          aTable.getID ())))
-                 .setServerFilterType (EDataTablesFilterType.ALL_TERMS_PER_ROW)
-                 .setTextLoadingURL (CAjax.DATATABLES_I18N.getInvocationURL (aRequestScope),
-                                     AjaxExecutorDataTablesI18N.REQUEST_PARAM_LANGUAGE_ID)
-                 .addPlugin (new DataTablesPluginSearchHighlight ());
-    });
-    // By default allow markdown in system message
-    BootstrapSystemMessage.setDefaultUseMarkdown (true);
+    SharedCommonUI.init ();
 
     // Register comment handlers
     CommentThreadManager.getInstance ().registerObjectType (CPPApp.OT_PAGE);
@@ -244,10 +215,10 @@ public final class AppCommonUI
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_ROLE;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
-        return new HCA (SharedUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                             .setTitle ("Show details of role '" +
-                                                                                        sRealDisplayName +
-                                                                                        "'");
+        return new HCA (SharedCommonUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
+                                                                                   .setTitle ("Show details of role '" +
+                                                                                              sRealDisplayName +
+                                                                                              "'");
       return new HCTextNode (sRealDisplayName);
     }
 
@@ -260,10 +231,10 @@ public final class AppCommonUI
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
-        return new HCA (SharedUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                             .setTitle ("Show details of user '" +
-                                                                                        sRealDisplayName +
-                                                                                        "'");
+        return new HCA (SharedCommonUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
+                                                                                   .setTitle ("Show details of user '" +
+                                                                                              sRealDisplayName +
+                                                                                              "'");
       return new HCTextNode (sRealDisplayName);
     }
     if (aObject instanceof IUserGroup)
@@ -273,10 +244,10 @@ public final class AppCommonUI
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER_GROUP;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
-        return new HCA (SharedUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                             .setTitle ("Show details of user group '" +
-                                                                                        sRealDisplayName +
-                                                                                        "'");
+        return new HCA (SharedCommonUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
+                                                                                   .setTitle ("Show details of user group '" +
+                                                                                              sRealDisplayName +
+                                                                                              "'");
       return new HCTextNode (sRealDisplayName);
     }
 
