@@ -22,7 +22,14 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.text.display.ConstantHasDisplayText;
 import com.helger.commons.url.SimpleURL;
+import com.helger.peppol.rest.AbstractPPAPIExecutor;
+import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
 import com.helger.peppol.sharedui.page.pub.PagePublicContact;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsDDD;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsIdentifierInformation;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantCheck;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantCheckBelgium;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.core.menu.IMenuItemPage;
@@ -120,14 +127,15 @@ public final class MenuPublic
                                                                                           "Tools",
                                                                                           aMenuTree));
       final IMenuItemPage aCheck = aMenuTree.createItem (aSetup,
-                                                         new PagePublicToolsParticipantCheck (CMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK));
+                                                         new PagePublicToolsParticipantCheck (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK));
       {
         aMenuTree.createItem (aCheck,
-                              new PagePublicToolsParticipantCheckBelgium (CMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK_BE));
+                              new PagePublicToolsParticipantCheckBelgium (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK_BE));
       }
       aMenuTree.createItem (aSetup,
-                            new PagePublicToolsParticipantInformation (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO));
-      aMenuTree.createItem (aSetup, new PagePublicToolsIdentifierInformation (CMenuPublic.MENU_TOOLS_ID_INFO));
+                            new PagePublicToolsParticipantInformation (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_INFO,
+                                                                       AbstractPPAPIExecutor.DEFAULT_USER_AGENT));
+      aMenuTree.createItem (aSetup, new PagePublicToolsIdentifierInformation (CSharedUIMenuPublic.MENU_TOOLS_ID_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsSMPSML (CMenuPublic.MENU_TOOLS_SMP_SML));
       aMenuTree.createItem (aSetup, new PagePublicToolsTestEndpoints (CMenuPublic.MENU_TOOLS_TEST_ENDPOINTS));
       aMenuTree.createItem (aSetup,
@@ -135,7 +143,7 @@ public final class MenuPublic
                                                      "REST API",
                                                      new ClassPathResource ("viewpages/en/rest_api.xml")));
 
-      aMenuTree.createItem (aSetup, new PagePublicToolsDDD (CMenuPublic.MENU_TOOLS_DDD));
+      aMenuTree.createItem (aSetup, new PagePublicToolsDDD (CSharedUIMenuPublic.MENU_TOOLS_DDD));
     }
 
     // Validation stuff

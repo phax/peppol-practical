@@ -252,10 +252,6 @@
       <groupId>com.helger</groupId>
       <artifactId>en16931-cii2ubl</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ddd</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>com.github.spotbugs</groupId>

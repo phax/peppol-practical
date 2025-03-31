@@ -40,6 +40,8 @@ import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.page.AbstractAppWebPageForm;
+import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppol.sharedui.ui.select.ParticipantIdentifierSchemeSelect;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.sharedui.ui.select.SMPTransportProfileSelect;
@@ -111,7 +113,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   private static SimpleURL _createParticipantInfoURL (@Nonnull final WebPageExecutionContext aWPEC,
                                                       @Nonnull final TestEndpoint aTestEndpoint)
   {
-    return aWPEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO)
+    return aWPEC.getLinkToMenuItem (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_INFO)
                 .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_SCHEME,
                       PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME)

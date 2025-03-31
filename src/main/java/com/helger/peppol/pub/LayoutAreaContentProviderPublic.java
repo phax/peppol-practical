@@ -47,6 +47,7 @@ import com.helger.html.hc.html.textlevel.HCStrong;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.sharedui.SharedUIHelper;
+import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.app.url.LinkHelper;
 import com.helger.photon.bootstrap4.CBootstrapCSS;
@@ -129,7 +130,7 @@ public final class LayoutAreaContentProviderPublic
 
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant Information")
                                                                         .setIcon (EFamFamIcon.USER_GREEN)
-                                                                        .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_PARTICIPANT_INFO))
+                                                                        .setOnClick (aLEC.getLinkToMenuItem (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_INFO))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Document Validation")
@@ -139,7 +140,7 @@ public final class LayoutAreaContentProviderPublic
                                                                         .addClass (CBootstrapCSS.MX_2));
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("ID Information")
                                                                         .setIcon (EFamFamIcon.CUP)
-                                                                        .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_TOOLS_ID_INFO))
+                                                                        .setOnClick (aLEC.getLinkToMenuItem (CSharedUIMenuPublic.MENU_TOOLS_ID_INFO))
                                                                         .addClass (CBootstrapCSS.ML_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
 

@@ -42,14 +42,9 @@ public final class CMenuPublic
   public static final String MENU_DOCS_SOFTWARE_VENDORS = "docs-software-vendors";
   public static final String MENU_NEWS = "news";
   public static final String MENU_TOOLS = "tools";
-  public static final String MENU_TOOLS_PARTICIPANT_CHECK = "tools-pid-check";
-  public static final String MENU_TOOLS_PARTICIPANT_CHECK_BE = "tools-pid-check-be";
-  public static final String MENU_TOOLS_PARTICIPANT_INFO = "tools-participant";
-  public static final String MENU_TOOLS_ID_INFO = "tools-id-info";
   public static final String MENU_TOOLS_SMP_SML = "tools-smp-sml";
   public static final String MENU_TOOLS_TEST_ENDPOINTS = "tools-test-endpoints";
   public static final String MENU_TOOLS_REST_API = "tools-rest-api";
-  public static final String MENU_TOOLS_DDD = "tools-ddd";
   public static final String MENU_VALIDATION = "validation";
   public static final String MENU_VALIDATION_UPLOAD = "validation-upload";
   public static final String MENU_VALIDATION_DVS = "validation-ws2";
