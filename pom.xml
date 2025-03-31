@@ -111,11 +111,6 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
-        <artifactId>ddd</artifactId>
-        <version>0.5.1</version>
-      </dependency>
-      <dependency>
         <groupId>com.helger.ubl</groupId>
         <artifactId>ph-ubl-parent-pom</artifactId>
         <version>9.0.3</version>
