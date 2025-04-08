@@ -274,7 +274,10 @@
       </td>
     </tr>
     <tr>
-      <td>MLA</td>
+      <td>
+        MLA
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td>Message Level Agreement</td>
       <td>Working title for a work group that should deal with structured response messages. The outcome will be the MLS specification.</td>
     </tr>
@@ -286,7 +289,7 @@
     <tr>
       <td>MLS</td>
       <td>Message Level Status</td>
-      <td>The proposed successor of the <em>MLR</em> specification designed by the <em>MLA</em> work group</td>
+      <td>The proposed successor of the <em>MLR</em> specification maintained by eDEC</td>
     </tr>
     <tr>
       <td>OASIS</td>
@@ -448,6 +451,16 @@
         OpenPeppol internal group of Service Providers.
         See <a href="https://openpeppol.atlassian.net/wiki/spaces/SPC/overview">https://openpeppol.atlassian.net/wiki/spaces/SPC/overview</a> for details.
       </td>
+    </tr>
+    <tr>
+      <td>SPID</td>
+      <td>Service Provider ID</td>
+      <td>A specific identifier of a specific Peppol SP based on the SPIS.</td>
+    </tr>
+    <tr>
+      <td>SPIS</td>
+      <td>Service Provider Identification Schema</td>
+      <td>An identifier Scheme to identify Peppol SPs for sole usage in the Peppol Network.</td>
     </tr>
     <tr>
       <td>
