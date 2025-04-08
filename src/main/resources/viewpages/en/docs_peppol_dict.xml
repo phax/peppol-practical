@@ -178,6 +178,11 @@
       <td>The Peppol internal team that makes decisions. There is one CMB for TICC, PoACC and PrACC.</td>
     </tr>
     <tr>
+      <td>CNAME</td>
+      <td>Canonical Name</td>
+      <td>A specific DNS record type that uses a domain name as a value</td>
+    </tr>
+    <tr>
       <td>DNS</td>
       <td>Domain Name System</td>
       <td>
@@ -245,7 +250,7 @@
       <td>IRM</td>
       <td>Invoice Response Message</td>
       <td>
-        Special <em>BLR</em> for invoices.
+        Special <em>BLR</em> for invoices. Sometimes also called "IR" but that already has a different meaning.
       </td>
     </tr>
     <tr>
