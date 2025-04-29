@@ -158,7 +158,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
         aSMPClient.setVerifySignature (bVerifySignature);
 
         final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM;
-        if (PDTFactory.getCurrentZonedDateTimeUTC ().toLocalDate ().isAfter (Pfuoi430.VALID_FROM))
+        if (PDTFactory.getCurrentZonedDateTimeUTC ().toLocalDate ().compareTo (Pfuoi430.VALID_FROM) >= 0)
         {
           // PFUOI 4.3.0
           aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aParticipantID, aDocTypeID);
