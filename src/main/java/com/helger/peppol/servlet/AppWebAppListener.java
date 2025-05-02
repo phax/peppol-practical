@@ -38,6 +38,7 @@ import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;
 import com.helger.peppol.sharedui.CSharedUI;
+import com.helger.peppol.sharedui.SharedUIHelper;
 import com.helger.peppol.sharedui.api.CSharedUIAjax;
 import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
@@ -122,6 +123,8 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
     // The default soft fail handler already logs stuff out
     CertificateRevocationCheckerDefaults.setAllowSoftFail (true);
     // Default in peppol-commons became CRL_BEFORE_OCSP
+
+    SharedUIHelper.setApplicationName ("Peppol Practical");
 
     if (false)
       try
