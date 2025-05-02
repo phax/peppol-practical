@@ -62,6 +62,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
 
   private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetServiceInformation.class);
 
+  @SuppressWarnings ("removal")
   @Override
   protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
                                        @Nonnull @Nonempty final String sPath,
