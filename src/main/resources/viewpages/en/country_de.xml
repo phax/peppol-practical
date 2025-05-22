@@ -117,7 +117,7 @@
 
 <p>Here are some facts around ZUGFeRD</p>
 <ul>
-  <li>Latest version: <strong>2.3.2</strong></li>
+  <li>Latest version: <strong>2.3.3</strong></li>
   <li>Downloads: <a href="https://www.ferd-net.de/download-zugferd" target="_blank">https://www.ferd-net.de/download-zugferd</a></li>
   <li>Development repository: not public</li>
   <li>Validation rules: XML Schemas and Schematron rules are available</li>
