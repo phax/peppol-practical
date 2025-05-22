@@ -18,7 +18,7 @@
 -->
 <div class="alert alert-info">
   <div>
-    This site offers a WebService to automatically validate your PEPPOL documents according to the latest PEPPOL rules.
+    This site offers a WebService to automatically validate your Peppol documents according to the latest Peppol rules.
     The validation service requires UBL files and cannot handle StandardBusinessDocuments.
   </div>
 </div>
@@ -64,7 +64,7 @@ A very small Java WS client is available for
         <td>string</td>
         <td>required</td>
         <td>The <code>Validation Executor Set ID</code> to be used. 
-            This is a special ID introduced by PEPPOL practical to clearly identify different validation sets.<br />
+            This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
 <!-- 1077 entries -->
