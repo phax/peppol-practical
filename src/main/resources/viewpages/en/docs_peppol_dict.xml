@@ -409,7 +409,7 @@
       <td>
         A generic XML envelope structure that defines a header (<em>SBDH</em>) and a payload.
         See also <em>SBDH</em>.
-        See <a href="https://docs.peppol.eu/edelivery">https://docs.peppol.eu/edelivery</a> for the specification.
+        See <a href="https://docs.peppol.eu/edelivery">https://docs.peppol.eu/edelivery</a> for the specification (Peppol Business Message Envelope).
       </td>
     </tr>
     <tr>
@@ -417,14 +417,14 @@
       <td>Standard Business Document Header</td>
       <td>
         The header part inside the <em>SBD</em>.
-        See <a href="https://docs.peppol.eu/edelivery">https://docs.peppol.eu/edelivery</a> for the specification.
+        See <a href="https://docs.peppol.eu/edelivery">https://docs.peppol.eu/edelivery</a> for the specification (Peppol Business Message Envelope).
       </td>
     </tr>
     <tr>
       <td>SMK</td>
       <td></td>
       <td>
-        Test version of the <em>SML</em> ('K' comes before 'L').
+        Test version of the <em>SML</em> ('K' comes before 'L' like testing comes before production).
         Currently operated by <em>EC</em>.
         See <a href="https://docs.peppol.eu/edelivery">https://docs.peppol.eu/edelivery</a> for the specification.
       </td>
