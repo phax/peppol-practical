@@ -125,7 +125,10 @@
       </td>
     </tr>
     <tr>
-      <td>CC</td>
+      <td>
+        CC
+        <br/><em><small>deprecated</small></em>
+      </td>
       <td>Coordinating Community</td>
       <td>
         OpenPeppol internal community that is supposed to deal with cross-community topics.
