@@ -42,6 +42,94 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2025-06-24 - Document Validation extended</h3>
+    
+    <p>
+      Added support for Peppol Italy 3.2.1 rule set.<br/>
+      Added support for EN 16931 1.3.14 rule set.<br/>
+      Added support for OIOUBL 1.15.2 rule set.<br/>
+      Added support for Peppol BIS 2025-Q2 rule set.<br/>
+      Added support for Peppol MLS 1.0.0 rule set.<br/>
+      Added support for Peppol AE PINT 1.0.0 rule set.<br/>
+      Added support for ZUGFeRD 2.3.3 and Factur-X 1.0.7.3 rule set.<br/>
+      Added support for SimplerInvoicing 2025-Q2 rule set.<br/>
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>it.peppol:creditnote:3.2.1</code> - AGID Peppol Credit Note (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:despatch-advice:3.2.1</code> - AGID Peppol Despatch Advice (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:invoice:3.2.1</code> - AGID Peppol Invoice (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:order:3.2.1</code> - AGID Peppol Order (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:order-agreement:3.2.1</code> - AGID Peppol Order Agreement (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:order-response:3.2.1</code> - AGID Peppol Order Response (3.2.1) (for BIS 3.0.18)</li>
+<li><code>eu.cen.en16931:cii:1.3.14-1</code> - EN 16931 CII 1.3.14-1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:cii:1.3.14-2</code> - EN 16931 CII 1.3.14-2</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.14-1</code> - EN 16931 UBL Credit Note 1.3.14-1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.14-2</code> - EN 16931 UBL Credit Note 1.3.14-2</li>
+<li><code>eu.cen.en16931:ubl:1.3.14-1</code> - EN 16931 UBL Invoice 1.3.14-1 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl:1.3.14-2</code> - EN 16931 UBL Invoice 1.3.14-2</li>
+<li><code>fr.factur-x:basic:1.0.7-3</code> - Factur-X 1.0.7-3 (BASIC) (alias)</li>
+<li><code>fr.factur-x:basicwl:1.0.7-3</code> - Factur-X 1.0.7-3 (BASIC WL) (alias)</li>
+<li><code>fr.factur-x:en16931:1.0.7-3</code> - Factur-X 1.0.7-3 (EN 16931) (alias)</li>
+<li><code>fr.factur-x:extended:1.0.7-3</code> - Factur-X 1.0.7-3 (EXTENDED) (alias)</li>
+<li><code>fr.factur-x:minimum:1.0.7-3</code> - Factur-X 1.0.7-3 (MINIMUM) (alias)</li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-11</code> - NLCIUS-CII 1.0.3.11</li>
+<li><code>dk.oioubl:application-response:1.15.2</code> - OIOUBL Application Response 1.15.2</li>
+<li><code>dk.oioubl:catalogue:1.15.2</code> - OIOUBL Catalogue 1.15.2</li>
+<li><code>dk.oioubl:catalogue-deletion:1.15.2</code> - OIOUBL Catalogue Deletion 1.15.2</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.15.2</code> - OIOUBL Catalogue Item Specification Update 1.15.2</li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.15.2</code> - OIOUBL Catalogue Pricing Update 1.15.2</li>
+<li><code>dk.oioubl:catalogue-request:1.15.2</code> - OIOUBL Catalogue Request 1.15.2</li>
+<li><code>dk.oioubl:credit-note:1.15.2</code> - OIOUBL Credit Note 1.15.2</li>
+<li><code>dk.oioubl:invoice:1.15.2</code> - OIOUBL Invoice 1.15.2</li>
+<li><code>dk.oioubl:order:1.15.2</code> - OIOUBL Order 1.15.2</li>
+<li><code>dk.oioubl:order-cancellation:1.15.2</code> - OIOUBL Order Cancellation 1.15.2</li>
+<li><code>dk.oioubl:order-change:1.15.2</code> - OIOUBL Order Change 1.15.2</li>
+<li><code>dk.oioubl:order-response:1.15.2</code> - OIOUBL Order Response 1.15.2</li>
+<li><code>dk.oioubl:order-response-simple:1.15.2</code> - OIOUBL Order Response Simple 1.15.2</li>
+<li><code>dk.oioubl:reminder:1.15.2</code> - OIOUBL Reminder 1.15.2</li>
+<li><code>dk.oioubl:statement:1.15.2</code> - OIOUBL Statement 1.15.2</li>
+<li><code>dk.oioubl:utility-statement:1.15.2</code> - OIOUBL Utility Statement 1.15.2</li>
+<li><code>eu.peppol.bis3:catalogue:2025.5</code> - OpenPeppol Catalogue (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:catalogue-response:2025.5</code> - OpenPeppol Catalogue Response (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:despatch-advice:2025.5</code> - OpenPeppol Despatch Advice (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:2025.5</code> - OpenPeppol Invoice Message Response (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:mlr:2025.5</code> - OpenPeppol MLR (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:order:2025.5</code> - OpenPeppol Order (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:order-agreement:2025.5</code> - OpenPeppol Order Agreement (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:order-cancellation:2025.5</code> - OpenPeppol Order Cancellation (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:order-change:2025.5</code> - OpenPeppol Order Change (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:order-response:2025.5</code> - OpenPeppol Order Response (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:order-response-advanced:2025.5</code> - OpenPeppol Order Response Advanced (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:punch-out:2025.5</code> - OpenPeppol Punch Out (2025.5) (aka BIS 3.0.15)</li>
+<li><code>eu.peppol.bis3:creditnote:2025.5</code> - OpenPeppol UBL Credit Note (2025.5) (aka BIS Billing 3.0.19)</li>
+<li><code>eu.peppol.bis3:invoice:2025.5</code> - OpenPeppol UBL Invoice (2025.5) (aka BIS Billing 3.0.19)</li>
+<li><code>org.peppol:mls:1</code> - Peppol Message Level Status v1.0.0</li>
+<li><code>org.peppol.pint.ae:creditnote:2025.6</code> - Peppol PINT UAE Credit Note (UBL) 2025-Q2</li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2025.6</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 2025-Q2</li>
+<li><code>org.peppol.pint.ae:invoice:2025.6</code> - Peppol PINT UAE Invoice (UBL) 2025-Q2</li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2025.6</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 2025-Q2</li>
+<li><code>org.simplerinvoicing:invoice20.g-account:1.0.11</code> - Simplerinvoicing 2.0 G-Account extension 1.0.11</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-11</code> - Simplerinvoicing Credit Note 2.0.3.11</li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-11</code> - Simplerinvoicing Invoice 2.0.3.11</li>
+<li><code>de.zugferd:basic:2.3.3</code> - ZUGFeRD 2.3.3 (BASIC)</li>
+<li><code>de.zugferd:basicwl:2.3.3</code> - ZUGFeRD 2.3.3 (BASIC WL)</li>
+<li><code>de.zugferd:en16931:2.3.3</code> - ZUGFeRD 2.3.3 (EN 16931)</li>
+<li><code>de.zugferd:extended:2.3.3</code> - ZUGFeRD 2.3.3 (EXTENDED)</li>
+<li><code>de.zugferd:minimum:2.3.3</code> - ZUGFeRD 2.3.3 (MINIMUM)</li>
+</ul>
+
+    <h3>2025-06-22 - Webinar on EDIFACT and PDF in Peppol with phoss OSS</h3>
+    
+    <p>
+      Send me a PM if you are interested in participating in the Webinar from 10:00 to 11:00 CEST on July 2nd, 2025.<br/>
+      The goal is to summarize the foundations in the Peppol specifications and the solution via phoss OSS.<br/>
+      This webinar is free of charge and is NOT affiliated or associated with OpenPeppol.
+    </p>
+
     <h3>2025-05-07 - Webinar on Peppol Migrations for phoss Open Source components</h3>
     
     <p>
