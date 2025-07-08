@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.text.display.ConstantHasDisplayText;
 import com.helger.commons.url.SimpleURL;
-import com.helger.peppol.rest.AbstractPPAPIExecutor;
+import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
 import com.helger.peppol.sharedui.page.pub.PagePublicContact;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsDDD;
@@ -134,7 +134,7 @@ public final class MenuPublic
       }
       aMenuTree.createItem (aSetup,
                             new PagePublicToolsParticipantInformation (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_INFO,
-                                                                       AbstractPPAPIExecutor.DEFAULT_USER_AGENT));
+                                                                       CPPApp.DEFAULT_USER_AGENT));
       aMenuTree.createItem (aSetup, new PagePublicToolsIdentifierInformation (CSharedUIMenuPublic.MENU_TOOLS_ID_INFO));
       aMenuTree.createItem (aSetup, new PagePublicToolsSMPSML (CMenuPublic.MENU_TOOLS_SMP_SML));
       aMenuTree.createItem (aSetup, new PagePublicToolsTestEndpoints (CMenuPublic.MENU_TOOLS_TEST_ENDPOINTS));

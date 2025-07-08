@@ -6,7 +6,8 @@ bin/
 generated/
 target/
 
-.classpath 
+.classpath
+.DS_Store 
 .pmd
 .project 
 zz

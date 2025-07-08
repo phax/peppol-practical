@@ -38,6 +38,8 @@ public final class CPPApp
 {
   public static final Locale DEFAULT_LOCALE = CSharedUI.LOCALE_EN;
 
+  public static final String DEFAULT_USER_AGENT = "Peppol-Practical/1.0";
+
   // Security roles
   public static final String ROLE_VIEW_ID = "view";
   public static final String ROLE_VIEW_NAME = "View user";
