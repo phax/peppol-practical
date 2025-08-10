@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1138 entries -->
+<!-- 1158 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -629,47 +629,67 @@ A very small Java WS client is available for
 <li><code>org.peppol:mls:1</code> - Peppol Message Level Status v1.0.0</li>
 <li><code>org.peppol.pint.aunz:creditnote:1.0.1</code> - Peppol PINT A-NZ Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:creditnote:1.1</code> - Peppol PINT A-NZ Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.aunz:creditnote:1.1.1</code> - Peppol PINT A-NZ Credit Note (UBL) 1.1.1</li>
 <li><code>org.peppol.pint.aunz:creditnote-self-billing:1.0.1</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:creditnote-self-billing:1.1</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.aunz:creditnote-self-billing:1.1.1</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.1.1</li>
 <li><code>org.peppol.pint.aunz:invoice:1.0.1</code> - Peppol PINT A-NZ Invoice (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:invoice:1.1</code> - Peppol PINT A-NZ Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.aunz:invoice:1.1.1</code> - Peppol PINT A-NZ Invoice (UBL) 1.1.1</li>
 <li><code>org.peppol.pint.aunz:invoice-self-billing:1.0.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:invoice-self-billing:1.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.aunz:invoice-self-billing:1.1.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.1.1</li>
 <li><code>org.peppol.jp.pint:credit-note:0.1.2</code> - Peppol PINT Japan Credit Note (UBL) 0.1.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:credit-note:1.0.2</code> - Peppol PINT Japan Credit Note (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:credit-note:1.0.3</code> - Peppol PINT Japan Credit Note (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:credit-note:1.1</code> - Peppol PINT Japan Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp:credit-note:1.1.1</code> - Peppol PINT Japan Credit Note (UBL) 1.1.1</li>
 <li><code>org.peppol.pint.jp.ntr:credit-note:1.0.1</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp.ntr:credit-note:1.1</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.ntr:credit-note:1.1.1</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.1.1</li>
 <li><code>org.peppol.jp.pint:invoice:0.1.2</code> - Peppol PINT Japan Invoice (UBL) 0.1.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:invoice:1.0.2</code> - Peppol PINT Japan Invoice (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:invoice:1.0.3</code> - Peppol PINT Japan Invoice (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:invoice:1.1</code> - Peppol PINT Japan Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp:invoice:1.1.1</code> - Peppol PINT Japan Invoice (UBL) 1.1.1</li>
 <li><code>org.peppol.pint.jp.ntr:invoice:1.0.1</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp.ntr:invoice:1.1</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.ntr:invoice:1.1.1</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.1.1</li>
 <li><code>org.peppol.pint.jp.sb:credit-note:1.0.1</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp.sb:credit-note:1.1</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.sb:credit-note:1.1.1</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.1.1</li>
 <li><code>org.peppol.pint.jp.sb:invoice:1.0.1</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp.sb:invoice:1.1</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.sb:invoice:1.1.1</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.1.1</li>
 <li><code>org.peppol.pint.my:creditnote:1</code> - Peppol PINT Malaysia Credit Note (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.my:creditnote:1.1</code> - Peppol PINT Malaysia Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:creditnote:1.2.1</code> - Peppol PINT Malaysia Credit Note (UBL) 1.2.1</li>
 <li><code>org.peppol.pint.my:creditnote-self-billing:1</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.my:creditnote-self-billing:1.1</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:creditnote-self-billing:1.2.1</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.2.1</li>
 <li><code>org.peppol.pint.my:invoice:1</code> - Peppol PINT Malaysia Invoice (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.my:invoice:1.1</code> - Peppol PINT Malaysia Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:invoice:1.2.1</code> - Peppol PINT Malaysia Invoice (UBL) 1.2.1</li>
 <li><code>org.peppol.pint.my:invoice-self-billing:1</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.my:invoice-self-billing:1.1</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:invoice-self-billing:1.2.1</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.2.1</li>
 <li><code>org.peppol.pint.sg:creditnote:1.1</code> - Peppol PINT Singapore Credit Note (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.sg:creditnote:1.2</code> - Peppol PINT Singapore Credit Note (UBL) 1.2.0</li>
+<li><code>org.peppol.pint.sg:creditnote:1.3</code> - Peppol PINT Singapore Credit Note (UBL) 1.3.0</li>
 <li><code>org.peppol.pint.sg:invoice:1.1</code> - Peppol PINT Singapore Invoice (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.sg:invoice:1.2</code> - Peppol PINT Singapore Invoice (UBL) 1.2.0</li>
+<li><code>org.peppol.pint.sg:invoice:1.3</code> - Peppol PINT Singapore Invoice (UBL) 1.3.0</li>
 <li><code>org.peppol.pint.ae:creditnote:0.9</code> - Peppol PINT UAE Credit Note (UBL) 0.9.0 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.pint.ae:creditnote:2025.7</code> - Peppol PINT UAE Credit Note (UBL) 2025-07 (aka 1.0.1)</li>
 <li><code>org.peppol.pint.ae:creditnote:2025.6</code> - Peppol PINT UAE Credit Note (UBL) 2025-Q2</li>
 <li><code>org.peppol.pint.ae:creditnote-self-billing:0.9</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 0.9.0 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2025.7</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 2025-07 (aka 1.0.1)</li>
 <li><code>org.peppol.pint.ae:creditnote-self-billing:2025.6</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 2025-Q2</li>
 <li><code>org.peppol.pint.ae:invoice:0.9</code> - Peppol PINT UAE Invoice (UBL) 0.9.0 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.pint.ae:invoice:2025.7</code> - Peppol PINT UAE Invoice (UBL) 2025-07 (aka 1.0.1)</li>
 <li><code>org.peppol.pint.ae:invoice:2025.6</code> - Peppol PINT UAE Invoice (UBL) 2025-Q2</li>
 <li><code>org.peppol.pint.ae:invoice-self-billing:0.9</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 0.9.0 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2025.7</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 2025-07 (aka 1.0.1)</li>
 <li><code>org.peppol.pint.ae:invoice-self-billing:2025.6</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 2025-Q2</li>
 <li><code>eu.peppol.reporting:tsr:1.0.4</code> - Peppol Transaction Statistics Report v1.0.4 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.reporting:tsr:1.0.5</code> - Peppol Transaction Statistics Report v1.0.5</li>
@@ -1137,8 +1157,8 @@ A very small Java WS client is available for
 <li><code>de.xrechnung.extension:cii:2.3.1</code> - XRechnung CII 2.3.1Extension <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:cii:3.0.1</code> - XRechnung CII 3.0.1</li>
 <li><code>de.xrechnung.extension:cii:3.0.1</code> - XRechnung CII 3.0.1 Extension</li>
-<li><code>de.xrechnung:cii:3.0.2</code> - XRechnung CII 3.0.2</li>
-<li><code>de.xrechnung.extension:cii:3.0.2</code> - XRechnung CII 3.0.2 Extension</li>
+<li><code>de.xrechnung:cii:3.0.2</code> - XRechnung CII 3.0.2 (rules v2.4.0)</li>
+<li><code>de.xrechnung.extension:cii:3.0.2</code> - XRechnung CII 3.0.2 Extension (rules v2.4.0)</li>
 <li><code>de.xrechnung:ubl-creditnote:2</code> - XRechnung UBL Credit Note 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:3</code> - XRechnung UBL Credit Note 3</li>
 <li><code>de.xrechnung:ubl-creditnote:1.2</code> - XRechnung UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
@@ -1149,7 +1169,7 @@ A very small Java WS client is available for
 <li><code>de.xrechnung:ubl-creditnote:2.1.1</code> - XRechnung UBL Credit Note 2.1.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:2.3.1</code> - XRechnung UBL Credit Note 2.3.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:3.0.1</code> - XRechnung UBL Credit Note 3.0.1</li>
-<li><code>de.xrechnung:ubl-creditnote:3.0.2</code> - XRechnung UBL Credit Note 3.0.2</li>
+<li><code>de.xrechnung:ubl-creditnote:3.0.2</code> - XRechnung UBL Credit Note 3.0.2 (rules v2.4.0)</li>
 <li><code>de.xrechnung:ubl-invoice:2</code> - XRechnung UBL Invoice 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:3</code> - XRechnung UBL Invoice 3</li>
 <li><code>de.xrechnung.extension:ubl-invoice:3</code> - XRechnung UBL Invoice 3 Extension</li>
@@ -1166,8 +1186,8 @@ A very small Java WS client is available for
 <li><code>de.xrechnung.extension:ubl-invoice:2.3.1</code> - XRechnung UBL Invoice 2.3.1 Extension <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1</li>
 <li><code>de.xrechnung.extension:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1 Extension</li>
-<li><code>de.xrechnung:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2</li>
-<li><code>de.xrechnung.extension:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 Extension</li>
+<li><code>de.xrechnung:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 (rules v2.4.0)</li>
+<li><code>de.xrechnung.extension:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 Extension (rules v2.4.0)</li>
 <li><code>sa.zatca:ubl-invoice:2.0.3</code> - ZATCA/FATOORA Invoice (SDK 2.0.3) <strong>(Deprecated)</strong></li>
 <li><code>sa.zatca:ubl-invoice:2.3.8</code> - ZATCA/FATOORA Invoice (SDK 2.3.8)</li>
 <li><code>de.zugferd:basic:2.1</code> - ZUGFeRD 2.1 (BASIC) <strong>(Deprecated)</strong></li>
