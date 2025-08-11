@@ -17,6 +17,7 @@
 package com.helger.peppol.rest;
 
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -36,6 +37,7 @@ import com.helger.commons.timing.StopWatch;
 import com.helger.json.IJsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
+import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.sharedui.api.APIParamException;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
@@ -143,20 +145,32 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
                  "; signature verification=" +
                  bVerifySignature);
 
+    // Defaulting to true per 11.8.2025
+    final boolean bUseSMPSecureValidation = CSharedUI.DEFAULT_SMP_USE_SECURE_VALIDATION;
+
     IJsonObject aJson = null;
     switch (aSMPQueryParams.getSMPAPIType ())
     {
       case PEPPOL:
       {
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPQueryParams.getSMPHostURI ());
-        aSMPClient.setSecureValidation (false);
+        aSMPClient.setSecureValidation (bUseSMPSecureValidation);
         aSMPClient.withHttpClientSettings (m_aHCSModifier);
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
+        if (aSMPQueryParams.isTrustAllCertificates ())
+          try
+          {
+            aSMPClient.httpClientSettings ().setSSLContextTrustAll ();
+          }
+          catch (final GeneralSecurityException ex)
+          {
+            // Ignore
+          }
 
-        final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM;
         // PFUOI 4.3.0
-        aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aParticipantID, aDocTypeID);
+        final com.helger.xsds.peppol.smp1.SignedServiceMetadataType aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aParticipantID,
+                                                                                                                              aDocTypeID);
         if (aSSM != null)
         {
           final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM = aSSM.getServiceMetadata ();
@@ -167,10 +181,19 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
       case OASIS_BDXR_V1:
       {
         final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aSMPQueryParams.getSMPHostURI ());
-        aBDXR1Client.setSecureValidation (false);
+        aBDXR1Client.setSecureValidation (bUseSMPSecureValidation);
         aBDXR1Client.withHttpClientSettings (m_aHCSModifier);
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);
+        if (aSMPQueryParams.isTrustAllCertificates ())
+          try
+          {
+            aBDXR1Client.httpClientSettings ().setSSLContextTrustAll ();
+          }
+          catch (final GeneralSecurityException ex)
+          {
+            // Ignore
+          }
 
         final com.helger.xsds.bdxr.smp1.SignedServiceMetadataType aSSM = aBDXR1Client.getServiceMetadataOrNull (aParticipantID,
                                                                                                                 aDocTypeID);
@@ -184,10 +207,19 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
       case OASIS_BDXR_V2:
       {
         final BDXR2ClientReadOnly aBDXR2Client = new BDXR2ClientReadOnly (aSMPQueryParams.getSMPHostURI ());
-        aBDXR2Client.setSecureValidation (false);
+        aBDXR2Client.setSecureValidation (bUseSMPSecureValidation);
         aBDXR2Client.withHttpClientSettings (m_aHCSModifier);
         aBDXR2Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR2Client.setVerifySignature (bVerifySignature);
+        if (aSMPQueryParams.isTrustAllCertificates ())
+          try
+          {
+            aBDXR2Client.httpClientSettings ().setSSLContextTrustAll ();
+          }
+          catch (final GeneralSecurityException ex)
+          {
+            // Ignore
+          }
 
         final com.helger.xsds.bdxr.smp2.ServiceMetadataType aSM = aBDXR2Client.getServiceMetadataOrNull (aParticipantID,
                                                                                                          aDocTypeID);

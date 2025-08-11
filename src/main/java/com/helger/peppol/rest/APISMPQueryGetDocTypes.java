@@ -17,6 +17,7 @@
 package com.helger.peppol.rest;
 
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -44,6 +45,7 @@ import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
+import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.sharedui.api.APIParamException;
 import com.helger.peppol.sharedui.api.SMPJsonResponseExt;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
@@ -141,16 +143,28 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
                  "; signature verification=" +
                  bVerifySignature);
 
+    // Defaulting to true per 11.8.2025
+    final boolean bUseSMPSecureValidation = CSharedUI.DEFAULT_SMP_USE_SECURE_VALIDATION;
+
     ICommonsSortedMap <String, String> aSGHrefs = null;
     switch (aSMPQueryParams.getSMPAPIType ())
     {
       case PEPPOL:
       {
         final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aSMPQueryParams.getSMPHostURI ());
-        aSMPClient.setSecureValidation (false);
+        aSMPClient.setSecureValidation (bUseSMPSecureValidation);
         aSMPClient.withHttpClientSettings (m_aHCSModifier);
         aSMPClient.setXMLSchemaValidation (bXMLSchemaValidation);
         aSMPClient.setVerifySignature (bVerifySignature);
+        if (aSMPQueryParams.isTrustAllCertificates ())
+          try
+          {
+            aSMPClient.httpClientSettings ().setSSLContextTrustAll ();
+          }
+          catch (final GeneralSecurityException ex)
+          {
+            // Ignore
+          }
 
         // Get all HRefs and sort them by decoded URL
         final com.helger.xsds.peppol.smp1.ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aParticipantID);
@@ -173,10 +187,19 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
       {
         aSGHrefs = new CommonsTreeMap <> ();
         final BDXRClientReadOnly aBDXR1Client = new BDXRClientReadOnly (aSMPQueryParams.getSMPHostURI ());
-        aBDXR1Client.setSecureValidation (false);
+        aBDXR1Client.setSecureValidation (bUseSMPSecureValidation);
         aBDXR1Client.withHttpClientSettings (m_aHCSModifier);
         aBDXR1Client.setXMLSchemaValidation (bXMLSchemaValidation);
         aBDXR1Client.setVerifySignature (bVerifySignature);
+        if (aSMPQueryParams.isTrustAllCertificates ())
+          try
+          {
+            aBDXR1Client.httpClientSettings ().setSSLContextTrustAll ();
+          }
+          catch (final GeneralSecurityException ex)
+          {
+            // Ignore
+          }
 
         // Get all HRefs and sort them by decoded URL
         final com.helger.xsds.bdxr.smp1.ServiceGroupType aSG = aBDXR1Client.getServiceGroupOrNull (aParticipantID);
