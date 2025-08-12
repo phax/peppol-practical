@@ -67,7 +67,7 @@
     <m2e.jsf.activation>false</m2e.jsf.activation>
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
     <jaxws-plugin.version>4.0.3</jaxws-plugin.version>
-    <log4j.version>2.25.0</log4j.version>
+    <log4j.version>2.25.1</log4j.version>
     <!-- For surefire plugin (use property for JaCoCo integration -->
     <argLine>-Xmx1024m</argLine>
     <ph-jaxb-plugin.version>4.0.3</ph-jaxb-plugin.version>
@@ -99,7 +99,7 @@
       <dependency>
         <groupId>com.helger.web</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>10.4.3</version>
+        <version>10.5.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
