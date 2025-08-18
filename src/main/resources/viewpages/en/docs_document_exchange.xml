@@ -28,7 +28,7 @@
   To start a document exchange in Peppol, you need to have the following information
   before you can start submitting anything:
   <ul>
-    <li>The <strong>Peppol Participant Identifier</strong> (PPID) of the recipient (currently this must be exchanged out-of-band but with the upcoming Peppol Directory there is help in sight)</li>
+    <li>The <strong>Peppol Participant Identifier</strong> (PPID) of the recipient (that can be found via the Peppol Directory)</li>
     <li>On which <strong>SML</strong> is the PPID registered (production SML or test SMK)</li>
     <li>The <strong>document type ID</strong> and the <strong>process ID</strong> to be used</li>
     <li>The <strong>business document to be exchanged</strong> is of course also needed</li>
