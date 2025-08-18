@@ -18,13 +18,13 @@
 -->
 <p>
   This page outlines how SMP and SML play together.
-  The SML (Service Metadata Locator) is only central component in the PEPPOL eDelivery Network.
+  The SML (Service Metadata Locator) is only central component in the Peppol eDelivery Network.
   The SMP (Service Metadata Publisher) is a decentralized registry for technical metadata. 
 </p>
 <p>
-  Note: this information presented here shows the PEPPOL way which is different from
-  the latest OASIS BDXL way. The SML currently used by PEPPOL (BDMSL operated by EC DG DIGIT) 
-  supports both ways, but this page ignores the non-PEPPOL aspects. 
+  Note: this information presented here shows the Peppol way which is different from
+  the latest OASIS BDXL way. The SML currently used by Peppol (BDMSL operated by EC DG DIGIT) 
+  supports both ways, but this page ignores the non-Peppol aspects. 
 </p>
 
 <div class="card">
@@ -53,11 +53,11 @@
 <p>
   This page takes the following assumptions:
   <ul>
-    <li>You have a running instance of an SMP server (that follows the PEPPOL SMP specification)</li>
+    <li>You have a running instance of an SMP server (that follows the Peppol SMP specification)</li>
     <li>The SMP server runs on a publicly accessible web server that has a DNS name assigned</li>
     <li>The SMP server is reachable in the root ("/") path of that domain</li>
     <li>The SMP server exposes the mandatory read-only APIs on port 80 without https</li>
-    <li>You have a PEPPOL SMP X.509 certificate that is compatible with the SML you want to interact with (production certificate for SML, test certificate for SMK)</li>
+    <li>You have a Peppol SMP X.509 certificate that is compatible with the SML you want to interact with (production certificate for SML, test certificate for SMK)</li>
     <li>You have chosen a so called <em>SMP-ID</em> that <strong>must not be changed</strong> afterwards</li>
   </ul>
 </p>
@@ -127,7 +127,7 @@
   The change of an SMP-ID is <strong>not</strong> foreseen, so this value must stay consistent.
   The change of an SMP certificate (e.g. because of expiration) can also <strong>not</strong> be done with
     this process. BDMSL foresees a specific process for this that is described at
-    <a href="/public/menuitem-docs-peppol-cert-update">PEPPOL Certificate update</a>.
+    <a href="/public/menuitem-docs-peppol-cert-update">Peppol Certificate update</a>.
 </p>
 
 <p>
