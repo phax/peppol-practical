@@ -61,11 +61,11 @@
 </p>
 <ol>
   <li>As the very first step you need to sign the TIAs (Transport Infrastructure Agreements) with 
-      <a href="https://peppol.eu/get-involved/join-openpeppol/">OpenPeppol AISBL</a></li>
+      <a href="https://peppol.org/join/?membership/">OpenPeppol AISBL</a></li>
   <li>Afterwards you need to apply for an <em>SMP certificate</em> at OpenPeppol. 
       This certificate is required to run the SMP.</li>
   <li>You should have a look at the 
-      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official SMP specifications</a>.
+      <a href="https://docs.peppol.eu/edelivery/">official SMP specifications</a>.
       It is important to understand that the specifications only specify the reading access
       to an SMP but not the writing access. Nevertheless the implementation discussed here
       also contains the possibility to write new entries.</li>
