@@ -137,8 +137,7 @@
     <em>phoss-smp-webapp-sql</em> uses a relational database as its backend.
     A copy of the MySQL database initialization script can be found in the 
     <code>/database_backups/</code> folder of the project.
-    By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
-    The database layout is compatible to the one of the CIPA SMP 2.2.x.
+    By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created! 
   </li>
   <li>
     <em>phoss-smp-webapp-xml</em> uses XML files as its backend.
