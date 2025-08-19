@@ -312,7 +312,7 @@
 <h2>References</h2>
 <p>
   <ul>
-    <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/ICT-Transport-SMP_Service_Specification-110.pdf">PEPPOL SMP specification 1.1.0</a></li>
-    <li><a href="https://github.com/OpenPeppol/documentation/blob/master/TransportInfrastructure/ICT-Transport-SML_Service_Specification-101.pdf">PEPPOL SML specification 1.0.1</a></li>
+    <li><a href="https://docs.peppol.eu/edelivery/">Peppol SMP specification 1.3.0</a></li>
+    <li><a href="https://docs.peppol.eu/edelivery/">Peppol SML specification 1.2.0</a></li>
   </ul>
 </p>
