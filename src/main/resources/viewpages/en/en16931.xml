@@ -125,7 +125,7 @@ The TC had 6 working groups concerning with the following topics:
 </p>
 <p>
   An unofficial self-declaration based list of CIUSs is provided by
-  <a href="https://ec.europa.eu/cefdigital/wiki/display/EINVCOMMUNITY/Community-driven+Registry+of+CIUS+%28Core+Invoice+Usage+Specifications%29+and+Extensions">CEF</a>.
+  <a href="https://ec.europa.eu/digital-building-blocks/sites/display/EINVCOMMUNITY/Registry+of+CIUS+%28Core+Invoice+Usage+Specifications%29+and+Extensions/">EC</a>.
   One upcoming task of CEN/TC 434 is to establish an official registry of CIUSs.
 </p>
 <p>
@@ -151,7 +151,7 @@ The TC had 6 working groups concerning with the following topics:
 <ul>
   <li><strong>EN 16931-1:2017</strong></li>
   <li><strong>CEN/TS 16931-3-1:2017</strong></li>
-  <li>One or more of <strong>CEN/TS 16931-3-2:2017</strong>, <strong>CEN/TS 16931-3-2:2017</strong> or <strong>CEN/TS 16931-3-3:2017</strong> - depending on what you want to implement</li>
+  <li>One or more of <strong>CEN/TS 16931-3-2:2017 (UBL 2.1)</strong> or <strong>CEN/TS 16931-3-3:2017 (CII)</strong> - depending on what you want to implement</li>
   <li><strong>CEN/TR 16931-5:2017</strong></li>
 </ul>
 
