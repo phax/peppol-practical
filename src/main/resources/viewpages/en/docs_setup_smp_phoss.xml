@@ -17,7 +17,7 @@
 
 -->
 <p>
-  This page explains how to setup my implementation (phoss SMP) of an PEPPOL SMP from scratch.
+  This page explains how to setup my implementation (phoss SMP) of an Peppol SMP from scratch.
   SMP is the abbreviation for <em>Service Metadata Publisher</em> which is the decentralized
   directory service (registry) of OpenPeppol.
   SMPs are normally only operated by Service Providers and not by end users.
@@ -28,7 +28,7 @@
 
 <p>
   phoss SMP is a fork of the CIPA e-Delivery SMP components on version 2.2.3 back in 2015.
-  The goal is to keep the implementation simple and provide publicly available PEPPOL components
+  The goal is to keep the implementation simple and provide publicly available Peppol components
   to the world. An additional goal was to make the configuration as simple as possible.
   Please read the official <a href="https://github.com/phax/phoss-smp/wiki">phoss SMP Wiki</a> for
   all the details.
@@ -60,12 +60,12 @@
   Before you can start you need to have the following information in place:
 </p>
 <ol>
-  <li>As the very first step you need to sign the TIAs (Transport Infrastructure Agreements) with 
-      <a href="https://peppol.eu/get-involved/join-openpeppol/">OpenPeppol AISBL</a></li>
+  <li>As the very first step you need to sign the Peppol agreements with 
+      <a href="https://peppol.org/join/?membership/">OpenPeppol AISBL</a></li>
   <li>Afterwards you need to apply for an <em>SMP certificate</em> at OpenPeppol. 
       This certificate is required to run the SMP.</li>
   <li>You should have a look at the 
-      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official SMP specifications</a>.
+      <a href="https://docs.peppol.eu/edelivery/">official SMP specifications</a>.
       It is important to understand that the specifications only specify the reading access
       to an SMP but not the writing access. Nevertheless the implementation discussed here
       also contains the possibility to write new entries.</li>
@@ -87,7 +87,7 @@
   with the relevant documentation.
   The SMP server uses shared components also available on GitHub:
   <a href="https://github.com/phax/peppol-commons">peppol-commons</a> 
-  - a common library with shared PEPPOL components containing e.g. an SMP client library
+  - a common library with shared Peppol components containing e.g. an SMP client library
   and an SML client library.
 </p>
 
@@ -137,8 +137,7 @@
     <em>phoss-smp-webapp-sql</em> uses a relational database as its backend.
     A copy of the MySQL database initialization script can be found in the 
     <code>/database_backups/</code> folder of the project.
-    By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created!
-    The database layout is compatible to the one of the CIPA SMP 2.2.x.
+    By default a user <code>peppol_user</code> with the password <code>Test1234</code> is created! 
   </li>
   <li>
     <em>phoss-smp-webapp-xml</em> uses XML files as its backend.
@@ -179,7 +178,7 @@
   The SMP server is configured with two files. One file (<code>webapp.properties</code>) is for the
   customization of the web application and the other file (<code>smp-server.properties</code>) is
   for the SMP functionality itself.
-  Additionally a PEPPOL Directory client file (<code>pd-client.properties</code>) may be configured.
+  Additionally a Peppol Directory client file (<code>pd-client.properties</code>) may be configured.
   Please read the Wiki page
   <a href="https://github.com/phax/phoss-smp/wiki/Configuration">https://github.com/phax/phoss-smp/wiki/Configuration</a>
   for all configuration options and example files.
@@ -245,7 +244,7 @@
 
 <p>
   Note: the classes <code>SMPClientReadonly</code> and <code>SMPClient</code> can only be used to
-  query SMPs that follow the old PEPPOL SMP specification. To query an SMP server that follows
+  query SMPs that follow the old Peppol SMP specification. To query an SMP server that follows
   the OASIS BDXR SMP v1 specification the classes <code>BDXRClientReadonly</code> and
   <code>BDXRClient</code> are provided with a similar API.
 </p>

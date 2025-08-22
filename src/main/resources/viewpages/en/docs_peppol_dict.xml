@@ -129,7 +129,7 @@
         CC
         <br/><em><small>deprecated</small></em>
       </td>
-      <td>Coordinating Community</td>
+      <td>Coordinating Committee</td>
       <td>
         OpenPeppol internal community that is supposed to deal with cross-community topics.
       </td>
@@ -142,7 +142,7 @@
       <td>Connecting Europe Facility</td>
       <td>
         An instrument of the <em>EC</em> for funding and informing about e-Delivery, e-Invoicing etc. solutions.
-        See <a href="https://ec.europa.eu/digital-single-market/en/connecting-europe-facility">https://ec.europa.eu/digital-single-market/en/connecting-europe-facility</a>.
+        See <a href="https://commission.europa.eu/funding-tenders/find-funding/eu-funding-programmes/connecting-europe-facility_en/">https://commission.europa.eu/funding-tenders/find-funding/eu-funding-programmes/connecting-europe-facility_en/</a>.
         The successor of CEF is the <em>DEP</em> programme.
       </td>
     </tr>
@@ -158,12 +158,10 @@
         CIPA
         <br/><em><small>deprecated</small></em>
       </td>
-      <td></td>
+      <td>Common Infrastructure for Public Administration</td>
       <td>
-        The previous Peppol reference implementation now maintained by <em>EC</em>.
-        See <a href="https://joinup.ec.europa.eu/solution/cipa-e-delivery">https://joinup.ec.europa.eu/solution/cipa-e-delivery</a>.
-        Superseded by <em>CEF</em> - 
-        <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery">https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery</a>.
+        The previous Peppol reference implementation, superseded by <em>CEF</em> now maintained by <em>EC</em>.            
+        <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eDelivery/">https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eDelivery</a>.
       </td>
     </tr>
     <tr>
@@ -178,7 +176,7 @@
     <tr>
       <td>CMB</td>
       <td>Change Management Board</td>
-      <td>The Peppol internal team that makes decisions. There is one CMB for TICC, PoACC and PrACC.</td>
+      <td>The Peppol internal team that makes decisions. There is one CMB for eDeC, PoAC and PrAC.</td>
     </tr>
     <tr>
       <td>CNAME</td>
@@ -214,7 +212,7 @@
       <td>eDelivery Domain Community</td>
       <td>
         The successor of <em>TICC</em> within OpenPeppol.
-        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+        See <a href="https://peppol.org/learn-more/communities-and-work-groups/">https://peppol.org/learn-more/communities-and-work-groups/</a> 
       </td>
     </tr>
     <tr>
@@ -297,7 +295,7 @@
     <tr>
       <td>MLS</td>
       <td>Message Level Status</td>
-      <td>The proposed successor of the <em>MLR</em> specification maintained by eDEC</td>
+      <td>The proposed successor of the <em>MLR</em> specification maintained by eDEC. See <a href="https://docs.peppol.eu/edelivery/specs/mls/v1.0.0/">https://docs.peppol.eu/edelivery/specs/mls/v1.0.0/</a> for the specification.</td>
     </tr>
     <tr>
       <td>OASIS</td>
@@ -312,7 +310,7 @@
       <td></td>
       <td>
         The organisation responsible for maintaining Peppol standards and running the transport infrastructure.
-        See <a href="http://peppol.eu/">http://peppol.eu/</a>.
+        See <a href="https://peppol.org/">https://peppol.org/</a>.
         See also <em>AISBL</em>.
       </td>
     </tr>
@@ -364,7 +362,7 @@
       <td>Post-Award Domain Community</td>
       <td>
         Peppol internal team to manage the post-award assets.
-        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+        See <a href="https://peppol.org/learn-more/communities-and-work-groups/">https://peppol.org/learn-more/communities-and-work-groups/</a> 
       </td>
     </tr>
     <tr>
@@ -390,7 +388,7 @@
       <td>Pre-Award Domain Community</td>
       <td>
         Peppol internal team to manage the pre-award assets.
-        See <a href="https://peppol.eu/get-involved/join-a-community/">https://peppol.eu/get-involved/join-a-community/</a> 
+        See <a href="https://peppol.org/learn-more/communities-and-work-groups/">https://peppol.org/learn-more/communities-and-work-groups/</a> 
       </td>
     </tr>
     <tr>
@@ -507,9 +505,8 @@
       </td>
       <td>Transport Infrastructure Coordinating Community</td>
       <td>
-        Peppol internal team to manage the technical assets.
-        See <a href="https://peppol.org/join/?membership">https://peppol.org/join/?membership</a>.
-        Now called <em>EDEC</em>.
+        Peppol internal team to manage the technical assets.Now called <em>EDEC</em>.
+        See <a href="https://peppol.org/learn-more/communities-and-work-groups/">https://peppol.org/learn-more/communities-and-work-groups/</a>.
       </td>
     </tr>
     <tr>

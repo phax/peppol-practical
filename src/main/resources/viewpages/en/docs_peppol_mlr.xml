@@ -82,7 +82,7 @@
 
 <h2>MLS - Message Level Status</h2>
 
-<p>Currently in the process of specification. More when ready.</p>
+<p>Currently in the process of <a href="https://docs.peppol.eu/edelivery/specs/mls/v1.0.0/">specification</a>. The policy on how to use it will follow.</p>
 
 <p>
   The intention of the MLS is to be a message between C2 and C3 instead of a message between C1 and C4 like the MLR.

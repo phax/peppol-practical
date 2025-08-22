@@ -83,14 +83,14 @@
       This certificate is required to run the AP.</li>
   <li>At least one of the default Peppol BIS (processes) must be implemented.
       A list of
-      <a href="https://peppol.eu/downloads/post-award/">all available BISs</a>
+      <a href="https://peppol.org/documentation/technical-documentation/post-award-documentation/">all available BISs</a>
       is available on the Peppol website.  
   </li>
   <li>You should have a look at the 
       <a href="https://docs.peppol.eu/edelivery/as4/specification/">official Peppol AS4 profile</a>.
   </li>
   <li>You should have a look at the 
-      <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">official Peppol Envelope specification</a>
+      <a href="https://docs.peppol.eu/edelivery/">official Peppol Envelope specification</a>
       (SBDH).
   </li>
   <li>You should be familiar with Java</li>

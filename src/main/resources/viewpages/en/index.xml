@@ -24,8 +24,9 @@ Since 2019 I am a freelancer and working on Peppol and eInvoicing projects.
 </p>
 
 <p>
-  This page is currently divided into the following sections:
+This page is currently divided into the following sections:
 </p>
+
 <ul>
   <li>
     A <a href="/public/menuitem-news">news section</a> which tries to collect Peppol technology relevant stuff.
@@ -66,10 +67,10 @@ Since 2019 I am a freelancer and working on Peppol and eInvoicing projects.
 </p>
 <ul>
   <li>
-    <a href="https://peppol.eu/downloads/the-peppol-edelivery-network-specifications/">The Peppol eDelivery Network Specifications</a>
+    <a href="https://docs.peppol.eu/edelivery/">The Peppol eDelivery Network Specifications</a>
   </li>
   <li>
-    <a href="https://peppol.eu/downloads/post-award/">Post-Award 'BIS' Specifications and Guidelines</a> (process specifications)
+    <a href="https://peppol.org/documentation/technical-documentation/post-award-documentation/">Post-Award 'BIS' Specifications and Guidelines</a> (process specifications)
   </li>
 </ul>
 
