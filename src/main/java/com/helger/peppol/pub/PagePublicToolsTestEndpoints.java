@@ -118,7 +118,10 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_SCHEME,
                       PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantID ())
-                .add (PagePublicToolsParticipantInformation.FIELD_SML, aTestEndpoint.getSML ().getID ());
+                .add (PagePublicToolsParticipantInformation.FIELD_SML, aTestEndpoint.getSML ().getID ())
+                .add (PagePublicToolsParticipantInformation.PARAM_QUERY_BUSINESS_CARD, true)
+                .add (PagePublicToolsParticipantInformation.PARAM_VERIFY_SIGNATURES, true)
+                .add (PagePublicToolsParticipantInformation.PARAM_XSD_VALIDATION, true);
   }
 
   @Override
