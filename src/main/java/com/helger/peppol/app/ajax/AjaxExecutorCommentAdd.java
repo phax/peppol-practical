@@ -83,10 +83,10 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor, IHCBootstrap
     if (aCurrentUser != null)
       sAuthor = aCurrentUser.getDisplayName ();
 
-    if (StringHelper.hasText (sObjectType) &&
-        StringHelper.hasText (sObjectID) &&
-        StringHelper.hasText (sCommentThreadID) &&
-        StringHelper.hasText (sCommentID) &&
+    if (StringHelper.isNotEmpty (sObjectType) &&
+        StringHelper.isNotEmpty (sObjectID) &&
+        StringHelper.isNotEmpty (sCommentThreadID) &&
+        StringHelper.isNotEmpty (sCommentID) &&
         CommentSecurity.canCurrentUserPostComments ())
     {
       // Create a dummy object
@@ -99,12 +99,12 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor, IHCBootstrap
         if (aParentComment != null)
         {
           final CommentFormErrors aFormErrors = CommentFormErrors.createForReply (aCommentThread, aParentComment);
-          if (StringHelper.hasNoText (sAuthor))
+          if (StringHelper.isEmpty (sAuthor))
           {
             // No author provided
             aFormErrors.addFieldError (PARAM_AUTHOR, ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
           }
-          if (StringHelper.hasNoText (sText))
+          if (StringHelper.isEmpty (sText))
           {
             // No text provided
             aFormErrors.addFieldError (PARAM_TEXT, ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));

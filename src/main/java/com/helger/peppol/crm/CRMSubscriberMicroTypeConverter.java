@@ -59,7 +59,7 @@ public class CRMSubscriberMicroTypeConverter extends AbstractBusinessObjectMicro
 
     final String sSalutationID = aElement.getAttributeValue (ATTR_SALUTATION);
     final ESalutation eSalutation = ESalutation.getFromIDOrNull (sSalutationID);
-    if (eSalutation == null && StringHelper.hasText (sSalutationID))
+    if (eSalutation == null && StringHelper.isNotEmpty (sSalutationID))
       throw new IllegalStateException ("Failed to resolve salutation ID '" + sSalutationID + "'");
 
     final String sName = aElement.getAttributeValue (ATTR_NAME);

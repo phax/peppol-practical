@@ -57,7 +57,7 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
       final String sEmailAddress = aWPEC.params ().getAsString (FIELD_EMAIL_ADDRESS);
       ICRMSubscriber aCRMSubscriber = null;
 
-      if (StringHelper.hasNoText (sEmailAddress))
+      if (StringHelper.isEmpty (sEmailAddress))
         aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "You must provide your email address!");
       else
         if (!EmailAddressHelper.isValid (sEmailAddress))

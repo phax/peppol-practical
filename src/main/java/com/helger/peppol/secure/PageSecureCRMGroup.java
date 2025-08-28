@@ -93,10 +93,10 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
     final String sName = aWPEC.params ().getAsString (FIELD_NAME);
     final String sSenderEmailAddress = aWPEC.params ().getAsString (FIELD_SENDER_EMAIL_ADDRESS);
 
-    if (StringHelper.hasNoText (sName))
+    if (StringHelper.isEmpty (sName))
       aFormErrors.addFieldError (FIELD_NAME, "A name for the CRM group must be provided!");
 
-    if (StringHelper.hasNoText (sSenderEmailAddress))
+    if (StringHelper.isEmpty (sSenderEmailAddress))
       aFormErrors.addFieldError (FIELD_SENDER_EMAIL_ADDRESS, "A sender email address must be provided!");
     else
       if (!EmailAddressHelper.isValid (sSenderEmailAddress))

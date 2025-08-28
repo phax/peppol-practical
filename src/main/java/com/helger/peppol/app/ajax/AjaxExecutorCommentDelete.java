@@ -67,10 +67,10 @@ public final class AjaxExecutorCommentDelete implements IAjaxExecutor, IHCBootst
     final String sCommentThreadID = aRequestScope.params ().getAsString (PARAM_COMMENT_THREAD_ID);
     final String sCommentID = aRequestScope.params ().getAsString (PARAM_COMMENT_ID);
 
-    if (StringHelper.hasText (sObjectType) &&
-        StringHelper.hasText (sObjectID) &&
-        StringHelper.hasText (sCommentThreadID) &&
-        StringHelper.hasText (sCommentID) &&
+    if (StringHelper.isNotEmpty (sObjectType) &&
+        StringHelper.isNotEmpty (sObjectID) &&
+        StringHelper.isNotEmpty (sCommentThreadID) &&
+        StringHelper.isNotEmpty (sCommentID) &&
         CommentSecurity.isCurrentUserCommentModerator ())
     {
       // Create a dummy object

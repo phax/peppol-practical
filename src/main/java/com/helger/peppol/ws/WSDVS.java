@@ -243,7 +243,7 @@ public class WSDVS implements WSDVSPort
         _throw ("Invalid XML provided!");
 
       final String sDisplayLocale = aValidationRequest.getDisplayLocale ();
-      final Locale aDisplayLocale = StringHelper.hasText (sDisplayLocale) ? LocaleCache.getInstance ()
+      final Locale aDisplayLocale = StringHelper.isNotEmpty (sDisplayLocale) ? LocaleCache.getInstance ()
                                                                                        .getLocale (sDisplayLocale)
                                                                           : CPPApp.DEFAULT_LOCALE;
       if (aDisplayLocale == null)

@@ -165,7 +165,7 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
   @Nullable
   public ICRMSubscriber getCRMSubscriberOfEmailAddress (@Nullable final String sEmailAddress)
   {
-    if (StringHelper.hasNoText (sEmailAddress))
+    if (StringHelper.isEmpty (sEmailAddress))
       return null;
 
     // Unify before checking

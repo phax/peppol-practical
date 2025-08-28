@@ -140,7 +140,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         // Try to load the key store
         try (final InputStream aIS = aKeyStoreFile.getInputStream ())
         {
-          aKeyStore = StringHelper.hasText (sSecurityProvider) ? aKeyStoreType.getKeyStore (sSecurityProvider)
+          aKeyStore = StringHelper.isNotEmpty (sSecurityProvider) ? aKeyStoreType.getKeyStore (sSecurityProvider)
                                                                : aKeyStoreType.getKeyStore ();
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
@@ -295,7 +295,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (aSMLInfo == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
-    if (StringHelper.hasNoText (sSMPID))
+    if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
       if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
@@ -303,7 +303,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
                                                  CSharedUI.PATTERN_SMP_ID);
 
-    if (StringHelper.hasNoText (sPhysicalAddress))
+    if (StringHelper.isEmpty (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
     else
       if (!RegExHelper.stringMatchesPattern (IPV4Addr.PATTERN_IPV4, sPhysicalAddress))
@@ -328,7 +328,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         }
       }
 
-    if (StringHelper.hasNoText (sLogicalAddress))
+    if (StringHelper.isEmpty (sLogicalAddress))
       aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                  "A logical address must be provided in the form 'http://smp.example.org'!");
     else
@@ -352,7 +352,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                        "The provided logical address must use the default http port 80 and not port " +
                                                               aURL.getPort () +
                                                               ". According to the Peppol SMP specification, no other ports are allowed!");
-          if (StringHelper.hasText (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
+          if (StringHelper.isNotEmpty (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
             aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                        "The provided logical address may not contain a path (" +
                                                               aURL.getPath () +
@@ -435,7 +435,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (aSMLInfo == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
-    if (StringHelper.hasNoText (sSMPID))
+    if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
       if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
@@ -443,7 +443,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
                                                  CSharedUI.PATTERN_SMP_ID);
 
-    if (StringHelper.hasNoText (sPhysicalAddress))
+    if (StringHelper.isEmpty (sPhysicalAddress))
       aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
     else
       if (!RegExHelper.stringMatchesPattern (IPV4Addr.PATTERN_IPV4, sPhysicalAddress))
@@ -468,7 +468,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         }
       }
 
-    if (StringHelper.hasNoText (sLogicalAddress))
+    if (StringHelper.isEmpty (sLogicalAddress))
       aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                  "A logical address must be provided in the form 'http://smp.example.org'!");
     else
@@ -493,7 +493,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                        "The provided logical address must use the default http port 80 and not port " +
                                                               aURL.getPort () +
                                                               ". According to the Peppol SMP specification, no other ports are allowed!");
-          if (StringHelper.hasText (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
+          if (StringHelper.isNotEmpty (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
             aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                        "The provided logical address may not contain a path (" +
                                                               aURL.getPath () +
@@ -573,7 +573,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (aSMLInfo == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
-    if (StringHelper.hasNoText (sSMPID))
+    if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
       if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
@@ -642,7 +642,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (aSML == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
-    if (StringHelper.hasText (sMigrationDate))
+    if (StringHelper.isNotEmpty (sMigrationDate))
     {
       if (aMigrationDate == null)
         aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE,
@@ -652,7 +652,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE, "The certificate migration date must be in the future!");
     }
 
-    if (StringHelper.hasNoText (sMigrationPublicCert))
+    if (StringHelper.isEmpty (sMigrationPublicCert))
     {
       aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT, "A new public certificate must be provided.");
     }

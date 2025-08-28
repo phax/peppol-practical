@@ -60,10 +60,10 @@ public final class AjaxExecutorCommentShowInput implements IAjaxExecutor
     final String sCommentID = aRequestScope.params ().getAsString (PARAM_COMMENT_ID);
     final String sResultDivID = aRequestScope.params ().getAsString (PARAM_RESULT_DIV_ID);
 
-    if (StringHelper.hasText (sObjectType) &&
-        StringHelper.hasText (sObjectID) &&
-        StringHelper.hasText (sCommentThreadID) &&
-        StringHelper.hasText (sCommentID) &&
+    if (StringHelper.isNotEmpty (sObjectType) &&
+        StringHelper.isNotEmpty (sObjectID) &&
+        StringHelper.isNotEmpty (sCommentThreadID) &&
+        StringHelper.isNotEmpty (sCommentID) &&
         CommentSecurity.canCurrentUserPostComments ())
     {
       // Create a dummy object

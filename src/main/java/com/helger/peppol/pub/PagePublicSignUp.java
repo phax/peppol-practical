@@ -80,13 +80,13 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     final String sPlainTextPassword = aWPEC.params ().getAsString (FIELD_PASSWORD);
     final String sPlainTextPasswordConfirm = aWPEC.params ().getAsString (FIELD_PASSWORD_CONFIRM);
 
-    if (StringHelper.hasNoText (sFirstName))
+    if (StringHelper.isEmpty (sFirstName))
       aFormErrors.addFieldError (FIELD_FIRSTNAME, "A first name must be provded!!");
 
-    if (StringHelper.hasNoText (sLastName))
+    if (StringHelper.isEmpty (sLastName))
       aFormErrors.addFieldError (FIELD_LASTNAME, "A last name must be provded!!");
 
-    if (StringHelper.hasNoText (sEmailAddress))
+    if (StringHelper.isEmpty (sEmailAddress))
       aFormErrors.addFieldError (FIELD_EMAIL1, "An email address must be provded!!");
     else
       if (!EmailAddressHelper.isValid (sEmailAddress))

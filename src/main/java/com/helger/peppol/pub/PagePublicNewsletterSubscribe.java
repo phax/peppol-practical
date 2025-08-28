@@ -82,10 +82,10 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
       final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
       ICRMSubscriber aSameEmailAddressSubscriber = null;
 
-      if (StringHelper.hasNoText (sName))
+      if (StringHelper.isEmpty (sName))
         aFormErrors.addFieldError (FIELD_NAME, "You must provide your name!");
 
-      if (StringHelper.hasNoText (sEmailAddress))
+      if (StringHelper.isEmpty (sEmailAddress))
         aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "You must provide your email address!");
       else
         if (!EmailAddressHelper.isValid (sEmailAddress))
