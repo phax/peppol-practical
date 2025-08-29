@@ -42,7 +42,7 @@ public final class CRMGroupTest
   public void testBasic ()
   {
     final CRMGroup aGroup = new CRMGroup ("Name", "bla@foo.com");
-    assertTrue (StringHelper.hasText (aGroup.getID ()));
+    assertTrue (StringHelper.isNotEmpty (aGroup.getID ()));
     assertEquals ("Name", aGroup.getDisplayName ());
     assertEquals ("bla@foo.com", aGroup.getSenderEmailAddress ());
     // Only ID is relevant!

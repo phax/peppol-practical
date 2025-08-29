@@ -109,8 +109,8 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
     final String sSelectedOwningObjectID = aWPEC.params ().getAsString (CPageParam.PARAM_OBJECT);
 
     if (aWPEC.hasAction (CPageParam.ACTION_VIEW) &&
-        StringHelper.hasText (sSelectedObjectType) &&
-        StringHelper.hasText (sSelectedOwningObjectID))
+        StringHelper.isNotEmpty (sSelectedObjectType) &&
+        StringHelper.isNotEmpty (sSelectedOwningObjectID))
     {
       final TypedObject <String> aTO = TypedObject.create (new ObjectType (sSelectedObjectType), sSelectedOwningObjectID);
       final List <ICommentThread> aCommentThreads = aCommentThreadMgr.getAllCommentThreadsOfObject (aTO);

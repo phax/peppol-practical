@@ -225,7 +225,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   @ReturnsMutableCopy
   public ICommonsList <ICommentThread> getAllCommentThreadsOfObject (@Nullable final String sOwningObjectID)
   {
-    if (StringHelper.hasText (sOwningObjectID))
+    if (StringHelper.isNotEmpty (sOwningObjectID))
     {
       m_aRWLock.readLock ().lock ();
       try
@@ -246,7 +246,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   @Nullable
   public ICommentThread getCommentThreadOfID (@Nullable final String sCommentThreadID)
   {
-    if (StringHelper.hasNoText (sCommentThreadID))
+    if (StringHelper.isEmpty (sCommentThreadID))
       return null;
 
     return m_aRWLock.readLockedGet ( () -> m_aAllCommentThreads.get (sCommentThreadID));
@@ -255,7 +255,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   @Nullable
   public IComment getCommentOfID (@Nullable final String sCommentID)
   {
-    if (StringHelper.hasNoText (sCommentID))
+    if (StringHelper.isEmpty (sCommentID))
       return null;
 
     m_aRWLock.readLock ().lock ();
@@ -281,11 +281,11 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
                                      @Nullable final String sCommentID,
                                      @Nonnull final ECommentState eNewState)
   {
-    if (StringHelper.hasNoText (sOwningObjectID))
+    if (StringHelper.isEmpty (sOwningObjectID))
       return EChange.UNCHANGED;
-    if (StringHelper.hasNoText (sCommentThreadID))
+    if (StringHelper.isEmpty (sCommentThreadID))
       return EChange.UNCHANGED;
-    if (StringHelper.hasNoText (sCommentID))
+    if (StringHelper.isEmpty (sCommentID))
       return EChange.UNCHANGED;
 
     m_aRWLock.writeLock ().lock ();
@@ -332,7 +332,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   @Nonnull
   public EChange removeAllCommentThreadsOfObject (@Nullable final String sOwningObjectID)
   {
-    if (StringHelper.hasNoText (sOwningObjectID))
+    if (StringHelper.isEmpty (sOwningObjectID))
       return EChange.UNCHANGED;
 
     ICommonsList <ICommentThread> aRemovedCommentThreads;

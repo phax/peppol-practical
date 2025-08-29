@@ -190,10 +190,10 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final ICommonsList <String> aSelectedCRMGroupIDs = aWPEC.params ().getAsStringList (FIELD_GROUP);
     final ICommonsSet <ICRMGroup> aSelectedCRMGroups = new CommonsHashSet <> ();
 
-    if (StringHelper.hasNoText (sName))
+    if (StringHelper.isEmpty (sName))
       aFormErrors.addFieldError (FIELD_NAME, "A name for the CRM subscriber must be provided!");
 
-    if (StringHelper.hasNoText (sEmailAddress))
+    if (StringHelper.isEmpty (sEmailAddress))
       aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "An email address must be provided!");
     else
       if (!EmailAddressHelper.isValid (sEmailAddress))

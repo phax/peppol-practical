@@ -141,7 +141,7 @@ public final class Comment implements IComment
     ValueEnforcer.notNull (aCreationDT, "CreationDT");
     ValueEnforcer.notEmpty (sHost, "Host");
     ValueEnforcer.notNull (eState, "State");
-    if (StringHelper.hasNoText (sUserID) && StringHelper.hasNoText (sCreatorName))
+    if (StringHelper.isEmpty (sUserID) && StringHelper.isEmpty (sCreatorName))
       throw new IllegalArgumentException ("Either userID or creator name must be present!");
     ValueEnforcer.notEmpty (sText, "Text");
     m_sID = sID;

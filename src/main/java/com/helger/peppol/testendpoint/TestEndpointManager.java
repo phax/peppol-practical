@@ -218,7 +218,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
   @Nullable
   public TestEndpoint getTestEndpointOfID (@Nullable final String sID)
   {
-    if (StringHelper.hasNoText (sID))
+    if (StringHelper.isEmpty (sID))
       return null;
 
     m_aRWLock.readLock ().lock ();
@@ -234,7 +234,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
 
   public boolean containsTestEndpointWithID (@Nullable final String sID)
   {
-    if (StringHelper.hasNoText (sID))
+    if (StringHelper.isEmpty (sID))
       return false;
 
     m_aRWLock.readLock ().lock ();
@@ -253,7 +253,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
                                        @Nullable final String sParticipantIDValue,
                                        @Nullable final ISMPTransportProfile aTransportProfile)
   {
-    if (StringHelper.hasText (sParticipantIDIssuer) && StringHelper.hasText (sParticipantIDValue) && aTransportProfile != null)
+    if (StringHelper.isNotEmpty (sParticipantIDIssuer) && StringHelper.isNotEmpty (sParticipantIDValue) && aTransportProfile != null)
     {
       m_aRWLock.readLock ().lock ();
       try

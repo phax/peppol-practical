@@ -118,7 +118,10 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_SCHEME,
                       PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME)
                 .add (PagePublicToolsParticipantInformation.FIELD_ID_VALUE, aTestEndpoint.getParticipantID ())
-                .add (PagePublicToolsParticipantInformation.FIELD_SML, aTestEndpoint.getSML ().getID ());
+                .add (PagePublicToolsParticipantInformation.FIELD_SML, aTestEndpoint.getSML ().getID ())
+                .add (PagePublicToolsParticipantInformation.PARAM_QUERY_BUSINESS_CARD, true)
+                .add (PagePublicToolsParticipantInformation.PARAM_VERIFY_SIGNATURES, true)
+                .add (PagePublicToolsParticipantInformation.PARAM_XSD_VALIDATION, true);
   }
 
   @Override
@@ -195,7 +198,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     }
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Company name")
                                                  .setCtrl (aSelectedObject.getCompanyName ()));
-    if (StringHelper.hasText (aSelectedObject.getContactPerson ()))
+    if (StringHelper.isNotEmpty (aSelectedObject.getContactPerson ()))
     {
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
                                                    .setCtrl (aSelectedObject.getContactPerson ()));
@@ -289,17 +292,17 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML);
     final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
 
-    if (StringHelper.hasNoText (sCompanyName))
+    if (StringHelper.isEmpty (sCompanyName))
       aFormErrors.addFieldError (FIELD_COMPANY_NAME, "Please provide the company name");
 
-    if (StringHelper.hasNoText (sParticipantIDIssuer))
+    if (StringHelper.isEmpty (sParticipantIDIssuer))
       aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER, "Please select a participant identifier issuing agency");
     else
       if (eScheme == null)
         aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_ISSUER,
                                    "Please select a valid participant identifier issuing agency");
 
-    if (StringHelper.hasNoText (sParticipantIDValue))
+    if (StringHelper.isEmpty (sParticipantIDValue))
       aFormErrors.addFieldError (FIELD_PARTICIPANT_ID_VALUE, "Please provide a participant identifier value");
 
     if (eTransportProfile == null)

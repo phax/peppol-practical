@@ -202,7 +202,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   {
     ValueEnforcer.notNull (aObjectType, "ObjectType");
 
-    if (StringHelper.hasText (sCommentThreadID))
+    if (StringHelper.isNotEmpty (sCommentThreadID))
     {
       final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aObjectType);
       if (aMgr != null)

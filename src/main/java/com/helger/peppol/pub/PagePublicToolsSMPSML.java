@@ -17,9 +17,7 @@
 package com.helger.peppol.pub;
 
 import java.io.InputStream;
-import java.net.InetAddress;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateExpiredException;
@@ -47,11 +45,9 @@ import com.helger.commons.datetime.PDTFromString;
 import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
 import com.helger.commons.url.SimpleURL;
 import com.helger.commons.url.URLHelper;
 import com.helger.commons.ws.TrustManagerTrustAll;
-import com.helger.dns.ip.IPV4Addr;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCA;
@@ -93,7 +89,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
   private static final String FIELD_SML_ID = "sml";
   private static final String FIELD_SMP_ID = "smpid";
-  private static final String FIELD_PHYSICAL_ADDRESS = "physicaladdr";
   private static final String FIELD_LOGICAL_ADDRESS = "logicaladdr";
   private static final String FIELD_KEYSTORE = "keystore";
   private static final String FIELD_KEYSTORE_PW = "keystorepw";
@@ -101,8 +96,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String FIELD_PM_PUBLIC_CERT = "pmpubkey";
 
   private static final String HELPTEXT_SMP_ID = "This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!";
-  private static final String HELPTEXT_PHYSICAL_ADDRESS = "This must be the IPv4 address of your SMP. IPv6 addresses are not yet supported!";
-  private static final String HELPTEXT_LOGICAL_ADDRESS = "This must be the fully qualified domain name of your SMP. This can be either a domain name like 'http://smp.example.org' or a IP address like 'http://1.1.1.1'!";
+  private static final String HELPTEXT_LOGICAL_ADDRESS = "This must be the fully qualified URL of your SMP. This URL must use a domain name like 'http://smp.example.org' or 'https://smp.example.org' from November 1st, 2025!";
   private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your Peppol SMP key is required to perform the action! Remember to use the production keystore when accessing the SML and the pilot keystore when accessing the SMK! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
   private static final String HELPTEXT_KEYSTORE_PW = "The password of the JKS key store is required to access the content of the key store! The password is neither logged nor stored anywhere and discarded after opening the keystore.";
 
@@ -140,8 +134,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         // Try to load the key store
         try (final InputStream aIS = aKeyStoreFile.getInputStream ())
         {
-          aKeyStore = StringHelper.hasText (sSecurityProvider) ? aKeyStoreType.getKeyStore (sSecurityProvider)
-                                                               : aKeyStoreType.getKeyStore ();
+          aKeyStore = StringHelper.isNotEmpty (sSecurityProvider) ? aKeyStoreType.getKeyStore (sSecurityProvider)
+                                                                  : aKeyStoreType.getKeyStore ();
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
           // Get all aliases
@@ -285,7 +279,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
-    final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
@@ -295,7 +288,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (aSMLInfo == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
-    if (StringHelper.hasNoText (sSMPID))
+    if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
       if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
@@ -303,32 +296,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
                                                  CSharedUI.PATTERN_SMP_ID);
 
-    if (StringHelper.hasNoText (sPhysicalAddress))
-      aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
-    else
-      if (!RegExHelper.stringMatchesPattern (IPV4Addr.PATTERN_IPV4, sPhysicalAddress))
-        aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
-                                   "The provided physical address does not seem to be an IPv4 address!");
-      else
-      {
-        final String [] aParts = StringHelper.getExplodedArray ('.', sPhysicalAddress, 4);
-        final byte [] aBytes = { (byte) StringParser.parseInt (aParts[0], -1),
-                                 (byte) StringParser.parseInt (aParts[1], -1),
-                                 (byte) StringParser.parseInt (aParts[2], -1),
-                                 (byte) StringParser.parseInt (aParts[3], -1) };
-        try
-        {
-          InetAddress.getByAddress (aBytes);
-        }
-        catch (final UnknownHostException ex)
-        {
-          final String sMsg = "The provided IP address does not resolve to a valid host. ";
-          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
-                                     sMsg + SharedCommonUI.getTechnicalDetailsString (ex, false));
-        }
-      }
-
-    if (StringHelper.hasNoText (sLogicalAddress))
+    if (StringHelper.isEmpty (sLogicalAddress))
       aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                  "A logical address must be provided in the form 'http://smp.example.org'!");
     else
@@ -352,7 +320,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                        "The provided logical address must use the default http port 80 and not port " +
                                                               aURL.getPort () +
                                                               ". According to the Peppol SMP specification, no other ports are allowed!");
-          if (StringHelper.hasText (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
+          if (StringHelper.isNotEmpty (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
             aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                        "The provided logical address may not contain a path (" +
                                                               aURL.getPath () +
@@ -373,13 +341,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       try
       {
         final ManageServiceMetadataServiceCaller aCaller = _create (aSMLInfo.getSMLInfo (), aSocketFactory);
-        aCaller.create (sSMPID, sPhysicalAddress, sLogicalAddress);
+        aCaller.create (sSMPID, "1.1.1.1", sLogicalAddress);
 
         final String sMsg = "Successfully registered SMP '" +
                             sSMPID +
-                            "' with physical address '" +
-                            sPhysicalAddress +
-                            "' and logical address '" +
+                            "' with logical address '" +
                             sLogicalAddress +
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
@@ -388,7 +354,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (success (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-create",
                                            sSMPID,
-                                           sPhysicalAddress,
                                            sLogicalAddress,
                                            aSMLInfo.getManagementServiceURL ());
       }
@@ -396,9 +361,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         final String sMsg = "Error registering SMP '" +
                             sSMPID +
-                            "' with physical address '" +
-                            sPhysicalAddress +
-                            "' and logical address '" +
+                            "' with logical address '" +
                             sLogicalAddress +
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
@@ -406,7 +369,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
-                                           sPhysicalAddress,
                                            sLogicalAddress,
                                            aSMLInfo.getManagementServiceURL (),
                                            ex.getClass (),
@@ -425,7 +387,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
-    final String sPhysicalAddress = aWPEC.params ().getAsString (FIELD_PHYSICAL_ADDRESS);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
@@ -435,7 +396,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (aSMLInfo == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
-    if (StringHelper.hasNoText (sSMPID))
+    if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
       if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
@@ -443,32 +404,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
                                                  CSharedUI.PATTERN_SMP_ID);
 
-    if (StringHelper.hasNoText (sPhysicalAddress))
-      aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS, "A physical address must be provided!");
-    else
-      if (!RegExHelper.stringMatchesPattern (IPV4Addr.PATTERN_IPV4, sPhysicalAddress))
-        aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
-                                   "The provided physical address does not seem to be an IPv4 address!");
-      else
-      {
-        final String [] aParts = StringHelper.getExplodedArray ('.', sPhysicalAddress, 4);
-        final byte [] aBytes = { (byte) StringParser.parseInt (aParts[0], -1),
-                                 (byte) StringParser.parseInt (aParts[1], -1),
-                                 (byte) StringParser.parseInt (aParts[2], -1),
-                                 (byte) StringParser.parseInt (aParts[3], -1) };
-        try
-        {
-          InetAddress.getByAddress (aBytes);
-        }
-        catch (final Exception ex)
-        {
-          aFormErrors.addFieldError (FIELD_PHYSICAL_ADDRESS,
-                                     "The provided IP address does not resolve to a valid host. " +
-                                                             SharedCommonUI.getTechnicalDetailsString (ex, false));
-        }
-      }
-
-    if (StringHelper.hasNoText (sLogicalAddress))
+    if (StringHelper.isEmpty (sLogicalAddress))
       aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                  "A logical address must be provided in the form 'http://smp.example.org'!");
     else
@@ -493,7 +429,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                        "The provided logical address must use the default http port 80 and not port " +
                                                               aURL.getPort () +
                                                               ". According to the Peppol SMP specification, no other ports are allowed!");
-          if (StringHelper.hasText (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
+          if (StringHelper.isNotEmpty (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
             aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                        "The provided logical address may not contain a path (" +
                                                               aURL.getPath () +
@@ -514,13 +450,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       try
       {
         final ManageServiceMetadataServiceCaller aCaller = _create (aSMLInfo.getSMLInfo (), aSocketFactory);
-        aCaller.update (sSMPID, sPhysicalAddress, sLogicalAddress);
+        aCaller.update (sSMPID, "1.1.1.1", sLogicalAddress);
 
         final String sMsg = "Successfully updated SMP '" +
                             sSMPID +
-                            "' with physical address '" +
-                            sPhysicalAddress +
-                            "' and logical address '" +
+                            "' with logical address '" +
                             sLogicalAddress +
                             "' at the SML '" +
                             aSMLInfo.getManagementServiceURL () +
@@ -529,7 +463,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (success (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update",
                                            sSMPID,
-                                           sPhysicalAddress,
                                            sLogicalAddress,
                                            aSMLInfo.getManagementServiceURL ());
       }
@@ -537,9 +470,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         final String sMsg = "Error updating SMP '" +
                             sSMPID +
-                            "' with physical address '" +
-                            sPhysicalAddress +
-                            "' and logical address '" +
+                            "' with logical address '" +
                             sLogicalAddress +
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
@@ -547,7 +478,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
-                                           sPhysicalAddress,
                                            sLogicalAddress,
                                            aSMLInfo.getManagementServiceURL (),
                                            ex.getClass (),
@@ -573,7 +503,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (aSMLInfo == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
-    if (StringHelper.hasNoText (sSMPID))
+    if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
       if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
@@ -642,7 +572,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (aSML == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
-    if (StringHelper.hasText (sMigrationDate))
+    if (StringHelper.isNotEmpty (sMigrationDate))
     {
       if (aMigrationDate == null)
         aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE,
@@ -652,7 +582,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           aFormErrors.addFieldError (FIELD_PM_MIGRATION_DATE, "The certificate migration date must be in the future!");
     }
 
-    if (StringHelper.hasNoText (sMigrationPublicCert))
+    if (StringHelper.isEmpty (sMigrationPublicCert))
     {
       aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT, "A new public certificate must be provided.");
     }
@@ -823,7 +753,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
     if (bShowInput)
     {
-      final int nLeft = 3;
+      final int nLeft = 2;
       final BootstrapTabBox aTabBox = new BootstrapTabBox ();
 
       // Register SMP at SML
@@ -839,10 +769,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
                                                      .setHelpText (HELPTEXT_SMP_ID)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Physical address")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"))
-                                                     .setHelpText (HELPTEXT_PHYSICAL_ADDRESS)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PHYSICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Logical address")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"))
                                                      .setHelpText (HELPTEXT_LOGICAL_ADDRESS)
@@ -877,10 +803,6 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
                                                      .setHelpText (HELPTEXT_SMP_ID)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
-        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Physical address")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PHYSICAL_ADDRESS)).setPlaceholder ("The IPv4 address of your SMP. E.g. 1.2.3.4"))
-                                                     .setHelpText (HELPTEXT_PHYSICAL_ADDRESS)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PHYSICAL_ADDRESS)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Logical address")
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"))
                                                      .setHelpText (HELPTEXT_LOGICAL_ADDRESS)

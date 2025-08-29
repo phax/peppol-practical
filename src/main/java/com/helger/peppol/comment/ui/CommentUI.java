@@ -141,7 +141,7 @@ public final class CommentUI
               // Get author name and determine if it is a registered user
               boolean bRegisteredUser = false;
               String sAuthor = null;
-              if (StringHelper.hasText (aComment.getUserID ()))
+              if (StringHelper.isNotEmpty (aComment.getUserID ()))
               {
                 final IUser aUser = aUserMgr.getUserOfID (aComment.getUserID ());
                 if (aUser != null)
@@ -179,7 +179,7 @@ public final class CommentUI
               aHeader.addChild (aAuthor);
 
               // Title
-              if (StringHelper.hasText (aComment.getTitle ()))
+              if (StringHelper.isNotEmpty (aComment.getTitle ()))
               {
                 aHeader.addChild (ECommentText.MSG_SEPARATOR_AUTHOR_TITLE.getDisplayText (aDisplayLocale));
                 aHeader.addChild (new HCSpan ().addChild (aComment.getTitle ())
