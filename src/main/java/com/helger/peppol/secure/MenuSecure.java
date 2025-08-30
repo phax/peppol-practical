@@ -16,9 +16,7 @@
  */
 package com.helger.peppol.secure;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.sharedui.page.secure.PageSecurePeppolSendAS4;
 import com.helger.peppol.sharedui.page.secure.PageSecureSMLConfiguration;
@@ -29,6 +27,8 @@ import com.helger.photon.core.menu.IMenuTree;
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserAssignedToUserGroup;
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserHasRole;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
+
+import jakarta.annotation.Nonnull;
 
 @Immutable
 public final class MenuSecure

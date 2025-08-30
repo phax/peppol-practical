@@ -16,11 +16,11 @@
  */
 package com.helger.peppol.crm;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.name.IHasDisplayName;
+import com.helger.annotation.Nonempty;
+import com.helger.base.name.IHasDisplayName;
 import com.helger.tenancy.IBusinessObject;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The read-only interface for a single CRM group.

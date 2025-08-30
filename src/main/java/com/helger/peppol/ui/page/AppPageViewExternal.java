@@ -16,15 +16,12 @@
  */
 package com.helger.peppol.ui.page;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.type.TypedObject;
+import com.helger.annotation.Nonempty;
+import com.helger.base.type.TypedObject;
 import com.helger.html.EHTMLVersion;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.io.resource.IReadableResource;
 import com.helger.peppol.app.AppConfig;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.comment.ui.CommentAction;
@@ -38,6 +35,9 @@ import com.helger.photon.uicore.page.external.PageViewExternalHTMLCleanser;
 import com.helger.xml.microdom.IMicroContainer;
 import com.helger.xml.microdom.util.MicroVisitor;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionContext>
 {
   private static void _cleanCode (@Nonnull final IMicroContainer aCont)
@@ -47,7 +47,9 @@ public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionC
     MicroVisitor.visit (aCont, aCleanser);
   }
 
-  public AppPageViewExternal (@Nonnull @Nonempty final String sID, @Nonnull final String sName, @Nonnull final IReadableResource aResource)
+  public AppPageViewExternal (@Nonnull @Nonempty final String sID,
+                              @Nonnull final String sName,
+                              @Nonnull final IReadableResource aResource)
   {
     // Special content cleaner
     super (sID, sName, aResource, AppPageViewExternal::_cleanCode);

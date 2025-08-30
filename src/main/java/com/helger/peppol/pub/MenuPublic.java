@@ -16,12 +16,8 @@
  */
 package com.helger.peppol.pub;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.text.display.ConstantHasDisplayText;
-import com.helger.commons.url.SimpleURL;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
 import com.helger.peppol.sharedui.page.pub.PagePublicContact;
@@ -37,6 +33,10 @@ import com.helger.photon.core.menu.IMenuTree;
 import com.helger.photon.core.menu.filter.MenuObjectFilterNoUserLoggedIn;
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserLoggedIn;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
+import com.helger.text.display.ConstantHasDisplayText;
+import com.helger.url.SimpleURL;
+
+import jakarta.annotation.Nonnull;
 
 @Immutable
 public final class MenuPublic

@@ -18,21 +18,19 @@ package com.helger.peppol.secure;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.annotation.Nonempty;
 import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.grouping.HCUL;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
+import com.helger.io.file.FilenameHelper;
+import com.helger.io.resource.IReadableResource;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.peppol.sharedui.validate.ui.HCVESSelect;
@@ -71,6 +69,8 @@ import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.annotation.Nonnull;
 
 public final class PageSecureSchematronTools extends AbstractAppWebPage
 {

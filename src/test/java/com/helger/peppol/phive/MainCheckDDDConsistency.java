@@ -19,15 +19,13 @@ package com.helger.peppol.phive;
 import java.util.Comparator;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.mutable.MutableInt;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.numeric.mutable.MutableInt;
+import com.helger.base.string.StringImplode;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.ddd.model.DDDValueProviderList;
 import com.helger.ddd.model.DDDValueProviderPerSyntax;
 import com.helger.ddd.model.DDDValueProviderPerSyntax.ISelectorCallback;
@@ -35,6 +33,8 @@ import com.helger.ddd.model.EDDDDeterminedField;
 import com.helger.ddd.model.VPSourceValue;
 import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.peppol.sharedui.validate.VESRegistry;
+
+import jakarta.annotation.Nonnull;
 
 public class MainCheckDDDConsistency
 {
@@ -62,15 +62,15 @@ public class MainCheckDDDConsistency
                                            @Nonnull final EDDDDeterminedField eDeterminedField,
                                            @Nonnull final String sDeterminedValue)
         {
-          final String sSrcString = StringHelper.imploder ()
-                                                .source (aSourceValues,
-                                                         x -> '[' +
-                                                              x.getSourceField ().name () +
-                                                              '=' +
-                                                              x.getSourceValue () +
-                                                              ']')
-                                                .separator ("; ")
-                                                .build ();
+          final String sSrcString = StringImplode.imploder ()
+                                                 .source (aSourceValues,
+                                                          x -> '[' +
+                                                               x.getSourceField ().name () +
+                                                               '=' +
+                                                               x.getSourceValue () +
+                                                               ']')
+                                                 .separator ("; ")
+                                                 .build ();
           // We only care about the VESID
           if (eDeterminedField == EDDDDeterminedField.VESID)
           {

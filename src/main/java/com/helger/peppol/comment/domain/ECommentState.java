@@ -18,13 +18,13 @@ package com.helger.peppol.comment.domain;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
+import com.helger.text.display.IHasDisplayText;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.text.display.IHasDisplayText;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents the different comment states.
@@ -47,7 +47,7 @@ public enum ECommentState implements IHasID <String>, IHasDisplayText
   private final String m_sID;
   private final ECommentStateText m_aDisplayText;
 
-  private ECommentState (@Nonnull @Nonempty final String sID, @Nonnull final ECommentStateText aDisplayText)
+  ECommentState (@Nonnull @Nonempty final String sID, @Nonnull final ECommentStateText aDisplayText)
   {
     m_sID = sID;
     m_aDisplayText = aDisplayText;

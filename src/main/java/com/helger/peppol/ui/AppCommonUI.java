@@ -19,15 +19,11 @@ package com.helger.peppol.ui;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.http.EHttpMethod;
-import com.helger.commons.id.factory.GlobalIDFactory;
-import com.helger.commons.type.ITypedObject;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.id.factory.GlobalIDFactory;
+import com.helger.base.type.ITypedObject;
 import com.helger.css.property.CCSSProperties;
+import com.helger.datetime.format.PDTToString;
 import com.helger.html.css.DefaultCSSClassProvider;
 import com.helger.html.css.ICSSClassProvider;
 import com.helger.html.hc.IHCNode;
@@ -44,6 +40,7 @@ import com.helger.html.jscode.JSAssocArray;
 import com.helger.html.jscode.JSPackage;
 import com.helger.html.jscode.JSParam;
 import com.helger.html.jscode.html.JSHtml;
+import com.helger.http.EHttpMethod;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.AjaxExecutorPublicLogin;
 import com.helger.peppol.app.ajax.CAjax;
@@ -70,6 +67,9 @@ import com.helger.photon.security.util.SecurityHelper;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 @Immutable
 public final class AppCommonUI

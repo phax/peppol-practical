@@ -19,13 +19,11 @@ package com.helger.peppol.servlet;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import com.helger.commons.debug.GlobalDebug;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.dns.config.DNSConfig;
 import com.helger.httpclient.HttpDebugger;
@@ -54,6 +52,7 @@ import com.helger.photon.core.menu.MenuTree;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.xservlet.requesttrack.RequestTrackerSettings;
 
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletContext;
 
 /**

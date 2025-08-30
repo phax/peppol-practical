@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.crm;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class CRMGroupMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <CRMGroup>
 {

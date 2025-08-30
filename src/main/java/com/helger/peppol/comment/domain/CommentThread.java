@@ -16,26 +16,26 @@
  */
 package com.helger.peppol.comment.domain;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.state.EChange;
-import com.helger.commons.type.ObjectType;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.type.ObjectType;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single thread of comments.
@@ -166,22 +166,27 @@ public final class CommentThread implements ICommentThread
 
   public void iterateAllComments (@Nonnull final ICommentIterationCallback aCallback)
   {
-    TreeVisitor.visitTreeItem (m_aTree.getRootItem (), new DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, IComment>> ()
-    {
-      @Override
-      public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
-      {
-        aCallback.onCommentStart (getLevel (), aItem.getParent ().getData (), aItem.getData ());
-        return EHierarchyVisitorReturn.CONTINUE;
-      }
+    TreeVisitor.visitTreeItem (m_aTree.getRootItem (),
+                               new DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, IComment>> ()
+                               {
+                                 @Override
+                                 public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+                                 {
+                                   aCallback.onCommentStart (getLevel (),
+                                                             aItem.getParent ().getData (),
+                                                             aItem.getData ());
+                                   return EHierarchyVisitorReturn.CONTINUE;
+                                 }
 
-      @Override
-      public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
-      {
-        aCallback.onCommentEnd (getLevel (), aItem.getParent ().getData (), aItem.getData ());
-        return EHierarchyVisitorReturn.CONTINUE;
-      }
-    });
+                                 @Override
+                                 public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+                                 {
+                                   aCallback.onCommentEnd (getLevel (),
+                                                           aItem.getParent ().getData (),
+                                                           aItem.getData ());
+                                   return EHierarchyVisitorReturn.CONTINUE;
+                                 }
+                               });
   }
 
   @Override

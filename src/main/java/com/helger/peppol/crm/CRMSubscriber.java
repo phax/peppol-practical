@@ -19,23 +19,23 @@ package com.helger.peppol.crm;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.type.ObjectType;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.type.ObjectType;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscriber
 {

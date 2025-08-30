@@ -16,7 +16,7 @@
  */
 package com.helger.peppol.secure;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Menu items for the secure application

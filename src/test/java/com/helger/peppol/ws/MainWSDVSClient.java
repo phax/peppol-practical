@@ -21,10 +21,10 @@ import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.url.URLHelper;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.url.URLHelper;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.FileSystemResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;

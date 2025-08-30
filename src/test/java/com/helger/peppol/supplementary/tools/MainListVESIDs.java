@@ -20,8 +20,8 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.io.file.SimpleFileIO;
 import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.peppol.sharedui.validate.ui.HCVESSelect;
 import com.helger.phive.api.executorset.IValidationExecutorSet;

@@ -16,14 +16,14 @@
  */
 package com.helger.peppol.pub;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class PagePublicLogin extends AbstractAppWebPage
 {

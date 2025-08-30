@@ -18,20 +18,19 @@ package com.helger.peppol.crm;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.text.display.IHasDisplayText;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.tenancy.IBusinessObject;
+import com.helger.text.display.IHasDisplayText;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * The read-only interface for a single CRM subscriber, that is subscribed to
- * multiple CRM groups.
+ * The read-only interface for a single CRM subscriber, that is subscribed to multiple CRM groups.
  *
  * @author Philip Helger
  */

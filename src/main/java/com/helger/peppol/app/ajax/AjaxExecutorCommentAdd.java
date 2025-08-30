@@ -18,16 +18,14 @@ package com.helger.peppol.app.ajax;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.type.ITypedObject;
-import com.helger.commons.type.ObjectType;
-import com.helger.commons.type.TypedObject;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.StringHelper;
+import com.helger.base.type.ITypedObject;
+import com.helger.base.type.ObjectType;
+import com.helger.base.type.TypedObject;
 import com.helger.html.hc.IHCNode;
 import com.helger.peppol.comment.domain.Comment;
 import com.helger.peppol.comment.domain.CommentThreadManager;
@@ -47,6 +45,8 @@ import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * AJAX handler for creating a new comment thread.
@@ -92,7 +92,8 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor, IHCBootstrap
       // Create a dummy object
       final ITypedObject <String> aOwner = TypedObject.create (new ObjectType (sObjectType), sObjectID);
 
-      final ICommentThread aCommentThread = CommentThreadManager.getInstance ().getCommentThreadOfID (aOwner, sCommentThreadID);
+      final ICommentThread aCommentThread = CommentThreadManager.getInstance ()
+                                                                .getCommentThreadOfID (aOwner, sCommentThreadID);
       if (aCommentThread != null)
       {
         final IComment aParentComment = aCommentThread.getCommentOfID (sCommentID);
@@ -102,12 +103,14 @@ public final class AjaxExecutorCommentAdd implements IAjaxExecutor, IHCBootstrap
           if (StringHelper.isEmpty (sAuthor))
           {
             // No author provided
-            aFormErrors.addFieldError (PARAM_AUTHOR, ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
+            aFormErrors.addFieldError (PARAM_AUTHOR,
+                                       ECommentText.MSG_ERR_COMMENT_NO_AUTHOR.getDisplayText (aDisplayLocale));
           }
           if (StringHelper.isEmpty (sText))
           {
             // No text provided
-            aFormErrors.addFieldError (PARAM_TEXT, ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
+            aFormErrors.addFieldError (PARAM_TEXT,
+                                       ECommentText.MSG_ERR_COMMENT_NO_TEXT.getDisplayText (aDisplayLocale));
           }
 
           IHCNode aMessageBox = null;

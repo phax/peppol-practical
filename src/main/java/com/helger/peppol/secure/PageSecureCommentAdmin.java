@@ -22,24 +22,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.Translatable;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.text.display.IHasDisplayText;
-import com.helger.commons.text.resolve.DefaultTextResolver;
-import com.helger.commons.text.util.TextHelper;
-import com.helger.commons.type.ObjectType;
-import com.helger.commons.type.TypedObject;
-import com.helger.commons.url.ISimpleURL;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.misc.Translatable;
+import com.helger.base.compare.ESortOrder;
+import com.helger.base.string.StringHelper;
+import com.helger.base.type.ObjectType;
+import com.helger.base.type.TypedObject;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.helper.CollectionSort;
+import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.html.tabular.HCRow;
 import com.helger.html.hc.html.tabular.HCTable;
 import com.helger.html.hc.html.textlevel.HCA;
@@ -65,6 +57,14 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.photon.uictrls.datatables.column.EDTColType;
+import com.helger.text.IMultilingualText;
+import com.helger.text.display.IHasDisplayText;
+import com.helger.text.resolve.DefaultTextResolver;
+import com.helger.text.util.TextHelper;
+import com.helger.url.ISimpleURL;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class PageSecureCommentAdmin extends AbstractAppWebPage
 {
@@ -79,7 +79,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
 
     private final IMultilingualText m_aTP;
 
-    private EText (final String sDE, final String sEN)
+    EText (final String sDE, final String sEN)
     {
       m_aTP = TextHelper.create_DE_EN (sDE, sEN);
     }
@@ -112,12 +112,18 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
         StringHelper.isNotEmpty (sSelectedObjectType) &&
         StringHelper.isNotEmpty (sSelectedOwningObjectID))
     {
-      final TypedObject <String> aTO = TypedObject.create (new ObjectType (sSelectedObjectType), sSelectedOwningObjectID);
+      final TypedObject <String> aTO = TypedObject.create (new ObjectType (sSelectedObjectType),
+                                                           sSelectedOwningObjectID);
       final List <ICommentThread> aCommentThreads = aCommentThreadMgr.getAllCommentThreadsOfObject (aTO);
       if (!aCommentThreads.isEmpty ())
       {
         // Don't allow comment creation
-        aNodeList.addChild (CommentUI.getCommentList (aWPEC, aTO, CommentAction.createGeneric (ECommentAction.NONE), null, null, false));
+        aNodeList.addChild (CommentUI.getCommentList (aWPEC,
+                                                      aTO,
+                                                      CommentAction.createGeneric (ECommentAction.NONE),
+                                                      null,
+                                                      null,
+                                                      false));
         // Toolbar
         final IButtonToolbar <?> aToolbar = new BootstrapButtonToolbar (aWPEC);
         aToolbar.addButton (EPhotonCoreText.BACK_TO_OVERVIEW.getDisplayText (aDisplayLocale),
@@ -133,11 +139,13 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
     {
       // Refresh button
       final IButtonToolbar <?> aToolbar = new BootstrapButtonToolbar (aWPEC);
-      aToolbar.addButton (EPhotonCoreText.BUTTON_REFRESH.getDisplayText (aDisplayLocale), aWPEC.getSelfHref (), EDefaultIcon.REFRESH);
+      aToolbar.addButton (EPhotonCoreText.BUTTON_REFRESH.getDisplayText (aDisplayLocale),
+                          aWPEC.getSelfHref (),
+                          EDefaultIcon.REFRESH);
       aNodeList.addChild (aToolbar);
 
       final ITabBox <?> aTabBox = new BootstrapTabBox ();
-      for (final ObjectType aOT : CollectionHelper.getSorted (aCommentThreadMgr.getAllRegisteredObjectTypes ()))
+      for (final ObjectType aOT : CollectionSort.getSorted (aCommentThreadMgr.getAllRegisteredObjectTypes ()))
       {
         final HCNodeList aTab = new HCNodeList ();
 
@@ -157,10 +165,12 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
                                                                                                                 .setInitialSorting (ESortOrder.DESCENDING)).setID (getID () +
                                                                                                                                                                    aOT.getName ());
         final CommentThreadObjectTypeManager aCTOTMgr = aCommentThreadMgr.getManagerOfObjectType (aOT);
-        for (final Map.Entry <String, ICommonsList <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ().entrySet ())
+        for (final Map.Entry <String, ICommonsList <ICommentThread>> aEntry : aCTOTMgr.getAllCommentThreads ()
+                                                                                      .entrySet ())
         {
           final String sOwningObjectID = aEntry.getKey ();
-          final ISimpleURL aViewURL = AbstractWebPageForm.createViewURL (aWPEC, sOwningObjectID).add (PARAM_TYPE, aOT.getName ());
+          final ISimpleURL aViewURL = AbstractWebPageForm.createViewURL (aWPEC, sOwningObjectID)
+                                                         .add (PARAM_TYPE, aOT.getName ());
 
           final HCRow aRow = aTable.addBodyRow ();
           aRow.addCell (new HCA (aViewURL).addChild (sOwningObjectID));

@@ -18,15 +18,13 @@ package com.helger.peppol.pub;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.email.EmailAddressHelper;
-import com.helger.commons.name.IHasDisplayName;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.email.EmailAddressHelper;
+import com.helger.base.name.IHasDisplayName;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.html.hc.html.forms.HCCheckBox;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCHiddenField;
@@ -49,6 +47,9 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.select.HCSalutationSelect;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+import com.helger.text.compare.ComparatorHelper;
+
+import jakarta.annotation.Nonnull;
 
 public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
 {
@@ -165,7 +166,8 @@ public final class PagePublicNewsletterSubscribe extends AbstractAppWebPage
         {
           // Show selection
           final HCNodeList aGroups = new HCNodeList ();
-          for (final ICRMGroup aCRMGroup : aAllCRMGroups.getSorted (IHasDisplayName.getComparatorCollating (aDisplayLocale)))
+          for (final ICRMGroup aCRMGroup : aAllCRMGroups.getSorted (ComparatorHelper.getComparatorCollating (IHasDisplayName::getDisplayName,
+                                                                                                             aDisplayLocale)))
           {
             final String sCRMGroupID = aCRMGroup.getID ();
             final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,

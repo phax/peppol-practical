@@ -18,14 +18,10 @@ package com.helger.peppol.secure;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.email.EmailAddressHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.ISimpleURL;
+import com.helger.annotation.Nonempty;
+import com.helger.base.compare.ESortOrder;
+import com.helger.base.email.EmailAddressHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.tabular.HCRow;
 import com.helger.html.hc.html.tabular.HCTable;
@@ -49,6 +45,10 @@ import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
+import com.helger.url.ISimpleURL;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
 {
@@ -76,7 +76,8 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
 
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getDisplayName ()));
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Sender email address").setCtrl (aSelectedObject.getSenderEmailAddress ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Sender email address")
+                                                 .setCtrl (aSelectedObject.getSenderEmailAddress ()));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Assigned participants")
                                                  .setCtrl (Long.toString (aCRMSubscriberMgr.getCRMSubscriberCountOfGroup (aSelectedObject))));
   }
@@ -128,7 +129,8 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
                                 @Nonnull final EWebPageFormAction eFormAction,
                                 @Nonnull final FormErrorList aFormErrors)
   {
-    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM group" : "Create new CRM group"));
+    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM group"
+                                                                              : "Create new CRM group"));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Name")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_NAME,
                                                                                          aSelectedObject == null ? null
