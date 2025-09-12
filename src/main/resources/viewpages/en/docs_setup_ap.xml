@@ -28,29 +28,13 @@
 </p>
 
 <p>
-  There are a few known Open Source possibilities (I'm aware of) on how to build/run a Peppol AccessPoint (in alphabetical order).
-  <ul>
-    <li>
-      <a href="http://holodeck-b2b.org/">Holodeck B2B</a> is also a prebuild solution. 
-      It is an Open Source project written in Java.
-      It supports AS4 and comes with commercial support.
-      Supports for Peppol dynamic discovery is not Open Source.
-    </li>
-    <li>
-      <a href="https://github.com/OxalisCommunity/oxalis">Oxalis</a> is a prebuild solution.
-      It is an Open Source project written in Java.
-      It supports primarily Peppol specific AS4.
-      Especially the interoperability of the AS4 implementation is not good as they passed the 
-      <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eDelivery+AS4+conformant+solutions">EC conformance test</a> only partially.  
-    </li>
-    <li>
-      The solution described in this document is <a href="https://github.com/phax/phase4">phase4</a> 
-      as the AS4 communication channel for sending and receiving Peppol AS4 messages.<br/>
-      phase4 is a shared library for AS4 message exchange and can hence be used in versatile scenarios. 
-      phase4 is already used by a huge amount of users around the globe - a few of them are listed at 
-      <a href="https://github.com/phax/phase4/wiki/Known-Users">https://github.com/phax/phase4/wiki/Known-Users</a>. 
-    </li>
-  </ul>
+  There are a few known Open Source possibilities (I'm aware of) on how to build/run a Peppol AccessPoint (in alphabetical order)
+  and they are listed <a href="/public/menuitem-docs-software-vendors">on this page</a>.<br />
+  The solution described in this document is <a href="https://github.com/phax/phase4">phase4</a> 
+    as the AS4 communication channel for sending and receiving Peppol AS4 messages.<br/>
+  phase4 is a shared library for AS4 message exchange and can hence be used in versatile scenarios. 
+  phase4 is already used by a huge amount of users around the globe - a few of them are listed at 
+  <a href="https://github.com/phax/phase4/wiki/Known-Users">https://github.com/phax/phase4/wiki/Known-Users</a>. 
 </p>
 
 <div class="card card-default">

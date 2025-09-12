@@ -57,53 +57,113 @@
       First thing that happens, is that the dynamic URL is assembled.
       The algorithm that is used is the following:
     </p>
-    <p>
-      <code>"http://B-" + hexstring(md5(lowercase(ID-VALUE))) + "." + ID-SCHEME + "." + SML-ZONE-NAME</code>
-    </p>
-    <p>
-      <code>ID-SCHEME</code> and <code>ID-VALUE</code> are taken from the PPID
-      and the <code>SML-ZONE-NAME</code> is taken from the SML used.
-      That implies that a different identifier (as good as MD5 can do it) will create a different DNS name.
-    </p>
-    <p>
-      For the identifier <code>iso6523-actorid-upis::9915:test</code> and the <code>SMK</code> the created URL is
-      <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code>
-    </p>
-    <p>
-      Note: Due to this way of URL creation, the usage of <code>https</code> is <strong>not</strong> possible, because each SMP would need a TLS certificate for <code>*.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code> which renders the trust part useless. 
-    </p>
+    <ul>
+      <li>For the old style CNAME lookup (until October 31<sup>st</sup>, 2025):
+        <p>
+          <code>"http://B-" + hexstring(md5(lowercase(ID-VALUE))) + "." + ID-SCHEME + "." + SML-ZONE-NAME</code>
+        </p>
+        <p>
+          <code>ID-SCHEME</code> and <code>ID-VALUE</code> are taken from the PPID
+            and the <code>SML-ZONE-NAME</code> is taken from the SML used.
+          That implies that each different identifier (as good as MD5 can do it) will create a different DNS name.
+        </p>
+        <p>
+          For the identifier <code>iso6523-actorid-upis::9915:test</code> and the <code>SMK</code> the created URL is
+          <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code>
+        </p>
+        <p>
+          Note: Due to this way of URL creation, the usage of <code>https</code> is <strong>not</strong> possible, because each SMP would need a TLS certificate for <code>*.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code> which renders the trust part useless. 
+        </p>
+        <p>
+          This URL is resolved via the Domain Name System (DNS) as CNAME or A records to the 
+            IP address <code>85.158.225.152</code> which is the IP of the server <code>http://test-infra.peppol.at</code>.
+          This is exactly the server name that was used when registering the SMP to the SMK.
+          However, the value of <code>Host</code> HTTP header is always set to <code>B-8500...tech.ec.europa.eu</code>.
+          See below for a link on what happens on SMP to SML registration.
+        </p>
+      </li>
+      <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):
+        <p>
+          Now it is two-step process.<br/>
+          First step is to build the domain name via
+          <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=") + "." + ID-SCHEME + "." + SML-ZONE-NAME</code>
+        </p>
+        <p>
+          <code>ID-SCHEME</code> and <code>ID-VALUE</code> are taken from the PPID
+            and the <code>SML-ZONE-NAME</code> is taken from the SML used.
+          That implies that each different identifier will create a different DNS name.
+        </p>
+        <p>
+          For the identifier <code>iso6523-actorid-upis::9915:test</code> and the <code>SMK</code> the created domain is
+          <code>eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code>
+        </p>
+        <p>
+          Second lookup step is to perform a DNS lookup with the created domain using the NAPTR record type.<br />
+          On Linux based systems this can be e.g. done on the commandline via the <kbd>dig -t naptr</kbd>.
+          For the example identifier above, the full command is
+        </p>
+        <p>  
+          <code>dig -t naptr +short eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code>
+        </p>
+        <p>  
+          and the output for this command is
+        </p>
+        <p>  
+          <code>100 10 "U" "Meta:SMP" "!.*!http://test-infra.peppol.at!" .</code>
+        </p>
+        <p>
+          Pick the record that uses the type <code>U</code> and the service <code>Meta:SMP</code> and apply the 
+            regular expression <code>!.*!http://test-infra.peppol.at!</code> which is de facto a complete replacement
+            of the source domain so that the outcome is <code>http://test-infra.peppol.at</code>.
+        </p>
+        <p>
+          Note: From November 1<sup>st</sup>, 2025 the result in production may use <code>https</code> scheme and may contain
+            an optional path after the domain.<br/>
+          From February 1<sup>st</sup>, 2026 the result in production must use <code>https</code> scheme and may contain
+            an optional path after the domain.
+        </p>
+      </li>
+    </ul>
   </li>
   <li>
     <p>
-      This URL is resolved via the Domain Name System (DNS) to the IP address <code>85.158.225.152</code> which is the IP of the server <code>http://test-infra.peppol.at</code>.
-      This is exactly the server name that was used when registering the SMP to the SMK.
-      See below for a link on what happens on SMP to SML registration.
+      Now that we have the base URL is already the URL to the SMP and all that is left to do, is to append
+        the participant identifier to the URL to get all supported document types.
+      <ul>
+        <li>For the old style CNAME lookup (until October 31<sup>st</sup>, 2025):
+          <p>
+            For the example the URL would be 
+              <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis::9915:test</code>.
+          </p>
+          <p>
+            To see that this is just a DNS forward you can compare the results of
+            <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis::9915:test</code>
+            and
+            <code>http://test-infra.peppol.at/iso6523-actorid-upis::9915:test</code>
+            and see that there is no difference in the responses.
+          </p>
+        </li>
+        <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):<br/>
+          <p>
+            For the example the URL would be 
+              <code>http://test-infra.peppol.at/iso6523-actorid-upis::9915:test</code>.
+          </p>
+        </li>
+      </ul>
     </p>
-  </li>
-  <li>
     <p>
-      So the <code>B-8500....</code> URL is already the URL to the SMP and all that is left to do, is to append
-      the participant identifier to the URL to get all supported document types.
-      For the example the URL would be 
-      <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis::9915:test</code>.
       The reason why the participant identifier needs to be appended again is solely than an SMP can host multiple
-      participants on the same server.
-    </p>
-    <p>
-      To see that this is just a DNS forward you can compare the results of
-      <code>http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis::9915:test</code>
-      and
-      <code>http://test-infra.peppol.at/iso6523-actorid-upis::9915:test</code>
-      and see that there is no difference in the responses.
+        participants on the same server.
     </p>
   </li>
   <li>
     <p>
       Now that the SMP URL is known, the SMP query with the document type 
-      (following the schema <code>http://<i>smp.url</i>/<i>participantID</i>/services/<i>documentTypeID</i></code>)
-      can be performed).
-      The resulting signed document must be parsed so that the endpoint matching the desired process ID and transport protocol can be retrieved.
-      This is finally the URL to which the business document is to be send. 
+        (following the schema <code>http://<i>smp.url</i>/<i>participantID</i>/services/<i>documentTypeID</i></code>)
+        can be performed.
+      The resulting, digitally signed document must be parsed so that the endpoint matching the 
+        desired process ID and transport protocol can be retrieved.
+      This is finally the AP URL to which the business document is to be send. 
     </p>
     <p>
       All the above mentioned steps are usually handled by the SMP client software, like my
@@ -114,19 +174,20 @@
   <li>
     <p>
       The last step is the transmission of the business document to the endpoint URL determined in the previous step.
-      Additionally, components like special validation services etc. may be used depending on the effective setup but I wont cover them in this article.
+      Additionally, components like special validation services etc. may be used depending on the effective setup but 
+        they are not covered in this article.
     </p>
     <p>  
-      This is the task of the AccessPoint client (or Sending AP).
+      This is the task of the AccessPoint client (or sending AP).
     </p>
   </li>
 </ol>
 
 <p>
-  And how was the SML involved in all of this? Not at all!
-  Only the Domain Name System is queried upon a document exchange.
-  And if the DNS fails, there are more severe issues than not being able to send documents via Peppol.
-  And that is one of the intelligent parts of the Peppol network:
+  And how was the SML involved in all of this? Not at all!<br />
+  Only the Domain Name System (DNS) is queried upon a document exchange.<br/>
+  And if the DNS ever fails, there are usually more severe issues than not being able to send documents via Peppol.
+  And that is one of the smartest elements of the Peppol Network:
   No central single point of failure that can stop the document exchange for everybody. 
 </p>
 
