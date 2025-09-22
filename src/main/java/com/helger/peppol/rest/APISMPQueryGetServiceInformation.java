@@ -41,6 +41,7 @@ import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -96,7 +97,11 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
     {
       for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
       {
-        aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, aPID.getScheme (), aPID.getValue (), false);
+        aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML,
+                                                             aPID.getScheme (),
+                                                             aPID.getValue (),
+                                                             PagePublicToolsParticipantInformation.DEFAULT_CNAME_LOOKUP,
+                                                             false);
         if (aSMPQueryParams != null && aSMPQueryParams.isSMPRegisteredInDNS ())
         {
           // Found it
@@ -114,7 +119,11 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
     }
     else
     {
-      aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSML, aPID.getScheme (), aPID.getValue (), true);
+      aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSML,
+                                                           aPID.getScheme (),
+                                                           aPID.getValue (),
+                                                           PagePublicToolsParticipantInformation.DEFAULT_CNAME_LOOKUP,
+                                                           true);
     }
     if (aSMPQueryParams == null)
       throw new APIParamException ("Failed to resolve participant ID '" +
