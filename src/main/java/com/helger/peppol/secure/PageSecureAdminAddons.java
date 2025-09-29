@@ -16,14 +16,11 @@
  */
 package com.helger.peppol.secure;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.mutable.MutableInt;
+import com.helger.annotation.Nonempty;
+import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.photon.audit.AuditHelper;
@@ -36,6 +33,9 @@ import com.helger.photon.core.menu.IMenuTree;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.external.IWebPageResourceContent;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPageExecutionContext>
 {
@@ -82,7 +82,9 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
                                                      " pages no action was necessary because they are set to reload every time."
                                                    : "");
       LOGGER.info (sMsg);
-      AuditHelper.onAuditExecuteSuccess ("page-reload", aCounterUpdated.getAsInteger (), aCounterNoNeed.getAsInteger ());
+      AuditHelper.onAuditExecuteSuccess ("page-reload",
+                                         aCounterUpdated.getAsInteger (),
+                                         aCounterNoNeed.getAsInteger ());
       return success (sMsg);
     }
 
@@ -99,7 +101,8 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
 
     aNodeList.addChild (h2 ("Cache handling"));
     aNodeList.addChild (div (new BootstrapButton ().setOnClick (aWPEC.getSelfHref ()
-                                                                     .add (CPageParam.PARAM_ACTION, ACTION_EXPIRE_PAGE_CACHE))
+                                                                     .add (CPageParam.PARAM_ACTION,
+                                                                           ACTION_EXPIRE_PAGE_CACHE))
                                                    .addChild ("Expire static page cache")));
   }
 }

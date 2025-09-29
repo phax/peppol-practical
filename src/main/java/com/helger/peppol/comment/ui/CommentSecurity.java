@@ -16,8 +16,7 @@
  */
 package com.helger.peppol.comment.ui;
 
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.util.SecurityHelper;

@@ -23,9 +23,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.photon.app.mock.PhotonAppWebTestRule;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
 /**
@@ -46,7 +46,7 @@ public final class CRMGroupTest
     assertEquals ("Name", aGroup.getDisplayName ());
     assertEquals ("bla@foo.com", aGroup.getSenderEmailAddress ());
     // Only ID is relevant!
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aGroup, new CRMGroup ("Name", "bla@foo.com"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aGroup, new CRMGroup ("Name", "bla@foo.com"));
     XMLTestHelper.testMicroTypeConversion (aGroup);
   }
 }

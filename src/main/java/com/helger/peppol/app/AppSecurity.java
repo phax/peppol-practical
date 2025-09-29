@@ -16,8 +16,7 @@
  */
 package com.helger.peppol.app;
 
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.photon.security.mgr.PhotonSecurityManager;
 import com.helger.photon.security.role.IRoleManager;

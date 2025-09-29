@@ -18,15 +18,10 @@ package com.helger.peppol.pub;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.ISimpleURL;
-import com.helger.commons.url.SimpleURL;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.compare.ESortOrder;
+import com.helger.base.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.tabular.HCRow;
 import com.helger.html.hc.html.tabular.HCTable;
@@ -68,6 +63,11 @@ import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
+import com.helger.url.ISimpleURL;
+import com.helger.url.SimpleURL;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEndpoint>
 {

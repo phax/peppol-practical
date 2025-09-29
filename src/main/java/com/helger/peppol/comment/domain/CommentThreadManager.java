@@ -16,33 +16,32 @@
  */
 package com.helger.peppol.comment.domain;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsImmutableObject;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
-import com.helger.commons.statistics.StatisticsManager;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.type.ITypedObject;
-import com.helger.commons.type.ObjectType;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsImmutableObject;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.UsedViaReflection;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.StringHelper;
+import com.helger.base.type.ITypedObject;
+import com.helger.base.type.ObjectType;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.dao.DAOException;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
+import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
+import com.helger.statistics.impl.StatisticsManager;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Main manager class for comments. Manages the
- * {@link CommentThreadObjectTypeManager} per {@link ObjectType} so that
- * different object types can be commented on.
+ * Main manager class for comments. Manages the {@link CommentThreadObjectTypeManager} per
+ * {@link ObjectType} so that different object types can be commented on.
  *
  * @author Philip Helger
  */
@@ -71,8 +70,8 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   }
 
   /**
-   * Register an object type, for which comment threads may be created. This
-   * must be done once at startup!
+   * Register an object type, for which comment threads may be created. This must be done once at
+   * startup!
    *
    * @param aObjectType
    *        The object type to be registered. May not be <code>null</code>.
@@ -190,7 +189,8 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   }
 
   @Nullable
-  public ICommentThread getCommentThreadOfID (@Nonnull final ITypedObject <?> aObject, @Nullable final String sCommentThreadID)
+  public ICommentThread getCommentThreadOfID (@Nonnull final ITypedObject <?> aObject,
+                                              @Nullable final String sCommentThreadID)
   {
     ValueEnforcer.notNull (aObject, "Object");
 
@@ -198,7 +198,8 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   }
 
   @Nullable
-  public ICommentThread getCommentThreadOfID (@Nonnull final ObjectType aObjectType, @Nullable final String sCommentThreadID)
+  public ICommentThread getCommentThreadOfID (@Nonnull final ObjectType aObjectType,
+                                              @Nullable final String sCommentThreadID)
   {
     ValueEnforcer.notNull (aObjectType, "ObjectType");
 

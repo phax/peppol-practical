@@ -19,18 +19,18 @@ package com.helger.peppol.rest;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.mime.CMimeType;
+import com.helger.annotation.Nonempty;
+import com.helger.base.CGlobal;
 import com.helger.json.IJsonArray;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
+import com.helger.mime.CMimeType;
 import com.helger.peppol.sharedui.validate.VESRegistry;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+import jakarta.annotation.Nonnull;
 
 public final class APIGetAllVESIDs extends AbstractPPAPIExecutor
 {

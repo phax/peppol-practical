@@ -27,8 +27,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -37,21 +35,20 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.PDTFromString;
-import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.SimpleURL;
-import com.helger.commons.url.URLHelper;
-import com.helger.commons.ws.TrustManagerTrustAll;
+import com.helger.annotation.Nonempty;
+import com.helger.base.string.StringHelper;
+import com.helger.base.url.URLHelper;
+import com.helger.cache.regex.RegExHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.datetime.format.PDTFromString;
+import com.helger.datetime.format.PDTToString;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.http.security.TrustManagerTrustAll;
 import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
@@ -80,8 +77,12 @@ import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.IKeyStoreType;
+import com.helger.url.SimpleURL;
 import com.helger.web.fileupload.IFileItem;
 import com.sun.xml.ws.client.ClientTransportException;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class PagePublicToolsSMPSML extends AbstractAppWebPage
 {
@@ -139,7 +140,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
           // Get all aliases
-          final ICommonsList <String> aAllAliases = CollectionHelper.newList (aKeyStore.aliases ());
+          final ICommonsList <String> aAllAliases = new CommonsArrayList <> (aKeyStore.aliases ());
           LOGGER.info ("Successfully loaded key store of type " +
                        aKeyStoreType.getID () +
                        " containing " +

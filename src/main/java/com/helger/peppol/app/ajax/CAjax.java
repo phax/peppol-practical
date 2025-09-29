@@ -16,8 +16,7 @@
  */
 package com.helger.peppol.app.ajax;
 
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppol.sharedui.api.CSharedUIAjax;
 import com.helger.photon.ajax.decl.AjaxFunctionDeclaration;
 import com.helger.photon.ajax.decl.IAjaxFunctionDeclaration;

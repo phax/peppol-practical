@@ -16,11 +16,9 @@
  */
 package com.helger.peppol.pub;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.email.EmailAddressHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.email.EmailAddressHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.app.mgr.PPMetaManager;
@@ -35,6 +33,8 @@ import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+
+import jakarta.annotation.Nonnull;
 
 public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
 {

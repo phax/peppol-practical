@@ -42,6 +42,35 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2025-09-16 - Document Validation extended</h3>
+    
+    <p>
+      Added support for France CTC 0.1 rule set.<br/>
+      Added support for additional SETU document types.
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>fr.ctc:cii:0.1</code> - France CTC CII 0.1</li>
+<li><code>fr.ctc:ubl-creditnote:0.1</code> - France CTC UBL Credit Note 0.1</li>
+<li><code>fr.ctc:ubl-invoice:0.1</code> - France CTC UBL Invoice 0.1</li>
+<li><code>nl.setu:assignment:1.4</code> - SETU Assignment 1.4</li>
+<li><code>nl.setu:human-resource:1.4</code> - SETU Human Resource 1.4</li>
+<li><code>nl.setu:staffing-order:1.4</code> - SETU Staffing Order 1.4</li>
+</ul>
+
+    <h3>2025-08-31 - Page updates</h3>
+    
+    <p>
+      Links and wording all over the page were updated.
+      Especially the page on SMP-SML Interplay was updated to reflect the upcoming changes.
+    </p>
+    <ul>
+      <li><a href="/public/menuitem-docs-smp-sml-interplay">Article on SMP-SML interplay</a></li>
+    </ul>
+
     <h3>2025-08-10 - Document Validation extended</h3>
     
     <p>

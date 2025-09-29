@@ -18,22 +18,22 @@ package com.helger.peppol.crm;
 
 import java.util.Set;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.dao.DAOException;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.io.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.security.object.BusinessObjectHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Manager for {@link CRMSubscriber} instances.
@@ -57,9 +57,7 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
   {
     final CRMSubscriber aCRMSubscriber = new CRMSubscriber (eSalutation, sName, sEmailAddress, aAssignedGroups);
 
-    m_aRWLock.writeLocked ( () -> {
-      internalCreateItem (aCRMSubscriber);
-    });
+    m_aRWLock.writeLocked ( () -> { internalCreateItem (aCRMSubscriber); });
     AuditHelper.onAuditCreateSuccess (CRMSubscriber.OT_CRM_SUBSCRIBER,
                                       aCRMSubscriber.getID (),
                                       eSalutation,
@@ -138,7 +136,10 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
     {
       m_aRWLock.writeLock ().unlock ();
     }
-    AuditHelper.onAuditModifySuccess (CRMSubscriber.OT_CRM_SUBSCRIBER, "assigned-groups", sCRMSubscriberID, aAssignedGroups);
+    AuditHelper.onAuditModifySuccess (CRMSubscriber.OT_CRM_SUBSCRIBER,
+                                      "assigned-groups",
+                                      sCRMSubscriberID,
+                                      aAssignedGroups);
     return EChange.CHANGED;
   }
 

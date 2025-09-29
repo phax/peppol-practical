@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.app;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.UsedViaReflection;
+import com.helger.annotation.style.UsedViaReflection;
 import com.helger.config.IConfig;
 import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class provides access to the settings as contained in the

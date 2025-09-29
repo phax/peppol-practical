@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.pub;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
+
+import jakarta.annotation.Nonnull;
 
 public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 {

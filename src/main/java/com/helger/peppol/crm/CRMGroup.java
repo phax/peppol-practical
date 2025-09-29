@@ -16,15 +16,15 @@
  */
 package com.helger.peppol.crm;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.type.ObjectType;
+import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.type.ObjectType;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
+
+import jakarta.annotation.Nonnull;
 
 public class CRMGroup extends AbstractBusinessObject implements ICRMGroup
 {

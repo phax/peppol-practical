@@ -18,23 +18,20 @@ package com.helger.peppol.comment.domain;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.MustBeLocked;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.state.EChange;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.type.ObjectType;
+import com.helger.annotation.concurrent.ELockType;
+import com.helger.annotation.concurrent.MustBeLocked;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.StringHelper;
+import com.helger.base.type.ObjectType;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.dao.DAOException;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.core.interror.InternalErrorBuilder;
@@ -43,6 +40,9 @@ import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class manages all comments of a certain object type.
@@ -94,14 +94,14 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   protected IMicroDocument createWriteData ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
+    final IMicroElement eRoot = aDoc.addElement (ELEMENT_ROOT);
     eRoot.setAttribute (ATTR_OBJECT_TYPE, m_aObjectType.getName ());
     for (final Map.Entry <String, ICommonsList <ICommentThread>> aEntry : m_aObjectToCommentThreads.entrySet ())
     {
-      final IMicroElement eItem = eRoot.appendElement (ELEMENT_ITEM);
+      final IMicroElement eItem = eRoot.addElement (ELEMENT_ITEM);
       eItem.setAttribute (ATTR_ID, aEntry.getKey ());
       for (final ICommentThread aCommentThread : aEntry.getValue ())
-        eItem.appendChild (MicroTypeConverter.convertToMicroElement (aCommentThread, ELEMENT_COMMENTTHREAD));
+        eItem.addChild (MicroTypeConverter.convertToMicroElement (aCommentThread, ELEMENT_COMMENTTHREAD));
     }
     return aDoc;
   }

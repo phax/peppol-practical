@@ -18,15 +18,10 @@ package com.helger.peppol.pub;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.math.MathHelper;
-import com.helger.commons.url.ISimpleURL;
-import com.helger.commons.url.SimpleURL;
+import com.helger.base.debug.GlobalDebug;
+import com.helger.base.numeric.MathHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.property.CCSSProperties;
 import com.helger.html.css.DefaultCSSClassProvider;
 import com.helger.html.css.ICSSClassProvider;
@@ -83,7 +78,12 @@ import com.helger.photon.security.user.IUser;
 import com.helger.photon.security.util.SecurityHelper;
 import com.helger.photon.uicore.html.google.HCGoogleAnalyticsV4;
 import com.helger.photon.uictrls.famfam.EFamFamIcon;
+import com.helger.url.ISimpleURL;
+import com.helger.url.SimpleURL;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The viewport renderer (menu + content area)

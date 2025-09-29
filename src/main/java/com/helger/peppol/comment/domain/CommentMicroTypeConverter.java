@@ -18,16 +18,14 @@ package com.helger.peppol.comment.domain;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.string.StringParser;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.string.StringParser;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 @Immutable
 public final class CommentMicroTypeConverter implements IMicroTypeConverter <Comment>
@@ -59,12 +57,11 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter <Com
     eComment.setAttribute (ATTR_USERID, aValue.getUserID ());
     eComment.setAttribute (ATTR_CREATORNAME, aValue.getCreatorName ());
     eComment.setAttribute (ATTR_TITLE, aValue.getTitle ());
-    eComment.appendText (aValue.getText ());
+    eComment.addText (aValue.getText ());
     return eComment;
   }
 
   @Nonnull
-  @SuppressFBWarnings ("NP_NULL_PARAM_DEREF")
   public Comment convertToNative (@Nonnull final IMicroElement eComment)
   {
     final String sCommentID = eComment.getAttributeValue (ATTR_ID);

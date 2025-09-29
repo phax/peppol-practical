@@ -16,10 +16,7 @@
  */
 package com.helger.peppol.comment.domain;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.tree.xml.IConverterTreeXML;
 import com.helger.tree.xml.MicroTypeConverterTreeXML;
@@ -27,6 +24,9 @@ import com.helger.tree.xml.TreeXMLConverter;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 @Immutable
 public final class CommentThreadMicroTypeConverter implements IMicroTypeConverter <CommentThread>
@@ -40,8 +40,10 @@ public final class CommentThreadMicroTypeConverter implements IMicroTypeConverte
   {
     final IMicroElement eCommentThread = new MicroElement (sNamespaceURI, sTagName);
 
-    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <> (sNamespaceURI, ELEMENT_COMMENT, Comment.class);
-    eCommentThread.appendChild (TreeXMLConverter.getTreeWithStringIDAsXML (aValue.getTree (), aXMLConverter));
+    final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <> (sNamespaceURI,
+                                                                                         ELEMENT_COMMENT,
+                                                                                         Comment.class);
+    eCommentThread.addChild (TreeXMLConverter.getTreeWithStringIDAsXML (aValue.getTree (), aXMLConverter));
     return eCommentThread;
   }
 

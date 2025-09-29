@@ -16,21 +16,21 @@
  */
 package com.helger.peppol.testendpoint;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.name.IHasDisplayName;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.type.ObjectType;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.name.IHasDisplayName;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.type.ObjectType;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a single test endpoint.

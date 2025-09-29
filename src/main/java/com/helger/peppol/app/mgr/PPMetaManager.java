@@ -16,19 +16,19 @@
  */
 package com.helger.peppol.app.mgr;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.exception.InitializationException;
+import com.helger.annotation.style.UsedViaReflection;
+import com.helger.base.exception.InitializationException;
 import com.helger.dao.DAOException;
 import com.helger.peppol.crm.CRMGroupManager;
 import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.testendpoint.TestEndpointManager;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Central manager for all sub managers

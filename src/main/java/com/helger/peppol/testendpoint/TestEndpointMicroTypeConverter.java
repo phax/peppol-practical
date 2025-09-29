@@ -16,10 +16,7 @@
  */
 package com.helger.peppol.testendpoint;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -27,6 +24,9 @@ import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverte
 import com.helger.photon.security.object.StubObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 @Immutable
 public final class TestEndpointMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <TestEndpoint>

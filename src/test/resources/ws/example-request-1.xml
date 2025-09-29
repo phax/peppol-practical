@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
 
     Copyright (C) 2014-2025 Philip Helger (www.helger.com)
@@ -16,231 +17,220 @@
     limitations under the License.
 
 -->
-<?xml version="1.0" ?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body><validateRequestInput xmlns="http://peppol.helger.com/ws/documentvalidationservice/201701/" VESID="eu.peppol.bis2:t10:3.6.0" displayLocale="en"><XML>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!--
-
-    Copyright (C) 2014-2018 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-            http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
---&gt;
-&lt;Invoice:Invoice xmlns:Invoice="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
-  xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-  xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-  xmlns:ns2="http://www.w3.org/2009/02/ws-tra" xmlns:ns3="http://busdox.org/transport/identifiers/1.0/"
-  xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 C:\Users\Notandi\Documents\Uppl¿singar\Standards\UBL\cs-UBL-2.0\xsd\maindoc\UBL-Invoice-2.0.xsd"&gt;
-  &lt;cbc:UBLVersionID&gt;2.0&lt;/cbc:UBLVersionID&gt;
-  &lt;cbc:CustomizationID schemeID="PEPPOL"&gt;urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0
-  &lt;/cbc:CustomizationID&gt;
-  &lt;cbc:ProfileID&gt;urn:www.cenbii.eu:profile:bii04:ver1.0&lt;/cbc:ProfileID&gt;
-  &lt;cbc:ID&gt;ph-ws-test&lt;/cbc:ID&gt;
-  &lt;cbc:IssueDate&gt;2011-09-15&lt;/cbc:IssueDate&gt;
-  &lt;cbc:InvoiceTypeCode listAgencyID="6" listID="UN/ECE 1001 Subset"&gt;380&lt;/cbc:InvoiceTypeCode&gt;
-  &lt;cbc:DocumentCurrencyCode languageID="en" listAgencyID="6"
-    listAgencyName="United Nations Economic Commission for Europe" listID="ISO 4217 Alpha" listName="Currency"
-    listSchemeURI="urn:un:unece:uncefact:codelist:specification:54217:2001" listURI="http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/cefact/CurrencyCode-2.0.gc"
-    listVersionID="2001"&gt;EUR&lt;/cbc:DocumentCurrencyCode&gt;
-  &lt;cac:OrderReference&gt;
-    &lt;cbc:ID&gt;1234567&lt;/cbc:ID&gt;
-  &lt;/cac:OrderReference&gt;
-  &lt;cac:ContractDocumentReference&gt;
-    &lt;cbc:ID&gt;7654321&lt;/cbc:ID&gt;
-  &lt;/cac:ContractDocumentReference&gt;
-  &lt;cac:AccountingSupplierParty&gt;
-    &lt;cac:Party&gt;
-      &lt;cbc:EndpointID schemeID="AT:VAT"&gt;ATU63968889&lt;/cbc:EndpointID&gt;
-      &lt;cac:PartyName&gt;
-        &lt;cbc:Name&gt;ph systems&lt;/cbc:Name&gt;
-      &lt;/cac:PartyName&gt;
-      &lt;cac:PostalAddress&gt;
-        &lt;cbc:StreetName&gt;Zeillergasse&lt;/cbc:StreetName&gt;
-        &lt;cbc:BuildingNumber&gt;34/24&lt;/cbc:BuildingNumber&gt;
-        &lt;cbc:CityName&gt;Wien&lt;/cbc:CityName&gt;
-        &lt;cbc:PostalZone&gt;1170&lt;/cbc:PostalZone&gt;
-        &lt;cac:Country&gt;
-          &lt;cbc:IdentificationCode languageID="en" listAgencyID="6"
-            listAgencyName="United Nations Economic Commission for Europe" listID="ISO3166-1" listName="Country"
-            listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:CountryIdentificationCode-2.0"
-            listURI="http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/default/CountryIdentificationCode-2.0.gc"
-            listVersionID="0.3"&gt;AT&lt;/cbc:IdentificationCode&gt;
-        &lt;/cac:Country&gt;
-      &lt;/cac:PostalAddress&gt;
-      &lt;cac:PartyTaxScheme&gt;
-        &lt;cbc:CompanyID schemeAgencyID="ZZZ" schemeID="AT:VAT"&gt;ATU63968889&lt;/cbc:CompanyID&gt;
-        &lt;cac:TaxScheme&gt;
-          &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153"&gt;VAT&lt;/cbc:ID&gt;
-        &lt;/cac:TaxScheme&gt;
-      &lt;/cac:PartyTaxScheme&gt;
-      &lt;cac:Contact&gt;
-        &lt;cbc:ElectronicMail&gt;ph@helger.com&lt;/cbc:ElectronicMail&gt;
-      &lt;/cac:Contact&gt;
-    &lt;/cac:Party&gt;
-  &lt;/cac:AccountingSupplierParty&gt;
-  &lt;cac:AccountingCustomerParty&gt;
-    &lt;cac:Party&gt;
-      &lt;cbc:EndpointID schemeID="IT:VAT"&gt;05359681003&lt;/cbc:EndpointID&gt;
-      &lt;cac:PartyName&gt;
-        &lt;cbc:Name&gt;Consip SpA&lt;/cbc:Name&gt;
-      &lt;/cac:PartyName&gt;
-      &lt;cac:PostalAddress&gt;
-        &lt;cbc:StreetName&gt;Via Isonzo&lt;/cbc:StreetName&gt;
-        &lt;cbc:BuildingNumber&gt;19 E&lt;/cbc:BuildingNumber&gt;
-        &lt;cbc:Department&gt;Accounting department&lt;/cbc:Department&gt;
-        &lt;cbc:CityName&gt;Rome&lt;/cbc:CityName&gt;
-        &lt;cbc:PostalZone&gt;00198&lt;/cbc:PostalZone&gt;
-        &lt;cac:Country&gt;
-          &lt;cbc:IdentificationCode languageID="en" listAgencyID="6"
-            listAgencyName="United Nations Economic Commission for Europe" listID="ISO3166-1" listName="Country"
-            listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:CountryIdentificationCode-2.0"
-            listURI="http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/default/CountryIdentificationCode-2.0.gc"
-            listVersionID="0.3"&gt;IT&lt;/cbc:IdentificationCode&gt;
-        &lt;/cac:Country&gt;
-      &lt;/cac:PostalAddress&gt;
-      &lt;cac:PartyTaxScheme&gt;
-        &lt;cbc:CompanyID schemeAgencyID="ZZZ" schemeID="IT:VAT"&gt;IT05359681003&lt;/cbc:CompanyID&gt;
-        &lt;cac:TaxScheme&gt;
-          &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153"&gt;VAT&lt;/cbc:ID&gt;
-        &lt;/cac:TaxScheme&gt;
-      &lt;/cac:PartyTaxScheme&gt;
-      &lt;cac:Person&gt;
-        &lt;cbc:FirstName&gt;Antonella&lt;/cbc:FirstName&gt;
-        &lt;cbc:FamilyName&gt;Caresso&lt;/cbc:FamilyName&gt;
-      &lt;/cac:Person&gt;
-    &lt;/cac:Party&gt;
-  &lt;/cac:AccountingCustomerParty&gt;
-  &lt;cac:PaymentMeans&gt;
-    &lt;cbc:PaymentMeansCode languageID="en" listAgencyID="NES"
-      listAgencyName="United Nations Economic Commission for Europe" listID="UN/ECE 4461 Subset" listName="Payment Means"
-      listSchemeURI="urn:oasis:names:specification:ubl:codelist:gc:PaymentMeansCode-2.0" listURI="http://docs.oasis-open.org/ubl/os-UBL-2.0-update/cl/gc/default/PaymentMeansCode-2.0.gc"
-      listVersionID="D03A"&gt;31&lt;/cbc:PaymentMeansCode&gt;
-    &lt;cbc:PaymentDueDate&gt;2011-10-15&lt;/cbc:PaymentDueDate&gt;
-    &lt;cac:PayeeFinancialAccount&gt;
-      &lt;cbc:ID&gt;NN12 12345 1234 1234 12&lt;/cbc:ID&gt;
-      &lt;cac:FinancialInstitutionBranch&gt;
-        &lt;cac:FinancialInstitution&gt;
-          &lt;cbc:ID&gt;XXXXXXXX&lt;/cbc:ID&gt;
-        &lt;/cac:FinancialInstitution&gt;
-      &lt;/cac:FinancialInstitutionBranch&gt;
-    &lt;/cac:PayeeFinancialAccount&gt;
-  &lt;/cac:PaymentMeans&gt;
-  &lt;cac:AllowanceCharge&gt;
-    &lt;cbc:ChargeIndicator&gt;true&lt;/cbc:ChargeIndicator&gt;
-    &lt;cbc:AllowanceChargeReason&gt;Packaging&lt;/cbc:AllowanceChargeReason&gt;
-    &lt;cbc:Amount currencyID="EUR"&gt;1000&lt;/cbc:Amount&gt;
-    &lt;cac:TaxCategory&gt;
-      &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5305"&gt;AA&lt;/cbc:ID&gt;
-      &lt;cac:TaxScheme&gt;
-        &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153"&gt;VAT&lt;/cbc:ID&gt;
-      &lt;/cac:TaxScheme&gt;
-    &lt;/cac:TaxCategory&gt;
-  &lt;/cac:AllowanceCharge&gt;
-  &lt;cac:TaxTotal&gt;
-    &lt;cbc:TaxAmount currencyID="EUR"&gt;600.00&lt;/cbc:TaxAmount&gt;
-    &lt;cac:TaxSubtotal&gt;
-      &lt;cbc:TaxableAmount currencyID="EUR"&gt;1000&lt;/cbc:TaxableAmount&gt;
-      &lt;cbc:TaxAmount currencyID="EUR"&gt;0&lt;/cbc:TaxAmount&gt;
-      &lt;cac:TaxCategory&gt;
-        &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5305"&gt;E&lt;/cbc:ID&gt;
-        &lt;cbc:Percent&gt;0&lt;/cbc:Percent&gt;
-        &lt;cbc:TaxExemptionReason&gt;No tax paid&lt;/cbc:TaxExemptionReason&gt;
-        &lt;cac:TaxScheme&gt;
-          &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153"&gt;VAT&lt;/cbc:ID&gt;
-        &lt;/cac:TaxScheme&gt;
-      &lt;/cac:TaxCategory&gt;
-    &lt;/cac:TaxSubtotal&gt;
-    &lt;cac:TaxSubtotal&gt;
-      &lt;cbc:TaxableAmount currencyID="EUR"&gt;2500&lt;/cbc:TaxableAmount&gt;
-      &lt;cbc:TaxAmount currencyID="EUR"&gt;500&lt;/cbc:TaxAmount&gt;
-      &lt;cac:TaxCategory&gt;
-        &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5305"&gt;S&lt;/cbc:ID&gt;
-        &lt;cbc:Percent&gt;20&lt;/cbc:Percent&gt;
-        &lt;cac:TaxScheme&gt;
-          &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153"&gt;VAT&lt;/cbc:ID&gt;
-        &lt;/cac:TaxScheme&gt;
-      &lt;/cac:TaxCategory&gt;
-    &lt;/cac:TaxSubtotal&gt;
-    &lt;cac:TaxSubtotal&gt;
-      &lt;cbc:TaxableAmount currencyID="EUR"&gt;1000&lt;/cbc:TaxableAmount&gt;
-      &lt;cbc:TaxAmount currencyID="EUR"&gt;100&lt;/cbc:TaxAmount&gt;
-      &lt;cac:TaxCategory&gt;
-        &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5305"&gt;AA&lt;/cbc:ID&gt;
-        &lt;cbc:Percent&gt;10&lt;/cbc:Percent&gt;
-        &lt;cac:TaxScheme&gt;
-          &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153"&gt;VAT&lt;/cbc:ID&gt;
-        &lt;/cac:TaxScheme&gt;
-      &lt;/cac:TaxCategory&gt;
-    &lt;/cac:TaxSubtotal&gt;
-  &lt;/cac:TaxTotal&gt;
-  &lt;cac:LegalMonetaryTotal&gt;
-    &lt;cbc:LineExtensionAmount currencyID="EUR"&gt;3500&lt;/cbc:LineExtensionAmount&gt;
-    &lt;cbc:TaxExclusiveAmount currencyID="EUR"&gt;4500&lt;/cbc:TaxExclusiveAmount&gt;
-    &lt;cbc:TaxInclusiveAmount currencyID="EUR"&gt;5100&lt;/cbc:TaxInclusiveAmount&gt;
-    &lt;cbc:ChargeTotalAmount currencyID="EUR"&gt;1000&lt;/cbc:ChargeTotalAmount&gt;
-    &lt;cbc:PrepaidAmount currencyID="EUR"&gt;1000&lt;/cbc:PrepaidAmount&gt;
-    &lt;cbc:PayableAmount currencyID="EUR"&gt;4100&lt;/cbc:PayableAmount&gt;
-  &lt;/cac:LegalMonetaryTotal&gt;
-  &lt;cac:InvoiceLine&gt;
-    &lt;cbc:ID&gt;1&lt;/cbc:ID&gt;
-    &lt;cbc:InvoicedQuantity unitCode="HUR"&gt;10&lt;/cbc:InvoicedQuantity&gt;
-    &lt;cbc:LineExtensionAmount currencyID="EUR"&gt;1000&lt;/cbc:LineExtensionAmount&gt;
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+<S:Body>
+<validateRequestInput xmlns="http://peppol.helger.com/ws/documentvalidationservice/201701/" VESID="eu.peppol.bis3:invoice:latest" displayLocale="en">
+<XML>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Invoice xmlns:cac=&quot;urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2&quot;
+    xmlns:cbc=&quot;urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2&quot;
+    xmlns=&quot;urn:oasis:names:specification:ubl:schema:xsd:Invoice-2&quot;&gt;
+    &lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;
+    &lt;cbc:ProfileID&gt;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&lt;/cbc:ProfileID&gt;
+    &lt;cbc:ID&gt;Snippet1&lt;/cbc:ID&gt;
+    &lt;cbc:IssueDate&gt;2017-11-13&lt;/cbc:IssueDate&gt;
+    &lt;cbc:DueDate&gt;2017-12-01&lt;/cbc:DueDate&gt;
+    &lt;cbc:InvoiceTypeCode&gt;380&lt;/cbc:InvoiceTypeCode&gt;
+    &lt;cbc:DocumentCurrencyCode&gt;EUR&lt;/cbc:DocumentCurrencyCode&gt;
+    &lt;cbc:AccountingCost&gt;4025:123:4343&lt;/cbc:AccountingCost&gt;
+    &lt;cbc:BuyerReference&gt;0150abc&lt;/cbc:BuyerReference&gt;
+    &lt;cac:AccountingSupplierParty&gt;
+        &lt;cac:Party&gt;
+            &lt;cbc:EndpointID schemeID=&quot;0088&quot;&gt;9482348239847239874&lt;/cbc:EndpointID&gt;
+            &lt;cac:PartyIdentification&gt;
+                &lt;cbc:ID&gt;99887766&lt;/cbc:ID&gt;
+            &lt;/cac:PartyIdentification&gt;
+            &lt;cac:PartyName&gt;
+                &lt;cbc:Name&gt;SupplierTradingName Ltd.&lt;/cbc:Name&gt;
+            &lt;/cac:PartyName&gt;
+            &lt;cac:PostalAddress&gt;
+                &lt;cbc:StreetName&gt;Main street 1&lt;/cbc:StreetName&gt;
+                &lt;cbc:AdditionalStreetName&gt;Postbox 123&lt;/cbc:AdditionalStreetName&gt;
+                &lt;cbc:CityName&gt;London&lt;/cbc:CityName&gt;
+                &lt;cbc:PostalZone&gt;GB 123 EW&lt;/cbc:PostalZone&gt;
+                &lt;cac:Country&gt;
+                    &lt;cbc:IdentificationCode&gt;GB&lt;/cbc:IdentificationCode&gt;
+                &lt;/cac:Country&gt;
+            &lt;/cac:PostalAddress&gt;
+            &lt;cac:PartyTaxScheme&gt;
+                &lt;cbc:CompanyID&gt;GB1232434&lt;/cbc:CompanyID&gt;
+                &lt;cac:TaxScheme&gt;
+                    &lt;cbc:ID&gt;VAT&lt;/cbc:ID&gt;
+                &lt;/cac:TaxScheme&gt;
+            &lt;/cac:PartyTaxScheme&gt;
+            &lt;cac:PartyLegalEntity&gt;
+                &lt;cbc:RegistrationName&gt;SupplierOfficialName Ltd&lt;/cbc:RegistrationName&gt;
+                &lt;cbc:CompanyID&gt;GB983294&lt;/cbc:CompanyID&gt;
+            &lt;/cac:PartyLegalEntity&gt;
+        &lt;/cac:Party&gt;
+    &lt;/cac:AccountingSupplierParty&gt;
+    &lt;cac:AccountingCustomerParty&gt;
+        &lt;cac:Party&gt;
+            &lt;cbc:EndpointID schemeID=&quot;0002&quot;&gt;FR23342&lt;/cbc:EndpointID&gt;
+            &lt;cac:PartyIdentification&gt;
+                &lt;cbc:ID schemeID=&quot;0002&quot;&gt;FR23342&lt;/cbc:ID&gt;
+            &lt;/cac:PartyIdentification&gt;
+            &lt;cac:PartyName&gt;
+                &lt;cbc:Name&gt;BuyerTradingName AS&lt;/cbc:Name&gt;
+            &lt;/cac:PartyName&gt;
+            &lt;cac:PostalAddress&gt;
+                &lt;cbc:StreetName&gt;Hovedgatan 32&lt;/cbc:StreetName&gt;
+                &lt;cbc:AdditionalStreetName&gt;Po box 878&lt;/cbc:AdditionalStreetName&gt;
+                &lt;cbc:CityName&gt;Stockholm&lt;/cbc:CityName&gt;
+                &lt;cbc:PostalZone&gt;456 34&lt;/cbc:PostalZone&gt;
+                &lt;cac:Country&gt;
+                    &lt;cbc:IdentificationCode&gt;SE&lt;/cbc:IdentificationCode&gt;
+                &lt;/cac:Country&gt;
+            &lt;/cac:PostalAddress&gt;
+            &lt;cac:PartyTaxScheme&gt;
+                &lt;cbc:CompanyID&gt;SE4598375937&lt;/cbc:CompanyID&gt;
+                &lt;cac:TaxScheme&gt;
+                    &lt;cbc:ID&gt;VAT&lt;/cbc:ID&gt;
+                &lt;/cac:TaxScheme&gt;
+            &lt;/cac:PartyTaxScheme&gt;
+            &lt;cac:PartyLegalEntity&gt;
+                &lt;cbc:RegistrationName&gt;Buyer Official Name&lt;/cbc:RegistrationName&gt;
+                &lt;cbc:CompanyID schemeID=&quot;0183&quot;&gt;39937423947&lt;/cbc:CompanyID&gt;
+            &lt;/cac:PartyLegalEntity&gt;
+            &lt;cac:Contact&gt;
+                &lt;cbc:Name&gt;Lisa Johnson&lt;/cbc:Name&gt;
+                &lt;cbc:Telephone&gt;23434234&lt;/cbc:Telephone&gt;
+                &lt;cbc:ElectronicMail&gt;lj@buyer.se&lt;/cbc:ElectronicMail&gt;
+            &lt;/cac:Contact&gt;
+        &lt;/cac:Party&gt;
+    &lt;/cac:AccountingCustomerParty&gt;
+    &lt;cac:Delivery&gt;
+        &lt;cbc:ActualDeliveryDate&gt;2017-11-01&lt;/cbc:ActualDeliveryDate&gt;
+        &lt;cac:DeliveryLocation&gt;
+            &lt;cbc:ID schemeID=&quot;0088&quot;&gt;9483759475923478&lt;/cbc:ID&gt;
+            &lt;cac:Address&gt;
+                &lt;cbc:StreetName&gt;Delivery street 2&lt;/cbc:StreetName&gt;
+                &lt;cbc:AdditionalStreetName&gt;Building 56&lt;/cbc:AdditionalStreetName&gt;
+                &lt;cbc:CityName&gt;Stockholm&lt;/cbc:CityName&gt;
+                &lt;cbc:PostalZone&gt;21234&lt;/cbc:PostalZone&gt;
+                &lt;cac:Country&gt;
+                    &lt;cbc:IdentificationCode&gt;SE&lt;/cbc:IdentificationCode&gt;
+                &lt;/cac:Country&gt;
+            &lt;/cac:Address&gt;
+        &lt;/cac:DeliveryLocation&gt;
+        &lt;cac:DeliveryParty&gt;
+            &lt;cac:PartyName&gt;
+                &lt;cbc:Name&gt;Delivery party Name&lt;/cbc:Name&gt;
+            &lt;/cac:PartyName&gt;
+        &lt;/cac:DeliveryParty&gt;
+    &lt;/cac:Delivery&gt;
+    &lt;cac:PaymentMeans&gt;
+        &lt;cbc:PaymentMeansCode name=&quot;Credit transfer&quot;&gt;30&lt;/cbc:PaymentMeansCode&gt;
+        &lt;cbc:PaymentID&gt;Snippet1&lt;/cbc:PaymentID&gt;
+        &lt;cac:PayeeFinancialAccount&gt;
+            &lt;cbc:ID&gt;IBAN32423940&lt;/cbc:ID&gt;
+            &lt;cbc:Name&gt;AccountName&lt;/cbc:Name&gt;
+            &lt;cac:FinancialInstitutionBranch&gt;
+                &lt;cbc:ID&gt;BIC324098&lt;/cbc:ID&gt;
+            &lt;/cac:FinancialInstitutionBranch&gt;
+        &lt;/cac:PayeeFinancialAccount&gt;
+    &lt;/cac:PaymentMeans&gt;
+    &lt;cac:PaymentTerms&gt;
+        &lt;cbc:Note&gt;Payment within 10 days, 2% discount&lt;/cbc:Note&gt;
+    &lt;/cac:PaymentTerms&gt;
+        &lt;cac:AllowanceCharge&gt;
+            &lt;cbc:ChargeIndicator&gt;true&lt;/cbc:ChargeIndicator&gt;
+            &lt;cbc:AllowanceChargeReason&gt;Insurance&lt;/cbc:AllowanceChargeReason&gt;
+            &lt;cbc:Amount currencyID=&quot;EUR&quot;&gt;25&lt;/cbc:Amount&gt;
+            &lt;cac:TaxCategory&gt;
+                &lt;cbc:ID&gt;S&lt;/cbc:ID&gt;
+                &lt;cbc:Percent&gt;25.0&lt;/cbc:Percent&gt;
+                &lt;cac:TaxScheme&gt;
+                    &lt;cbc:ID&gt;VAT&lt;/cbc:ID&gt;
+                &lt;/cac:TaxScheme&gt;
+            &lt;/cac:TaxCategory&gt;
+        &lt;/cac:AllowanceCharge&gt;
+    &lt;cac:TaxTotal&gt;
+        &lt;cbc:TaxAmount currencyID=&quot;EUR&quot;&gt;331.25&lt;/cbc:TaxAmount&gt;
+        &lt;cac:TaxSubtotal&gt;
+            &lt;cbc:TaxableAmount currencyID=&quot;EUR&quot;&gt;1325&lt;/cbc:TaxableAmount&gt;
+            &lt;cbc:TaxAmount currencyID=&quot;EUR&quot;&gt;331.25&lt;/cbc:TaxAmount&gt;
+            &lt;cac:TaxCategory&gt;
+                &lt;cbc:ID&gt;S&lt;/cbc:ID&gt;
+                &lt;cbc:Percent&gt;25.0&lt;/cbc:Percent&gt;
+                &lt;cac:TaxScheme&gt;
+                    &lt;cbc:ID&gt;VAT&lt;/cbc:ID&gt;
+                &lt;/cac:TaxScheme&gt;
+            &lt;/cac:TaxCategory&gt;
+        &lt;/cac:TaxSubtotal&gt;
+    &lt;/cac:TaxTotal&gt;
+    &lt;cac:LegalMonetaryTotal&gt;
+        &lt;cbc:LineExtensionAmount currencyID=&quot;EUR&quot;&gt;1300&lt;/cbc:LineExtensionAmount&gt;
+        &lt;cbc:TaxExclusiveAmount currencyID=&quot;EUR&quot;&gt;1325&lt;/cbc:TaxExclusiveAmount&gt;
+        &lt;cbc:TaxInclusiveAmount currencyID=&quot;EUR&quot;&gt;1656.25&lt;/cbc:TaxInclusiveAmount&gt;
+        &lt;cbc:ChargeTotalAmount currencyID=&quot;EUR&quot;&gt;25&lt;/cbc:ChargeTotalAmount&gt;
+        &lt;cbc:PayableAmount currencyID=&quot;EUR&quot;&gt;1656.25&lt;/cbc:PayableAmount&gt;
+    &lt;/cac:LegalMonetaryTotal&gt;
+    
+&lt;cac:InvoiceLine&gt;
+        &lt;cbc:ID&gt;1&lt;/cbc:ID&gt;
+    &lt;cbc:InvoicedQuantity unitCode=&quot;DAY&quot;&gt;7&lt;/cbc:InvoicedQuantity&gt;
+    &lt;cbc:LineExtensionAmount currencyID= &quot;EUR&quot;&gt;2800&lt;/cbc:LineExtensionAmount&gt;
+        &lt;cbc:AccountingCost&gt;Konteringsstreng&lt;/cbc:AccountingCost&gt;
+       &lt;cac:OrderLineReference&gt;
+            &lt;cbc:LineID&gt;123&lt;/cbc:LineID&gt;
+        &lt;/cac:OrderLineReference&gt;
     &lt;cac:Item&gt;
-      &lt;cbc:Description languageID="EN"&gt;General IT services&lt;/cbc:Description&gt;
-      &lt;cbc:Name&gt;PEPPOL testing&lt;/cbc:Name&gt;
-      &lt;cac:SellersItemIdentification&gt;
-        &lt;cbc:ID&gt;1002&lt;/cbc:ID&gt;
-      &lt;/cac:SellersItemIdentification&gt;
-      &lt;cac:CommodityClassification&gt;
-        &lt;cbc:ItemClassificationCode listAgencyID="113" listID="UNSPSC"&gt;80101507&lt;/cbc:ItemClassificationCode&gt;
-      &lt;/cac:CommodityClassification&gt;
-      &lt;cac:ClassifiedTaxCategory xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"&gt;
-        &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5305"&gt;E&lt;/cbc:ID&gt;
-        &lt;TaxScheme&gt;
-          &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153"&gt;VAT&lt;/cbc:ID&gt;
-        &lt;/TaxScheme&gt;
-      &lt;/cac:ClassifiedTaxCategory&gt;
-    &lt;/cac:Item&gt;
+            &lt;cbc:Description&gt;Description of item&lt;/cbc:Description&gt;
+            &lt;cbc:Name&gt;item name&lt;/cbc:Name&gt;
+            &lt;cac:StandardItemIdentification&gt;
+                &lt;cbc:ID schemeID=&quot;0088&quot;&gt;21382183120983&lt;/cbc:ID&gt;
+            &lt;/cac:StandardItemIdentification&gt;
+            &lt;cac:OriginCountry&gt;
+                &lt;cbc:IdentificationCode&gt;NO&lt;/cbc:IdentificationCode&gt;
+            &lt;/cac:OriginCountry&gt;
+            &lt;cac:CommodityClassification&gt;
+                &lt;cbc:ItemClassificationCode listID=&quot;SRV&quot;&gt;09348023&lt;/cbc:ItemClassificationCode&gt;
+            &lt;/cac:CommodityClassification&gt;
+            &lt;cac:ClassifiedTaxCategory&gt;
+                &lt;cbc:ID&gt;S&lt;/cbc:ID&gt;
+                &lt;cbc:Percent&gt;25.0&lt;/cbc:Percent&gt;
+                &lt;cac:TaxScheme&gt;
+                    &lt;cbc:ID&gt;VAT&lt;/cbc:ID&gt;
+                &lt;/cac:TaxScheme&gt;
+            &lt;/cac:ClassifiedTaxCategory&gt;
+        &lt;/cac:Item&gt;
     &lt;cac:Price&gt;
-      &lt;cbc:PriceAmount currencyID="EUR"&gt;100&lt;/cbc:PriceAmount&gt;
-      &lt;cbc:BaseQuantity unitCode="C62"&gt;1&lt;/cbc:BaseQuantity&gt;
+        &lt;cbc:PriceAmount currencyID=&quot;EUR&quot;&gt;400&lt;/cbc:PriceAmount&gt;
     &lt;/cac:Price&gt;
-  &lt;/cac:InvoiceLine&gt;
-  &lt;cac:InvoiceLine&gt;
+    &lt;/cac:InvoiceLine&gt;
+&lt;cac:InvoiceLine&gt;
     &lt;cbc:ID&gt;2&lt;/cbc:ID&gt;
-    &lt;cbc:InvoicedQuantity unitCode="C62"&gt;1&lt;/cbc:InvoicedQuantity&gt;
-    &lt;cbc:LineExtensionAmount currencyID="EUR"&gt;2500&lt;/cbc:LineExtensionAmount&gt;
+    &lt;cbc:InvoicedQuantity unitCode=&quot;DAY&quot;&gt;-3&lt;/cbc:InvoicedQuantity&gt;
+    &lt;cbc:LineExtensionAmount currencyID=&quot;EUR&quot;&gt;-1500&lt;/cbc:LineExtensionAmount&gt;
+    &lt;cac:OrderLineReference&gt;
+        &lt;cbc:LineID&gt;123&lt;/cbc:LineID&gt;
+    &lt;/cac:OrderLineReference&gt;
     &lt;cac:Item&gt;
-      &lt;cbc:Description languageID="EN"&gt;Some very smart software stuff&lt;/cbc:Description&gt;
-      &lt;cbc:Name&gt;Test software&lt;/cbc:Name&gt;
-      &lt;cac:SellersItemIdentification&gt;
-        &lt;cbc:ID&gt;1003&lt;/cbc:ID&gt;
-      &lt;/cac:SellersItemIdentification&gt;
-      &lt;cac:CommodityClassification&gt;
-        &lt;cbc:ItemClassificationCode listAgencyID="113" listID="UNSPSC"&gt;43230000&lt;/cbc:ItemClassificationCode&gt;
-      &lt;/cac:CommodityClassification&gt;
-      &lt;cac:ClassifiedTaxCategory xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"&gt;
-        &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5305"&gt;S&lt;/cbc:ID&gt;
-        &lt;TaxScheme&gt;
-          &lt;cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153"&gt;VAT&lt;/cbc:ID&gt;
-        &lt;/TaxScheme&gt;
-      &lt;/cac:ClassifiedTaxCategory&gt;
+        &lt;cbc:Description&gt;Description 2&lt;/cbc:Description&gt;
+        &lt;cbc:Name&gt;item name 2&lt;/cbc:Name&gt;
+        &lt;cac:StandardItemIdentification&gt;
+            &lt;cbc:ID schemeID=&quot;0088&quot;&gt;21382183120983&lt;/cbc:ID&gt;
+        &lt;/cac:StandardItemIdentification&gt;
+        &lt;cac:OriginCountry&gt;
+            &lt;cbc:IdentificationCode&gt;NO&lt;/cbc:IdentificationCode&gt;
+        &lt;/cac:OriginCountry&gt;
+        &lt;cac:CommodityClassification&gt;
+            &lt;cbc:ItemClassificationCode listID=&quot;SRV&quot;&gt;09348023&lt;/cbc:ItemClassificationCode&gt;
+        &lt;/cac:CommodityClassification&gt;
+        &lt;cac:ClassifiedTaxCategory&gt;
+            &lt;cbc:ID&gt;S&lt;/cbc:ID&gt;
+            &lt;cbc:Percent&gt;25.0&lt;/cbc:Percent&gt;
+            &lt;cac:TaxScheme&gt;
+                &lt;cbc:ID&gt;VAT&lt;/cbc:ID&gt;
+            &lt;/cac:TaxScheme&gt;
+        &lt;/cac:ClassifiedTaxCategory&gt;
     &lt;/cac:Item&gt;
     &lt;cac:Price&gt;
-      &lt;cbc:PriceAmount currencyID="EUR"&gt;2500&lt;/cbc:PriceAmount&gt;
-      &lt;cbc:BaseQuantity unitCode="C62"&gt;1&lt;/cbc:BaseQuantity&gt;
+        &lt;cbc:PriceAmount currencyID=&quot;EUR&quot;&gt;500&lt;/cbc:PriceAmount&gt;
     &lt;/cac:Price&gt;
-  &lt;/cac:InvoiceLine&gt;
-&lt;/Invoice:Invoice&gt;
-</XML></validateRequestInput></S:Body></S:Envelope>
+&lt;/cac:InvoiceLine&gt;
+&lt;/Invoice&gt;
+</XML>
+</validateRequestInput>
+</S:Body>
+</S:Envelope>

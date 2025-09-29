@@ -21,21 +21,17 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.compare.ESortOrder;
-import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.email.EmailAddressHelper;
-import com.helger.commons.name.IHasDisplayName;
-import com.helger.commons.state.EValidity;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.ISimpleURL;
+import com.helger.annotation.Nonempty;
+import com.helger.base.compare.ESortOrder;
+import com.helger.base.email.EmailAddressHelper;
+import com.helger.base.name.IHasDisplayName;
+import com.helger.base.state.EValidity;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.CollectionSort;
+import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.HCCheckBox;
@@ -74,6 +70,11 @@ import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.photon.uictrls.datatables.column.EDTColType;
+import com.helger.text.compare.ComparatorHelper;
+import com.helger.url.ISimpleURL;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMSubscriber>
 {
@@ -99,7 +100,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
       }
 
       @Override
-      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final ICRMSubscriber aSelectedObject)
+      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
+                                    @Nonnull final ICRMSubscriber aSelectedObject)
       {
         final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
         final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
@@ -157,18 +159,20 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Status").setCtrl (aSelectedObject.isDeleted () ? "Deleted" : "Active"));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Status")
+                                                 .setCtrl (aSelectedObject.isDeleted () ? "Deleted" : "Active"));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (aSelectedObject.getSalutationDisplayName (aDisplayLocale)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Name").setCtrl (aSelectedObject.getName ()));
-    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Email address").setCtrl (aSelectedObject.getEmailAddress ()));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Email address")
+                                                 .setCtrl (aSelectedObject.getEmailAddress ()));
     {
       final HCNodeList aGroups = new HCNodeList ();
-      for (final ICRMGroup aCRMGroup : CollectionHelper.getSorted (aSelectedObject.getAllAssignedGroups (),
-                                                                   IHasDisplayName.getComparatorCollating (aDisplayLocale)))
-        aGroups.addChild (div (new HCA (createViewURL (aWPEC,
-                                                       CMenuSecure.MENU_CRM_GROUPS,
-                                                       aCRMGroup)).addChild (aCRMGroup.getDisplayName ())));
+      for (final ICRMGroup aCRMGroup : CollectionSort.getSorted (aSelectedObject.getAllAssignedGroups (),
+                                                                 ComparatorHelper.getComparatorCollating (IHasDisplayName::getDisplayName,
+                                                                                                          aDisplayLocale)))
+        aGroups.addChild (div (new HCA (createViewURL (aWPEC, CMenuSecure.MENU_CRM_GROUPS, aCRMGroup)).addChild (
+                                                                                                                 aCRMGroup.getDisplayName ())));
       aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Assigned groups").setCtrl (aGroups));
     }
   }
@@ -204,7 +208,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
         if (aSameEmailAddresSubscriber != null)
         {
           if (!eFormAction.isEdit () || aSameEmailAddresSubscriber != aSelectedObject)
-            aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "A subscription for the provided email address is already present!");
+            aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS,
+                                       "A subscription for the provided email address is already present!");
         }
       }
 
@@ -226,7 +231,11 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
       if (eFormAction.isEdit ())
       {
         // We're editing an existing object
-        aCRMSubscriberMgr.updateCRMSubscriber (aSelectedObject.getID (), eSalutation, sName, sEmailAddress, aSelectedCRMGroups);
+        aCRMSubscriberMgr.updateCRMSubscriber (aSelectedObject.getID (),
+                                               eSalutation,
+                                               sName,
+                                               sEmailAddress,
+                                               aSelectedCRMGroups);
         aNodeList.addChild (success ("The CRM subscriber was successfully edited!"));
       }
       else
@@ -249,12 +258,14 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
-    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM subscriber" : "Create new CRM subscriber"));
+    aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM subscriber"
+                                                                              : "Create new CRM subscriber"));
 
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
-                                                                                                     aSelectedObject == null ? null
-                                                                                                                             : aSelectedObject.getSalutationID ()),
+                                                                                                     aSelectedObject ==
+                                                                                                                       null ? null
+                                                                                                                            : aSelectedObject.getSalutationID ()),
                                                                                    aDisplayLocale))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION)));
 
@@ -272,14 +283,17 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
 
     {
       final HCNodeList aGroups = new HCNodeList ();
-      for (final ICRMGroup aCRMGroup : aCRMGroupMgr.getAll ().getSortedInline (IHasDisplayName.getComparatorCollating (aDisplayLocale)))
+      for (final ICRMGroup aCRMGroup : aCRMGroupMgr.getAll ()
+                                                   .getSortedInline (ComparatorHelper.getComparatorCollating (IHasDisplayName::getDisplayName,
+                                                                                                              aDisplayLocale)))
       {
         final String sCRMGroupID = aCRMGroup.getID ();
         final RequestFieldBooleanMultiValue aRFB = new RequestFieldBooleanMultiValue (FIELD_GROUP,
                                                                                       sCRMGroupID,
                                                                                       aSelectedObject != null &&
                                                                                                    aSelectedObject.isAssignedToGroup (aCRMGroup));
-        aGroups.addChild (div (new HCCheckBox (aRFB).setValue (sCRMGroupID)).addChild (" " + aCRMGroup.getDisplayName ()));
+        aGroups.addChild (div (new HCCheckBox (aRFB).setValue (sCRMGroupID)).addChild (" " +
+                                                                                       aCRMGroup.getDisplayName ()));
       }
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Assigned groups")
                                                    .setCtrl (aGroups)
@@ -322,7 +336,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
                                new HCTextNode (" "),
                                createCopyLink (aWPEC, aCurObject),
                                new HCTextNode (" "));
-      aActionCell.addChild (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject) ? createDeleteLink (aWPEC, aCurObject)
+      aActionCell.addChild (isActionAllowed (aWPEC, EWebPageFormAction.DELETE, aCurObject) ? createDeleteLink (aWPEC,
+                                                                                                               aCurObject)
                                                                                            : createEmptyAction ());
     }
 

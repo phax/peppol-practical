@@ -21,30 +21,31 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.timing.StopWatch;
+import com.helger.annotation.Nonempty;
+import com.helger.base.CGlobal;
+import com.helger.base.timing.StopWatch;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
+import com.helger.mime.CMimeType;
 import com.helger.peppol.sharedui.api.APIParamException;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+import jakarta.annotation.Nonnull;
 
 public final class APIQueryParticipantExistence extends AbstractPPAPIExecutor
 {
@@ -75,6 +76,7 @@ public final class APIQueryParticipantExistence extends AbstractPPAPIExecutor
     final SMPQueryParams aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSML,
                                                                               aPID.getScheme (),
                                                                               aPID.getValue (),
+                                                                              PagePublicToolsParticipantInformation.DEFAULT_CNAME_LOOKUP,
                                                                               true);
     if (aSMPQueryParams == null)
       throw new APIParamException ("Failed to resolve participant ID '" +

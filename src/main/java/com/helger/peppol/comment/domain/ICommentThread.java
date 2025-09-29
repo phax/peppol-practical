@@ -19,19 +19,19 @@ package com.helger.peppol.comment.domain;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.state.EChange;
-import com.helger.commons.type.ITypedObject;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.state.EChange;
+import com.helger.base.type.ITypedObject;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Interface for a single comment thread. It holds {@link IComment} objects in a
- * tree structured way.
+ * Interface for a single comment thread. It holds {@link IComment} objects in a tree structured
+ * way.
  *
  * @author Philip Helger
  */
@@ -48,8 +48,8 @@ public interface ICommentThread extends ITypedObject <String>
   IComment getInitialComment ();
 
   /**
-   * @return The creation date time of the first comment that started this
-   *         thread. Never <code>null</code>.
+   * @return The creation date time of the first comment that started this thread. Never
+   *         <code>null</code>.
    */
   @Nonnull
   default LocalDateTime getInitialCommentCreationDateTime ()

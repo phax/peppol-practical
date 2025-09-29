@@ -16,19 +16,19 @@
  */
 package com.helger.peppol.crm;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.id.IHasID;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.helper.CollectionSort;
 import com.helger.masterdata.person.ESalutation;
 import com.helger.peppol.app.mgr.PPMetaManager;
 import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class CRMSubscriberMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <CRMSubscriber>
 {
@@ -47,8 +47,8 @@ public class CRMSubscriberMicroTypeConverter extends AbstractBusinessObjectMicro
     aElement.setAttribute (ATTR_SALUTATION, aValue.getSalutationID ());
     aElement.setAttribute (ATTR_NAME, aValue.getName ());
     aElement.setAttribute (ATTR_EMAIL_ADDRESS, aValue.getEmailAddress ());
-    for (final ICRMGroup aGroup : CollectionHelper.getSorted (aValue.getAllAssignedGroups (), IHasID.getComparatorID ()))
-      aElement.appendElement (sNamespaceURI, ELEMENT_ASSIGNED_GROUP).setAttribute (ATTR_ID, aGroup.getID ());
+    for (final ICRMGroup aGroup : CollectionSort.getSorted (aValue.getAllAssignedGroups (), IHasID.getComparatorID ()))
+      aElement.addElementNS (sNamespaceURI, ELEMENT_ASSIGNED_GROUP).setAttribute (ATTR_ID, aGroup.getID ());
     return aElement;
   }
 

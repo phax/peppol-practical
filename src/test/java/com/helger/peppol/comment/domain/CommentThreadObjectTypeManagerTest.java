@@ -26,7 +26,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.type.ObjectType;
+import com.helger.base.type.ObjectType;
 import com.helger.dao.DAOException;
 import com.helger.photon.app.mock.PhotonAppWebTestRule;
 
@@ -69,7 +69,12 @@ public final class CommentThreadObjectTypeManagerTest
       aMgr.addCommentToThread (sOwningObjectID,
                                sThreadID,
                                sThreadID,
-                               new Comment ("unittest", ECommentState.APPROVED, "userid", "creatorname", "title2", "text2"));
+                               new Comment ("unittest",
+                                            ECommentState.APPROVED,
+                                            "userid",
+                                            "creatorname",
+                                            "title2",
+                                            "text2"));
 
       assertEquals (1, aMgr.getAllCommentThreadsOfObject (sOwningObjectID).size ());
 
@@ -84,7 +89,12 @@ public final class CommentThreadObjectTypeManagerTest
 
       // Create a second thread
       aMgr.createNewThread (sOwningObjectID,
-                            new Comment ("unittest", ECommentState.APPROVED, "userid2", "creatorname2", "title4", "text4"));
+                            new Comment ("unittest",
+                                         ECommentState.APPROVED,
+                                         "userid2",
+                                         "creatorname2",
+                                         "title4",
+                                         "text4"));
       assertEquals (2, aMgr.getAllCommentThreadsOfObject (sOwningObjectID).size ());
     }
     finally

@@ -18,14 +18,14 @@ package com.helger.peppol.comment.domain;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.misc.Translatable;
+import com.helger.text.IMultilingualText;
+import com.helger.text.display.IHasDisplayText;
+import com.helger.text.resolve.DefaultTextResolver;
+import com.helger.text.util.TextHelper;
 
-import com.helger.commons.annotation.Translatable;
-import com.helger.commons.text.IMultilingualText;
-import com.helger.commons.text.display.IHasDisplayText;
-import com.helger.commons.text.resolve.DefaultTextResolver;
-import com.helger.commons.text.util.TextHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 @Translatable
 public enum ECommentStateText implements IHasDisplayText
@@ -38,7 +38,7 @@ public enum ECommentStateText implements IHasDisplayText
 
   private final IMultilingualText m_aTP;
 
-  private ECommentStateText (@Nonnull final String sDE, @Nonnull final String sEN)
+  ECommentStateText (@Nonnull final String sDE, @Nonnull final String sEN)
   {
     m_aTP = TextHelper.create_DE_EN (sDE, sEN);
   }

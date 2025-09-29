@@ -20,16 +20,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.NonBlockingStack;
-import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.type.ITypedObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.type.ITypedObject;
+import com.helger.collection.CollectionHelper;
+import com.helger.collection.helper.CollectionSort;
+import com.helger.collection.stack.NonBlockingStack;
 import com.helger.css.property.CCSSProperties;
+import com.helger.datetime.format.PDTToString;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.ext.HCExtHelper;
 import com.helger.html.hc.html.forms.HCEdit;
@@ -82,6 +80,9 @@ import com.helger.photon.uicore.js.JSJQueryHelper;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 public final class CommentUI
 {
   private static final String FIELD_COMMENT_AUTHOR = AjaxExecutorCommentCreateThread.PARAM_AUTHOR;
@@ -119,8 +120,8 @@ public final class CommentUI
 
       // Container for all threads
       final HCDiv aAllThreadsContainer = new HCDiv ().addClass (CCommentCSS.CSS_CLASS_COMMENT_CONTAINER);
-      for (final ICommentThread aCommentThread : CollectionHelper.getSorted (aComments,
-                                                                             Comparator.comparing (ICommentThread::getInitialCommentCreationDateTime)))
+      for (final ICommentThread aCommentThread : CollectionSort.getSorted (aComments,
+                                                                           Comparator.comparing (ICommentThread::getInitialCommentCreationDateTime)))
       {
         // Container for this thread
         final HCDiv aThreadContainer = new HCDiv ();

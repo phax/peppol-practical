@@ -16,20 +16,17 @@
  */
 package com.helger.peppol.testendpoint;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.helper.CollectionSort;
 import com.helger.dao.DAOException;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.smp.ISMPTransportProfile;
@@ -40,6 +37,9 @@ import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class TestEndpointManager extends AbstractPhotonSimpleDAO
 {
@@ -68,9 +68,9 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
   protected IMicroDocument createWriteData ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
-    final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
-    for (final TestEndpoint aTestEndpoint : CollectionHelper.getSortedByKey (m_aMap).values ())
-      eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aTestEndpoint, ELEMENT_ITEM));
+    final IMicroElement eRoot = aDoc.addElement (ELEMENT_ROOT);
+    for (final TestEndpoint aTestEndpoint : CollectionSort.getSortedByKey (m_aMap).values ())
+      eRoot.addChild (MicroTypeConverter.convertToMicroElement (aTestEndpoint, ELEMENT_ITEM));
     return aDoc;
   }
 
@@ -253,7 +253,9 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
                                        @Nullable final String sParticipantIDValue,
                                        @Nullable final ISMPTransportProfile aTransportProfile)
   {
-    if (StringHelper.isNotEmpty (sParticipantIDIssuer) && StringHelper.isNotEmpty (sParticipantIDValue) && aTransportProfile != null)
+    if (StringHelper.isNotEmpty (sParticipantIDIssuer) &&
+        StringHelper.isNotEmpty (sParticipantIDValue) &&
+        aTransportProfile != null)
     {
       m_aRWLock.readLock ().lock ();
       try

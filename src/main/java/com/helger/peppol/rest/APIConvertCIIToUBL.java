@@ -23,22 +23,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
+import com.helger.base.timing.StopWatch;
 import com.helger.cii.d16b.CIID16BCrossIndustryInvoiceTypeMarshaller;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.http.CHttp;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.timing.StopWatch;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.en16931.cii2ubl.CIIToUBL21Converter;
 import com.helger.en16931.cii2ubl.CIIToUBLVersion;
 import com.helger.en16931.cii2ubl.EUBLCreationMode;
+import com.helger.http.CHttp;
 import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
@@ -46,12 +43,14 @@ import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
+import com.helger.mime.CMimeType;
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.ubl21.UBL21Marshaller;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
+import jakarta.annotation.Nonnull;
 import oasis.names.specification.ubl.schema.xsd.creditnote_21.CreditNoteType;
 import oasis.names.specification.ubl.schema.xsd.invoice_21.InvoiceType;
 import un.unece.uncefact.data.standard.crossindustryinvoice._100.CrossIndustryInvoiceType;
@@ -105,7 +104,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
       final IJsonArray aParseErrors = new JsonArray ();
       for (final IError aError : aErrorList.getAllFailures ())
         aParseErrors.add (createItem (aError, aDisplayLocale));
-      aJson.addJson ("parsingErrors", aParseErrors);
+      aJson.add ("parsingErrors", aParseErrors);
     }
     String sUBL = null;
     boolean bSuccess = false;
@@ -135,7 +134,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
         final IJsonArray aConversionErrors = new JsonArray ();
         for (final IError aError : aErrorList.getAllFailures ())
           aConversionErrors.add (createItem (aError, aDisplayLocale));
-        aJson.addJson ("coversionErrors", aConversionErrors);
+        aJson.add ("coversionErrors", aConversionErrors);
       }
       if (aUBL != null)
       {

@@ -18,16 +18,16 @@ package com.helger.peppol.rest;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.error.IError;
-import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.lang.StackTraceHelper;
-import com.helger.commons.state.ETriState;
+import com.helger.base.rt.StackTraceHelper;
+import com.helger.base.state.ETriState;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public abstract class AbstractJsonBasedAPIExecutor extends AbstractPPAPIExecutor
 {

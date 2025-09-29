@@ -18,21 +18,21 @@ package com.helger.peppol.comment.domain;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.id.factory.GlobalIDFactory;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.type.ObjectType;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.id.factory.GlobalIDFactory;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.type.ObjectType;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IComment} interface.
@@ -63,14 +63,12 @@ public final class Comment implements IComment
    * @param sHost
    *        The IP address or host from which the comment was triggered.
    * @param eState
-   *        The state of the comment. Must be suitable for creation and cannot
-   *        be <code>null</code>.
+   *        The state of the comment. Must be suitable for creation and cannot be <code>null</code>.
    * @param sUserID
-   *        User ID. May be <code>null</code> if creator name is not
-   *        <code>null</code>.
+   *        User ID. May be <code>null</code> if creator name is not <code>null</code>.
    * @param sCreatorName
-   *        Name of the comment creator. May be <code>null</code> if userID is
-   *        not <code>null</code>.
+   *        Name of the comment creator. May be <code>null</code> if userID is not
+   *        <code>null</code>.
    * @param sTitle
    *        comment title. May be <code>null</code>.
    * @param sText
@@ -110,8 +108,7 @@ public final class Comment implements IComment
    * @param sHost
    *        The IP address or host from which the comment was triggered.
    * @param eState
-   *        The state of the comment. Must be suitable for creation and cannot
-   *        be <code>null</code>.
+   *        The state of the comment. Must be suitable for creation and cannot be <code>null</code>.
    * @param nEditCount
    *        How often was the comment edited?
    * @param nSpamReportCount

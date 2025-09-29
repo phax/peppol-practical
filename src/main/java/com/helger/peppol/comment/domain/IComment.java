@@ -19,33 +19,37 @@ package com.helger.peppol.comment.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.state.EChange;
-import com.helger.commons.type.ITypedObject;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.base.state.EChange;
+import com.helger.base.type.ITypedObject;
 import com.helger.datetime.domain.IHasCreationDateTime;
 import com.helger.datetime.domain.IHasLastModificationDateTime;
 import com.helger.security.authentication.subject.user.IHasUserID;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Interface for a single comment object. It is not directly linked to the
- * object to which the comment is attached. Each comment belongs to an
- * {@link ICommentThread}.
+ * Interface for a single comment object. It is not directly linked to the object to which the
+ * comment is attached. Each comment belongs to an {@link ICommentThread}.
  *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IComment extends ITypedObject <String>, IHasCreationDateTime, IHasLastModificationDateTime, Serializable, IHasUserID
+public interface IComment extends
+                          ITypedObject <String>,
+                          IHasCreationDateTime,
+                          IHasLastModificationDateTime,
+                          Serializable,
+                          IHasUserID
 {
   // status vars
 
   /**
-   * @return The IP address or host from which the comment was triggered. This
-   *         is used to identify spammers and block IP addresses.
+   * @return The IP address or host from which the comment was triggered. This is used to identify
+   *         spammers and block IP addresses.
    */
   @Nonnull
   @Nonempty
@@ -73,8 +77,8 @@ public interface IComment extends ITypedObject <String>, IHasCreationDateTime, I
   boolean isDeleted ();
 
   /**
-   * @return How often was this commented edited. This is 0 if the comment was
-   *         just created and never edited.
+   * @return How often was this commented edited. This is 0 if the comment was just created and
+   *         never edited.
    */
   @Nonnegative
   int getEditCount ();
@@ -98,23 +102,21 @@ public interface IComment extends ITypedObject <String>, IHasCreationDateTime, I
   // content vars
 
   /**
-   * @return The last modification date time or if not present the creation date
-   *         time.
+   * @return The last modification date time or if not present the creation date time.
    */
   @Nonnull
   LocalDateTime getLastChangeDateTime ();
 
   /**
-   * @return The user who created the comment. May be <code>null</code> for
-   *         public comments. One of userID or creator name must be present.
+   * @return The user who created the comment. May be <code>null</code> for public comments. One of
+   *         userID or creator name must be present.
    */
   @Nullable
   String getUserID ();
 
   /**
-   * @return The name of the person who created the comment. May be
-   *         <code>null</code> for restricted comments. One of userID or creator
-   *         name must be present.
+   * @return The name of the person who created the comment. May be <code>null</code> for restricted
+   *         comments. One of userID or creator name must be present.
    */
   @Nullable
   String getCreatorName ();

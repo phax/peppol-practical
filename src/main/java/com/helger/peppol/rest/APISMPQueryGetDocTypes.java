@@ -22,27 +22,25 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.ICommonsSortedMap;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.http.CHttp;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.timing.StopWatch;
+import com.helger.annotation.Nonempty;
+import com.helger.base.CGlobal;
+import com.helger.base.timing.StopWatch;
+import com.helger.collection.commons.CommonsTreeMap;
+import com.helger.collection.commons.ICommonsSortedMap;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.http.CHttp;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
+import com.helger.mime.CMimeType;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.sharedui.CSharedUI;
@@ -52,6 +50,7 @@ import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -61,6 +60,8 @@ import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.httpclient.SMPHttpClientSettings;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
+
+import jakarta.annotation.Nonnull;
 
 public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
 {
@@ -101,7 +102,11 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
     {
       for (final ISMLConfiguration aCurSML : aSMLConfigurationMgr.getAllSorted ())
       {
-        aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML, aPID.getScheme (), aPID.getValue (), false);
+        aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aCurSML,
+                                                             aPID.getScheme (),
+                                                             aPID.getValue (),
+                                                             PagePublicToolsParticipantInformation.DEFAULT_CNAME_LOOKUP,
+                                                             false);
         if (aSMPQueryParams != null && aSMPQueryParams.isSMPRegisteredInDNS ())
         {
           // Found it
@@ -119,7 +124,11 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
     }
     else
     {
-      aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSML, aPID.getScheme (), aPID.getValue (), true);
+      aSMPQueryParams = SMPQueryParams.createForSMLOrNull (aSML,
+                                                           aPID.getScheme (),
+                                                           aPID.getValue (),
+                                                           PagePublicToolsParticipantInformation.DEFAULT_CNAME_LOOKUP,
+                                                           true);
     }
     if (aSMPQueryParams == null)
       throw new APIParamException ("Failed to resolve participant ID '" +
@@ -263,7 +272,7 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
           // Business Card found
           if (aJson == null)
             aJson = new JsonObject ();
-          aJson.addJson (PARAM_BUSINESS_CARD, aBC.getAsJson ());
+          aJson.add (PARAM_BUSINESS_CARD, aBC.getAsJson ());
         }
       }
     }

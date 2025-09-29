@@ -27,8 +27,8 @@ import org.junit.rules.TestRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.photon.app.mock.PhotonAppTestRule;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.mock.XMLTestHelper;
@@ -59,7 +59,7 @@ public final class CommentTest
     if (false)
       LOGGER.info (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement (aComment, "comment")));
 
-    CommonsTestHelper.testDefaultSerialization (aComment);
+    TestHelper.testDefaultSerialization (aComment);
     XMLTestHelper.testMicroTypeConversion (aComment);
   }
 }

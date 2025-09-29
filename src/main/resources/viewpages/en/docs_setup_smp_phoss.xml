@@ -27,11 +27,10 @@
 </p>
 
 <p>
-  phoss SMP is a fork of the CIPA e-Delivery SMP components on version 2.2.3 back in 2015.
-  The goal is to keep the implementation simple and provide publicly available Peppol components
-  to the world. An additional goal was to make the configuration as simple as possible.
-  Please read the official <a href="https://github.com/phax/phoss-smp/wiki">phoss SMP Wiki</a> for
-  all the details.
+  The goal of phoss SMP is to keep the implementation simple and provide publicly available Peppol
+  components to the world.
+  An additional goal was to make the configuration as simple as possible.
+  Please read the official <a href="https://github.com/phax/phoss-smp/wiki">phoss SMP Wiki</a> for all the details.
 </p>
 
 <div class="card">
@@ -69,7 +68,7 @@
       It is important to understand that the specifications only specify the reading access
       to an SMP but not the writing access. Nevertheless the implementation discussed here
       also contains the possibility to write new entries.</li>
-  <li>You should be familiar with Java 1.8+</li>
+  <li>You should be familiar with Java</li>
   <li>When using the SMP server implementation with a database backend
       basic knowledge of a relational database (e.g. MySQL) is required. 
       Alternatively a filesystem based XML backend is also available.</li>
@@ -108,16 +107,17 @@
 
 <p>
   See <a href="https://github.com/phax/phoss-smp/wiki/Source">https://github.com/phax/phoss-smp/wiki/Source</a>
-  for the description of the different source modules. 
+    for the description of the different source modules. 
   All of the components are available as ready-to-use Maven projects.
 </p>
 
 <p>  
   Hint when using Eclipse: it is best to close the project in Eclipse when a commandline 
-  build is performed because otherwise Eclipse might want to refresh while the console 
-  build is in progress. After the build finished you may re-open the project in Eclipse
-  and clean it there again, because the Eclipse compiler and the Oracle console compiler 
-  produce incompatible byte code for enumeration classes!
+    build is performed because otherwise Eclipse might want to refresh while the console 
+    build is in progress.
+  After the build finished you may re-open the project in Eclipse and clean it there again, 
+    because the Eclipse compiler and the Oracle console compiler produce incompatible byte
+    code for enumeration classes!
 </p>
 
 <a name="smpserver"></a>
@@ -166,22 +166,20 @@
   </li>
 </ul>
 
-<div class="alert alert-info">  
+<div class="alert alert-info">
   Note that a production SMP service MUST be deployed as the <code>ROOT</code> web application (at path "/") on 
   the application server, since this is a prerequisite in the DNS lookup scheme. 
-  Furthermore it MUST be deployed on port 80 (standard http port) and may not use SSL to secure the transport.
+  Furthermore it MUST be deployed on port 80 (standard http port) and may not use TLS to secure the transport.<br/>
+  <strong>This is valid for production SMPs until February 1<sup>st</sup>, 2026.</strong>
 </div>
 
 <a name="configuring"></a>
 <h3>Configuring the SMP server</h3>
 <p>
-  The SMP server is configured with two files. One file (<code>webapp.properties</code>) is for the
-  customization of the web application and the other file (<code>smp-server.properties</code>) is
-  for the SMP functionality itself.
-  Additionally a Peppol Directory client file (<code>pd-client.properties</code>) may be configured.
+  The SMP server is configured centrally via Java system properties, environment variables and configuration files.
   Please read the Wiki page
   <a href="https://github.com/phax/phoss-smp/wiki/Configuration">https://github.com/phax/phoss-smp/wiki/Configuration</a>
-  for all configuration options and example files.
+  for all configuration options.
 </p>
 
 <a name="security"></a>
@@ -204,14 +202,7 @@
   <li>
     Change the default user <code>admin@helger.com</code> with the default password <code>password</code> 
     to something more complex! This can be easily achieved by logging into the URL <code>http://yourserver/secure</code>
-    and use the <em>Change password</em> page to perform the change. 
-  </li>
-  <li>
-    When using the SQL backend, change the default DB user <code>peppol_user</code> with the 
-    default password <code>Test1234</code> to something more complex! 
-    This can be easily achieved on the management page "DB users" or by altering the content of the database
-    table <code>smp_user</code> manually. After this change, simply provide the new credentials for
-    writing operations.
+    and use the <em>Administration | Change password</em> page to perform the change. 
   </li>
   <li>
     The SMP must be registered at the SML.
@@ -244,9 +235,11 @@
 
 <p>
   Note: the classes <code>SMPClientReadonly</code> and <code>SMPClient</code> can only be used to
-  query SMPs that follow the old Peppol SMP specification. To query an SMP server that follows
-  the OASIS BDXR SMP v1 specification the classes <code>BDXRClientReadonly</code> and
-  <code>BDXRClient</code> are provided with a similar API.
+    query SMPs that follow the old Peppol SMP specification.<br/>
+  To query an SMP server that follows the OASIS BDXR SMP v1 specification the classes 
+    <code>BDXRClientReadonly</code> and <code>BDXRClient</code> are provided with a similar API.<br/>
+  To query an SMP server that follows the OASIS BDXR SMP v2 specification the classes 
+    <code>BDXR2ClientReadonly</code> and <code>BDXR2Client</code> are provided with a similar API.
 </p>
 
 <p>
@@ -264,12 +257,9 @@
                                                                                                ESML.DIGIT_TEST,
                                                                                                aServiceGroupID,
                                                                                                aDocumentTypeID);
-    if (aMetadata == null)
-    {
+    if (aMetadata == null) {
       // No such metadata
-    }
-    else
-    {
+    } else {
       // Evaluate metadata
     }
   </pre>
