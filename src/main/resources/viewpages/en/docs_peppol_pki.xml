@@ -114,7 +114,7 @@
       <li>
         Uses the Peppol SMP certificate to sign responses to 
         <code>SignedServiceMetadata</code> requests
-        (as in <code>http://smp.example.org/{participantID}/services/{docTypeID}</code> - will be https from November 1<sup>st</sup>, 2025 and requires a TLS certificate)
+        (as in <code>http://smp.example.org/{participantID}/services/{docTypeID}</code> - will be https and requires a TLS certificate from November 1<sup>st</sup>, 2025)
       </li>
       <li>
         Uses the Peppol SMP certificate as a client certificate when communicating with the SML
