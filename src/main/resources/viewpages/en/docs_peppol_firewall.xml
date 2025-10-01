@@ -70,5 +70,6 @@
 
 <h3>SMP</h3>
 <ul>
-  <li>Allow TCP port <code>80</code> from <code>*</code> (all IPs) - for being queried from any AP</li>  
+  <li>Until October 31<sup>st</sup>, 2025: Allow TCP port <code>80</code> from <code>*</code> (all IPs) - for being queried from any AP</li>
+  <li>From November 1<sup>st</sup>, 2025: Allow TCP port <code>443</code> from <code>*</code> (all IPs)</li>  
 </ul>

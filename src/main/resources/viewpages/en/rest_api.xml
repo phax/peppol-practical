@@ -96,22 +96,16 @@
     {
       "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1",
       "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
-      "niceName":"Peppol Peppol BIS Billing UBL CreditNote V3",
+      "niceName":"Peppol BIS Billing UBL Credit Note V3",
+      "state":"act",
       "isDeprecated":false
     },
     {
-      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns014%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3A%3A2.1",
-      "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1",
-      "niceName":"Peppol Peppol Billing profile CreditNote V2",
+      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1",
+      "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
+      "niceName":"Peppol BIS Billing UBL Invoice V3",
+      "state":"act",
       "isDeprecated":false
-    },
-    {
-      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns014%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3Aextended%3Aurn%3Awww.erechnung.gv.at%3Aver1.0%3A%3A2.1",
-      "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0:extended:urn:www.erechnung.gv.at:ver1.0::2.1"
-    },
-    {
-      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns010%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol5a%3Aver2.0%3Aextended%3Aurn%3Awww.erechnung.gv.at%3Aver1.0%3A%3A2.1",
-      "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0:extended:urn:www.erechnung.gv.at:ver1.0::2.1"
     }
   ],
   "businessCard":{
@@ -128,12 +122,16 @@
         ],
         "countrycode":"AT",
         "geoinfo":"Vienna, Austria",
-        "additionalinfo":"This is the test endpoint for the whole Austrian Government!"
+        "website":[
+          "https://test.erechnung.gv.at"
+        ],
+        "additionalinfo":"This is the test endpoint for the whole Austrian Government!\r\nIt does not only support the Federal Government but also other external companies.",
+        "regdate":"2012-01-01"
       }
     ]
   },
-  "queryDateTime":"2020-01-10T17:51:15.76Z",
-  "queryDurationMillis":878
+  "queryDateTime":"2025-10-01T14:04:35.46783651Z",
+  "queryDurationMillis":65
 }
 </pre>
 
@@ -179,44 +177,44 @@
 {
   "smptype":"peppol",
   "participantID":"iso6523-actorid-upis::9915:test",
-  "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1",
+  "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
   "serviceinfo":{
     "processes":[
       {
-        "processID":"cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii05:ver2.0",
+        "processID":"cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
         "endpoints":[
           {
-            "transportProfile":"busdox-transport-as2-ver1p0",
-            "endpointReference":"https://test.erechnung.gv.at/as2",
+            "transportProfile":"peppol-transport-as4-v2_0",
+            "endpointReference":"https://test.erechnung.gv.at/as4",
             "requireBusinessLevelSignature":false,
             "minimumAuthenticationLevel":null,
-            "certificate":"MIIFuzCCA6OgAwIBAgIQLc6VuJ1QGhKCNekpRV+3RzANBgkqhkiG9w0BAQsFADBr\nMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQT3BlblBFUFBPTCBBSVNCTDEWMBQGA1UE\nCxMNRk9SIFRFU1QgT05MWTEpMCcGA1UEAxMgUEVQUE9MIEFDQ0VTUyBQT0lOVCBU\nRVNUIENBIC0gRzIwHhcNMTkwMjIyMDAwMDAwWhcNMjEwMjExMjM1OTU5WjBIMRIw\nEAYDVQQDDAlQREswMDAyNzAxFzAVBgNVBAsMDlBFUFBPTCBURVNUIEFQMQwwCgYD\nVQQKDANCUloxCzAJBgNVBAYTAkFUMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB\nCgKCAQEA3/MoOJgIfDzUkSy52GJ0KAmQ8uUFoms+qcZki5xwgeUkEQZqEZfU7uZq\nSuJsQfo1OYNpOSRba4xtBVOMrbS5Q2i4y+rLxUnk89aWZj41GtuEYxlqQ27/F5Bu\nSMTVPzzt439Nj11JljanAhkJ/mHGFXsWoftzuQXajwU1ZCrrSxOv4TighIDBuvrq\n7xHjwi4+mljWOW2jBximWOZmOt0fZGgWduxZgnKwwYAeur7+GnAtPOFeIXyNREiE\nJyMPHxysKhs+a9ZUuSGHXMF+jDYOC1HMozsa10QIctNxpdHkYkORUdXmjh1k6AY/\nEuZwQSeZoAGorE066DdREn+JvIVvQQIDAQABo4IBfDCCAXgwDAYDVR0TAQH/BAIw\nADAOBgNVHQ8BAf8EBAMCA6gwFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwIwHQYDVR0O\nBBYEFEOP+WBp2jknDwIRUt9rhwrSIvgpMF0GA1UdHwRWMFQwUqBQoE6GTGh0dHA6\nLy9wa2ktY3JsLnN5bWF1dGguY29tL2NhXzZhOTM3NzM0YTM5M2EwODA1YmYzM2Nk\nYThiMzMxMDkzL0xhdGVzdENSTC5jcmwwNwYIKwYBBQUHAQEEKzApMCcGCCsGAQUF\nBzABhhtodHRwOi8vcGtpLW9jc3Auc3ltYXV0aC5jb20wHwYDVR0jBBgwFoAUa29L\ntvE3uis8fxjNuiuyuXwqN+swLQYKYIZIAYb4RQEQAwQfMB0GE2CGSAGG+EUBEAEC\nAwEBgamQ4QMWBjk1NzYwODA5BgpghkgBhvhFARAFBCswKQIBABYkYUhSMGNITTZM\neTl3YTJrdGNtRXVjM2x0WVhWMGFDNWpiMjA9MA0GCSqGSIb3DQEBCwUAA4ICAQA6\n56xmXDfQZl3HLKmSpsJN5Fm+Q2MNWj50Q9avI2L7lF2GUS6COih3ECohv6g8t3Pj\ndhzt31ejWPjxuoXtcLesFBL6h9NgLoKel1LWOGnu06y9Q1pBBa4fx0ql2I845AV1\nax/F1Yh5ynQNVtaxyRDZizkL35MOl/WDDL2Oi/wt5d52BwsurU32JTKOlj+TUZt8\ntza1rA5bjGmsnVl48zrxrVSlMY/6y6uT86mub9nrBCMWbdY9BQ73V/jGW8BkhnVq\n+wVzHpDu/X66eErA/HUJk8k5Mb9Cj4uiLBcoSt9vk0cY9Q9S+QMOJdWEkl3veiTj\n1sydTX8MvL5bGBRPo0veNyypSXrA9FQwG6CbCY8UK1h/7oYnnTab04UUqGZBj72t\nXURqTq1updBEnSIFO4si95j0hN1fnkgsB//UtSyHriy4Je8voAzQQmPhms1FL/OS\nINWLSVEnUEodDztNDxD4x4sBZcmIgnsPiF7ygnEQIWVO8J92/GD0NmMcgnW4CFDK\nRgv5Aw4bFKcnS8CO9XvNp6reyZV2Q8kef5lGxxHR7S76CQ0tleUVMQPXkbFxcHN5\n8H2U2yIhorlH1DaOxPOlhSUTfKCBq38I6O4BUW8tvI35Rxo7pSfos5Lt7u/PIVwI\nVMRYrNhdxiS0RgWmZLELqi1QTzliBXJkurhHdG7eVA==",
+            "certificate":"MIIFwDCCA6igAwIBAgIQHVPXZhVL2J+G+tNqMFz3kDANBgkqhkiG9w0BAQsFADBr\nMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQT3BlblBFUFBPTCBBSVNCTDEWMBQGA1UE\nCxMNRk9SIFRFU1QgT05MWTEpMCcGA1UEAxMgUEVQUE9MIEFDQ0VTUyBQT0lOVCBU\nRVNUIENBIC0gRzIwHhcNMjQxMTEzMDAwMDAwWhcNMjYxMTAzMjM1OTU5WjBNMQsw\nCQYDVQQGEwJBVDERMA8GA1UECgwIQlJaIEdtYkgxFzAVBgNVBAsMDlBFUFBPTCBU\nRVNUIEFQMRIwEAYDVQQDDAlQT1AwMDAyNzAwggEiMA0GCSqGSIb3DQEBAQUAA4IB\nDwAwggEKAoIBAQDIVQjWwLbgQYs9tepIQEteUcxxymLXzKtRoQdqNS8e3yduBfPO\nLpZdI0Zk5xyzHqmzG7B1/UJbvVAjShIDJ95nszsvTFC6i0Bw+rOhE2Y0ZyakkJM/\nKDoVcTEpZoQ4IzF56gORzMnk6qiLL9HTybmxNzzikrxzR126N7wFUzbK0SGEAXlj\nuUG42lu+QXWp++71DUYvCzuaIAAc+IPR1rDCLTQgAosW1kgwehek3igcXQuouUfp\nkB6e+joJurKFEe4gvwBCt+taF1iXFSRFKCEse53jOieZeJj7CXLyTYjMleCZzlxo\n5XNU0cIWXYbts70a6SXhMDYsZISb+5N+x7LFAgMBAAGjggF8MIIBeDAMBgNVHRMB\nAf8EAjAAMA4GA1UdDwEB/wQEAwIDqDAWBgNVHSUBAf8EDDAKBggrBgEFBQcDAjAd\nBgNVHQ4EFgQUrr4N2vx7Hoh814pJ+Gqn/r/bSd8wXQYDVR0fBFYwVDBSoFCgToZM\naHR0cDovL3BraS1jcmwuc3ltYXV0aC5jb20vY2FfNmE5Mzc3MzRhMzkzYTA4MDVi\nZjMzY2RhOGIzMzEwOTMvTGF0ZXN0Q1JMLmNybDA3BggrBgEFBQcBAQQrMCkwJwYI\nKwYBBQUHMAGGG2h0dHA6Ly9wa2ktb2NzcC5zeW1hdXRoLmNvbTAfBgNVHSMEGDAW\ngBRrb0u28Te6Kzx/GM26K7K5fCo36zAtBgpghkgBhvhFARADBB8wHQYTYIZIAYb4\nRQEQAQIDAQGBqZDhAxYGOTU3NjA4MDkGCmCGSAGG+EUBEAUEKzApAgEAFiRhSFIw\nY0hNNkx5OXdhMmt0Y21FdWMzbHRZWFYwYUM1amIyMD0wDQYJKoZIhvcNAQELBQAD\nggIBAGZajBZleSCU40p5dNkclWzJ9ajYZAmboq6qshcuLYfJk+sw5e09Fzus62qV\nRUs78iXzgWVQQkvhJJIolsnlwm7t1s8X/pUoJhCW51v2ZlPq/nNVbVUevVYQvcMq\nTczgzlHX2hyDDEMtP2t3m4PmSkKBufSs8cLI5brbyxWvARmZZev6FLMOfNouQ4ZQ\nyoRgB+FA6tqCEgTMouhax822oo74D11Xz+VqRaEWe6Ey//LIzcue7C/jcMqwaWCe\nURf9ieZuy2wJBAcwdcFBjvlLFzwF1FHVtbF67VBepDK3POMFpwUcDFPhZtbMK0i1\ntDSVMQ+Bj3sBYYS4LRh/Bqt0ZHpyNcU5eigWyXI4PAkoC9f24iG4EQYiRQjNodxT\nm5M9u/lnZi5EO99VDL1sdg5AUp06HA1iocmyoymhC9QV66LFe8TYeRJ14qCVcV1t\nW1iGxhc034FspjZrmckysjQF3pWzH9dQ/EAz4P3CAlqgnP3RsX52OuHq3oxwJuNk\nlGHzXiTnqrQg7CDg8O/yjz9S2GQgH3R3FcRISzW9YR6UHCk3pJ7QyJd4FGSqsZEd\nfIgJjqaCkZeIK3xBQ+6FaBJZQeKFWNB5gHlFxRbz/7tzbWdDdn6VpRN/t9Gg4rOd\ntZil72vPBq6jy5giQwLqNza8X597CmOpTpDpNi7YVBimYKg4",
             "certificateDetails":{
               "parsable":true,
               "subject":{
-                "name":"C=AT,O=BRZ,OU=PEPPOL TEST AP,CN=PDK000270",
-                "CN":"PDK000270",
+                "name":"CN=POP000270,OU=PEPPOL TEST AP,O=BRZ GmbH,C=AT",
+                "C":"AT",
+                "O":"BRZ GmbH",
                 "OU":"PEPPOL TEST AP",
-                "O":"BRZ",
-                "C":"AT"
+                "CN":"POP000270"
               },
               "issuer":{
-                "name":"CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPeppol AISBL,C=BE",
+                "name":"CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
                 "C":"BE",
-                "O":"OpenPeppol AISBL",
+                "O":"OpenPEPPOL AISBL",
                 "OU":"FOR TEST ONLY",
                 "CN":"PEPPOL ACCESS POINT TEST CA - G2"
               },
-              "serial10":60887909668878219226152841132441057095,
-              "serial16":"2dce95b89d501a128235e929455fb747",
-              "notBefore":"2019-02-22T01:00:00",
-              "notAfter":"2021-02-12T00:59:59",
+              "serial10":38982941322949190188120289136764319632,
+              "serial16":"1d53d766154bd89f86fad36a305cf790",
+              "notBefore":"2024-11-13T00:00:00",
+              "notAfter":"2026-11-03T23:59:59",
               "validByDate":true,
               "sigAlgName":"SHA256withRSA"
             },
             "serviceDescription":"BRZ Test AP",
-            "technicalContactUrl":"peppol-support@peppol.at",
-            "technicalInformationUrl":"http://www.peppol.at",
+            "technicalContactUrl":"support-erb@brz.gv.at",
+            "technicalInformationUrl":null,
             "extension":null
           }
         ],
@@ -225,8 +223,8 @@
     ],
     "extension":null
   },
-  "queryDateTime":"2020-01-10T17:52:41.949Z",
-  "queryDurationMillis":380
+  "queryDateTime":"2025-10-01T14:12:06.315196818Z",
+  "queryDurationMillis":86
 }
 </pre>
 
@@ -280,11 +278,15 @@
       ],
       "countrycode":"AT",
       "geoinfo":"Vienna, Austria",
-      "additionalinfo":"This is the test endpoint for the whole Austrian Government!"
+      "website":[
+        "https://test.erechnung.gv.at"
+      ],
+      "additionalinfo":"This is the test endpoint for the whole Austrian Government!\r\nIt does not only support the Federal Government but also other external companies.",
+      "regdate":"2012-01-01"
     }
   ],
-  "queryDateTime":"2020-01-10T18:31:03.548Z",
-  "queryDurationMillis":173
+  "queryDateTime":"2025-10-01T14:15:44.4065939Z",
+  "queryDurationMillis":580
 }
 </pre>
 
@@ -328,11 +330,11 @@
 <p><strong>Example Response (default layout):</strong></p>
 <pre>
 {
-  "conversionDateTime":"2020-01-13T08:06:23.224Z",
-  "parsingDuractionMillis":6,
+  "conversionDateTime":"2025-10-01T15:51:56.746634761Z",
+  "parsingDuractionMillis":86,
   "parsingErrors":[],
-  "conversionVersion":"1.3.0",
-  "conversionBuildTimestamp":"2021-01-05T20:55:24Z",
+  "conversionVersion":"3.0.1",
+  "conversionBuildTimestamp":"2025-09-19T12:55:25Z",
   "conversionDuractionMillis":0,
   "coversionErrors":[],
   "ubl":"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;&lt;Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" xmlns:cec=\"urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2\" xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\"&gt;&lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;&lt;cbc:ProfileID&gt;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&lt;/cbc:ProfileID&gt;&lt;cbc:ID&gt;TOSL108&lt;/cbc:ID&gt;&lt;cbc:IssueDate&gt;2013-06-30&lt;/cbc:IssueDate&gt;&lt;!-- details omitted for readability --&gt;&lt;/Invoice&gt;"
@@ -376,11 +378,11 @@
 <p><strong>Example Response:</strong></p>
 <pre>
 {
-    "participantID": "iso6523-actorid-upis::9915:helger",
-    "sml": "digittest",
-    "smpHostURI": "http://B-297f5399d9cfcd22495c7e8ce7015132.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
-    "exists": true,
-    "queryDateTime": "2024-06-14T10:00:20.6907058Z",
-    "queryDurationMillis": 1
+  "participantID":"iso6523-actorid-upis::9915:helger",
+  "sml":"digittest",
+  "smpHostURI":"http://smp.helger.com",
+  "exists":true,
+  "queryDateTime":"2025-10-01T14:19:07.763821658Z",
+  "queryDurationMillis":1
 }
 </pre>

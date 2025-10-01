@@ -159,7 +159,7 @@
   <li>
     <p>
       Now that the SMP URL is known, the SMP query with the document type 
-        (following the schema <code>http://<i>smp.url</i>/<i>participantID</i>/services/<i>documentTypeID</i></code>)
+        (following the pattern <code>http://<i>smp.url</i>/<i>participantID</i>/services/<i>documentTypeID</i></code>)
         can be performed.
       The resulting, digitally signed document must be parsed so that the endpoint matching the 
         desired process ID and transport protocol can be retrieved.
