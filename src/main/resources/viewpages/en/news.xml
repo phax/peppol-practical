@@ -42,6 +42,25 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2025-10-02 - Document Validation extended</h3>
+    
+    <p>
+      Added support for Polish KSeF rules.<br/>
+      Added support for Peppol PINT EU document types.<br/>
+      Added support for SG Peppol Order Balance
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>pl.ksef:ksef:1</code> - KSeF 1 <strong>(Deprecated)</strong></li>
+<li><code>pl.ksef:ksef:2</code> - KSeF 2</li>
+<li><code>org.peppol.pint.eu:creditnote:2025.10</code> - Peppol PINT EU Credit Note (UBL) 2025-10 (aka 1.0.0)</li>
+<li><code>org.peppol.pint.eu:invoice:2025.10</code> - Peppol PINT EU Invoice (UBL) 2025-10 (aka 1.0.0)</li>
+<li><code>org.peppol.sg:order-balance:1</code> - SG Peppol Order Balance 1.0</li>
+</ul>
+
     <h3>2025-09-16 - Document Validation extended</h3>
     
     <p>

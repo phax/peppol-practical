@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1164 entries -->
+<!-- 1169 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -325,8 +325,12 @@ A very small Java WS client is available for
 <li><code>fi.finvoice:finvoice:1.3</code> - Finvoice 1.3</li>
 <li><code>fi.finvoice:finvoice:2.0.1</code> - Finvoice 2.0.1</li>
 <li><code>fr.ctc:cii:0.1</code> - France CTC CII 0.1</li>
+<li><code>fr.ctc:ubl-creditnote:0.1</code> - France CTC Credit Note 0.1</li>
+<li><code>fr.ctc:ubl-invoice:0.1</code> - France CTC Invoice 0.1</li>
 <li><code>cz.isdoc:isdoc:6.0.1</code> - ISDOC 6.0.1 <strong>(Deprecated)</strong></li>
 <li><code>cz.isdoc:isdoc:6.0.2</code> - ISDOC 6.0.2</li>
+<li><code>pl.ksef:ksef:1</code> - KSeF 1 <strong>(Deprecated)</strong></li>
+<li><code>pl.ksef:ksef:2</code> - KSeF 2</li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3</code> - NLCIUS-CII 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-1</code> - NLCIUS-CII 1.0.3.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-2</code> - NLCIUS-CII 1.0.3.2 <strong>(Deprecated)</strong></li>
@@ -640,6 +644,8 @@ A very small Java WS client is available for
 <li><code>org.peppol.pint.aunz:invoice-self-billing:1.0.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:invoice-self-billing:1.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.1.0</li>
 <li><code>org.peppol.pint.aunz:invoice-self-billing:1.1.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.eu:creditnote:2025.10</code> - Peppol PINT EU Credit Note (UBL) 2025-10 (aka 1.0.0)</li>
+<li><code>org.peppol.pint.eu:invoice:2025.10</code> - Peppol PINT EU Invoice (UBL) 2025-10 (aka 1.0.0)</li>
 <li><code>org.peppol.jp.pint:credit-note:0.1.2</code> - Peppol PINT Japan Credit Note (UBL) 0.1.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:credit-note:1.0.2</code> - Peppol PINT Japan Credit Note (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:credit-note:1.0.3</code> - Peppol PINT Japan Credit Note (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
@@ -710,6 +716,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3.sg.ubl:invoice:2023.7</code> - SG Peppol BIS3 Invoice (UBL) 2023.7 (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:2023.12</code> - SG Peppol BIS3 Invoice (UBL) 2023.12 (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:2024.12</code> - SG Peppol BIS3 Invoice (UBL) 2024.12 (aka BIS 3.0.14)</li>
+<li><code>org.peppol.sg:order-balance:1</code> - SG Peppol Order Balance 1.0</li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1</code> - Simplerinvoicing 2.0 G-Account extension 1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.1</code> - Simplerinvoicing 2.0 G-Account extension 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.2</code> - Simplerinvoicing 2.0 G-Account extension 1.0.2 <strong>(Deprecated)</strong></li>
@@ -1163,7 +1170,6 @@ A very small Java WS client is available for
 <li><code>de.xrechnung.extension:cii:3.0.1</code> - XRechnung CII 3.0.1 Extension</li>
 <li><code>de.xrechnung:cii:3.0.2</code> - XRechnung CII 3.0.2 (rules v2.4.0)</li>
 <li><code>de.xrechnung.extension:cii:3.0.2</code> - XRechnung CII 3.0.2 Extension (rules v2.4.0)</li>
-<li><code>fr.ctc:ubl-creditnote:0.1</code> - XRechnung UBL Credit Note 0.1</li>
 <li><code>de.xrechnung:ubl-creditnote:2</code> - XRechnung UBL Credit Note 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:3</code> - XRechnung UBL Credit Note 3</li>
 <li><code>de.xrechnung:ubl-creditnote:1.2</code> - XRechnung UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
@@ -1175,7 +1181,6 @@ A very small Java WS client is available for
 <li><code>de.xrechnung:ubl-creditnote:2.3.1</code> - XRechnung UBL Credit Note 2.3.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:3.0.1</code> - XRechnung UBL Credit Note 3.0.1</li>
 <li><code>de.xrechnung:ubl-creditnote:3.0.2</code> - XRechnung UBL Credit Note 3.0.2 (rules v2.4.0)</li>
-<li><code>fr.ctc:ubl-invoice:0.1</code> - XRechnung UBL Invoice 0.1</li>
 <li><code>de.xrechnung:ubl-invoice:2</code> - XRechnung UBL Invoice 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:3</code> - XRechnung UBL Invoice 3</li>
 <li><code>de.xrechnung.extension:ubl-invoice:3</code> - XRechnung UBL Invoice 3 Extension</li>
