@@ -25,7 +25,7 @@ import com.helger.json.IJsonArray;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.mime.CMimeType;
-import com.helger.peppol.sharedui.validate.VESRegistry;
+import com.helger.peppol.ui.validate.VESRegistry;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.servlet.response.UnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
