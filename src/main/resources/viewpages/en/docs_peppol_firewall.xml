@@ -41,11 +41,12 @@
 <h3>AP</h3>
 <ul>
   <li>Allow TCP port <code>443</code> to <code>*</code> (all IPs) - for sending messages to another AP</li>  
-  <li>Allow TCP port <code>80</code> to <code>*</code> (all IPs) - for querying any SMP and to download CRL files from http://pki-crl.symauth.com/</li>
+  <li>Allow TCP port <code>80</code> to <code>*</code> (all IPs) - for querying any SMP and to download CRL files from http://pki-crl.symauth.com/ (G2) or http://crl.one.nl.digicert.com/ (G3)</li>
 </ul>
 
 <h3>SMP</h3>
 <ul>
+  <li>Allow TCP port <code>80</code> to download CRL files from http://pki-crl.symauth.com/ (G2) or http://crl.one.nl.digicert.com/ (G3)</li>
   <li>Allow TCP port <code>443</code> to Peppol Directory
     <ul>
       <li>Production: <code>directory.peppol.eu</code></li>
@@ -71,5 +72,5 @@
 <h3>SMP</h3>
 <ul>
   <li>Until October 31<sup>st</sup>, 2025: Allow TCP port <code>80</code> from <code>*</code> (all IPs) - for being queried from any AP</li>
-  <li>From November 1<sup>st</sup>, 2025: Allow TCP port <code>443</code> from <code>*</code> (all IPs)</li>  
+  <li>From November 1<sup>st</sup>, 2025: Allow TCP port <code>443</code> from <code>*</code> (all IPs) - for being queried from any AP</li>  
 </ul>
