@@ -167,10 +167,11 @@
 </ul>
 
 <div class="alert alert-info">
-  Note that a production SMP service MUST be deployed as the <code>ROOT</code> web application (at path "/") on 
-  the application server, since this is a prerequisite in the DNS lookup scheme. 
-  Furthermore it MUST be deployed on port 80 (standard http port) and may not use TLS to secure the transport.<br/>
-  <strong>This is valid for production SMPs until February 1<sup>st</sup>, 2026.</strong>
+  Until October 31<sup>st</sup>, 2025: Note that a production SMP service MUST be deployed as the <code>ROOT</code> web application (at path "/") on 
+    the application server, since this is a prerequisite in the DNS lookup scheme. 
+    Furthermore it MUST be deployed on port 80 (standard http port) and MUST NOT use SSL/TLS to secure the transport.<br/>
+  From November 1<sup>st</sup>, 2025: Note that a production SMP service MAY be deployed using https on port 443 (following the guidelines of the Peppol Policy for Transport Security).<br/>
+  <strong>Production SMPs MUST be operated via https until February 1<sup>st</sup>, 2026.</strong>
 </div>
 
 <a name="configuring"></a>

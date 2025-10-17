@@ -112,21 +112,20 @@
     <strong>SMP Server</strong>
     <ul>
       <li>
-        Uses the Peppol SMP certificate to sign responses to 
-        <code>SignedServiceMetadata</code> requests
-        (as in <code>http://smp.example.org/{participantID}/services/{docTypeID}</code>)
+        Uses the Peppol SMP certificate to sign responses to <code>SignedServiceMetadata</code> requests
+          (as in <code>http://smp.example.org/{participantID}/services/{docTypeID}</code> - will be <code>https</code> requiring a TLS certificate from November 1<sup>st</sup>, 2025)
       </li>
       <li>
         Uses the Peppol SMP certificate as a client certificate when communicating with the SML
-        (for service group creation and deletion) 
+          (for service group creation and deletion) 
       </li>
       <li>
         Requires the public part of the Peppol AP certificate for usage in the public
-        endpoints (the information that is queried from the outside).
+          endpoints (the information that is queried from the outside).
       </li>
       <li>
         Optionally uses the Peppol SMP certificate as a client certificate when communicating with the 
-        Peppol Directory (for business card updates and deletions) 
+          Peppol Directory (for business card updates and deletions) 
       </li>
     </ul>
   </li>
@@ -142,9 +141,9 @@
     <strong>AP Server</strong> (receiving documents)
     <ul>
       <li>
-        Requires an SSL certificate for https usage. 
-        This SSL certificate is <strong>NOT</strong> issued by Peppol but must be issued by a trusted third party.
-        This SSL certificate should not be self-signed! 
+        Requires a SSL/TLS certificate for https usage. 
+        This SSL/TLS certificate is <strong>NOT</strong> issued by OpenPeppol but must be issued by a trusted third party.
+        This SSL/TLS certificate should not be self-signed! 
       </li>
       <li>
         Verifies that the incoming document was signed with a Peppol AP certificate.
@@ -156,7 +155,7 @@
     <ul>
       <li>
         Signs the AS4 message with the Peppol AP certificate.
-        Includes the public part of the certificate into the AS4 message.
+        Includes the public part of the certificate inside the AS4 message.
       </li>
     </ul>
   </li>
