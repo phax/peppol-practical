@@ -49,12 +49,12 @@ import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.http.security.TrustManagerTrustAll;
+import com.helger.peppol.photon.PeppolUI;
 import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.sharedui.domain.ISMLConfiguration;
 import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
-import com.helger.peppol.sharedui.ui.SharedCommonUI;
 import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
@@ -175,9 +175,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                 if (aEntry instanceof KeyStore.PrivateKeyEntry)
                 {
                   final Certificate aCert = ((KeyStore.PrivateKeyEntry) aEntry).getCertificate ();
-                  if (aCert instanceof X509Certificate)
+                  if (aCert instanceof final X509Certificate aX509Cert)
                   {
-                    final X509Certificate aX509Cert = (X509Certificate) aCert;
                     final LocalDate aNotBefore = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
                     final LocalDate aNotAfter = PDTFactory.createLocalDate (aX509Cert.getNotAfter ());
                     if (aNow.isBefore (aNotBefore))
@@ -232,7 +231,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         catch (final Exception ex)
         {
           final String sMsg = "The key store could not be loaded with the provided password. ";
-          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + SharedCommonUI.getTechnicalDetailsString (ex, true));
+          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + PeppolUI.getTechnicalDetailsString (ex, true));
           aKeyStore = null;
         }
       }
@@ -256,7 +255,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       catch (final Exception ex)
       {
         final String sMsg = "Failed to use the provided key store for TLS connection. ";
-        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + SharedCommonUI.getTechnicalDetailsString (ex, true));
+        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + PeppolUI.getTechnicalDetailsString (ex, true));
       }
     }
     return aSocketFactory;
@@ -367,7 +366,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
+        aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sLogicalAddress,
@@ -476,7 +475,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
+        aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sLogicalAddress,
@@ -542,7 +541,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' from the SML '" +
                             aSMLInfo.getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
+        aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
                                            aSMLInfo.getManagementServiceURL (),
@@ -713,7 +712,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSML.getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (SharedCommonUI.getTechnicalDetailsUI (ex, true)));
+        aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSML.getManagementServiceURL (),
                                            sMigrationPublicCert,

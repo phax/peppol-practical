@@ -45,6 +45,7 @@ import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.AjaxExecutorPublicLogin;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.comment.domain.CommentThreadManager;
+import com.helger.peppol.photon.PeppolUI;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppol.sharedui.ui.SharedCommonUI;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
@@ -208,46 +209,43 @@ public final class AppCommonUI
 
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
-    if (aObject instanceof IRole)
+    if (aObject instanceof final IRole aTypedObj)
     {
-      final IRole aTypedObj = (IRole) aObject;
       final String sRealDisplayName = sDisplayName != null ? sDisplayName : aTypedObj.getName ();
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_ROLE;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
-        return new HCA (SharedCommonUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                                   .setTitle ("Show details of role '" +
-                                                                                              sRealDisplayName +
-                                                                                              "'");
+        return new HCA (PeppolUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
+                                                                             .setTitle ("Show details of role '" +
+                                                                                        sRealDisplayName +
+                                                                                        "'");
       return new HCTextNode (sRealDisplayName);
     }
 
-    if (aObject instanceof IUser)
+    if (aObject instanceof final IUser aTypedObj)
     {
-      final IUser aTypedObj = (IUser) aObject;
       final String sRealDisplayName = sDisplayName != null ? sDisplayName : SecurityHelper.getUserDisplayName (
                                                                                                                aTypedObj,
                                                                                                                aDisplayLocale);
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
-        return new HCA (SharedCommonUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                                   .setTitle ("Show details of user '" +
-                                                                                              sRealDisplayName +
-                                                                                              "'");
+        return new HCA (PeppolUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
+                                                                             .setTitle ("Show details of user '" +
+                                                                                        sRealDisplayName +
+                                                                                        "'");
       return new HCTextNode (sRealDisplayName);
     }
-    if (aObject instanceof IUserGroup)
+    if (aObject instanceof final IUserGroup aTypedObj)
     {
-      final IUserGroup aTypedObj = (IUserGroup) aObject;
       final String sRealDisplayName = sDisplayName != null ? sDisplayName : aTypedObj.getName ();
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER_GROUP;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())
-        return new HCA (SharedCommonUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
-                                                                                   .setTitle ("Show details of user group '" +
-                                                                                              sRealDisplayName +
-                                                                                              "'");
+        return new HCA (PeppolUI.getViewLink (aWPEC, sMenuItemID, aTypedObj)).addChild (sRealDisplayName)
+                                                                             .setTitle ("Show details of user group '" +
+                                                                                        sRealDisplayName +
+                                                                                        "'");
       return new HCTextNode (sRealDisplayName);
     }
 
