@@ -27,19 +27,19 @@ import com.helger.base.debug.GlobalDebug;
 import com.helger.commons.vendor.VendorInfo;
 import com.helger.dns.config.DNSConfig;
 import com.helger.httpclient.HttpDebugger;
+import com.helger.peppol.api.ajax.CPeppolSharedAjax;
 import com.helger.peppol.app.AppInternalErrorHandler;
 import com.helger.peppol.app.AppSecurity;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.photon.PeppolUI;
+import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;
-import com.helger.peppol.sharedui.CSharedUI;
 import com.helger.peppol.sharedui.SharedUIHelper;
-import com.helger.peppol.sharedui.api.CSharedUIAjax;
 import com.helger.peppol.sharedui.config.SharedUIConfig;
-import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.validate.VESRegistry;
 import com.helger.photon.ajax.IAjaxRegistry;
@@ -140,16 +140,16 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   @Override
   protected void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
   {
-    aLocaleMgr.registerLocale (CSharedUI.LOCALE_DE);
-    aLocaleMgr.registerLocale (CSharedUI.LOCALE_EN);
+    aLocaleMgr.registerLocale (PeppolUI.LOCALE_DE);
+    aLocaleMgr.registerLocale (PeppolUI.LOCALE_EN);
     aLocaleMgr.setDefaultLocale (CPPApp.DEFAULT_LOCALE);
   }
 
   @Override
   protected void initAjax (@Nonnull final IAjaxRegistry aAjaxRegistry)
   {
-    aAjaxRegistry.registerFunction (CSharedUIAjax.DATATABLES);
-    aAjaxRegistry.registerFunction (CSharedUIAjax.DATATABLES_I18N);
+    aAjaxRegistry.registerFunction (CPeppolSharedAjax.DATATABLES);
+    aAjaxRegistry.registerFunction (CPeppolSharedAjax.DATATABLES_I18N);
     aAjaxRegistry.registerFunction (CAjax.LOGIN);
     aAjaxRegistry.registerFunction (CAjax.UPDATE_MENU_VIEW_PUB);
     aAjaxRegistry.registerFunction (CAjax.UPDATE_MENU_VIEW_SEC);
@@ -199,7 +199,7 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   protected void initManagers ()
   {
     // Load managers
-    SharedUIMetaManager.getInstance ();
+    PhotonPeppolMetaManager.getInstance ();
     PPMetaManager.getInstance ();
 
     // Setup error handler

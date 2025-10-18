@@ -50,12 +50,11 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.http.security.TrustManagerTrustAll;
 import com.helger.peppol.photon.PeppolUI;
-import com.helger.peppol.sharedui.CSharedUI;
-import com.helger.peppol.sharedui.domain.ISMLConfiguration;
-import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
-import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
+import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
+import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
+import com.helger.peppol.photon.smlconfig.ui.SMLConfigurationSelect;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
-import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
@@ -275,7 +274,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -291,10 +290,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (PeppolUI.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CSharedUI.PATTERN_SMP_ID);
+                                                 PeppolUI.PATTERN_SMP_ID);
 
     if (StringHelper.isEmpty (sLogicalAddress))
       aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
@@ -383,7 +382,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -399,10 +398,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (PeppolUI.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CSharedUI.PATTERN_SMP_ID);
+                                                 PeppolUI.PATTERN_SMP_ID);
 
     if (StringHelper.isEmpty (sLogicalAddress))
       aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
@@ -493,7 +492,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
@@ -506,10 +505,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (CSharedUI.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (PeppolUI.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 CSharedUI.PATTERN_SMP_ID);
+                                                 PeppolUI.PATTERN_SMP_ID);
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
                                                                                     SECURITY_PROVIDER,
@@ -558,7 +557,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);

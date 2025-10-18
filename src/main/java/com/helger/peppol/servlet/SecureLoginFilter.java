@@ -17,7 +17,7 @@
 package com.helger.peppol.servlet;
 
 import com.helger.base.state.EContinue;
-import com.helger.peppol.sharedui.CSharedUI;
+import com.helger.peppol.photon.PeppolUI;
 import com.helger.peppol.ui.PPLoginManager;
 import com.helger.photon.core.servlet.AbstractUnifiedResponseFilter;
 import com.helger.photon.security.login.LoggedInUserManager;
@@ -60,7 +60,7 @@ public final class SecureLoginFilter extends AbstractUnifiedResponseFilter
 
     // Check if the currently logged in user has the required roles
     final String sCurrentUserID = LoggedInUserManager.getInstance ().getCurrentUserID ();
-    if (!SecurityHelper.hasUserAllRoles (sCurrentUserID, CSharedUI.REQUIRED_ROLE_IDS_CONFIG))
+    if (!SecurityHelper.hasUserAllRoles (sCurrentUserID, PeppolUI.REQUIRED_ROLE_IDS_CONFIG))
     {
       aUnifiedResponse.setStatus (HttpServletResponse.SC_FORBIDDEN);
       return EContinue.BREAK;

@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.rest;
 
-import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -30,19 +29,16 @@ import com.helger.base.timing.StopWatch;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
-import com.helger.json.serialize.JsonWriter;
-import com.helger.json.serialize.JsonWriterSettings;
-import com.helger.mime.CMimeType;
-import com.helger.peppol.sharedui.api.APIParamException;
-import com.helger.peppol.sharedui.domain.ISMLConfiguration;
+import com.helger.peppol.api.APIParamException;
+import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
+import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
-import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
-import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
-import com.helger.servlet.response.UnifiedResponse;
+import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 import jakarta.annotation.Nonnull;
@@ -52,13 +48,14 @@ public final class APIQueryParticipantExistence extends AbstractPPAPIExecutor
   private static final Logger LOGGER = LoggerFactory.getLogger (APIQueryParticipantExistence.class);
 
   @Override
-  protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
+  protected void rateLimitedInvokeAPI (@Nonnull @Nonempty final String sLogPrefix,
+                                       @Nonnull final IAPIDescriptor aAPIDescriptor,
                                        @Nonnull @Nonempty final String sPath,
                                        @Nonnull final Map <String, String> aPathVariables,
                                        @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                       @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+                                       @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
-    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
     final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     if (aSML == null)
@@ -87,7 +84,8 @@ public final class APIQueryParticipantExistence extends AbstractPPAPIExecutor
 
     final IParticipantIdentifier aParticipantID = aSMPQueryParams.getParticipantID ();
 
-    LOGGER.info ("[API] Checking existance of '" +
+    LOGGER.info (sLogPrefix +
+                 "Checking existance of '" +
                  aParticipantID.getURIEncoded () +
                  "' from '" +
                  aSMPQueryParams.getSMPHostURI () +
@@ -103,14 +101,11 @@ public final class APIQueryParticipantExistence extends AbstractPPAPIExecutor
     aJson.add ("exists", aSMPQueryParams.isSMPRegisteredInDNS ());
     aSW.stop ();
 
-    LOGGER.info ("[API] Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
+    LOGGER.info (sLogPrefix + "Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
 
     aJson.add ("queryDateTime", DateTimeFormatter.ISO_ZONED_DATE_TIME.format (aQueryDT));
     aJson.add ("queryDurationMillis", aSW.getMillis ());
 
-    final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aJson);
-    aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8)
-                    .setMimeType (CMimeType.APPLICATION_JSON)
-                    .enableCaching (1 * CGlobal.SECONDS_PER_HOUR);
+    aUnifiedResponse.json (aJson).enableCaching (1 * CGlobal.SECONDS_PER_HOUR);
   }
 }

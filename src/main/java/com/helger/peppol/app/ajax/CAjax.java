@@ -17,7 +17,7 @@
 package com.helger.peppol.app.ajax;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.peppol.sharedui.api.CSharedUIAjax;
+import com.helger.peppol.api.ajax.CPeppolSharedAjax;
 import com.helger.photon.ajax.decl.AjaxFunctionDeclaration;
 import com.helger.photon.ajax.decl.IAjaxFunctionDeclaration;
 
@@ -37,23 +37,23 @@ public final class CAjax
                                                                                              .build ();
   public static final IAjaxFunctionDeclaration UPDATE_MENU_VIEW_SEC = AjaxFunctionDeclaration.builder ("updateMenuViewSec")
                                                                                              .executor (AjaxExecutorSecureUpdateMenuView.class)
-                                                                                             .filter (CSharedUIAjax.FILTER_LOGIN)
+                                                                                             .filter (CPeppolSharedAjax.FILTER_LOGIN)
                                                                                              .build ();
   public static final IAjaxFunctionDeclaration COMMENT_ADD = AjaxFunctionDeclaration.builder ("addComment")
                                                                                     .executor (AjaxExecutorCommentAdd.class)
-                                                                                    .filter (CSharedUIAjax.FILTER_LOGIN)
+                                                                                    .filter (CPeppolSharedAjax.FILTER_LOGIN)
                                                                                     .build ();
   public static final IAjaxFunctionDeclaration COMMENT_CREATE_THREAD = AjaxFunctionDeclaration.builder ("createThread")
                                                                                               .executor (AjaxExecutorCommentCreateThread.class)
-                                                                                              .filter (CSharedUIAjax.FILTER_LOGIN)
+                                                                                              .filter (CPeppolSharedAjax.FILTER_LOGIN)
                                                                                               .build ();
   public static final IAjaxFunctionDeclaration COMMENT_DELETE = AjaxFunctionDeclaration.builder ("deleteComment")
                                                                                        .executor (AjaxExecutorCommentDelete.class)
-                                                                                       .filter (CSharedUIAjax.FILTER_LOGIN)
+                                                                                       .filter (CPeppolSharedAjax.FILTER_LOGIN)
                                                                                        .build ();
   public static final IAjaxFunctionDeclaration COMMENT_SHOW_INPUT = AjaxFunctionDeclaration.builder ("showInputForm")
                                                                                            .executor (AjaxExecutorCommentShowInput.class)
-                                                                                           .filter (CSharedUIAjax.FILTER_LOGIN)
+                                                                                           .filter (CPeppolSharedAjax.FILTER_LOGIN)
                                                                                            .build ();
 
   private CAjax ()

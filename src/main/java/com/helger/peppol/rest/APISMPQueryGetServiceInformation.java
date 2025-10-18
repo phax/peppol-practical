@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.rest;
 
-import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,21 +31,18 @@ import com.helger.base.timing.StopWatch;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.http.CHttp;
 import com.helger.json.IJsonObject;
-import com.helger.json.serialize.JsonWriter;
-import com.helger.json.serialize.JsonWriterSettings;
-import com.helger.mime.CMimeType;
-import com.helger.peppol.sharedui.CSharedUI;
-import com.helger.peppol.sharedui.api.APIParamException;
-import com.helger.peppol.sharedui.domain.ISMLConfiguration;
+import com.helger.peppol.api.APIParamException;
+import com.helger.peppol.photon.PeppolUI;
+import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
+import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
 import com.helger.peppol.sharedui.domain.SMPQueryParams;
-import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
-import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.photon.api.IAPIDescriptor;
-import com.helger.servlet.response.UnifiedResponse;
+import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.bdxr2.BDXR2ClientReadOnly;
 import com.helger.smpclient.json.SMPJsonResponse;
@@ -63,13 +59,14 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
   private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetServiceInformation.class);
 
   @Override
-  protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
+  protected void rateLimitedInvokeAPI (@Nonnull @Nonempty final String sLogPrefix,
+                                       @Nonnull final IAPIDescriptor aAPIDescriptor,
                                        @Nonnull @Nonempty final String sPath,
                                        @Nonnull final Map <String, String> aPathVariables,
                                        @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                       @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+                                       @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
-    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
     final boolean bSMLAutoDetect = ISMLConfigurationManager.ID_AUTO_DETECT.equals (sSMLID);
     ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
@@ -139,7 +136,8 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
     if (aDocTypeID == null)
       throw new APIParamException ("Invalid document type ID '" + sDocTypeID + "' provided.");
 
-    LOGGER.info ("[API] Participant information of '" +
+    LOGGER.info (sLogPrefix +
+                 "Participant information of '" +
                  aParticipantID.getURIEncoded () +
                  "' is queried using SMP API '" +
                  aSMPQueryParams.getSMPAPIType () +
@@ -155,7 +153,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
                  bVerifySignature);
 
     // Defaulting to true per 11.8.2025
-    final boolean bUseSMPSecureValidation = CSharedUI.DEFAULT_SMP_USE_SECURE_VALIDATION;
+    final boolean bUseSMPSecureValidation = PeppolUI.DEFAULT_SMP_USE_SECURE_VALIDATION;
 
     IJsonObject aJson = null;
     switch (aSMPQueryParams.getSMPAPIType ())
@@ -244,20 +242,17 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
 
     if (aJson == null)
     {
-      LOGGER.error ("[API] Failed to perform the SMP lookup");
+      LOGGER.error (sLogPrefix + "Failed to perform the SMP lookup");
       aUnifiedResponse.setStatus (CHttp.HTTP_NOT_FOUND);
     }
     else
     {
-      LOGGER.info ("[API] Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
+      LOGGER.info (sLogPrefix + "Succesfully finished lookup lookup after " + aSW.getMillis () + " milliseconds");
 
       aJson.add ("queryDateTime", DateTimeFormatter.ISO_ZONED_DATE_TIME.format (aQueryDT));
       aJson.add ("queryDurationMillis", aSW.getMillis ());
 
-      final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aJson);
-      aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8)
-                      .setMimeType (CMimeType.APPLICATION_JSON)
-                      .enableCaching (3 * CGlobal.SECONDS_PER_HOUR);
+      aUnifiedResponse.json (aJson).enableCaching (3 * CGlobal.SECONDS_PER_HOUR);
     }
   }
 }

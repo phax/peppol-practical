@@ -18,7 +18,7 @@ package com.helger.peppol.app;
 
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.config.IConfig;
-import com.helger.peppol.sharedui.config.SharedUIConfig;
+import com.helger.peppol.photon.config.PeppolSharedConfig;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
 
 import jakarta.annotation.Nonnull;
@@ -37,13 +37,13 @@ public final class AppConfig extends AbstractGlobalSingleton
   {}
 
   @Nonnull
-  public static IConfig getConfig ()
+  private static IConfig _getConfig ()
   {
-    return SharedUIConfig.getConfig ();
+    return PeppolSharedConfig.getConfig ();
   }
 
   public static boolean isWebPageCommentingEnabled ()
   {
-    return getConfig ().getAsBoolean ("webapp.pagecomments.enabled", false);
+    return _getConfig ().getAsBoolean ("webapp.pagecomments.enabled", false);
   }
 }

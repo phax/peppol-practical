@@ -46,7 +46,7 @@ import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.mime.CMimeType;
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.api.IAPIDescriptor;
-import com.helger.servlet.response.UnifiedResponse;
+import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.ubl21.UBL21Marshaller;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
@@ -70,11 +70,12 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
   private static final Logger LOGGER = LoggerFactory.getLogger (APIConvertCIIToUBL.class);
 
   @Override
-  protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
+  protected void rateLimitedInvokeAPI (@Nonnull @Nonempty final String sLogPrefix,
+                                       @Nonnull final IAPIDescriptor aAPIDescriptor,
                                        @Nonnull @Nonempty final String sPath,
                                        @Nonnull final Map <String, String> aPathVariables,
                                        @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                       @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+                                       @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
     final ErrorList aErrorList = new ErrorList ();
     final Locale aDisplayLocale = CPPApp.DEFAULT_LOCALE;
@@ -86,8 +87,6 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
     final boolean bSimpleResponse = aRequestScope.params ()
                                                  .getAsBoolean (PARAM_SIMPLE_RESPONSE, DEFAULT_SIMPLE_RESPONSE);
     final boolean bXMLBeautify = aRequestScope.params ().getAsBoolean (PARAM_XML_BEAUTIFY, DEFAULT_XML_BEAUTIFY);
-
-    final String sLogPrefix = "[API] ";
 
     final IJsonObject aJson = new JsonObject ();
     aJson.add ("conversionDateTime", DateTimeFormatter.ISO_ZONED_DATE_TIME.format (aQueryDT));

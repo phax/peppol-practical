@@ -16,8 +16,8 @@
  */
 package com.helger.peppol.rest;
 
+import com.helger.peppol.api.AbstractRateLimitingAPIExecutor;
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.sharedui.api.AbstractRateLimitingAPIExecutor;
 
 public abstract class AbstractPPAPIExecutor extends AbstractRateLimitingAPIExecutor
 {

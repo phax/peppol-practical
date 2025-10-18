@@ -16,18 +16,14 @@
  */
 package com.helger.peppol.rest;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.CGlobal;
 import com.helger.json.IJsonArray;
-import com.helger.json.serialize.JsonWriter;
-import com.helger.json.serialize.JsonWriterSettings;
-import com.helger.mime.CMimeType;
 import com.helger.peppol.ui.validate.VESRegistry;
 import com.helger.photon.api.IAPIDescriptor;
-import com.helger.servlet.response.UnifiedResponse;
+import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
 import jakarta.annotation.Nonnull;
@@ -35,17 +31,15 @@ import jakarta.annotation.Nonnull;
 public final class APIGetAllVESIDs extends AbstractPPAPIExecutor
 {
   @Override
-  protected void rateLimitedInvokeAPI (@Nonnull final IAPIDescriptor aAPIDescriptor,
+  protected void rateLimitedInvokeAPI (@Nonnull @Nonempty final String sLogPrefix,
+                                       @Nonnull final IAPIDescriptor aAPIDescriptor,
                                        @Nonnull @Nonempty final String sPath,
                                        @Nonnull final Map <String, String> aPathVariables,
                                        @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                       @Nonnull final UnifiedResponse aUnifiedResponse) throws Exception
+                                       @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
     final IJsonArray aJson = VESRegistry.getAllAsJson ();
 
-    final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aJson);
-    aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8)
-                    .setMimeType (CMimeType.APPLICATION_JSON)
-                    .enableCaching (1 * CGlobal.SECONDS_PER_HOUR);
+    aUnifiedResponse.json (aJson).enableCaching (1 * CGlobal.SECONDS_PER_HOUR);
   }
 }

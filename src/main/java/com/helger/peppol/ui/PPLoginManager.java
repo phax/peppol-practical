@@ -16,7 +16,7 @@
  */
 package com.helger.peppol.ui;
 
-import com.helger.peppol.sharedui.CSharedUI;
+import com.helger.peppol.photon.PeppolUI;
 import com.helger.peppol.sharedui.SharedUIHelper;
 import com.helger.photon.bootstrap4.uictrls.ext.BootstrapLoginManager;
 
@@ -25,6 +25,6 @@ public final class PPLoginManager extends BootstrapLoginManager
   public PPLoginManager ()
   {
     super (SharedUIHelper.getApplicationTitle () + " Administration - Login");
-    setRequiredRoleIDs (CSharedUI.REQUIRED_ROLE_IDS_CONFIG);
+    setRequiredRoleIDs (PeppolUI.REQUIRED_ROLE_IDS_CONFIG);
   }
 }

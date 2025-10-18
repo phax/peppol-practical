@@ -17,7 +17,7 @@
 package com.helger.peppol.app;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.peppol.sharedui.CSharedUI;
+import com.helger.peppol.photon.PeppolUI;
 import com.helger.photon.security.mgr.PhotonSecurityManager;
 import com.helger.photon.security.role.IRoleManager;
 import com.helger.photon.security.user.IUserManager;
@@ -52,11 +52,11 @@ public final class AppSecurity
     }
 
     // Create all roles
-    if (!aRoleMgr.containsWithID (CSharedUI.ROLE_CONFIG_ID))
-      aRoleMgr.createPredefinedRole (CSharedUI.ROLE_CONFIG_ID,
-                                     CSharedUI.ROLE_CONFIG_NAME,
-                                     CSharedUI.ROLE_CONFIG_DESCRIPTION,
-                                     CSharedUI.ROLE_CONFIG_CUSTOMATTRS);
+    if (!aRoleMgr.containsWithID (PeppolUI.ROLE_CONFIG_ID))
+      aRoleMgr.createPredefinedRole (PeppolUI.ROLE_CONFIG_ID,
+                                     PeppolUI.ROLE_CONFIG_NAME,
+                                     PeppolUI.ROLE_CONFIG_DESCRIPTION,
+                                     PeppolUI.ROLE_CONFIG_CUSTOMATTRS);
     if (!aRoleMgr.containsWithID (CPPApp.ROLE_VIEW_ID))
       aRoleMgr.createPredefinedRole (CPPApp.ROLE_VIEW_ID,
                                      CPPApp.ROLE_VIEW_NAME,
@@ -83,7 +83,7 @@ public final class AppSecurity
       // Assign administrator user to administrators user group
       aUserGroupMgr.assignUserToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CPPApp.USER_ADMINISTRATOR_ID);
     }
-    aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CSharedUI.ROLE_CONFIG_ID);
+    aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, PeppolUI.ROLE_CONFIG_ID);
     aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CPPApp.ROLE_VIEW_ID);
     aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CPPApp.ROLE_COMMENT_MODERATOR_ID);
     aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_ADMINISTRATORS_ID, CPPApp.ROLE_PEPPOL_SENDERS_ID);
@@ -94,7 +94,7 @@ public final class AppSecurity
                                                CPPApp.USERGROUP_CONFIG_NAME,
                                                CPPApp.USERGROUP_CONFIG_DESCRIPTION,
                                                CPPApp.USERGROUP_CONFIG_CUSTOMATTRS);
-    aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_CONFIG_ID, CSharedUI.ROLE_CONFIG_ID);
+    aUserGroupMgr.assignRoleToUserGroup (CPPApp.USERGROUP_CONFIG_ID, PeppolUI.ROLE_CONFIG_ID);
 
     // User group for View users
     if (!aUserGroupMgr.containsWithID (CPPApp.USERGROUP_VIEW_ID))

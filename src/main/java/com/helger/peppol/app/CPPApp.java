@@ -24,7 +24,7 @@ import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.type.ObjectType;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsMap;
-import com.helger.peppol.sharedui.CSharedUI;
+import com.helger.peppol.photon.PeppolUI;
 import com.helger.photon.security.CSecurity;
 
 /**
@@ -35,7 +35,7 @@ import com.helger.photon.security.CSecurity;
 @Immutable
 public final class CPPApp
 {
-  public static final Locale DEFAULT_LOCALE = CSharedUI.LOCALE_EN;
+  public static final Locale DEFAULT_LOCALE = PeppolUI.LOCALE_EN;
 
   public static final String DEFAULT_USER_AGENT = "Peppol-Practical/1.0";
 

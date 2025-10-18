@@ -17,8 +17,8 @@
 package com.helger.peppol.testendpoint;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.peppol.sharedui.domain.ISMLConfiguration;
-import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
+import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.photon.security.object.StubObject;
@@ -69,7 +69,7 @@ public final class TestEndpointMicroTypeConverter extends AbstractBusinessObject
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
 
     final String sSMLID = eValue.getAttributeValue (ATTR_SML);
-    final ISMLConfiguration aSMLInfo = SharedUIMetaManager.getSMLConfigurationMgr ().getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLInfo = PhotonPeppolMetaManager.getSMLConfigurationMgr ().getSMLInfoOfID (sSMLID);
     if (aSMLInfo == null)
       throw new IllegalStateException ("Failed to resolve SML with ID '" + sSMLID + "'");
 

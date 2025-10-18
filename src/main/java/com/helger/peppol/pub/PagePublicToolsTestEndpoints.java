@@ -30,16 +30,16 @@ import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.html.hc.impl.HCTextNode;
 import com.helger.peppol.app.mgr.PPMetaManager;
+import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.photon.select.ParticipantIdentifierSchemeSelect;
+import com.helger.peppol.photon.select.SMPTransportProfileSelect;
+import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
+import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
+import com.helger.peppol.photon.smlconfig.ui.SMLConfigurationSelect;
 import com.helger.peppol.sharedui.SharedUIHelper;
-import com.helger.peppol.sharedui.domain.ISMLConfiguration;
-import com.helger.peppol.sharedui.mgr.ISMLConfigurationManager;
-import com.helger.peppol.sharedui.mgr.SharedUIMetaManager;
 import com.helger.peppol.sharedui.page.AbstractAppWebPageForm;
 import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
-import com.helger.peppol.sharedui.ui.select.ParticipantIdentifierSchemeSelect;
-import com.helger.peppol.sharedui.ui.select.SMLConfigurationSelect;
-import com.helger.peppol.sharedui.ui.select.SMPTransportProfileSelect;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.testendpoint.TestEndpoint;
 import com.helger.peppol.testendpoint.TestEndpointManager;
@@ -279,7 +279,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                  @Nonnull final EWebPageFormAction eFormAction)
   {
     final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
-    final ISMLConfigurationManager aSMLConfigurationMgr = SharedUIMetaManager.getSMLConfigurationMgr ();
+    final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
 
     final String sCompanyName = aWPEC.params ().getAsString (FIELD_COMPANY_NAME);
     final String sContactPerson = aWPEC.params ().getAsString (FIELD_CONTACT_PERSON);
