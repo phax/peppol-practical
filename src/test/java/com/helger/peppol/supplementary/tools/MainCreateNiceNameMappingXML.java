@@ -23,8 +23,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.photon.nicename.NiceNameEntry;
-import com.helger.peppol.photon.nicename.NiceNameManager;
+import com.helger.peppol.ui.types.nicename.NiceNameEntry;
+import com.helger.peppol.ui.types.nicename.NiceNameManager;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;

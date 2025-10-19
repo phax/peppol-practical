@@ -17,9 +17,9 @@
 package com.helger.peppol.testendpoint;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
-import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
 import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
 import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.photon.security.object.StubObject;
 import com.helger.xml.microdom.IMicroElement;

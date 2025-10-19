@@ -17,8 +17,8 @@
 package com.helger.peppol.servlet;
 
 import com.helger.base.state.EContinue;
-import com.helger.peppol.photon.PeppolUI;
 import com.helger.peppol.ui.PPLoginManager;
+import com.helger.peppol.ui.PeppolUI;
 import com.helger.photon.core.servlet.AbstractUnifiedResponseFilter;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.util.SecurityHelper;

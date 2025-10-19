@@ -43,12 +43,12 @@ import com.helger.peppol.api.json.PeppolSharedSMPJsonHelper;
 import com.helger.peppol.api.rest.APIParamException;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
-import com.helger.peppol.photon.PeppolUI;
-import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
-import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
-import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
-import com.helger.peppol.photon.smp.SMPQueryParams;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
+import com.helger.peppol.ui.types.PeppolUITypes;
+import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
+import com.helger.peppol.ui.types.smlconfig.ISMLConfigurationManager;
+import com.helger.peppol.ui.types.smp.SMPQueryParams;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -153,7 +153,7 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
                  bVerifySignature);
 
     // Defaulting to true per 11.8.2025
-    final boolean bUseSMPSecureValidation = PeppolUI.DEFAULT_SMP_USE_SECURE_VALIDATION;
+    final boolean bUseSMPSecureValidation = PeppolUITypes.DEFAULT_SMP_USE_SECURE_VALIDATION;
 
     ICommonsSortedMap <String, String> aSGHrefs = null;
     switch (aSMPQueryParams.getSMPAPIType ())
@@ -233,9 +233,9 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
     if (aSGHrefs != null)
     {
       aJson = PeppolSharedSMPJsonHelper.convert (aSMPQueryParams.getSMPAPIType (),
-                                          aParticipantID,
-                                          aSGHrefs,
-                                          aSMPQueryParams.getIF ());
+                                                 aParticipantID,
+                                                 aSGHrefs,
+                                                 aSMPQueryParams.getIF ());
     }
 
     if (bQueryBusinessCard)

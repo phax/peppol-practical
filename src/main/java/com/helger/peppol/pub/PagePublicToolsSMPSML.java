@@ -49,16 +49,17 @@ import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.http.security.TrustManagerTrustAll;
-import com.helger.peppol.photon.PeppolUI;
-import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
-import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
-import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
-import com.helger.peppol.photon.smlconfig.ui.SMLConfigurationSelect;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
+import com.helger.peppol.ui.PeppolUI;
+import com.helger.peppol.ui.smlconfig.ui.SMLConfigurationSelect;
+import com.helger.peppol.ui.types.PeppolUITypes;
+import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
+import com.helger.peppol.ui.types.smlconfig.ISMLConfigurationManager;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
@@ -290,10 +291,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (PeppolUI.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (PeppolUITypes.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 PeppolUI.PATTERN_SMP_ID);
+                                                 PeppolUITypes.PATTERN_SMP_ID);
 
     if (StringHelper.isEmpty (sLogicalAddress))
       aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
@@ -398,10 +399,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (PeppolUI.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (PeppolUITypes.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 PeppolUI.PATTERN_SMP_ID);
+                                                 PeppolUITypes.PATTERN_SMP_ID);
 
     if (StringHelper.isEmpty (sLogicalAddress))
       aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
@@ -505,10 +506,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     if (StringHelper.isEmpty (sSMPID))
       aFormErrors.addFieldError (FIELD_SMP_ID, "A non-empty SMP ID must be provided!");
     else
-      if (!RegExHelper.stringMatchesPattern (PeppolUI.PATTERN_SMP_ID, sSMPID))
+      if (!RegExHelper.stringMatchesPattern (PeppolUITypes.PATTERN_SMP_ID, sSMPID))
         aFormErrors.addFieldError (FIELD_SMP_ID,
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
-                                                 PeppolUI.PATTERN_SMP_ID);
+                                                 PeppolUITypes.PATTERN_SMP_ID);
 
     final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
                                                                                     SECURITY_PROVIDER,

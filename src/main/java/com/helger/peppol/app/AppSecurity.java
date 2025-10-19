@@ -17,7 +17,7 @@
 package com.helger.peppol.app;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.peppol.photon.PeppolUI;
+import com.helger.peppol.ui.PeppolUI;
 import com.helger.photon.security.mgr.PhotonSecurityManager;
 import com.helger.photon.security.role.IRoleManager;
 import com.helger.photon.security.user.IUserManager;

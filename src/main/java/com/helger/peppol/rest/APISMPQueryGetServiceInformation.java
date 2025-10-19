@@ -32,12 +32,12 @@ import com.helger.datetime.helper.PDTFactory;
 import com.helger.http.CHttp;
 import com.helger.json.IJsonObject;
 import com.helger.peppol.api.rest.APIParamException;
-import com.helger.peppol.photon.PeppolUI;
-import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
-import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
-import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
-import com.helger.peppol.photon.smp.SMPQueryParams;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
+import com.helger.peppol.ui.types.PeppolUITypes;
+import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
+import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
+import com.helger.peppol.ui.types.smlconfig.ISMLConfigurationManager;
+import com.helger.peppol.ui.types.smp.SMPQueryParams;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -153,7 +153,7 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
                  bVerifySignature);
 
     // Defaulting to true per 11.8.2025
-    final boolean bUseSMPSecureValidation = PeppolUI.DEFAULT_SMP_USE_SECURE_VALIDATION;
+    final boolean bUseSMPSecureValidation = PeppolUITypes.DEFAULT_SMP_USE_SECURE_VALIDATION;
 
     IJsonObject aJson = null;
     switch (aSMPQueryParams.getSMPAPIType ())

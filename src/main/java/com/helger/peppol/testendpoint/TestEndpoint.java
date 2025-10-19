@@ -24,8 +24,8 @@ import com.helger.base.name.IHasDisplayName;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.type.ObjectType;
-import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
 import com.helger.peppol.smp.ISMPTransportProfile;
+import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
 

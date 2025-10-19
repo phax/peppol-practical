@@ -33,14 +33,14 @@ import com.helger.peppol.app.AppSecurity;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.app.mgr.PPMetaManager;
-import com.helger.peppol.photon.PeppolUI;
-import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.pub.MenuPublic;
 import com.helger.peppol.rest.PPAPI;
 import com.helger.peppol.secure.MenuSecure;
 import com.helger.peppol.sharedui.SharedUIHelper;
 import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.peppol.ui.AppCommonUI;
+import com.helger.peppol.ui.types.PeppolUITypes;
+import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.ui.validate.VESRegistry;
 import com.helger.photon.ajax.IAjaxRegistry;
 import com.helger.photon.api.IAPIRegistry;
@@ -140,8 +140,8 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   @Override
   protected void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
   {
-    aLocaleMgr.registerLocale (PeppolUI.LOCALE_DE);
-    aLocaleMgr.registerLocale (PeppolUI.LOCALE_EN);
+    aLocaleMgr.registerLocale (PeppolUITypes.LOCALE_DE);
+    aLocaleMgr.registerLocale (PeppolUITypes.LOCALE_EN);
     aLocaleMgr.setDefaultLocale (CPPApp.DEFAULT_LOCALE);
   }
 
