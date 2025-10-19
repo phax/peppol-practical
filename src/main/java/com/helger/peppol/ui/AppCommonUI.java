@@ -47,7 +47,6 @@ import com.helger.peppol.app.ajax.CAjax;
 import com.helger.peppol.comment.domain.CommentThreadManager;
 import com.helger.peppol.pub.CMenuPublic;
 import com.helger.peppol.sharedui.ui.SharedCommonUI;
-import com.helger.peppol.ui.PeppolUI;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
 import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
 import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;

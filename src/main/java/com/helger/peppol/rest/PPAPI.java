@@ -16,7 +16,13 @@
  */
 package com.helger.peppol.rest;
 
+import com.helger.peppol.api.rest.APIGetCheckPeppolParticipantRegistered;
 import com.helger.peppol.api.rest.APIExceptionMapper;
+import com.helger.peppol.api.rest.APISMPQueryGetBusinessCard;
+import com.helger.peppol.api.rest.APISMPQueryGetDocTypes;
+import com.helger.peppol.api.rest.APISMPQueryGetServiceInformation;
+import com.helger.peppol.api.rest.PeppolSharedRestAPI;
+import com.helger.peppol.app.CPPApp;
 import com.helger.photon.api.APIDescriptor;
 import com.helger.photon.api.APIPath;
 import com.helger.photon.api.IAPIExceptionMapper;
@@ -26,10 +32,6 @@ import jakarta.annotation.Nonnull;
 
 public final class PPAPI
 {
-  public static final String PARAM_SML_ID = "smlID";
-  public static final String PARAM_PARTICIPANT_ID = "participantID";
-  public static final String PARAM_DOCTYPE_ID = "docTypeID";
-
   private PPAPI ()
   {}
 
@@ -40,46 +42,46 @@ public final class PPAPI
     // More specific to less specific
     {
       final APIDescriptor aSMPQueryEndpoints = new APIDescriptor (APIPath.get ("/smpquery/{" +
-                                                                               PARAM_SML_ID +
+                                                                               PeppolSharedRestAPI.PARAM_SML_ID +
                                                                                "}/{" +
-                                                                               PARAM_PARTICIPANT_ID +
+                                                                               PeppolSharedRestAPI.PARAM_PARTICIPANT_ID +
                                                                                "}/{" +
-                                                                               PARAM_DOCTYPE_ID +
+                                                                               PeppolSharedRestAPI.PARAM_DOCTYPE_ID +
                                                                                "}"),
-                                                                  new APISMPQueryGetServiceInformation ());
+                                                                  new APISMPQueryGetServiceInformation (CPPApp.DEFAULT_USER_AGENT).setRateLimitEnabled (true));
       aSMPQueryEndpoints.setExceptionMapper (aExceptionMapper);
       aAPIRegistry.registerAPI (aSMPQueryEndpoints);
     }
 
     {
       final APIDescriptor aSMPQueryDocTypes = new APIDescriptor (APIPath.get ("/smpquery/{" +
-                                                                              PARAM_SML_ID +
+                                                                              PeppolSharedRestAPI.PARAM_SML_ID +
                                                                               "}/{" +
-                                                                              PARAM_PARTICIPANT_ID +
+                                                                              PeppolSharedRestAPI.PARAM_PARTICIPANT_ID +
                                                                               "}"),
-                                                                 new APISMPQueryGetDocTypes ());
+                                                                 new APISMPQueryGetDocTypes (CPPApp.DEFAULT_USER_AGENT).setRateLimitEnabled (true));
       aSMPQueryDocTypes.setExceptionMapper (aExceptionMapper);
       aAPIRegistry.registerAPI (aSMPQueryDocTypes);
     }
 
     {
       final APIDescriptor aSMPQueryBusinessCard = new APIDescriptor (APIPath.get ("/businesscard/{" +
-                                                                                  PARAM_SML_ID +
+                                                                                  PeppolSharedRestAPI.PARAM_SML_ID +
                                                                                   "}/{" +
-                                                                                  PARAM_PARTICIPANT_ID +
+                                                                                  PeppolSharedRestAPI.PARAM_PARTICIPANT_ID +
                                                                                   "}"),
-                                                                     new APISMPQueryGetBusinessCard ());
+                                                                     new APISMPQueryGetBusinessCard (CPPApp.DEFAULT_USER_AGENT).setRateLimitEnabled (true));
       aSMPQueryBusinessCard.setExceptionMapper (aExceptionMapper);
       aAPIRegistry.registerAPI (aSMPQueryBusinessCard);
     }
 
     {
       final APIDescriptor aSMPQueryBusinessCard = new APIDescriptor (APIPath.get ("/ppidexistence/{" +
-                                                                                  PARAM_SML_ID +
+                                                                                  PeppolSharedRestAPI.PARAM_SML_ID +
                                                                                   "}/{" +
-                                                                                  PARAM_PARTICIPANT_ID +
+                                                                                  PeppolSharedRestAPI.PARAM_PARTICIPANT_ID +
                                                                                   "}"),
-                                                                     new APIQueryParticipantExistence ());
+                                                                     new APIGetCheckPeppolParticipantRegistered (CPPApp.DEFAULT_USER_AGENT).setRateLimitEnabled (true));
       aSMPQueryBusinessCard.setExceptionMapper (aExceptionMapper);
       aAPIRegistry.registerAPI (aSMPQueryBusinessCard);
     }
