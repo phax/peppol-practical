@@ -23,8 +23,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.peppol.ui.types.nicename.NiceNameDefaults;
 import com.helger.peppol.ui.types.nicename.NiceNameEntry;
-import com.helger.peppol.ui.types.nicename.NiceNameManager;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
@@ -41,9 +41,9 @@ public class MainCreateNiceNameMappingXML
       final IMicroDocument aDoc = new MicroDocument ();
       final IMicroElement eRoot = aDoc.addElement ("root");
       eRoot.setAttribute ("type", "doctypeid");
-      for (final Map.Entry <String, NiceNameEntry> aEntry : NiceNameManager.getDocTypeNames ()
-                                                                           .getSortedByKey (Comparator.naturalOrder ())
-                                                                           .entrySet ())
+      for (final Map.Entry <String, NiceNameEntry> aEntry : NiceNameDefaults.defaultDocTypes ()
+                                                                            .getSortedByKey (Comparator.naturalOrder ())
+                                                                            .entrySet ())
       {
         final NiceNameEntry aNNE = aEntry.getValue ();
         final IMicroElement eItem = eRoot.addElement ("item")
@@ -63,9 +63,9 @@ public class MainCreateNiceNameMappingXML
       final IMicroDocument aDoc = new MicroDocument ();
       final IMicroElement eRoot = aDoc.addElement ("root");
       eRoot.setAttribute ("type", "processid");
-      for (final Map.Entry <String, NiceNameEntry> aEntry : NiceNameManager.getProcessNames ()
-                                                                           .getSortedByKey (Comparator.naturalOrder ())
-                                                                           .entrySet ())
+      for (final Map.Entry <String, NiceNameEntry> aEntry : NiceNameDefaults.defaultProcesses ()
+                                                                            .getSortedByKey (Comparator.naturalOrder ())
+                                                                            .entrySet ())
         eRoot.addElement ("item")
              .setAttribute ("id", aEntry.getKey ())
              .setAttribute ("name", aEntry.getValue ().getName ())
