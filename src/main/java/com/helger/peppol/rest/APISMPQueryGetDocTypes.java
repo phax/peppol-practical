@@ -39,15 +39,15 @@ import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
-import com.helger.peppol.api.APIParamException;
-import com.helger.peppol.api.smp.SMPJsonResponseExt;
+import com.helger.peppol.api.json.PeppolSharedSMPJsonHelper;
+import com.helger.peppol.api.rest.APIParamException;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.photon.PeppolUI;
 import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
 import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
-import com.helger.peppol.sharedui.domain.SMPQueryParams;
+import com.helger.peppol.photon.smp.SMPQueryParams;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -70,12 +70,12 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
   private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetDocTypes.class);
 
   @Override
-  protected void rateLimitedInvokeAPI (@Nonnull @Nonempty final String sLogPrefix,
-                                       @Nonnull final IAPIDescriptor aAPIDescriptor,
-                                       @Nonnull @Nonempty final String sPath,
-                                       @Nonnull final Map <String, String> aPathVariables,
-                                       @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                       @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
+  protected void invokeAPI (@Nonnull @Nonempty final String sLogPrefix,
+                            @Nonnull final IAPIDescriptor aAPIDescriptor,
+                            @Nonnull @Nonempty final String sPath,
+                            @Nonnull final Map <String, String> aPathVariables,
+                            @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                            @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);
@@ -232,7 +232,7 @@ public final class APISMPQueryGetDocTypes extends AbstractPPAPIExecutor
     IJsonObject aJson = null;
     if (aSGHrefs != null)
     {
-      aJson = SMPJsonResponseExt.convert (aSMPQueryParams.getSMPAPIType (),
+      aJson = PeppolSharedSMPJsonHelper.convert (aSMPQueryParams.getSMPAPIType (),
                                           aParticipantID,
                                           aSGHrefs,
                                           aSMPQueryParams.getIF ());

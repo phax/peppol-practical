@@ -347,14 +347,14 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' with logical address '" +
                             sLogicalAddress +
                             "' to the SML '" +
-                            aSMLInfo.getManagementServiceURL () +
+                            aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
         LOGGER.info (sMsg);
         aNodeList.addChild (success (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-create",
                                            sSMPID,
                                            sLogicalAddress,
-                                           aSMLInfo.getManagementServiceURL ());
+                                           aSMLInfo.getSMLInfo ().getManagementServiceURL ());
       }
       catch (final Exception ex)
       {
@@ -363,13 +363,13 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' with logical address '" +
                             sLogicalAddress +
                             "' to the SML '" +
-                            aSMLInfo.getManagementServiceURL () +
+                            aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
         aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sLogicalAddress,
-                                           aSMLInfo.getManagementServiceURL (),
+                                           aSMLInfo.getSMLInfo ().getManagementServiceURL (),
                                            ex.getClass (),
                                            ex.getMessage ());
       }
@@ -456,14 +456,14 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' with logical address '" +
                             sLogicalAddress +
                             "' at the SML '" +
-                            aSMLInfo.getManagementServiceURL () +
+                            aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
         LOGGER.info (sMsg);
         aNodeList.addChild (success (sMsg));
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update",
                                            sSMPID,
                                            sLogicalAddress,
-                                           aSMLInfo.getManagementServiceURL ());
+                                           aSMLInfo.getSMLInfo ().getManagementServiceURL ());
       }
       catch (final Exception ex)
       {
@@ -472,13 +472,13 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' with logical address '" +
                             sLogicalAddress +
                             "' to the SML '" +
-                            aSMLInfo.getManagementServiceURL () +
+                            aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
         aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sLogicalAddress,
-                                           aSMLInfo.getManagementServiceURL (),
+                                           aSMLInfo.getSMLInfo ().getManagementServiceURL (),
                                            ex.getClass (),
                                            ex.getMessage ());
       }
@@ -527,23 +527,23 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final String sMsg = "Successfully deleted SMP '" +
                             sSMPID +
                             "' from the SML '" +
-                            aSMLInfo.getManagementServiceURL () +
+                            aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
         LOGGER.info (sMsg);
         aNodeList.addChild (success (sMsg));
-        AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSMLInfo.getManagementServiceURL ());
+        AuditHelper.onAuditExecuteSuccess ("smp-sml-delete", sSMPID, aSMLInfo.getSMLInfo ().getManagementServiceURL ());
       }
       catch (final Exception ex)
       {
         final String sMsg = "Error deleting SMP '" +
                             sSMPID +
                             "' from the SML '" +
-                            aSMLInfo.getManagementServiceURL () +
+                            aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
         aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
-                                           aSMLInfo.getManagementServiceURL (),
+                                           aSMLInfo.getSMLInfo ().getManagementServiceURL (),
                                            ex.getClass (),
                                            ex.getMessage ());
       }
@@ -560,7 +560,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLConfig = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
     final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
@@ -568,7 +568,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sMigrationPublicCert = aWPEC.params ().getAsStringTrimmed (FIELD_PM_PUBLIC_CERT);
     X509Certificate aMigrationPublicCert = null;
 
-    if (aSML == null)
+    if (aSMLConfig == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
 
     if (StringHelper.isNotEmpty (sMigrationDate))
@@ -670,7 +670,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
     if (aFormErrors.isEmpty ())
     {
-      final BDMSLClient aCaller = new BDMSLClient (aSML.getSMLInfo ());
+      final BDMSLClient aCaller = new BDMSLClient (aSMLConfig.getSMLInfo ());
       aCaller.setSSLSocketFactory (aSocketFactory);
 
       try
@@ -682,7 +682,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
         final LocalDate aEffectiveMigrationDate = aMigrationDate != null ? aMigrationDate : aNotBefore.toLocalDate ();
         final String sMsg = "Successfully prepared migration of SMP certificate at SML '" +
-                            aSML.getManagementServiceURL () +
+                            aSMLConfig.getSMLInfo ().getManagementServiceURL () +
                             "'" +
                             " to be exchanged at " +
                             PDTToString.getAsString (aEffectiveMigrationDate, aDisplayLocale) +
@@ -700,7 +700,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                          PDTToString.getAsString (aNotAfter, aDisplayLocale))));
 
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update-cert",
-                                           aSML.getManagementServiceURL (),
+                                           aSMLConfig.getSMLInfo ().getManagementServiceURL (),
                                            sMigrationPublicCert,
                                            aMigrationDate);
       }
@@ -709,11 +709,11 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
              com.helger.peppol.smlclient.bdmsl.UnauthorizedFault | ClientTransportException ex)
       {
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
-                            aSML.getManagementServiceURL () +
+                            aSMLConfig.getSMLInfo ().getManagementServiceURL () +
                             "'.";
         aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
-                                           aSML.getManagementServiceURL (),
+                                           aSMLConfig.getSMLInfo ().getManagementServiceURL (),
                                            sMigrationPublicCert,
                                            aMigrationDate,
                                            ex.getClass (),

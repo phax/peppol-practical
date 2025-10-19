@@ -31,12 +31,12 @@ import jakarta.annotation.Nonnull;
 public final class APIGetAllVESIDs extends AbstractPPAPIExecutor
 {
   @Override
-  protected void rateLimitedInvokeAPI (@Nonnull @Nonempty final String sLogPrefix,
-                                       @Nonnull final IAPIDescriptor aAPIDescriptor,
-                                       @Nonnull @Nonempty final String sPath,
-                                       @Nonnull final Map <String, String> aPathVariables,
-                                       @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                       @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
+  protected void invokeAPI (@Nonnull @Nonempty final String sLogPrefix,
+                            @Nonnull final IAPIDescriptor aAPIDescriptor,
+                            @Nonnull @Nonempty final String sPath,
+                            @Nonnull final Map <String, String> aPathVariables,
+                            @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                            @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
     final IJsonArray aJson = VESRegistry.getAllAsJson ();
 

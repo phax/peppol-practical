@@ -34,13 +34,13 @@ import com.helger.http.CHttp;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.response.ResponseHandlerByteArray;
 import com.helger.json.IJsonObject;
-import com.helger.peppol.api.APIParamException;
+import com.helger.peppol.api.rest.APIParamException;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
 import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
 import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
-import com.helger.peppol.sharedui.domain.SMPQueryParams;
+import com.helger.peppol.photon.smp.SMPQueryParams;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -56,12 +56,12 @@ public final class APISMPQueryGetBusinessCard extends AbstractPPAPIExecutor
   private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetBusinessCard.class);
 
   @Override
-  protected void rateLimitedInvokeAPI (@Nonnull @Nonempty final String sLogPrefix,
-                                       @Nonnull final IAPIDescriptor aAPIDescriptor,
-                                       @Nonnull @Nonempty final String sPath,
-                                       @Nonnull final Map <String, String> aPathVariables,
-                                       @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                       @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
+  protected void invokeAPI (@Nonnull @Nonempty final String sLogPrefix,
+                            @Nonnull final IAPIDescriptor aAPIDescriptor,
+                            @Nonnull @Nonempty final String sPath,
+                            @Nonnull final Map <String, String> aPathVariables,
+                            @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                            @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);

@@ -31,12 +31,12 @@ import com.helger.base.timing.StopWatch;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.http.CHttp;
 import com.helger.json.IJsonObject;
-import com.helger.peppol.api.APIParamException;
+import com.helger.peppol.api.rest.APIParamException;
 import com.helger.peppol.photon.PeppolUI;
 import com.helger.peppol.photon.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.photon.smlconfig.ISMLConfiguration;
 import com.helger.peppol.photon.smlconfig.ISMLConfigurationManager;
-import com.helger.peppol.sharedui.domain.SMPQueryParams;
+import com.helger.peppol.photon.smp.SMPQueryParams;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -59,12 +59,12 @@ public final class APISMPQueryGetServiceInformation extends AbstractPPAPIExecuto
   private static final Logger LOGGER = LoggerFactory.getLogger (APISMPQueryGetServiceInformation.class);
 
   @Override
-  protected void rateLimitedInvokeAPI (@Nonnull @Nonempty final String sLogPrefix,
-                                       @Nonnull final IAPIDescriptor aAPIDescriptor,
-                                       @Nonnull @Nonempty final String sPath,
-                                       @Nonnull final Map <String, String> aPathVariables,
-                                       @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                                       @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
+  protected void invokeAPI (@Nonnull @Nonempty final String sLogPrefix,
+                            @Nonnull final IAPIDescriptor aAPIDescriptor,
+                            @Nonnull @Nonempty final String sPath,
+                            @Nonnull final Map <String, String> aPathVariables,
+                            @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
+                            @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aPathVariables.get (PPAPI.PARAM_SML_ID);

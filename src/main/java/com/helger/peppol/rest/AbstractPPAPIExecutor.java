@@ -16,13 +16,14 @@
  */
 package com.helger.peppol.rest;
 
-import com.helger.peppol.api.AbstractRateLimitingAPIExecutor;
+import com.helger.peppol.api.rest.AbstractAPIExecutor;
 import com.helger.peppol.app.CPPApp;
 
-public abstract class AbstractPPAPIExecutor extends AbstractRateLimitingAPIExecutor
+public abstract class AbstractPPAPIExecutor extends AbstractAPIExecutor
 {
   protected AbstractPPAPIExecutor ()
   {
     super (CPPApp.DEFAULT_USER_AGENT);
+    setRateLimitEnabled (true);
   }
 }
