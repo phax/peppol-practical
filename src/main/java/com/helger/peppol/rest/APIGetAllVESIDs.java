@@ -21,7 +21,7 @@ import java.util.Map;
 import com.helger.annotation.Nonempty;
 import com.helger.base.CGlobal;
 import com.helger.json.IJsonArray;
-import com.helger.peppol.ui.validate.VESRegistry;
+import com.helger.peppol.validate.VESRegistry;
 import com.helger.photon.api.IAPIDescriptor;
 import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;

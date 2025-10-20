@@ -43,7 +43,7 @@ import com.helger.http.CHttp;
 import com.helger.io.file.FileHelper;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.sharedui.config.SharedUIConfig;
-import com.helger.peppol.ui.validate.VESRegistry;
+import com.helger.peppol.validate.VESRegistry;
 import com.helger.peppol.wsclient2.ErrorLevelType;
 import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;

@@ -41,7 +41,7 @@ import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.types.PeppolUITypes;
 import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
-import com.helger.peppol.ui.validate.VESRegistry;
+import com.helger.peppol.validate.VESRegistry;
 import com.helger.photon.ajax.IAjaxRegistry;
 import com.helger.photon.api.IAPIRegistry;
 import com.helger.photon.bootstrap4.servlet.WebAppListenerBootstrap;

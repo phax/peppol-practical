@@ -35,14 +35,11 @@ import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.en16931.cii2ubl.CIIToUBL21Converter;
 import com.helger.en16931.cii2ubl.CIIToUBLVersion;
 import com.helger.en16931.cii2ubl.EUBLCreationMode;
-import com.helger.http.CHttp;
 import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
-import com.helger.json.serialize.JsonWriter;
-import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.mime.CMimeType;
 import com.helger.peppol.app.CPPApp;
 import com.helger.photon.api.IAPIDescriptor;
@@ -161,10 +158,9 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
     else
     {
       if (!bSuccess)
-        aUnifiedResponse.setStatus (CHttp.HTTP_BAD_REQUEST).setAllowContentOnStatusCode (true);
+        aUnifiedResponse.createBadRequest ();
 
-      final String sRet = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED).writeAsString (aJson);
-      aUnifiedResponse.setContentAndCharset (sRet, StandardCharsets.UTF_8).setMimeType (CMimeType.APPLICATION_JSON);
+      aUnifiedResponse.json (aJson);
     }
   }
 }
