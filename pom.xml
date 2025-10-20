@@ -259,6 +259,10 @@
       <groupId>com.helger.peppol.ui</groupId>
       <artifactId>peppol-shared-validation</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger.peppol.ui</groupId>
+      <artifactId>peppol-shared-as4</artifactId>
+    </dependency>
     
     <dependency>
       <groupId>com.helger</groupId>
