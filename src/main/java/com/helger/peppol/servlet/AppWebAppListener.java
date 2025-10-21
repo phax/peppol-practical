@@ -108,6 +108,8 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
 
     if (GlobalDebug.isProductionMode ())
     {
+      // Creates too many errors
+      RequestTrackerSettings.setLongRunningRequestsCheckEnabled (false);
       RequestTrackerSettings.setParallelRunningRequestsCheckEnabled (false);
       // Default is 60
       RequestTrackerSettings.setParallelRunningRequestBarrier (80);

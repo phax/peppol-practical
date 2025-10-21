@@ -41,6 +41,14 @@
 
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
+  
+    <h3>2025-10-21 - Update for Peppol PKI migration</h3>
+    
+    <p>
+      Most of the technical documentation pages were amended to contain the relevant information on the new Peppol G3 PKI.<br />
+      If you use my site in a production scenario and have problem with recent lower service quality: reach out to me (email: <em>firstname</em>@<em>lastname</em>.com)
+        so I can point you to alternative solutions that you can run on your premises!
+    </p>
 
     <h3>2025-10-02 - Document Validation extended</h3>
     
