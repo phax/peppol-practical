@@ -40,6 +40,7 @@ import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.http.CHttp;
+import com.helger.http.CHttpHeader;
 import com.helger.io.file.FileHelper;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.sharedui.config.SharedUIConfig;
@@ -208,6 +209,8 @@ public class WSDVS implements WSDVSPort
                                                                                 .get (MessageContext.SERVLET_RESPONSE);
         try
         {
+          // TODO use AbstractAPIExecutor constant instead (0.9.3+)
+          aResponse.addIntHeader (CHttpHeader.RETRY_AFTER, 5);
           aResponse.sendError (CHttp.HTTP_TOO_MANY_REQUESTS);
         }
         catch (final IOException ex)
@@ -243,8 +246,8 @@ public class WSDVS implements WSDVSPort
 
       final String sDisplayLocale = aValidationRequest.getDisplayLocale ();
       final Locale aDisplayLocale = StringHelper.isNotEmpty (sDisplayLocale) ? LocaleCache.getInstance ()
-                                                                                       .getLocale (sDisplayLocale)
-                                                                          : CPPApp.DEFAULT_LOCALE;
+                                                                                          .getLocale (sDisplayLocale)
+                                                                             : CPPApp.DEFAULT_LOCALE;
       if (aDisplayLocale == null)
         _throw ("Invalid display locale '" + sDisplayLocale + "' provided!");
 
