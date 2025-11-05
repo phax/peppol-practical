@@ -168,7 +168,7 @@
     <p>
       All the above mentioned steps are usually handled by the SMP client software, like my
       <a href="https://github.com/phax/peppol-commons#peppol-smp-client">OpenSource SMP client</a> or my
-      <a href="https://github.com/phax/smp-query-webapp">OpenSource standalone SMP query application</a>.
+      <a href="https://github.com/Helger-IT/smp-query-webapp">OpenSource standalone SMP query application</a>.
     </p>
   </li>
   <li>
