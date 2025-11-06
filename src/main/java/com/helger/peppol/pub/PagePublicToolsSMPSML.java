@@ -48,9 +48,9 @@ import com.helger.html.hc.html.forms.HCEdit;
 import com.helger.html.hc.html.forms.HCEditPassword;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
+import com.helger.html.request.IHCRequestField;
 import com.helger.http.security.TrustManagerTrustAll;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
-import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
@@ -72,6 +72,7 @@ import com.helger.photon.bootstrap4.uictrls.ext.BootstrapFileUpload;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
+import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
 import com.helger.security.certificate.CertificateHelper;
@@ -91,14 +92,16 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   private static final String FIELD_SML_ID = "sml";
   private static final String FIELD_SMP_ID = "smpid";
   private static final String FIELD_LOGICAL_ADDRESS = "logicaladdr";
-  private static final String FIELD_KEYSTORE = "keystore";
+  private static final String FIELD_KEYSTORE_TYPE = "keystoretype";
+  private static final String FIELD_KEYSTORE_FILE = "keystore";
   private static final String FIELD_KEYSTORE_PW = "keystorepw";
   private static final String FIELD_PM_MIGRATION_DATE = "pmmigdate";
   private static final String FIELD_PM_PUBLIC_CERT = "pmpubkey";
 
   private static final String HELPTEXT_SMP_ID = "This is the unique ID your SMP will have inside the SML. All continuing operations must use this ID. You can choose this ID yourself but please make sure it only contains characters, numbers and the hyphen character. All uppercase names are appreciated!";
   private static final String HELPTEXT_LOGICAL_ADDRESS = "This must be the fully qualified URL of your SMP. This URL must use a domain name like 'http://smp.example.org' or 'https://smp.example.org' from November 1st, 2025!";
-  private static final String HELPTEXT_KEYSTORE = "A Java key store of type JKS with only your Peppol SMP key is required to perform the action! Remember to use the production keystore when accessing the SML and the pilot keystore when accessing the SMK! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
+  private static final String HELPTEXT_KEYSTORE_TYPE = "Select the type of keystore your are upload. Old default was JKS, recommended is PKCS12.";
+  private static final String HELPTEXT_KEYSTORE_FILE = "A Java key store of the selected type with only your Peppol SMP key is required to perform the action! Remember to use the production keystore when accessing the SML and the pilot keystore when accessing the SMK! The uploaded key store is used for nothing else than for this selected action and will be discarded afterwards!";
   private static final String HELPTEXT_KEYSTORE_PW = "The password of the JKS key store is required to access the content of the key store! The password is neither logged nor stored anywhere and discarded after opening the keystore.";
 
   private static final String SUBACTION_SMP_REGISTER = "smpregister";
@@ -114,7 +117,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   }
 
   @Nullable
-  private static SSLSocketFactory _loadKeyStoreAndCreateSSLSocketFactory (@Nonnull final IKeyStoreType aKeyStoreType,
+  private static SSLSocketFactory _loadKeyStoreAndCreateSSLSocketFactory (@Nullable final IKeyStoreType aKeyStoreType,
                                                                           @Nullable final String sSecurityProvider,
                                                                           @Nullable final IFileItem aKeyStoreFile,
                                                                           @Nullable final String sKeyStorePassword,
@@ -122,119 +125,122 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                           @Nonnull final Locale aDisplayLocale)
   {
     KeyStore aKeyStore = null;
-    if (aKeyStoreFile == null || aKeyStoreFile.getSize () == 0L)
-      aFormErrors.addFieldError (FIELD_KEYSTORE, "A key store file must be selected!");
+    if (aKeyStoreType == null)
+      aFormErrors.addFieldError (FIELD_KEYSTORE_TYPE, "A valid key store type must be selected!");
     else
-      if (sKeyStorePassword == null)
-      {
-        // Empty string is okay
-        aFormErrors.addFieldError (FIELD_KEYSTORE_PW, "The key store password is missing!");
-      }
+      if (aKeyStoreFile == null || aKeyStoreFile.getSize () == 0L)
+        aFormErrors.addFieldError (FIELD_KEYSTORE_FILE, "A key store file must be selected!");
       else
-      {
-        // Try to load the key store
-        try (final InputStream aIS = aKeyStoreFile.getInputStream ())
+        if (sKeyStorePassword == null)
         {
-          aKeyStore = StringHelper.isNotEmpty (sSecurityProvider) ? aKeyStoreType.getKeyStore (sSecurityProvider)
-                                                                  : aKeyStoreType.getKeyStore ();
-          aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
-
-          // Get all aliases
-          final ICommonsList <String> aAllAliases = new CommonsArrayList <> (aKeyStore.aliases ());
-          LOGGER.info ("Successfully loaded key store of type " +
-                       aKeyStoreType.getID () +
-                       " containing " +
-                       aAllAliases.size () +
-                       " aliases");
-
-          // Check key and certificate count
-          final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
-          int nKeyCount = 0;
-          int nCertificateCount = 0;
-          int nInvalidKeyCount = 0;
-          for (final String sAlias : aAllAliases)
+          // Empty string is okay
+          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, "The key store password is missing!");
+        }
+        else
+        {
+          // Try to load the key store
+          try (final InputStream aIS = aKeyStoreFile.getInputStream ())
           {
-            final boolean bIsKeyEntry = aKeyStore.isKeyEntry (sAlias);
-            final boolean bIsCertificateEntry = aKeyStore.isCertificateEntry (sAlias);
-            if (bIsKeyEntry)
-              ++nKeyCount;
-            if (bIsCertificateEntry)
-              ++nCertificateCount;
-            LOGGER.info ("  Alias '" +
-                         sAlias +
-                         "'" +
-                         (bIsKeyEntry ? " [key entry]" : "") +
-                         (bIsCertificateEntry ? " [certificate]" : ""));
+            aKeyStore = StringHelper.isNotEmpty (sSecurityProvider) ? aKeyStoreType.getKeyStore (sSecurityProvider)
+                                                                    : aKeyStoreType.getKeyStore ();
+            aKeyStore.load (aIS, sKeyStorePassword.toCharArray ());
 
-            if (bIsKeyEntry)
-              try
-              {
-                // Read key and check for validity
-                final KeyStore.ProtectionParameter aProtection = new KeyStore.PasswordProtection (sKeyStorePassword.toCharArray ());
-                final KeyStore.Entry aEntry = aKeyStore.getEntry (sAlias, aProtection);
-                if (aEntry instanceof KeyStore.PrivateKeyEntry)
+            // Get all aliases
+            final ICommonsList <String> aAllAliases = new CommonsArrayList <> (aKeyStore.aliases ());
+            LOGGER.info ("Successfully loaded key store of type " +
+                         aKeyStoreType.getID () +
+                         " containing " +
+                         aAllAliases.size () +
+                         " aliases");
+
+            // Check key and certificate count
+            final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
+            int nKeyCount = 0;
+            int nCertificateCount = 0;
+            int nInvalidKeyCount = 0;
+            for (final String sAlias : aAllAliases)
+            {
+              final boolean bIsKeyEntry = aKeyStore.isKeyEntry (sAlias);
+              final boolean bIsCertificateEntry = aKeyStore.isCertificateEntry (sAlias);
+              if (bIsKeyEntry)
+                ++nKeyCount;
+              if (bIsCertificateEntry)
+                ++nCertificateCount;
+              LOGGER.info ("  Alias '" +
+                           sAlias +
+                           "'" +
+                           (bIsKeyEntry ? " [key entry]" : "") +
+                           (bIsCertificateEntry ? " [certificate]" : ""));
+
+              if (bIsKeyEntry)
+                try
                 {
-                  final Certificate aCert = ((KeyStore.PrivateKeyEntry) aEntry).getCertificate ();
-                  if (aCert instanceof final X509Certificate aX509Cert)
+                  // Read key and check for validity
+                  final KeyStore.ProtectionParameter aProtection = new KeyStore.PasswordProtection (sKeyStorePassword.toCharArray ());
+                  final KeyStore.Entry aEntry = aKeyStore.getEntry (sAlias, aProtection);
+                  if (aEntry instanceof KeyStore.PrivateKeyEntry)
                   {
-                    final LocalDate aNotBefore = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
-                    final LocalDate aNotAfter = PDTFactory.createLocalDate (aX509Cert.getNotAfter ());
-                    if (aNow.isBefore (aNotBefore))
+                    final Certificate aCert = ((KeyStore.PrivateKeyEntry) aEntry).getCertificate ();
+                    if (aCert instanceof final X509Certificate aX509Cert)
                     {
-                      final String sMsg = "The key '" +
-                                          sAlias +
-                                          "' in the keystore is not valid before " +
-                                          PDTToString.getAsString (aNotBefore, aDisplayLocale) +
-                                          "!";
-                      LOGGER.error (sMsg);
-                      aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
-                      nInvalidKeyCount++;
-                    }
-                    if (aNow.isAfter (aNotAfter))
-                    {
-                      final String sMsg = "The key '" +
-                                          sAlias +
-                                          "' in the keystore is not valid after " +
-                                          PDTToString.getAsString (aNotAfter, aDisplayLocale) +
-                                          "!";
-                      LOGGER.error (sMsg);
-                      aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
-                      nInvalidKeyCount++;
+                      final LocalDate aNotBefore = PDTFactory.createLocalDate (aX509Cert.getNotBefore ());
+                      final LocalDate aNotAfter = PDTFactory.createLocalDate (aX509Cert.getNotAfter ());
+                      if (aNow.isBefore (aNotBefore))
+                      {
+                        final String sMsg = "The key '" +
+                                            sAlias +
+                                            "' in the keystore is not valid before " +
+                                            PDTToString.getAsString (aNotBefore, aDisplayLocale) +
+                                            "!";
+                        LOGGER.error (sMsg);
+                        aFormErrors.addFieldError (FIELD_KEYSTORE_FILE, sMsg);
+                        nInvalidKeyCount++;
+                      }
+                      if (aNow.isAfter (aNotAfter))
+                      {
+                        final String sMsg = "The key '" +
+                                            sAlias +
+                                            "' in the keystore is not valid after " +
+                                            PDTToString.getAsString (aNotAfter, aDisplayLocale) +
+                                            "!";
+                        LOGGER.error (sMsg);
+                        aFormErrors.addFieldError (FIELD_KEYSTORE_FILE, sMsg);
+                        nInvalidKeyCount++;
+                      }
                     }
                   }
                 }
-              }
-              catch (final Exception ex)
-              {
-                // Ignore
-              }
-          }
+                catch (final Exception ex)
+                {
+                  // Ignore
+                }
+            }
 
-          if (nInvalidKeyCount > 0)
-          {
-            // Error messages are already displayed
-            aKeyStore = null;
-          }
-          else
-            if (nKeyCount != 1)
+            if (nInvalidKeyCount > 0)
             {
-              final String sMsg = "The keystore must contain exactly one key entry but " +
-                                  nKeyCount +
-                                  " key entries and " +
-                                  nCertificateCount +
-                                  " certificate entries were found!";
-              LOGGER.error (sMsg);
-              aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg);
+              // Error messages are already displayed
               aKeyStore = null;
             }
+            else
+              if (nKeyCount != 1)
+              {
+                final String sMsg = "The keystore must contain exactly one key entry but " +
+                                    nKeyCount +
+                                    " key entries and " +
+                                    nCertificateCount +
+                                    " certificate entries were found!";
+                LOGGER.error (sMsg);
+                aFormErrors.addFieldError (FIELD_KEYSTORE_FILE, sMsg);
+                aKeyStore = null;
+              }
+          }
+          catch (final Exception ex)
+          {
+            final String sMsg = "The key store could not be loaded with the provided password. ";
+            aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + PeppolUI.getTechnicalDetailsString (ex, true));
+            aKeyStore = null;
+          }
         }
-        catch (final Exception ex)
-        {
-          final String sMsg = "The key store could not be loaded with the provided password. ";
-          aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + PeppolUI.getTechnicalDetailsString (ex, true));
-          aKeyStore = null;
-        }
-      }
 
     SSLSocketFactory aSocketFactory = null;
     if (aKeyStore != null)
@@ -255,7 +261,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       catch (final Exception ex)
       {
         final String sMsg = "Failed to use the provided key store for TLS connection. ";
-        aFormErrors.addFieldError (FIELD_KEYSTORE, sMsg + PeppolUI.getTechnicalDetailsString (ex, true));
+        aFormErrors.addFieldError (FIELD_KEYSTORE_FILE, sMsg + PeppolUI.getTechnicalDetailsString (ex, true));
       }
     }
     return aSocketFactory;
@@ -280,10 +286,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
-    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
+    final String sKeyStoreType = aWPEC.params ().getAsString (FIELD_KEYSTORE_TYPE);
+    final EKeyStoreType eKeyStoreType = EKeyStoreType.getFromIDOrNull (sKeyStoreType);
+    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE_FILE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
-
-    final boolean bIsPeppol = aSMLInfo != null && aSMLInfo.getSMPAPIType () == ESMPAPIType.PEPPOL;
 
     if (aSMLInfo == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
@@ -305,31 +311,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       if (aURL == null)
         aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                    "The provided logical address seems not be a URL! Please use the form 'http://smp.example.org'");
-      else
-      {
-        if (bIsPeppol)
-        {
-          if (!"http".equals (aURL.getProtocol ()) && !"https".equals (aURL.getProtocol ()))
-            aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
-                                       "The provided logical address must use the 'http' protocol and may not use the '" +
-                                                              aURL.getProtocol () +
-                                                              "' protocol. According to the Peppol SMP specification, no other protocols than 'http' are allowed!");
-          // -1 means default port
-          if (aURL.getPort () != 80 && aURL.getPort () != -1)
-            aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
-                                       "The provided logical address must use the default http port 80 and not port " +
-                                                              aURL.getPort () +
-                                                              ". According to the Peppol SMP specification, no other ports are allowed!");
-          if (StringHelper.isNotEmpty (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
-            aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
-                                       "The provided logical address may not contain a path (" +
-                                                              aURL.getPath () +
-                                                              ") because according to the Peppol SMP specifications it must run in the root (/) path!");
-        }
-      }
     }
 
-    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (eKeyStoreType,
                                                                                     SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
@@ -388,10 +372,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
-    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
+    final String sKeyStoreType = aWPEC.params ().getAsString (FIELD_KEYSTORE_TYPE);
+    final EKeyStoreType eKeyStoreType = EKeyStoreType.getFromIDOrNull (sKeyStoreType);
+    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE_FILE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
-
-    final boolean bIsPeppol = aSMLInfo != null && aSMLInfo.getSMPAPIType () == ESMPAPIType.PEPPOL;
 
     if (aSMLInfo == null)
       aFormErrors.addFieldError (FIELD_SML_ID, "A valid SML must be selected!");
@@ -413,32 +397,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       if (aURL == null)
         aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
                                    "The provided logical address seems not be a URL! Please use the form 'http://smp.example.org'");
-      else
-      {
-        if (bIsPeppol)
-        {
-          if (!"http".equals (aURL.getProtocol ()))
-            aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
-                                       "The provided logical address must use the 'http' protocol and may not use the '" +
-                                                              aURL.getProtocol () +
-                                                              "' protocol. According to the Peppol SMP specification, no other protocols than 'http' are allowed!");
-
-          // -1 means default port
-          if (aURL.getPort () != 80 && aURL.getPort () != -1)
-            aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
-                                       "The provided logical address must use the default http port 80 and not port " +
-                                                              aURL.getPort () +
-                                                              ". According to the Peppol SMP specification, no other ports are allowed!");
-          if (StringHelper.isNotEmpty (aURL.getPath ()) && !"/".equals (aURL.getPath ()))
-            aFormErrors.addFieldError (FIELD_LOGICAL_ADDRESS,
-                                       "The provided logical address may not contain a path (" +
-                                                              aURL.getPath () +
-                                                              ") because according to the Peppol SMP specifications it must run in the root (/) path!");
-        }
-      }
     }
 
-    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (eKeyStoreType,
                                                                                     SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
@@ -497,7 +458,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
-    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
+    final String sKeyStoreType = aWPEC.params ().getAsString (FIELD_KEYSTORE_TYPE);
+    final EKeyStoreType eKeyStoreType = EKeyStoreType.getFromIDOrNull (sKeyStoreType);
+    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE_FILE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
 
     if (aSMLInfo == null)
@@ -511,7 +474,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                    "The provided SMP ID contains invalid characters. It must match the following regular expression: " +
                                                  PeppolUITypes.PATTERN_SMP_ID);
 
-    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (eKeyStoreType,
                                                                                     SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
@@ -562,7 +525,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
     final ISMLConfiguration aSMLConfig = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
-    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE);
+    final String sKeyStoreType = aWPEC.params ().getAsString (FIELD_KEYSTORE_TYPE);
+    final EKeyStoreType eKeyStoreType = EKeyStoreType.getFromIDOrNull (sKeyStoreType);
+    final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE_FILE);
     final String sKeyStorePassword = aWPEC.params ().getAsString (FIELD_KEYSTORE_PW);
     final String sMigrationDate = aWPEC.params ().getAsString (FIELD_PM_MIGRATION_DATE);
     final LocalDate aMigrationDate = PDTFromString.getLocalDateFromString (sMigrationDate, aDisplayLocale);
@@ -662,7 +627,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       }
     }
 
-    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (EKeyStoreType.JKS,
+    final SSLSocketFactory aSocketFactory = _loadKeyStoreAndCreateSSLSocketFactory (eKeyStoreType,
                                                                                     SECURITY_PROVIDER,
                                                                                     aKeyStoreFile,
                                                                                     sKeyStorePassword,
@@ -725,6 +690,16 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
+  private static final class HCKeyStoreTypeSelect extends HCExtSelect
+  {
+    public HCKeyStoreTypeSelect (IHCRequestField aRF)
+    {
+      super (aRF);
+      for (var e : EKeyStoreType.values ())
+        addOption (e.getID (), e.getID (), e == EKeyStoreType.PKCS12);
+    }
+  }
+
   @Override
   protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
   {
@@ -773,10 +748,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"))
                                                      .setHelpText (HELPTEXT_LOGICAL_ADDRESS)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store type")
+                                                     .setCtrl (new HCKeyStoreTypeSelect (new RequestField (FIELD_KEYSTORE_TYPE)))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_TYPE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_TYPE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))
-                                                     .setHelpText (HELPTEXT_KEYSTORE)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
+                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE_FILE,
+                                                                                        aDisplayLocale))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_FILE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_FILE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
                                                      .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."))
                                                      .setHelpText (HELPTEXT_KEYSTORE_PW)
@@ -807,10 +787,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_LOGICAL_ADDRESS)).setPlaceholder ("The domain name of your SMP server. E.g. http://smp.example.org"))
                                                      .setHelpText (HELPTEXT_LOGICAL_ADDRESS)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_LOGICAL_ADDRESS)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store type")
+                                                     .setCtrl (new HCKeyStoreTypeSelect (new RequestField (FIELD_KEYSTORE_TYPE)))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_TYPE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_TYPE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))
-                                                     .setHelpText (HELPTEXT_KEYSTORE)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
+                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE_FILE,
+                                                                                        aDisplayLocale))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_FILE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_FILE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
                                                      .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."))
                                                      .setHelpText (HELPTEXT_KEYSTORE_PW)
@@ -837,10 +822,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new HCEdit (new RequestField (FIELD_SMP_ID)).setPlaceholder ("Your SMP ID"))
                                                      .setHelpText (HELPTEXT_SMP_ID)
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SMP_ID)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store type")
+                                                     .setCtrl (new HCKeyStoreTypeSelect (new RequestField (FIELD_KEYSTORE_TYPE)))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_TYPE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_TYPE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store")
-                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))
-                                                     .setHelpText (HELPTEXT_KEYSTORE)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
+                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE_FILE,
+                                                                                        aDisplayLocale))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_FILE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_FILE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("SMP key store password")
                                                      .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the SMP keystore. May be empty."))
                                                      .setHelpText (HELPTEXT_KEYSTORE_PW)
@@ -867,10 +857,15 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                      .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML_ID),
                                                                                            false))
                                                      .setErrorList (aFormErrors.getListOfField (FIELD_SML_ID)));
+        aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SMP key store type")
+                                                     .setCtrl (new HCKeyStoreTypeSelect (new RequestField (FIELD_KEYSTORE_TYPE)))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_TYPE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_TYPE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Existing/old SMP key store")
-                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE, aDisplayLocale))
-                                                     .setHelpText (HELPTEXT_KEYSTORE)
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE)));
+                                                     .setCtrl (new BootstrapFileUpload (FIELD_KEYSTORE_FILE,
+                                                                                        aDisplayLocale))
+                                                     .setHelpText (HELPTEXT_KEYSTORE_FILE)
+                                                     .setErrorList (aFormErrors.getListOfField (FIELD_KEYSTORE_FILE)));
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Existing/old SMP key store password")
                                                      .setCtrl (new HCEditPassword (FIELD_KEYSTORE_PW).setPlaceholder ("The password for the existing SMP keystore. May be empty."))
                                                      .setHelpText (HELPTEXT_KEYSTORE_PW)

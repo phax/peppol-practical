@@ -42,6 +42,13 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2025-11-06 - Updated the Peppol SMP-SML Tools</h3>
+    
+    <p>
+      The Peppol tools to handle SMP-SML interactions was updated, so that the limitiations with port 80 and "http" are removed.
+      Additionally, the keystore type can now be selected, so that also PKCS12 is usable.
+    </p>
+  
     <h3>2025-10-21 - Update for Peppol PKI migration</h3>
     
     <p>
