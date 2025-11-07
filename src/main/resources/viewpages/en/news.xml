@@ -42,6 +42,12 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
   
+    <h3>2025-11-07 - REST API rate limit decreased</h3>
+    
+    <p>
+      Due to the consecutive heavy load on the system, I decided to further limit the REST API usage.
+    </p>
+  
     <h3>2025-11-06 - Updated the Peppol SMP-SML Tools</h3>
     
     <p>
