@@ -42,9 +42,10 @@ import com.helger.diver.api.coord.DVRCoordinate;
 import com.helger.http.CHttp;
 import com.helger.http.CHttpHeader;
 import com.helger.io.file.FileHelper;
+import com.helger.peppol.api.rest.AbstractAPIExecutor;
 import com.helger.peppol.app.CPPApp;
-import com.helger.peppol.sharedui.config.SharedUIConfig;
 import com.helger.peppol.validate.VESRegistry;
+import com.helger.peppol.validate.config.SharedValidationConfig;
 import com.helger.peppol.wsclient2.ErrorLevelType;
 import com.helger.peppol.wsclient2.ItemType;
 import com.helger.peppol.wsclient2.RequestType;
@@ -109,21 +110,24 @@ public class WSDVS implements WSDVSPort
 
   public WSDVS ()
   {
-    final long nRequestsPerSec = SharedUIConfig.getValidationAPIMaxRequestsPerSecond ();
-    if (nRequestsPerSec > 0)
+    final long nDurationSecs = SharedValidationConfig.getValidationAPILimitDurationSeconds ();
+    final long nRequestsInDuration = SharedValidationConfig.getValidationAPILimitRequestsInDuration ();
+    if (nDurationSecs >= 2 && nRequestsInDuration > 0)
     {
       // 2 request per second, per key
       // Note: duration must be > 1 second
-      m_aRequestRateLimiter = new InMemorySlidingWindowRequestRateLimiter (RequestLimitRule.of (Duration.ofSeconds (2),
-                                                                                                nRequestsPerSec * 2));
+      m_aRequestRateLimiter = new InMemorySlidingWindowRequestRateLimiter (RequestLimitRule.of (Duration.ofSeconds (nDurationSecs),
+                                                                                                nRequestsInDuration));
       LOGGER.info ("Installed validation API rate limiter with a maximum of " +
-                   nRequestsPerSec +
-                   " requests per second");
+                   nRequestsInDuration +
+                   " requests per " +
+                   nDurationSecs +
+                   " seconds");
     }
     else
     {
       m_aRequestRateLimiter = null;
-      LOGGER.info ("Validation API runs without limit");
+      LOGGER.info ("Validation API runs without limit (" + nDurationSecs + " / " + nRequestsInDuration + ")");
     }
   }
 
@@ -209,8 +213,7 @@ public class WSDVS implements WSDVSPort
                                                                                 .get (MessageContext.SERVLET_RESPONSE);
         try
         {
-          // TODO use AbstractAPIExecutor constant instead (0.9.3+)
-          aResponse.addIntHeader (CHttpHeader.RETRY_AFTER, 5);
+          aResponse.addIntHeader (CHttpHeader.RETRY_AFTER, AbstractAPIExecutor.DEFAULT_RETRY_AFTER_SECONDS);
           aResponse.sendError (CHttp.HTTP_TOO_MANY_REQUESTS);
         }
         catch (final IOException ex)
