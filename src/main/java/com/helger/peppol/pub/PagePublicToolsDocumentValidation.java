@@ -16,23 +16,23 @@
  */
 package com.helger.peppol.pub;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.html.hc.html.textlevel.HCA;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-import jakarta.annotation.Nonnull;
-
 public class PagePublicToolsDocumentValidation extends AbstractAppWebPage
 {
-  public PagePublicToolsDocumentValidation (@Nonnull @Nonempty final String sID)
+  public PagePublicToolsDocumentValidation (@NonNull @Nonempty final String sID)
   {
     super (sID, "Document Validation (Upload)");
   }
 
   @Override
-  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void fillContent (@NonNull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 

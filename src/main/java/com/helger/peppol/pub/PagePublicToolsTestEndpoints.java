@@ -18,6 +18,9 @@ package com.helger.peppol.pub;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.compare.ESortOrder;
@@ -66,8 +69,6 @@ import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.url.ISimpleURL;
 import com.helger.url.SimpleURL;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEndpoint>
 {
@@ -78,15 +79,15 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   private static final String FIELD_TRANSPORT_PROFILE = "transportprofile";
   private static final String FIELD_SML = "sml";
 
-  public PagePublicToolsTestEndpoints (@Nonnull @Nonempty final String sID)
+  public PagePublicToolsTestEndpoints (@NonNull @Nonempty final String sID)
   {
     super (sID, "Test Endpoints");
     setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <TestEndpoint, WebPageExecutionContext> ()
     {
       @Override
-      protected void showQuery (@Nonnull final WebPageExecutionContext aWPEC,
-                                @Nonnull final BootstrapForm aForm,
-                                @Nonnull final TestEndpoint aSelectedObject)
+      protected void showQuery (@NonNull final WebPageExecutionContext aWPEC,
+                                @NonNull final BootstrapForm aForm,
+                                @NonNull final TestEndpoint aSelectedObject)
       {
         aForm.addChild (question ("Are you sure you want to delete the Test Endpoint '" +
                                   aSelectedObject.getParticipantIDValue () +
@@ -97,8 +98,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
 
       @Override
       @OverrideOnDemand
-      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
-                                    @Nonnull final TestEndpoint aSelectedObject)
+      protected void performAction (@NonNull final WebPageExecutionContext aWPEC,
+                                    @NonNull final TestEndpoint aSelectedObject)
       {
         final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
         if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
@@ -109,9 +110,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     });
   }
 
-  @Nonnull
-  private static SimpleURL _createParticipantInfoURL (@Nonnull final WebPageExecutionContext aWPEC,
-                                                      @Nonnull final TestEndpoint aTestEndpoint)
+  @NonNull
+  private static SimpleURL _createParticipantInfoURL (@NonNull final WebPageExecutionContext aWPEC,
+                                                      @NonNull final TestEndpoint aTestEndpoint)
   {
     return aWPEC.getLinkToMenuItem (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_INFO)
                 .add (CPageParam.PARAM_ACTION, CPageParam.ACTION_PERFORM)
@@ -125,15 +126,15 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
-  protected TestEndpoint getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
+  protected TestEndpoint getSelectedObject (@NonNull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
     final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
     return aTestEndpointMgr.getTestEndpointOfID (sID);
   }
 
   @Override
-  protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
-                                     @Nonnull final EWebPageFormAction eFormAction,
+  protected boolean isActionAllowed (@NonNull final WebPageExecutionContext aWPEC,
+                                     @NonNull final EWebPageFormAction eFormAction,
                                      @Nullable final TestEndpoint aSelectedObject)
   {
     if (eFormAction.isReadonly ())
@@ -162,9 +163,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
-  protected void modifyViewToolbar (@Nonnull final WebPageExecutionContext aWPEC,
-                                    @Nonnull final TestEndpoint aSelectedObject,
-                                    @Nonnull final BootstrapButtonToolbar aToolbar)
+  protected void modifyViewToolbar (@NonNull final WebPageExecutionContext aWPEC,
+                                    @NonNull final TestEndpoint aSelectedObject,
+                                    @NonNull final BootstrapButtonToolbar aToolbar)
   {
     aToolbar.addChild (new BootstrapButton ().setOnClick (_createParticipantInfoURL (aWPEC, aSelectedObject))
                                              .addChild ("Show participant information")
@@ -172,8 +173,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
-  protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC,
-                                     @Nonnull final TestEndpoint aSelectedObject)
+  protected void showSelectedObject (@NonNull final WebPageExecutionContext aWPEC,
+                                     @NonNull final TestEndpoint aSelectedObject)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
@@ -217,12 +218,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
-  protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
+  protected void showInputForm (@NonNull final WebPageExecutionContext aWPEC,
                                 @Nullable final TestEndpoint aSelectedObject,
-                                @Nonnull final BootstrapForm aForm,
+                                @NonNull final BootstrapForm aForm,
                                 final boolean bFormSubmitted,
-                                @Nonnull final EWebPageFormAction eFormAction,
-                                @Nonnull final FormErrorList aFormErrors)
+                                @NonNull final EWebPageFormAction eFormAction,
+                                @NonNull final FormErrorList aFormErrors)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final BootstrapForm aRealForm = aForm;
@@ -273,10 +274,10 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
-  protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
+  protected void validateAndSaveInputParameters (@NonNull final WebPageExecutionContext aWPEC,
                                                  @Nullable final TestEndpoint aSelectedObject,
-                                                 @Nonnull final FormErrorList aFormErrors,
-                                                 @Nonnull final EWebPageFormAction eFormAction)
+                                                 @NonNull final FormErrorList aFormErrors,
+                                                 @NonNull final EWebPageFormAction eFormAction)
   {
     final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
@@ -365,7 +366,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   }
 
   @Override
-  protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void showListOfExistingObjects (@NonNull final WebPageExecutionContext aWPEC)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();

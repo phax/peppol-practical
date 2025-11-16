@@ -19,6 +19,9 @@ package com.helger.peppol.comment.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
@@ -28,8 +31,6 @@ import com.helger.datetime.domain.IHasCreationDateTime;
 import com.helger.datetime.domain.IHasLastModificationDateTime;
 import com.helger.security.authentication.subject.user.IHasUserID;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a single comment object. It is not directly linked to the object to which the
@@ -51,14 +52,14 @@ public interface IComment extends
    * @return The IP address or host from which the comment was triggered. This is used to identify
    *         spammers and block IP addresses.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getHost ();
 
   /**
    * @return The state of this comment.
    */
-  @Nonnull
+  @NonNull
   ECommentState getState ();
 
   /**
@@ -68,8 +69,8 @@ public interface IComment extends
    *        The new state. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  EChange setState (@Nonnull ECommentState eState);
+  @NonNull
+  EChange setState (@NonNull ECommentState eState);
 
   /**
    * @return <code>true</code> if this comment was deleted
@@ -104,7 +105,7 @@ public interface IComment extends
   /**
    * @return The last modification date time or if not present the creation date time.
    */
-  @Nonnull
+  @NonNull
   LocalDateTime getLastChangeDateTime ();
 
   /**
@@ -130,6 +131,6 @@ public interface IComment extends
   /**
    * @return The main comment text. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getText ();
 }

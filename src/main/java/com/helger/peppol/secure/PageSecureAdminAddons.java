@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.secure;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +36,6 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.external.IWebPageResourceContent;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPageExecutionContext>
 {
@@ -43,7 +43,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
 
   private static final String ACTION_EXPIRE_PAGE_CACHE = "expirePageCache";
 
-  public PageSecureAdminAddons (@Nonnull @Nonempty final String sID)
+  public PageSecureAdminAddons (@NonNull @Nonempty final String sID)
   {
     super (sID, "Additional administration");
   }
@@ -92,7 +92,7 @@ public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPa
   }
 
   @Override
-  public void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  public void fillContent (@NonNull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 

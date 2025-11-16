@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.email.EmailAddressHelper;
 import com.helger.base.equals.EqualsHelper;
@@ -49,8 +51,6 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-import jakarta.annotation.Nonnull;
-
 public final class PagePublicSignUp extends AbstractAppWebPage
 {
   private static final String FIELD_FIRSTNAME = "firstname";
@@ -60,13 +60,13 @@ public final class PagePublicSignUp extends AbstractAppWebPage
   private static final String FIELD_PASSWORD = "password";
   private static final String FIELD_PASSWORD_CONFIRM = "passwordconfirm";
 
-  public PagePublicSignUp (@Nonnull @Nonempty final String sID)
+  public PagePublicSignUp (@NonNull @Nonempty final String sID)
   {
     super (sID, "Sign up");
   }
 
-  protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
-                                                 @Nonnull final FormErrorList aFormErrors)
+  protected void validateAndSaveInputParameters (@NonNull final WebPageExecutionContext aWPEC,
+                                                 @NonNull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -150,9 +150,9 @@ public final class PagePublicSignUp extends AbstractAppWebPage
     }
   }
 
-  protected void showInputForm (@Nonnull final Locale aDisplayLocale,
-                                @Nonnull final AbstractHCForm <?> aForm,
-                                @Nonnull final FormErrorList aFormErrors)
+  protected void showInputForm (@NonNull final Locale aDisplayLocale,
+                                @NonNull final AbstractHCForm <?> aForm,
+                                @NonNull final FormErrorList aFormErrors)
   {
     final List <IHCNode> aPasswordHelpText = HCExtHelper.list2divList (GlobalPasswordSettings.getPasswordConstraintList ()
                                                                                              .getAllPasswordConstraintDescriptions (aDisplayLocale));
@@ -185,7 +185,7 @@ public final class PagePublicSignUp extends AbstractAppWebPage
   }
 
   @Override
-  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void fillContent (@NonNull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();

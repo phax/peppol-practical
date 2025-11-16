@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,6 @@ import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.ubl21.UBL21Marshaller;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-import jakarta.annotation.Nonnull;
 import oasis.names.specification.ubl.schema.xsd.creditnote_21.CreditNoteType;
 import oasis.names.specification.ubl.schema.xsd.invoice_21.InvoiceType;
 import un.unece.uncefact.data.standard.crossindustryinvoice._100.CrossIndustryInvoiceType;
@@ -67,12 +67,12 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
   private static final Logger LOGGER = LoggerFactory.getLogger (APIConvertCIIToUBL.class);
 
   @Override
-  protected void invokeAPI (@Nonnull @Nonempty final String sLogPrefix,
-                            @Nonnull final IAPIDescriptor aAPIDescriptor,
-                            @Nonnull @Nonempty final String sPath,
-                            @Nonnull final Map <String, String> aPathVariables,
-                            @Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                            @Nonnull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
+  protected void invokeAPI (@NonNull @Nonempty final String sLogPrefix,
+                            @NonNull final IAPIDescriptor aAPIDescriptor,
+                            @NonNull @Nonempty final String sPath,
+                            @NonNull final Map <String, String> aPathVariables,
+                            @NonNull final IRequestWebScopeWithoutResponse aRequestScope,
+                            @NonNull final PhotonUnifiedResponse aUnifiedResponse) throws Exception
   {
     final ErrorList aErrorList = new ErrorList ();
     final Locale aDisplayLocale = CPPApp.DEFAULT_LOCALE;

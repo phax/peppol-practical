@@ -18,6 +18,9 @@ package com.helger.peppol.secure;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.compare.ESortOrder;
 import com.helger.base.email.EmailAddressHelper;
@@ -47,29 +50,27 @@ import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.url.ISimpleURL;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
 {
   private static final String FIELD_NAME = "name";
   private static final String FIELD_SENDER_EMAIL_ADDRESS = "senderemailaddress";
 
-  public PageSecureCRMGroup (@Nonnull @Nonempty final String sID)
+  public PageSecureCRMGroup (@NonNull @Nonempty final String sID)
   {
     super (sID, "CRM groups");
   }
 
   @Override
   @Nullable
-  protected ICRMGroup getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
+  protected ICRMGroup getSelectedObject (@NonNull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     return aCRMGroupMgr.getCRMGroupOfID (sID);
   }
 
   @Override
-  protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, final ICRMGroup aSelectedObject)
+  protected void showSelectedObject (@NonNull final WebPageExecutionContext aWPEC, final ICRMGroup aSelectedObject)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
@@ -83,10 +84,10 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
   }
 
   @Override
-  protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
+  protected void validateAndSaveInputParameters (@NonNull final WebPageExecutionContext aWPEC,
                                                  @Nullable final ICRMGroup aSelectedObject,
-                                                 @Nonnull final FormErrorList aFormErrors,
-                                                 @Nonnull final EWebPageFormAction eFormAction)
+                                                 @NonNull final FormErrorList aFormErrors,
+                                                 @NonNull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
@@ -122,12 +123,12 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
   }
 
   @Override
-  protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
+  protected void showInputForm (@NonNull final WebPageExecutionContext aWPEC,
                                 @Nullable final ICRMGroup aSelectedObject,
-                                @Nonnull final BootstrapForm aForm,
+                                @NonNull final BootstrapForm aForm,
                                 final boolean bFormSubmitted,
-                                @Nonnull final EWebPageFormAction eFormAction,
-                                @Nonnull final FormErrorList aFormErrors)
+                                @NonNull final EWebPageFormAction eFormAction,
+                                @NonNull final FormErrorList aFormErrors)
   {
     aForm.addChild (getUIHandler ().createActionHeader (eFormAction.isEdit () ? "Edit CRM group"
                                                                               : "Create new CRM group"));
@@ -144,7 +145,7 @@ public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
   }
 
   @Override
-  protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void showListOfExistingObjects (@NonNull final WebPageExecutionContext aWPEC)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();

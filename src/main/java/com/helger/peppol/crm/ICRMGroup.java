@@ -16,11 +16,11 @@
  */
 package com.helger.peppol.crm;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.name.IHasDisplayName;
 import com.helger.tenancy.IBusinessObject;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The read-only interface for a single CRM group.
@@ -32,7 +32,7 @@ public interface ICRMGroup extends IBusinessObject, IHasDisplayName
   /**
    * @return The default sender email address for this group.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getSenderEmailAddress ();
 }

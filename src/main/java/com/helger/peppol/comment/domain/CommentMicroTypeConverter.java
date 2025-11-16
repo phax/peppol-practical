@@ -18,14 +18,15 @@ package com.helger.peppol.comment.domain;
 
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.string.StringParser;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class CommentMicroTypeConverter implements IMicroTypeConverter <Comment>
@@ -41,10 +42,10 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter <Com
   private static final String ATTR_CREATORNAME = "creatorname";
   private static final String ATTR_TITLE = "title";
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Comment aValue,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final Comment aValue,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final IMicroElement eComment = new MicroElement (sNamespaceURI, sTagName);
     eComment.setAttribute (ATTR_ID, aValue.getID ());
@@ -61,8 +62,8 @@ public final class CommentMicroTypeConverter implements IMicroTypeConverter <Com
     return eComment;
   }
 
-  @Nonnull
-  public Comment convertToNative (@Nonnull final IMicroElement eComment)
+  @NonNull
+  public Comment convertToNative (@NonNull final IMicroElement eComment)
   {
     final String sCommentID = eComment.getAttributeValue (ATTR_ID);
     final LocalDateTime aCreationLDT = eComment.getAttributeValueWithConversion (ATTR_CREATIONLDT, LocalDateTime.class);

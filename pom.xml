@@ -72,7 +72,7 @@
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
     <jaxws-plugin.version>4.0.3</jaxws-plugin.version>
     <log4j.version>2.25.2</log4j.version>
-    <ph-jaxb-plugin.version>5.0.1</ph-jaxb-plugin.version>
+    <ph-jaxb-plugin.version>5.1.1</ph-jaxb-plugin.version>
   </properties>
   
   <dependencyManagement>
@@ -80,40 +80,40 @@
       <dependency>
         <groupId>com.helger.peppol.ui</groupId>
         <artifactId>peppol-shared-ui-parent-pom</artifactId>
-        <version>0.9.6</version>
+        <version>0.9.7</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.ubl</groupId>
         <artifactId>ph-ubl-parent-pom</artifactId>
-        <version>10.0.0</version>
+        <version>10.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.schematron</groupId>
         <artifactId>ph-schematron-parent-pom</artifactId>
-        <version>9.0.1</version>
+        <version>9.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.phive</groupId>
         <artifactId>phive-parent-pom</artifactId>
-        <version>11.0.1</version>
+        <version>11.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>en16931-cii2ubl</artifactId>
-        <version>3.0.1</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>en16931-ubl2cii</artifactId>
-        <version>2.0.1</version>
+        <version>2.1.0</version>
       </dependency>
 
       <dependency>
@@ -157,6 +157,10 @@
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-csv</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -270,7 +274,7 @@
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-jscompress-maven-plugin</artifactId>
-        <version>3.1.0</version><!--$NO-MVN-MAN-VER$-->
+        <version>3.1.1</version><!--$NO-MVN-MAN-VER$-->
         <executions>
           <execution>
             <goals>
@@ -286,7 +290,7 @@
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>8.0.1</version><!--$NO-MVN-MAN-VER$-->
+        <version>8.1.0</version><!--$NO-MVN-MAN-VER$-->
         <executions>
           <execution>
             <goals>
@@ -327,6 +331,7 @@
             <xjcArg>-no-header</xjcArg>
             <xjcArg>-Xph-default-locale</xjcArg>
             <xjcArg>en_US</xjcArg>
+            <xjcArg>-Xph-package-null-marked</xjcArg>
             <xjcArg>-Xph-annotate</xjcArg>
             <xjcArg>-Xph-fields-private</xjcArg>
             <xjcArg>-Xph-code-quality</xjcArg>

@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.comment.domain;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.tree.xml.IConverterTreeXML;
@@ -25,18 +28,16 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class CommentThreadMicroTypeConverter implements IMicroTypeConverter <CommentThread>
 {
   private static final String ELEMENT_COMMENT = "comment";
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final CommentThread aValue,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final CommentThread aValue,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final IMicroElement eCommentThread = new MicroElement (sNamespaceURI, sTagName);
 
@@ -47,8 +48,8 @@ public final class CommentThreadMicroTypeConverter implements IMicroTypeConverte
     return eCommentThread;
   }
 
-  @Nonnull
-  public CommentThread convertToNative (@Nonnull final IMicroElement eCommentThread)
+  @NonNull
+  public CommentThread convertToNative (@NonNull final IMicroElement eCommentThread)
   {
     final IConverterTreeXML <IComment> aXMLConverter = new MicroTypeConverterTreeXML <> (eCommentThread.getNamespaceURI (),
                                                                                          ELEMENT_COMMENT,

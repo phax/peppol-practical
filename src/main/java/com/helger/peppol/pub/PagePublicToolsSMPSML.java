@@ -32,6 +32,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,8 +84,6 @@ import com.helger.url.SimpleURL;
 import com.helger.web.fileupload.IFileItem;
 import com.sun.xml.ws.client.ClientTransportException;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class PagePublicToolsSMPSML extends AbstractAppWebPage
 {
@@ -111,7 +111,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
   private static final String SECURITY_PROVIDER = null;
 
-  public PagePublicToolsSMPSML (@Nonnull @Nonempty final String sID)
+  public PagePublicToolsSMPSML (@NonNull @Nonempty final String sID)
   {
     super (sID, "SMP - SML Tools");
   }
@@ -121,8 +121,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                                                                           @Nullable final String sSecurityProvider,
                                                                           @Nullable final IFileItem aKeyStoreFile,
                                                                           @Nullable final String sKeyStorePassword,
-                                                                          @Nonnull final FormErrorList aFormErrors,
-                                                                          @Nonnull final Locale aDisplayLocale)
+                                                                          @NonNull final FormErrorList aFormErrors,
+                                                                          @NonNull final Locale aDisplayLocale)
   {
     KeyStore aKeyStore = null;
     if (aKeyStoreType == null)
@@ -267,17 +267,17 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     return aSocketFactory;
   }
 
-  @Nonnull
-  private static ManageServiceMetadataServiceCaller _create (@Nonnull final ISMLInfo aSML,
-                                                             @Nonnull final SSLSocketFactory aSocketFactory)
+  @NonNull
+  private static ManageServiceMetadataServiceCaller _create (@NonNull final ISMLInfo aSML,
+                                                             @NonNull final SSLSocketFactory aSocketFactory)
   {
     final ManageServiceMetadataServiceCaller ret = new ManageServiceMetadataServiceCaller (aSML);
     ret.setSSLSocketFactory (aSocketFactory);
     return ret;
   }
 
-  private void _registerSMPtoSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                  @Nonnull final FormErrorList aFormErrors)
+  private void _registerSMPtoSML (@NonNull final WebPageExecutionContext aWPEC,
+                                  @NonNull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -363,7 +363,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
-  private void _updateSMPatSML (@Nonnull final WebPageExecutionContext aWPEC, @Nonnull final FormErrorList aFormErrors)
+  private void _updateSMPatSML (@NonNull final WebPageExecutionContext aWPEC, @NonNull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -449,8 +449,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
-  private void _deleteSMPfromSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                  @Nonnull final FormErrorList aFormErrors)
+  private void _deleteSMPfromSML (@NonNull final WebPageExecutionContext aWPEC,
+                                  @NonNull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -516,8 +516,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       aNodeList.addChild (BootstrapWebPageUIHandler.INSTANCE.createIncorrectInputBox (aWPEC));
   }
 
-  private void _updateSMPCertAtSML (@Nonnull final WebPageExecutionContext aWPEC,
-                                    @Nonnull final FormErrorList aFormErrors)
+  private void _updateSMPCertAtSML (@NonNull final WebPageExecutionContext aWPEC,
+                                    @NonNull final FormErrorList aFormErrors)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -701,7 +701,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
   }
 
   @Override
-  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void fillContent (@NonNull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();

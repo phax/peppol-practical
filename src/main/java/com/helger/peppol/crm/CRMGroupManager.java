@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.crm;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.state.EChange;
@@ -24,8 +27,6 @@ import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.io.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.security.object.BusinessObjectHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Manager for {@link CRMGroup} instances.
@@ -36,14 +37,14 @@ import jakarta.annotation.Nullable;
 @ThreadSafe
 public final class CRMGroupManager extends AbstractPhotonMapBasedWALDAO <ICRMGroup, CRMGroup>
 {
-  public CRMGroupManager (@Nonnull @Nonempty final String sFilename) throws DAOException
+  public CRMGroupManager (@NonNull @Nonempty final String sFilename) throws DAOException
   {
     super (CRMGroup.class, sFilename);
   }
 
-  @Nonnull
-  public ICRMGroup createCRMGroup (@Nonnull @Nonempty final String sDisplayName,
-                                   @Nonnull @Nonempty final String sSenderEmailAddress)
+  @NonNull
+  public ICRMGroup createCRMGroup (@NonNull @Nonempty final String sDisplayName,
+                                   @NonNull @Nonempty final String sSenderEmailAddress)
   {
     final CRMGroup aCRMGroup = new CRMGroup (sDisplayName, sSenderEmailAddress);
 
@@ -52,10 +53,10 @@ public final class CRMGroupManager extends AbstractPhotonMapBasedWALDAO <ICRMGro
     return aCRMGroup;
   }
 
-  @Nonnull
+  @NonNull
   public EChange updateCRMGroup (@Nullable final String sCRMGroupID,
-                                 @Nonnull @Nonempty final String sDisplayName,
-                                 @Nonnull @Nonempty final String sSenderEmailAddress)
+                                 @NonNull @Nonempty final String sDisplayName,
+                                 @NonNull @Nonempty final String sSenderEmailAddress)
   {
     final CRMGroup aCRMGroup = getOfID (sCRMGroupID);
     if (aCRMGroup == null)

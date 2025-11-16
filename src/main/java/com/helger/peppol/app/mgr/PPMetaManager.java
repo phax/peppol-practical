@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.app.mgr;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +28,6 @@ import com.helger.peppol.crm.CRMSubscriberManager;
 import com.helger.peppol.testendpoint.TestEndpointManager;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Central manager for all sub managers
@@ -53,7 +52,7 @@ public final class PPMetaManager extends AbstractGlobalSingleton
   {}
 
   @Override
-  protected void onAfterInstantiation (@Nonnull final IScope aScope)
+  protected void onAfterInstantiation (@NonNull final IScope aScope)
   {
     try
     {
@@ -69,25 +68,25 @@ public final class PPMetaManager extends AbstractGlobalSingleton
     }
   }
 
-  @Nonnull
+  @NonNull
   public static PPMetaManager getInstance ()
   {
     return getGlobalSingleton (PPMetaManager.class);
   }
 
-  @Nonnull
+  @NonNull
   public static CRMGroupManager getCRMGroupMgr ()
   {
     return getInstance ().m_aCRMGroupMgr;
   }
 
-  @Nonnull
+  @NonNull
   public static CRMSubscriberManager getCRMSubscriberMgr ()
   {
     return getInstance ().m_aCRMSubscriberMgr;
   }
 
-  @Nonnull
+  @NonNull
   public static TestEndpointManager getTestEndpointMgr ()
   {
     return getInstance ().m_aTestEndpointMgr;

@@ -18,6 +18,9 @@ package com.helger.peppol.comment.domain;
 
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -31,8 +34,6 @@ import com.helger.datetime.helper.PDTFactory;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IComment} interface.
@@ -74,12 +75,12 @@ public final class Comment implements IComment
    * @param sText
    *        Comment text. May neither be <code>null</code> nor empty.
    */
-  public Comment (@Nonnull @Nonempty final String sHost,
-                  @Nonnull final ECommentState eState,
+  public Comment (@NonNull @Nonempty final String sHost,
+                  @NonNull final ECommentState eState,
                   @Nullable final String sUserID,
                   @Nullable final String sCreatorName,
                   @Nullable final String sTitle,
-                  @Nonnull @Nonempty final String sText)
+                  @NonNull @Nonempty final String sText)
   {
     this (GlobalIDFactory.getNewPersistentStringID (),
           PDTFactory.getCurrentLocalDateTime (),
@@ -122,17 +123,17 @@ public final class Comment implements IComment
    * @param sText
    *        comment Text
    */
-  Comment (@Nonnull @Nonempty final String sID,
-           @Nonnull final LocalDateTime aCreationDT,
+  Comment (@NonNull @Nonempty final String sID,
+           @NonNull final LocalDateTime aCreationDT,
            @Nullable final LocalDateTime aLastModDT,
-           @Nonnull @Nonempty final String sHost,
-           @Nonnull final ECommentState eState,
+           @NonNull @Nonempty final String sHost,
+           @NonNull final ECommentState eState,
            @Nonnegative final int nEditCount,
            @Nonnegative final int nSpamReportCount,
            @Nullable final String sUserID,
            @Nullable final String sCreatorName,
            @Nullable final String sTitle,
-           @Nonnull @Nonempty final String sText)
+           @NonNull @Nonempty final String sText)
   {
     ValueEnforcer.notEmpty (sID, "ID");
     ValueEnforcer.notNull (aCreationDT, "CreationDT");
@@ -154,20 +155,20 @@ public final class Comment implements IComment
     m_sText = sText;
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return TYPE_COMMENT;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   public LocalDateTime getCreationDateTime ()
   {
     return m_aCreationDT;
@@ -179,7 +180,7 @@ public final class Comment implements IComment
     return m_aLastModDT;
   }
 
-  @Nonnull
+  @NonNull
   public LocalDateTime getLastChangeDateTime ()
   {
     if (m_aLastModDT != null)
@@ -187,21 +188,21 @@ public final class Comment implements IComment
     return m_aCreationDT;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getHost ()
   {
     return m_sHost;
   }
 
-  @Nonnull
+  @NonNull
   public ECommentState getState ()
   {
     return m_eState;
   }
 
-  @Nonnull
-  public EChange setState (@Nonnull final ECommentState eState)
+  @NonNull
+  public EChange setState (@NonNull final ECommentState eState)
   {
     ValueEnforcer.notNull (eState, "State");
     if (eState.equals (m_eState))
@@ -257,7 +258,7 @@ public final class Comment implements IComment
     return m_sTitle;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getText ()
   {
@@ -281,11 +282,11 @@ public final class Comment implements IComment
     return new HashCodeGenerator (this).append (m_sID).getHashCode ();
   }
 
-  @Nonnull
-  public static IComment createForCurrentUser (@Nonnull @Nonempty final String sHost,
-                                               @Nonnull final ECommentState eState,
+  @NonNull
+  public static IComment createForCurrentUser (@NonNull @Nonempty final String sHost,
+                                               @NonNull final ECommentState eState,
                                                @Nullable final String sTitle,
-                                               @Nonnull @Nonempty final String sText)
+                                               @NonNull @Nonempty final String sText)
   {
     final IUser aCurrentUser = LoggedInUserManager.getInstance ().getCurrentUser ();
     if (aCurrentUser == null)

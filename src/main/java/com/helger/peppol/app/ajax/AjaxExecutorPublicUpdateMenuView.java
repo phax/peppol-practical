@@ -16,14 +16,14 @@
  */
 package com.helger.peppol.app.ajax;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.html.hc.IHCNode;
 import com.helger.peppol.pub.LayoutAreaContentProviderPublic;
 import com.helger.photon.ajax.executor.IAjaxExecutor;
 import com.helger.photon.app.PhotonUnifiedResponse;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Ajax executor to get the update content the public application's menu.
@@ -32,8 +32,8 @@ import jakarta.annotation.Nonnull;
  */
 public final class AjaxExecutorPublicUpdateMenuView implements IAjaxExecutor
 {
-  public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                             @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
+  public void handleRequest (@NonNull final IRequestWebScopeWithoutResponse aRequestScope,
+                             @NonNull final PhotonUnifiedResponse aAjaxResponse) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
 

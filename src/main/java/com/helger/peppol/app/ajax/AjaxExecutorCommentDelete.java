@@ -18,6 +18,7 @@ package com.helger.peppol.app.ajax;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,8 +43,6 @@ import com.helger.photon.bootstrap4.traits.IHCBootstrap4Trait;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * AJAX handler for deleting a single comment
  *
@@ -57,8 +56,8 @@ public final class AjaxExecutorCommentDelete implements IAjaxExecutor, IHCBootst
   public static final String PARAM_COMMENT_ID = "commentID";
   private static final Logger LOGGER = LoggerFactory.getLogger (AjaxExecutorCommentDelete.class);
 
-  public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                             @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
+  public void handleRequest (@NonNull final IRequestWebScopeWithoutResponse aRequestScope,
+                             @NonNull final PhotonUnifiedResponse aAjaxResponse) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();

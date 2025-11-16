@@ -20,6 +20,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.type.ITypedObject;
@@ -80,8 +83,6 @@ import com.helger.photon.uicore.js.JSJQueryHelper;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class CommentUI
 {
@@ -92,10 +93,10 @@ public final class CommentUI
   private CommentUI ()
   {}
 
-  @Nonnull
-  public static IHCNode getCommentList (@Nonnull final ILayoutExecutionContext aLEC,
-                                        @Nonnull final ITypedObject <String> aObject,
-                                        @Nonnull final CommentAction aCommentAction,
+  @NonNull
+  public static IHCNode getCommentList (@NonNull final ILayoutExecutionContext aLEC,
+                                        @NonNull final ITypedObject <String> aObject,
+                                        @NonNull final CommentAction aCommentAction,
                                         @Nullable final CommentFormErrors aFormErrors,
                                         @Nullable final IHCNode aMessageBox,
                                         final boolean bShowCreateComments)
@@ -133,7 +134,7 @@ public final class CommentUI
         {
           public void onCommentStart (final int nLevel,
                                       @Nullable final IComment aParentComment,
-                                      @Nonnull final IComment aComment)
+                                      @NonNull final IComment aComment)
           {
             // Show only approved comments
             final boolean bIsApproved = aComment.getState ().isApproved ();
@@ -325,7 +326,7 @@ public final class CommentUI
 
           public void onCommentEnd (final int nLevel,
                                     @Nullable final IComment aParentComment,
-                                    @Nonnull final IComment aComment)
+                                    @NonNull final IComment aComment)
           {
             aStack.pop ();
           }
@@ -360,10 +361,10 @@ public final class CommentUI
     return ret;
   }
 
-  @Nonnull
-  public static IHCNode getCreateComment (@Nonnull final ILayoutExecutionContext aLEC,
-                                          @Nonnull final String sResultDivID,
-                                          @Nonnull final ITypedObject <String> aObject,
+  @NonNull
+  public static IHCNode getCreateComment (@NonNull final ILayoutExecutionContext aLEC,
+                                          @NonNull final String sResultDivID,
+                                          @NonNull final ITypedObject <String> aObject,
                                           @Nullable final ICommentThread aCommentThread,
                                           @Nullable final IComment aParentComment,
                                           @Nullable final CommentFormErrors aFormErrors,

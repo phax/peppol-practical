@@ -19,6 +19,7 @@ package com.helger.peppol.servlet;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
@@ -52,7 +53,6 @@ import com.helger.photon.core.menu.MenuTree;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.xservlet.requesttrack.RequestTrackerSettings;
 
-import jakarta.annotation.Nonnull;
 import jakarta.servlet.ServletContext;
 
 /**
@@ -66,25 +66,25 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   private static final Logger LOGGER = LoggerFactory.getLogger (AppWebAppListener.class);
 
   @Override
-  protected String getInitParameterDebug (@Nonnull final ServletContext aSC)
+  protected String getInitParameterDebug (@NonNull final ServletContext aSC)
   {
     return SharedUIConfig.getGlobalDebug ();
   }
 
   @Override
-  protected String getInitParameterProduction (@Nonnull final ServletContext aSC)
+  protected String getInitParameterProduction (@NonNull final ServletContext aSC)
   {
     return SharedUIConfig.getGlobalProduction ();
   }
 
   @Override
-  protected String getDataPath (@Nonnull final ServletContext aSC)
+  protected String getDataPath (@NonNull final ServletContext aSC)
   {
     return SharedUIConfig.getDataPath ();
   }
 
   @Override
-  protected boolean shouldCheckFileAccess (@Nonnull final ServletContext aSC)
+  protected boolean shouldCheckFileAccess (@NonNull final ServletContext aSC)
   {
     return SharedUIConfig.isCheckFileAccess ();
   }
@@ -140,7 +140,7 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   }
 
   @Override
-  protected void initLocales (@Nonnull final ILocaleManager aLocaleMgr)
+  protected void initLocales (@NonNull final ILocaleManager aLocaleMgr)
   {
     aLocaleMgr.registerLocale (PeppolUITypes.LOCALE_DE);
     aLocaleMgr.registerLocale (PeppolUITypes.LOCALE_EN);
@@ -148,7 +148,7 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   }
 
   @Override
-  protected void initAjax (@Nonnull final IAjaxRegistry aAjaxRegistry)
+  protected void initAjax (@NonNull final IAjaxRegistry aAjaxRegistry)
   {
     aAjaxRegistry.registerFunction (CPeppolSharedAjax.DATATABLES);
     aAjaxRegistry.registerFunction (CPeppolSharedAjax.DATATABLES_I18N);
@@ -162,7 +162,7 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   }
 
   @Override
-  protected void initAPI (@Nonnull final IAPIRegistry aAPIRegistry)
+  protected void initAPI (@NonNull final IAPIRegistry aAPIRegistry)
   {
     PPAPI.init (aAPIRegistry);
   }
@@ -209,7 +209,7 @@ public final class AppWebAppListener extends WebAppListenerBootstrap
   }
 
   @Override
-  protected void beforeContextDestroyed (@Nonnull final ServletContext aSC)
+  protected void beforeContextDestroyed (@NonNull final ServletContext aSC)
   {
     VESRegistry.cleanupOnShutdown ();
   }

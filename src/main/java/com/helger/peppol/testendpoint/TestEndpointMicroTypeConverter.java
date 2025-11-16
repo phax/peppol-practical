@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.testendpoint;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
@@ -25,8 +28,6 @@ import com.helger.photon.security.object.StubObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class TestEndpointMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <TestEndpoint>
@@ -39,10 +40,10 @@ public final class TestEndpointMicroTypeConverter extends AbstractBusinessObject
   private static final String ATTR_TRANSPORT_PROFILE = "transportprofile";
   private static final String ATTR_SML = "sml";
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final TestEndpoint aValue,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final TestEndpoint aValue,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final IMicroElement eValue = new MicroElement (sNamespaceURI, sTagName);
     setObjectFields (aValue, eValue);
@@ -55,8 +56,8 @@ public final class TestEndpointMicroTypeConverter extends AbstractBusinessObject
     return eValue;
   }
 
-  @Nonnull
-  public TestEndpoint convertToNative (@Nonnull final IMicroElement eValue)
+  @NonNull
+  public TestEndpoint convertToNative (@NonNull final IMicroElement eValue)
   {
     final StubObject aStubObject = getStubObject (eValue);
 

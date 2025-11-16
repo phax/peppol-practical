@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.comment.domain;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsImmutableObject;
@@ -36,8 +39,6 @@ import com.helger.scope.singleton.AbstractGlobalSingleton;
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.impl.StatisticsManager;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Main manager class for comments. Manages the {@link CommentThreadObjectTypeManager} per
@@ -63,7 +64,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   public CommentThreadManager ()
   {}
 
-  @Nonnull
+  @NonNull
   public static CommentThreadManager getInstance ()
   {
     return getGlobalSingleton (CommentThreadManager.class);
@@ -76,7 +77,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
    * @param aObjectType
    *        The object type to be registered. May not be <code>null</code>.
    */
-  public void registerObjectType (@Nonnull final ObjectType aObjectType)
+  public void registerObjectType (@NonNull final ObjectType aObjectType)
   {
     ValueEnforcer.notNull (aObjectType, "ObjectType");
 
@@ -98,7 +99,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
     }
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <ObjectType> getAllRegisteredObjectTypes ()
   {
@@ -115,7 +116,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   }
 
   @Nullable
-  public ICommentThread createNewThread (@Nonnull final ITypedObject <String> aOwner, @Nonnull final IComment aComment)
+  public ICommentThread createNewThread (@NonNull final ITypedObject <String> aOwner, @NonNull final IComment aComment)
   {
     ValueEnforcer.notNull (aOwner, "Owner");
 
@@ -131,11 +132,11 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
     return ret;
   }
 
-  @Nonnull
-  public ESuccess addCommentToThread (@Nonnull final ITypedObject <String> aOwner,
+  @NonNull
+  public ESuccess addCommentToThread (@NonNull final ITypedObject <String> aOwner,
                                       @Nullable final String sCommentThreadID,
                                       @Nullable final String sParentCommentID,
-                                      @Nonnull final IComment aComment)
+                                      @NonNull final IComment aComment)
   {
     // Get/create the object type comment manager
     final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getObjectType ());
@@ -149,11 +150,11 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
     return ret;
   }
 
-  @Nonnull
-  public EChange updateCommentState (@Nonnull final ITypedObject <String> aOwner,
+  @NonNull
+  public EChange updateCommentState (@NonNull final ITypedObject <String> aOwner,
                                      @Nullable final String sCommentThreadID,
                                      @Nullable final String sCommentID,
-                                     @Nonnull final ECommentState eNewState)
+                                     @NonNull final ECommentState eNewState)
   {
     // Get/create the object type comment manager
     final CommentThreadObjectTypeManager aMgr = getManagerOfObjectType (aOwner.getObjectType ());
@@ -189,7 +190,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   }
 
   @Nullable
-  public ICommentThread getCommentThreadOfID (@Nonnull final ITypedObject <?> aObject,
+  public ICommentThread getCommentThreadOfID (@NonNull final ITypedObject <?> aObject,
                                               @Nullable final String sCommentThreadID)
   {
     ValueEnforcer.notNull (aObject, "Object");
@@ -198,7 +199,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
   }
 
   @Nullable
-  public ICommentThread getCommentThreadOfID (@Nonnull final ObjectType aObjectType,
+  public ICommentThread getCommentThreadOfID (@NonNull final ObjectType aObjectType,
                                               @Nullable final String sCommentThreadID)
   {
     ValueEnforcer.notNull (aObjectType, "ObjectType");

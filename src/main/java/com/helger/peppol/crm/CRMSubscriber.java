@@ -19,6 +19,9 @@ package com.helger.peppol.crm;
 import java.util.Locale;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -34,8 +37,6 @@ import com.helger.masterdata.person.ESalutation;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscriber
 {
@@ -47,17 +48,17 @@ public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscri
   private ICommonsSet <ICRMGroup> m_aAssignedGroups;
 
   public CRMSubscriber (@Nullable final ESalutation eSalutation,
-                        @Nonnull @Nonempty final String sName,
-                        @Nonnull @Nonempty final String sEmailAddress,
+                        @NonNull @Nonempty final String sName,
+                        @NonNull @Nonempty final String sEmailAddress,
                         @Nullable final Set <ICRMGroup> aAssignedGroups)
   {
     this (StubObject.createForCurrentUser (), eSalutation, sName, sEmailAddress, aAssignedGroups);
   }
 
-  CRMSubscriber (@Nonnull @Nonempty final StubObject aStubObject,
+  CRMSubscriber (@NonNull @Nonempty final StubObject aStubObject,
                  @Nullable final ESalutation eSalutation,
-                 @Nonnull @Nonempty final String sName,
-                 @Nonnull @Nonempty final String sEmailAddress,
+                 @NonNull @Nonempty final String sName,
+                 @NonNull @Nonempty final String sEmailAddress,
                  @Nullable final Set <ICRMGroup> aAssignedGroups)
   {
     super (aStubObject);
@@ -67,7 +68,7 @@ public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscri
     setAssignedGroups (aAssignedGroups);
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return OT_CRM_SUBSCRIBER;
@@ -86,12 +87,12 @@ public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscri
   }
 
   @Nullable
-  public String getSalutationDisplayName (@Nonnull final Locale aContentLocale)
+  public String getSalutationDisplayName (@NonNull final Locale aContentLocale)
   {
     return m_eSalutation == null ? null : m_eSalutation.getDisplayText (aContentLocale);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setSalutation (@Nullable final ESalutation eSalutation)
   {
     if (EqualsHelper.equals (eSalutation, m_eSalutation))
@@ -100,15 +101,15 @@ public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscri
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
-  public EChange setName (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public EChange setName (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     if (sName.equals (m_sName))
@@ -117,15 +118,15 @@ public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscri
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getEmailAddress ()
   {
     return m_sEmailAddress;
   }
 
-  @Nonnull
-  public EChange setEmailAddress (@Nonnull @Nonempty final String sEmailAddress)
+  @NonNull
+  public EChange setEmailAddress (@NonNull @Nonempty final String sEmailAddress)
   {
     ValueEnforcer.notEmpty (sEmailAddress, "EmailAddress");
     final String sRealEmailAddress = ICRMSubscriber.getUnifiedEmailAddress (sEmailAddress);
@@ -136,7 +137,7 @@ public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscri
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <ICRMGroup> getAllAssignedGroups ()
   {
@@ -154,7 +155,7 @@ public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscri
     return aCRMGroup != null && m_aAssignedGroups.contains (aCRMGroup);
   }
 
-  @Nonnull
+  @NonNull
   public EChange setAssignedGroups (@Nullable final Set <ICRMGroup> aAssignedGroups)
   {
     // Ensure same implementation type and non-null
@@ -166,7 +167,7 @@ public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscri
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return StringHelper.getConcatenatedOnDemand (getSalutationDisplayName (aContentLocale), " ", m_sName);
   }

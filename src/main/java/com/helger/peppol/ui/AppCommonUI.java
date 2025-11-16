@@ -19,6 +19,9 @@ package com.helger.peppol.ui;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.id.factory.GlobalIDFactory;
 import com.helger.base.type.ITypedObject;
@@ -68,8 +71,6 @@ import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class AppCommonUI
@@ -88,8 +89,8 @@ public final class AppCommonUI
     CommentThreadManager.getInstance ().registerObjectType (CPPApp.OT_PAGE);
   }
 
-  @Nonnull
-  public static BootstrapForm createViewLoginForm (@Nonnull final LayoutExecutionContext aLEC,
+  @NonNull
+  public static BootstrapForm createViewLoginForm (@NonNull final LayoutExecutionContext aLEC,
                                                    @Nullable final String sPreselectedUserName,
                                                    final boolean bShowRegistration)
   {
@@ -153,7 +154,7 @@ public final class AppCommonUI
   }
 
   @Nullable
-  public static IHCNode getDTAndUser (@Nonnull final IWebPageExecutionContext aWPEC,
+  public static IHCNode getDTAndUser (@NonNull final IWebPageExecutionContext aWPEC,
                                       @Nullable final LocalDateTime aDateTime,
                                       @Nullable final String sUserID)
   {
@@ -191,15 +192,15 @@ public final class AppCommonUI
     return null;
   }
 
-  @Nonnull
-  public static IHCNode createViewLink (@Nonnull final IWebPageExecutionContext aWPEC,
+  @NonNull
+  public static IHCNode createViewLink (@NonNull final IWebPageExecutionContext aWPEC,
                                         @Nullable final ITypedObject <String> aObject)
   {
     return createViewLink (aWPEC, aObject, null);
   }
 
-  @Nonnull
-  public static IHCNode createViewLink (@Nonnull final IWebPageExecutionContext aWPEC,
+  @NonNull
+  public static IHCNode createViewLink (@NonNull final IWebPageExecutionContext aWPEC,
                                         @Nullable final ITypedObject <String> aObject,
                                         @Nullable final String sDisplayName)
   {

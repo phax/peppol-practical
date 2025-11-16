@@ -18,6 +18,7 @@ package com.helger.peppol.secure;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -70,8 +71,6 @@ import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
-import jakarta.annotation.Nonnull;
-
 public final class PageSecureSchematronTools extends AbstractAppWebPage
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PageSecureSchematronTools.class);
@@ -81,14 +80,14 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
   private static final String FIELD_STYLE_OUTPUT = "styleoutput";
   public static final boolean DEFAULT_STYLE_OUTPUT = false;
 
-  public PageSecureSchematronTools (@Nonnull @Nonempty final String sID)
+  public PageSecureSchematronTools (@NonNull @Nonempty final String sID)
   {
     super (sID, "Schematron tools (Beta)");
   }
 
   private static final class ActionSelect extends HCExtSelect
   {
-    public ActionSelect (@Nonnull final RequestField aRF)
+    public ActionSelect (@NonNull final RequestField aRF)
     {
       super (aRF);
       addOption (ACTION_SHOW_PREPROCESSED_SCHEMA, "Show preprocessed schema");
@@ -97,7 +96,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
   }
 
   @Override
-  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void fillContent (@NonNull final WebPageExecutionContext aWPEC)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();

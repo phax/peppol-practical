@@ -16,13 +16,14 @@
  */
 package com.helger.peppol.comment.ui;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.photon.core.form.FormErrorList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class CommentAction extends FormErrorList
 {
@@ -30,7 +31,7 @@ public final class CommentAction extends FormErrorList
   private final ICommentThread m_aCommentThread;
   private final IComment m_aParentComment;
 
-  private CommentAction (@Nonnull final ECommentAction eCommentAction,
+  private CommentAction (@NonNull final ECommentAction eCommentAction,
                          @Nullable final ICommentThread aCommentThread,
                          @Nullable final IComment aParentComment)
   {
@@ -40,7 +41,7 @@ public final class CommentAction extends FormErrorList
     m_aParentComment = aParentComment;
   }
 
-  public boolean isMatching (@Nonnull final ECommentAction eAction)
+  public boolean isMatching (@NonNull final ECommentAction eAction)
   {
     return m_eCommentAction.equals (eAction);
   }
@@ -53,14 +54,14 @@ public final class CommentAction extends FormErrorList
            m_aParentComment.equals (aComment);
   }
 
-  public boolean isMatching (@Nonnull final ECommentAction eAction,
+  public boolean isMatching (@NonNull final ECommentAction eAction,
                              @Nullable final ICommentThread aCommentThread,
                              @Nullable final IComment aComment)
   {
     return isMatching (eAction) && isMatching (aCommentThread, aComment);
   }
 
-  @Nonnull
+  @NonNull
   public ECommentAction getAction ()
   {
     return m_eCommentAction;
@@ -78,16 +79,16 @@ public final class CommentAction extends FormErrorList
     return m_aParentComment;
   }
 
-  @Nonnull
-  public static CommentAction createGeneric (@Nonnull final ECommentAction eCommentAction)
+  @NonNull
+  public static CommentAction createGeneric (@NonNull final ECommentAction eCommentAction)
   {
     return new CommentAction (eCommentAction, null, null);
   }
 
-  @Nonnull
-  public static CommentAction createForComment (@Nonnull final ECommentAction eCommentAction,
-                                                @Nonnull final ICommentThread aCommentThread,
-                                                @Nonnull final IComment aParentComment)
+  @NonNull
+  public static CommentAction createForComment (@NonNull final ECommentAction eCommentAction,
+                                                @NonNull final ICommentThread aCommentThread,
+                                                @NonNull final IComment aParentComment)
   {
     ValueEnforcer.notNull (aCommentThread, "CommentThread");
     ValueEnforcer.notNull (aParentComment, "ParentComment");

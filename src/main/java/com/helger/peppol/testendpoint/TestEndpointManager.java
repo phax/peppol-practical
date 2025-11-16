@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.testendpoint;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -38,8 +41,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class TestEndpointManager extends AbstractPhotonSimpleDAO
 {
@@ -48,15 +49,15 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
 
   private final ICommonsMap <String, TestEndpoint> m_aMap = new CommonsHashMap <> ();
 
-  public TestEndpointManager (@Nonnull @Nonempty final String sFilename) throws DAOException
+  public TestEndpointManager (@NonNull @Nonempty final String sFilename) throws DAOException
   {
     super (sFilename);
     initialRead ();
   }
 
   @Override
-  @Nonnull
-  protected EChange onRead (@Nonnull final IMicroDocument aDoc)
+  @NonNull
+  protected EChange onRead (@NonNull final IMicroDocument aDoc)
   {
     for (final IMicroElement eTestEndpoint : aDoc.getDocumentElement ().getAllChildElements (ELEMENT_ITEM))
       _addTestEndpoint (MicroTypeConverter.convertToNative (eTestEndpoint, TestEndpoint.class));
@@ -64,7 +65,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
   }
 
   @Override
-  @Nonnull
+  @NonNull
   protected IMicroDocument createWriteData ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
@@ -74,7 +75,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     return aDoc;
   }
 
-  private void _addTestEndpoint (@Nonnull final TestEndpoint aTestEndpoint)
+  private void _addTestEndpoint (@NonNull final TestEndpoint aTestEndpoint)
   {
     ValueEnforcer.notNull (aTestEndpoint, "TestEndpoint");
 
@@ -84,13 +85,13 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     m_aMap.put (sTestEndpointID, aTestEndpoint);
   }
 
-  @Nonnull
-  public TestEndpoint createTestEndpoint (@Nonnull @Nonempty final String sCompanyName,
+  @NonNull
+  public TestEndpoint createTestEndpoint (@NonNull @Nonempty final String sCompanyName,
                                           @Nullable final String sContactPerson,
-                                          @Nonnull @Nonempty final String sParticipantIDScheme,
-                                          @Nonnull @Nonempty final String sParticipantIDValue,
-                                          @Nonnull final ISMPTransportProfile aTransportProfile,
-                                          @Nonnull final ISMLConfiguration aSML)
+                                          @NonNull @Nonempty final String sParticipantIDScheme,
+                                          @NonNull @Nonempty final String sParticipantIDValue,
+                                          @NonNull final ISMPTransportProfile aTransportProfile,
+                                          @NonNull final ISMLConfiguration aSML)
   {
     final TestEndpoint aTestEndpoint = new TestEndpoint (sCompanyName,
                                                          sContactPerson,
@@ -120,14 +121,14 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     return aTestEndpoint;
   }
 
-  @Nonnull
+  @NonNull
   public EChange updateTestEndpoint (@Nullable final String sTestEndpointID,
-                                     @Nonnull @Nonempty final String sCompanyName,
+                                     @NonNull @Nonempty final String sCompanyName,
                                      @Nullable final String sContactPerson,
-                                     @Nonnull @Nonempty final String sParticipantIDScheme,
-                                     @Nonnull @Nonempty final String sParticipantIDValue,
-                                     @Nonnull final ISMPTransportProfile aTransportProfile,
-                                     @Nonnull final ISMLConfiguration aSML)
+                                     @NonNull @Nonempty final String sParticipantIDScheme,
+                                     @NonNull @Nonempty final String sParticipantIDValue,
+                                     @NonNull final ISMPTransportProfile aTransportProfile,
+                                     @NonNull final ISMLConfiguration aSML)
   {
     m_aRWLock.writeLock ().lock ();
     try
@@ -168,7 +169,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public EChange deleteTestEndpoint (@Nullable final String sTestEndpointID)
   {
     final TestEndpoint aTestEndpoint = getTestEndpointOfID (sTestEndpointID);
@@ -196,7 +197,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsCollection <? extends TestEndpoint> getAllActiveTestEndpoints ()
   {

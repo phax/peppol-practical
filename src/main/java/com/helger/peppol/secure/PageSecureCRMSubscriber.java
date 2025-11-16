@@ -21,6 +21,9 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.compare.ESortOrder;
 import com.helger.base.email.EmailAddressHelper;
@@ -73,8 +76,6 @@ import com.helger.photon.uictrls.datatables.column.EDTColType;
 import com.helger.text.compare.ComparatorHelper;
 import com.helger.url.ISimpleURL;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMSubscriber>
 {
@@ -83,15 +84,15 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   private static final String FIELD_EMAIL_ADDRESS = "emailaddress";
   private static final String FIELD_GROUP = "group";
 
-  public PageSecureCRMSubscriber (@Nonnull @Nonempty final String sID)
+  public PageSecureCRMSubscriber (@NonNull @Nonempty final String sID)
   {
     super (sID, "CRM subscribers");
     setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <ICRMSubscriber, WebPageExecutionContext> ()
     {
       @Override
-      protected void showQuery (@Nonnull final WebPageExecutionContext aWPEC,
-                                @Nonnull final BootstrapForm aForm,
-                                @Nonnull final ICRMSubscriber aSelectedObject)
+      protected void showQuery (@NonNull final WebPageExecutionContext aWPEC,
+                                @NonNull final BootstrapForm aForm,
+                                @NonNull final ICRMSubscriber aSelectedObject)
       {
         final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
         aForm.addChild (question ("Should the CRM subscriber '" +
@@ -100,8 +101,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
       }
 
       @Override
-      protected void performAction (@Nonnull final WebPageExecutionContext aWPEC,
-                                    @Nonnull final ICRMSubscriber aSelectedObject)
+      protected void performAction (@NonNull final WebPageExecutionContext aWPEC,
+                                    @NonNull final ICRMSubscriber aSelectedObject)
       {
         final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
         final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
@@ -115,8 +116,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   }
 
   @Override
-  @Nonnull
-  protected EValidity isValidToDisplayPage (@Nonnull final WebPageExecutionContext aWPEC)
+  @NonNull
+  protected EValidity isValidToDisplayPage (@NonNull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
@@ -134,8 +135,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   }
 
   @Override
-  protected boolean isActionAllowed (@Nonnull final WebPageExecutionContext aWPEC,
-                                     @Nonnull final EWebPageFormAction eFormAction,
+  protected boolean isActionAllowed (@NonNull final WebPageExecutionContext aWPEC,
+                                     @NonNull final EWebPageFormAction eFormAction,
                                      @Nullable final ICRMSubscriber aSelectedObject)
   {
     if (eFormAction == EWebPageFormAction.DELETE)
@@ -146,14 +147,14 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
 
   @Override
   @Nullable
-  protected ICRMSubscriber getSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, @Nullable final String sID)
+  protected ICRMSubscriber getSelectedObject (@NonNull final WebPageExecutionContext aWPEC, @Nullable final String sID)
   {
     final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();
     return aCRMSubscriberMgr.getCRMSubscriberOfID (sID);
   }
 
   @Override
-  protected void showSelectedObject (@Nonnull final WebPageExecutionContext aWPEC, final ICRMSubscriber aSelectedObject)
+  protected void showSelectedObject (@NonNull final WebPageExecutionContext aWPEC, final ICRMSubscriber aSelectedObject)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
@@ -178,10 +179,10 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   }
 
   @Override
-  protected void validateAndSaveInputParameters (@Nonnull final WebPageExecutionContext aWPEC,
+  protected void validateAndSaveInputParameters (@NonNull final WebPageExecutionContext aWPEC,
                                                  @Nullable final ICRMSubscriber aSelectedObject,
-                                                 @Nonnull final FormErrorList aFormErrors,
-                                                 @Nonnull final EWebPageFormAction eFormAction)
+                                                 @NonNull final FormErrorList aFormErrors,
+                                                 @NonNull final EWebPageFormAction eFormAction)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
@@ -248,12 +249,12 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   }
 
   @Override
-  protected void showInputForm (@Nonnull final WebPageExecutionContext aWPEC,
+  protected void showInputForm (@NonNull final WebPageExecutionContext aWPEC,
                                 @Nullable final ICRMSubscriber aSelectedObject,
-                                @Nonnull final BootstrapForm aForm,
+                                @NonNull final BootstrapForm aForm,
                                 final boolean bFormSubmitted,
-                                @Nonnull final EWebPageFormAction eFormAction,
-                                @Nonnull final FormErrorList aFormErrors)
+                                @NonNull final EWebPageFormAction eFormAction,
+                                @NonNull final FormErrorList aFormErrors)
   {
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
@@ -301,10 +302,10 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     }
   }
 
-  @Nonnull
-  private IHCNode _getList (@Nonnull final WebPageExecutionContext aWPEC,
-                            @Nonnull final Collection <? extends ICRMSubscriber> aCRMSubscribers,
-                            @Nonnull final String sIDSuffix)
+  @NonNull
+  private IHCNode _getList (@NonNull final WebPageExecutionContext aWPEC,
+                            @NonNull final Collection <? extends ICRMSubscriber> aCRMSubscribers,
+                            @NonNull final String sIDSuffix)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
 
@@ -346,7 +347,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
     return new HCNodeList ().addChild (aTable).addChild (aDataTables);
   }
 
-  @Nonnull
+  @NonNull
   private static IHCNode _getListForMailing ()
   {
     final StringBuilder aSB = new StringBuilder ();
@@ -367,7 +368,7 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
   }
 
   @Override
-  protected void showListOfExistingObjects (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void showListOfExistingObjects (@NonNull final WebPageExecutionContext aWPEC)
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final CRMSubscriberManager aCRMSubscriberMgr = PPMetaManager.getCRMSubscriberMgr ();

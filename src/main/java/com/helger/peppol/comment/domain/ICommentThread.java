@@ -19,6 +19,9 @@ package com.helger.peppol.comment.domain;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -26,8 +29,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.type.ITypedObject;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a single comment thread. It holds {@link IComment} objects in a tree structured
@@ -38,20 +39,20 @@ import jakarta.annotation.Nullable;
 @MustImplementEqualsAndHashcode
 public interface ICommentThread extends ITypedObject <String>
 {
-  @Nonnull
+  @NonNull
   DefaultTreeWithGlobalUniqueID <String, IComment> getTree ();
 
   /**
    * @return The comment that started this thread. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IComment getInitialComment ();
 
   /**
    * @return The creation date time of the first comment that started this thread. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default LocalDateTime getInitialCommentCreationDateTime ()
   {
     return getInitialComment ().getCreationDateTime ();
@@ -66,8 +67,8 @@ public interface ICommentThread extends ITypedObject <String>
    *        The comment to be added as an answer to the the parent comment
    * @return the added comment
    */
-  @Nonnull
-  IComment addComment (@Nonnull IComment aParentComment, @Nonnull IComment aNewComment);
+  @NonNull
+  IComment addComment (@NonNull IComment aParentComment, @NonNull IComment aNewComment);
 
   /**
    * Delete a comment FROM this thread.
@@ -78,8 +79,8 @@ public interface ICommentThread extends ITypedObject <String>
    *        The new state to be set. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  EChange updateCommentState (@Nullable String sCommentID, @Nonnull ECommentState eNewState);
+  @NonNull
+  EChange updateCommentState (@Nullable String sCommentID, @NonNull ECommentState eNewState);
 
   /**
    * @return The total comment count. Always &ge; 0.
@@ -90,7 +91,7 @@ public interface ICommentThread extends ITypedObject <String>
   /**
    * @return A list of all comments in this thread
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   Collection <IComment> getAllComments ();
 
@@ -103,7 +104,7 @@ public interface ICommentThread extends ITypedObject <String>
   /**
    * @return A list of all active (not deleted) comments in this thread
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   Collection <IComment> getAllActiveComments ();
 
@@ -123,5 +124,5 @@ public interface ICommentThread extends ITypedObject <String>
    * @param aCallback
    *        The callback handler to invoke. May not be <code>null</code>.
    */
-  void iterateAllComments (@Nonnull ICommentIterationCallback aCallback);
+  void iterateAllComments (@NonNull ICommentIterationCallback aCallback);
 }

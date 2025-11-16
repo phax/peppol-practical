@@ -18,6 +18,9 @@ package com.helger.peppol.pub;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.numeric.MathHelper;
 import com.helger.collection.commons.CommonsArrayList;
@@ -82,8 +85,6 @@ import com.helger.url.ISimpleURL;
 import com.helger.url.SimpleURL;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The viewport renderer (menu + content area)
@@ -116,7 +117,7 @@ public final class LayoutAreaContentProviderPublic
   private LayoutAreaContentProviderPublic ()
   {}
 
-  @Nonnull
+  @NonNull
   private static BootstrapNavbar _getNavbar (final LayoutExecutionContext aLEC)
   {
     final ISimpleURL aLinkToStartPage = aLEC.getLinkToMenuItem (aLEC.getMenuTree ().getDefaultMenuItemID ());
@@ -186,8 +187,8 @@ public final class LayoutAreaContentProviderPublic
     return aNavbar;
   }
 
-  @Nonnull
-  public static IHCNode getMenuContent (@Nonnull final LayoutExecutionContext aLEC)
+  @NonNull
+  public static IHCNode getMenuContent (@NonNull final LayoutExecutionContext aLEC)
   {
     // Main menu
     final IMenuTree aMenuTree = aLEC.getMenuTree ();
@@ -195,7 +196,7 @@ public final class LayoutAreaContentProviderPublic
                                                                                      aLEC.getSelectedMenuItemID ())
     {
       @Override
-      protected boolean isMenuItemValidToBeDisplayed (@Nonnull final IMenuObject aMenuObj)
+      protected boolean isMenuItemValidToBeDisplayed (@NonNull final IMenuObject aMenuObj)
       {
         // Don't show items that belong to the footer
         if (aMenuObj.attrs ().containsKey (CMenuPublic.FLAG_FOOTER_COL1) ||
@@ -231,8 +232,8 @@ public final class LayoutAreaContentProviderPublic
     return new HCNodeList ().addChild (aMenu).addChild (aPayPal);
   }
 
-  @Nonnull
-  public static IHCNode getPageContent (@Nonnull final LayoutExecutionContext aLEC)
+  @NonNull
+  public static IHCNode getPageContent (@NonNull final LayoutExecutionContext aLEC)
   {
     final HCNodeList ret = BootstrapPageRenderer.getPageContent (aLEC);
 
@@ -246,8 +247,8 @@ public final class LayoutAreaContentProviderPublic
   }
 
   @Nullable
-  private static IHCNode _getRenderedFooterMenuObj (@Nonnull final ILayoutExecutionContext aLEC,
-                                                    @Nonnull final BootstrapMenuItemRendererHorz aRenderer,
+  private static IHCNode _getRenderedFooterMenuObj (@NonNull final ILayoutExecutionContext aLEC,
+                                                    @NonNull final BootstrapMenuItemRendererHorz aRenderer,
                                                     @Nullable final IMenuObject aMenuObj)
   {
     if (aMenuObj == null)
@@ -265,8 +266,8 @@ public final class LayoutAreaContentProviderPublic
     throw new IllegalStateException ("Unsupported menu object type: " + aMenuObj);
   }
 
-  @Nonnull
-  public static IHCNode getContent (@Nonnull final LayoutExecutionContext aLEC)
+  @NonNull
+  public static IHCNode getContent (@NonNull final LayoutExecutionContext aLEC)
   {
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();
     final HCNodeList ret = new HCNodeList ();

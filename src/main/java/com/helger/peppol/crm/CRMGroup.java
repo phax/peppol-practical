@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.crm;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
@@ -24,8 +26,6 @@ import com.helger.base.type.ObjectType;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
 
-import jakarta.annotation.Nonnull;
-
 public class CRMGroup extends AbstractBusinessObject implements ICRMGroup
 {
   public static final ObjectType OT_CRM_GROUP = new ObjectType ("crm-group");
@@ -33,35 +33,35 @@ public class CRMGroup extends AbstractBusinessObject implements ICRMGroup
   private String m_sDisplayName;
   private String m_sSenderEmailAddress;
 
-  public CRMGroup (@Nonnull @Nonempty final String sDisplayName, @Nonnull @Nonempty final String sSenderEmailAddress)
+  public CRMGroup (@NonNull @Nonempty final String sDisplayName, @NonNull @Nonempty final String sSenderEmailAddress)
   {
     this (StubObject.createForCurrentUser (), sDisplayName, sSenderEmailAddress);
   }
 
-  CRMGroup (@Nonnull @Nonempty final StubObject aStubObject,
-            @Nonnull @Nonempty final String sDisplayName,
-            @Nonnull @Nonempty final String sSenderEmailAddress)
+  CRMGroup (@NonNull @Nonempty final StubObject aStubObject,
+            @NonNull @Nonempty final String sDisplayName,
+            @NonNull @Nonempty final String sSenderEmailAddress)
   {
     super (aStubObject);
     setDisplayName (sDisplayName);
     setSenderEmailAddress (sSenderEmailAddress);
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return OT_CRM_GROUP;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {
     return m_sDisplayName;
   }
 
-  @Nonnull
-  public EChange setDisplayName (@Nonnull @Nonempty final String sDisplayName)
+  @NonNull
+  public EChange setDisplayName (@NonNull @Nonempty final String sDisplayName)
   {
     ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
     if (sDisplayName.equals (m_sDisplayName))
@@ -70,15 +70,15 @@ public class CRMGroup extends AbstractBusinessObject implements ICRMGroup
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getSenderEmailAddress ()
   {
     return m_sSenderEmailAddress;
   }
 
-  @Nonnull
-  public EChange setSenderEmailAddress (@Nonnull @Nonempty final String sSenderEmailAddress)
+  @NonNull
+  public EChange setSenderEmailAddress (@NonNull @Nonempty final String sSenderEmailAddress)
   {
     ValueEnforcer.notEmpty (sSenderEmailAddress, "SenderEmailAddress");
     if (sSenderEmailAddress.equals (m_sSenderEmailAddress))

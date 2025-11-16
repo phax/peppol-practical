@@ -18,6 +18,9 @@ package com.helger.peppol.crm;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -26,8 +29,6 @@ import com.helger.masterdata.person.ESalutation;
 import com.helger.tenancy.IBusinessObject;
 import com.helger.text.display.IHasDisplayText;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The read-only interface for a single CRM subscriber, that is subscribed to multiple CRM groups.
@@ -43,8 +44,8 @@ public interface ICRMSubscriber extends IBusinessObject, IHasDisplayText
    *        Source email address. May not be <code>null</code>.
    * @return Unified email address.
    */
-  @Nonnull
-  static String getUnifiedEmailAddress (@Nonnull final String sEmailAddress)
+  @NonNull
+  static String getUnifiedEmailAddress (@NonNull final String sEmailAddress)
   {
     return sEmailAddress.trim ().toLowerCase (Locale.US);
   }
@@ -56,17 +57,17 @@ public interface ICRMSubscriber extends IBusinessObject, IHasDisplayText
   String getSalutationID ();
 
   @Nullable
-  String getSalutationDisplayName (@Nonnull Locale aContentLocale);
+  String getSalutationDisplayName (@NonNull Locale aContentLocale);
 
-  @Nonnull
+  @NonNull
   @Nonempty
   String getName ();
 
-  @Nonnull
+  @NonNull
   @Nonempty
   String getEmailAddress ();
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSet <ICRMGroup> getAllAssignedGroups ();
 

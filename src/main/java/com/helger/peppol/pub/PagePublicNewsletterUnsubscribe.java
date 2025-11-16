@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.pub;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.email.EmailAddressHelper;
 import com.helger.base.string.StringHelper;
@@ -34,13 +36,11 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-import jakarta.annotation.Nonnull;
-
 public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
 {
   private static final String FIELD_EMAIL_ADDRESS = "emailaddress";
 
-  public PagePublicNewsletterUnsubscribe (@Nonnull @Nonempty final String sID)
+  public PagePublicNewsletterUnsubscribe (@NonNull @Nonempty final String sID)
   {
     super (sID, "Unsubscribe from newsletter");
   }

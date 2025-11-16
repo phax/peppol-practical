@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.secure;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.as4.page.PageSecurePeppolSendAS4;
@@ -28,15 +30,13 @@ import com.helger.photon.core.menu.filter.MenuObjectFilterUserAssignedToUserGrou
 import com.helger.photon.core.menu.filter.MenuObjectFilterUserHasRole;
 import com.helger.photon.uicore.page.system.BasePageShowChildren;
 
-import jakarta.annotation.Nonnull;
-
 @Immutable
 public final class MenuSecure
 {
   private MenuSecure ()
   {}
 
-  public static void init (@Nonnull final IMenuTree aMenuTree)
+  public static void init (@NonNull final IMenuTree aMenuTree)
   {
     // We need this additional indirection layer, as the pages are initialized
     // statically!

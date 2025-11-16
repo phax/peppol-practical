@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.pub;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.peppol.app.CPPApp;
@@ -36,15 +38,13 @@ import com.helger.photon.uicore.page.system.BasePageShowChildren;
 import com.helger.text.display.ConstantHasDisplayText;
 import com.helger.url.SimpleURL;
 
-import jakarta.annotation.Nonnull;
-
 @Immutable
 public final class MenuPublic
 {
   private MenuPublic ()
   {}
 
-  public static void init (@Nonnull final IMenuTree aMenuTree)
+  public static void init (@NonNull final IMenuTree aMenuTree)
   {
     // Common stuff
     aMenuTree.createRootItem (new AppPageViewExternal (CMenuPublic.MENU_INDEX,

@@ -18,6 +18,9 @@ package com.helger.peppol.comment.domain;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ELockType;
 import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -41,8 +44,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class manages all comments of a certain object type.
@@ -66,7 +67,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   // Status map from comment thread ID to comment thread
   private final ICommonsMap <String, ICommentThread> m_aAllCommentThreads = new CommonsHashMap <> ();
 
-  public CommentThreadObjectTypeManager (@Nonnull final ObjectType aObjectType) throws DAOException
+  public CommentThreadObjectTypeManager (@NonNull final ObjectType aObjectType) throws DAOException
   {
     super ("comments/" + aObjectType.getName () + ".xml");
     m_aObjectType = aObjectType;
@@ -74,8 +75,8 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   }
 
   @Override
-  @Nonnull
-  protected EChange onRead (@Nonnull final IMicroDocument aDoc)
+  @NonNull
+  protected EChange onRead (@NonNull final IMicroDocument aDoc)
   {
     final IMicroElement eRoot = aDoc.getDocumentElement ();
     for (final IMicroElement eItem : eRoot.getAllChildElements (ELEMENT_ITEM))
@@ -106,14 +107,14 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
     return aDoc;
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return m_aObjectType;
   }
 
   @MustBeLocked (ELockType.WRITE)
-  private void _addCommentThread (@Nonnull final String sOwningObjectID, @Nonnull final ICommentThread aCommentThread)
+  private void _addCommentThread (@NonNull final String sOwningObjectID, @NonNull final ICommentThread aCommentThread)
   {
     // Check before adding to the maps!
     final String sCommentThreadID = aCommentThread.getID ();
@@ -134,8 +135,8 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
     m_aAllCommentThreads.put (sCommentThreadID, aCommentThread);
   }
 
-  @Nonnull
-  public ICommentThread createNewThread (@Nonnull final String sOwningObjectID, @Nonnull final IComment aComment)
+  @NonNull
+  public ICommentThread createNewThread (@NonNull final String sOwningObjectID, @NonNull final IComment aComment)
   {
     ValueEnforcer.notNull (sOwningObjectID, "OwningObjectID");
     ValueEnforcer.notNull (aComment, "Comment");
@@ -163,11 +164,11 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
     return aCommentThread;
   }
 
-  @Nonnull
-  public ESuccess addCommentToThread (@Nonnull final String sOwningObjectID,
+  @NonNull
+  public ESuccess addCommentToThread (@NonNull final String sOwningObjectID,
                                       @Nullable final String sCommentThreadID,
                                       @Nullable final String sParentCommentID,
-                                      @Nonnull final IComment aNewComment)
+                                      @NonNull final IComment aNewComment)
   {
     ValueEnforcer.notNull (sOwningObjectID, "OwningObjectID");
     ValueEnforcer.notNull (aNewComment, "NewComment");
@@ -207,21 +208,21 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
     return ESuccess.SUCCESS;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllOwningObjectIDs ()
   {
     return m_aRWLock.readLockedGet (m_aObjectToCommentThreads::copyOfKeySet);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, ICommonsList <ICommentThread>> getAllCommentThreads ()
   {
     return m_aRWLock.readLockedGet ( () -> m_aObjectToCommentThreads.getClone ());
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICommentThread> getAllCommentThreadsOfObject (@Nullable final String sOwningObjectID)
   {
@@ -275,11 +276,11 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
     }
   }
 
-  @Nonnull
+  @NonNull
   public EChange updateCommentState (@Nullable final String sOwningObjectID,
                                      @Nullable final String sCommentThreadID,
                                      @Nullable final String sCommentID,
-                                     @Nonnull final ECommentState eNewState)
+                                     @NonNull final ECommentState eNewState)
   {
     if (StringHelper.isEmpty (sOwningObjectID))
       return EChange.UNCHANGED;
@@ -329,7 +330,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllCommentThreadsOfObject (@Nullable final String sOwningObjectID)
   {
     if (StringHelper.isEmpty (sOwningObjectID))

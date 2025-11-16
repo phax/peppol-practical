@@ -16,12 +16,13 @@
  */
 package com.helger.peppol.crm;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class CRMGroupMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <CRMGroup>
 {
@@ -29,9 +30,9 @@ public class CRMGroupMicroTypeConverter extends AbstractBusinessObjectMicroTypeC
   private static final String ATTR_SENDER_EMAIL_ADDRESS = "senderemailaddress";
 
   @Nullable
-  public IMicroElement convertToMicroElement (@Nonnull final CRMGroup aValue,
+  public IMicroElement convertToMicroElement (@NonNull final CRMGroup aValue,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final MicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     setObjectFields (aValue, aElement);
@@ -41,7 +42,7 @@ public class CRMGroupMicroTypeConverter extends AbstractBusinessObjectMicroTypeC
   }
 
   @Nullable
-  public CRMGroup convertToNative (@Nonnull final IMicroElement aElement)
+  public CRMGroup convertToNative (@NonNull final IMicroElement aElement)
   {
     final String sDisplayName = aElement.getAttributeValue (ATTR_DISPLAY_NAME);
     final String sSenderEmailAddress = aElement.getAttributeValue (ATTR_SENDER_EMAIL_ADDRESS);

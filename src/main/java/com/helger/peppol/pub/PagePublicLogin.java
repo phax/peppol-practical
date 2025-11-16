@@ -16,25 +16,26 @@
  */
 package com.helger.peppol.pub;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.html.hc.impl.HCNodeList;
 import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class PagePublicLogin extends AbstractAppWebPage
 {
-  public PagePublicLogin (@Nonnull @Nonempty final String sID)
+  public PagePublicLogin (@NonNull @Nonempty final String sID)
   {
     super (sID, "Login");
   }
 
   @Override
   @Nullable
-  public String getHeaderText (@Nonnull final WebPageExecutionContext aWPEC)
+  public String getHeaderText (@NonNull final WebPageExecutionContext aWPEC)
   {
     return super.getHeaderText (aWPEC);
   }

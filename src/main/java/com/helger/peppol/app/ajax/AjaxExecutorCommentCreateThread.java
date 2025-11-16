@@ -18,6 +18,7 @@ package com.helger.peppol.app.ajax;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +45,6 @@ import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * AJAX handler for creating a new comment thread.
  *
@@ -60,8 +59,8 @@ public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor, IHC
   public static final String PARAM_TEXT = "text";
   private static final Logger LOGGER = LoggerFactory.getLogger (AjaxExecutorCommentCreateThread.class);
 
-  public void handleRequest (@Nonnull final IRequestWebScopeWithoutResponse aRequestScope,
-                             @Nonnull final PhotonUnifiedResponse aAjaxResponse) throws Exception
+  public void handleRequest (@NonNull final IRequestWebScopeWithoutResponse aRequestScope,
+                             @NonNull final PhotonUnifiedResponse aAjaxResponse) throws Exception
   {
     final LayoutExecutionContext aLEC = LayoutExecutionContext.createForAjaxOrAction (aRequestScope);
     final Locale aDisplayLocale = aLEC.getDisplayLocale ();

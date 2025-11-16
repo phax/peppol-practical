@@ -19,6 +19,8 @@ package com.helger.peppol.ui;
 import java.util.Locale;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.string.StringHelper;
 import com.helger.html.hc.IHCNode;
 import com.helger.html.hc.html.metadata.HCHead;
@@ -33,8 +35,6 @@ import com.helger.photon.core.menu.IMenuItemPage;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 import com.helger.xservlet.forcedredirect.ForcedRedirectException;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Main class for creating HTML output
  *
@@ -44,13 +44,13 @@ public class AppLayoutHTMLProvider extends AbstractSWECHTMLProvider
 {
   private final Function <LayoutExecutionContext, IHCNode> m_aFactory;
 
-  public AppLayoutHTMLProvider (@Nonnull final Function <LayoutExecutionContext, IHCNode> aFactory)
+  public AppLayoutHTMLProvider (@NonNull final Function <LayoutExecutionContext, IHCNode> aFactory)
   {
     m_aFactory = aFactory;
   }
 
   @Override
-  protected void fillBody (@Nonnull final ISimpleWebExecutionContext aSWEC, @Nonnull final HCHtml aHtml)
+  protected void fillBody (@NonNull final ISimpleWebExecutionContext aSWEC, @NonNull final HCHtml aHtml)
                                                                                                          throws ForcedRedirectException
   {
     final IRequestWebScopeWithoutResponse aRequestScope = aSWEC.getRequestScope ();

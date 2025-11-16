@@ -18,6 +18,9 @@ package com.helger.peppol.rest;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.rt.StackTraceHelper;
 import com.helger.base.state.ETriState;
 import com.helger.diagnostics.error.IError;
@@ -26,13 +29,11 @@ import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public abstract class AbstractJsonBasedAPIExecutor extends AbstractPPAPIExecutor
 {
-  @Nonnull
-  protected static String getErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
+  @NonNull
+  protected static String getErrorLevel (@NonNull final IErrorLevel aErrorLevel)
   {
     if (aErrorLevel.isGE (EErrorLevel.ERROR))
       return "ERROR";
@@ -41,8 +42,8 @@ public abstract class AbstractJsonBasedAPIExecutor extends AbstractPPAPIExecutor
     return "SUCCESS";
   }
 
-  @Nonnull
-  protected static String getTriState (@Nonnull final ETriState eTriState)
+  @NonNull
+  protected static String getTriState (@NonNull final ETriState eTriState)
   {
     if (eTriState.isTrue ())
       return "TRUE";
@@ -61,12 +62,12 @@ public abstract class AbstractJsonBasedAPIExecutor extends AbstractPPAPIExecutor
                             .add ("stackTrace", StackTraceHelper.getStackAsString (t));
   }
 
-  @Nonnull
-  protected static IJsonObject createItem (@Nonnull final IErrorLevel aErrorLevel,
+  @NonNull
+  protected static IJsonObject createItem (@NonNull final IErrorLevel aErrorLevel,
                                            @Nullable final String sErrorID,
                                            @Nullable final String sErrorFieldName,
                                            @Nullable final String sErrorLocation,
-                                           @Nonnull final String sErrorText,
+                                           @NonNull final String sErrorText,
                                            @Nullable final Throwable t)
   {
     return new JsonObject ().add ("errorLevel", getErrorLevel (aErrorLevel))
@@ -77,8 +78,8 @@ public abstract class AbstractJsonBasedAPIExecutor extends AbstractPPAPIExecutor
                             .addIfNotNull ("exception", getStackTrace (t));
   }
 
-  @Nonnull
-  protected static IJsonObject createItem (@Nonnull final IError aError, @Nonnull final Locale aDisplayLocale)
+  @NonNull
+  protected static IJsonObject createItem (@NonNull final IError aError, @NonNull final Locale aDisplayLocale)
   {
     return createItem (aError.getErrorLevel (),
                        aError.getErrorID (),

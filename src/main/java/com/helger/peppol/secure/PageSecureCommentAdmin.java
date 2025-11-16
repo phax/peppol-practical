@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.misc.Translatable;
 import com.helger.base.compare.ESortOrder;
@@ -63,8 +66,6 @@ import com.helger.text.resolve.DefaultTextResolver;
 import com.helger.text.util.TextHelper;
 import com.helger.url.ISimpleURL;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class PageSecureCommentAdmin extends AbstractAppWebPage
 {
@@ -85,7 +86,7 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
     }
 
     @Nullable
-    public String getDisplayText (@Nonnull final Locale aContentLocale)
+    public String getDisplayText (@NonNull final Locale aContentLocale)
     {
       return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
     }
@@ -93,13 +94,13 @@ public final class PageSecureCommentAdmin extends AbstractAppWebPage
 
   private static final String PARAM_TYPE = "type";
 
-  public PageSecureCommentAdmin (@Nonnull @Nonempty final String sID)
+  public PageSecureCommentAdmin (@NonNull @Nonempty final String sID)
   {
     super (sID, "Comment administration");
   }
 
   @Override
-  protected void fillContent (@Nonnull final WebPageExecutionContext aWPEC)
+  protected void fillContent (@NonNull final WebPageExecutionContext aWPEC)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();

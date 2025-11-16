@@ -16,10 +16,11 @@
  */
 package com.helger.peppol.comment.domain;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Callback interface for iterating all comments within a comment thread
@@ -40,7 +41,7 @@ public interface ICommentIterationCallback
    */
   default void onCommentStart (@Nonnegative final int nLevel,
                                @Nullable final IComment aParentComment,
-                               @Nonnull final IComment aComment)
+                               @NonNull final IComment aComment)
   {}
 
   /**
@@ -55,6 +56,6 @@ public interface ICommentIterationCallback
    */
   default void onCommentEnd (@Nonnegative final int nLevel,
                              @Nullable final IComment aParentComment,
-                             @Nonnull final IComment aComment)
+                             @NonNull final IComment aComment)
   {}
 }

@@ -16,13 +16,14 @@
  */
 package com.helger.peppol.comment.ui;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.photon.core.form.FormErrorList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class CommentFormErrors extends FormErrorList
 {
@@ -60,15 +61,15 @@ public final class CommentFormErrors extends FormErrorList
     return m_aParentComment;
   }
 
-  @Nonnull
+  @NonNull
   public static CommentFormErrors createForNewThread ()
   {
     return new CommentFormErrors (null, null);
   }
 
-  @Nonnull
-  public static CommentFormErrors createForReply (@Nonnull final ICommentThread aCommentThread,
-                                                  @Nonnull final IComment aParentComment)
+  @NonNull
+  public static CommentFormErrors createForReply (@NonNull final ICommentThread aCommentThread,
+                                                  @NonNull final IComment aParentComment)
   {
     ValueEnforcer.notNull (aCommentThread, "CommentThread");
     ValueEnforcer.notNull (aParentComment, "ParentComment");

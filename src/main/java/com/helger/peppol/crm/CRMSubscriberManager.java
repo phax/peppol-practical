@@ -18,6 +18,9 @@ package com.helger.peppol.crm;
 
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -32,8 +35,6 @@ import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.io.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.security.object.BusinessObjectHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Manager for {@link CRMSubscriber} instances.
@@ -44,15 +45,15 @@ import jakarta.annotation.Nullable;
 @ThreadSafe
 public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <ICRMSubscriber, CRMSubscriber>
 {
-  public CRMSubscriberManager (@Nonnull @Nonempty final String sFilename) throws DAOException
+  public CRMSubscriberManager (@NonNull @Nonempty final String sFilename) throws DAOException
   {
     super (CRMSubscriber.class, sFilename);
   }
 
-  @Nonnull
+  @NonNull
   public ICRMSubscriber createCRMSubscriber (@Nullable final ESalutation eSalutation,
-                                             @Nonnull @Nonempty final String sName,
-                                             @Nonnull @Nonempty final String sEmailAddress,
+                                             @NonNull @Nonempty final String sName,
+                                             @NonNull @Nonempty final String sEmailAddress,
                                              @Nullable final Set <ICRMGroup> aAssignedGroups)
   {
     final CRMSubscriber aCRMSubscriber = new CRMSubscriber (eSalutation, sName, sEmailAddress, aAssignedGroups);
@@ -67,11 +68,11 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
     return aCRMSubscriber;
   }
 
-  @Nonnull
+  @NonNull
   public EChange updateCRMSubscriber (@Nullable final String sCRMSubscriberID,
                                       @Nullable final ESalutation eSalutation,
-                                      @Nonnull @Nonempty final String sName,
-                                      @Nonnull @Nonempty final String sEmailAddress,
+                                      @NonNull @Nonempty final String sName,
+                                      @NonNull @Nonempty final String sEmailAddress,
                                       @Nullable final Set <ICRMGroup> aAssignedGroups)
   {
     final CRMSubscriber aCRMSubscriber = getOfID (sCRMSubscriberID);
@@ -110,7 +111,7 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public EChange updateCRMSubscriberGroupAssignments (@Nullable final String sCRMSubscriberID,
                                                       @Nullable final Set <ICRMGroup> aAssignedGroups)
   {
@@ -143,14 +144,14 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICRMSubscriber> getAllActiveCRMSubscribers ()
   {
     return getAll (ICRMSubscriber::isNotDeleted);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICRMSubscriber> getAllDeletedCRMSubscribers ()
   {
@@ -175,15 +176,15 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
   }
 
   @Nonnegative
-  public long getCRMSubscriberCountOfGroup (@Nonnull final ICRMGroup aGroup)
+  public long getCRMSubscriberCountOfGroup (@NonNull final ICRMGroup aGroup)
   {
     ValueEnforcer.notNull (aGroup, "Group");
 
     return getCount (c -> c.isAssignedToGroup (aGroup));
   }
 
-  @Nonnull
-  public EChange deleteCRMSubscriber (@Nonnull final ICRMSubscriber aCRMSubscriber)
+  @NonNull
+  public EChange deleteCRMSubscriber (@NonNull final ICRMSubscriber aCRMSubscriber)
   {
     ValueEnforcer.notNull (aCRMSubscriber, "CRMSubscriber");
 

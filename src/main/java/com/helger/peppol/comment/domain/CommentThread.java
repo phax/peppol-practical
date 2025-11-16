@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.comment.domain;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -34,8 +37,6 @@ import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single thread of comments.
@@ -50,7 +51,7 @@ public final class CommentThread implements ICommentThread
   private final String m_sID;
   private final DefaultTreeWithGlobalUniqueID <String, IComment> m_aTree;
 
-  public CommentThread (@Nonnull final IComment aInitialComment)
+  public CommentThread (@NonNull final IComment aInitialComment)
   {
     ValueEnforcer.notNull (aInitialComment, "InitialComment");
 
@@ -59,7 +60,7 @@ public final class CommentThread implements ICommentThread
     m_sID = aInitialComment.getID ();
   }
 
-  CommentThread (@Nonnull final DefaultTreeWithGlobalUniqueID <String, IComment> aTree)
+  CommentThread (@NonNull final DefaultTreeWithGlobalUniqueID <String, IComment> aTree)
   {
     ValueEnforcer.notNull (aTree, "Tree");
     ValueEnforcer.notNull (aTree.getRootItem (), "Tree.RootItem");
@@ -69,34 +70,34 @@ public final class CommentThread implements ICommentThread
     m_aTree = aTree;
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return TYPE_COMMENT_THREAD;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("design")
   public DefaultTreeWithGlobalUniqueID <String, IComment> getTree ()
   {
     return m_aTree;
   }
 
-  @Nonnull
+  @NonNull
   public IComment getInitialComment ()
   {
     return m_aTree.getRootItem ().getChildAtIndex (0).getData ();
   }
 
-  @Nonnull
-  public IComment addComment (@Nonnull final IComment aParentComment, @Nonnull final IComment aNewComment)
+  @NonNull
+  public IComment addComment (@NonNull final IComment aParentComment, @NonNull final IComment aNewComment)
   {
     ValueEnforcer.notNull (aParentComment, "ParentComment");
     ValueEnforcer.notNull (aNewComment, "NewComment");
@@ -110,8 +111,8 @@ public final class CommentThread implements ICommentThread
     return aNewComment;
   }
 
-  @Nonnull
-  public EChange updateCommentState (@Nullable final String sCommentID, @Nonnull final ECommentState eNewState)
+  @NonNull
+  public EChange updateCommentState (@Nullable final String sCommentID, @NonNull final ECommentState eNewState)
   {
     final IComment aComment = m_aTree.getItemDataWithID (sCommentID);
     if (aComment == null)
@@ -126,7 +127,7 @@ public final class CommentThread implements ICommentThread
     return m_aTree.getItemCount ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsCollection <IComment> getAllComments ()
   {
@@ -146,7 +147,7 @@ public final class CommentThread implements ICommentThread
   /**
    * @return A list of all active (not deleted) comments in this thread
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsCollection <IComment> getAllActiveComments ()
   {
@@ -164,13 +165,13 @@ public final class CommentThread implements ICommentThread
     return aTreeItem == null ? null : aTreeItem.getData ();
   }
 
-  public void iterateAllComments (@Nonnull final ICommentIterationCallback aCallback)
+  public void iterateAllComments (@NonNull final ICommentIterationCallback aCallback)
   {
     TreeVisitor.visitTreeItem (m_aTree.getRootItem (),
                                new DefaultHierarchyVisitorCallback <DefaultTreeItemWithID <String, IComment>> ()
                                {
                                  @Override
-                                 public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+                                 public EHierarchyVisitorReturn onItemBeforeChildren (@NonNull final DefaultTreeItemWithID <String, IComment> aItem)
                                  {
                                    aCallback.onCommentStart (getLevel (),
                                                              aItem.getParent ().getData (),
@@ -179,7 +180,7 @@ public final class CommentThread implements ICommentThread
                                  }
 
                                  @Override
-                                 public EHierarchyVisitorReturn onItemAfterChildren (@Nonnull final DefaultTreeItemWithID <String, IComment> aItem)
+                                 public EHierarchyVisitorReturn onItemAfterChildren (@NonNull final DefaultTreeItemWithID <String, IComment> aItem)
                                  {
                                    aCallback.onCommentEnd (getLevel (),
                                                            aItem.getParent ().getData (),

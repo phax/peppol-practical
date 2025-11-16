@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.testendpoint;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
@@ -29,8 +32,6 @@ import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single test endpoint.
@@ -65,12 +66,12 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
    * @param eSML
    *        SML to use. May not be <code>null</code>.
    */
-  public TestEndpoint (@Nonnull @Nonempty final String sCompanyName,
+  public TestEndpoint (@NonNull @Nonempty final String sCompanyName,
                        @Nullable final String sContactPerson,
-                       @Nonnull @Nonempty final String sParticipantIDIssuer,
-                       @Nonnull @Nonempty final String sParticipantIDValue,
-                       @Nonnull final ISMPTransportProfile aTransportProfile,
-                       @Nonnull final ISMLConfiguration eSML)
+                       @NonNull @Nonempty final String sParticipantIDIssuer,
+                       @NonNull @Nonempty final String sParticipantIDValue,
+                       @NonNull final ISMPTransportProfile aTransportProfile,
+                       @NonNull final ISMLConfiguration eSML)
   {
     this (StubObject.createForCurrentUser (),
           sCompanyName,
@@ -99,13 +100,13 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
    * @param eSML
    *        SML to use. May not be <code>null</code>.
    */
-  TestEndpoint (@Nonnull final StubObject aObject,
-                @Nonnull @Nonempty final String sCompanyName,
+  TestEndpoint (@NonNull final StubObject aObject,
+                @NonNull @Nonempty final String sCompanyName,
                 @Nullable final String sContactPerson,
-                @Nonnull @Nonempty final String sParticipantIDIssuer,
-                @Nonnull @Nonempty final String sParticipantIDValue,
-                @Nonnull final ISMPTransportProfile aTransportProfile,
-                @Nonnull final ISMLConfiguration eSML)
+                @NonNull @Nonempty final String sParticipantIDIssuer,
+                @NonNull @Nonempty final String sParticipantIDValue,
+                @NonNull final ISMPTransportProfile aTransportProfile,
+                @NonNull final ISMLConfiguration eSML)
   {
     super (aObject);
     setCompanyName (sCompanyName);
@@ -116,21 +117,21 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
     setSML (eSML);
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return OT;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getCompanyName ()
   {
     return m_sCompanyName;
   }
 
-  @Nonnull
-  public EChange setCompanyName (@Nonnull @Nonempty final String sCompanyName)
+  @NonNull
+  public EChange setCompanyName (@NonNull @Nonempty final String sCompanyName)
   {
     ValueEnforcer.notEmpty (sCompanyName, "CompanyName");
     if (sCompanyName.equals (m_sCompanyName))
@@ -146,7 +147,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
     return m_sContactPerson;
   }
 
-  @Nonnull
+  @NonNull
   public EChange setContactPerson (@Nullable final String sContactPerson)
   {
     if (EqualsHelper.equals (sContactPerson, m_sContactPerson))
@@ -159,15 +160,15 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
   /**
    * @return The test endpoint participant ID type (e.g. 9915)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getParticipantIDIssuer ()
   {
     return m_sParticipantIDIssuer;
   }
 
-  @Nonnull
-  public EChange setParticipantIDIssuer (@Nonnull @Nonempty final String sParticipantIDIssuer)
+  @NonNull
+  public EChange setParticipantIDIssuer (@NonNull @Nonempty final String sParticipantIDIssuer)
   {
     ValueEnforcer.notEmpty (sParticipantIDIssuer, "ParticipantIDIssuer");
     if (sParticipantIDIssuer.equals (m_sParticipantIDIssuer))
@@ -180,15 +181,15 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
   /**
    * @return The test endpoint participant ID value (e.g. test)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getParticipantIDValue ()
   {
     return m_sParticipantIDValue;
   }
 
-  @Nonnull
-  public EChange setParticipantIDValue (@Nonnull @Nonempty final String sParticipantIDValue)
+  @NonNull
+  public EChange setParticipantIDValue (@NonNull @Nonempty final String sParticipantIDValue)
   {
     ValueEnforcer.notEmpty (sParticipantIDValue, "ParticipantIDValue");
     if (sParticipantIDValue.equals (m_sParticipantIDValue))
@@ -201,21 +202,21 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
   /**
    * @return The full test endpoint participant ID value (e.g. 9915:test)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getParticipantID ()
   {
     return m_sParticipantIDIssuer + ":" + m_sParticipantIDValue;
   }
 
-  @Nonnull
+  @NonNull
   public ISMPTransportProfile getTransportProfile ()
   {
     return m_aTransportProfile;
   }
 
-  @Nonnull
-  public EChange setTransportProfile (@Nonnull final ISMPTransportProfile aTransportProfile)
+  @NonNull
+  public EChange setTransportProfile (@NonNull final ISMPTransportProfile aTransportProfile)
   {
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
     if (aTransportProfile.equals (m_aTransportProfile))
@@ -225,14 +226,14 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public ISMLConfiguration getSML ()
   {
     return m_aSMLInfo;
   }
 
-  @Nonnull
-  public EChange setSML (@Nonnull final ISMLConfiguration aSML)
+  @NonNull
+  public EChange setSML (@NonNull final ISMLConfiguration aSML)
   {
     ValueEnforcer.notNull (aSML, "SML");
     if (aSML.equals (m_aSMLInfo))
@@ -253,7 +254,7 @@ public final class TestEndpoint extends AbstractBusinessObject implements IHasDi
            m_aTransportProfile.equals (aTransportProfile);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {

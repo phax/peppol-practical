@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.app;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.config.IConfig;
 import com.helger.peppol.ui.types.config.PeppolSharedConfig;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class provides access to the settings as contained in the
@@ -36,7 +36,7 @@ public final class AppConfig extends AbstractGlobalSingleton
   private AppConfig ()
   {}
 
-  @Nonnull
+  @NonNull
   private static IConfig _getConfig ()
   {
     return PeppolSharedConfig.getConfig ();

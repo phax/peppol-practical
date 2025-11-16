@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.crm;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.id.IHasID;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
@@ -27,8 +30,6 @@ import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverte
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class CRMSubscriberMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <CRMSubscriber>
 {
@@ -38,9 +39,9 @@ public class CRMSubscriberMicroTypeConverter extends AbstractBusinessObjectMicro
   private static final String ELEMENT_ASSIGNED_GROUP = "assignedgroup";
 
   @Nullable
-  public IMicroElement convertToMicroElement (@Nonnull final CRMSubscriber aValue,
+  public IMicroElement convertToMicroElement (@NonNull final CRMSubscriber aValue,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final MicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     setObjectFields (aValue, aElement);
@@ -53,7 +54,7 @@ public class CRMSubscriberMicroTypeConverter extends AbstractBusinessObjectMicro
   }
 
   @Nullable
-  public CRMSubscriber convertToNative (@Nonnull final IMicroElement aElement)
+  public CRMSubscriber convertToNative (@NonNull final IMicroElement aElement)
   {
     final CRMGroupManager aCRMGroupMgr = PPMetaManager.getCRMGroupMgr ();
 
