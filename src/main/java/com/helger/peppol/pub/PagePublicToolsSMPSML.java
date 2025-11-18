@@ -24,7 +24,7 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Locale;
 
 import javax.net.ssl.KeyManagerFactory;
@@ -56,7 +56,7 @@ import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
-import com.helger.peppol.ui.PeppolUI;
+import com.helger.peppol.ui.CertificateUI;
 import com.helger.peppol.ui.smlconfig.ui.SMLConfigurationSelect;
 import com.helger.peppol.ui.types.PeppolUITypes;
 import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
@@ -71,6 +71,7 @@ import com.helger.photon.bootstrap4.pages.BootstrapWebPageUIHandler;
 import com.helger.photon.bootstrap4.uictrls.datetimepicker.BootstrapDateTimePicker;
 import com.helger.photon.bootstrap4.uictrls.datetimepicker.EBootstrap4DateTimePickerMode;
 import com.helger.photon.bootstrap4.uictrls.ext.BootstrapFileUpload;
+import com.helger.photon.bootstrap4.uictrls.ext.BootstrapTechnicalUI;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
@@ -83,7 +84,6 @@ import com.helger.security.keystore.IKeyStoreType;
 import com.helger.url.SimpleURL;
 import com.helger.web.fileupload.IFileItem;
 import com.sun.xml.ws.client.ClientTransportException;
-
 
 public class PagePublicToolsSMPSML extends AbstractAppWebPage
 {
@@ -237,7 +237,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
           catch (final Exception ex)
           {
             final String sMsg = "The key store could not be loaded with the provided password. ";
-            aFormErrors.addFieldError (FIELD_KEYSTORE_PW, sMsg + PeppolUI.getTechnicalDetailsString (ex, true));
+            LOGGER.warn (sMsg + "Technical details: ", ex);
+            aFormErrors.addFieldError (FIELD_KEYSTORE_PW,
+                                       sMsg + BootstrapTechnicalUI.getTechnicalDetailsString (ex, aDisplayLocale));
             aKeyStore = null;
           }
         }
@@ -261,7 +263,9 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       catch (final Exception ex)
       {
         final String sMsg = "Failed to use the provided key store for TLS connection. ";
-        aFormErrors.addFieldError (FIELD_KEYSTORE_FILE, sMsg + PeppolUI.getTechnicalDetailsString (ex, true));
+        LOGGER.warn (sMsg + "Technical details: ", ex);
+        aFormErrors.addFieldError (FIELD_KEYSTORE_FILE,
+                                   sMsg + BootstrapTechnicalUI.getTechnicalDetailsString (ex, aDisplayLocale));
       }
     }
     return aSocketFactory;
@@ -350,7 +354,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
+        LOGGER.warn (sMsg + " Technical details:", ex);
+        aNodeList.addChild (error (sMsg).addChild (BootstrapTechnicalUI.getTechnicalDetailsNode (ex, aDisplayLocale)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-create",
                                            sSMPID,
                                            sLogicalAddress,
@@ -436,7 +441,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' to the SML '" +
                             aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
+        LOGGER.warn (sMsg + " Technical details:", ex);
+        aNodeList.addChild (error (sMsg).addChild (BootstrapTechnicalUI.getTechnicalDetailsNode (ex, aDisplayLocale)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update",
                                            sSMPID,
                                            sLogicalAddress,
@@ -504,7 +510,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
                             "' from the SML '" +
                             aSMLInfo.getSMLInfo ().getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
+        LOGGER.warn (sMsg + " Technical details:", ex);
+        aNodeList.addChild (error (sMsg).addChild (BootstrapTechnicalUI.getTechnicalDetailsNode (ex, aDisplayLocale)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-delete",
                                            sSMPID,
                                            aSMLInfo.getSMLInfo ().getManagementServiceURL (),
@@ -643,27 +650,29 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
       {
         aCaller.prepareChangeCertificate (sMigrationPublicCert, aMigrationDate);
 
-        final LocalDateTime aNotBefore = PDTFactory.createLocalDateTime (aMigrationPublicCert.getNotBefore ());
-        final LocalDateTime aNotAfter = PDTFactory.createLocalDateTime (aMigrationPublicCert.getNotAfter ());
+        final OffsetDateTime aNowDateTime = PDTFactory.getCurrentOffsetDateTime ();
+        final OffsetDateTime aNotBefore = PDTFactory.createOffsetDateTime (aMigrationPublicCert.getNotBefore ());
+        final OffsetDateTime aNotAfter = PDTFactory.createOffsetDateTime (aMigrationPublicCert.getNotAfter ());
 
         final LocalDate aEffectiveMigrationDate = aMigrationDate != null ? aMigrationDate : aNotBefore.toLocalDate ();
         final String sMsg = "Successfully prepared migration of SMP certificate at SML '" +
                             aSMLConfig.getSMLInfo ().getManagementServiceURL () +
-                            "'" +
-                            " to be exchanged at " +
+                            "' to be exchanged at " +
                             PDTToString.getAsString (aEffectiveMigrationDate, aDisplayLocale) +
                             ".";
         LOGGER.info (sMsg);
 
         aNodeList.addChild (success ().addChildren (div (sMsg),
                                                     div ("Issuer: " +
-                                                         aMigrationPublicCert.getIssuerX500Principal ().getName ()),
+                                                         CertificateUI.getCertIssuer (aMigrationPublicCert)),
                                                     div ("Subject: " +
-                                                         aMigrationPublicCert.getSubjectX500Principal ().getName ()),
-                                                    div ("Not before: " +
-                                                         PDTToString.getAsString (aNotBefore, aDisplayLocale)),
-                                                    div ("Not after: " +
-                                                         PDTToString.getAsString (aNotAfter, aDisplayLocale))));
+                                                         CertificateUI.getCertSubject (aMigrationPublicCert)),
+                                                    div ("Not before: ").addChild (CertificateUI.getNodeCertNotBefore (aNotBefore,
+                                                                                                                       aNowDateTime,
+                                                                                                                       aDisplayLocale)),
+                                                    div ("Not after: ").addChild (CertificateUI.getNodeCertNotAfter (aNotAfter,
+                                                                                                                     aNowDateTime,
+                                                                                                                     aDisplayLocale))));
 
         AuditHelper.onAuditExecuteSuccess ("smp-sml-update-cert",
                                            aSMLConfig.getSMLInfo ().getManagementServiceURL (),
@@ -677,7 +686,8 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         final String sMsg = "Error preparing migration of SMP certificate at SML '" +
                             aSMLConfig.getSMLInfo ().getManagementServiceURL () +
                             "'.";
-        aNodeList.addChild (error (sMsg).addChild (PeppolUI.getTechnicalDetailsUI (ex, true)));
+        LOGGER.warn (sMsg + " Technical details", ex);
+        aNodeList.addChild (error (sMsg).addChild (BootstrapTechnicalUI.getTechnicalDetailsNode (ex, aDisplayLocale)));
         AuditHelper.onAuditExecuteFailure ("smp-sml-update-cert",
                                            aSMLConfig.getSMLInfo ().getManagementServiceURL (),
                                            sMigrationPublicCert,
