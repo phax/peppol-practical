@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1169 entries -->
+<!-- 1180 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -147,6 +147,7 @@ A very small Java WS client is available for
 <li><code>it.peppol:order-response:3.0.2</code> - AGID Peppol Order Response (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order-response:3.1</code> - AGID Peppol Order Response (3.1.0) (for BIS 3.0.17)</li>
 <li><code>it.peppol:order-response:3.2.1</code> - AGID Peppol Order Response (3.2.1) (for BIS 3.0.18)</li>
+<li><code>un.unece.uncefact:cdar:D22B</code> - CDAR D22B</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D22B</code> - CII CrossIndustryInvoice D22B</li>
 <li><code>pt.gov.espap.cius-pt:ubl-creditnote:2</code> - CIUS-PT UBL Credit Note 2 <strong>(Deprecated)</strong></li>
@@ -238,9 +239,10 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:cii:1.3.10</code> - EN 16931 CII 1.3.10 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.11</code> - EN 16931 CII 1.3.11 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.12</code> - EN 16931 CII 1.3.12 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:cii:1.3.13</code> - EN 16931 CII 1.3.13</li>
+<li><code>eu.cen.en16931:cii:1.3.13</code> - EN 16931 CII 1.3.13 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.14-1</code> - EN 16931 CII 1.3.14-1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.14-2</code> - EN 16931 CII 1.3.14-2</li>
+<li><code>eu.cen.en16931:cii:1.3.15</code> - EN 16931 CII 1.3.15</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1</code> - EN 16931 UBL Credit Note 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.1</code> - EN 16931 UBL Credit Note 1.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.2</code> - EN 16931 UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
@@ -260,9 +262,10 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.10</code> - EN 16931 UBL Credit Note 1.3.10 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.11</code> - EN 16931 UBL Credit Note 1.3.11 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.12</code> - EN 16931 UBL Credit Note 1.3.12 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.13</code> - EN 16931 UBL Credit Note 1.3.13</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.13</code> - EN 16931 UBL Credit Note 1.3.13 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.14-1</code> - EN 16931 UBL Credit Note 1.3.14-1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.14-2</code> - EN 16931 UBL Credit Note 1.3.14-2</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.15</code> - EN 16931 UBL Credit Note 1.3.15</li>
 <li><code>eu.cen.en16931:ubl:1</code> - EN 16931 UBL Invoice 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.1</code> - EN 16931 UBL Invoice 1.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.2</code> - EN 16931 UBL Invoice 1.2 <strong>(Deprecated)</strong></li>
@@ -282,9 +285,10 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl:1.3.10</code> - EN 16931 UBL Invoice 1.3.10 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.11</code> - EN 16931 UBL Invoice 1.3.11 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.12</code> - EN 16931 UBL Invoice 1.3.12 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl:1.3.13</code> - EN 16931 UBL Invoice 1.3.13</li>
+<li><code>eu.cen.en16931:ubl:1.3.13</code> - EN 16931 UBL Invoice 1.3.13 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.14-1</code> - EN 16931 UBL Invoice 1.3.14-1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.14-2</code> - EN 16931 UBL Invoice 1.3.14-2</li>
+<li><code>eu.cen.en16931:ubl:1.3.15</code> - EN 16931 UBL Invoice 1.3.15</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1</code> - Energie eFactuur 1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2</code> - Energie eFactuur 2</li>
 <li><code>nl.energie-efactuur:energie-efactuur:3</code> - Energie eFactuur 3</li>
@@ -324,13 +328,20 @@ A very small Java WS client is available for
 <li><code>fi.finvoice:finvoice:3</code> - Finvoice 3</li>
 <li><code>fi.finvoice:finvoice:1.3</code> - Finvoice 1.3</li>
 <li><code>fi.finvoice:finvoice:2.0.1</code> - Finvoice 2.0.1</li>
-<li><code>fr.ctc:cii:0.1</code> - France CTC CII 0.1</li>
-<li><code>fr.ctc:ubl-creditnote:0.1</code> - France CTC Credit Note 0.1</li>
-<li><code>fr.ctc:ubl-invoice:0.1</code> - France CTC Invoice 0.1</li>
+<li><code>fr.ctc:cdar:1.2</code> - France CTC CDAR 1.2</li>
+<li><code>fr.ctc:cii:0.1</code> - France CTC CII 0.1 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:cii:1.2</code> - France CTC CII 1.2</li>
+<li><code>fr.ctc:ubl-creditnote:0.1</code> - France CTC Credit Note 0.1 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:ubl-creditnote:1.2</code> - France CTC Credit Note 1.2</li>
+<li><code>fr.ctc:ubl-invoice:0.1</code> - France CTC Invoice 0.1 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:ubl-invoice:1.2</code> - France CTC Invoice 1.2</li>
+<li><code>hr.gov.porezna.eracun:ubl-creditnote:1</code> - HR eRacun Credit Note 1</li>
+<li><code>hr.gov.porezna.eracun:ubl-invoice:1</code> - HR eRacun Invoice 1</li>
 <li><code>cz.isdoc:isdoc:6.0.1</code> - ISDOC 6.0.1 <strong>(Deprecated)</strong></li>
 <li><code>cz.isdoc:isdoc:6.0.2</code> - ISDOC 6.0.2</li>
 <li><code>pl.ksef:ksef:1</code> - KSeF 1 <strong>(Deprecated)</strong></li>
 <li><code>pl.ksef:ksef:2</code> - KSeF 2</li>
+<li><code>pl.ksef:ksef:3</code> - KSeF 3</li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3</code> - NLCIUS-CII 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-1</code> - NLCIUS-CII 1.0.3.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-2</code> - NLCIUS-CII 1.0.3.2 <strong>(Deprecated)</strong></li>
