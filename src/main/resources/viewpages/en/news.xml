@@ -42,6 +42,22 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2025-12-06 - Participant Information improved</h3>
+    
+    <p>
+      The <a href="/public/menuitem-tools-participant">Participant Information</a> tool was improved.
+    </p>
+<ul>
+<li>Details on the Participant Identifier scheme are shown</li>
+<li>The certificate details are shown in a nicer format</li>
+<li>The SMP signing certificate is now also displayed</li>
+<li>The certificate owner is extracted for better readability (name, country, seat ID)</li>
+<li>The document type listing is a bit more compressed - details can be toggled via a button</li>
+<li>By default the AP and SMP certificate details are hidden - details can be toggled via a button</li>
+<li>Added a link from the certificate usage to the details</li>
+<li>Added a note if a Peppol SMP is not using https yet</li>
+</ul>
+
     <h3>2025-11-18 - Document Validation extended</h3>
     
     <p>
@@ -72,6 +88,7 @@
     
     <p>
       Due to the consecutive heavy load on the system, I decided to further limit the REST API usage.
+      The current limit is 1 request per IP per 2 seconds.
     </p>
   
     <h3>2025-11-06 - Updated the Peppol SMP-SML Tools</h3>
