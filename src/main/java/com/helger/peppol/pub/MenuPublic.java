@@ -223,6 +223,9 @@ public final class MenuPublic
       aMenuTree.createRootItem (CMenuPublic.MENU_THE_INVOICING_HUB,
                                 new SimpleURL ("https://www.theinvoicinghub.com"),
                                 new ConstantHasDisplayText ("The Invoicing Hub (external)"));
+      aMenuTree.createRootItem (CMenuPublic.MENU_PEPPOLHUB,
+                                new SimpleURL ("https://shop.peppolhub.com/"),
+                                new ConstantHasDisplayText ("phoss Webinars and Recordings (external)"));
     }
 
     // Set default

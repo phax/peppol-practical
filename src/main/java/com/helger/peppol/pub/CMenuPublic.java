@@ -58,6 +58,7 @@ public final class CMenuPublic
   public static final String MENU_NEWSLETTER_SUBSCRIBE = "newsletter-subscribe";
   public static final String MENU_CONTACT = "contact";
   public static final String MENU_PEPPOL_SERVICE_DESK = "peppol-service-desk";
+  public static final String MENU_PEPPOLHUB = "peppolhub";
   public static final String MENU_THE_INVOICING_HUB = "theinvoicinghub";
 
   // footer
