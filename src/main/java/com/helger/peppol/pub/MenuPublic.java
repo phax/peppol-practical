@@ -101,13 +101,14 @@ public final class MenuPublic
                                                      "Peppol MLR / Message Level Response",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_mlr.xml")));
       aMenuTree.createItem (aSetup,
-                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_DICT,
-                                                     "Peppol Dictionary/Abbreviations",
-                                                     new ClassPathResource ("viewpages/en/docs_peppol_dict.xml")));
-      aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_FIREWALL,
                                                      "Peppol Firewall requirements",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_firewall.xml")));
+      aMenuTree.createSeparator (aSetup);
+      aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_DICT,
+                                                     "Peppol Dictionary/Abbreviations",
+                                                     new ClassPathResource ("viewpages/en/docs_peppol_dict.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_SOFTWARE_VENDORS,
                                                      "Software Vendors and Solutions",

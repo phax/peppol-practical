@@ -20,8 +20,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.photon.jetty.JettyStarter;
 
 /**
- * Run peppol-practical as a standalone web application in Jetty on port 8080.
- * <br>
+ * Run peppol-practical as a standalone web application in Jetty on port 8080. <br>
  * http://localhost:8080/
  *
  * @author Philip Helger

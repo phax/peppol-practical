@@ -33,7 +33,7 @@ import com.helger.peppol.wsclient2.ValidateFaultError;
 import com.helger.peppol.wsclient2.ValidationResultType;
 import com.helger.peppol.wsclient2.WSDVSPort;
 import com.helger.peppol.wsclient2.WSDVSService;
-import com.helger.phive.peppol.PeppolValidation2024_11;
+import com.helger.phive.peppol.PeppolValidation2025_11;
 import com.helger.wsclient.WSClientConfig;
 import com.helger.wsclient.WSHelper;
 
@@ -60,7 +60,7 @@ public final class MainWSDVSClient
 
     LOGGER.info ("Starting validation process");
     final RequestType aRequest = new RequestType ();
-    aRequest.setVESID (PeppolValidation2024_11.VID_OPENPEPPOL_INVOICE_UBL_V3.getAsSingleID ());
+    aRequest.setVESID (PeppolValidation2025_11.VID_OPENPEPPOL_INVOICE_UBL_V3.getAsSingleID ());
     aRequest.setXML (sXML);
     aRequest.setDisplayLocale ("en");
     final ResponseType aResponse = aPort.validate (aRequest);
