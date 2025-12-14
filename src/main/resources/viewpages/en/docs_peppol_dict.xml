@@ -125,6 +125,13 @@
       </td>
     </tr>
     <tr>
+      <td>C5</td>
+      <td>Corner 5</td>
+      <td>
+        Usually the "fifth corner" is the public administration able to receive tax related information.
+      </td>
+    </tr>
+    <tr>
       <td>
         CC
         <br/><em><small>deprecated</small></em>
@@ -474,7 +481,7 @@
         <br/><em><small>deprecated</small></em>
       </td>
       <td>Secure Trusted Asynchronous Reliable Transport</td>
-      <td>Legacy Peppol transport protocol, based on the Webservice stack. Was superseded by <em>AS2</em>.</td>
+      <td>Legacy Peppol transport protocol, based on the Webservice stack. Was superseded by <em>AS2</em> which was superseded by <em>AS4</em>.</td>
     </tr>
     <tr>
       <td>
@@ -484,7 +491,7 @@
       <td><em>TICC</em> Codelist Team</td>
       <td>
         Special team that takes care of the "Peppol Policy for the use of identifiers" as well as the codelists
-        required for document exchange.
+        required for document exchange. This is now done within <em>eDEC</em>.
       </td>
     </tr>
     <tr>
@@ -507,6 +514,13 @@
       <td>
         Peppol internal team to manage the technical assets.Now called <em>EDEC</em>.
         See <a href="https://peppol.org/learn-more/communities-and-work-groups/">https://peppol.org/learn-more/communities-and-work-groups/</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>TDD</td>
+      <td>Tax Data Document</td>
+      <td>
+        Tax data that was usually extracted from an electronic invoice.
       </td>
     </tr>
     <tr>
