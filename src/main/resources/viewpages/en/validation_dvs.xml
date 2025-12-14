@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1180 entries -->
+<!-- 1249 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -121,6 +121,7 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.10</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.10 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.11</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.11</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.12</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.12</li>
+<li><code>org.peppol.taxdata:ae:1</code> - AE Tax Data Document v1.0.0</li>
 <li><code>it.peppol:creditnote:3.0.2</code> - AGID Peppol Credit Note (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:creditnote:3.1</code> - AGID Peppol Credit Note (3.1.0) (for BIS 3.0.17)</li>
 <li><code>it.peppol:creditnote:3.2.1</code> - AGID Peppol Credit Note (3.2.1) (for BIS 3.0.18)</li>
@@ -319,6 +320,11 @@ A very small Java WS client is available for
 <li><code>fr.factur-x:en16931:1.0.7-3</code> - Factur-X 1.0.7-3 (EN 16931) (alias)</li>
 <li><code>fr.factur-x:extended:1.0.7-3</code> - Factur-X 1.0.7-3 (EXTENDED) (alias)</li>
 <li><code>fr.factur-x:minimum:1.0.7-3</code> - Factur-X 1.0.7-3 (MINIMUM) (alias)</li>
+<li><code>fr.factur-x:basic:1.0.8</code> - Factur-X 1.0.8 (BASIC) (alias)</li>
+<li><code>fr.factur-x:basicwl:1.0.8</code> - Factur-X 1.0.8 (BASIC WL) (alias)</li>
+<li><code>fr.factur-x:en16931:1.0.8</code> - Factur-X 1.0.8 (EN 16931) (alias)</li>
+<li><code>fr.factur-x:extended:1.0.8</code> - Factur-X 1.0.8 (EXTENDED) (alias)</li>
+<li><code>fr.factur-x:minimum:1.0.8</code> - Factur-X 1.0.8 (MINIMUM) (alias)</li>
 <li><code>es.gob:facturae:3</code> - Facturae 3 <strong>(Deprecated)</strong></li>
 <li><code>es.gob:facturae:3.1</code> - Facturae 3.1 <strong>(Deprecated)</strong></li>
 <li><code>es.gob:facturae:3.2</code> - Facturae 3.2</li>
@@ -351,8 +357,9 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-6</code> - NLCIUS-CII 1.0.3.6 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-7</code> - NLCIUS-CII 1.0.3.7 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-8</code> - NLCIUS-CII 1.0.3.8 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-9</code> - NLCIUS-CII 1.0.3.9</li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-9</code> - NLCIUS-CII 1.0.3.9 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-11</code> - NLCIUS-CII 1.0.3.11</li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-12</code> - NLCIUS-CII 1.0.3.12</li>
 <li><code>dk.oioubl:application-response:1.13</code> - OIOUBL Application Response 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:application-response:1.12.3</code> - OIOUBL Application Response 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:application-response:1.13.2</code> - OIOUBL Application Response 1.13.2 <strong>(Deprecated)</strong></li>
@@ -360,6 +367,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:application-response:1.15-rc</code> - OIOUBL Application Response 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:application-response:1.15.1</code> - OIOUBL Application Response 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:application-response:1.15.2</code> - OIOUBL Application Response 1.15.2</li>
+<li><code>dk.oioubl:application-response:1.16.1</code> - OIOUBL Application Response 1.16.1</li>
 <li><code>dk.oioubl:catalogue:1.13</code> - OIOUBL Catalogue 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue:1.12.3</code> - OIOUBL Catalogue 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue:1.13.2</code> - OIOUBL Catalogue 1.13.2 <strong>(Deprecated)</strong></li>
@@ -367,6 +375,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:catalogue:1.15-rc</code> - OIOUBL Catalogue 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue:1.15.1</code> - OIOUBL Catalogue 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue:1.15.2</code> - OIOUBL Catalogue 1.15.2</li>
+<li><code>dk.oioubl:catalogue:1.16.1</code> - OIOUBL Catalogue 1.16.1</li>
 <li><code>dk.oioubl:catalogue-deletion:1.13</code> - OIOUBL Catalogue Deletion 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-deletion:1.12.3</code> - OIOUBL Catalogue Deletion 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-deletion:1.13.2</code> - OIOUBL Catalogue Deletion 1.13.2 <strong>(Deprecated)</strong></li>
@@ -374,6 +383,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:catalogue-deletion:1.15-rc</code> - OIOUBL Catalogue Deletion 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-deletion:1.15.1</code> - OIOUBL Catalogue Deletion 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-deletion:1.15.2</code> - OIOUBL Catalogue Deletion 1.15.2</li>
+<li><code>dk.oioubl:catalogue-deletion:1.16.1</code> - OIOUBL Catalogue Deletion 1.16.1</li>
 <li><code>dk.oioubl:catalogue-item-specification-update:1.13</code> - OIOUBL Catalogue Item Specification Update 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-item-specification-update:1.12.3</code> - OIOUBL Catalogue Item Specification Update 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-item-specification-update:1.13.2</code> - OIOUBL Catalogue Item Specification Update 1.13.2 <strong>(Deprecated)</strong></li>
@@ -381,6 +391,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:catalogue-item-specification-update:1.15-rc</code> - OIOUBL Catalogue Item Specification Update 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-item-specification-update:1.15.1</code> - OIOUBL Catalogue Item Specification Update 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-item-specification-update:1.15.2</code> - OIOUBL Catalogue Item Specification Update 1.15.2</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.16.1</code> - OIOUBL Catalogue Item Specification Update 1.16.1</li>
 <li><code>dk.oioubl:catalogue-pricing-update:1.13</code> - OIOUBL Catalogue Pricing Update 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-pricing-update:1.12.3</code> - OIOUBL Catalogue Pricing Update 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-pricing-update:1.13.2</code> - OIOUBL Catalogue Pricing Update 1.13.2 <strong>(Deprecated)</strong></li>
@@ -388,6 +399,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:catalogue-pricing-update:1.15-rc</code> - OIOUBL Catalogue Pricing Update 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-pricing-update:1.15.1</code> - OIOUBL Catalogue Pricing Update 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-pricing-update:1.15.2</code> - OIOUBL Catalogue Pricing Update 1.15.2</li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.16.1</code> - OIOUBL Catalogue Pricing Update 1.16.1</li>
 <li><code>dk.oioubl:catalogue-request:1.13</code> - OIOUBL Catalogue Request 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-request:1.12.3</code> - OIOUBL Catalogue Request 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-request:1.13.2</code> - OIOUBL Catalogue Request 1.13.2 <strong>(Deprecated)</strong></li>
@@ -395,6 +407,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:catalogue-request:1.15-rc</code> - OIOUBL Catalogue Request 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-request:1.15.1</code> - OIOUBL Catalogue Request 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-request:1.15.2</code> - OIOUBL Catalogue Request 1.15.2</li>
+<li><code>dk.oioubl:catalogue-request:1.16.1</code> - OIOUBL Catalogue Request 1.16.1</li>
 <li><code>dk.oioubl:credit-note:1.13</code> - OIOUBL Credit Note 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:credit-note:3.0.1</code> - OIOUBL Credit Note 3.0.1</li>
 <li><code>dk.oioubl:credit-note:1.12.3</code> - OIOUBL Credit Note 1.12.3 <strong>(Deprecated)</strong></li>
@@ -403,6 +416,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:credit-note:1.15-rc</code> - OIOUBL Credit Note 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:credit-note:1.15.1</code> - OIOUBL Credit Note 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:credit-note:1.15.2</code> - OIOUBL Credit Note 1.15.2</li>
+<li><code>dk.oioubl:credit-note:1.16.1</code> - OIOUBL Credit Note 1.16.1</li>
 <li><code>dk.oioubl:invoice:1.13</code> - OIOUBL Invoice 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:invoice:3.0.1</code> - OIOUBL Invoice 3.0.1</li>
 <li><code>dk.oioubl:invoice:1.12.3</code> - OIOUBL Invoice 1.12.3 <strong>(Deprecated)</strong></li>
@@ -411,6 +425,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:invoice:1.15-rc</code> - OIOUBL Invoice 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:invoice:1.15.1</code> - OIOUBL Invoice 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:invoice:1.15.2</code> - OIOUBL Invoice 1.15.2</li>
+<li><code>dk.oioubl:invoice:1.16.1</code> - OIOUBL Invoice 1.16.1</li>
 <li><code>dk.oioubl:invoice-response:3.0.1</code> - OIOUBL Invoice Response 3.0.1</li>
 <li><code>dk.oioubl:mlr:3.0.1</code> - OIOUBL Message Level Response 3.0.1</li>
 <li><code>dk.oioubl:order:1.13</code> - OIOUBL Order 1.13 <strong>(Deprecated)</strong></li>
@@ -420,6 +435,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:order:1.15-rc</code> - OIOUBL Order 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order:1.15.1</code> - OIOUBL Order 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order:1.15.2</code> - OIOUBL Order 1.15.2</li>
+<li><code>dk.oioubl:order:1.16.1</code> - OIOUBL Order 1.16.1</li>
 <li><code>dk.oioubl:order-cancellation:1.13</code> - OIOUBL Order Cancellation 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-cancellation:1.12.3</code> - OIOUBL Order Cancellation 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-cancellation:1.13.2</code> - OIOUBL Order Cancellation 1.13.2 <strong>(Deprecated)</strong></li>
@@ -427,6 +443,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:order-cancellation:1.15-rc</code> - OIOUBL Order Cancellation 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-cancellation:1.15.1</code> - OIOUBL Order Cancellation 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-cancellation:1.15.2</code> - OIOUBL Order Cancellation 1.15.2</li>
+<li><code>dk.oioubl:order-cancellation:1.16.1</code> - OIOUBL Order Cancellation 1.16.1</li>
 <li><code>dk.oioubl:order-change:1.13</code> - OIOUBL Order Change 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-change:1.12.3</code> - OIOUBL Order Change 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-change:1.13.2</code> - OIOUBL Order Change 1.13.2 <strong>(Deprecated)</strong></li>
@@ -434,6 +451,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:order-change:1.15-rc</code> - OIOUBL Order Change 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-change:1.15.1</code> - OIOUBL Order Change 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-change:1.15.2</code> - OIOUBL Order Change 1.15.2</li>
+<li><code>dk.oioubl:order-change:1.16.1</code> - OIOUBL Order Change 1.16.1</li>
 <li><code>dk.oioubl:order-response:1.13</code> - OIOUBL Order Response 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response:1.12.3</code> - OIOUBL Order Response 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response:1.13.2</code> - OIOUBL Order Response 1.13.2 <strong>(Deprecated)</strong></li>
@@ -441,6 +459,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:order-response:1.15-rc</code> - OIOUBL Order Response 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response:1.15.1</code> - OIOUBL Order Response 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response:1.15.2</code> - OIOUBL Order Response 1.15.2</li>
+<li><code>dk.oioubl:order-response:1.16.1</code> - OIOUBL Order Response 1.16.1</li>
 <li><code>dk.oioubl:order-response-simple:1.13</code> - OIOUBL Order Response Simple 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response-simple:1.12.3</code> - OIOUBL Order Response Simple 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response-simple:1.13.2</code> - OIOUBL Order Response Simple 1.13.2 <strong>(Deprecated)</strong></li>
@@ -448,6 +467,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:order-response-simple:1.15-rc</code> - OIOUBL Order Response Simple 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response-simple:1.15.1</code> - OIOUBL Order Response Simple 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response-simple:1.15.2</code> - OIOUBL Order Response Simple 1.15.2</li>
+<li><code>dk.oioubl:order-response-simple:1.16.1</code> - OIOUBL Order Response Simple 1.16.1</li>
 <li><code>dk.oioubl:reminder:1.13</code> - OIOUBL Reminder 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:reminder:1.12.3</code> - OIOUBL Reminder 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:reminder:1.13.2</code> - OIOUBL Reminder 1.13.2 <strong>(Deprecated)</strong></li>
@@ -455,6 +475,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:reminder:1.15-rc</code> - OIOUBL Reminder 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:reminder:1.15.1</code> - OIOUBL Reminder 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:reminder:1.15.2</code> - OIOUBL Reminder 1.15.2</li>
+<li><code>dk.oioubl:reminder:1.16.1</code> - OIOUBL Reminder 1.16.1</li>
 <li><code>dk.oioubl:statement:1.13</code> - OIOUBL Statement 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:statement:1.12.3</code> - OIOUBL Statement 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:statement:1.13.2</code> - OIOUBL Statement 1.13.2 <strong>(Deprecated)</strong></li>
@@ -462,6 +483,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:statement:1.15-rc</code> - OIOUBL Statement 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:statement:1.15.1</code> - OIOUBL Statement 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:statement:1.15.2</code> - OIOUBL Statement 1.15.2</li>
+<li><code>dk.oioubl:statement:1.16.1</code> - OIOUBL Statement 1.16.1</li>
 <li><code>dk.oioubl:utility-statement:1.13</code> - OIOUBL Utility Statement 1.13 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:utility-statement:1.12.3</code> - OIOUBL Utility Statement 1.12.3 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:utility-statement:1.13.2</code> - OIOUBL Utility Statement 1.13.2 <strong>(Deprecated)</strong></li>
@@ -469,6 +491,7 @@ A very small Java WS client is available for
 <li><code>dk.oioubl:utility-statement:1.15-rc</code> - OIOUBL Utility Statement 1.15.0-rc <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:utility-statement:1.15.1</code> - OIOUBL Utility Statement 1.15.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:utility-statement:1.15.2</code> - OIOUBL Utility Statement 1.15.2</li>
+<li><code>dk.oioubl:utility-statement:1.16.1</code> - OIOUBL Utility Statement 1.16.1</li>
 <li><code>eu.peppol.bis3:invoice-cii:3.14</code> - OpenPeppol CII Invoice (3.14.0) (aka BIS Billing 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-cii:3.15</code> - OpenPeppol CII Invoice (3.15.0) (aka BIS Billing 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue:2023.5</code> - OpenPeppol Catalogue (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
@@ -483,7 +506,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:catalogue:3.14</code> - OpenPeppol Catalogue (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue:3.15</code> - OpenPeppol Catalogue (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue:2023.11</code> - OpenPeppol Catalogue (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:catalogue:2024.11</code> - OpenPeppol Catalogue (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:catalogue:2024.11</code> - OpenPeppol Catalogue (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:catalogue:2025.11</code> - OpenPeppol Catalogue (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:catalogue-response:2023.5</code> - OpenPeppol Catalogue Response (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:2024.5</code> - OpenPeppol Catalogue Response (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:2025.5</code> - OpenPeppol Catalogue Response (2025.5) (aka BIS 3.0.15)</li>
@@ -496,7 +520,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:catalogue-response:3.14</code> - OpenPeppol Catalogue Response (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:3.15</code> - OpenPeppol Catalogue Response (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:catalogue-response:2023.11</code> - OpenPeppol Catalogue Response (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:catalogue-response:2024.11</code> - OpenPeppol Catalogue Response (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:catalogue-response:2024.11</code> - OpenPeppol Catalogue Response (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:catalogue-response:2025.11</code> - OpenPeppol Catalogue Response (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:creditnote:3.10</code> - OpenPeppol Credit Note (3.10.0) (aka BIS Billing 3.0.6) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.10.1</code> - OpenPeppol Credit Note (3.10.1) (aka BIS Billing 3.0.7) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.11</code> - OpenPeppol Credit Note (3.11.0) (aka BIS Billing 3.0.8) <strong>(Deprecated)</strong></li>
@@ -515,7 +540,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:despatch-advice:3.14</code> - OpenPeppol Despatch Advice (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:3.15</code> - OpenPeppol Despatch Advice (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:despatch-advice:2023.11</code> - OpenPeppol Despatch Advice (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:despatch-advice:2024.11</code> - OpenPeppol Despatch Advice (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:despatch-advice:2024.11</code> - OpenPeppol Despatch Advice (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:despatch-advice:2025.11</code> - OpenPeppol Despatch Advice (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:invoice:3.10</code> - OpenPeppol Invoice (3.10.0) (aka BIS Billing 3.0.6) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.10.1</code> - OpenPeppol Invoice (3.10.1) (aka BIS Billing 3.0.7) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.11</code> - OpenPeppol Invoice (3.11.0) (aka BIS Billing 3.0.8) <strong>(Deprecated)</strong></li>
@@ -534,7 +560,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:invoice-message-response:3.14</code> - OpenPeppol Invoice Message Response (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-message-response:3.15</code> - OpenPeppol Invoice Message Response (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-message-response:2023.11</code> - OpenPeppol Invoice Message Response (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice-message-response:2024.11</code> - OpenPeppol Invoice Message Response (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:invoice-message-response:2024.11</code> - OpenPeppol Invoice Message Response (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:invoice-message-response:2025.11</code> - OpenPeppol Invoice Message Response (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:mlr:2023.5</code> - OpenPeppol MLR (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:mlr:2024.5</code> - OpenPeppol MLR (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:mlr:2025.5</code> - OpenPeppol MLR (2025.5) (aka BIS 3.0.15)</li>
@@ -547,7 +574,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:mlr:3.14</code> - OpenPeppol MLR (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:mlr:3.15</code> - OpenPeppol MLR (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:mlr:2023.11</code> - OpenPeppol MLR (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:mlr:2024.11</code> - OpenPeppol MLR (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:mlr:2024.11</code> - OpenPeppol MLR (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:mlr:2025.11</code> - OpenPeppol MLR (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:order:2023.5</code> - OpenPeppol Order (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:2024.5</code> - OpenPeppol Order (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:2025.5</code> - OpenPeppol Order (2025.5) (aka BIS 3.0.15)</li>
@@ -560,7 +588,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:order:3.14</code> - OpenPeppol Order (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:3.15</code> - OpenPeppol Order (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order:2023.11</code> - OpenPeppol Order (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order:2024.11</code> - OpenPeppol Order (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:order:2024.11</code> - OpenPeppol Order (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order:2025.11</code> - OpenPeppol Order (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:order-agreement:2023.5</code> - OpenPeppol Order Agreement (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:2024.5</code> - OpenPeppol Order Agreement (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:2025.5</code> - OpenPeppol Order Agreement (2025.5) (aka BIS 3.0.15)</li>
@@ -573,17 +602,20 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:order-agreement:3.14</code> - OpenPeppol Order Agreement (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:3.15</code> - OpenPeppol Order Agreement (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-agreement:2023.11</code> - OpenPeppol Order Agreement (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order-agreement:2024.11</code> - OpenPeppol Order Agreement (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:order-agreement:2024.11</code> - OpenPeppol Order Agreement (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order-agreement:2025.11</code> - OpenPeppol Order Agreement (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:order-cancellation:2023.5</code> - OpenPeppol Order Cancellation (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-cancellation:2024.5</code> - OpenPeppol Order Cancellation (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-cancellation:2025.5</code> - OpenPeppol Order Cancellation (2025.5) (aka BIS 3.0.15)</li>
 <li><code>eu.peppol.bis3:order-cancellation:2023.11</code> - OpenPeppol Order Cancellation (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order-cancellation:2024.11</code> - OpenPeppol Order Cancellation (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:order-cancellation:2024.11</code> - OpenPeppol Order Cancellation (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order-cancellation:2025.11</code> - OpenPeppol Order Cancellation (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:order-change:2023.5</code> - OpenPeppol Order Change (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-change:2024.5</code> - OpenPeppol Order Change (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-change:2025.5</code> - OpenPeppol Order Change (2025.5) (aka BIS 3.0.15)</li>
 <li><code>eu.peppol.bis3:order-change:2023.11</code> - OpenPeppol Order Change (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order-change:2024.11</code> - OpenPeppol Order Change (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:order-change:2024.11</code> - OpenPeppol Order Change (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order-change:2025.11</code> - OpenPeppol Order Change (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:order-response:2023.5</code> - OpenPeppol Order Response (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response:2024.5</code> - OpenPeppol Order Response (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response:2025.5</code> - OpenPeppol Order Response (2025.5) (aka BIS 3.0.15)</li>
@@ -596,18 +628,22 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:order-response:3.14</code> - OpenPeppol Order Response (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response:3.15</code> - OpenPeppol Order Response (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response:2023.11</code> - OpenPeppol Order Response (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order-response:2024.11</code> - OpenPeppol Order Response (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:order-response:2024.11</code> - OpenPeppol Order Response (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order-response:2025.11</code> - OpenPeppol Order Response (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:order-response-advanced:2023.5</code> - OpenPeppol Order Response Advanced (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response-advanced:2024.5</code> - OpenPeppol Order Response Advanced (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:order-response-advanced:2025.5</code> - OpenPeppol Order Response Advanced (2025.5) (aka BIS 3.0.15)</li>
 <li><code>eu.peppol.bis3:order-response-advanced:2023.11</code> - OpenPeppol Order Response Advanced (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:order-response-advanced:2024.11</code> - OpenPeppol Order Response Advanced (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:order-response-advanced:2024.11</code> - OpenPeppol Order Response Advanced (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:order-response-advanced:2025.11</code> - OpenPeppol Order Response Advanced (2025.11) (aka BIS 3.0.16)</li>
 <li><code>org.peppol.pint:credit-note:1</code> - OpenPeppol PINT Credit Note (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint:credit-note:1.0.1</code> - OpenPeppol PINT Credit Note (UBL) 1.0.1</li>
+<li><code>org.peppol.pint:credit-note:1.0.1</code> - OpenPeppol PINT Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint:credit-note:1.0.2</code> - OpenPeppol PINT Credit Note (UBL) 1.0.2</li>
+<li><code>org.peppol.pint:credit-note:1.1.2</code> - OpenPeppol PINT Credit Note (UBL) 1.1.2</li>
 <li><code>org.peppol.pint:invoice:1</code> - OpenPeppol PINT Invoice (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint:invoice:1.0.1</code> - OpenPeppol PINT Invoice (UBL) 1.0.1</li>
+<li><code>org.peppol.pint:invoice:1.0.1</code> - OpenPeppol PINT Invoice (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint:invoice:1.0.2</code> - OpenPeppol PINT Invoice (UBL) 1.0.2</li>
+<li><code>org.peppol.pint:invoice:1.1.2</code> - OpenPeppol PINT Invoice (UBL) 1.1.2</li>
 <li><code>eu.peppol.bis3:punch-out:2023.5</code> - OpenPeppol Punch Out (2023.5) (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:punch-out:2024.5</code> - OpenPeppol Punch Out (2024.5) (aka BIS 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:punch-out:2025.5</code> - OpenPeppol Punch Out (2025.5) (aka BIS 3.0.15)</li>
@@ -620,14 +656,16 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:punch-out:3.14</code> - OpenPeppol Punch Out (3.14.0) (aka BIS 3.0.9) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:punch-out:3.15</code> - OpenPeppol Punch Out (3.15.0) (aka BIS 3.0.10) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:punch-out:2023.11</code> - OpenPeppol Punch Out (2023.11) (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:punch-out:2024.11</code> - OpenPeppol Punch Out (2024.11) (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3:punch-out:2024.11</code> - OpenPeppol Punch Out (2024.11) (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:punch-out:2025.11</code> - OpenPeppol Punch Out (2025.11) (aka BIS 3.0.16)</li>
 <li><code>eu.peppol.bis3:creditnote:2023.5</code> - OpenPeppol UBL Credit Note (2023.5) (aka BIS Billing 3.0.15) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:2024.5</code> - OpenPeppol UBL Credit Note (2024.5) (aka BIS Billing 3.0.17) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:2025.5</code> - OpenPeppol UBL Credit Note (2025.5) (aka BIS Billing 3.0.19)</li>
 <li><code>eu.peppol.bis3:creditnote:3.14</code> - OpenPeppol UBL Credit Note (3.14.0) (aka BIS Billing 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:3.15</code> - OpenPeppol UBL Credit Note (3.15.0) (aka BIS Billing 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote:2023.11</code> - OpenPeppol UBL Credit Note (2023.11) (aka BIS Billing 3.0.16) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:creditnote:2024.11</code> - OpenPeppol UBL Credit Note (2024.11) (aka BIS Billing 3.0.18)</li>
+<li><code>eu.peppol.bis3:creditnote:2024.11</code> - OpenPeppol UBL Credit Note (2024.11) (aka BIS Billing 3.0.18) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:creditnote:2025.11</code> - OpenPeppol UBL Credit Note (2025.11) (aka BIS Billing 3.0.20)</li>
 <li><code>eu.peppol.bis3:creditnote-self-billing:2025.3</code> - OpenPeppol UBL Credit Note Self-Billing (2025.3)</li>
 <li><code>eu.peppol.bis3:invoice:2023.5</code> - OpenPeppol UBL Invoice (2023.5) (aka BIS Billing 3.0.15) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:2024.5</code> - OpenPeppol UBL Invoice (2024.5) (aka BIS Billing 3.0.17) <strong>(Deprecated)</strong></li>
@@ -635,7 +673,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:invoice:3.14</code> - OpenPeppol UBL Invoice (3.14.0) (aka BIS Billing 3.0.13) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:3.15</code> - OpenPeppol UBL Invoice (3.15.0) (aka BIS Billing 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:2023.11</code> - OpenPeppol UBL Invoice (2023.11) (aka BIS Billing 3.0.16) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3:invoice:2024.11</code> - OpenPeppol UBL Invoice (2024.11) (aka BIS Billing 3.0.18)</li>
+<li><code>eu.peppol.bis3:invoice:2024.11</code> - OpenPeppol UBL Invoice (2024.11) (aka BIS Billing 3.0.18) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3:invoice:2025.11</code> - OpenPeppol UBL Invoice (2025.11) (aka BIS Billing 3.0.20)</li>
 <li><code>eu.peppol.bis3:invoice-self-billing:2025.3</code> - OpenPeppol UBL Invoice Self-Billing (2025.3)</li>
 <li><code>eu.peppol.directory:businesscard:1</code> - Peppol Directory BusinessCard v1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.directory:businesscard:2</code> - Peppol Directory BusinessCard v2 <strong>(Deprecated)</strong></li>
@@ -646,69 +685,91 @@ A very small Java WS client is available for
 <li><code>org.peppol.pint.aunz:creditnote:1.0.1</code> - Peppol PINT A-NZ Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:creditnote:1.1</code> - Peppol PINT A-NZ Credit Note (UBL) 1.1.0</li>
 <li><code>org.peppol.pint.aunz:creditnote:1.1.1</code> - Peppol PINT A-NZ Credit Note (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.aunz:creditnote:1.1.2</code> - Peppol PINT A-NZ Credit Note (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.aunz:creditnote-self-billing:1.0.1</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:creditnote-self-billing:1.1</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.1.0</li>
 <li><code>org.peppol.pint.aunz:creditnote-self-billing:1.1.1</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.aunz:creditnote-self-billing:1.1.2</code> - Peppol PINT A-NZ Credit Note Self-Billing (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.aunz:invoice:1.0.1</code> - Peppol PINT A-NZ Invoice (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:invoice:1.1</code> - Peppol PINT A-NZ Invoice (UBL) 1.1.0</li>
 <li><code>org.peppol.pint.aunz:invoice:1.1.1</code> - Peppol PINT A-NZ Invoice (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.aunz:invoice:1.1.2</code> - Peppol PINT A-NZ Invoice (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.aunz:invoice-self-billing:1.0.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.aunz:invoice-self-billing:1.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.1.0</li>
 <li><code>org.peppol.pint.aunz:invoice-self-billing:1.1.1</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.aunz:invoice-self-billing:1.1.2</code> - Peppol PINT A-NZ Invoice Self-Billing (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.eu:creditnote:2025.10</code> - Peppol PINT EU Credit Note (UBL) 2025-10 (aka 1.0.0)</li>
+<li><code>org.peppol.pint.eu:creditnote:2025.11</code> - Peppol PINT EU Credit Note (UBL) 2025-11 (aka 1.0.1)</li>
 <li><code>org.peppol.pint.eu:invoice:2025.10</code> - Peppol PINT EU Invoice (UBL) 2025-10 (aka 1.0.0)</li>
+<li><code>org.peppol.pint.eu:invoice:2025.11</code> - Peppol PINT EU Invoice (UBL) 2025-11 (aka 1.0.1)</li>
 <li><code>org.peppol.jp.pint:credit-note:0.1.2</code> - Peppol PINT Japan Credit Note (UBL) 0.1.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:credit-note:1.0.2</code> - Peppol PINT Japan Credit Note (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:credit-note:1.0.3</code> - Peppol PINT Japan Credit Note (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.jp:credit-note:1.1</code> - Peppol PINT Japan Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp:credit-note:1.1</code> - Peppol PINT Japan Credit Note (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:credit-note:1.1.1</code> - Peppol PINT Japan Credit Note (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.jp:credit-note:1.1.2</code> - Peppol PINT Japan Credit Note (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.jp.ntr:credit-note:1.0.1</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.jp.ntr:credit-note:1.1</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.ntr:credit-note:1.1</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp.ntr:credit-note:1.1.1</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.jp.ntr:credit-note:1.1.2</code> - Peppol PINT Japan Credit Note for Non-tax Registered Businesses (UBL) 1.1.2</li>
 <li><code>org.peppol.jp.pint:invoice:0.1.2</code> - Peppol PINT Japan Invoice (UBL) 0.1.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:invoice:1.0.2</code> - Peppol PINT Japan Invoice (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:invoice:1.0.3</code> - Peppol PINT Japan Invoice (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.jp:invoice:1.1</code> - Peppol PINT Japan Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp:invoice:1.1</code> - Peppol PINT Japan Invoice (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp:invoice:1.1.1</code> - Peppol PINT Japan Invoice (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.jp:invoice:1.1.2</code> - Peppol PINT Japan Invoice (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.jp.ntr:invoice:1.0.1</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.jp.ntr:invoice:1.1</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.ntr:invoice:1.1</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp.ntr:invoice:1.1.1</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.jp.ntr:invoice:1.1.2</code> - Peppol PINT Japan Invoice for Non-tax Registered Businesses (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.jp.sb:credit-note:1.0.1</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.jp.sb:credit-note:1.1</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.sb:credit-note:1.1</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp.sb:credit-note:1.1.1</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.jp.sb:credit-note:1.1.2</code> - Peppol PINT Japan Self Billing Credit Note (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.jp.sb:invoice:1.0.1</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.jp.sb:invoice:1.1</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.jp.sb:invoice:1.1</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.jp.sb:invoice:1.1.1</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.1.1</li>
+<li><code>org.peppol.pint.jp.sb:invoice:1.1.2</code> - Peppol PINT Japan Self Billing Invoice (UBL) 1.1.2</li>
 <li><code>org.peppol.pint.my:creditnote:1</code> - Peppol PINT Malaysia Credit Note (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.my:creditnote:1.1</code> - Peppol PINT Malaysia Credit Note (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:creditnote:1.1</code> - Peppol PINT Malaysia Credit Note (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.my:creditnote:1.2.1</code> - Peppol PINT Malaysia Credit Note (UBL) 1.2.1</li>
+<li><code>org.peppol.pint.my:creditnote:1.3</code> - Peppol PINT Malaysia Credit Note (UBL) 1.3.0</li>
 <li><code>org.peppol.pint.my:creditnote-self-billing:1</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.my:creditnote-self-billing:1.1</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:creditnote-self-billing:1.1</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.my:creditnote-self-billing:1.2.1</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.2.1</li>
+<li><code>org.peppol.pint.my:creditnote-self-billing:1.3</code> - Peppol PINT Malaysia Credit Note Self-Billing (UBL) 1.3.0</li>
 <li><code>org.peppol.pint.my:invoice:1</code> - Peppol PINT Malaysia Invoice (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.my:invoice:1.1</code> - Peppol PINT Malaysia Invoice (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:invoice:1.1</code> - Peppol PINT Malaysia Invoice (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.my:invoice:1.2.1</code> - Peppol PINT Malaysia Invoice (UBL) 1.2.1</li>
+<li><code>org.peppol.pint.my:invoice:1.3</code> - Peppol PINT Malaysia Invoice (UBL) 1.3.0</li>
 <li><code>org.peppol.pint.my:invoice-self-billing:1</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.my:invoice-self-billing:1.1</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.1.0</li>
+<li><code>org.peppol.pint.my:invoice-self-billing:1.1</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.my:invoice-self-billing:1.2.1</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.2.1</li>
+<li><code>org.peppol.pint.my:invoice-self-billing:1.3</code> - Peppol PINT Malaysia Invoice Self-Billing (UBL) 1.3.0</li>
 <li><code>org.peppol.pint.sg:creditnote:1.1</code> - Peppol PINT Singapore Credit Note (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.sg:creditnote:1.2</code> - Peppol PINT Singapore Credit Note (UBL) 1.2.0</li>
+<li><code>org.peppol.pint.sg:creditnote:1.2</code> - Peppol PINT Singapore Credit Note (UBL) 1.2.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.sg:creditnote:1.3</code> - Peppol PINT Singapore Credit Note (UBL) 1.3.0</li>
+<li><code>org.peppol.pint.sg:creditnote:1.4</code> - Peppol PINT Singapore Credit Note (UBL) 1.4.0</li>
 <li><code>org.peppol.pint.sg:invoice:1.1</code> - Peppol PINT Singapore Invoice (UBL) 1.1.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.pint.sg:invoice:1.2</code> - Peppol PINT Singapore Invoice (UBL) 1.2.0</li>
+<li><code>org.peppol.pint.sg:invoice:1.2</code> - Peppol PINT Singapore Invoice (UBL) 1.2.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.sg:invoice:1.3</code> - Peppol PINT Singapore Invoice (UBL) 1.3.0</li>
+<li><code>org.peppol.pint.sg:invoice:1.4</code> - Peppol PINT Singapore Invoice (UBL) 1.4.0</li>
 <li><code>org.peppol.pint.ae:creditnote:0.9</code> - Peppol PINT UAE Credit Note (UBL) 0.9.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.ae:creditnote:2025.7</code> - Peppol PINT UAE Credit Note (UBL) 2025-07 (aka 1.0.1)</li>
-<li><code>org.peppol.pint.ae:creditnote:2025.6</code> - Peppol PINT UAE Credit Note (UBL) 2025-Q2</li>
+<li><code>org.peppol.pint.ae:creditnote:2025.11</code> - Peppol PINT UAE Credit Note (UBL) 2025-11 (aka 1.0.1)</li>
+<li><code>org.peppol.pint.ae:creditnote:2025.6</code> - Peppol PINT UAE Credit Note (UBL) 2025-Q2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.ae:creditnote-self-billing:0.9</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 0.9.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.ae:creditnote-self-billing:2025.7</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 2025-07 (aka 1.0.1)</li>
-<li><code>org.peppol.pint.ae:creditnote-self-billing:2025.6</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 2025-Q2</li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2025.11</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 2025-11 (aka 1.0.1)</li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2025.6</code> - Peppol PINT UAE Credit Note Self-Billing (UBL) 2025-Q2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.ae:invoice:0.9</code> - Peppol PINT UAE Invoice (UBL) 0.9.0 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.pint.ae:invoice:2025.11</code> - Peppol PINT UAE Invoice (UBL) 2025-1 (aka 1.0.1)</li>
 <li><code>org.peppol.pint.ae:invoice:2025.7</code> - Peppol PINT UAE Invoice (UBL) 2025-07 (aka 1.0.1)</li>
-<li><code>org.peppol.pint.ae:invoice:2025.6</code> - Peppol PINT UAE Invoice (UBL) 2025-Q2</li>
+<li><code>org.peppol.pint.ae:invoice:2025.6</code> - Peppol PINT UAE Invoice (UBL) 2025-Q2 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.ae:invoice-self-billing:0.9</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 0.9.0 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.pint.ae:invoice-self-billing:2025.7</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 2025-07 (aka 1.0.1)</li>
-<li><code>org.peppol.pint.ae:invoice-self-billing:2025.6</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 2025-Q2</li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2025.11</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 2025-11 (aka 1.0.1)</li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2025.6</code> - Peppol PINT UAE Invoice Self-Billing (UBL) 2025-Q2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.reporting:tsr:1.0.4</code> - Peppol Transaction Statistics Report v1.0.4 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.reporting:tsr:1.0.5</code> - Peppol Transaction Statistics Report v1.0.5</li>
 <li><code>nl.setu:assignment:1.4</code> - SETU Assignment 1.4</li>
@@ -738,8 +799,9 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.7</code> - Simplerinvoicing 2.0 G-Account extension 1.0.7 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.8</code> - Simplerinvoicing 2.0 G-Account extension 1.0.8 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.9</code> - Simplerinvoicing 2.0 G-Account extension 1.0.9 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:invoice20.g-account:1.0.10</code> - Simplerinvoicing 2.0 G-Account extension 1.0.10</li>
+<li><code>org.simplerinvoicing:invoice20.g-account:1.0.10</code> - Simplerinvoicing 2.0 G-Account extension 1.0.10 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice20.g-account:1.0.11</code> - Simplerinvoicing 2.0 G-Account extension 1.0.11</li>
+<li><code>org.simplerinvoicing:invoice20.g-account:1.0.12</code> - Simplerinvoicing 2.0 G-Account extension 1.0.12</li>
 <li><code>org.simplerinvoicing:creditnote:2</code> - Simplerinvoicing Credit Note 2.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.1</code> - Simplerinvoicing Credit Note 2.0.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.2</code> - Simplerinvoicing Credit Note 2.0.2 <strong>(Deprecated)</strong></li>
@@ -753,8 +815,9 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:creditnote:2.0.3-7</code> - Simplerinvoicing Credit Note 2.0.3.7 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.3-8</code> - Simplerinvoicing Credit Note 2.0.3.8 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.3-9</code> - Simplerinvoicing Credit Note 2.0.3.9 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:creditnote:2.0.3-10</code> - Simplerinvoicing Credit Note 2.0.3.10</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-10</code> - Simplerinvoicing Credit Note 2.0.3.10 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:creditnote:2.0.3-11</code> - Simplerinvoicing Credit Note 2.0.3.11</li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-12</code> - Simplerinvoicing Credit Note 2.0.3.12</li>
 <li><code>org.simplerinvoicing:invoice:1</code> - Simplerinvoicing Invoice 1.0 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:1.1</code> - Simplerinvoicing Invoice 1.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:1.2</code> - Simplerinvoicing Invoice 1.2 <strong>(Deprecated)</strong></li>
@@ -773,8 +836,9 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:invoice:2.0.3-7</code> - Simplerinvoicing Invoice 2.0.3.7 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:2.0.3-8</code> - Simplerinvoicing Invoice 2.0.3.8 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:2.0.3-9</code> - Simplerinvoicing Invoice 2.0.3.9 <strong>(Deprecated)</strong></li>
-<li><code>org.simplerinvoicing:invoice:2.0.3-10</code> - Simplerinvoicing Invoice 2.0.3.10</li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-10</code> - Simplerinvoicing Invoice 2.0.3.10 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:invoice:2.0.3-11</code> - Simplerinvoicing Invoice 2.0.3.11</li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-12</code> - Simplerinvoicing Invoice 2.0.3.12</li>
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:order:1.2.3</code> - Simplerinvoicing Order 1.2.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:order:1.2.4</code> - Simplerinvoicing Order 1.2.4 <strong>(Deprecated)</strong></li>
@@ -1222,6 +1286,11 @@ A very small Java WS client is available for
 <li><code>de.zugferd:en16931:2.2</code> - ZUGFeRD 2.2 (EN 16931) <strong>(Deprecated)</strong></li>
 <li><code>de.zugferd:extended:2.2</code> - ZUGFeRD 2.2 (EXTENDED) <strong>(Deprecated)</strong></li>
 <li><code>de.zugferd:minimum:2.2</code> - ZUGFeRD 2.2 (MINIMUM) <strong>(Deprecated)</strong></li>
+<li><code>de.zugferd:basic:2.4</code> - ZUGFeRD 2.4 (BASIC)</li>
+<li><code>de.zugferd:basicwl:2.4</code> - ZUGFeRD 2.4 (BASIC WL)</li>
+<li><code>de.zugferd:en16931:2.4</code> - ZUGFeRD 2.4 (EN 16931)</li>
+<li><code>de.zugferd:extended:2.4</code> - ZUGFeRD 2.4 (EXTENDED)</li>
+<li><code>de.zugferd:minimum:2.4</code> - ZUGFeRD 2.4 (MINIMUM)</li>
 <li><code>de.zugferd:basic:2.0.1</code> - ZUGFeRD 2.0.1 (BASIC) <strong>(Deprecated)</strong></li>
 <li><code>de.zugferd:basicwl:2.0.1</code> - ZUGFeRD 2.0.1 (BASIC WL) <strong>(Deprecated)</strong></li>
 <li><code>de.zugferd:en16931:2.0.1</code> - ZUGFeRD 2.0.1 (EN 16931) <strong>(Deprecated)</strong></li>
