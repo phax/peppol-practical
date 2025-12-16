@@ -78,6 +78,7 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.html.select.HCExtSelect;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.IKeyStoreType;
@@ -560,18 +561,14 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     }
     else
     {
-      try
-      {
-        aMigrationPublicCert = CertificateHelper.convertStringToCertficate (sMigrationPublicCert);
-      }
-      catch (final Exception ex)
-      {
-        // Fall through
-      }
-
+      aMigrationPublicCert = new CertificateDecodeHelper ().source (sMigrationPublicCert)
+                                                           .pemEncoded (true)
+                                                           .getDecodedOrNull ();
       if (aMigrationPublicCert == null)
+      {
         aFormErrors.addFieldError (FIELD_PM_PUBLIC_CERT,
                                    "The provided public certificate cannot be parsed as a X.509 certificate.");
+      }
       else
       {
         try
@@ -702,10 +699,10 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
 
   private static final class HCKeyStoreTypeSelect extends HCExtSelect
   {
-    public HCKeyStoreTypeSelect (IHCRequestField aRF)
+    public HCKeyStoreTypeSelect (final IHCRequestField aRF)
     {
       super (aRF);
-      for (var e : EKeyStoreType.values ())
+      for (final var e : EKeyStoreType.values ())
         addOption (e.getID (), e.getID (), e == EKeyStoreType.PKCS12);
     }
   }
