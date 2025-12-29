@@ -22,7 +22,7 @@
   directory service (registry) of OpenPeppol.
   SMPs are normally only operated by Service Providers and not by end users.
   An SMP contains information about the endpoints of receivers - the URLs where to send the main
-  documents to.
+  documents to (via AS4) as well as the digital certificate used to encrypt the messages.
   The information within the SMP is structured by participant ID, document type ID and process ID.  
 </p>
 
@@ -68,11 +68,11 @@
       It is important to understand that the specifications only specify the reading access
       to an SMP but not the writing access. Nevertheless the implementation discussed here
       also contains the possibility to write new entries.</li>
-  <li>You should be familiar with Java</li>
+  <li>It is beneficial if you are familiar with the way how Java applications are run</li>
   <li>When using the SMP server implementation with a database backend
-      basic knowledge of a relational database (e.g. MySQL) is required. 
-      Alternatively a filesystem based XML backend is also available.</li>
-  <li>Basic knowledge about Apache Tomcat or Jetty (and optionally a web server) should be present</li>    
+      basic knowledge of a relational database (e.g. MySQL or PostgreSQL) is required. 
+      Alternatively a filesystem based XML backend as well as a MongoDB backend is also available.</li>
+  <li>Basic knowledge about Apache Tomcat or Jetty (and optionally a web server) should be present - or you abstract that all with Docker</li>    
 </ol>
 
 <a name="technical"></a>
@@ -171,7 +171,7 @@
     the application server, since this is a prerequisite in the DNS lookup scheme. 
     Furthermore it MUST be deployed on port 80 (standard http port) and MUST NOT use SSL/TLS to secure the transport.<br/>
   From November 1<sup>st</sup>, 2025: Note that a production SMP service MAY be deployed using https on port 443 (following the guidelines of the Peppol Policy for Transport Security).<br/>
-  <strong>Production SMPs MUST be operated via https until February 1<sup>st</sup>, 2026.</strong>
+  <strong>Production SMPs MUST be operated exclusively via https from February 1<sup>st</sup>, 2026 onwards.</strong>
 </div>
 
 <a name="configuring"></a>
@@ -252,8 +252,8 @@
     // ServiceGroup = participant identifier; GLN = 0088
     final IParticipantIdentifier aServiceGroupID = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("5798000000001");
     // Document type identifier from enumeration
-    final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A.getAsDocumentTypeIdentifier ();
-    // Main call to the SMP client with the correct SML to use
+    final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30;
+    // Main call to the SMP client with the correct SML to use - throws an exception in case of error
     final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (PeppolURLProvider.INSTANCE,
                                                                                                ESML.DIGIT_TEST,
                                                                                                aServiceGroupID,

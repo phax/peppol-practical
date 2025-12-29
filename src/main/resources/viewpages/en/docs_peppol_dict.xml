@@ -191,12 +191,10 @@
       <td>A specific DNS record type that uses a domain name as a value</td>
     </tr>
     <tr>
-      <td>DNS</td>
-      <td>Domain Name System</td>
-      <td>
-        Basic part of Internet technology that maps domain names to IP addresses for technical routing.
-        Used by <em>SML</em>, <em>SMP</em> and <em>AP</em>.
-      </td>
+      <td>CTC</td>
+      <td>Continuous Transaction Controls</td>
+      <td>A regulatory model in which tax authorities require near-real-time or real-time access to transactional data (e.g. invoices) 
+        during or immediately after the transaction lifecycle, rather than only through periodic tax returns.</td>
     </tr>
     <tr>
       <td>DEP</td>
@@ -205,6 +203,15 @@
         The Digital Europe Programme (DIGITAL) is a new EU funding programme focused on bringing digital technology to 
         businesses, citizens and public administrations.
         See <a href="https://digital-strategy.ec.europa.eu/en/activities/digital-programme">https://digital-strategy.ec.europa.eu/en/activities/digital-programme</a>.
+        It's the successor of the <em>CEF</em> programme.
+      </td>
+    </tr>
+    <tr>
+      <td>DNS</td>
+      <td>Domain Name System</td>
+      <td>
+        Basic part of Internet technology that maps domain names to IP addresses for technical routing.
+        Used by <em>SML</em>, <em>SMP</em> and <em>AP</em>.
       </td>
     </tr>
     <tr>
@@ -215,7 +222,7 @@
       </td>
     </tr>
     <tr>
-      <td>EDEC</td>
+      <td>eDEC</td>
       <td>eDelivery Domain Community</td>
       <td>
         The successor of <em>TICC</em> within OpenPeppol.
@@ -302,7 +309,8 @@
     <tr>
       <td>MLS</td>
       <td>Message Level Status</td>
-      <td>The proposed successor of the <em>MLR</em> specification maintained by eDEC. See <a href="https://docs.peppol.eu/edelivery/specs/mls/v1.0.0/">https://docs.peppol.eu/edelivery/specs/mls/v1.0.0/</a> for the specification.</td>
+      <td>The proposed successor of the <em>MLR</em> specification maintained by eDEC.
+        See <a href="https://docs.peppol.eu/edelivery/">https://docs.peppol.eu/edelivery/</a> for the specification.</td>
     </tr>
     <tr>
       <td>OASIS</td>
@@ -319,6 +327,13 @@
         The organisation responsible for maintaining Peppol standards and running the transport infrastructure.
         See <a href="https://peppol.org/">https://peppol.org/</a>.
         See also <em>AISBL</em>.
+      </td>
+    </tr>
+    <tr>
+      <td>OO</td>
+      <td>Operating Office</td>
+      <td>
+        The organisational unit of <em>OpenPeppol AISBL</em> responsible for the maintenance of the Peppol Network. 
       </td>
     </tr>
     <tr>

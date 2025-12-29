@@ -42,6 +42,18 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2025-12-29 - Peppol News</h3>
+    
+    <ul>
+    <li>Started a new page dedicated to <a href="/public/menuitem-docs-peppol-directory">Peppol Directory related information</a></li>
+    <li>The Safe-the-date for the Peppol Conference 2026 was sent out: <em>Peppol Conference Europe 2026 will take place from 16.-17.06.2026 in Brussels</em></li>
+    <li>The latest version v9.5 of the eDEC Code Lists was published at
+        <a href="https://docs.peppol.eu/edelivery/codelists/" target="_blank">https://docs.peppol.eu/edelivery/codelists/</a>.
+        See the <a href="https://docs.peppol.eu/edelivery/codelists/changelog.html" target="_blank">Change Log</a> for the details.</li>
+    <li>Additionally, an update of the AE TDD specification was published.
+        See <a href="https://docs.peppol.eu/tdd/ae/v1.0.1/" target="_blank">https://docs.peppol.eu/tdd/ae/v1.0.1/</a> for all details.</li>
+    </ul>
+
     <h3>2025-12-14 - Document Validation extended</h3>
     
     <p>

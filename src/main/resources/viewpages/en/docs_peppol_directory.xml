@@ -1,0 +1,57 @@
+<p>
+  This article is meant to describe the intended use cases for the Peppol Directory.
+  It describes its strengths and its weaknesses and provides some usage guidance.
+</p>
+
+<p>
+  The Peppol Directory is a centralized database containing all the collected <em>Business Cards</em>.
+  The directory is operated by the OpenPeppol Operating Office (OO) and publicly available as a 
+  <a href="https://test-directory.peppol.eu" target="_blank">test instance</a> and a 
+  <a href="https://test-directory.peppol.eu" target="_blank">production instance</a>.
+  <br/>
+  It is not mandatory for Peppol Participants to be listed in the Peppol Directory, but 
+    I would say it is recommended.
+  This implies, that not every Peppol Participant that exists, can also be found in the Peppol Directory.
+  Currently approximately 90-95% of all participants are listed in the Peppol Directory.
+  The only authoritative source of truth for the existence of a Peppol Participant ID is the
+    DNS based check that can e.g. be done on this page. 
+</p>
+
+<p>
+  The Directory is filled by the decentralized Peppol SMPs (Service Metadata Publishers).
+  An SMP may provide a Business Card for a Peppol Participant it manages - other SMPs cannot do that.
+  The Business Card contains non-technical data of a participant and should contain a similar data
+    depth as information of a <em>website imprint</em>.
+  Every time the Business Card is changed or the document types of a participant change, 
+    it's the <em>SMP's responsibility</em> for informing the Directory about that, by requesting an 
+    update of the Business Card of said participant.  
+</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<ol>
+  <li>
+    <a name="faq1"></a>
+    <ul>
+      <li><strong>Q:</strong> Can I use the Peppol Directory to check if a participant is registered in the Peppol Network?</li>
+      <li><strong>A:</strong> No, because publication to the Peppol Directory is only recommended but not enforced. 
+        Instead perform a DNS based query as e.g. provided <a href="/public/menuitem-tools-participant">on this site</a>
+        or use a standalone tool you can run on your premises, like <a href="https://github.com/Helger-IT/smp-query-webapp" target="_blank">https://github.com/Helger-IT/smp-query-webapp</a></li>
+    </ul>
+  </li>
+  <li>  
+    <a name="faq2"></a>
+    <ul>
+      <li><strong>Q:</strong> The Peppol Directory does not show the details of my participant. What can I do?</li>
+      <li><strong>A:</strong> There is a multitude of potential reasons for this. Here is a list of the most common ones:
+        <ul>
+          <li>Have you provided a Business Card for the participant in your SMP? Only the SMP owning the participant is allowed to publish the respective Business Card for it.</li>
+          <li>Did you configure the correct Peppol Directory instance depending on the SMP stage you are operating?</li>
+          <li>Make sure, that your SMP is capable of communicating with the Peppol Directory instance. The usage of mTLS client certificates may lead to hick-ups with outbound proxy servers, firewalls etc.</li>
+          <li>Make sure, that the <code>/businesscard</code> API of your SMP is publicly accessible over the Internet - use the <a href="/public/menuitem-tools-participant">participant information tool</a> on this site to check the outside view</li>
+          <li>Be aware, that the Peppol Directory processes information in a FIFO manner. If there is an internal queue it can take many hours between the indexation request and the appearance in the search index.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>

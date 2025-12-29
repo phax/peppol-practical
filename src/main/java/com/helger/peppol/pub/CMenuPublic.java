@@ -35,6 +35,7 @@ public final class CMenuPublic
   public static final String MENU_DOCS_SML_SUPPORT = "docs-sml-support";
   public static final String MENU_DOCS_DOC_EXCHANGE = "docs-doc-exchange";
   public static final String MENU_DOCS_PEPPOL_PKI = "docs-peppol-pki";
+  public static final String MENU_DOCS_PEPPOL_DIRECTORY = "docs-peppol-directory";
   public static final String MENU_DOCS_PEPPOL_CERT_UPDATE = "docs-peppol-cert-update";
   public static final String MENU_DOCS_PEPPOL_MLR = "docs-peppol-mlr";
   public static final String MENU_DOCS_PEPPOL_DICT = "docs-peppol-dict";

@@ -36,11 +36,12 @@
 <p>This chapter deals with AS4 solutions only.</p>
 
 <ul>
+  <li><strong>phase4</strong> [Open Source] - <a href="https://github.com/phax/phase4">https://github.com/phax/phase4</a> - Java based. Is a library and needs local integration.</li>
+  <li><strong>phase4-peppol-standalone</strong> [Open Source] - <a href="https://github.com/phax/phase4-peppol-standalone">https://github.com/phax/phase4-peppol-standalone</a> - Java based. Is a standalone AP with Peppol Reporting and all.</li>
   <li><strong>AS4.NET</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse">https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse</a> - the only .NET based Open Source implementation we are aware of. Not maintained for a long time. Does not contain Peppol-specifics.</li>
   <li><strong>Domibus</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/Domibus">https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/Domibus</a> - Java based. Requires some extra package on dynamic discovery to be able to work with Peppol.</li>
   <li><strong>Holodeck</strong> [Open Source] - <a href="http://holodeck-b2b.org/download/">http://holodeck-b2b.org/download/</a> - Java based. Requires some additional Peppol package that is not free.</li>
   <li><strong>Oxalis</strong> [Open Source] - <a href="https://github.com/OxalisCommunity/Oxalis-AS4">https://github.com/OxalisCommunity/Oxalis-AS4</a> - Java based. Needs to be integrated into Oxalis.</li>
-  <li><strong>phase4</strong> [Open Source] - <a href="https://github.com/phax/phase4">https://github.com/phax/phase4</a> - Java based. Is a library and needs local integration.</li>
 </ul>
 
 <a name="smp"></a>
@@ -71,6 +72,7 @@
 <ul>
   <li><strong>Storecove</strong> - <a href="https://www.storecove.com/">https://www.storecove.com/</a></li>
   <li><strong>Tickstar</strong> - <a href="https://www.tickstar.com/">https://www.tickstar.com/</a></li>
+  <li><strong>Tradeinterop</strong> - <a href="https://www.tradeinterop.com/en/peppol-access-point-as-a-service/">https://www.tradeinterop.com/en/peppol-access-point-as-a-service/</a></li>
   <li><strong>Unimaze</strong> - <a href="https://www.unimaze.com/">https://www.unimaze.com/</a></li>
 </ul>
 
@@ -80,5 +82,5 @@
 <p>This chapter deals with ERP solutions only</p>
 
 <ul>
-  <li>None I am aware of</li>
+  <li><strong>azur</strong> - <a href="https://www.sitasoftware.lu/azur/index.php">https://www.sitasoftware.lu/azur/index.php</a></li>
 </ul>

@@ -28,15 +28,73 @@
   </div>
   <div class="card-body">
     <ol>
-      <li><a href="#pki3">Peppol PKI v3</a></li>
+      <li><a href="#pki4">Peppol PKI G3 (v4)</a></li>
+      <li><a href="#pki3">Peppol PKI G2 (v3)</a></li>
       <li><a href="#usage">Certificate usage in Peppol</a></li>
     </ol>
   </div>
 </div>
 
+<a name="pki4"></a>
+<h2>OpenPeppol PKI G3 (v4) - since 2025</h2>
+
+<p>
+  The PKI is called "OpenPeppol PKI G3" and the root certificates are valid from 2025 to 2035.
+  The "G3" stems from the fact, that this is the third generation of OpenPeppol certificates hosted with Digicert.
+  Previously there was another PKI in place which was the fourth version.
+  The structure is similar to the previous G2 (v3) one and looks like this:
+</p>
+
+<p>
+  <img src="../imgs/pki-structure-g3.png" alt="Peppol PKI G3 (v4) structure" />
+</p>
+
+
+<p>
+  The migration process is as follows:
+</p>
+
+<ul>
+  <li>
+    August 2025
+    <ul>
+      <li>the new root certificates are available for download in 
+        <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/4344053761/Peppol+PKI+2025+-+Certificate+Authorities">OpenPeppol Confluence</a>.</li>
+      <li>Predefined Peppol truststores in PKCS12 format are available at 
+        <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>
+        for AP and SMP separate for Test and Production Peppol Network.
+        Note: no <em>complete truststore</em> is provided, as it is deemed insecure to trust test messages in production and vice versa</li>  
+    </ul>
+  </li>
+  <li>
+    Before 11 February 2026:
+    <ul>
+      <li>Ask for Peppol G3 test certificates</li>
+      <li>Install the new Peppol G3 test certificates in your test environments</li>
+      <li>Finish the Peppol Testbed "PKI Migration Test Suite" and store the completion PDF locally</li>
+      <li>Make sure your production system can trust G2 and G3 PKIs in parallel</li>
+    </ul> 
+  </li>
+  <li>
+    Between 11 February and 31 March 2026:
+    <ul>
+      <li>Request for Peppol G3 production certificates.</li>
+      <li>Install the new Peppol G3 production certificates in your production environments</li>
+    </ul>
+    From this date on, no new Peppol G2 production certificates will be issued.
+  </li>
+</ul>
+
+<p>
+  For details and further information, please see the 
+  <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/3977936899/Peppol+PKI+2025+-+Certificate+Authority+Migration+Plan">Peppol PKI 2025 - Certificate Authority Migration Plan</a>
+  and the 
+  <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/4439080961/Peppol+PKI+2025+-+Issuing+and+Enrolment+Process">Peppol PKI 2025 - Issuing and Enrolment Process</a>
+  pages.
+</p> 
 
 <a name="pki3"></a>
-<h2>OpenPeppol PKI v3 - since 2018</h2>
+<h2>OpenPeppol PKI G2 (v3) - 2018 to 2026</h2>
 
 <p>
   The PKI is called "OpenPeppol PKI v3" and the root certificates are valid from 2018 to 2028.
@@ -44,7 +102,7 @@
 </p>
 
 <p>
-  <img src="../imgs/pki-structure-v3.png" alt="Peppol PKI v3 structure" />
+  <img src="../imgs/pki-structure-g2.png" alt="Peppol PKI G2 (v3) structure" />
 </p>
 
 <p>
@@ -83,22 +141,6 @@
   <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/189530542/PKI+Certificate+Migration+2018">PKI Certificate Migration 2018</a>
   pages.
 </p> 
-
-<p>
-  The following list contains the migration status of the different software components I'm aware of.
-  Please send additional information to me, so I can add it here.
-</p>
-
-<ul>
-  <li>
-    Peppol Directory <span class="badge badge-success">done</span>:
-    Supports both PKIs in parallel - both in test and production.
-  </li>
-  <li>
-    phoss SMP <span class="badge badge-success">done</span>:
-    version 5.0.4 and later do support both PKI v2 and PKI v3 in parallel. 
-  </li>
-</ul>
 
 <a name="usage"></a>
 <h2>Certificate usage in Peppol</h2>

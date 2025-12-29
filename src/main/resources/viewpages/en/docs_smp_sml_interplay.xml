@@ -57,15 +57,14 @@
     <li>The SMP server runs on a publicly accessible web server that has a DNS name assigned</li>
     <li>You have a Peppol SMP X.509 certificate that is compatible with the SML you want to interact with (production certificate for SML, test certificate for SMK)</li>
     <li>You have chosen a so called <em>SMP-ID</em> that <strong>must not be changed</strong> afterwards</li>
-    <li>For the old style CNAME lookup (until October 31<sup>st</sup>, 2025):
-      <ul>
-        <li>The SMP server is reachable in the root ("/") path of that domain</li>
-        <li>The SMP server exposes the mandatory read-only APIs on port 80 without https</li>
-      </ul>
-    </li>
     <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):
       <ul>
-        <li>The SMP server exposes the mandatory read-only APIs on port 443 with https</li>
+        <li>The SMP server exposes the mandatory read-only APIs on port 80 with http and/or on port 443 with https</li>
+      </ul>
+    </li>
+    <li>At the end of the CNAME to NAPTR migration (from February 1<sup>st</sup>, 2026):
+      <ul>
+        <li>The SMP server exposes the mandatory read-only APIs exclusively on port 443 with https</li>
       </ul>
     </li>
   </ul>
@@ -94,35 +93,6 @@
     <li>The uniqueness of the SMP-ID is verified</li>
     <li>The consistency of the provided parameters is checked</li>
     <li>A local database entry is created, that links the SMP-ID and parts of the X.509 certificate together</li>
-    <li>For the old style CNAME lookup (until October 31<sup>st</sup>, 2025):
-      <ul>
-        <li>
-          A new DNS entry in the form of <code><em>SMP-ID</em>.publisher.<em>DNSZONE</em></code> is created.
-            This is the so-called <strong>publisher entry</strong>.<br />
-          <em>SMP-ID</em> is the input parameter.<br />
-          <em>DNSZONE</em> is the DNS zone in which the SML operates -
-            for the production SML that is <code>edelivery.tech.ec.europa.eu</code> and 
-            for the test SMK this is <code>acc.edelivery.tech.ec.europa.eu</code>.<br />
-          The DNS entry itself is either a <em>CNAME</em> record (if the public URL is a domain name)
-          or an <em>A</em> record (if the public URL consists of an IP address).<br />
-        </li>
-        <li>
-          See e.g. <a href="http://brz.publisher.edelivery.tech.ec.europa.eu">http://brz.publisher.edelivery.tech.ec.europa.eu</a>
-            for an example of the SMP-ID <em>BRZ</em> on the production SML or 
-            <a href="http://brz-test-smp.publisher.acc.edelivery.tech.ec.europa.eu">http://brz-test-smp.publisher.acc.edelivery.tech.ec.europa.eu</a>
-            for an example with the SMP-ID <em>BRZ-TEST-SMP</em> on the test SMK.
-          Both links bring you to the respective SMP instances.
-        </li>
-        <li>
-          Note: this DNS publisher entry is the reason, why the SMP-ID can only used a limited character set.
-        </li>
-      </ul>
-    </li>
-    <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):
-      <ul>
-        <li>No such specific DNS entry is created - that is the reason, why an SMP URL affects all participant DNS entries</li>
-      </ul>
-    </li>
   </ul>
 </p>
 
@@ -168,21 +138,7 @@
     <li>It is checked whether the SMP-ID is linked to the provided X.509 certificate</li>
     <li>The consistency of the provided parameters is checked</li>
     <li>The local database entry, that links the SMP-ID and X.509 certificate together, is updated</li>
-    <li>For the old style CNAME lookup (until October 31<sup>st</sup>, 2025):
-      <ul>
-        <li>
-          The destination of the publisher DNS record (<code><em>SMP-ID</em>.publisher.<em>DNSZONE</em></code>)
-            is updated to the new public URL.
-            The DNS entry itself is either a <em>CNAME</em> record (if the public URL is a domain name)
-            or an <em>A</em> record (if the public URL consists of an IP address).
-        </li>
-      </ul>  
-    </li>
-    <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):
-      <ul>
-        <li>Each participant linked to the provided SMP-ID needs an update to it DNS record</li>
-      </ul>
-    </li>
+    <li>Each participant linked to the provided SMP-ID needs an update to it DNS record</li>
   </ul>
 </p>
 
@@ -220,17 +176,7 @@
     <li>It is checked whether the SMP-ID is linked to the X.509 certificate</li>
     <li>The local database entries for all participants that are linked to that SMP-ID are deleted</li>
     <li>The local database entry for the provided SMP-ID is deleted</li>
-    <li>For the old style CNAME lookup (until October 31<sup>st</sup>, 2025):
-      <ul>
-        <li>All DNS records for participants linked to the SMP-ID publisher record are deleted</li>
-        <li>The publisher DNS record is deleted</li>
-      </ul>
-    </li>    
-    <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):
-      <ul>
-        <li>All DNS records for participants linked to the SMP-ID are deleted</li>
-      </ul>
-    </li>
+    <li>All DNS records for participants linked to the SMP-ID are deleted</li>
   </ul>
 </p>
 
@@ -264,47 +210,17 @@
     <li>It is checked whether the SMP-ID is linked to the X.509 certificate</li>
     <li>The consistency of the provided parameters is checked</li>
     <li>A local database entry is created, that links the SMP-ID and the participant identifier</li>
-    <li>For the old style CNAME lookup (until October 31<sup>st</sup>, 2025):
-      <ul>
-        <li>
-          A new DNS CNAME record in the form of 
-            <code>"B-"+hexstring(md5(lowercase(<em>ID-VALUE</em>)))+"."+<em>ID-SCHEME</em>+"."+<em>DNSZONE</em></code>
-            is created.<br />
-          <em>ID-SCHEME</em> is part of the input parameter - the scheme part of the participant identifier (usually this is <code>iso6523-actorid-upis</code>)<br />
-          <em>ID-VALUE</em> is also part of the input parameter - the value part of the participant identifier<br />
-          <em>DNSZONE</em> is the DNS zone in which the SML operates -
-            for the production SML that is <code>edelivery.tech.ec.europa.eu</code> and 
-            for the test SMK this is <code>acc.edelivery.tech.ec.europa.eu</code>.<br />
-          The DNS entry itself is a <em>CNAME</em> record pointing to the SMP <em>publisher entry</em>
-            which in turn is itself a reference to the URL or IP provided at the SMP to SML registration
-            process (see above).<br />
-        </li>
-        <li>
-          Example:
-          The URL created from e.g. the participant identifier <code>iso6523-actorid-upis::9915:b</code> is
-            <a href="http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu">http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu</a>.
-          This is a reference to the <em>publisher entry</em>
-            <a href="http://brz.publisher.edelivery.tech.ec.europa.eu">http://brz.publisher.edelivery.tech.ec.europa.eu</a>
-            created at the registration process (see above).
-            Both links lead to the same IP and therefore to the same SMP instance.
-        </li>
-      </ul>
-    </li>    
-    <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):
-      <ul>
-        <li>
-          A <a href="https://en.wikipedia.org/wiki/NAPTR_record" target="_blank">DNS NAPTR</a> record in the form of 
-            <code>strip-trailing(base32(sha-256(lowercase(<em>ID-VALUE</em>))),"=")+"."+<em>ID-SCHEME</em>+"."+<em>DNSZONE</em></code>
-            is created.<br />
-          <em>ID-SCHEME</em> is part of the input parameter - the scheme part of the participant identifier (usually this is <code>iso6523-actorid-upis</code>)<br />
-          <em>ID-VALUE</em> is also part of the input parameter - the value part of the participant identifier<br />
-          <em>DNSZONE</em> is the DNS zone in which the SML operates -
-            for the production SML that is <code>edelivery.tech.ec.europa.eu</code> and 
-            for the test SMK this is <code>acc.edelivery.tech.ec.europa.eu</code>.<br />
-          The DNS entry itself is a <em>NAPTR</em> record pointing to the SMP URL (!) 
-            provided at the SMP to SML registration process (see above).<br />
-        </li>
-      </ul>
+    <li>
+      A <a href="https://en.wikipedia.org/wiki/NAPTR_record" target="_blank">DNS NAPTR</a> record in the form of 
+        <code>strip-trailing(base32(sha-256(lowercase(<em>ID-VALUE</em>))),"=")+"."+<em>ID-SCHEME</em>+"."+<em>DNSZONE</em></code>
+        is created.<br />
+      <em>ID-SCHEME</em> is part of the input parameter - the scheme part of the participant identifier (usually this is <code>iso6523-actorid-upis</code>)<br />
+      <em>ID-VALUE</em> is also part of the input parameter - the value part of the participant identifier<br />
+      <em>DNSZONE</em> is the DNS zone in which the SML operates -
+        for the production SML that is <code>edelivery.tech.ec.europa.eu</code> and 
+        for the test SMK this is <code>acc.edelivery.tech.ec.europa.eu</code>.<br />
+      The DNS entry itself is a <em>NAPTR</em> record pointing to the SMP URL (!) 
+        provided at the SMP to SML registration process (see above).<br />
     </li>
   </ul>
 </p>
@@ -340,16 +256,7 @@
     <li>The existence of the Participant ID is verified</li>
     <li>It is checked whether the Participant ID is linked to the X.509 certificate</li>
     <li>The local database entry for the provided Participant ID is deleted</li>
-    <li>For the old style CNAME lookup (until October 31<sup>st</sup>, 2025):
-      <ul>
-        <li>The DNS CNAME record (<code>B-...</code>) for that Participant ID is deleted</li>
-      </ul>
-    </li>    
-    <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):
-      <ul>
-        <li>The DNS NAPTR record for that Participant ID is deleted</li>
-      </ul>
-    </li>
+    <li>The DNS NAPTR record for that Participant ID is deleted</li>
   </ul>
 </p>
 
@@ -379,7 +286,6 @@
 <h2>References</h2>
 <p>
   <ul>
-    <li><a href="https://docs.peppol.eu/edelivery/">Peppol SMP specification</a></li>
-    <li><a href="https://docs.peppol.eu/edelivery/">Peppol SML specification</a></li>
+    <li><a href="https://docs.peppol.eu/edelivery/">Peppol SML and SMP specifications</a></li>
   </ul>
 </p>

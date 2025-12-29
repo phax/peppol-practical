@@ -93,12 +93,16 @@ public final class MenuPublic
                                                      "Peppol PKI explained",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_pki.xml")));
       aMenuTree.createItem (aSetup,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_DIRECTORY,
+                                                     "Peppol Directory",
+                                                     new ClassPathResource ("viewpages/en/docs_peppol_directory.xml")));
+      aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_CERT_UPDATE,
                                                      "Peppol Certificate update",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_cert_update.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_MLR,
-                                                     "Peppol MLR / Message Level Response",
+                                                     "Peppol MLR / MLS",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_mlr.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_FIREWALL,
