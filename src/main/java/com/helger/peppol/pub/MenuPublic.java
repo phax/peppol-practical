@@ -218,19 +218,22 @@ public final class MenuPublic
                .setDisplayFilter (new MenuObjectFilterUserLoggedIn ());
     }
 
-    aMenuTree.createRootSeparator ();
-
     // External stuff
     {
+      aMenuTree.createRootSeparator ();
       aMenuTree.createRootItem (CMenuPublic.MENU_PEPPOL_SERVICE_DESK,
                                 new SimpleURL ("https://openpeppol.atlassian.net/servicedesk/customer/portal/1"),
                                 new ConstantHasDisplayText ("OpenPeppol Service Desk (external)"));
-      aMenuTree.createRootItem (CMenuPublic.MENU_THE_INVOICING_HUB,
-                                new SimpleURL ("https://www.theinvoicinghub.com"),
-                                new ConstantHasDisplayText ("The Invoicing Hub (external)"));
+
+      aMenuTree.createRootSeparator ();
       aMenuTree.createRootItem (CMenuPublic.MENU_PEPPOLHUB,
                                 new SimpleURL ("https://shop.peppolhub.com/"),
                                 new ConstantHasDisplayText ("phoss Webinars and Recordings (external)"));
+
+      aMenuTree.createRootSeparator ();
+      aMenuTree.createRootItem (CMenuPublic.MENU_THE_INVOICING_HUB,
+                                new SimpleURL ("https://www.theinvoicinghub.com"),
+                                new ConstantHasDisplayText ("The Invoicing Hub (external)"));
     }
 
     // Set default

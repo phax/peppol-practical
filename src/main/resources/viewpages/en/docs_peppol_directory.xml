@@ -49,7 +49,7 @@
           <li>Did you configure the correct Peppol Directory instance depending on the SMP stage you are operating?</li>
           <li>Make sure, that your SMP is capable of communicating with the Peppol Directory instance. The usage of mTLS client certificates may lead to hick-ups with outbound proxy servers, firewalls etc.</li>
           <li>Make sure, that the <code>/businesscard</code> API of your SMP is publicly accessible over the Internet - use the <a href="/public/menuitem-tools-participant">participant information tool</a> on this site to check the outside view</li>
-          <li>Be aware, that the Peppol Directory processes information in a FIFO manner. If there is an internal queue it can take many hours between the indexation request and the appearance in the search index.</li>
+          <li>Be aware, that the Peppol Directory processes information in a FIFO manner. If the internal queue is very long it can take many hours between the indexation request and the appearance in the search index.</li>
         </ul>
       </li>
     </ul>
