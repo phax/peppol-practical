@@ -26,7 +26,7 @@
     it's the <em>SMP's responsibility</em> for informing the Directory about that, by requesting an 
     update of the Business Card of said participant.
   The Peppol Directory is <strong>not</strong> actively updating Business Cards from your SMP.
-  Each change MUST be pushed to the Directory.
+  Each change MUST be pushed from the SMP to the Peppol Directory.
 </p>
 
 <h2>Frequently Asked Questions</h2>
