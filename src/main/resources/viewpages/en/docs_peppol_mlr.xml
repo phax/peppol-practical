@@ -17,7 +17,7 @@
 
 -->
 <p>
-  This page contains some general thought about the Message Level Response (MLR) and eventual successors. 
+  This page contains some general thought about the Message Level Response (MLR) and its successor, the Message Level Status (MLS). 
 </p>
 
 <h2>MLR - Message Level Response</h2>
@@ -74,18 +74,34 @@
 <h3>Open Source software</h3>
 
 <p>
-  My <a href="https://github.com/phax/peppol-commons#peppol-mlr" target="_blank">peppol-commons</a> project received an extension
-    to deal with MLR in the <code>peppol-mlr</code> module. It allows to create the MLR payload in a consistent way.
+  My <a href="https://github.com/phax/peppol-commons#peppol-mlr" target="_blank">peppol-commons</a> project offers the
+    sub-module <code>peppol-mlr</code> to deal with MLR messages.
+  It allows to read and create the MLR payload in a consistent way.
   For the SMP lookup the same project has a <code>peppol-smp-client</code> module.
   Wrapping the MLR in SBDH and sending the message can be done with any compliant Peppol AS4 solution like <a href="https://github.com/phax/phase4">phase4</a>. 
 </p>
 
 <h2>MLS - Message Level Status</h2>
 
-<p>Currently in the process of <a href="https://docs.peppol.eu/edelivery/specs/mls/v1.0.0/">specification</a>. The policy on how to use it will follow.</p>
+<h3>Introduction</h3>
+
+<p>
+  The <a href="https://docs.peppol.eu/edelivery/" target="_blank">MLS specification</a> is publicly available.
+  The policy on how to use it (Peppol Network Policy) is currently (2025-12-30) under member review.
+</p>
 
 <p>
   The intention of the MLS is to be a message between C2 and C3 instead of a message between C1 and C4 like the MLR.
-  This makes it easier to mandate it, because only Service Providers are forced to support it. 
+  This makes it easier to mandate it, because only Service Providers are forced to support it.
+  As the receiver of an MLS message (C2) it is recommended to forward the information on any specific way to your End User (C1). 
 </p>
 
+<h3>Open Source software</h3>
+
+<p>
+  My <a href="https://github.com/phax/peppol-commons?tab=readme-ov-file#peppol-mls" target="_blank">peppol-commons</a> project offers the
+    sub-module <code>peppol-mls</code> to deal with MLS messages.
+  It allows to read and create the MLS payload in a consistent way.
+  For the SMP lookup the same project has a <code>peppol-smp-client</code> module.
+  Wrapping the MLS in SBDH and sending the message can be done with any compliant Peppol AS4 solution like <a href="https://github.com/phax/phase4">phase4</a>. 
+</p>
