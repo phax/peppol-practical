@@ -58,7 +58,8 @@
           <li>Make sure, that the <code>/businesscard</code> API of your SMP is publicly accessible over the Internet.
               Use e.g. the <a href="/public/menuitem-tools-participant">participant information tool</a> on this site to check the "external" view</li>
           <li>Be aware, that the Peppol Directory processes information in a FIFO manner.
-              If the internal queue is very long it can take many hours between the indexation request and the appearance in the search index.</li>
+              If the internal queue is very long it can take many hours between the indexation request and the appearance in the search index.
+              See the "Queue Length" visible at the Directory start page to get an indicator.</li>
         </ul>
       </li>
     </ul>
