@@ -42,6 +42,19 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-01-13 - Document Validation extended</h3>
+    
+    <p>
+      Added support for Peppol AE TDD 1.0.1 rules
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>org.peppol.taxdata:ae:1.0.1</code> - AE Tax Data Document v1.0.1</li>
+</ul>
+
     <h3>2025-12-29 - Peppol News</h3>
     
     <ul>

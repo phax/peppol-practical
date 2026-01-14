@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1249 entries -->
+<!-- 1250 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -121,7 +121,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.10</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.10 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.11</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.11</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.12</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.12</li>
-<li><code>org.peppol.taxdata:ae:1</code> - AE Tax Data Document v1.0.0</li>
+<li><code>org.peppol.taxdata:ae:1</code> - AE Tax Data Document v1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.taxdata:ae:1.0.1</code> - AE Tax Data Document v1.0.1</li>
 <li><code>it.peppol:creditnote:3.0.2</code> - AGID Peppol Credit Note (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:creditnote:3.1</code> - AGID Peppol Credit Note (3.1.0) (for BIS 3.0.17)</li>
 <li><code>it.peppol:creditnote:3.2.1</code> - AGID Peppol Credit Note (3.2.1) (for BIS 3.0.18)</li>
