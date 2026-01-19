@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.pub;
 
+import java.net.URI;
 import java.util.Locale;
 
 import org.jspecify.annotations.NonNull;
@@ -47,6 +48,9 @@ import com.helger.peppol.ui.smlconfig.ui.SMLConfigurationSelect;
 import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
 import com.helger.peppol.ui.types.smlconfig.ISMLConfigurationManager;
+import com.helger.peppol.ui.types.smp.PeppolExistenceCheck;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.photon.bootstrap4.button.BootstrapButton;
@@ -54,19 +58,22 @@ import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
 import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap4.form.BootstrapViewForm;
+import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandler;
 import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
 import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerUndelete;
 import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.icon.EDefaultIcon;
+import com.helger.photon.uicore.page.EShowList;
 import com.helger.photon.uicore.page.EWebPageFormAction;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
-import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
+import com.helger.photon.uictrls.datatables.column.EDTColType;
 import com.helger.url.ISimpleURL;
 import com.helger.url.SimpleURL;
 
@@ -78,6 +85,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   private static final String FIELD_PARTICIPANT_ID_VALUE = "participantidvalue";
   private static final String FIELD_TRANSPORT_PROFILE = "transportprofile";
   private static final String FIELD_SML = "sml";
+
+  private static final String ACTION_CHECK_DNS = "checkdns";
 
   public PagePublicToolsTestEndpoints (@NonNull @Nonempty final String sID)
   {
@@ -134,6 +143,56 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
           aWPEC.postRedirectGetInternal (error ("Error undeleting the Peppol Test Endpoint!"));
       }
     });
+    addCustomHandler (ACTION_CHECK_DNS,
+                      new AbstractBootstrapWebPageActionHandler <TestEndpoint, WebPageExecutionContext> (false)
+                      {
+                        @NonNull
+                        public EShowList handleAction (@NonNull final WebPageExecutionContext aWPEC,
+                                                       @Nullable final TestEndpoint aSelectedObject)
+                        {
+                          final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
+                          final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
+                          final HCNodeList aNodeList = aWPEC.getNodeList ();
+                          final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
+
+                          final HCTable aTable = new HCTable (new DTCol ("ParticipantID").setDisplayType (EDTColType.TEXT,
+                                                                                                          aDisplayLocale)
+                                                                                         .setInitialSorting (ESortOrder.ASCENDING),
+                                                              new DTCol ("SML"),
+                                                              new DTCol ("Registered in DNS?"),
+                                                              new DTCol ("SMP URI")).setID (getID () + "-checkdns");
+
+                          for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllActiveTestEndpoints ())
+                          {
+                            final HCRow aRow = aTable.addBodyRow ();
+                            aRow.addCell (aCurObject.getParticipantID ());
+
+                            final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLConfigurationfID (aCurObject.getSML ()
+                                                                                                                  .getID ());
+                            aRow.addCell (aSML == null ? em ("unknown") : span (aSML.getDisplayName ()));
+
+                            final IParticipantIdentifier aPID = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (aCurObject.getParticipantID ());
+                            final URI aSMPURI = aSML != null && aPID != null ? PeppolExistenceCheck.getSMPURIViaNaptr (
+                                                                                                                       aPID,
+                                                                                                                       aSML.getSMLInfo ()
+                                                                                                                           .getDNSZone ())
+                                                                             : null;
+
+                            aRow.addCell (EPhotonCoreText.getYesOrNo (aSMPURI != null, aDisplayLocale));
+                            aRow.addCell (aSMPURI == null ? null : aSMPURI.toString ());
+                          }
+
+                          aNodeList.addChild (aTable)
+                                   .addChild (BootstrapDataTables.createDefaultDataTables (aWPEC, aTable));
+
+                          final HCNodeList aToolbar = aNodeList.addChild (getUIHandler ().createToolbar (aWPEC));
+                          aToolbar.addChild (new BootstrapButton ().addChild (EPhotonCoreText.BACK_TO_OVERVIEW.getDisplayText (aDisplayLocale))
+                                                                   .setIcon (EDefaultIcon.BACK_TO_LIST)
+                                                                   .setOnClick (aWPEC.getSelfHref ()));
+
+                          return EShowList.DONT_SHOW_LIST;
+                        }
+                      });
   }
 
   @NonNull
@@ -180,9 +239,6 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
 
     if (eFormAction.isUndelete ())
       return aSelectedObject.isDeleted () && aLIUM.isCurrentUserAdministrator ();
-
-    if (eFormAction.isCopy ())
-    {}
 
     // Only logged in users can create something
     return aLIUM.isUserLoggedInInCurrentSession ();
@@ -317,7 +373,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
     final String sTransportProfileName = SharedUIHelper.getSMPTransportProfileShortName (eTransportProfile);
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML);
-    final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSML = aSMLConfigurationMgr.getSMLConfigurationfID (sSMLID);
 
     if (StringHelper.isEmpty (sCompanyName))
       aFormErrors.addFieldError (FIELD_COMPANY_NAME, "Please provide the company name");
@@ -404,7 +460,13 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     // Toolbar on top
     final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
     if (bUserIsLoggedIn)
+    {
       aToolbar.addButtonNew ("Create Test Endpoint", createCreateURL (aWPEC));
+      if (bUserIsAdmin)
+        aToolbar.addButton ("Check DNS state",
+                            aWPEC.getSelfHref ().add (CPageParam.PARAM_ACTION, ACTION_CHECK_DNS),
+                            EDefaultIcon.MAGNIFIER);
+    }
     else
       aToolbar.addChild (badgeInfo ("You need to be logged in to register Test Endpoints."));
 
@@ -466,8 +528,6 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       }
     }
     aNodeList.addChild (aTable);
-
-    final DataTables aDataTables = BootstrapDataTables.createDefaultDataTables (aWPEC, aTable);
-    aNodeList.addChild (aDataTables);
+    aNodeList.addChild (BootstrapDataTables.createDefaultDataTables (aWPEC, aTable));
   }
 }

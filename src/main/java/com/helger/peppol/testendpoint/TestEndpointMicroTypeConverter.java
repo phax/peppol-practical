@@ -70,7 +70,7 @@ public final class TestEndpointMicroTypeConverter extends AbstractBusinessObject
     final ESMPTransportProfile eTransportProfile = ESMPTransportProfile.getFromIDOrNull (sTransportProfile);
 
     final String sSMLID = eValue.getAttributeValue (ATTR_SML);
-    final ISMLConfiguration aSMLInfo = PhotonPeppolMetaManager.getSMLConfigurationMgr ().getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLInfo = PhotonPeppolMetaManager.getSMLConfigurationMgr ().getSMLConfigurationfID (sSMLID);
     if (aSMLInfo == null)
       throw new IllegalStateException ("Failed to resolve SML with ID '" + sSMLID + "'");
 

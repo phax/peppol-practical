@@ -288,7 +288,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLConfigurationfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
     final String sKeyStoreType = aWPEC.params ().getAsString (FIELD_KEYSTORE_TYPE);
@@ -375,7 +375,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLConfigurationfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sLogicalAddress = aWPEC.params ().getAsString (FIELD_LOGICAL_ADDRESS);
     final String sKeyStoreType = aWPEC.params ().getAsString (FIELD_KEYSTORE_TYPE);
@@ -463,7 +463,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLInfo = aSMLConfigurationMgr.getSMLConfigurationfID (sSMLID);
     final String sSMPID = aWPEC.params ().getAsString (FIELD_SMP_ID);
     final String sKeyStoreType = aWPEC.params ().getAsString (FIELD_KEYSTORE_TYPE);
     final EKeyStoreType eKeyStoreType = EKeyStoreType.getFromIDOrNull (sKeyStoreType);
@@ -532,7 +532,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
     final ISMLConfigurationManager aSMLConfigurationMgr = PhotonPeppolMetaManager.getSMLConfigurationMgr ();
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
     final String sSMLID = aWPEC.params ().getAsString (FIELD_SML_ID);
-    final ISMLConfiguration aSMLConfig = aSMLConfigurationMgr.getSMLInfoOfID (sSMLID);
+    final ISMLConfiguration aSMLConfig = aSMLConfigurationMgr.getSMLConfigurationfID (sSMLID);
     final String sKeyStoreType = aWPEC.params ().getAsString (FIELD_KEYSTORE_TYPE);
     final EKeyStoreType eKeyStoreType = EKeyStoreType.getFromIDOrNull (sKeyStoreType);
     final IFileItem aKeyStoreFile = aWPEC.params ().getAsFileItem (FIELD_KEYSTORE_FILE);
