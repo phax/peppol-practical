@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.testendpoint;
 
+import java.util.function.Predicate;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -26,7 +28,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
-import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.helper.CollectionSort;
@@ -41,6 +42,7 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
+import jakarta.annotation.Nonnull;
 
 public final class TestEndpointManager extends AbstractPhotonSimpleDAO
 {
@@ -55,12 +57,24 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     initialRead ();
   }
 
+  private void _addTestEndpoint (@NonNull final TestEndpoint aTestEndpoint)
+  {
+    ValueEnforcer.notNull (aTestEndpoint, "TestEndpoint");
+
+    final String sTestEndpointID = aTestEndpoint.getID ();
+    if (m_aMap.containsKey (sTestEndpointID))
+      throw new IllegalArgumentException ("TestEndpoint ID '" + sTestEndpointID + "' is already in use!");
+    m_aMap.put (sTestEndpointID, aTestEndpoint);
+  }
+
   @Override
   @NonNull
   protected EChange onRead (@NonNull final IMicroDocument aDoc)
   {
     for (final IMicroElement eTestEndpoint : aDoc.getDocumentElement ().getAllChildElements (ELEMENT_ITEM))
+    {
       _addTestEndpoint (MicroTypeConverter.convertToNative (eTestEndpoint, TestEndpoint.class));
+    }
     return EChange.UNCHANGED;
   }
 
@@ -73,16 +87,6 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     for (final TestEndpoint aTestEndpoint : CollectionSort.getSortedByKey (m_aMap).values ())
       eRoot.addChild (MicroTypeConverter.convertToMicroElement (aTestEndpoint, ELEMENT_ITEM));
     return aDoc;
-  }
-
-  private void _addTestEndpoint (@NonNull final TestEndpoint aTestEndpoint)
-  {
-    ValueEnforcer.notNull (aTestEndpoint, "TestEndpoint");
-
-    final String sTestEndpointID = aTestEndpoint.getID ();
-    if (m_aMap.containsKey (sTestEndpointID))
-      throw new IllegalArgumentException ("TestEndpoint ID '" + sTestEndpointID + "' is already in use!");
-    m_aMap.put (sTestEndpointID, aTestEndpoint);
   }
 
   @NonNull
@@ -198,15 +202,48 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
   }
 
   @NonNull
+  public EChange undeleteTestEndpoint (@Nullable final String sTestEndpointID)
+  {
+    final TestEndpoint aTestEndpoint = getTestEndpointOfID (sTestEndpointID);
+    if (aTestEndpoint == null)
+    {
+      AuditHelper.onAuditUndeleteFailure (TestEndpoint.OT, "no-such-id", sTestEndpointID);
+      return EChange.UNCHANGED;
+    }
+    if (!aTestEndpoint.isDeleted ())
+    {
+      AuditHelper.onAuditUndeleteFailure (TestEndpoint.OT, "not-deleted", sTestEndpointID);
+      return EChange.UNCHANGED;
+    }
+
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      if (BusinessObjectHelper.setUndeletionNow (aTestEndpoint).isUnchanged ())
+      {
+        AuditHelper.onAuditUndeleteFailure (TestEndpoint.OT, "already-undeleted", aTestEndpoint.getID ());
+        return EChange.UNCHANGED;
+      }
+      markAsChanged ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+    AuditHelper.onAuditUndeleteSuccess (TestEndpoint.OT, aTestEndpoint.getID ());
+    return EChange.CHANGED;
+  }
+
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsCollection <? extends TestEndpoint> getAllActiveTestEndpoints ()
+  public ICommonsList <TestEndpoint> getAllTestEndpoints (@Nonnull final Predicate <? super TestEndpoint> aFilter)
   {
     m_aRWLock.readLock ().lock ();
     try
     {
       final ICommonsList <TestEndpoint> ret = new CommonsArrayList <> ();
       for (final TestEndpoint aItem : m_aMap.values ())
-        if (!aItem.isDeleted ())
+        if (aFilter.test (aItem))
           ret.add (aItem);
       return ret;
     }
@@ -216,21 +253,27 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     }
   }
 
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <TestEndpoint> getAllTestEndpoints ()
+  {
+    return getAllTestEndpoints (x -> true);
+  }
+
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <TestEndpoint> getAllActiveTestEndpoints ()
+  {
+    return getAllTestEndpoints (TestEndpoint::isNotDeleted);
+  }
+
   @Nullable
   public TestEndpoint getTestEndpointOfID (@Nullable final String sID)
   {
     if (StringHelper.isEmpty (sID))
       return null;
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.get (sID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLockedGet ( () -> m_aMap.get (sID));
   }
 
   public boolean containsTestEndpointWithID (@Nullable final String sID)
@@ -238,15 +281,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     if (StringHelper.isEmpty (sID))
       return false;
 
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aMap.containsKey (sID);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLockedBoolean ( () -> m_aMap.containsKey (sID));
   }
 
   @Nullable

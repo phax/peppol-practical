@@ -55,6 +55,7 @@ import com.helger.photon.bootstrap4.form.BootstrapForm;
 import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
 import com.helger.photon.bootstrap4.form.BootstrapViewForm;
 import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
+import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerUndelete;
 import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDTColAction;
 import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.form.FormErrorList;
@@ -88,7 +89,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                 @NonNull final BootstrapForm aForm,
                                 @NonNull final TestEndpoint aSelectedObject)
       {
-        aForm.addChild (question ("Are you sure you want to delete the Test Endpoint '" +
+        aForm.addChild (question ("Are you sure you want to delete the Peppol Test Endpoint '" +
                                   aSelectedObject.getParticipantIDValue () +
                                   "' for Transport Profile '" +
                                   SharedUIHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
@@ -102,9 +103,35 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       {
         final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
         if (aTestEndpointMgr.deleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
-          aWPEC.postRedirectGetInternal (success ("The Test Endpoint was successfully deleted!"));
+          aWPEC.postRedirectGetInternal (success ("The Peppol Test Endpoint was successfully deleted!"));
         else
-          aWPEC.postRedirectGetInternal (error ("Error deleting the Test Endpoint!"));
+          aWPEC.postRedirectGetInternal (error ("Error deleting the Peppol Test Endpoint!"));
+      }
+    });
+    setUndeleteHandler (new AbstractBootstrapWebPageActionHandlerUndelete <TestEndpoint, WebPageExecutionContext> ()
+    {
+      @Override
+      protected void showQuery (@NonNull final WebPageExecutionContext aWPEC,
+                                @NonNull final BootstrapForm aForm,
+                                @NonNull final TestEndpoint aSelectedObject)
+      {
+        aForm.addChild (question ("Are you sure you want to undelete the Peppol Test Endpoint '" +
+                                  aSelectedObject.getParticipantIDValue () +
+                                  "' for Transport Profile '" +
+                                  SharedUIHelper.getSMPTransportProfileShortName (aSelectedObject.getTransportProfile ()) +
+                                  "'?"));
+      }
+
+      @Override
+      @OverrideOnDemand
+      protected void performAction (@NonNull final WebPageExecutionContext aWPEC,
+                                    @NonNull final TestEndpoint aSelectedObject)
+      {
+        final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
+        if (aTestEndpointMgr.undeleteTestEndpoint (aSelectedObject.getID ()).isChanged ())
+          aWPEC.postRedirectGetInternal (success ("The Peppol Test Endpoint was successfully undeleted!"));
+        else
+          aWPEC.postRedirectGetInternal (error ("Error undeleting the Peppol Test Endpoint!"));
       }
     });
   }
@@ -155,7 +182,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       return aSelectedObject.isDeleted () && aLIUM.isCurrentUserAdministrator ();
 
     if (eFormAction.isCopy ())
-      return false;
+    {}
 
     // Only logged in users can create something
     return aLIUM.isUserLoggedInInCurrentSession ();
@@ -177,8 +204,11 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
   {
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
+    if (aSelectedObject.isDeleted ())
+      aNodeList.addChild (warn ("The Peppol Test Endpoint is deleted"));
+
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
-    aForm.setLeft (12, 12, 12, 3, 2);
+    aForm.setLeft (12, 12, 4, 3, 2);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Creation")
                                                  .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
                                                                                      aSelectedObject.getCreationDateTime (),
@@ -226,51 +256,47 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                 @NonNull final FormErrorList aFormErrors)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    final BootstrapForm aRealForm = aForm;
-    aRealForm.setLeft (3);
-    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
-                                                                                             aSelectedObject == null
-                                                                                                                     ? null
-                                                                                                                     : aSelectedObject.getCompanyName ())))
-                                                     .setHelpText ("The name of the company operating the test AccessPoint")
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_COMPANY_NAME)));
-    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_CONTACT_PERSON,
-                                                                                             aSelectedObject == null
-                                                                                                                     ? null
-                                                                                                                     : aSelectedObject.getContactPerson ())))
-                                                     .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
-    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier issuing agency")
-                                                     .setCtrl (new ParticipantIdentifierSchemeSelect (new RequestField (FIELD_PARTICIPANT_ID_ISSUER,
-                                                                                                                        aSelectedObject ==
-                                                                                                                                                     null ? null
-                                                                                                                                                          : aSelectedObject.getParticipantIDIssuer ()),
-                                                                                                      aDisplayLocale))
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISSUER)));
-    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
-                                                     .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE,
-                                                                                             aSelectedObject == null
-                                                                                                                     ? null
-                                                                                                                     : aSelectedObject.getParticipantIDValue ())))
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
-    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
-                                                     .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE,
-                                                                                                                aSelectedObject ==
-                                                                                                                                         null ? null
-                                                                                                                                              : aSelectedObject.getTransportProfile ()
-                                                                                                                                                               .getID ()),
-                                                                                              aDisplayLocale))
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
-    aRealForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
-                                                     .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML,
-                                                                                                             aSelectedObject ==
-                                                                                                                        null ? null
-                                                                                                                             : aSelectedObject.getSML ()
-                                                                                                                                              .getID ()),
-                                                                                           false))
-                                                     .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
+    aForm.setLeft (12, 12, 4, 3, 2);
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
+                                                                                         aSelectedObject == null ? null
+                                                                                                                 : aSelectedObject.getCompanyName ())))
+                                                 .setHelpText ("The name of the company operating the test AccessPoint")
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_COMPANY_NAME)));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Contact person")
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_CONTACT_PERSON,
+                                                                                         aSelectedObject == null ? null
+                                                                                                                 : aSelectedObject.getContactPerson ())))
+                                                 .setHelpText ("The contact person being in charge of the test endpoint. This field is free text and may contain an optional email address.")
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier issuing agency")
+                                                 .setCtrl (new ParticipantIdentifierSchemeSelect (new RequestField (FIELD_PARTICIPANT_ID_ISSUER,
+                                                                                                                    aSelectedObject ==
+                                                                                                                                                 null ? null
+                                                                                                                                                      : aSelectedObject.getParticipantIDIssuer ()),
+                                                                                                  aDisplayLocale))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISSUER)));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
+                                                 .setCtrl (new HCEdit (new RequestField (FIELD_PARTICIPANT_ID_VALUE,
+                                                                                         aSelectedObject == null ? null
+                                                                                                                 : aSelectedObject.getParticipantIDValue ())))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
+                                                 .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE,
+                                                                                                            aSelectedObject ==
+                                                                                                                                     null ? null
+                                                                                                                                          : aSelectedObject.getTransportProfile ()
+                                                                                                                                                           .getID ()),
+                                                                                          aDisplayLocale))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
+    aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
+                                                 .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML,
+                                                                                                         aSelectedObject ==
+                                                                                                                    null ? null
+                                                                                                                         : aSelectedObject.getSML ()
+                                                                                                                                          .getID ()),
+                                                                                       false))
+                                                 .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
   }
 
   @Override
@@ -371,7 +397,9 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
     final HCNodeList aNodeList = aWPEC.getNodeList ();
     final TestEndpointManager aTestEndpointMgr = PPMetaManager.getTestEndpointMgr ();
-    final boolean bUserIsLoggedIn = LoggedInUserManager.getInstance ().isUserLoggedInInCurrentSession ();
+    final LoggedInUserManager aLIUM = LoggedInUserManager.getInstance ();
+    final boolean bUserIsLoggedIn = aLIUM.isUserLoggedInInCurrentSession ();
+    final boolean bUserIsAdmin = aLIUM.isCurrentUserAdministrator ();
 
     // Toolbar on top
     final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
@@ -392,12 +420,17 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                         new DTCol ("SML"),
                                         new BootstrapDTColAction (aDisplayLocale)).setID (getID ());
 
-    for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllActiveTestEndpoints ())
+    for (final TestEndpoint aCurObject : aTestEndpointMgr.getAllTestEndpoints ())
     {
+      // Show deleted objects only to admin
+      if (aCurObject.isDeleted () && !bUserIsAdmin)
+        continue;
+
       final ISimpleURL aViewLink = createViewURL (aWPEC, aCurObject);
 
       final HCRow aRow = aTable.addBodyRow ();
-      aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName ()));
+      aRow.addCell (new HCA (aViewLink).addChild (aCurObject.getDisplayName () +
+                                                  (aCurObject.isDeleted () ? " [DELETED]" : "")));
       aRow.addCell (aCurObject.getCompanyName ());
       aRow.addCell (SharedUIHelper.getSMPTransportProfileShortName (aCurObject.getTransportProfile ()));
       aRow.addCell (aCurObject.getSML ().getDisplayName ());
@@ -415,7 +448,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
         aActionCell.addChild (createEmptyAction ());
       aActionCell.addChild (new HCTextNode (" "));
 
-      if (bUserIsLoggedIn)
+      if (isActionAllowed (aWPEC, EWebPageFormAction.COPY, aCurObject))
         aActionCell.addChild (createCopyLink (aWPEC, aCurObject));
       else
         aActionCell.addChild (createEmptyAction ());
@@ -425,6 +458,12 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       aActionCell.addChild (new HCA (_createParticipantInfoURL (aWPEC, aCurObject)).setTitle (
                                                                                               "Show participant information")
                                                                                    .addChild (EDefaultIcon.MAGNIFIER.getAsNode ()));
+
+      if (isActionAllowed (aWPEC, EWebPageFormAction.UNDELETE, aCurObject))
+      {
+        aActionCell.addChild (createUndeleteLink (aWPEC, aCurObject));
+        aActionCell.addChild (new HCTextNode (" "));
+      }
     }
     aNodeList.addChild (aTable);
 
