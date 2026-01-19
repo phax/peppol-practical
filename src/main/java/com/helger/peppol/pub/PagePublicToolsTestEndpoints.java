@@ -69,7 +69,6 @@ import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.url.ISimpleURL;
 import com.helger.url.SimpleURL;
 
-
 public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEndpoint>
 {
   private static final String FIELD_COMPANY_NAME = "companyname";
@@ -81,7 +80,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
 
   public PagePublicToolsTestEndpoints (@NonNull @Nonempty final String sID)
   {
-    super (sID, "Test Endpoints");
+    super (sID, "Peppol Test Endpoints");
     setDeleteHandler (new AbstractBootstrapWebPageActionHandlerDelete <TestEndpoint, WebPageExecutionContext> ()
     {
       @Override
@@ -179,6 +178,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     final HCNodeList aNodeList = aWPEC.getNodeList ();
 
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
+    aForm.setLeft (12, 12, 12, 3, 2);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Creation")
                                                  .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
                                                                                      aSelectedObject.getCreationDateTime (),
@@ -376,7 +376,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
     // Toolbar on top
     final BootstrapButtonToolbar aToolbar = aNodeList.addAndReturnChild (new BootstrapButtonToolbar (aWPEC));
     if (bUserIsLoggedIn)
-      aToolbar.addButtonNew ("List your existing Test Endpoints", createCreateURL (aWPEC));
+      aToolbar.addButtonNew ("Create Test Endpoint", createCreateURL (aWPEC));
     else
       aToolbar.addChild (badgeInfo ("You need to be logged in to register Test Endpoints."));
 
