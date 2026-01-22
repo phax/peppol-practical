@@ -25,8 +25,8 @@ import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
 import com.helger.peppol.sharedui.page.pub.PagePublicContact;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsDDD;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsIdentifierInformation;
-import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantCheck;
-import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantCheckBelgium;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsPeppolParticipantCheck;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsPeppolParticipantCheckBelgium;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
@@ -132,10 +132,10 @@ public final class MenuPublic
                                                                                           "Tools",
                                                                                           aMenuTree));
       final IMenuItemPage aCheck = aMenuTree.createItem (aSetup,
-                                                         new PagePublicToolsParticipantCheck (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK));
+                                                         new PagePublicToolsPeppolParticipantCheck (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK));
       {
         aMenuTree.createItem (aCheck,
-                              new PagePublicToolsParticipantCheckBelgium (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK_BE));
+                              new PagePublicToolsPeppolParticipantCheckBelgium (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_CHECK_BE));
       }
       aMenuTree.createItem (aSetup,
                             new PagePublicToolsParticipantInformation (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_INFO,
