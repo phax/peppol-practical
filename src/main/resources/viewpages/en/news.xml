@@ -25,7 +25,8 @@
 </p>
 
 <ul class="nav nav-tabs">
-  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2025</a></li>
+  <li class="nav-item"><a class="nav-link active" href="#tabs-news" data-toggle="tab">2026</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-2025" data-toggle="tab">2025</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2024" data-toggle="tab">2024</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2023" data-toggle="tab">2023</a></li>
   <li class="nav-item"><a class="nav-link" href="#tabs-2022" data-toggle="tab">2022</a></li>
@@ -42,10 +43,41 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-01-23 - Document Validation extended</h3>
+    
+    <p>
+      Added support for HR eRacun Credit Note 1.0.1 rules<br/>
+      Added support for OIOUBL 1.17.0-RC rules.
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.1</code> - HR eRacun Credit Note 1.0.1</li>
+<li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.1</code> - HR eRacun Invoice 1.0.1</li>
+<li><code>dk.oioubl:application-response:1.17-rc</code> - OIOUBL Application Response 1.17.0-rc</li>
+<li><code>dk.oioubl:catalogue:1.17-rc</code> - OIOUBL Catalogue 1.17.0-rc</li>
+<li><code>dk.oioubl:catalogue-deletion:1.17-rc</code> - OIOUBL Catalogue Deletion 1.17.0-rc</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.17-rc</code> - OIOUBL Catalogue Item Specification Update 1.17.0-rc</li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.17-rc</code> - OIOUBL Catalogue Pricing Update 1.17.0-rc</li>
+<li><code>dk.oioubl:catalogue-request:1.17-rc</code> - OIOUBL Catalogue Request 1.17.0-rc</li>
+<li><code>dk.oioubl:credit-note:1.17-rc</code> - OIOUBL Credit Note 1.17.0-rc</li>
+<li><code>dk.oioubl:invoice:1.17-rc</code> - OIOUBL Invoice 1.17.0-rc</li>
+<li><code>dk.oioubl:order:1.17-rc</code> - OIOUBL Order 1.17.0-rc</li>
+<li><code>dk.oioubl:order-cancellation:1.17-rc</code> - OIOUBL Order Cancellation 1.17.0-rc</li>
+<li><code>dk.oioubl:order-change:1.17-rc</code> - OIOUBL Order Change 1.17.0-rc</li>
+<li><code>dk.oioubl:order-response:1.17-rc</code> - OIOUBL Order Response 1.17.0-rc</li>
+<li><code>dk.oioubl:order-response-simple:1.17-rc</code> - OIOUBL Order Response Simple 1.17.0-rc</li>
+<li><code>dk.oioubl:reminder:1.17-rc</code> - OIOUBL Reminder 1.17.0-rc</li>
+<li><code>dk.oioubl:statement:1.17-rc</code> - OIOUBL Statement 1.17.0-rc</li>
+<li><code>dk.oioubl:utility-statement:1.17-rc</code> - OIOUBL Utility Statement 1.17.0-rc</li>
+</ul>
+
     <h3>2026-01-13 - Document Validation extended</h3>
     
     <p>
-      Added support for Peppol AE TDD 1.0.1 rules
+      Added support for Peppol AE TDD 1.0.1 rules.
     </p>
 
     <p>
@@ -55,6 +87,8 @@
 <li><code>org.peppol.taxdata:ae:1.0.1</code> - AE Tax Data Document v1.0.1</li>
 </ul>
 
+  </div>
+  <div id="tabs-2025" class="tab-pane" role="tabpanel">
     <h3>2025-12-29 - Peppol News</h3>
     
     <ul>
