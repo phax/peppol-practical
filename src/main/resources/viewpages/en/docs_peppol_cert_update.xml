@@ -173,14 +173,14 @@
 </p>
 
 <p>
-  The SMK/SML links your SMP-ID with your SMP certificate and your public SMP URL.
+  The SMK/SML links your SMP-ID with your SMP certificate and your public SMP-URL.
   In case of a certificate update, the SML offers a special SOAP interface to indicate a future certificate change.
   This interface can only be used, if the certificate exchange happens in the future, and the date provided must at least
     be tomorrow (the day after the date of request).
-  The SML will replace the certificate at the provided date at 02:00am Brussels Time (CET/CEST).
-  Additionally, your existing certificate may not be expired yet for this to work.
-  You can perform this certificate update request e.g. via <a href="/public/menuitem-tools-smp-sml">this site</a> but keep in mind that this requires your private key.
-  Common SMP software like <a href="https://github.com/phax/phoss-smp">phoss SMP</a> contains this functionality "out of the box".<br/>
+  The SML will replace the certificate at the provided date at 02:00am Brussels Time (CET/CEST).<br />
+  This only works, if your existing Peppol SMP certificate is still valid and not expired.<br />
+  The preferred way to do this is from inside your SMP solution - <a href="https://github.com/phax/phoss-smp">phoss SMP</a> provides the administration page "SML certificate update".
+  Alternatively, you can perform this certificate update request e.g. via <a href="/public/menuitem-tools-smp-sml">this site</a> but keep in mind that this requires you to provide your private key.<br />
   Note: you need to manually update your SMP certificate in your SMP software at exactly the date you specified in that update request, otherwise you won't be able to perform changes in the SML anymore.
 </p>
 <p>  
@@ -191,7 +191,7 @@
     by email and provide the following information:
 </p>
 <ul>
-  <li>old certificate subject and certificate serial number</li>
+  <li>old certificate: subject and certificate serial number</li>
   <li>new certificate file (PEM encoded, should start with <code>-----BEGIN CERTIFICATE-----</code> and end with <code>-----END CERTIFICATE-----</code>)</li>
 </ul>
 <p>    
