@@ -67,7 +67,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1268 entries -->
+<!-- 1278 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -122,7 +122,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.11</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.11</li>
 <li><code>eu.peppol.bis3.aunz.ubl:invoice-self-billing:1.0.12</code> - A-NZ Peppol BIS3 Invoice Self-Billing (UBL) 1.0.12</li>
 <li><code>org.peppol.taxdata:ae:1</code> - AE Tax Data Document v1.0.0 <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.taxdata:ae:1.0.1</code> - AE Tax Data Document v1.0.1</li>
+<li><code>org.peppol.taxdata:ae:1.0.1</code> - AE Tax Data Document v1.0.1 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.taxdata:ae:1.0.2</code> - AE Tax Data Document v1.0.2</li>
 <li><code>it.peppol:creditnote:3.0.2</code> - AGID Peppol Credit Note (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:creditnote:3.1</code> - AGID Peppol Credit Note (3.1.0) (for BIS 3.0.17)</li>
 <li><code>it.peppol:creditnote:3.2.1</code> - AGID Peppol Credit Note (3.2.1) (for BIS 3.0.18)</li>
@@ -336,16 +337,25 @@ A very small Java WS client is available for
 <li><code>fi.finvoice:finvoice:1.3</code> - Finvoice 1.3</li>
 <li><code>fi.finvoice:finvoice:2.0.1</code> - Finvoice 2.0.1</li>
 <li><code>fr.ctc:cdar:1.2</code> - France CTC CDAR 1.2</li>
+<li><code>fr.ctc:cdar:1.3</code> - France CTC CDAR 1.3</li>
 <li><code>fr.ctc:cii:0.1</code> - France CTC CII 0.1 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:cii:1.2</code> - France CTC CII 1.2</li>
-<li><code>fr.ctc:ubl-creditnote:0.1</code> - France CTC Credit Note 0.1 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:ubl-creditnote:1.2</code> - France CTC Credit Note 1.2</li>
-<li><code>fr.ctc:ubl-invoice:0.1</code> - France CTC Invoice 0.1 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:ubl-invoice:1.2</code> - France CTC Invoice 1.2</li>
-<li><code>hr.gov.porezna.eracun:ubl-creditnote:1</code> - HR eRacun Credit Note 1</li>
+<li><code>fr.ctc:cii:1.3</code> - France CTC CII 1.3</li>
+<li><code>fr.ctc:ubl-creditnote:0.1</code> - France CTC UBL Credit Note 0.1 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:ubl-creditnote:1.2</code> - France CTC UBL Credit Note 1.2</li>
+<li><code>fr.ctc:ubl-creditnote:1.3</code> - France CTC UBL Credit Note 1.3</li>
+<li><code>fr.ctc:ubl-invoice:0.1</code> - France CTC UBL Invoice 0.1 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:ubl-invoice:1.2</code> - France CTC UBL Invoice 1.2</li>
+<li><code>fr.ctc:ubl-invoice:1.3</code> - France CTC UBL Invoice 1.3</li>
+<li><code>fr.ctc:extended-cii:1.3</code> - France Extended CTC CII 1.3</li>
+<li><code>fr.ctc:extended-ubl-creditnote:1.3</code> - France Extended CTC UBL Credit Note 1.3</li>
+<li><code>fr.ctc:extended-ubl-invoice:1.3</code> - France Extended CTC UBL Invoice 1.3</li>
+<li><code>hr.gov.porezna.eracun:ubl-creditnote:1</code> - HR eRacun Credit Note 1 <strong>(Deprecated)</strong></li>
 <li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.1</code> - HR eRacun Credit Note 1.0.1</li>
-<li><code>hr.gov.porezna.eracun:ubl-invoice:1</code> - HR eRacun Invoice 1</li>
+<li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.2</code> - HR eRacun Credit Note 1.0.2</li>
+<li><code>hr.gov.porezna.eracun:ubl-invoice:1</code> - HR eRacun Invoice 1 <strong>(Deprecated)</strong></li>
 <li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.1</code> - HR eRacun Invoice 1.0.1</li>
+<li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.2</code> - HR eRacun Invoice 1.0.2</li>
 <li><code>cz.isdoc:isdoc:6.0.1</code> - ISDOC 6.0.1 <strong>(Deprecated)</strong></li>
 <li><code>cz.isdoc:isdoc:6.0.2</code> - ISDOC 6.0.2</li>
 <li><code>pl.ksef:ksef:1</code> - KSeF 1 <strong>(Deprecated)</strong></li>
@@ -1262,8 +1272,8 @@ A very small Java WS client is available for
 <li><code>de.xrechnung.extension:cii:2.3.1</code> - XRechnung CII 2.3.1Extension <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:cii:3.0.1</code> - XRechnung CII 3.0.1</li>
 <li><code>de.xrechnung.extension:cii:3.0.1</code> - XRechnung CII 3.0.1 Extension</li>
-<li><code>de.xrechnung:cii:3.0.2</code> - XRechnung CII 3.0.2 (rules v2.4.0)</li>
-<li><code>de.xrechnung.extension:cii:3.0.2</code> - XRechnung CII 3.0.2 Extension (rules v2.4.0)</li>
+<li><code>de.xrechnung:cii:3.0.2</code> - XRechnung CII 3.0.2 (rules v2.5.0)</li>
+<li><code>de.xrechnung.extension:cii:3.0.2</code> - XRechnung CII 3.0.2 Extension (rules v2.5.0)</li>
 <li><code>de.xrechnung:ubl-creditnote:2</code> - XRechnung UBL Credit Note 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:3</code> - XRechnung UBL Credit Note 3</li>
 <li><code>de.xrechnung:ubl-creditnote:1.2</code> - XRechnung UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
@@ -1274,7 +1284,7 @@ A very small Java WS client is available for
 <li><code>de.xrechnung:ubl-creditnote:2.1.1</code> - XRechnung UBL Credit Note 2.1.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:2.3.1</code> - XRechnung UBL Credit Note 2.3.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:3.0.1</code> - XRechnung UBL Credit Note 3.0.1</li>
-<li><code>de.xrechnung:ubl-creditnote:3.0.2</code> - XRechnung UBL Credit Note 3.0.2 (rules v2.4.0)</li>
+<li><code>de.xrechnung:ubl-creditnote:3.0.2</code> - XRechnung UBL Credit Note 3.0.2 (rules v2.5.0)</li>
 <li><code>de.xrechnung:ubl-invoice:2</code> - XRechnung UBL Invoice 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:3</code> - XRechnung UBL Invoice 3</li>
 <li><code>de.xrechnung.extension:ubl-invoice:3</code> - XRechnung UBL Invoice 3 Extension</li>
@@ -1291,8 +1301,8 @@ A very small Java WS client is available for
 <li><code>de.xrechnung.extension:ubl-invoice:2.3.1</code> - XRechnung UBL Invoice 2.3.1 Extension <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1</li>
 <li><code>de.xrechnung.extension:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1 Extension</li>
-<li><code>de.xrechnung:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 (rules v2.4.0)</li>
-<li><code>de.xrechnung.extension:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 Extension (rules v2.4.0)</li>
+<li><code>de.xrechnung:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 (rules v2.5.0)</li>
+<li><code>de.xrechnung.extension:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 Extension (rules v2.5.0)</li>
 <li><code>sa.zatca:ubl-invoice:2.0.3</code> - ZATCA/FATOORA Invoice (SDK 2.0.3) <strong>(Deprecated)</strong></li>
 <li><code>sa.zatca:ubl-invoice:2.3.8</code> - ZATCA/FATOORA Invoice (SDK 2.3.8)</li>
 <li><code>de.zugferd:basic:2.1</code> - ZUGFeRD 2.1 (BASIC) <strong>(Deprecated)</strong></li>
