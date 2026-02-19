@@ -82,7 +82,7 @@
 </p>
 
 <p>
-  The Peppol PKI update that happened in 2018 was a special case of a certificate update, because it
+  The Peppol PKI update from G2 to G3 (in 2026) was a special case of a certificate update, because it
   required to update the <em>truststore</em> as well, because a completely new PKI was introduced.
   Regular certificate updates only contain updates of <em>keystores</em>.
 </p>
