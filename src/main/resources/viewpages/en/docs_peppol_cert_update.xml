@@ -77,7 +77,6 @@
   that can be found at 
   <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore" target="_blank">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>
   and try to serve different requirements.
-  E.g. <em>phoss SMP</em> uses the <code>complete-truststore.jks</code> by default.
   <em>Truststores</em> are usually public and should not contain secret keys.
   Theoretically <em>keystore</em> and <em>truststore</em> can reside in the same file, but that is considered bad practice. 
 </p>

@@ -120,7 +120,8 @@
     <div>
       Complete JKS files with all of the new root certificates are available at 
       <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>.
-      The recommended one is <code>complete-truststore.jks</code> as it contains all certificates.
+      The (previously) recommended one is <code>complete-truststore.jks</code> as it contains all certificates.
+      From a security perspective it is better to separate the truststore between test and production.
     </div>
   </li>
   <li>
