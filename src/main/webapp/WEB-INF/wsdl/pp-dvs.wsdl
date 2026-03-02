@@ -227,7 +227,7 @@ or false if validation was executed for all layers</xs:documentation>
   <wsdl:service name="WSDVSService">
     <wsdl:documentation>SOAP service WSDVS</wsdl:documentation>
     <wsdl:port name="WSDVSPort" binding="tns:WSDVSBinding">
-      <soap:address location="http://peppol.helger.com/wsdvs" />
+      <soap:address location="https://peppol.helger.com/wsdvs" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
