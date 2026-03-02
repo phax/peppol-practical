@@ -276,7 +276,7 @@ public class WSDVS implements WSDVSPort
       for (final ValidationResult aVR : aVRL)
       {
         final ValidationResultType aVRT = new ValidationResultType ();
-        if (aVR.isSkipped ())
+        if (aVR.getValidity ().isSkipped ())
         {
           bValidationInterrupted = true;
           aVRT.setSuccess (TriStateType.UNDEFINED);

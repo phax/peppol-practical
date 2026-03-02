@@ -105,7 +105,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
       final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aWPEC);
       final BootstrapForm aForm = aToolbar.addAndReturnChild (new BootstrapForm (aWPEC).setFormType (EBootstrapFormType.INLINE));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new HCVESSelect (new RequestField (FIELD_VESID),
-                                                                                         aDisplayLocale)));
+                                                                              aDisplayLocale)));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new ActionSelect (new RequestField (CPageParam.PARAM_ACTION))));
       aForm.addFormGroup (new BootstrapFormGroup ().setCtrl (new HCCheckBox (new RequestFieldBoolean (FIELD_STYLE_OUTPUT,
                                                                                                       DEFAULT_STYLE_OUTPUT)),
@@ -138,7 +138,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
         {
           final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
           final IValidationType aType = aVE.getValidationArtefact ().getValidationType ();
-          if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH)
+          if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH_ISO_XSLT2)
           {
             IHCNode aTabContent;
             try
@@ -188,7 +188,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
             aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
           }
           else
-            if (aType == EValidationType.SCHEMATRON_XSLT)
+            if (aType == EValidationType.SCHEMATRON_XSLT2)
             {
               final IHCNode aTabContent = info ("This is already XSLT");
               aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
@@ -217,7 +217,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
           {
             final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
             final IValidationType aType = aVE.getValidationArtefact ().getValidationType ();
-            if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH)
+            if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH_ISO_XSLT2)
             {
               IHCNode aTabContent;
               try
@@ -249,7 +249,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
               aTabBox.addTab ("t" + aTabBox.getTabCount (), FilenameHelper.getBaseName (aRes.getPath ()), aTabContent);
             }
             else
-              if (aType == EValidationType.SCHEMATRON_XSLT)
+              if (aType == EValidationType.SCHEMATRON_XSLT2)
               {
                 final IHCNode aTabContent = info ("This is already XSLT");
                 aTabBox.addTab ("t" + aTabBox.getTabCount (),
