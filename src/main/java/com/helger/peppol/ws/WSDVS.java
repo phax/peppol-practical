@@ -44,6 +44,7 @@ import com.helger.http.CHttp;
 import com.helger.http.CHttpHeader;
 import com.helger.io.file.FileHelper;
 import com.helger.peppol.api.rest.AbstractAPIExecutor;
+import com.helger.peppol.api.rest.PeppolAPIHelper;
 import com.helger.peppol.app.CPPApp;
 import com.helger.peppol.validate.VESRegistry;
 import com.helger.peppol.validate.config.SharedValidationConfig;
@@ -156,7 +157,8 @@ public class WSDVS implements WSDVSPort
     final HttpServletResponse aHttpResponse = (HttpServletResponse) m_aWSContext.getMessageContext ()
                                                                                 .get (MessageContext.SERVLET_RESPONSE);
 
-    final String sRateLimitKey = "ip:" + aHttpRequest.getRemoteAddr ();
+    final String sRemoteAddr = PeppolAPIHelper.getRemoteIPAddrProxyAware (aHttpRequest);
+    final String sRateLimitKey = "ip:" + sRemoteAddr;
     final boolean bOverRateLimit = m_aRequestRateLimiter != null ? m_aRequestRateLimiter.overLimitWhenIncremented (
                                                                                                                    sRateLimitKey)
                                                                  : false;
@@ -174,7 +176,7 @@ public class WSDVS implements WSDVSPort
         w.writeNext (SESSION_ID,
                      sInvocationUniqueID,
                      PDTFactory.getCurrentLocalDateTime ().toString (),
-                     aHttpRequest.getRemoteAddr (),
+                     sRemoteAddr,
                      Boolean.toString (bOverRateLimit),
                      aValidationRequest.getVESID (),
                      Integer.toString (StringHelper.getLength (aValidationRequest.getXML ())),
@@ -187,7 +189,7 @@ public class WSDVS implements WSDVSPort
     });
 
     LOGGER.info ("Start validating business document with SOAP WS; source [" +
-                 aHttpRequest.getRemoteAddr () +
+                 sRemoteAddr +
                  ":" +
                  aHttpRequest.getRemotePort () +
                  "]; VESID '" +
