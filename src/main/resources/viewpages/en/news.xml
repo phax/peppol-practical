@@ -50,7 +50,7 @@
       This version focuses on dealing with the validity dates of SMP endpoints. 
     </p>
     <ul>
-      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-8.1.2">Download phoss SMP 7.1.7</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-8.1.2">Download phoss SMP 8.1.2</a></li>
       <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
       <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
     </ul>
