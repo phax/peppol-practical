@@ -43,6 +43,34 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-03-03 - phoss SMP 8.1.2 release</h3>
+    
+    <p>
+      phoss SMP 8.1.2 was released. It supports the Peppol SMP specification 1.4.0 and the Peppol Code Lists v9.5.
+      This version focuses on dealing with the validity dates of SMP endpoints. 
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-8.1.2">Download phoss SMP 7.1.7</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
+    <h3>2026-03-03 - Document Validation updated</h3>
+    
+    <p>
+      Removed support for OIOUBL 3.x rules
+    </p>
+
+    <p>
+      Removed VESIDs are:
+    </p>
+<ul>
+<li><code>dk.oioubl:credit-note:3.0.1</code> - OIOUBL Credit Note 3.0.1</li>
+<li><code>dk.oioubl:invoice:3.0.1</code> - OIOUBL Invoice 3.0.1</li>
+<li><code>dk.oioubl:invoice-response:3.0.1</code> - OIOUBL Invoice Response 3.0.1</li>
+<li><code>dk.oioubl:mlr:3.0.1</code> - OIOUBL Message Level Response 3.0.1</li>
+</ul>
+
     <h3>2026-02-18 - Document Validation extended</h3>
     
     <p>
