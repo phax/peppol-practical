@@ -43,6 +43,19 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-03-18 - Phorm is now Open Source</h3>
+    
+    <p>Phorm is now open source.<br />
+Phorm is a lightweight, API-first <strong>document validation service</strong> — built to make standards compliance simple. Think Peppol BIS3, XRechnung, ZUGFeRD, ZATCA and more, validated via a clean REST API.<br />
+Built on phive + phive-rules. Runs in Docker. Returns JSON, XML, or HTML. Just works.<br />
+Big thanks to everyone who encouraged and supported this — you know who you are!<br />
+Star it if it's useful: <a href="https://github.com/phax/phorm">https://github.com/phax/phorm</a>
+    </p>
+    
+    <p>
+And it integrates natively in phoss-ap - stay tuned for more details
+    </p>
+
     <h3>2026-03-03 - phoss SMP 8.1.2 release</h3>
     
     <p>
