@@ -43,6 +43,29 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-03-30 - Initial version of phoss-ap announced</h3>
+    
+    <p>
+      The first version that is feature-complete for the most use cases is available.
+      It's a complete Peppol AP solution - no coding is needed, only configuration. Ready-made Docker images are available.
+      It already supports MLS, automatic retrying, sending and forwarding from S3 etc.
+      Give it a try and grab it from <a href="https://github.com/phax/phoss-ap" target="_blank">https://github.com/phax/phoss-ap</a>.
+    </p>
+
+    <h3>2026-03-18 - Peppol SML Insourcing is ongoing</h3>
+    
+    <p>
+      Finally, OpenPeppol takes over the control of the SML operational instances.
+      Information on what to do was circulated by email:
+    </p>
+    
+    <ul>
+      <li>Lookup URL suffixes are changed to OpenPeppol domain - to be done until August 31<sup>st</sup>, 2026.
+          See <a href="https://github.com/phax/phase4/discussions/357" target="_blank">GitHub phase4 #357</a> for details how to deal with it in phase4.</li>
+      <li>SMP registration URLs need to be changed to OpenPeppol domains - to be done until May 31<sup>st</sup>, 2026.
+          See <a href="https://github.com/phax/phoss-smp/discussions/445" target="_blank">GitHub phoss-smp #445</a> for details how to deal with it in phoss-smp.</li>
+    </ul>
+
     <h3>2026-03-18 - Phorm is now Open Source</h3>
     
     <p>Phorm is now open source.<br />
