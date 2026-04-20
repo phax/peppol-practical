@@ -94,14 +94,14 @@
   "participantID":"iso6523-actorid-upis::9915:test",
   "urls":[
     {
-      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1",
+      "href":"https://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3ACreditNote-2%3A%3ACreditNote%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1",
       "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
       "niceName":"Peppol BIS Billing UBL Credit Note V3",
       "state":"act",
       "isDeprecated":false
     },
     {
-      "href":"http://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1",
+      "href":"https://test-infra.peppol.at/iso6523-actorid-upis%3A%3A9915%3Atest/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1",
       "documentTypeID":"busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
       "niceName":"Peppol BIS Billing UBL Invoice V3",
       "state":"act",
@@ -199,11 +199,11 @@
                 "CN":"POP000270"
               },
               "issuer":{
-                "name":"CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
+                "name":"CN=PEPPOL ACCESS POINT TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
                 "C":"BE",
                 "O":"OpenPEPPOL AISBL",
                 "OU":"FOR TEST ONLY",
-                "CN":"PEPPOL ACCESS POINT TEST CA - G2"
+                "CN":"PEPPOL ACCESS POINT TEST CA - G3"
               },
               "serial10":38982941322949190188120289136764319632,
               "serial16":"1d53d766154bd89f86fad36a305cf790",
@@ -331,12 +331,12 @@
 <pre>
 {
   "conversionDateTime":"2025-10-01T15:51:56.746634761Z",
-  "parsingDuractionMillis":86,
+  "parsingDurationMillis":86,
   "parsingErrors":[],
   "conversionVersion":"3.0.1",
   "conversionBuildTimestamp":"2025-09-19T12:55:25Z",
-  "conversionDuractionMillis":0,
-  "coversionErrors":[],
+  "conversionDurationMillis":0,
+  "conversionErrors":[],
   "ubl":"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;&lt;Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" xmlns:cec=\"urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2\" xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\"&gt;&lt;cbc:CustomizationID&gt;urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0&lt;/cbc:CustomizationID&gt;&lt;cbc:ProfileID&gt;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&lt;/cbc:ProfileID&gt;&lt;cbc:ID&gt;TOSL108&lt;/cbc:ID&gt;&lt;cbc:IssueDate&gt;2013-06-30&lt;/cbc:IssueDate&gt;&lt;!-- details omitted for readability --&gt;&lt;/Invoice&gt;"
 }
 </pre>

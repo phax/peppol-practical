@@ -94,7 +94,7 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
                                                                                                  .read (aRequestScope.getRequest ()
                                                                                                                      .getInputStream ());
     final long nParsingMillis = aSW.stopAndGetMillis ();
-    aJson.add ("parsingDuractionMillis", nParsingMillis);
+    aJson.add ("parsingDurationMillis", nParsingMillis);
 
     {
       final IJsonArray aParseErrors = new JsonArray ();
@@ -124,13 +124,13 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
       final Serializable aUBL = new CIIToUBL21Converter ().setUBLCreationMode (EUBLCreationMode.AUTOMATIC)
                                                           .convertCIItoUBL (aCIIInvoice, aErrorList);
       final long nConversionMillis = aSW.stopAndGetMillis ();
-      aJson.add ("conversionDuractionMillis", nConversionMillis);
+      aJson.add ("conversionDurationMillis", nConversionMillis);
 
       {
         final IJsonArray aConversionErrors = new JsonArray ();
         for (final IError aError : aErrorList.getAllFailures ())
           aConversionErrors.add (createItem (aError, aDisplayLocale));
-        aJson.add ("coversionErrors", aConversionErrors);
+        aJson.add ("conversionErrors", aConversionErrors);
       }
       if (aUBL != null)
       {

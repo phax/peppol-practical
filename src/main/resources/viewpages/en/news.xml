@@ -43,6 +43,21 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-04-20 - REST API: Breaking change in CII to UBL conversion response</h3>
+
+    <p>
+      The JSON response of the <a href="/public/menuitem-rest-api">CII to UBL conversion API</a> (<code>/api/convert/cii2ubl</code>) contained
+      typos in the following field names. These have been corrected:
+    </p>
+    <ul>
+      <li><code>parsingDuractionMillis</code> &rarr; <code>parsingDurationMillis</code></li>
+      <li><code>conversionDuractionMillis</code> &rarr; <code>conversionDurationMillis</code></li>
+      <li><code>coversionErrors</code> &rarr; <code>conversionErrors</code></li>
+    </ul>
+    <p>
+      If you are consuming this API, please update your client code accordingly.
+    </p>
+
     <h3>2026-03-30 - Initial version of phoss-ap announced</h3>
     
     <p>
