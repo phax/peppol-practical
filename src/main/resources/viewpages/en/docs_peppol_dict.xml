@@ -132,6 +132,13 @@
       </td>
     </tr>
     <tr>
+      <td>CA</td>
+      <td>Certificate Authority</td>
+      <td>
+        A trusted intermediate certificate as used in a PKI as e.g. in the Peppol PKI.
+      </td>
+    </tr>
+    <tr>
       <td>
         CC
         <br/><em><small>deprecated</small></em>
