@@ -62,8 +62,8 @@
   </li>
   <li>Allow TCP port <code>443</code> to SMK/SML
     <ul>
-      <li>Production: <code>edelivery.tech.ec.europa.eu</code></li>
-      <li>Test: <code>acc.edelivery.tech.ec.europa.eu</code></li>
+      <li>Production: <code>participant.sml.prod.tech.peppol.org</code></li>
+      <li>Test: <code>participant.sml.test.tech.peppol.org</code></li>
     </ul>
   </li>
 </ul>

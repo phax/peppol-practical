@@ -208,8 +208,8 @@
       <em>ID-SCHEME</em> is part of the input parameter - the scheme part of the participant identifier (usually this is <code>iso6523-actorid-upis</code>)<br />
       <em>ID-VALUE</em> is also part of the input parameter - the value part of the participant identifier<br />
       <em>DNSZONE</em> is the DNS zone in which the SML operates -
-        for the production SML that is <code>edelivery.tech.ec.europa.eu</code> and 
-        for the test SMK this is <code>acc.edelivery.tech.ec.europa.eu</code>.<br />
+        for the production SML that is <code>participant.sml.prod.tech.peppol.org</code> and
+        for the test SMK this is <code>participant.sml.test.tech.peppol.org</code>.<br />
       The DNS entry itself is a <em>NAPTR</em> record pointing to the SMP URL (!) 
         provided at the SMP to SML registration process (see above).<br />
     </li>

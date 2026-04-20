@@ -45,8 +45,8 @@
       PPID with scheme <code>iso6523-actorid-upis</code> and value <code>9915:test</code>
     </li>
     <li>
-      SML to use = DG DIGIT SMK (= the Test SML).
-      The DNS zone for the SMK is <code>acc.edelivery.tech.ec.europa.eu.</code>
+      SML to use = Test SML (SMK).
+      The DNS zone for the SMK is <code>participant.sml.test.tech.peppol.org.</code>
     </li>
   </ul>
 </p>
@@ -69,7 +69,7 @@
     </p>
     <p>
       For the identifier <code>iso6523-actorid-upis::9915:test</code> and the <code>SMK</code> the created domain is
-      <code>eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code>
+      <code>eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.participant.sml.test.tech.peppol.org</code>
     </p>
     <p>
       Second lookup step is to perform a DNS lookup with the created domain using the NAPTR record type.<br />
@@ -77,7 +77,7 @@
       For the example identifier above, the full command is
     </p>
     <p>  
-      <code>dig -t naptr +short eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu</code>
+      <code>dig -t naptr +short eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.participant.sml.test.tech.peppol.org</code>
     </p>
     <p>  
       and the output for this command is
