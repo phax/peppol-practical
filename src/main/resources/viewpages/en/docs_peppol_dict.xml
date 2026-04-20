@@ -59,7 +59,7 @@
         <a href="http://www.ietf.org/rfc/rfc4130.txt">RFC 4130</a>.
         This was the default transport protocol until 2020-01-31.
         It was replaced with <em>AS4</em>.
-        The usage of AS2 is supported until 2023-09-06 - see <a href="https://docs.peppol.eu/edelivery/codelists/">Transport Profiles Code List</a>. 
+        AS2 is no longer supported since 2023-09-06 - see <a href="https://docs.peppol.eu/edelivery/codelists/">Transport Profiles Code List</a>. 
       </td>
     </tr>
     <tr>
@@ -309,7 +309,7 @@
     <tr>
       <td>MLS</td>
       <td>Message Level Status</td>
-      <td>The proposed successor of the <em>MLR</em> specification maintained by eDEC.
+      <td>The successor of the <em>MLR</em> specification maintained by eDEC.
         See <a href="https://docs.peppol.eu/edelivery/">https://docs.peppol.eu/edelivery/</a> for the specification.</td>
     </tr>
     <tr>

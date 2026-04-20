@@ -40,13 +40,20 @@
 
 <h3>AP</h3>
 <ul>
-  <li>Allow TCP port <code>443</code> to <code>*</code> (all IPs) - for sending messages to another AP</li>  
-  <li>Allow TCP port <code>80</code> to <code>*</code> (all IPs) - for querying any SMP and to download CRL files from http://pki-crl.symauth.com/ (G2) or http://crl.one.nl.digicert.com/ (G3)</li>
+  <li>Allow TCP port <code>443</code> to <code>*</code> (all IPs) - for sending messages to another AP</li>
+  <li>Allow TCP port <code>80</code> to <code>*</code> (all IPs) - for querying any SMP and to download CRL files from <code>http://crl.one.nl.digicert.com/</code>:
+    <ul>
+      <li>Test AP: <code>http://crl.one.nl.digicert.com/PEPPOLACCESSPOINTTESTCA-G3.crl</code></li>
+      <li>Test SMP: <code>http://crl.one.nl.digicert.com/PEPPOLSERVICEMETADATAPUBLISHERTESTCA-G3.crl</code></li>
+      <li>Production AP: <code>http://crl.one.nl.digicert.com/PEPPOLACCESSPOINTCA-G3.crl</code></li>
+      <li>Production SMP: <code>http://crl.one.nl.digicert.com/PEPPOLSERVICEMETADATAPUBLISHERCA-G3.crl</code></li>
+    </ul>
+  </li>
 </ul>
 
 <h3>SMP</h3>
 <ul>
-  <li>Allow TCP port <code>80</code> to download CRL files from http://pki-crl.symauth.com/ (G2) or http://crl.one.nl.digicert.com/ (G3)</li>
+  <li>Allow TCP port <code>80</code> to download CRL files from <code>http://crl.one.nl.digicert.com/</code> (see AP section above for specific URLs)</li>
   <li>Allow TCP port <code>443</code> to Peppol Directory
     <ul>
       <li>Production: <code>directory.peppol.eu</code></li>
@@ -71,6 +78,5 @@
 
 <h3>SMP</h3>
 <ul>
-  <li>Until February 1<sup>st</sup>, 2026: Allow TCP port <code>80</code> from <code>*</code> (all IPs) - for being queried from any AP</li>
   <li>Allow TCP port <code>443</code> from <code>*</code> (all IPs) - for being queried from any AP</li>  
 </ul>

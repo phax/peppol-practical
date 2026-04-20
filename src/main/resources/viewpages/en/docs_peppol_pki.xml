@@ -29,7 +29,6 @@
   <div class="card-body">
     <ol>
       <li><a href="#pki4">Peppol PKI G3 (v4)</a></li>
-      <li><a href="#pki3">Peppol PKI G2 (v3)</a></li>
       <li><a href="#usage">Certificate usage in Peppol</a></li>
     </ol>
   </div>
@@ -51,39 +50,17 @@
 
 
 <p>
-  The migration process is as follows:
+  The migration from G2 to G3 was completed in Q1 2026. No new G2 certificates are issued since March 2026.
 </p>
 
-<ul>
-  <li>
-    August 2025
-    <ul>
-      <li>the new root certificates are available for download in 
-        <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/4344053761/Peppol+PKI+2025+-+Certificate+Authorities">OpenPeppol Confluence</a>.</li>
-      <li>Predefined Peppol truststores in PKCS12 format are available at 
-        <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>
-        for AP and SMP separate for Test and Production Peppol Network.
-        Note: no <em>complete truststore</em> is provided, as it is deemed insecure to trust test messages in production and vice versa</li>  
-    </ul>
-  </li>
-  <li>
-    Before 11 February 2026:
-    <ul>
-      <li>Ask for Peppol G3 test certificates</li>
-      <li>Install the new Peppol G3 test certificates in your test environments</li>
-      <li>Finish the Peppol Testbed "PKI Migration Test Suite" and store the completion PDF locally</li>
-      <li>Make sure your production system can trust G2 and G3 PKIs in parallel</li>
-    </ul> 
-  </li>
-  <li>
-    Between 11 February and 31 March 2026:
-    <ul>
-      <li>Request for Peppol G3 production certificates.</li>
-      <li>Install the new Peppol G3 production certificates in your production environments</li>
-    </ul>
-    From this date on, no new Peppol G2 production certificates will be issued.
-  </li>
-</ul>
+<p>
+  The root certificates are available for download in
+  <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/4344053761/Peppol+PKI+2025+-+Certificate+Authorities">OpenPeppol Confluence</a>.
+  Predefined Peppol truststores in PKCS12 format are available at
+  <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>
+  for AP and SMP separate for Test and Production Peppol Network.
+  Note: no <em>complete truststore</em> is provided, as it is deemed insecure to trust test messages in production and vice versa.
+</p>
 
 <p>
   For details and further information, please see the 
@@ -94,54 +71,12 @@
 </p> 
 
 <a name="pki3"></a>
-<h2>OpenPeppol PKI G2 (v3) - 2018 to 2026</h2>
+<h2>OpenPeppol PKI G2 (v3) - 2018 to 2026 (deprecated)</h2>
 
 <p>
-  The PKI is called "OpenPeppol PKI v3" and the root certificates are valid from 2018 to 2028.
-  The structure is very similar to the previous V2 one, but the STS CA is not present any more. So this is how it looks like:
+  The previous PKI generation "OpenPeppol PKI v3" (G2) was in use from 2018 to early 2026.
+  It was replaced by the G3 PKI described above. No new G2 certificates are issued since March 2026.
 </p>
-
-<p>
-  <img src="../imgs/pki-structure-g2.png" alt="Peppol PKI G2 (v3) structure" />
-</p>
-
-<p>
-  The migration process was as follows:
-</p>
-
-<ul>
-  <li>
-    <div>
-    February 2018: the new root certificates are available for download in 
-      <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/193069072/Introduction+to+the+revised+PKI+Certificate+infrastructure+and+issuing+process">Confluence</a>
-      and from
-      <a href="https://github.com/OpenPeppol/documentation/tree/master/TransportInfrastructure/RootCertificates%202018">GitHub</a>
-    </div>
-    <div>
-      Complete JKS files with all of the new root certificates are available at 
-      <a href="https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore">https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore</a>.
-      The (previously) recommended one is <code>complete-truststore.jks</code> as it contains all certificates.
-      From a security perspective it is better to separate the truststore between test and production.
-    </div>
-  </li>
-  <li>
-    16 April 2018: the certificate issuing process will begin and members are urged to request their PKI v3 certificate
-  </li>
-  <li>
-    31 August 2018: OpenPeppol will no longer issue the old certificate types
-  </li>
-  <li>
-    3 September 2018: the new certificates can be used in production
-  </li>
-</ul>
-
-<p>
-  For details and further information, please see the 
-  <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/193069072/DRAFT+-+Introduction+to+the+revised+PKI+Certificate+infrastructure+and+issuing+process">DRAFT - Introduction to the revised PKI Certificate infrastructure and issuing process</a>
-  and the 
-  <a href="https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/189530542/PKI+Certificate+Migration+2018">PKI Certificate Migration 2018</a>
-  pages.
-</p> 
 
 <a name="usage"></a>
 <h2>Certificate usage in Peppol</h2>
@@ -156,7 +91,7 @@
     <ul>
       <li>
         Uses the Peppol SMP certificate to sign responses to <code>SignedServiceMetadata</code> requests
-          (as in <code>http://smp.example.org/{participantID}/services/{docTypeID}</code> - will be <code>https</code> requiring a TLS certificate from November 1<sup>st</sup>, 2025)
+          (as in <code>https://smp.example.org/{participantID}/services/{docTypeID}</code>)
       </li>
       <li>
         Uses the Peppol SMP certificate as a client certificate when communicating with the SML

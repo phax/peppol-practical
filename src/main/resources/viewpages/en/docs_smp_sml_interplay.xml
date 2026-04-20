@@ -57,16 +57,7 @@
     <li>The SMP server runs on a publicly accessible web server that has a DNS name assigned</li>
     <li>You have a Peppol SMP X.509 certificate that is compatible with the SML you want to interact with (production certificate for SML, test certificate for SMK)</li>
     <li>You have chosen a so called <em>SMP-ID</em> that <strong>must not be changed</strong> afterwards</li>
-    <li>For the new style NAPTR lookup (from November 1<sup>st</sup>, 2025):
-      <ul>
-        <li>The SMP server exposes the mandatory read-only APIs on port 80 with http and/or on port 443 with https</li>
-      </ul>
-    </li>
-    <li>At the end of the CNAME to NAPTR migration (from February 1<sup>st</sup>, 2026):
-      <ul>
-        <li>The SMP server exposes the mandatory read-only APIs exclusively on port 443 with https</li>
-      </ul>
-    </li>
+    <li>The SMP server exposes the mandatory read-only APIs exclusively on port 443 with https</li>
   </ul>
 </p>
 
@@ -98,8 +89,8 @@
 
 <p>
   Note: this intermediate DNS record is helpful, if the public URL of an SMP changes. Instead of changing all participants that are
-    linked to an SMP (which can be very many) only this single DNS record is changed, because all participant records are just
-    CNAME records pointing to this "publisher" record.     
+    linked to an SMP (which can be very many) only this single DNS record is changed, because all participant NAPTR records
+    point to this "publisher" record.     
 </p>
 
 <p>
@@ -265,10 +256,6 @@
     of new entries can take up to 24 hours to be replicated to all distributed nodes.
 </p>
 
-<p>
-  Note: of course the SML deletes both node types (CNAME and NAPTR) - it is just differentiated
-    here for alignment with the Peppol migrations
-</p>
 
 <p>
   Note: when using <em>phoss SMP</em> this is done implicitly if you delete a service group

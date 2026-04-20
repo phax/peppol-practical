@@ -91,9 +91,7 @@
         of the source domain so that the outcome is <code>http://test-infra.peppol.at</code>.
     </p>
     <p>
-      Note: Since November 1<sup>st</sup>, 2025 the result in production may use <code>http</code> or <code>https</code> scheme and may contain
-        an optional path after the domain.<br/>
-      From February 1<sup>st</sup>, 2026 the result in production must use <code>https</code> scheme and may contain
+      Note: The result in production must use <code>https</code> scheme and may contain
         an optional path after the domain.
     </p>
   </li>

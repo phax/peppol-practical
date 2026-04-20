@@ -82,8 +82,8 @@
 </p>
 
 <p>
-  The Peppol PKI update from G2 to G3 (in 2026) was a special case of a certificate update, because it
-  required to update the <em>truststore</em> as well, because a completely new PKI was introduced.
+  A PKI generation change (like the G2 to G3 migration in 2026) is a special case of a certificate update, because it
+  requires updating the <em>truststore</em> as well, because a completely new PKI is introduced.
   Regular certificate updates only contain updates of <em>keystores</em>.
 </p>
 
