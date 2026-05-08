@@ -71,7 +71,7 @@
     
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
     <jaxws-plugin.version>4.0.4</jaxws-plugin.version>
-    <log4j.version>2.25.4</log4j.version>
+    <log4j.version>2.26.0</log4j.version>
     <ph-jaxb-plugin.version>5.1.2</ph-jaxb-plugin.version>
   </properties>
   
@@ -81,7 +81,7 @@
       <dependency>
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-bom</artifactId>
-        <version>4.0.6</version>
+        <version>4.0.8</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
