@@ -86,13 +86,6 @@
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>com.helger.peppol</groupId>
-        <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>12.4.2</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
         <groupId>com.helger.peppol.ui</groupId>
         <artifactId>peppol-shared-ui-parent-pom</artifactId>
         <version>0.9.15-SNAPSHOT</version>
@@ -305,7 +298,7 @@
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>8.1.1</version><!--$NO-MVN-MAN-VER$-->
+        <version>8.2.0</version><!--$NO-MVN-MAN-VER$-->
         <executions>
           <execution>
             <goals>
