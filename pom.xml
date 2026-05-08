@@ -86,6 +86,13 @@
         <type>pom</type>
       </dependency>
       <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>peppol-commons-parent-pom</artifactId>
+        <version>12.5.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>com.helger.peppol.ui</groupId>
         <artifactId>peppol-shared-ui-parent-pom</artifactId>
         <version>0.9.15-SNAPSHOT</version>

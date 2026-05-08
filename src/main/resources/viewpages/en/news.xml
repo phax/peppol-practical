@@ -43,6 +43,15 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-04-20 - REST API: Breaking change in SML identifiers</h3>
+    
+    <p>
+      Due to Peppol SML Insourcing project, the support for the old EC based SMLs were removed.
+      If you have existing APIs that use <code>digitprod</code> replaced it with <code>peppolprod</code>.
+      For the test network, replace <code>digittest</code> with <code>peppoltest</code>.
+      No similar changes are envisioned for the next decade ;-)
+    </p>
+
     <h3>2026-04-20 - REST API: Breaking change in CII to UBL conversion response</h3>
 
     <p>

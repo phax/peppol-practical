@@ -43,10 +43,14 @@
   If an SML is required, the following SML identifiers are available:
 </div>
 <ul>
-  <li><code>digitprod</code> - the production Peppol SML</li>
-  <li><code>digittest</code> - the test Peppol SML (aka SMK)</li>
+  <li><code>peppolprod</code> - the OpenPeppol production SML (the new one from 2026)</li>
+  <li><code>peppoltest</code> - the OpenPeppol test SML (aka T-SML) (the new one from 2026)</li>
   <li><code>autodetect</code> - find the matching SML automatically</li>
 </ul>
+
+<div>
+Note: the previous codes <code>digitprod</code> and <code>digittest</code> needs to be removed with the <code>peppol...</code> ones.
+</div>
 
 <!-- ######################## -->
 <a name="smpdoctypes"></a>
