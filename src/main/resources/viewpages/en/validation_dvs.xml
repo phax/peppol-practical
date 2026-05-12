@@ -36,9 +36,12 @@ A very small Java WS client is available for
 -->
 
 <h2>Usage</h2>
-<p>This service is currently provided free of charge. 
-   If you want to setup your own service for production usage don't hesitate to contact me at 
-   <em>philip[at]helger[dot]com</em> for support.</p>
+<p>This service is currently provided free of charge.
+   If you need a standalone REST based validation service that you can run on your own infrastructure for production usage,
+   check out <strong>phorm</strong> at
+   <a class="external_href" target="_blank" href="https://github.com/phax/phorm">https://github.com/phax/phorm</a>.
+   If you like the project, please consider giving it a star on GitHub.
+   For further questions don't hesitate to contact me at <em>philip[at]helger[dot]com</em>.</p>
 
 <h2>Input parameters</h2>
 <p>It offers one method called "validate" that takes the following arguments:</p>
