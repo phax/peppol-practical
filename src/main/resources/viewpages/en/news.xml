@@ -43,6 +43,45 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-05-12 - Document Validation extended</h3>
+    
+    <p>
+      Added HR eRacun update 1.0.3, OIOUBL 1.17.1, Peppol updates and Saudi Arabian ZATCA 3.4.6
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.3</code> - HR eRacun Credit Note 1.0.3</li>
+<li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.3</code> - HR eRacun Invoice 1.0.3</li>
+<li><code>dk.oioubl:application-response:1.17.1</code> - OIOUBL Application Response 1.17.1</li>
+<li><code>dk.oioubl:catalogue:1.17.1</code> - OIOUBL Catalogue 1.17.1</li>
+<li><code>dk.oioubl:catalogue-deletion:1.17.1</code> - OIOUBL Catalogue Deletion 1.17.1</li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.17.1</code> - OIOUBL Catalogue Item Specification Update 1.17.1</li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.17.1</code> - OIOUBL Catalogue Pricing Update 1.17.1</li>
+<li><code>dk.oioubl:catalogue-request:1.17.1</code> - OIOUBL Catalogue Request 1.17.1</li>
+<li><code>dk.oioubl:credit-note:1.17.1</code> - OIOUBL Credit Note 1.17.1</li>
+<li><code>dk.oioubl:invoice:1.17.1</code> - OIOUBL Invoice 1.17.1</li>
+<li><code>dk.oioubl:order:1.17.1</code> - OIOUBL Order 1.17.1</li>
+<li><code>dk.oioubl:order-cancellation:1.17.1</code> - OIOUBL Order Cancellation 1.17.1</li>
+<li><code>dk.oioubl:order-change:1.17.1</code> - OIOUBL Order Change 1.17.1</li>
+<li><code>dk.oioubl:order-response:1.17.1</code> - OIOUBL Order Response 1.17.1</li>
+<li><code>dk.oioubl:order-response-simple:1.17.1</code> - OIOUBL Order Response Simple 1.17.1</li>
+<li><code>dk.oioubl:reminder:1.17.1</code> - OIOUBL Reminder 1.17.1</li>
+<li><code>dk.oioubl:statement:1.17.1</code> - OIOUBL Statement 1.17.1</li>
+<li><code>dk.oioubl:utility-statement:1.17.1</code> - OIOUBL Utility Statement 1.17.1</li>
+<li><code>eu.peppol.bis3:creditnote-self-billing:2026.3</code> - OpenPeppol UBL Credit Note Self-Billing (2026.3) (aka BIS 3.0.1)</li>
+<li><code>eu.peppol.bis3:invoice-self-billing:2026.3</code> - OpenPeppol UBL Invoice Self-Billing (2026.3) (aka BIS 3.0.1)</li>
+<li><code>org.peppol.pint.ae:creditnote:2026.3</code> - Peppol PINT AE Credit Note (UBL) 2026-03 (aka 1.0.3)</li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2026.3</code> - Peppol PINT AE Credit Note Self-Billing (UBL) 2026-03 (aka 1.0.3)</li>
+<li><code>org.peppol.pint.ae:invoice:2026.3</code> - Peppol PINT AE Invoice (UBL) 2026-03 (aka 1.0.3)</li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2026.3</code> - Peppol PINT AE Invoice Self-Billing (UBL) 2026-03 (aka 1.0.3)</li>
+<li><code>org.peppol.taxdata:sk:1</code> - Peppol SK Tax Data Document 1.0.0</li>
+<li><code>org.peppol.taxdata:vida:1</code> - Peppol ViDA Pilot Tax Data Document 1.0.0</li>
+<li><code>sa.zatca:ubl-invoice:3.4.6</code> - ZATCA/FATOORA Invoice (SDK 3.4.6)</li>
+</ul>
+
     <h3>2026-04-20 - REST API: Breaking change in SML identifiers</h3>
     
     <p>
