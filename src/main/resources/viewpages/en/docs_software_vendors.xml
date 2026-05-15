@@ -37,7 +37,7 @@
 
 <ul>
   <li><strong>phase4</strong> [Open Source] - <a href="https://github.com/phax/phase4">https://github.com/phax/phase4</a> - Java based. Is a library and needs local integration.</li>
-  <li><strong>phase4-peppol-standalone</strong> [Open Source] - <a href="https://github.com/phax/phase4-peppol-standalone">https://github.com/phax/phase4-peppol-standalone</a> - Java based. Is a standalone AP with Peppol Reporting and all.</li>
+  <li><strong>phoss-ap</strong> [Open Source] - <a href="https://github.com/phax/phoss-ap">https://github.com/phax/phoss-ap</a> - Java based. Is a complete AP with Peppol Reporting and all.</li>
   <li><strong>AS4.NET</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse">https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/eessi-as4.net/browse</a> - the only .NET based Open Source implementation we are aware of. Not maintained for a long time. Does not contain Peppol-specifics.</li>
   <li><strong>Domibus</strong> [Open Source] - <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/Domibus">https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/Domibus</a> - Java based. Requires some extra package on dynamic discovery to be able to work with Peppol.</li>
   <li><strong>Holodeck</strong> [Open Source] - <a href="http://holodeck-b2b.org/download/">http://holodeck-b2b.org/download/</a> - Java based. Requires some additional Peppol package that is not free.</li>
@@ -62,6 +62,15 @@
   <li><strong>ecosio</strong> - <a href="https://ecosio.com/en/peppol-and-xml-document-validator/">https://ecosio.com/en/peppol-and-xml-document-validator/</a> - Form based validation for many formats.</li>
   <li><strong>phive</strong> [Open Source] - <a href="https://github.com/phax/phive">https://github.com/phax/phive</a> - Java based validation engine.</li>
   <li><strong>phive-rules</strong> [Open Source] - <a href="https://github.com/phax/phive-rules">https://github.com/phax/phive-rules</a> - Predefined rule sets for usage with phive.</li>
+</ul>
+
+<a name="compliance"></a>
+<h2>Compliance solutions</h2>
+
+<p>This chapter deals with pre-submission compliance gateways for Peppol.</p>
+
+<ul>
+  <li><strong>Invoice Navigator</strong> - <a href="https://invoicenavigator.eu">https://invoicenavigator.eu</a> - Pre-submission compliance gate for ERP vendors. EN 16931 and Peppol BIS 3.0 validation with country-specific CIUS rules (XRechnung, BEvCIUS, FatturaPA, KSeF FA(3) and more), auto-fix for structural errors, and Evidence Pack generation.</li>
 </ul>
 
 <a name="hosted"></a>
