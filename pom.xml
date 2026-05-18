@@ -77,13 +77,12 @@
   
   <dependencyManagement>
     <dependencies>
-      <!-- overwrite ph-commons 12.2.0 to use 4.0.6 instead of 4.0.7 -->
       <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-bom</artifactId>
-        <version>4.0.8</version>
-        <scope>import</scope>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-commons-parent-pom</artifactId>
+        <version>12.2.6</version>
         <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
@@ -305,7 +304,7 @@
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>8.2.0</version><!--$NO-MVN-MAN-VER$-->
+        <version>8.2.1</version><!--$NO-MVN-MAN-VER$-->
         <executions>
           <execution>
             <goals>
