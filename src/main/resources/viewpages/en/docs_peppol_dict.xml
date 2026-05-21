@@ -498,6 +498,14 @@
       <td>An identifier Scheme to identify Peppol SPs for sole usage in the Peppol Network.</td>
     </tr>
     <tr>
+      <td>SPOG</td>
+      <td>Service Provider Operational Guideline</td>
+      <td>
+        A supporting document to explain how to use a specfication and how it relates to other specifications. Issued by OpenPeppol. 
+        Has less rentention effect as the specification and is not sent out for member review.
+      </td>
+    </tr>
+    <tr>
       <td>
         START
         <br/><em><small>deprecated</small></em>
@@ -530,7 +538,7 @@
     <tr>
       <td>
         TICC
-         <br/><em><small>deprecated</small></em>
+        <br/><em><small>deprecated</small></em>
       </td>
       <td>Transport Infrastructure Coordinating Community</td>
       <td>
