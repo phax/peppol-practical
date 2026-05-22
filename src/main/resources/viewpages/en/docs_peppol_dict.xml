@@ -49,6 +49,11 @@
       </td>
     </tr>
     <tr>
+      <td>APP CMB</td>
+      <td>Agreements, Policies and Procedures Change Management Board</td>
+      <td>The OpenPeppol internal change management board responsible for legal and policy artefacts of the Peppol Interoperability Framework. See also <em>CMB</em>.</td>
+    </tr>
+    <tr>
       <td>
         AS2
         <br/><em><small>deprecated</small></em>
@@ -129,6 +134,13 @@
       <td>Corner 5</td>
       <td>
         Usually the "fifth corner" is the public administration able to receive tax related information.
+      </td>
+    </tr>
+    <tr>
+      <td>C6</td>
+      <td>Corner 6</td>
+      <td>
+        In extended Peppol models (e.g. <em>ViDA</em>), the "sixth corner" represents the tax authority's central data store, consolidating Tax Data Documents collected at <em>C5</em>.
       </td>
     </tr>
     <tr>
@@ -222,6 +234,13 @@
       </td>
     </tr>
     <tr>
+      <td>DRR</td>
+      <td>Digital Reporting Requirements</td>
+      <td>
+        One of the pillars of the EU "VAT in the Digital Age" Directive (see <em>ViDA</em>), introducing near real-time digital reporting obligations for intra-EU B2B transactions.
+      </td>
+    </tr>
+    <tr>
       <td>EC</td>
       <td>European Commission</td>
       <td>
@@ -259,6 +278,14 @@
       <td>
         This defines an event where people are meeting in real (face to face) and not just
         virtually in telephone conferences.
+      </td>
+    </tr>
+    <tr>
+      <td>ICD</td>
+      <td>International Code Designator</td>
+      <td>
+        An identifier scheme code defined in ISO 6523 that identifies the issuing organisation of an identifier.
+        Used as the scheme prefix in Peppol participant identifiers, e.g. "0088" for GLN or "0184" for Danish CVR.
       </td>
     </tr>
     <tr>
@@ -318,6 +345,15 @@
       <td>Message Level Status</td>
       <td>The successor of the <em>MLR</em> specification maintained by eDEC.
         See <a href="https://docs.peppol.eu/edelivery/">https://docs.peppol.eu/edelivery/</a> for the specification.</td>
+    </tr>
+    <tr>
+      <td>NAPTR</td>
+      <td>Naming Authority Pointer</td>
+      <td>
+        A <em>DNS</em> resource record type defined in <a href="https://www.ietf.org/rfc/rfc3403.txt">RFC 3403</a>.
+        The Peppol Network was migrating from <em>CNAME</em> based to NAPTR based DNS lookups for <em>SMP</em> discovery.
+        See also <em>U-NAPTR</em>.
+      </td>
     </tr>
     <tr>
       <td>OASIS</td>
@@ -387,6 +423,28 @@
       </td>
     </tr>
     <tr>
+      <td>PFUOI</td>
+      <td>Peppol Policy for the Use of Identifiers</td>
+      <td>
+        The OpenPeppol policy document defining the syntax and use of Peppol identifiers (participant, document type, process and transport profile identifiers).
+      </td>
+    </tr>
+    <tr>
+      <td>PINT</td>
+      <td>Peppol International (Invoice)</td>
+      <td>
+        The Peppol International Invoice specification - a globally aligned invoice model with shared, aligned and distinct data areas, and country-specific specializations.
+      </td>
+    </tr>
+    <tr>
+      <td>PKI</td>
+      <td>Public Key Infrastructure</td>
+      <td>
+        The framework of certificates, keys and authorities used to secure the Peppol Network.
+        Peppol operates its own PKI for <em>AP</em> and <em>SMP</em> certificates. See also <em>CA</em>.
+      </td>
+    </tr>
+    <tr>
       <td>PoAC</td>
       <td>Post-Award Domain Community</td>
       <td>
@@ -431,6 +489,30 @@
       </td>
     </tr>
     <tr>
+      <td>QES</td>
+      <td>Qualified Electronic Signature</td>
+      <td>
+        The highest assurance form of electronic signature under the EU eIDAS regulation.
+        Referenced in some Peppol e-invoicing and tax compliance contexts.
+      </td>
+    </tr>
+    <tr>
+      <td>REM</td>
+      <td>Registered Electronic Mail</td>
+      <td>
+        An evidence record generated upon receipt of a Peppol business document, including an accurate timestamp.
+        Used in Service Provider record keeping and SLA compliance.
+      </td>
+    </tr>
+    <tr>
+      <td>RFC</td>
+      <td>Request for Change</td>
+      <td>
+        A formal proposal to introduce a change to the Peppol Interoperability Framework, evaluated by the relevant <em>CMB</em>.
+        Not to be confused with the IETF "Request for Comments" documents (also abbreviated RFC).
+      </td>
+    </tr>
+    <tr>
       <td>SBD</td>
       <td>Standard Business Document</td>
       <td>
@@ -445,6 +527,13 @@
       <td>
         The header part inside the <em>SBD</em>.
         See <a href="https://docs.peppol.eu/edelivery">https://docs.peppol.eu/edelivery</a> for the specification (Peppol Business Message Envelope).
+      </td>
+    </tr>
+    <tr>
+      <td>SLR</td>
+      <td>Service Level Requirement</td>
+      <td>
+        A measurable requirement, such as timeliness or reliability targets, that Peppol Service Providers must meet.
       </td>
     </tr>
     <tr>
@@ -514,6 +603,14 @@
       <td>Legacy Peppol transport protocol, based on the Webservice stack. Was superseded by <em>AS2</em> which was superseded by <em>AS4</em>.</td>
     </tr>
     <tr>
+      <td>TA</td>
+      <td>Tax Administration</td>
+      <td>
+        A government agency responsible for the regulation, collection and audit of indirect tax (e.g. VAT) in a specific jurisdiction.
+        Typically acts as <em>C5</em> in the extended Peppol corner model.
+      </td>
+    </tr>
+    <tr>
       <td>
         TCT
         <br/><em><small>deprecated</small></em>
@@ -563,9 +660,33 @@
       </td>
     </tr>
     <tr>
+      <td>TLS</td>
+      <td>Transport Layer Security</td>
+      <td>
+        The cryptographic protocol used to secure transport-level connections in the Peppol Network (e.g. HTTPS for <em>SMP</em>, <em>AP</em> and the <em>PD</em>).
+        Successor to SSL.
+      </td>
+    </tr>
+    <tr>
       <td>UBL</td>
       <td>Universal Business Language</td>
       <td>An <em>OASIS</em> standard that defines certain XML based document types used in Peppol and the <em>EN</em>.</td>
+    </tr>
+    <tr>
+      <td>U-NAPTR</td>
+      <td>URI-enabled NAPTR</td>
+      <td>
+        A specific <em>NAPTR</em> variant defined in <a href="https://www.ietf.org/rfc/rfc4848.txt">RFC 4848</a> that resolves directly to a URI.
+        Used in the Peppol DNS lookup chain for <em>SMP</em> discovery.
+      </td>
+    </tr>
+    <tr>
+      <td>ViDA</td>
+      <td>VAT in the Digital Age</td>
+      <td>
+        An EU Council Directive amending the VAT Directive to introduce digital reporting requirements (<em>DRR</em>) and mandatory e-invoicing for intra-EU B2B transactions.
+        There is also a Peppol ViDA Pilot project.
+      </td>
     </tr>
   </tbody>
 </table>
