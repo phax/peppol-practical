@@ -55,13 +55,13 @@ import com.helger.photon.uictrls.prism.EPrismLanguage;
 import com.helger.photon.uictrls.prism.HCPrismJS;
 import com.helger.photon.uictrls.prism.PrismPluginLineNumbers;
 import com.helger.schematron.CSchematron;
+import com.helger.schematron.errorhandler.CollectingPSErrorHandler;
+import com.helger.schematron.exchange.PSReader;
+import com.helger.schematron.model.PSSchema;
+import com.helger.schematron.preprocess.PSPreprocessor;
+import com.helger.schematron.preprocess.SchematronPreprocessException;
 import com.helger.schematron.pure.binding.IPSQueryBinding;
 import com.helger.schematron.pure.binding.PSQueryBindingRegistry;
-import com.helger.schematron.pure.errorhandler.CollectingPSErrorHandler;
-import com.helger.schematron.pure.exchange.PSReader;
-import com.helger.schematron.pure.model.PSSchema;
-import com.helger.schematron.pure.preprocess.PSPreprocessor;
-import com.helger.schematron.pure.preprocess.SchematronPreprocessException;
 import com.helger.schematron.sch.SchematronResourceSCH;
 import com.helger.schematron.svrl.CSVRL;
 import com.helger.xml.microdom.serialize.MicroWriter;
@@ -138,7 +138,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
         {
           final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
           final IValidationType aType = aVE.getValidationArtefact ().getValidationType ();
-          if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH_ISO_XSLT2)
+          if (aType == EValidationType.SCHEMATRON_PURE_XPATH2 || aType == EValidationType.SCHEMATRON_SCH_ISO_XSLT2)
           {
             IHCNode aTabContent;
             try
@@ -217,7 +217,7 @@ public final class PageSecureSchematronTools extends AbstractAppWebPage
           {
             final IReadableResource aRes = aVE.getValidationArtefact ().getRuleResource ();
             final IValidationType aType = aVE.getValidationArtefact ().getValidationType ();
-            if (aType == EValidationType.SCHEMATRON_PURE || aType == EValidationType.SCHEMATRON_SCH_ISO_XSLT2)
+            if (aType == EValidationType.SCHEMATRON_PURE_XPATH2 || aType == EValidationType.SCHEMATRON_SCH_ISO_XSLT2)
             {
               IHCNode aTabContent;
               try
