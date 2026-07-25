@@ -20,7 +20,7 @@ name: Maven build
 on:
   push:
     branches:
-      - main
+      - master
     
 permissions:
   contents: read
