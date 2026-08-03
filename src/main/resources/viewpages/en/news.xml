@@ -43,6 +43,22 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-08-03 - Document Validation extended</h3>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>fr.ctc.flux1:cii-cible:0.2</code> - France PPF Flux 1 CII Cible 0.2</li>
+<li><code>fr.ctc.flux1:cii-demarrage:0.2</code> - France PPF Flux 1 CII Démarrage 0.2</li>
+<li><code>fr.ctc.flux1:ubl-creditnote-cible:0.2</code> - France PPF Flux 1 UBL Credit Note Cible 0.2</li>
+<li><code>fr.ctc.flux1:ubl-creditnote-demarrage:0.2</code> - France PPF Flux 1 UBL Credit Note Démarrage 0.2</li>
+<li><code>fr.ctc.flux1:ubl-invoice-cible:0.2</code> - France PPF Flux 1 UBL Invoice Cible 0.2</li>
+<li><code>fr.ctc.flux1:ubl-invoice-demarrage:0.2</code> - France PPF Flux 1 UBL Invoice Démarrage 0.2</li>
+<li><code>fr.ctc.flux10:report:1</code> - France PPF Flux 10 e-reporting 1</li>
+<li><code>org.peppol:mls:1.0.1</code> - Peppol Message Level Status 1.0.1</li>
+</ul>
+
     <h3>2026-07-25 - Document Validation extended</h3>
     
     <p>
