@@ -34,6 +34,12 @@ td {
   --bs-navbar-padding-x: 0.5rem;
 }
 
+.breadcrumb {
+  --bs-breadcrumb-bg: #e9ecef;
+  --bs-breadcrumb-padding-x: 1rem;
+  --bs-breadcrumb-padding-y: 0.75rem;
+}
+
 #footer {
   display: block;
   background-color: #F5F5F5;
