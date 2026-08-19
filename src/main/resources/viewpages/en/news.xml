@@ -43,6 +43,31 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-08-19 - Document Validation extended</h3>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>fr.factur-x:basic:1.0.9-2</code> - Factur-X 1.0.9-2 (BASIC) (alias to <code>de.zugferd:basic:2.5.2</code>)</li>
+<li><code>fr.factur-x:basicwl:1.0.9-2</code> - Factur-X 1.0.9-2 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.5.2</code>)</li>
+<li><code>fr.factur-x:en16931:1.0.9-2</code> - Factur-X 1.0.9-2 (EN 16931) (alias to <code>de.zugferd:en16931:2.5.2</code>)</li>
+<li><code>fr.factur-x:extended:1.0.9-2</code> - Factur-X 1.0.9-2 (EXTENDED) (alias to <code>de.zugferd:extended:2.5.2</code>)</li>
+<li><code>fr.factur-x:minimum:1.0.9-2</code> - Factur-X 1.0.9-2 (MINIMUM) (alias to <code>de.zugferd:minimum:2.5.2</code>)</li>
+<li><code>fr.ctc:cdar:1.4-03</code> - France CTC CDAR 1.4-03</li>
+<li><code>fr.ctc:cii:1.4-03</code> - France CTC CII 1.4-03</li>
+<li><code>fr.ctc:ubl-creditnote:1.4-03</code> - France CTC UBL Credit Note 1.4-03</li>
+<li><code>fr.ctc:ubl-invoice:1.4-03</code> - France CTC UBL Invoice 1.4-03</li>
+<li><code>fr.ctc:extended-cii:1.4-03</code> - France Extended CTC CII 1.4-03</li>
+<li><code>fr.ctc:extended-ubl-creditnote:1.4-03</code> - France Extended CTC UBL Credit Note 1.4-03</li>
+<li><code>fr.ctc:extended-ubl-invoice:1.4-03</code> - France Extended CTC UBL Invoice 1.4-03</li>
+<li><code>de.zugferd:basic:2.5.2</code> - ZUGFeRD 2.5.2 (BASIC)</li>
+<li><code>de.zugferd:basicwl:2.5.2</code> - ZUGFeRD 2.5.2 (BASIC WL)</li>
+<li><code>de.zugferd:en16931:2.5.2</code> - ZUGFeRD 2.5.2 (EN 16931)</li>
+<li><code>de.zugferd:extended:2.5.2</code> - ZUGFeRD 2.5.2 (EXTENDED)</li>
+<li><code>de.zugferd:minimum:2.5.2</code> - ZUGFeRD 2.5.2 (MINIMUM)</li>
+</ul>
+
     <h3>2026-08-03 - Document Validation extended</h3>
 
     <p>
