@@ -29,7 +29,7 @@ import com.helger.peppol.sharedui.page.pub.PagePublicToolsPeppolParticipantCheck
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsPeppolParticipantCheckBelgium;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppol.ui.page.AppPageViewExternal;
-import com.helger.photon.bootstrap4.pages.security.BasePageSecurityChangePassword;
+import com.helger.photon.bootstrap5.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.core.menu.IMenuItemPage;
 import com.helger.photon.core.menu.IMenuTree;
 import com.helger.photon.core.menu.filter.MenuObjectFilterNoUserLoggedIn;

@@ -27,8 +27,8 @@ import com.helger.html.hc.render.HCRenderer;
 import com.helger.json.JsonObject;
 import com.helger.photon.ajax.executor.IAjaxExecutor;
 import com.helger.photon.app.PhotonUnifiedResponse;
-import com.helger.photon.bootstrap4.alert.BootstrapErrorBox;
-import com.helger.photon.bootstrap4.traits.IHCBootstrap4Trait;
+import com.helger.photon.bootstrap5.alert.BootstrapErrorBox;
+import com.helger.photon.bootstrap5.traits.IHCBootstrap5Trait;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.photon.core.login.CLogin;
@@ -41,7 +41,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorPublicLogin implements IAjaxExecutor, IHCBootstrap4Trait
+public final class AjaxExecutorPublicLogin implements IAjaxExecutor, IHCBootstrap5Trait
 {
   public static final String JSON_LOGGEDIN = "loggedin";
   public static final String JSON_HTML = "html";

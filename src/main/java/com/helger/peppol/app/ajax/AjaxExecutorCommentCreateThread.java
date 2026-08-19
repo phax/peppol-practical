@@ -39,7 +39,7 @@ import com.helger.peppol.comment.ui.ECommentAction;
 import com.helger.peppol.comment.ui.ECommentText;
 import com.helger.photon.ajax.executor.IAjaxExecutor;
 import com.helger.photon.app.PhotonUnifiedResponse;
-import com.helger.photon.bootstrap4.traits.IHCBootstrap4Trait;
+import com.helger.photon.bootstrap5.traits.IHCBootstrap5Trait;
 import com.helger.photon.core.execcontext.LayoutExecutionContext;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
@@ -50,7 +50,7 @@ import com.helger.web.scope.IRequestWebScopeWithoutResponse;
  *
  * @author Philip Helger
  */
-public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor, IHCBootstrap4Trait
+public final class AjaxExecutorCommentCreateThread implements IAjaxExecutor, IHCBootstrap5Trait
 {
   public static final String PARAM_OBJECT_TYPE = "objectType";
   public static final String PARAM_OBJECT_ID = "objectID";

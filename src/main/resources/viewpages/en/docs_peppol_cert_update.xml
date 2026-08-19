@@ -130,7 +130,7 @@
     The SMP usually expects your PEM encoded public certificate.<br />
   When using <em>phoss SMP</em> you can use the "Bulk change certificate" page to update the certificates of all
     relevant endpoints at once.<br />
-  <span class="badge badge-warning">Warning:</span> never publish your AP private key in an SMP endpoint
+  <span class="badge text-bg-warning">Warning:</span> never publish your AP private key in an SMP endpoint
 </p>
 
 <p>
@@ -183,7 +183,7 @@
   Note: you need to manually update your SMP certificate in your SMP software at exactly the date you specified in that update request, otherwise you won't be able to perform changes in the SML anymore.
 </p>
 <p>  
-  <span class="badge badge-warning">Warning:</span> the SML only needs the public certificate of your new SMP certificate - don't provide them with your private key!<br />
+  <span class="badge text-bg-warning">Warning:</span> the SML only needs the public certificate of your new SMP certificate - don't provide them with your private key!<br />
 </p>
 <p>
   If your certificate is already expired, you need to contact <a href="/public/menuitem-docs-sml-support">EC eDelivery support</a>

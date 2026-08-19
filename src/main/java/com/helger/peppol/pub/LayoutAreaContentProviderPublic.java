@@ -48,20 +48,20 @@ import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.peppol.ui.PeppolUI;
 import com.helger.photon.app.url.LinkHelper;
-import com.helger.photon.bootstrap4.CBootstrapCSS;
-import com.helger.photon.bootstrap4.breadcrumb.BootstrapBreadcrumb;
-import com.helger.photon.bootstrap4.breadcrumb.BootstrapBreadcrumbProvider;
-import com.helger.photon.bootstrap4.button.BootstrapButton;
-import com.helger.photon.bootstrap4.button.EBootstrapButtonType;
-import com.helger.photon.bootstrap4.dropdown.BootstrapDropdownMenu;
-import com.helger.photon.bootstrap4.grid.BootstrapRow;
-import com.helger.photon.bootstrap4.layout.BootstrapContainer;
-import com.helger.photon.bootstrap4.navbar.BootstrapNavbar;
-import com.helger.photon.bootstrap4.navbar.BootstrapNavbarNav;
-import com.helger.photon.bootstrap4.navbar.BootstrapNavbarToggleable;
-import com.helger.photon.bootstrap4.uictrls.ext.BootstrapMenuItemRenderer;
-import com.helger.photon.bootstrap4.uictrls.ext.BootstrapMenuItemRendererHorz;
-import com.helger.photon.bootstrap4.uictrls.ext.BootstrapPageRenderer;
+import com.helger.photon.bootstrap5.CBootstrapCSS;
+import com.helger.photon.bootstrap5.breadcrumb.BootstrapBreadcrumb;
+import com.helger.photon.bootstrap5.breadcrumb.BootstrapBreadcrumbProvider;
+import com.helger.photon.bootstrap5.button.BootstrapButton;
+import com.helger.photon.bootstrap5.button.EBootstrapButtonType;
+import com.helger.photon.bootstrap5.dropdown.BootstrapDropdownMenu;
+import com.helger.photon.bootstrap5.grid.BootstrapRow;
+import com.helger.photon.bootstrap5.layout.BootstrapContainer;
+import com.helger.photon.bootstrap5.navbar.BootstrapNavbar;
+import com.helger.photon.bootstrap5.navbar.BootstrapNavbarNav;
+import com.helger.photon.bootstrap5.navbar.BootstrapNavbarToggleable;
+import com.helger.photon.bootstrap5.uictrls.ext.BootstrapMenuItemRenderer;
+import com.helger.photon.bootstrap5.uictrls.ext.BootstrapMenuItemRendererHorz;
+import com.helger.photon.bootstrap5.uictrls.ext.BootstrapPageRenderer;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.appid.CApplicationID;
 import com.helger.photon.core.appid.PhotonGlobalState;
@@ -132,17 +132,17 @@ public final class LayoutAreaContentProviderPublic
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Participant Information")
                                                                         .setIcon (EFamFamIcon.USER_GREEN)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CSharedUIMenuPublic.MENU_TOOLS_PARTICIPANT_INFO))
-                                                                        .addClass (CBootstrapCSS.ML_AUTO)
+                                                                        .addClass (CBootstrapCSS.MS_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("Document Validation")
                                                                         .setIcon (EFamFamIcon.SCRIPT_GO)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_VALIDATION_UPLOAD))
-                                                                        .addClass (CBootstrapCSS.ML_AUTO)
+                                                                        .addClass (CBootstrapCSS.MS_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
     aNavbar.addChild (new BootstrapButton (EBootstrapButtonType.DEFAULT).addChild ("ID Information")
                                                                         .setIcon (EFamFamIcon.CUP)
                                                                         .setOnClick (aLEC.getLinkToMenuItem (CSharedUIMenuPublic.MENU_TOOLS_ID_INFO))
-                                                                        .addClass (CBootstrapCSS.ML_AUTO)
+                                                                        .addClass (CBootstrapCSS.MS_AUTO)
                                                                         .addClass (CBootstrapCSS.MX_2));
 
     final BootstrapNavbarToggleable aToggleable = aNavbar.addAndReturnToggleable ();
@@ -150,7 +150,7 @@ public final class LayoutAreaContentProviderPublic
     if (aUser != null)
     {
       aToggleable.addAndReturnText ()
-                 .addClass (CBootstrapCSS.ML_AUTO)
+                 .addClass (CBootstrapCSS.MS_AUTO)
                  .addClass (CBootstrapCSS.MX_2)
                  .addChild ("Welcome ")
                  .addChild (new HCStrong ().addChild (SecurityHelper.getUserDisplayName (aUser, aDisplayLocale)));
@@ -175,13 +175,13 @@ public final class LayoutAreaContentProviderPublic
         final HCDiv aDiv = new HCDiv ().addClass (CBootstrapCSS.P_2)
                                        .addStyle (CCSSProperties.MIN_WIDTH.newValue ("400px"));
         aDiv.addChild (AppCommonUI.createViewLoginForm (aLEC, null, false));
-        aDropDown.addChild (aDiv);
+        aDropDown.addItem (aDiv);
       }
       aNav.addItem ().addNavDropDown ("Login", aDropDown);
 
       aToggleable.addChild (new BootstrapButton (EBootstrapButtonType.SUCCESS).addChild (EPhotonCoreText.BUTTON_SIGN_UP.getDisplayText (aDisplayLocale))
                                                                               .setOnClick (aLEC.getLinkToMenuItem (CMenuPublic.MENU_SIGN_UP))
-                                                                              .addClass (CBootstrapCSS.ML_AUTO)
+                                                                              .addClass (CBootstrapCSS.MS_AUTO)
                                                                               .addClass (CBootstrapCSS.MX_2));
     }
     return aNavbar;
@@ -288,7 +288,7 @@ public final class LayoutAreaContentProviderPublic
     {
       final HCDiv aRow = aOuterContainer.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX));
       final HCDiv aCol1 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.D_MD_FLEX));
-      final HCDiv aCol2 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.ML_3)
+      final HCDiv aCol2 = aRow.addAndReturnChild (new HCDiv ().addClass (CBootstrapCSS.MS_3)
                                                               .addClass (CBootstrapCSS.FLEX_FILL));
 
       // left

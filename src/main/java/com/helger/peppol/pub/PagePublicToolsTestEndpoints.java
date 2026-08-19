@@ -53,16 +53,17 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
-import com.helger.photon.bootstrap4.button.BootstrapButton;
-import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap4.form.BootstrapForm;
-import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap4.form.BootstrapViewForm;
-import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandler;
-import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
-import com.helger.photon.bootstrap4.pages.handler.AbstractBootstrapWebPageActionHandlerUndelete;
-import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDTColAction;
-import com.helger.photon.bootstrap4.uictrls.datatables.BootstrapDataTables;
+import com.helger.photon.bootstrap5.button.BootstrapButton;
+import com.helger.photon.bootstrap5.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap5.form.BootstrapForm;
+import com.helger.photon.bootstrap5.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap5.form.BootstrapViewForm;
+import com.helger.photon.bootstrap5.grid.BootstrapGridSpec;
+import com.helger.photon.bootstrap5.pages.handler.AbstractBootstrapWebPageActionHandler;
+import com.helger.photon.bootstrap5.pages.handler.AbstractBootstrapWebPageActionHandlerDelete;
+import com.helger.photon.bootstrap5.pages.handler.AbstractBootstrapWebPageActionHandlerUndelete;
+import com.helger.photon.bootstrap5.uictrls.datatables.BootstrapDTColAction;
+import com.helger.photon.bootstrap5.uictrls.datatables.BootstrapDataTables;
 import com.helger.photon.core.EPhotonCoreText;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
@@ -264,7 +265,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
       aNodeList.addChild (warn ("The Peppol Test Endpoint is deleted"));
 
     final BootstrapViewForm aForm = aNodeList.addAndReturnChild (new BootstrapViewForm ());
-    aForm.setLeft (12, 12, 4, 3, 2);
+    aForm.setLeft (BootstrapGridSpec.builder ().xs (12).md (4).lg (3).xl (2).build ());
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Creation")
                                                  .setCtrl (AppCommonUI.getDTAndUser (aWPEC,
                                                                                      aSelectedObject.getCreationDateTime (),
@@ -312,7 +313,7 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                 @NonNull final FormErrorList aFormErrors)
   {
     final Locale aDisplayLocale = aWPEC.getDisplayLocale ();
-    aForm.setLeft (12, 12, 4, 3, 2);
+    aForm.setLeft (BootstrapGridSpec.builder ().xs (12).md (4).lg (3).xl (2).build ());
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Company name")
                                                  .setCtrl (new HCEdit (new RequestField (FIELD_COMPANY_NAME,
                                                                                          aSelectedObject == null ? null

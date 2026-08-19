@@ -29,6 +29,11 @@ td {
   margin-bottom: 0;
 }
 
+/* Reduce the horizontal navbar padding */
+.navbar {
+  --bs-navbar-padding-x: 0.5rem;
+}
+
 #footer {
   display: block;
   background-color: #F5F5F5;

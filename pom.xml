@@ -94,7 +94,7 @@
       <dependency>
         <groupId>com.helger.peppol.ui</groupId>
         <artifactId>peppol-shared-ui-parent-pom</artifactId>
-        <version>0.9.19</version>
+        <version>0.10.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -166,7 +166,7 @@
     </dependency>
     <dependency>
       <groupId>com.helger.photon</groupId>
-      <artifactId>ph-oton-bootstrap4-stub</artifactId>
+      <artifactId>ph-oton-bootstrap5-stub</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>

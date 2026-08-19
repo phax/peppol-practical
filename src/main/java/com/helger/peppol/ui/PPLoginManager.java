@@ -17,7 +17,7 @@
 package com.helger.peppol.ui;
 
 import com.helger.peppol.sharedui.SharedUIHelper;
-import com.helger.photon.bootstrap4.uictrls.ext.BootstrapLoginManager;
+import com.helger.photon.bootstrap5.uictrls.ext.BootstrapLoginManager;
 
 public final class PPLoginManager extends BootstrapLoginManager
 {

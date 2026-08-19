@@ -45,7 +45,7 @@ import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.validate.VESRegistry;
 import com.helger.photon.ajax.IAjaxRegistry;
 import com.helger.photon.api.IAPIRegistry;
-import com.helger.photon.bootstrap4.servlet.WebAppListenerBootstrap;
+import com.helger.photon.bootstrap5.servlet.WebAppListenerBootstrap;
 import com.helger.photon.core.appid.CApplicationID;
 import com.helger.photon.core.appid.PhotonGlobalState;
 import com.helger.photon.core.locale.ILocaleManager;

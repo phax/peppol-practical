@@ -63,15 +63,15 @@ import com.helger.peppol.ui.types.mgr.PhotonPeppolMetaManager;
 import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
 import com.helger.peppol.ui.types.smlconfig.ISMLConfigurationManager;
 import com.helger.photon.audit.AuditHelper;
-import com.helger.photon.bootstrap4.buttongroup.BootstrapButtonToolbar;
-import com.helger.photon.bootstrap4.form.BootstrapForm;
-import com.helger.photon.bootstrap4.form.BootstrapFormGroup;
-import com.helger.photon.bootstrap4.nav.BootstrapTabBox;
-import com.helger.photon.bootstrap4.pages.BootstrapWebPageUIHandler;
-import com.helger.photon.bootstrap4.uictrls.datetimepicker.BootstrapDateTimePicker;
-import com.helger.photon.bootstrap4.uictrls.datetimepicker.EBootstrap4DateTimePickerMode;
-import com.helger.photon.bootstrap4.uictrls.ext.BootstrapFileUpload;
-import com.helger.photon.bootstrap4.uictrls.ext.BootstrapTechnicalUI;
+import com.helger.photon.bootstrap5.buttongroup.BootstrapButtonToolbar;
+import com.helger.photon.bootstrap5.form.BootstrapForm;
+import com.helger.photon.bootstrap5.form.BootstrapFormGroup;
+import com.helger.photon.bootstrap5.nav.BootstrapTabBox;
+import com.helger.photon.bootstrap5.pages.BootstrapWebPageUIHandler;
+import com.helger.photon.bootstrap5.uictrls.datetimepicker.BootstrapDateTimePicker;
+import com.helger.photon.bootstrap5.uictrls.datetimepicker.EBootstrap5DateTimePickerMode;
+import com.helger.photon.bootstrap5.uictrls.ext.BootstrapFileUpload;
+import com.helger.photon.bootstrap5.uictrls.ext.BootstrapTechnicalUI;
 import com.helger.photon.core.form.FormErrorList;
 import com.helger.photon.core.form.RequestField;
 import com.helger.photon.uicore.css.CPageParam;
@@ -880,7 +880,7 @@ public class PagePublicToolsSMPSML extends AbstractAppWebPage
         aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Certificate migration date")
                                                      .setCtrl (BootstrapDateTimePicker.create (FIELD_PM_MIGRATION_DATE,
                                                                                                aDisplayLocale,
-                                                                                               EBootstrap4DateTimePickerMode.DATE)
+                                                                                               EBootstrap5DateTimePickerMode.DATE)
                                                                                       .setMinDate (PDTFactory.getCurrentLocalDate ()
                                                                                                              .plusDays (1)))
                                                      .setHelpText ("The SML will replace the certificate at this date." +
