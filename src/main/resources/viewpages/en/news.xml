@@ -43,6 +43,310 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-09-06 - Document Validation extended</h3>
+    
+    <p>
+      Deprecated old SimplerInvoicing rules.<br/>
+      Added UBL 2.5 final rules.<br/>
+      Updated XRechnung 3.0 Schematron rules to 2.6.0
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-01</code> - NLCIUS-CII 1.0.3.1 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-02</code> - NLCIUS-CII 1.0.3.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-03</code> - NLCIUS-CII 1.0.3.3 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-04</code> - NLCIUS-CII 1.0.3.4 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-05</code> - NLCIUS-CII 1.0.3.5 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-06</code> - NLCIUS-CII 1.0.3.6 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-07</code> - NLCIUS-CII 1.0.3.7 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-08</code> - NLCIUS-CII 1.0.3.8 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-09</code> - NLCIUS-CII 1.0.3.9 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-01</code> - Simplerinvoicing Credit Note 2.0.3.1 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-02</code> - Simplerinvoicing Credit Note 2.0.3.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-03</code> - Simplerinvoicing Credit Note 2.0.3.3 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-04</code> - Simplerinvoicing Credit Note 2.0.3.4 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-05</code> - Simplerinvoicing Credit Note 2.0.3.5 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-06</code> - Simplerinvoicing Credit Note 2.0.3.6 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-07</code> - Simplerinvoicing Credit Note 2.0.3.7 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-08</code> - Simplerinvoicing Credit Note 2.0.3.8 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-09</code> - Simplerinvoicing Credit Note 2.0.3.9 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-01</code> - Simplerinvoicing Invoice 2.0.3.1 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-02</code> - Simplerinvoicing Invoice 2.0.3.2 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-03</code> - Simplerinvoicing Invoice 2.0.3.3 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-04</code> - Simplerinvoicing Invoice 2.0.3.4 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-05</code> - Simplerinvoicing Invoice 2.0.3.5 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-06</code> - Simplerinvoicing Invoice 2.0.3.6 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-07</code> - Simplerinvoicing Invoice 2.0.3.7 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-08</code> - Simplerinvoicing Invoice 2.0.3.8 <strong>(Deprecated)</strong></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-09</code> - Simplerinvoicing Invoice 2.0.3.9 <strong>(Deprecated)</strong></li>
+<li><code>org.oasis-open:applicationresponse:2.5</code> - UBL Application Response 2.5</li>
+<li><code>org.oasis-open:attacheddocument:2.5</code> - UBL Attached Document 2.5</li>
+<li><code>org.oasis-open:awardednotification:2.5</code> - UBL Awarded Notification 2.5</li>
+<li><code>org.oasis-open:billoflading:2.5</code> - UBL Bill Of Lading 2.5</li>
+<li><code>org.oasis-open:businesscard:2.5</code> - UBL Business Card 2.5</li>
+<li><code>org.oasis-open:businessinformation:2.5</code> - UBL Business Information 2.5</li>
+<li><code>org.oasis-open:callfortenders:2.5</code> - UBL Call For Tenders 2.5</li>
+<li><code>org.oasis-open:catalogue:2.5</code> - UBL Catalogue 2.5</li>
+<li><code>org.oasis-open:cataloguedeletion:2.5</code> - UBL Catalogue Deletion 2.5</li>
+<li><code>org.oasis-open:catalogueitemspecificationupdate:2.5</code> - UBL Catalogue Item Specification Update 2.5</li>
+<li><code>org.oasis-open:cataloguepricingupdate:2.5</code> - UBL Catalogue Pricing Update 2.5</li>
+<li><code>org.oasis-open:cataloguerequest:2.5</code> - UBL Catalogue Request 2.5</li>
+<li><code>org.oasis-open:certificateoforigin:2.5</code> - UBL Certificate Of Origin 2.5</li>
+<li><code>org.oasis-open:commontransportationreport:2.5</code> - UBL Common Transportation Report 2.5</li>
+<li><code>org.oasis-open:contractawardnotice:2.5</code> - UBL Contract Award Notice 2.5</li>
+<li><code>org.oasis-open:contractnotice:2.5</code> - UBL Contract Notice 2.5</li>
+<li><code>org.oasis-open:creditnote:2.5</code> - UBL Credit Note 2.5</li>
+<li><code>org.oasis-open:debitnote:2.5</code> - UBL Debit Note 2.5</li>
+<li><code>org.oasis-open:deliverynote:2.5</code> - UBL Delivery Note 2.5</li>
+<li><code>org.oasis-open:despatchadvice:2.5</code> - UBL Despatch Advice 2.5</li>
+<li><code>org.oasis-open:digitalagreement:2.5</code> - UBL Digital Agreement 2.5</li>
+<li><code>org.oasis-open:digitalcapability:2.5</code> - UBL Digital Capability 2.5</li>
+<li><code>org.oasis-open:documentstatus:2.5</code> - UBL Document Status 2.5</li>
+<li><code>org.oasis-open:documentstatusrequest:2.5</code> - UBL Document Status Request 2.5</li>
+<li><code>org.oasis-open:enquiry:2.5</code> - UBL Enquiry 2.5</li>
+<li><code>org.oasis-open:enquiryresponse:2.5</code> - UBL Enquiry Response 2.5</li>
+<li><code>org.oasis-open:exceptioncriteria:2.5</code> - UBL Exception Criteria 2.5</li>
+<li><code>org.oasis-open:exceptionnotification:2.5</code> - UBL Exception Notification 2.5</li>
+<li><code>org.oasis-open:exportcustomsdeclaration:2.5</code> - UBL Export Customs Declaration 2.5</li>
+<li><code>org.oasis-open:expressionofinterestrequest:2.5</code> - UBL Expression Of Interest Request 2.5</li>
+<li><code>org.oasis-open:expressionofinterestresponse:2.5</code> - UBL Expression Of Interest Response 2.5</li>
+<li><code>org.oasis-open:forecast:2.5</code> - UBL Forecast 2.5</li>
+<li><code>org.oasis-open:forecastrevision:2.5</code> - UBL Forecast Revision 2.5</li>
+<li><code>org.oasis-open:forwardinginstructions:2.5</code> - UBL Forwarding Instructions 2.5</li>
+<li><code>org.oasis-open:freightinvoice:2.5</code> - UBL Freight Invoice 2.5</li>
+<li><code>org.oasis-open:fulfilmentcancellation:2.5</code> - UBL Fulfilment Cancellation 2.5</li>
+<li><code>org.oasis-open:goodscertificate:2.5</code> - UBL Goods Certificate 2.5</li>
+<li><code>org.oasis-open:goodsitemitinerary:2.5</code> - UBL Goods Item Itinerary 2.5</li>
+<li><code>org.oasis-open:goodsitempassport:2.5</code> - UBL Goods Item Passport 2.5</li>
+<li><code>org.oasis-open:guaranteecertificate:2.5</code> - UBL Guarantee Certificate 2.5</li>
+<li><code>org.oasis-open:importcustomsdeclaration:2.5</code> - UBL Import Customs Declaration 2.5</li>
+<li><code>org.oasis-open:instructionforreturns:2.5</code> - UBL Instruction For Returns 2.5</li>
+<li><code>org.oasis-open:inventoryreport:2.5</code> - UBL Inventory Report 2.5</li>
+<li><code>org.oasis-open:invoice:2.5</code> - UBL Invoice 2.5</li>
+<li><code>org.oasis-open:invoicestatusrequest:2.5</code> - UBL Invoice Status Request 2.5</li>
+<li><code>org.oasis-open:invoicestatusresponse:2.5</code> - UBL Invoice Status Response 2.5</li>
+<li><code>org.oasis-open:iteminformationrequest:2.5</code> - UBL Item Information Request 2.5</li>
+<li><code>org.oasis-open:manifest:2.5</code> - UBL Manifest 2.5</li>
+<li><code>org.oasis-open:order:2.5</code> - UBL Order 2.5</li>
+<li><code>org.oasis-open:ordercancellation:2.5</code> - UBL Order Cancellation 2.5</li>
+<li><code>org.oasis-open:orderchange:2.5</code> - UBL Order Change 2.5</li>
+<li><code>org.oasis-open:orderresponse:2.5</code> - UBL Order Response 2.5</li>
+<li><code>org.oasis-open:orderresponsesimple:2.5</code> - UBL Order Response Simple 2.5</li>
+<li><code>org.oasis-open:packinglist:2.5</code> - UBL Packing List 2.5</li>
+<li><code>org.oasis-open:priorinformationnotice:2.5</code> - UBL Prior Information Notice 2.5</li>
+<li><code>org.oasis-open:procurementstatus:2.5</code> - UBL Procurement Status 2.5</li>
+<li><code>org.oasis-open:procurementstatusrequest:2.5</code> - UBL Procurement Status Request 2.5</li>
+<li><code>org.oasis-open:productactivity:2.5</code> - UBL Product Activity 2.5</li>
+<li><code>org.oasis-open:proofofreexportation:2.5</code> - UBL Proof Of Reexportation 2.5</li>
+<li><code>org.oasis-open:proofofreexportationreminder:2.5</code> - UBL Proof Of Reexportation Reminder 2.5</li>
+<li><code>org.oasis-open:proofofreexportationrequest:2.5</code> - UBL Proof Of Reexportation Request 2.5</li>
+<li><code>org.oasis-open:purchasereceipt:2.5</code> - UBL Purchase Receipt 2.5</li>
+<li><code>org.oasis-open:qualificationapplicationrequest:2.5</code> - UBL Qualification Application Request 2.5</li>
+<li><code>org.oasis-open:qualificationapplicationresponse:2.5</code> - UBL Qualification Application Response 2.5</li>
+<li><code>org.oasis-open:quotation:2.5</code> - UBL Quotation 2.5</li>
+<li><code>org.oasis-open:receiptadvice:2.5</code> - UBL Receipt Advice 2.5</li>
+<li><code>org.oasis-open:reminder:2.5</code> - UBL Reminder 2.5</li>
+<li><code>org.oasis-open:remittanceadvice:2.5</code> - UBL Remittance Advice 2.5</li>
+<li><code>org.oasis-open:requestforquotation:2.5</code> - UBL Request For Quotation 2.5</li>
+<li><code>org.oasis-open:retailevent:2.5</code> - UBL Retail Event 2.5</li>
+<li><code>org.oasis-open:selfbilledcreditnote:2.5</code> - UBL Self Billed Credit Note 2.5</li>
+<li><code>org.oasis-open:selfbilledinvoice:2.5</code> - UBL Self Billed Invoice 2.5</li>
+<li><code>org.oasis-open:statement:2.5</code> - UBL Statement 2.5</li>
+<li><code>org.oasis-open:stockavailabilityreport:2.5</code> - UBL Stock Availability Report 2.5</li>
+<li><code>org.oasis-open:tender:2.5</code> - UBL Tender 2.5</li>
+<li><code>org.oasis-open:tendercontract:2.5</code> - UBL Tender Contract 2.5</li>
+<li><code>org.oasis-open:tenderreceipt:2.5</code> - UBL Tender Receipt 2.5</li>
+<li><code>org.oasis-open:tenderstatus:2.5</code> - UBL Tender Status 2.5</li>
+<li><code>org.oasis-open:tenderstatusrequest:2.5</code> - UBL Tender Status Request 2.5</li>
+<li><code>org.oasis-open:tenderwithdrawal:2.5</code> - UBL Tender Withdrawal 2.5</li>
+<li><code>org.oasis-open:tendererqualification:2.5</code> - UBL Tenderer Qualification 2.5</li>
+<li><code>org.oasis-open:tendererqualificationresponse:2.5</code> - UBL Tenderer Qualification Response 2.5</li>
+<li><code>org.oasis-open:tradeitemlocationprofile:2.5</code> - UBL Trade Item Location Profile 2.5</li>
+<li><code>org.oasis-open:transitcustomsdeclaration:2.5</code> - UBL Transit Customs Declaration 2.5</li>
+<li><code>org.oasis-open:transportexecutionplan:2.5</code> - UBL Transport Execution Plan 2.5</li>
+<li><code>org.oasis-open:transportexecutionplanrequest:2.5</code> - UBL Transport Execution Plan Request 2.5</li>
+<li><code>org.oasis-open:transportprogressstatus:2.5</code> - UBL Transport Progress Status 2.5</li>
+<li><code>org.oasis-open:transportprogressstatusrequest:2.5</code> - UBL Transport Progress Status Request 2.5</li>
+<li><code>org.oasis-open:transportservicedescription:2.5</code> - UBL Transport Service Description 2.5</li>
+<li><code>org.oasis-open:transportservicedescriptionrequest:2.5</code> - UBL Transport Service Description Request 2.5</li>
+<li><code>org.oasis-open:transportationstatus:2.5</code> - UBL Transportation Status 2.5</li>
+<li><code>org.oasis-open:transportationstatusrequest:2.5</code> - UBL Transportation Status Request 2.5</li>
+<li><code>org.oasis-open:unawardednotification:2.5</code> - UBL Unawarded Notification 2.5</li>
+<li><code>org.oasis-open:unsubscribefromprocedurerequest:2.5</code> - UBL Unsubscribe From Procedure Request 2.5</li>
+<li><code>org.oasis-open:unsubscribefromprocedureresponse:2.5</code> - UBL Unsubscribe From Procedure Response 2.5</li>
+<li><code>org.oasis-open:utilitystatement:2.5</code> - UBL Utility Statement 2.5</li>
+<li><code>org.oasis-open:wastemovement:2.5</code> - UBL Waste Movement 2.5</li>
+<li><code>org.oasis-open:wastenotification:2.5</code> - UBL Waste Notification 2.5</li>
+<li><code>org.oasis-open:waybill:2.5</code> - UBL Waybill 2.5</li>
+<li><code>org.oasis-open:weightstatement:2.5</code> - UBL Weight Statement 2.5</li>
+<li><code>org.oasis-open:workreport:2.5</code> - UBL Work Report 2.5</li>
+</ul>
+
+    <p>
+      Removed VESIDs are:
+    </p>
+<ul>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-1</code></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-2</code></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-3</code></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-4</code></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-5</code></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-6</code></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-7</code></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-8</code></li>
+<li><code>org.simplerinvoicing:nlcius-cii:1.0.3-9</code></li>
+<li><code>org.peppol.pint.aunz:creditnote:1.0.1</code></li>
+<li><code>org.peppol.pint.aunz:creditnote:1.1</code></li>
+<li><code>org.peppol.pint.aunz:creditnote:1.1.1</code></li>
+<li><code>org.peppol.pint.aunz:creditnote-self-billing:1.0.1</code></li>
+<li><code>org.peppol.pint.aunz:creditnote-self-billing:1.1</code></li>
+<li><code>org.peppol.pint.aunz:creditnote-self-billing:1.1.1</code></li>
+<li><code>org.peppol.pint.aunz:invoice:1.0.1</code></li>
+<li><code>org.peppol.pint.aunz:invoice:1.1</code></li>
+<li><code>org.peppol.pint.aunz:invoice:1.1.1</code></li>
+<li><code>org.peppol.pint.aunz:invoice-self-billing:1.0.1</code></li>
+<li><code>org.peppol.pint.aunz:invoice-self-billing:1.1</code></li>
+<li><code>org.peppol.pint.aunz:invoice-self-billing:1.1.1</code></li>
+<li><code>org.peppol.pint.ae:creditnote:0.9</code></li>
+<li><code>org.peppol.pint.ae:creditnote:2025.6</code></li>
+<li><code>org.peppol.pint.ae:creditnote:2025.7</code></li>
+<li><code>org.peppol.pint.ae:creditnote:2025.11</code></li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:0.9</code></li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2025.6</code></li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2025.7</code></li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2025.11</code></li>
+<li><code>org.peppol.pint.ae:invoice:0.9</code></li>
+<li><code>org.peppol.pint.ae:invoice:2025.6</code></li>
+<li><code>org.peppol.pint.ae:invoice:2025.7</code></li>
+<li><code>org.peppol.pint.ae:invoice:2025.11</code></li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:0.9</code></li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2025.6</code></li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2025.7</code></li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2025.11</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-1</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-2</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-3</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-4</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-5</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-6</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-7</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-8</code></li>
+<li><code>org.simplerinvoicing:creditnote:2.0.3-9</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-1</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-2</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-3</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-4</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-5</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-6</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-7</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-8</code></li>
+<li><code>org.simplerinvoicing:invoice:2.0.3-9</code></li>
+<li><code>org.oasis-open:applicationresponse:2.5-CS01</code></li>
+<li><code>org.oasis-open:attacheddocument:2.5-CS01</code></li>
+<li><code>org.oasis-open:awardednotification:2.5-CS01</code></li>
+<li><code>org.oasis-open:billoflading:2.5-CS01</code></li>
+<li><code>org.oasis-open:businesscard:2.5-CS01</code></li>
+<li><code>org.oasis-open:businessinformation:2.5-CS01</code></li>
+<li><code>org.oasis-open:callfortenders:2.5-CS01</code></li>
+<li><code>org.oasis-open:catalogue:2.5-CS01</code></li>
+<li><code>org.oasis-open:cataloguedeletion:2.5-CS01</code></li>
+<li><code>org.oasis-open:catalogueitemspecificationupdate:2.5-CS01</code></li>
+<li><code>org.oasis-open:cataloguepricingupdate:2.5-CS01</code></li>
+<li><code>org.oasis-open:cataloguerequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:certificateoforigin:2.5-CS01</code></li>
+<li><code>org.oasis-open:commontransportationreport:2.5-CS01</code></li>
+<li><code>org.oasis-open:contractawardnotice:2.5-CS01</code></li>
+<li><code>org.oasis-open:contractnotice:2.5-CS01</code></li>
+<li><code>org.oasis-open:creditnote:2.5-CS01</code></li>
+<li><code>org.oasis-open:debitnote:2.5-CS01</code></li>
+<li><code>org.oasis-open:deliverynote:2.5-CS01</code></li>
+<li><code>org.oasis-open:despatchadvice:2.5-CS01</code></li>
+<li><code>org.oasis-open:digitalagreement:2.5-CS01</code></li>
+<li><code>org.oasis-open:digitalcapability:2.5-CS01</code></li>
+<li><code>org.oasis-open:documentstatus:2.5-CS01</code></li>
+<li><code>org.oasis-open:documentstatusrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:enquiry:2.5-CS01</code></li>
+<li><code>org.oasis-open:enquiryresponse:2.5-CS01</code></li>
+<li><code>org.oasis-open:exceptioncriteria:2.5-CS01</code></li>
+<li><code>org.oasis-open:exceptionnotification:2.5-CS01</code></li>
+<li><code>org.oasis-open:exportcustomsdeclaration:2.5-CS01</code></li>
+<li><code>org.oasis-open:expressionofinterestrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:expressionofinterestresponse:2.5-CS01</code></li>
+<li><code>org.oasis-open:forecast:2.5-CS01</code></li>
+<li><code>org.oasis-open:forecastrevision:2.5-CS01</code></li>
+<li><code>org.oasis-open:forwardinginstructions:2.5-CS01</code></li>
+<li><code>org.oasis-open:freightinvoice:2.5-CS01</code></li>
+<li><code>org.oasis-open:fulfilmentcancellation:2.5-CS01</code></li>
+<li><code>org.oasis-open:goodscertificate:2.5-CS01</code></li>
+<li><code>org.oasis-open:goodsitemitinerary:2.5-CS01</code></li>
+<li><code>org.oasis-open:goodsitempassport:2.5-CS01</code></li>
+<li><code>org.oasis-open:guaranteecertificate:2.5-CS01</code></li>
+<li><code>org.oasis-open:importcustomsdeclaration:2.5-CS01</code></li>
+<li><code>org.oasis-open:instructionforreturns:2.5-CS01</code></li>
+<li><code>org.oasis-open:inventoryreport:2.5-CS01</code></li>
+<li><code>org.oasis-open:invoice:2.5-CS01</code></li>
+<li><code>org.oasis-open:invoicestatusrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:invoicestatusresponse:2.5-CS01</code></li>
+<li><code>org.oasis-open:iteminformationrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:manifest:2.5-CS01</code></li>
+<li><code>org.oasis-open:order:2.5-CS01</code></li>
+<li><code>org.oasis-open:ordercancellation:2.5-CS01</code></li>
+<li><code>org.oasis-open:orderchange:2.5-CS01</code></li>
+<li><code>org.oasis-open:orderresponse:2.5-CS01</code></li>
+<li><code>org.oasis-open:orderresponsesimple:2.5-CS01</code></li>
+<li><code>org.oasis-open:packinglist:2.5-CS01</code></li>
+<li><code>org.oasis-open:priorinformationnotice:2.5-CS01</code></li>
+<li><code>org.oasis-open:procurementstatus:2.5-CS01</code></li>
+<li><code>org.oasis-open:procurementstatusrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:productactivity:2.5-CS01</code></li>
+<li><code>org.oasis-open:proofofreexportation:2.5-CS01</code></li>
+<li><code>org.oasis-open:proofofreexportationreminder:2.5-CS01</code></li>
+<li><code>org.oasis-open:proofofreexportationrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:purchasereceipt:2.5-CS01</code></li>
+<li><code>org.oasis-open:qualificationapplicationrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:qualificationapplicationresponse:2.5-CS01</code></li>
+<li><code>org.oasis-open:quotation:2.5-CS01</code></li>
+<li><code>org.oasis-open:receiptadvice:2.5-CS01</code></li>
+<li><code>org.oasis-open:reminder:2.5-CS01</code></li>
+<li><code>org.oasis-open:remittanceadvice:2.5-CS01</code></li>
+<li><code>org.oasis-open:requestforquotation:2.5-CS01</code></li>
+<li><code>org.oasis-open:retailevent:2.5-CS01</code></li>
+<li><code>org.oasis-open:selfbilledcreditnote:2.5-CS01</code></li>
+<li><code>org.oasis-open:selfbilledinvoice:2.5-CS01</code></li>
+<li><code>org.oasis-open:statement:2.5-CS01</code></li>
+<li><code>org.oasis-open:stockavailabilityreport:2.5-CS01</code></li>
+<li><code>org.oasis-open:tender:2.5-CS01</code></li>
+<li><code>org.oasis-open:tendercontract:2.5-CS01</code></li>
+<li><code>org.oasis-open:tenderreceipt:2.5-CS01</code></li>
+<li><code>org.oasis-open:tenderstatus:2.5-CS01</code></li>
+<li><code>org.oasis-open:tenderstatusrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:tenderwithdrawal:2.5-CS01</code></li>
+<li><code>org.oasis-open:tendererqualification:2.5-CS01</code></li>
+<li><code>org.oasis-open:tendererqualificationresponse:2.5-CS01</code></li>
+<li><code>org.oasis-open:tradeitemlocationprofile:2.5-CS01</code></li>
+<li><code>org.oasis-open:transitcustomsdeclaration:2.5-CS01</code></li>
+<li><code>org.oasis-open:transportexecutionplan:2.5-CS01</code></li>
+<li><code>org.oasis-open:transportexecutionplanrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:transportprogressstatus:2.5-CS01</code></li>
+<li><code>org.oasis-open:transportprogressstatusrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:transportservicedescription:2.5-CS01</code></li>
+<li><code>org.oasis-open:transportservicedescriptionrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:transportationstatus:2.5-CS01</code></li>
+<li><code>org.oasis-open:transportationstatusrequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:unawardednotification:2.5-CS01</code></li>
+<li><code>org.oasis-open:unsubscribefromprocedurerequest:2.5-CS01</code></li>
+<li><code>org.oasis-open:unsubscribefromprocedureresponse:2.5-CS01</code></li>
+<li><code>org.oasis-open:utilitystatement:2.5-CS01</code></li>
+<li><code>org.oasis-open:wastemovement:2.5-CS01</code></li>
+<li><code>org.oasis-open:wastenotification:2.5-CS01</code></li>
+<li><code>org.oasis-open:waybill:2.5-CS01</code></li>
+<li><code>org.oasis-open:weightstatement:2.5-CS01</code></li>
+<li><code>org.oasis-open:workreport:2.5-CS01</code></li>
+</ul>
+
     <h3>2026-08-19 - Document Validation extended</h3>
 
     <p>
