@@ -33,9 +33,9 @@ import com.helger.cii.d16b.CIID16BCrossIndustryInvoiceTypeMarshaller;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.list.ErrorList;
-import com.helger.en16931.cii2ubl.CIIToUBL21Converter;
 import com.helger.en16931.cii2ubl.CIIToUBLVersion;
 import com.helger.en16931.cii2ubl.EUBLCreationMode;
+import com.helger.en16931.cii2ubl.en2017.CIID16BToUBL21Converter;
 import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
@@ -121,8 +121,8 @@ public final class APIConvertCIIToUBL extends AbstractJsonBasedAPIExecutor
       aJson.add ("conversionVersion", CIIToUBLVersion.BUILD_VERSION);
       aJson.add ("conversionBuildTimestamp", CIIToUBLVersion.BUILD_TIMESTAMP);
 
-      final Serializable aUBL = new CIIToUBL21Converter ().setUBLCreationMode (EUBLCreationMode.AUTOMATIC)
-                                                          .convertCIItoUBL (aCIIInvoice, aErrorList);
+      final Serializable aUBL = new CIID16BToUBL21Converter ().setUBLCreationMode (EUBLCreationMode.AUTOMATIC)
+                                                              .convertCIItoUBL (aCIIInvoice, aErrorList);
       final long nConversionMillis = aSW.stopAndGetMillis ();
       aJson.add ("conversionDurationMillis", nConversionMillis);
 
