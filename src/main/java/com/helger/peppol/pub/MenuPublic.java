@@ -102,7 +102,7 @@ public final class MenuPublic
                                                      new ClassPathResource ("viewpages/en/docs_peppol_cert_update.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_MLR,
-                                                     "Peppol MLR / MLS",
+                                                     "Peppol MLS / MLR",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_mlr.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_FIREWALL,

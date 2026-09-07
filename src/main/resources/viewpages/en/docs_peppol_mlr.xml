@@ -17,11 +17,273 @@
 
 -->
 <p>
-  This page contains some general thought about the Message Level Response (MLR) and its successor, the Message Level Status (MLS). 
+  This page contains some general thoughts about the Message Level Status (MLS) and its predecessor,
+    the Message Level Response (MLR).
+  MLS is mandatory for all Peppol Service Providers, whereas MLR is deprecated and will be retired.
+  The transition is governed by the two OpenPeppol plans
+    <a href="https://docs.peppol.eu/edelivery/changelog/2026-07/Peppol%20MLS%20Phase-In%201.0.0%202026-07-02.pdf" target="_blank">Peppol MLS Phase-in v1.0.0</a>
+    and
+    <a href="https://docs.peppol.eu/edelivery/changelog/2026-07/Peppol%20MLR%20Phase-Out%201.0.0%202026-07-02.pdf" target="_blank">Peppol MLR Deprecation and Phase-out Plan v1.0.0</a>,
+    both published on 2026-07-02.
 </p>
 
-<h2>MLR - Message Level Response</h2>
+<div class="alert alert-info">
+  The short version: MLS receiving must be implemented, registered in an SMP and operational by
+    <strong>2027-02-28</strong> (T2), MLS sending is mandatory from <strong>2027-03-31</strong> (T3)
+    and MLR is fully retired at <strong>2027-05-01</strong> (T4).
+  See the <a href="#timeline">overall timeline</a> below.
+</div>
 
+<div class="card">
+  <div class="card-header">Table of contents</div>
+  <div class="card-body">
+    <ol>
+      <li><a href="#mls">MLS - Message Level Status</a>
+        <ol>
+          <li><a href="#mlsintro">Introduction</a></li>
+          <li><a href="#mlsspecs">Relevant specifications</a></li>
+          <li><a href="#mlspnp">Obligations from the Peppol Network Policy (PNP) v1.0.0</a></li>
+          <li><a href="#mlssbdh">SBDH v2.0.2 - MLS_TO and MLS_TYPE</a></li>
+          <li><a href="#mlsspec110">Changes in the MLS specification v1.1.0</a></li>
+          <li><a href="#mlsphasein">The MLS phase-in plan</a></li>
+          <li><a href="#mlsos">Open Source software</a></li>
+        </ol>
+      </li>
+      <li><a href="#mlr">MLR - Message Level Response (deprecated)</a>
+        <ol>
+          <li><a href="#mlrintro">Introduction</a></li>
+          <li><a href="#mlrscope">Scope</a></li>
+          <li><a href="#mlrprocess">Proposed technical process</a></li>
+          <li><a href="#mlrphaseout">The MLR phase-out plan</a></li>
+          <li><a href="#mlros">Open Source software</a></li>
+        </ol>
+      </li>
+      <li><a href="#compare">MLR vs. MLS</a></li>
+      <li><a href="#timeline">Overall timeline</a></li>
+    </ol>
+  </div>
+</div>
+
+<a name="mls"></a>
+<h2>MLS - Message Level Status</h2>
+
+<a name="mlsintro"></a>
+<h3>Introduction</h3>
+
+<p>
+  The intention of the MLS is to be a message between C2 and C3 instead of a message between C1 and C4 like the MLR.
+  This makes it easier to mandate it, because only Service Providers are forced to support it.
+  As the receiver of an MLS message (C2) it is recommended to forward the information on any specific way to your End User (C1).
+</p>
+
+<p>
+  The MLS is a regular Peppol document like Invoice or Order and as such needs to be transmitted like any other Peppol document
+    wrapped in an SBDH and send via AS4.<br />
+  Different to the MLR, the MLS is <strong>not</strong> optional - every Service Provider that exchanges Peppol Document Types
+    must be able to send and to receive MLS messages.<br />
+  Sender and receiver of an MLS are identified with the OpenPeppol Service Provider Identification Scheme (SPIS),
+    meaning participant identifier scheme <code>0242</code> - no other scheme is allowed.
+</p>
+
+<a name="mlsspecs"></a>
+<h3>Relevant specifications</h3>
+
+<p>
+  All the documents below are publicly available at
+    <a href="https://docs.peppol.eu/edelivery/" target="_blank">https://docs.peppol.eu/edelivery/</a>:
+</p>
+
+<ul>
+  <li><strong>Peppol MLS Specification v1.1.0</strong> - the primary technical specification governing MLS message structure,
+      process and rules</li>
+  <li><strong>Peppol Business Message Envelope (SBDH) v2.0.2</strong> - introduces the MLS Customisation Options
+      <code>MLS_TO</code> and <code>MLS_TYPE</code> and the corresponding reserved SBDH attributes</li>
+  <li><strong>Peppol Network Policy (PNP) v1.0.0</strong> - a completely new document that introduces the mandatory MLS rules
+      MLS-1 to MLS-4, the timing milestones M1 to M3 and the Service Level Requirements SLR MLS-1 and SLR MLS-2</li>
+  <li><strong>Peppol MLS Phase-in v1.0.0</strong> - defines <em>when</em> things need to happen</li>
+  <li><strong>Service Provider Operational Guideline on MLS (SPOG MLS)</strong> - defines <em>how</em> things need to be done</li>
+  <li><strong>Peppol MLR Deprecation and Phase-out Plan v1.0.0</strong> - the counterpart for retiring the MLR</li>
+</ul>
+
+<a name="mlspnp"></a>
+<h3>Obligations from the Peppol Network Policy (PNP) v1.0.0</h3>
+
+<p>
+  The PNP is an entirely new document, so every rule in it is a new obligation for Service Providers:
+</p>
+
+<ul>
+  <li><strong>Rule MLS-1</strong> - every Service Provider offering the exchange of Peppol Document Types MUST support both
+      sending and receiving MLS messages. MLS support is no longer optional.</li>
+  <li><strong>Rule MLS-2</strong> - every Service Provider MUST register the MLS receiving capabilities in an SMP using its
+      SPIS Main ID participant identifier (<code>0242:&lt;6-digit-number&gt;</code>).
+      Additional SPIS Use Case ID "MLS" identifiers (e.g. <code>0242:&lt;6-digit-number&gt;-MLS</code>) MAY be registered.</li>
+  <li><strong>Rule MLS-3</strong> - the default MLS usage is <code>FAILURE_ONLY</code>, meaning only negative MLS responses are sent.
+      Positive MLS responses MUST NOT be sent unless the sending Service Provider opted in via <code>MLS_TYPE=ALWAYS_SEND</code>.</li>
+  <li><strong>Rule MLS-4</strong> - MLS messages MUST be sent as soon as the status is known.
+      Artificial or intentional delays are not permitted.
+      If the transmission is temporarily impossible, the message must be queued and retried as soon as conditions permit.</li>
+</ul>
+
+<p>
+  Additionally a new timing framework with three milestones is introduced:
+</p>
+
+<ul>
+  <li><strong>M1</strong> - AS4 Timestamp of the original business document transmission at C2</li>
+  <li><strong>M2</strong> - AS4 Timestamp of the MLS message transmission at C3</li>
+  <li><strong>M3</strong> - Reception time of the MLS message at C2</li>
+</ul>
+
+<p>
+  Based on these milestones, two Service Level Requirements are defined, both measured monthly and both only applicable
+    to business documents with a Payload Size &lt; 10 MB:
+</p>
+
+<ul>
+  <li><strong>SLR MLS-1</strong> - 99.5% of the MLS messages must have M2 - M1 ≤ 20 minutes</li>
+  <li><strong>SLR MLS-2</strong> - 99.5% of the MLS messages must have M3 - M1 ≤ 25 minutes</li>
+</ul>
+
+<p>
+  Note: the SLRs require that you record all three timestamps and that you are able to relate an incoming MLS message to the
+    matching outgoing business document.
+  So besides the pure sending and receiving, monitoring and alerting are needed as well.
+</p>
+
+<p>
+  Two additional rules that are easily forgotten:
+  all XML documents including MLS messages must use the UTF-8 character set (PNP rule XML-1), and an MLS message must never
+    be sent in response to another MLS or MLR message (rule OP-MLS-03).
+  Positive MLS messages (Response Code <code>AP</code> or <code>AB</code>) MUST NOT be sent before the delivery of the original
+    business document to C4 was attempted (rule OP-MLS-12).
+</p>
+
+<a name="mlssbdh"></a>
+<h3>SBDH v2.0.2 - MLS_TO and MLS_TYPE</h3>
+
+<p>
+  The Peppol Business Message Envelope (SBDH) v2.0.2 introduces two new optional fields in the SBDH of the
+    <em>business document</em>, that influence how C3 has to respond with an MLS.
+  Both keys are reserved SBDH attribute keys and MUST NOT be used for any other purpose.
+</p>
+
+<ul>
+  <li><code>MLS_TO</code> - allows C2 to specify an alternative participant identifier for receiving the MLS responses.
+      If present and valid, C3 MUST honour it.
+      The value must correlate to the SPIS Main ID of C2 from the Peppol AP Certificate - redirecting the MLS to a
+        <em>different</em> Service Provider is not allowed.
+      This is meant for Service Providers running multiple Access Points or Access Point instances.</li>
+  <li><code>MLS_TYPE</code> - allows C2 to request <code>ALWAYS_SEND</code> or <code>FAILURE_ONLY</code>.
+      If the field is absent or invalid, the default <code>FAILURE_ONLY</code> from the PNP applies.</li>
+</ul>
+
+<p>
+  As C3 you need to parse and validate both fields from the incoming SBDH and apply the respective fallback chains
+    defined in the SPOG MLS sections 5.1 and 5.2.
+  As C2 you may optionally fill these fields in your outgoing SBDH.
+</p>
+
+<a name="mlsspec110"></a>
+<h3>Changes in the MLS specification v1.1.0</h3>
+
+<p>
+  The phase-in is based on MLS specification v1.1.0. The relevant changes compared to v1.0.0 are:
+</p>
+
+<ul>
+  <li>The <strong>SPIS scheme was standardised to <code>0242</code></strong> - all MLS sender and receiver identifiers must use
+      this scheme, no other Participant Identifier Scheme is permitted.
+      So verify that all your MLS related SMP registrations use scheme <code>0242</code>.</li>
+  <li>The <strong>rejection reason list is now exhaustive</strong> - the list of situations in which C3 may issue a rejection MLS
+      (Response Code <code>RE</code>) is a closed list. C3 MUST NOT reject documents for reasons outside of this list.</li>
+  <li><strong>Schematron updates</strong> - the participant identifier comparison is now case insensitive
+      (rules SCH-MLS-09 and SCH-MLS-14) and the usage of scheme <code>0242</code> is enforced
+      (rules SCH-MLS-11 and SCH-MLS-16).</li>
+</ul>
+
+<a name="mlsphasein"></a>
+<h3>The MLS phase-in plan</h3>
+
+<p>
+  The phase-in plan defines three milestones and two phases:
+</p>
+
+<ul>
+  <li><strong>T1 - 2026-07-01</strong> - start point; the specifications are effective and the phase-in clock starts</li>
+  <li><strong>T2 - 2027-02-28</strong> - end of Phase 1 (8 months). The MLS receiving capability MUST be in production.
+      The MLS sending activation window opens.</li>
+  <li><strong>T3 - 2027-03-31</strong> - end of Phase 2 (1 month). MLS sending is mandatory and the SLRs are enforceable.</li>
+</ul>
+
+<p>
+  <strong>Phase 1 (T1 to T2)</strong> - be ready to send and receive MLS messages and have the SMP capabilities registered.
+  MLS sending is not required in this phase, but MAY be activated early.
+</p>
+
+<ul>
+  <li>Implement the parsing of <code>MLS_TO</code> and <code>MLS_TYPE</code> from the SBDH of incoming business documents,
+      including the fallback logic</li>
+  <li>Implement the MLS document creation and the AS4 transmission logic</li>
+  <li>Implement the SML/DNS lookup and the SMP lookup for the effective MLS receiver participant identifier,
+      to be performed prior to each MLS transmission</li>
+  <li>Implement the MLS queuing and the retry with exponential backoff</li>
+  <li>Deploy an MLS receiving endpoint that is reachable via AS4 and validate received MLS messages against the
+      XML Schema and the MLS Schematron rules</li>
+  <li>Implement the relation of an incoming MLS message to the matching outgoing business document</li>
+  <li>Instrument the systems to record the timing milestones M1, M2 and M3</li>
+  <li>Register the MLS receiving capabilities in an SMP for the SPIS Main ID participant identifier, using the exact
+      Document Type Identifier and Process Identifier from the MLS specification chapter 9.1 - that is what "activating
+      MLS receiving" means</li>
+  <li>Test end-to-end in the Peppol Test Network and pass the mandatory Peppol Testbed MLS Test Suite</li>
+</ul>
+
+<p>
+  To finalise Phase 1, all Service Providers MUST have the MLS receiving capability registered in an SMP and operational,
+    and MUST have passed the Peppol Testbed MLS Test Suite.
+  Whoever did not complete Phase 1 by T2 is in breach of the PNP rules MLS-1 and MLS-2.
+</p>
+
+<p>
+  <strong>Phase 2 (T2 to T3)</strong> - start actively sending MLS messages.
+  Sending MAY be activated before T2 once the Phase 1 implementation is complete and tested, and MUST be active for
+    all Service Providers by T3.
+  The 1-month window is explicitly meant as a transition buffer and not as a grace period for a delayed implementation.
+  Whoever activated the sending must comply with the PNP rules MLS-3 and MLS-4 from the moment of the activation.
+  The SLR measurement begins at T3, so the time before can be used to baseline the own SLR performance.
+</p>
+
+<p>
+  A note for Peppol Authorities that offer a <strong>Centralised SMP</strong> solution:
+    they MAY mandate the registration of the SPID participants for local Service Providers,
+    but they MUST NOT mandate it for foreign Service Providers, as many - especially international - Service Providers run
+    their own SMP.
+  If you are using a Centralised SMP, clarify with your Peppol Authority whether the MLS participant registration is
+    handled centrally or whether you need to do it yourself.
+</p>
+
+<a name="mlsos"></a>
+<h3>Open Source software</h3>
+
+<p>
+  My <a href="https://github.com/phax/peppol-commons?tab=readme-ov-file#peppol-mls" target="_blank">peppol-commons</a> project offers the
+    sub-module <code>peppol-mls</code> to deal with MLS messages.
+  It allows to read and create the MLS payload in a consistent way.
+  For the SMP lookup the same project has a <code>peppol-smp-client</code> module.
+  Wrapping the MLS in SBDH and sending the message can be done with any compliant Peppol AS4 solution like <a href="https://github.com/phax/phase4">phase4</a>. 
+</p>
+
+<a name="mlr"></a>
+<h2>MLR - Message Level Response (deprecated)</h2>
+
+<div class="alert alert-warning">
+  The MLR is deprecated.
+  From T3 (2027-03-31) onwards it may only be used as a last-resort fallback and from T4 (2027-05-01) onwards it MUST NOT
+    be sent at all.
+  See <a href="#mlrphaseout">the MLR phase-out plan</a> below.
+</div>
+
+<a name="mlrintro"></a>
 <h3>Introduction</h3>
 
 <p>
@@ -37,6 +299,7 @@
   Please note, that an MLR message can be send as a response to any business document as long as its reception is supported.
 </p>
 
+<a name="mlrscope"></a>
 <h3>Scope</h3>
 
 <p>
@@ -46,11 +309,14 @@
   And don't mix MLR with BLR (Business Level Response - e.g. Invoice Response) because they have different meanings.   
 </p>
 
+<a name="mlrprocess"></a>
 <h3>Proposed technical process</h3>
 
 <p>
   The following process description shows a best practice process <strong>proposal</strong>.
   The assumption is, that receiver side validation was performed and the response should be transmitted back to C1.
+  Note: as soon as MLS sending is activated, this process is superseded by MLS, because one business document
+    MUST only be responded with either MLR or MLS, and MLS has priority (SPOG MLS chapter 3.2).
 </p>
 
 <ol>
@@ -71,6 +337,59 @@
   </li>
 </ol>
 
+<a name="mlrphaseout"></a>
+<h3>The MLR phase-out plan</h3>
+
+<p>
+  The phase-out is driven by one rule from the SPOG MLS chapter 3.2:
+</p>
+
+<blockquote class="blockquote">
+  One business document MUST only be responded with either MLR or MLS.
+  If a receiver can handle both MLR and MLS, the usage of MLS MUST have priority.
+</blockquote>
+
+<p>
+  The direct consequence is, that the phase-out does not start at T3 but already at T2:
+    as soon as a Service Provider activates the MLS sending, that Service Provider MUST stop sending MLR.
+</p>
+
+<p>
+  <strong>Phase 2 (T2 to T3)</strong>:
+</p>
+
+<ul>
+  <li>Whoever activates the MLS sending MUST immediately cease sending MLR for the business documents that are now
+      responded to via MLS - the two obligations are mutually exclusive</li>
+  <li>Whoever did not yet activate the MLS sending MAY still send MLR, but SHOULD prepare to stop</li>
+  <li>By T3 all MLR document type registrations in the SMP should be removed, because keeping them after MLS is active
+      creates potential for compliance ambiguity.
+      Keep the ability to accept and process inbound MLR messages only for selected counterpart Service Providers that
+      have not yet completed their transition.</li>
+</ul>
+
+<p>
+  <strong>Phase 3 (T3 to T4)</strong>:
+</p>
+
+<ul>
+  <li>From T3 all Service Providers MUST be sending MLS</li>
+  <li>The only remaining permitted use of MLR is a last-resort fallback, limited strictly to the case that C2 has no MLS
+      receiving capability registered in an SMP.
+      As the MLS receiving capability is mandatory from T2, this case must be treated as exceptional and extremely rare.</li>
+  <li>C3 MUST verify via SMP lookup before falling back to MLR</li>
+  <li>MLR receiving capabilities may be started to be removed</li>
+  <li>The eDEC Code List entry for MLR is marked as "deprecated"</li>
+</ul>
+
+<p>
+  <strong>From T4 onwards</strong> the MLR is fully retired: all MLR sending is prohibited without exception and no Service
+    Provider is allowed to receive MLR messages.
+  The eDEC Code List entry for MLR is marked as "removed" and the OpenPeppol Operating Office formally retires the
+    MLR specification.
+</p>
+
+<a name="mlros"></a>
 <h3>Open Source software</h3>
 
 <p>
@@ -81,26 +400,178 @@
   Wrapping the MLR in SBDH and sending the message can be done with any compliant Peppol AS4 solution like <a href="https://github.com/phax/phase4">phase4</a>. 
 </p>
 
-<h2>MLS - Message Level Status</h2>
-
-<h3>Introduction</h3>
+<a name="compare"></a>
+<h2>MLR vs. MLS</h2>
 
 <p>
-  The <a href="https://docs.peppol.eu/edelivery/" target="_blank">MLS specification</a> v1.0.0 is publicly available.
+  MLS provides the complete functional coverage of MLR - every situation that MLR handles is handled by MLS using the same
+    Response Codes (<code>RE</code> for rejection, <code>AP</code> for acceptance and <code>AB</code> for acknowledgement),
+    so no functional capability is lost in the transition.
+  On top of that, MLS adds the following:
 </p>
 
+<ul>
+  <li><strong>Delivery failure towards C4</strong> - MLR is limited to reporting the conformance validation result.
+      MLS additionally covers the case that C3 is permanently unable to forward the document to C4, regardless of whether the
+      document is technically valid. This is reported with Response Code <code>RE</code> and Status Reason Code
+      <code>FD</code> (Failed Delivery) and is entirely outside the scope of MLR.</li>
+  <li><strong>Exhaustive rejection reason list</strong> - MLR has an open ended list of rejection reasons, MLS defines a closed
+      list of Status Reason Codes (<code>SV</code>, <code>BV</code>, <code>BW</code>, <code>FD</code>), which improves the
+      predictability for C2.</li>
+  <li><strong>Structured line level detail</strong> - both support line level error reporting, but MLS makes an issue location,
+      an issue description and a Status Reason Code mandatory for each issue (rules OP-MLS-27 to OP-MLS-30).</li>
+  <li><strong>C2 as target receiver</strong> - MLS allows C2 to be targeted as the document receiver, MLR has no equivalent.</li>
+  <li><strong>Receiver directed routing</strong> via <code>MLS_TO</code> - MLR has no equivalent.</li>
+  <li><strong>Sender controlled response type</strong> via <code>MLS_TYPE</code> - with MLR the decision to send rests entirely
+      with C3.</li>
+  <li><strong>Mandatory behaviour with SLRs</strong> - MLR sending is optional and has no timing requirements at all.</li>
+  <li><strong>Issue time with time zone</strong> - MLS requires an issue date (without time zone) and an issue time including
+      time zone information (rules OP-MLS-17 and OP-MLS-18), MLR requires only a date.</li>
+</ul>
+
 <p>
-  The intention of the MLS is to be a message between C2 and C3 instead of a message between C1 and C4 like the MLR.
-  This makes it easier to mandate it, because only Service Providers are forced to support it.
-  As the receiver of an MLS message (C2) it is recommended to forward the information on any specific way to your End User (C1). 
+  The structural differences are equally relevant:
+    MLR uses <code>cac:SenderParty/cbc:EndpointID</code> and <code>cac:ReceiverParty/cbc:EndpointID</code> with any
+    Electronic Address Scheme (EAS) identifier and is exchanged between C1 and C4,
+    whereas MLS uses the SPIS scheme <code>0242</code> exclusively and is strictly a C2 to C3 communication.
+  And MLR does not require a dedicated SMP registration for the receiving capabilities, whereas MLS does - which is exactly
+    what makes the "MLS has priority" rule technically enforceable, because C3 can determine via SMP lookup whether C2 has
+    MLS receiving capabilities or not.
 </p>
 
-<h3>Open Source software</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>MLR</th>
+      <th>MLS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Rejection response (<code>RE</code>)</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Acceptance with confirmation (<code>AP</code>)</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Acknowledgement without validation (<code>AB</code>)</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Delivery failure to C4 (<code>FD</code>)</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Exhaustive rejection reason codes</td>
+      <td>No (open list)</td>
+      <td>Yes (closed list)</td>
+    </tr>
+    <tr>
+      <td>Mandatory structured line level detail</td>
+      <td>No (optional)</td>
+      <td>Yes (mandatory for <code>RE</code>)</td>
+    </tr>
+    <tr>
+      <td>Sender directed MLS receiver (<code>MLS_TO</code>)</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Sender controlled response type (<code>MLS_TYPE</code>)</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Issue time with time zone</td>
+      <td>No (date only)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Mandatory sending</td>
+      <td>No (optional)</td>
+      <td>Yes (from T3)</td>
+    </tr>
+    <tr>
+      <td>Service Level Requirements</td>
+      <td>No</td>
+      <td>Yes (SLR MLS-1, SLR MLS-2)</td>
+    </tr>
+    <tr>
+      <td>Addressee</td>
+      <td>End Users (C1, C4)</td>
+      <td>Service Providers (C2, C3)</td>
+    </tr>
+    <tr>
+      <td>Dedicated SMP registration required</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>No response to another status message</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<a name="timeline"></a>
+<h2>Overall timeline</h2>
 
 <p>
-  My <a href="https://github.com/phax/peppol-commons?tab=readme-ov-file#peppol-mls" target="_blank">peppol-commons</a> project offers the
-    sub-module <code>peppol-mls</code> to deal with MLS messages.
-  It allows to read and create the MLS payload in a consistent way.
-  For the SMP lookup the same project has a <code>peppol-smp-client</code> module.
-  Wrapping the MLS in SBDH and sending the message can be done with any compliant Peppol AS4 solution like <a href="https://github.com/phax/phase4">phase4</a>. 
+  Both plans share the same milestones, so this is the combined view:
+</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Milestone</th>
+      <th>Date</th>
+      <th>MLS</th>
+      <th>MLR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T1</td>
+      <td>2026-07-01</td>
+      <td>Specifications are effective, the phase-in clock starts. Start of Phase 1 (8 months).</td>
+      <td>Unchanged - MLR may still be used</td>
+    </tr>
+    <tr>
+      <td>T2</td>
+      <td>2027-02-28</td>
+      <td>End of Phase 1. MLS receiving MUST be in production and registered in an SMP.
+          The MLS sending activation window opens (Phase 2, 1 month).</td>
+      <td>Start of the phase-out. Whoever activates MLS sending MUST stop sending MLR.</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>2027-03-31</td>
+      <td>End of Phase 2. MLS sending is mandatory for everybody and SLR MLS-1 and SLR MLS-2 are enforceable.</td>
+      <td>MLR specification is deprecated and the eDEC Code List entry is marked as "deprecated".
+          Sending is only allowed as a last-resort fallback if C2 has no MLS receiving capability in the SMP.</td>
+    </tr>
+    <tr>
+      <td>T4</td>
+      <td>2027-05-01</td>
+      <td>-</td>
+      <td>MLR is fully retired. Sending is prohibited, receiving is no longer required and the eDEC Code List entry is
+          marked as "removed".</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Note: the two documents name the milestones T2 and T3 with slightly different dates.
+  The MLS Phase-in plan uses "February 28th, 2027" (T2) and "March 31st, 2027" (T3), whereas the MLR Phase-out plan refers
+    to the very same milestones as "March 1st, 2027" and "April 1st, 2027".
+  Practically both denote the same points in time - the end of February 2027 and the end of March 2027.
+  T4 is defined as a maximum of one month after T3.
 </p>
