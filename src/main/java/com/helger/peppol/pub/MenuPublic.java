@@ -25,9 +25,9 @@ import com.helger.peppol.sharedui.page.pub.CSharedUIMenuPublic;
 import com.helger.peppol.sharedui.page.pub.PagePublicContact;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsDDD;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsIdentifierInformation;
+import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsPeppolParticipantCheck;
 import com.helger.peppol.sharedui.page.pub.PagePublicToolsPeppolParticipantCheckBelgium;
-import com.helger.peppol.sharedui.page.pub.PagePublicToolsParticipantInformation;
 import com.helger.peppol.ui.page.AppPageViewExternal;
 import com.helger.photon.bootstrap5.pages.security.BasePageSecurityChangePassword;
 import com.helger.photon.core.menu.IMenuItemPage;
@@ -101,9 +101,9 @@ public final class MenuPublic
                                                      "Peppol Certificate update",
                                                      new ClassPathResource ("viewpages/en/docs_peppol_cert_update.xml")));
       aMenuTree.createItem (aSetup,
-                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_MLR,
+                            new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_MLS,
                                                      "Peppol MLS / MLR",
-                                                     new ClassPathResource ("viewpages/en/docs_peppol_mlr.xml")));
+                                                     new ClassPathResource ("viewpages/en/docs_peppol_mls.xml")));
       aMenuTree.createItem (aSetup,
                             new AppPageViewExternal (CMenuPublic.MENU_DOCS_PEPPOL_FIREWALL,
                                                      "Peppol Firewall requirements",
