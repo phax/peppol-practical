@@ -36,7 +36,6 @@ import com.helger.photon.uicore.css.CPageParam;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 import com.helger.photon.uicore.page.external.IWebPageResourceContent;
 
-
 public final class PageSecureAdminAddons extends AbstractBootstrapWebPage <WebPageExecutionContext>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PageSecureAdminAddons.class);

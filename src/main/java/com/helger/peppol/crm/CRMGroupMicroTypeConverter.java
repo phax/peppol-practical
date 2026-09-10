@@ -23,7 +23,6 @@ import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverte
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-
 public class CRMGroupMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <CRMGroup>
 {
   private static final String ATTR_DISPLAY_NAME = "displayname";

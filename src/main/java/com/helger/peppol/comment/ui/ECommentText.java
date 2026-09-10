@@ -27,7 +27,6 @@ import com.helger.text.display.IHasDisplayTextWithArgs;
 import com.helger.text.resolve.DefaultTextResolver;
 import com.helger.text.util.TextHelper;
 
-
 @Translatable
 public enum ECommentText implements IHasDisplayTextWithArgs
 {

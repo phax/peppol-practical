@@ -44,7 +44,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
-
 /**
  * This class manages all comments of a certain object type.
  *
@@ -219,7 +218,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
   @ReturnsMutableCopy
   public ICommonsMap <String, ICommonsList <ICommentThread>> getAllCommentThreads ()
   {
-    return m_aRWLock.readLockedGet ( () -> m_aObjectToCommentThreads.getClone ());
+    return m_aRWLock.readLockedGet (() -> m_aObjectToCommentThreads.getClone ());
   }
 
   @NonNull
@@ -250,7 +249,7 @@ public final class CommentThreadObjectTypeManager extends AbstractPhotonSimpleDA
     if (StringHelper.isEmpty (sCommentThreadID))
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> m_aAllCommentThreads.get (sCommentThreadID));
+    return m_aRWLock.readLockedGet (() -> m_aAllCommentThreads.get (sCommentThreadID));
   }
 
   @Nullable

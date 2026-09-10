@@ -71,7 +71,6 @@ import com.helger.photon.uicore.icon.EDefaultIcon;
 import com.helger.photon.uicore.page.IWebPageExecutionContext;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-
 @Immutable
 public final class AppCommonUI
 {
@@ -224,9 +223,9 @@ public final class AppCommonUI
 
     if (aObject instanceof final IUser aTypedObj)
     {
-      final String sRealDisplayName = sDisplayName != null ? sDisplayName : SecurityHelper.getUserDisplayName (
-                                                                                                               aTypedObj,
-                                                                                                               aDisplayLocale);
+      final String sRealDisplayName = sDisplayName != null ? sDisplayName
+                                                           : SecurityHelper.getUserDisplayName (aTypedObj,
+                                                                                                aDisplayLocale);
       final String sMenuItemID = BootstrapPagesMenuConfigurator.MENU_ADMIN_SECURITY_USER;
       final IMenuObject aObj = aWPEC.getMenuTree ().getItemDataWithID (sMenuItemID);
       if (aObj != null && aObj.matchesDisplayFilter ())

@@ -85,7 +85,6 @@ import com.helger.url.ISimpleURL;
 import com.helger.url.SimpleURL;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-
 /**
  * The viewport renderer (menu + content area)
  *

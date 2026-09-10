@@ -25,7 +25,6 @@ import com.helger.peppol.sharedui.page.AbstractAppWebPage;
 import com.helger.peppol.ui.AppCommonUI;
 import com.helger.photon.uicore.page.WebPageExecutionContext;
 
-
 public final class PagePublicLogin extends AbstractAppWebPage
 {
   public PagePublicLogin (@NonNull @Nonempty final String sID)

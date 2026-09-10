@@ -31,7 +31,6 @@ import com.helger.datetime.domain.IHasCreationDateTime;
 import com.helger.datetime.domain.IHasLastModificationDateTime;
 import com.helger.security.authentication.subject.user.IHasUserID;
 
-
 /**
  * Interface for a single comment object. It is not directly linked to the object to which the
  * comment is attached. Each comment belongs to an {@link ICommentThread}.

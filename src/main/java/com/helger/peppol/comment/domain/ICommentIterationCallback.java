@@ -21,7 +21,6 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 
-
 /**
  * Callback interface for iterating all comments within a comment thread
  *

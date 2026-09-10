@@ -26,7 +26,6 @@ import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.text.display.IHasDisplayText;
 
-
 /**
  * Represents the different comment states.
  *

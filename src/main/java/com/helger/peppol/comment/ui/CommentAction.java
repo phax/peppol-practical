@@ -24,7 +24,6 @@ import com.helger.peppol.comment.domain.IComment;
 import com.helger.peppol.comment.domain.ICommentThread;
 import com.helger.photon.core.form.FormErrorList;
 
-
 public final class CommentAction extends FormErrorList
 {
   private final ECommentAction m_eCommentAction;

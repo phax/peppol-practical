@@ -38,7 +38,6 @@ import com.helger.photon.uicore.page.external.PageViewExternalHTMLCleanser;
 import com.helger.xml.microdom.IMicroContainer;
 import com.helger.xml.microdom.util.MicroVisitor;
 
-
 public class AppPageViewExternal extends BasePageViewExternal <WebPageExecutionContext>
 {
   private static void _cleanCode (@NonNull final IMicroContainer aCont)

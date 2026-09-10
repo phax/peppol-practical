@@ -34,7 +34,6 @@ import com.helger.datetime.helper.PDTFactory;
 import com.helger.photon.security.login.LoggedInUserManager;
 import com.helger.photon.security.user.IUser;
 
-
 /**
  * Default implementation of the {@link IComment} interface.
  *

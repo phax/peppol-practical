@@ -66,7 +66,8 @@ public final class PagePublicNewsletterUnsubscribe extends AbstractAppWebPage
         {
           aCRMSubscriber = aCRMSubscriberMgr.getCRMSubscriberOfEmailAddress (sEmailAddress);
           if (aCRMSubscriber == null)
-            aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS, "The provided email address is not registered to any mailing list!");
+            aFormErrors.addFieldError (FIELD_EMAIL_ADDRESS,
+                                       "The provided email address is not registered to any mailing list!");
         }
 
       if (aFormErrors.isEmpty ())

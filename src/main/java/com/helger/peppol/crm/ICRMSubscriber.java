@@ -29,7 +29,6 @@ import com.helger.masterdata.person.ESalutation;
 import com.helger.tenancy.IBusinessObject;
 import com.helger.text.display.IHasDisplayText;
 
-
 /**
  * The read-only interface for a single CRM subscriber, that is subscribed to multiple CRM groups.
  *

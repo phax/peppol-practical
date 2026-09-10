@@ -39,7 +39,6 @@ import com.helger.scope.singleton.AbstractGlobalSingleton;
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.impl.StatisticsManager;
 
-
 /**
  * Main manager class for comments. Manages the {@link CommentThreadObjectTypeManager} per
  * {@link ObjectType} so that different object types can be commented on.
@@ -112,7 +111,7 @@ public final class CommentThreadManager extends AbstractGlobalSingleton
     if (aObjectType == null)
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> m_aMap.get (aObjectType));
+    return m_aRWLock.readLockedGet (() -> m_aMap.get (aObjectType));
   }
 
   @Nullable

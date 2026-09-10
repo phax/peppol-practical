@@ -328,9 +328,8 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_CONTACT_PERSON)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier issuing agency")
                                                  .setCtrl (new ParticipantIdentifierSchemeSelect (new RequestField (FIELD_PARTICIPANT_ID_ISSUER,
-                                                                                                                    aSelectedObject ==
-                                                                                                                                                 null ? null
-                                                                                                                                                      : aSelectedObject.getParticipantIDIssuer ()),
+                                                                                                                    aSelectedObject == null ? null
+                                                                                                                                            : aSelectedObject.getParticipantIDIssuer ()),
                                                                                                   aDisplayLocale))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_ISSUER)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Identifier value")
@@ -340,18 +339,16 @@ public class PagePublicToolsTestEndpoints extends AbstractAppWebPageForm <TestEn
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_PARTICIPANT_ID_VALUE)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("Transport profile")
                                                  .setCtrl (new SMPTransportProfileSelect (new RequestField (FIELD_TRANSPORT_PROFILE,
-                                                                                                            aSelectedObject ==
-                                                                                                                                     null ? null
-                                                                                                                                          : aSelectedObject.getTransportProfile ()
-                                                                                                                                                           .getID ()),
+                                                                                                            aSelectedObject == null ? null
+                                                                                                                                    : aSelectedObject.getTransportProfile ()
+                                                                                                                                                     .getID ()),
                                                                                           aDisplayLocale))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_TRANSPORT_PROFILE)));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory ("SML")
                                                  .setCtrl (new SMLConfigurationSelect (new RequestField (FIELD_SML,
-                                                                                                         aSelectedObject ==
-                                                                                                                    null ? null
-                                                                                                                         : aSelectedObject.getSML ()
-                                                                                                                                          .getID ()),
+                                                                                                         aSelectedObject == null ? null
+                                                                                                                                 : aSelectedObject.getSML ()
+                                                                                                                                                  .getID ()),
                                                                                        false))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SML)));
   }

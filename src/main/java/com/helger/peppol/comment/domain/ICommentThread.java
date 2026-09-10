@@ -29,7 +29,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.type.ITypedObject;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
-
 /**
  * Interface for a single comment thread. It holds {@link IComment} objects in a tree structured
  * way.

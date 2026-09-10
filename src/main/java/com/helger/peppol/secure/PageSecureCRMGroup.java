@@ -50,7 +50,6 @@ import com.helger.photon.uictrls.datatables.DataTables;
 import com.helger.photon.uictrls.datatables.column.DTCol;
 import com.helger.url.ISimpleURL;
 
-
 public final class PageSecureCRMGroup extends AbstractAppWebPageForm <ICRMGroup>
 {
   private static final String FIELD_NAME = "name";

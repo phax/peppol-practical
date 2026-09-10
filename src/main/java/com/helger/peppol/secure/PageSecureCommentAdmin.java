@@ -66,7 +66,6 @@ import com.helger.text.resolve.DefaultTextResolver;
 import com.helger.text.util.TextHelper;
 import com.helger.url.ISimpleURL;
 
-
 public final class PageSecureCommentAdmin extends AbstractAppWebPage
 {
   @Translatable

@@ -35,7 +35,6 @@ import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.io.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.security.object.BusinessObjectHelper;
 
-
 /**
  * Manager for {@link CRMSubscriber} instances.
  *
@@ -58,7 +57,7 @@ public final class CRMSubscriberManager extends AbstractPhotonMapBasedWALDAO <IC
   {
     final CRMSubscriber aCRMSubscriber = new CRMSubscriber (eSalutation, sName, sEmailAddress, aAssignedGroups);
 
-    m_aRWLock.writeLocked ( () -> { internalCreateItem (aCRMSubscriber); });
+    m_aRWLock.writeLocked (() -> { internalCreateItem (aCRMSubscriber); });
     AuditHelper.onAuditCreateSuccess (CRMSubscriber.OT_CRM_SUBSCRIBER,
                                       aCRMSubscriber.getID (),
                                       eSalutation,

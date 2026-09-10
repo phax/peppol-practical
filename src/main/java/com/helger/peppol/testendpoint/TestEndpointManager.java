@@ -273,7 +273,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     if (StringHelper.isEmpty (sID))
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> m_aMap.get (sID));
+    return m_aRWLock.readLockedGet (() -> m_aMap.get (sID));
   }
 
   public boolean containsTestEndpointWithID (@Nullable final String sID)
@@ -281,7 +281,7 @@ public final class TestEndpointManager extends AbstractPhotonSimpleDAO
     if (StringHelper.isEmpty (sID))
       return false;
 
-    return m_aRWLock.readLockedBoolean ( () -> m_aMap.containsKey (sID));
+    return m_aRWLock.readLockedBoolean (() -> m_aMap.containsKey (sID));
   }
 
   @Nullable

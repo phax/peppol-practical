@@ -32,7 +32,6 @@ import com.helger.photon.core.smtp.NamedSMTPSettings;
 import com.helger.smtp.settings.ISMTPSettings;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-
 public final class AppInternalErrorHandler extends AbstractErrorCallback
 {
   @Override

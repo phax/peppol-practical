@@ -109,7 +109,7 @@ public final class MainListVESIDs
   }
 
   private static void _patchNewsXml (@NonNull final ICommonsOrderedMap <String, String> aAdded,
-                                     @NonNull  final ICommonsOrderedSet <String> aRemoved)
+                                     @NonNull final ICommonsOrderedSet <String> aRemoved)
   {
     final File aFile = new File ("src/main/resources/viewpages/en/news.xml");
     if (!aFile.exists ())

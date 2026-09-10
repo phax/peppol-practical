@@ -29,7 +29,6 @@ import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 
-
 public abstract class AbstractJsonBasedAPIExecutor extends AbstractPPAPIExecutor
 {
   @NonNull

@@ -83,7 +83,6 @@ import com.helger.photon.uicore.js.JSJQueryHelper;
 import com.helger.photon.uictrls.autosize.HCTextAreaAutosize;
 import com.helger.web.scope.IRequestWebScopeWithoutResponse;
 
-
 public final class CommentUI
 {
   private static final String FIELD_COMMENT_AUTHOR = AjaxExecutorCommentCreateThread.PARAM_AUTHOR;
@@ -294,8 +293,7 @@ public final class CommentUI
               {
                 final String sLastModDT = PDTToString.getAsString (aComment.getLastModificationDateTime (),
                                                                    aDisplayLocale);
-                final String sLastModText = aComment.getEditCount () > 0 ? ECommentText.MSG_EDITED_AND_LAST_MODIFICATION
-                                                                                                                        .getDisplayTextWithArgs (aDisplayLocale,
+                final String sLastModText = aComment.getEditCount () > 0 ? ECommentText.MSG_EDITED_AND_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
                                                                                                                                                  Integer.valueOf (aComment.getEditCount ()),
                                                                                                                                                  sLastModDT)
                                                                          : ECommentText.MSG_LAST_MODIFICATION.getDisplayTextWithArgs (aDisplayLocale,
@@ -399,23 +397,23 @@ public final class CommentUI
       aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (ECommentText.MSG_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
                                                    .setCtrl (aEditAuthor)
                                                    .setHelpText (ECommentText.DESC_FIELD_AUTHOR.getDisplayText (aDisplayLocale))
-                                                   .setErrorList (aFormErrors == null ? null : aFormErrors
-                                                                                                          .getListOfField (FIELD_COMMENT_AUTHOR)));
+                                                   .setErrorList (aFormErrors == null ? null
+                                                                                      : aFormErrors.getListOfField (FIELD_COMMENT_AUTHOR)));
     }
 
     final HCEdit aEditTitle = new HCEdit (new RequestField (FIELD_COMMENT_TITLE));
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel (ECommentText.MSG_FIELD_TITLE.getDisplayText (aDisplayLocale))
                                                  .setCtrl (aEditTitle)
                                                  .setHelpText (ECommentText.DESC_FIELD_TITLE.getDisplayText (aDisplayLocale))
-                                                 .setErrorList (aFormErrors == null ? null : aFormErrors
-                                                                                                        .getListOfField (FIELD_COMMENT_TITLE)));
+                                                 .setErrorList (aFormErrors == null ? null
+                                                                                    : aFormErrors.getListOfField (FIELD_COMMENT_TITLE)));
 
     final HCTextAreaAutosize aTextAreaContent = new HCTextAreaAutosize (new RequestField (FIELD_COMMENT_TEXT)).setRows (5);
     aForm.addFormGroup (new BootstrapFormGroup ().setLabelMandatory (ECommentText.MSG_FIELD_TEXT.getDisplayText (aDisplayLocale))
                                                  .setCtrl (aTextAreaContent)
                                                  .setHelpText (ECommentText.DESC_FIELD_TEXT.getDisplayText (aDisplayLocale))
-                                                 .setErrorList (aFormErrors == null ? null : aFormErrors
-                                                                                                        .getListOfField (FIELD_COMMENT_TEXT)));
+                                                 .setErrorList (aFormErrors == null ? null
+                                                                                    : aFormErrors.getListOfField (FIELD_COMMENT_TEXT)));
 
     final BootstrapButtonToolbar aToolbar = new BootstrapButtonToolbar (aLEC);
     // What to do on save?

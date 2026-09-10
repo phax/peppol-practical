@@ -76,7 +76,6 @@ import com.helger.photon.uictrls.datatables.column.EDTColType;
 import com.helger.text.compare.ComparatorHelper;
 import com.helger.url.ISimpleURL;
 
-
 public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMSubscriber>
 {
   private static final String FIELD_SALUTATION = "salutation";
@@ -264,9 +263,8 @@ public final class PageSecureCRMSubscriber extends AbstractAppWebPageForm <ICRMS
 
     aForm.addFormGroup (new BootstrapFormGroup ().setLabel ("Salutation")
                                                  .setCtrl (new HCSalutationSelect (new RequestField (FIELD_SALUTATION,
-                                                                                                     aSelectedObject ==
-                                                                                                                       null ? null
-                                                                                                                            : aSelectedObject.getSalutationID ()),
+                                                                                                     aSelectedObject == null ? null
+                                                                                                                             : aSelectedObject.getSalutationID ()),
                                                                                    aDisplayLocale))
                                                  .setErrorList (aFormErrors.getListOfField (FIELD_SALUTATION)));
 

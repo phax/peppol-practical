@@ -27,7 +27,6 @@ import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.io.dao.AbstractPhotonMapBasedWALDAO;
 import com.helger.photon.security.object.BusinessObjectHelper;
 
-
 /**
  * Manager for {@link CRMGroup} instances.
  *
@@ -48,7 +47,7 @@ public final class CRMGroupManager extends AbstractPhotonMapBasedWALDAO <ICRMGro
   {
     final CRMGroup aCRMGroup = new CRMGroup (sDisplayName, sSenderEmailAddress);
 
-    m_aRWLock.writeLocked ( () -> { internalCreateItem (aCRMGroup); });
+    m_aRWLock.writeLocked (() -> { internalCreateItem (aCRMGroup); });
     AuditHelper.onAuditCreateSuccess (CRMGroup.OT_CRM_GROUP, aCRMGroup.getID (), sDisplayName, sSenderEmailAddress);
     return aCRMGroup;
   }

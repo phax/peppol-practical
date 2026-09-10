@@ -32,7 +32,6 @@ import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
 
-
 /**
  * Represents a single test endpoint.
  *

@@ -37,7 +37,6 @@ import com.helger.masterdata.person.ESalutation;
 import com.helger.photon.security.object.StubObject;
 import com.helger.tenancy.AbstractBusinessObject;
 
-
 public class CRMSubscriber extends AbstractBusinessObject implements ICRMSubscriber
 {
   public static final ObjectType OT_CRM_SUBSCRIBER = new ObjectType ("crm-subscriber");

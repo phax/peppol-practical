@@ -37,7 +37,6 @@ import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
-
 /**
  * This class represents a single thread of comments.
  *

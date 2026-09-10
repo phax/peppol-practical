@@ -30,7 +30,6 @@ import com.helger.photon.security.object.AbstractBusinessObjectMicroTypeConverte
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-
 public class CRMSubscriberMicroTypeConverter extends AbstractBusinessObjectMicroTypeConverter <CRMSubscriber>
 {
   private static final String ATTR_SALUTATION = "salutation";

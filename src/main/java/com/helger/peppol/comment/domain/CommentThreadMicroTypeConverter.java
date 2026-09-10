@@ -28,7 +28,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
-
 @Immutable
 public final class CommentThreadMicroTypeConverter implements IMicroTypeConverter <CommentThread>
 {
