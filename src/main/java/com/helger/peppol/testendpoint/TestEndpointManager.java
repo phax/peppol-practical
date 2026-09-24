@@ -32,7 +32,7 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.helper.CollectionSort;
 import com.helger.dao.DAOException;
-import com.helger.peppol.smp.ISMPTransportProfile;
+import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.peppol.ui.types.smlconfig.ISMLConfiguration;
 import com.helger.photon.audit.AuditHelper;
 import com.helger.photon.io.dao.AbstractPhotonSimpleDAO;

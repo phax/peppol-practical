@@ -14,3 +14,4 @@ zz
 *.p12
 private-*.properties
 google*.html
+*.jfr
