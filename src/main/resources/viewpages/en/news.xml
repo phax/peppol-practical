@@ -43,6 +43,205 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-09-25 - Document Validation extended</h3>
+    
+    <p>
+      <!-- TODO: describe the new validation rules -->
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>dk.gov.erst.cius-dk:ubl-creditnote:1.17</code> - CIUS-DK UBL Credit Note 1.17</li>
+<li><code>dk.gov.erst.cius-dk:ubl-invoice:1.17</code> - CIUS-DK UBL Invoice 1.17</li>
+<li><code>fr.ctc:cdar:1.4-04</code> - France CTC CDAR 1.4-04</li>
+<li><code>fr.ctc:cii:1.4-04</code> - France CTC CII 1.4-04</li>
+<li><code>fr.ctc:facturx-basicwl:1.4-04</code> - France CTC Factur-X BASIC WL 1.4-04</li>
+<li><code>fr.ctc:facturx-en16931:1.4-04</code> - France CTC Factur-X EN 16931 1.4-04</li>
+<li><code>fr.ctc:facturx-extended:1.4-04</code> - France CTC Factur-X EXTENDED 1.4-04</li>
+<li><code>fr.ctc:ubl-creditnote:1.4-04</code> - France CTC UBL Credit Note 1.4-04</li>
+<li><code>fr.ctc:ubl-invoice:1.4-04</code> - France CTC UBL Invoice 1.4-04</li>
+<li><code>fr.ctc:extended-cii:1.4-04</code> - France Extended CTC CII 1.4-04</li>
+<li><code>fr.ctc:extended-ubl-creditnote:1.4-04</code> - France Extended CTC UBL Credit Note 1.4-04</li>
+<li><code>fr.ctc:extended-ubl-invoice:1.4-04</code> - France Extended CTC UBL Invoice 1.4-04</li>
+<li><code>fr.ctc.flux1:cii-cible:1.1</code> - France PPF Flux 1 CII Cible 1.1</li>
+<li><code>fr.ctc.flux1:cii-demarrage:1.1</code> - France PPF Flux 1 CII Démarrage 1.1</li>
+<li><code>fr.ctc.flux1:ubl-creditnote-cible:1.1</code> - France PPF Flux 1 UBL Credit Note Cible 1.1</li>
+<li><code>fr.ctc.flux1:ubl-creditnote-demarrage:1.1</code> - France PPF Flux 1 UBL Credit Note Démarrage 1.1</li>
+<li><code>fr.ctc.flux1:ubl-invoice-cible:1.1</code> - France PPF Flux 1 UBL Invoice Cible 1.1</li>
+<li><code>fr.ctc.flux1:ubl-invoice-demarrage:1.1</code> - France PPF Flux 1 UBL Invoice Démarrage 1.1</li>
+<li><code>org.peppol.taxdata:vida:1.1</code> - Peppol ViDA Pilot Tax Data Document 1.1.0</li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:2026.6</code> - SG Peppol BIS3 Credit Note (UBL) 2026.6 (aka BIS 3.0.17)</li>
+<li><code>eu.peppol.bis3.sg.ubl:invoice:2026.6</code> - SG Peppol BIS3 Invoice (UBL) 2026.6 (aka BIS 3.0.17)</li>
+</ul>
+
+    <p>
+      Removed VESIDs are:
+    </p>
+<ul>
+<li><code>dk.oioubl:application-response:1.13</code></li>
+<li><code>dk.oioubl:application-response:1.15-rc</code></li>
+<li><code>dk.oioubl:application-response:1.17-rc</code></li>
+<li><code>dk.oioubl:application-response:1.12.3</code></li>
+<li><code>dk.oioubl:application-response:1.13.2</code></li>
+<li><code>dk.oioubl:application-response:1.14.2</code></li>
+<li><code>dk.oioubl:application-response:1.15.1</code></li>
+<li><code>dk.oioubl:application-response:1.15.2</code></li>
+<li><code>dk.oioubl:application-response:1.16.1</code></li>
+<li><code>dk.oioubl:application-response:1.17.1</code></li>
+<li><code>dk.oioubl:catalogue:1.13</code></li>
+<li><code>dk.oioubl:catalogue:1.15-rc</code></li>
+<li><code>dk.oioubl:catalogue:1.17-rc</code></li>
+<li><code>dk.oioubl:catalogue:1.12.3</code></li>
+<li><code>dk.oioubl:catalogue:1.13.2</code></li>
+<li><code>dk.oioubl:catalogue:1.14.2</code></li>
+<li><code>dk.oioubl:catalogue:1.15.1</code></li>
+<li><code>dk.oioubl:catalogue:1.15.2</code></li>
+<li><code>dk.oioubl:catalogue:1.16.1</code></li>
+<li><code>dk.oioubl:catalogue:1.17.1</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.13</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.15-rc</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.17-rc</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.12.3</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.13.2</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.14.2</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.15.1</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.15.2</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.16.1</code></li>
+<li><code>dk.oioubl:catalogue-deletion:1.17.1</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.13</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.15-rc</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.17-rc</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.12.3</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.13.2</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.14.2</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.15.1</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.15.2</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.16.1</code></li>
+<li><code>dk.oioubl:catalogue-item-specification-update:1.17.1</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.13</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.15-rc</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.17-rc</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.12.3</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.13.2</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.14.2</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.15.1</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.15.2</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.16.1</code></li>
+<li><code>dk.oioubl:catalogue-pricing-update:1.17.1</code></li>
+<li><code>dk.oioubl:catalogue-request:1.13</code></li>
+<li><code>dk.oioubl:catalogue-request:1.15-rc</code></li>
+<li><code>dk.oioubl:catalogue-request:1.17-rc</code></li>
+<li><code>dk.oioubl:catalogue-request:1.12.3</code></li>
+<li><code>dk.oioubl:catalogue-request:1.13.2</code></li>
+<li><code>dk.oioubl:catalogue-request:1.14.2</code></li>
+<li><code>dk.oioubl:catalogue-request:1.15.1</code></li>
+<li><code>dk.oioubl:catalogue-request:1.15.2</code></li>
+<li><code>dk.oioubl:catalogue-request:1.16.1</code></li>
+<li><code>dk.oioubl:catalogue-request:1.17.1</code></li>
+<li><code>dk.oioubl:credit-note:1.13</code></li>
+<li><code>dk.oioubl:credit-note:1.15-rc</code></li>
+<li><code>dk.oioubl:credit-note:1.17-rc</code></li>
+<li><code>dk.oioubl:credit-note:1.12.3</code></li>
+<li><code>dk.oioubl:credit-note:1.13.2</code></li>
+<li><code>dk.oioubl:credit-note:1.14.2</code></li>
+<li><code>dk.oioubl:credit-note:1.15.1</code></li>
+<li><code>dk.oioubl:credit-note:1.15.2</code></li>
+<li><code>dk.oioubl:credit-note:1.16.1</code></li>
+<li><code>dk.oioubl:credit-note:1.17.1</code></li>
+<li><code>dk.oioubl:invoice:1.13</code></li>
+<li><code>dk.oioubl:invoice:1.15-rc</code></li>
+<li><code>dk.oioubl:invoice:1.17-rc</code></li>
+<li><code>dk.oioubl:invoice:1.12.3</code></li>
+<li><code>dk.oioubl:invoice:1.13.2</code></li>
+<li><code>dk.oioubl:invoice:1.14.2</code></li>
+<li><code>dk.oioubl:invoice:1.15.1</code></li>
+<li><code>dk.oioubl:invoice:1.15.2</code></li>
+<li><code>dk.oioubl:invoice:1.16.1</code></li>
+<li><code>dk.oioubl:invoice:1.17.1</code></li>
+<li><code>dk.oioubl:order:1.13</code></li>
+<li><code>dk.oioubl:order:1.15-rc</code></li>
+<li><code>dk.oioubl:order:1.17-rc</code></li>
+<li><code>dk.oioubl:order:1.12.3</code></li>
+<li><code>dk.oioubl:order:1.13.2</code></li>
+<li><code>dk.oioubl:order:1.14.2</code></li>
+<li><code>dk.oioubl:order:1.15.1</code></li>
+<li><code>dk.oioubl:order:1.15.2</code></li>
+<li><code>dk.oioubl:order:1.16.1</code></li>
+<li><code>dk.oioubl:order:1.17.1</code></li>
+<li><code>dk.oioubl:order-cancellation:1.13</code></li>
+<li><code>dk.oioubl:order-cancellation:1.15-rc</code></li>
+<li><code>dk.oioubl:order-cancellation:1.17-rc</code></li>
+<li><code>dk.oioubl:order-cancellation:1.12.3</code></li>
+<li><code>dk.oioubl:order-cancellation:1.13.2</code></li>
+<li><code>dk.oioubl:order-cancellation:1.14.2</code></li>
+<li><code>dk.oioubl:order-cancellation:1.15.1</code></li>
+<li><code>dk.oioubl:order-cancellation:1.15.2</code></li>
+<li><code>dk.oioubl:order-cancellation:1.16.1</code></li>
+<li><code>dk.oioubl:order-cancellation:1.17.1</code></li>
+<li><code>dk.oioubl:order-change:1.13</code></li>
+<li><code>dk.oioubl:order-change:1.15-rc</code></li>
+<li><code>dk.oioubl:order-change:1.17-rc</code></li>
+<li><code>dk.oioubl:order-change:1.12.3</code></li>
+<li><code>dk.oioubl:order-change:1.13.2</code></li>
+<li><code>dk.oioubl:order-change:1.14.2</code></li>
+<li><code>dk.oioubl:order-change:1.15.1</code></li>
+<li><code>dk.oioubl:order-change:1.15.2</code></li>
+<li><code>dk.oioubl:order-change:1.16.1</code></li>
+<li><code>dk.oioubl:order-change:1.17.1</code></li>
+<li><code>dk.oioubl:order-response:1.13</code></li>
+<li><code>dk.oioubl:order-response:1.15-rc</code></li>
+<li><code>dk.oioubl:order-response:1.17-rc</code></li>
+<li><code>dk.oioubl:order-response:1.12.3</code></li>
+<li><code>dk.oioubl:order-response:1.13.2</code></li>
+<li><code>dk.oioubl:order-response:1.14.2</code></li>
+<li><code>dk.oioubl:order-response:1.15.1</code></li>
+<li><code>dk.oioubl:order-response:1.15.2</code></li>
+<li><code>dk.oioubl:order-response:1.16.1</code></li>
+<li><code>dk.oioubl:order-response:1.17.1</code></li>
+<li><code>dk.oioubl:order-response-simple:1.13</code></li>
+<li><code>dk.oioubl:order-response-simple:1.15-rc</code></li>
+<li><code>dk.oioubl:order-response-simple:1.17-rc</code></li>
+<li><code>dk.oioubl:order-response-simple:1.12.3</code></li>
+<li><code>dk.oioubl:order-response-simple:1.13.2</code></li>
+<li><code>dk.oioubl:order-response-simple:1.14.2</code></li>
+<li><code>dk.oioubl:order-response-simple:1.15.1</code></li>
+<li><code>dk.oioubl:order-response-simple:1.15.2</code></li>
+<li><code>dk.oioubl:order-response-simple:1.16.1</code></li>
+<li><code>dk.oioubl:order-response-simple:1.17.1</code></li>
+<li><code>dk.oioubl:reminder:1.13</code></li>
+<li><code>dk.oioubl:reminder:1.15-rc</code></li>
+<li><code>dk.oioubl:reminder:1.17-rc</code></li>
+<li><code>dk.oioubl:reminder:1.12.3</code></li>
+<li><code>dk.oioubl:reminder:1.13.2</code></li>
+<li><code>dk.oioubl:reminder:1.14.2</code></li>
+<li><code>dk.oioubl:reminder:1.15.1</code></li>
+<li><code>dk.oioubl:reminder:1.15.2</code></li>
+<li><code>dk.oioubl:reminder:1.16.1</code></li>
+<li><code>dk.oioubl:reminder:1.17.1</code></li>
+<li><code>dk.oioubl:statement:1.13</code></li>
+<li><code>dk.oioubl:statement:1.15-rc</code></li>
+<li><code>dk.oioubl:statement:1.17-rc</code></li>
+<li><code>dk.oioubl:statement:1.12.3</code></li>
+<li><code>dk.oioubl:statement:1.13.2</code></li>
+<li><code>dk.oioubl:statement:1.14.2</code></li>
+<li><code>dk.oioubl:statement:1.15.1</code></li>
+<li><code>dk.oioubl:statement:1.15.2</code></li>
+<li><code>dk.oioubl:statement:1.16.1</code></li>
+<li><code>dk.oioubl:statement:1.17.1</code></li>
+<li><code>dk.oioubl:utility-statement:1.13</code></li>
+<li><code>dk.oioubl:utility-statement:1.15-rc</code></li>
+<li><code>dk.oioubl:utility-statement:1.17-rc</code></li>
+<li><code>dk.oioubl:utility-statement:1.12.3</code></li>
+<li><code>dk.oioubl:utility-statement:1.13.2</code></li>
+<li><code>dk.oioubl:utility-statement:1.14.2</code></li>
+<li><code>dk.oioubl:utility-statement:1.15.1</code></li>
+<li><code>dk.oioubl:utility-statement:1.15.2</code></li>
+<li><code>dk.oioubl:utility-statement:1.16.1</code></li>
+<li><code>dk.oioubl:utility-statement:1.17.1</code></li>
+</ul>
+
     <h3>2026-09-07 - MLS page updated</h3>
     
     <p>

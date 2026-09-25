@@ -70,7 +70,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1512 entries -->
+<!-- 1373 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -159,6 +159,8 @@ A very small Java WS client is available for
 <li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D22B</code> - CII CrossIndustryInvoice D22B</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D25A</code> - CII CrossIndustryInvoice D25A</li>
+<li><code>dk.gov.erst.cius-dk:ubl-creditnote:1.17</code> - CIUS-DK UBL Credit Note 1.17</li>
+<li><code>dk.gov.erst.cius-dk:ubl-invoice:1.17</code> - CIUS-DK UBL Invoice 1.17</li>
 <li><code>pt.gov.espap.cius-pt:ubl-creditnote:2</code> - CIUS-PT UBL Credit Note 2 <strong>(Deprecated)</strong></li>
 <li><code>pt.gov.espap.cius-pt:ubl-creditnote:2.1.1</code> - CIUS-PT UBL Credit Note 2.1.1</li>
 <li><code>pt.gov.espap.cius-pt:ubl-invoice:2</code> - CIUS-PT UBL Invoice 2 <strong>(Deprecated)</strong></li>
@@ -358,44 +360,60 @@ A very small Java WS client is available for
 <li><code>fr.ctc:cdar:1.2</code> - France CTC CDAR 1.2 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:cdar:1.3</code> - France CTC CDAR 1.3 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:cdar:1.4</code> - France CTC CDAR 1.4 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:cdar:1.4-03</code> - France CTC CDAR 1.4-03</li>
+<li><code>fr.ctc:cdar:1.4-03</code> - France CTC CDAR 1.4-03 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:cdar:1.4-04</code> - France CTC CDAR 1.4-04</li>
 <li><code>fr.ctc:cdar:1.3.1</code> - France CTC CDAR 1.3.1</li>
 <li><code>fr.ctc:cii:0.1</code> - France CTC CII 0.1 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:cii:1.2</code> - France CTC CII 1.2 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:cii:1.3</code> - France CTC CII 1.3 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:cii:1.4</code> - France CTC CII 1.4 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:cii:1.4-03</code> - France CTC CII 1.4-03</li>
+<li><code>fr.ctc:cii:1.4-03</code> - France CTC CII 1.4-03 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:cii:1.4-04</code> - France CTC CII 1.4-04</li>
 <li><code>fr.ctc:cii:1.3.1</code> - France CTC CII 1.3.1</li>
+<li><code>fr.ctc:facturx-basicwl:1.4-04</code> - France CTC Factur-X BASIC WL 1.4-04</li>
+<li><code>fr.ctc:facturx-en16931:1.4-04</code> - France CTC Factur-X EN 16931 1.4-04</li>
+<li><code>fr.ctc:facturx-extended:1.4-04</code> - France CTC Factur-X EXTENDED 1.4-04</li>
 <li><code>fr.ctc:ubl-creditnote:0.1</code> - France CTC UBL Credit Note 0.1 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:ubl-creditnote:1.2</code> - France CTC UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:ubl-creditnote:1.3</code> - France CTC UBL Credit Note 1.3 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:ubl-creditnote:1.4</code> - France CTC UBL Credit Note 1.4 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:ubl-creditnote:1.4-03</code> - France CTC UBL Credit Note 1.4-03</li>
+<li><code>fr.ctc:ubl-creditnote:1.4-03</code> - France CTC UBL Credit Note 1.4-03 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:ubl-creditnote:1.4-04</code> - France CTC UBL Credit Note 1.4-04</li>
 <li><code>fr.ctc:ubl-creditnote:1.3.1</code> - France CTC UBL Credit Note 1.3.1</li>
 <li><code>fr.ctc:ubl-invoice:0.1</code> - France CTC UBL Invoice 0.1 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:ubl-invoice:1.2</code> - France CTC UBL Invoice 1.2 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:ubl-invoice:1.3</code> - France CTC UBL Invoice 1.3 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:ubl-invoice:1.4</code> - France CTC UBL Invoice 1.4 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:ubl-invoice:1.4-03</code> - France CTC UBL Invoice 1.4-03</li>
+<li><code>fr.ctc:ubl-invoice:1.4-03</code> - France CTC UBL Invoice 1.4-03 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:ubl-invoice:1.4-04</code> - France CTC UBL Invoice 1.4-04</li>
 <li><code>fr.ctc:ubl-invoice:1.3.1</code> - France CTC UBL Invoice 1.3.1</li>
 <li><code>fr.ctc:extended-cii:1.3</code> - France Extended CTC CII 1.3 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:extended-cii:1.4</code> - France Extended CTC CII 1.4 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:extended-cii:1.4-03</code> - France Extended CTC CII 1.4-03</li>
+<li><code>fr.ctc:extended-cii:1.4-03</code> - France Extended CTC CII 1.4-03 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:extended-cii:1.4-04</code> - France Extended CTC CII 1.4-04</li>
 <li><code>fr.ctc:extended-cii:1.3.1</code> - France Extended CTC CII 1.3.1</li>
 <li><code>fr.ctc:extended-ubl-creditnote:1.3</code> - France Extended CTC UBL Credit Note 1.3 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:extended-ubl-creditnote:1.4</code> - France Extended CTC UBL Credit Note 1.4 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:extended-ubl-creditnote:1.4-03</code> - France Extended CTC UBL Credit Note 1.4-03</li>
+<li><code>fr.ctc:extended-ubl-creditnote:1.4-03</code> - France Extended CTC UBL Credit Note 1.4-03 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:extended-ubl-creditnote:1.4-04</code> - France Extended CTC UBL Credit Note 1.4-04</li>
 <li><code>fr.ctc:extended-ubl-creditnote:1.3.1</code> - France Extended CTC UBL Credit Note 1.3.1</li>
 <li><code>fr.ctc:extended-ubl-invoice:1.3</code> - France Extended CTC UBL Invoice 1.3 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc:extended-ubl-invoice:1.4</code> - France Extended CTC UBL Invoice 1.4 <strong>(Deprecated)</strong></li>
-<li><code>fr.ctc:extended-ubl-invoice:1.4-03</code> - France Extended CTC UBL Invoice 1.4-03</li>
+<li><code>fr.ctc:extended-ubl-invoice:1.4-03</code> - France Extended CTC UBL Invoice 1.4-03 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc:extended-ubl-invoice:1.4-04</code> - France Extended CTC UBL Invoice 1.4-04</li>
 <li><code>fr.ctc:extended-ubl-invoice:1.3.1</code> - France Extended CTC UBL Invoice 1.3.1</li>
-<li><code>fr.ctc.flux1:cii-cible:0.2</code> - France PPF Flux 1 CII Cible 0.2</li>
-<li><code>fr.ctc.flux1:cii-demarrage:0.2</code> - France PPF Flux 1 CII Démarrage 0.2</li>
-<li><code>fr.ctc.flux1:ubl-creditnote-cible:0.2</code> - France PPF Flux 1 UBL Credit Note Cible 0.2</li>
-<li><code>fr.ctc.flux1:ubl-creditnote-demarrage:0.2</code> - France PPF Flux 1 UBL Credit Note Démarrage 0.2</li>
-<li><code>fr.ctc.flux1:ubl-invoice-cible:0.2</code> - France PPF Flux 1 UBL Invoice Cible 0.2</li>
-<li><code>fr.ctc.flux1:ubl-invoice-demarrage:0.2</code> - France PPF Flux 1 UBL Invoice Démarrage 0.2</li>
+<li><code>fr.ctc.flux1:cii-cible:0.2</code> - France PPF Flux 1 CII Cible 0.2 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc.flux1:cii-cible:1.1</code> - France PPF Flux 1 CII Cible 1.1</li>
+<li><code>fr.ctc.flux1:cii-demarrage:0.2</code> - France PPF Flux 1 CII Démarrage 0.2 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc.flux1:cii-demarrage:1.1</code> - France PPF Flux 1 CII Démarrage 1.1</li>
+<li><code>fr.ctc.flux1:ubl-creditnote-cible:0.2</code> - France PPF Flux 1 UBL Credit Note Cible 0.2 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc.flux1:ubl-creditnote-cible:1.1</code> - France PPF Flux 1 UBL Credit Note Cible 1.1</li>
+<li><code>fr.ctc.flux1:ubl-creditnote-demarrage:0.2</code> - France PPF Flux 1 UBL Credit Note Démarrage 0.2 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc.flux1:ubl-creditnote-demarrage:1.1</code> - France PPF Flux 1 UBL Credit Note Démarrage 1.1</li>
+<li><code>fr.ctc.flux1:ubl-invoice-cible:0.2</code> - France PPF Flux 1 UBL Invoice Cible 0.2 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc.flux1:ubl-invoice-cible:1.1</code> - France PPF Flux 1 UBL Invoice Cible 1.1</li>
+<li><code>fr.ctc.flux1:ubl-invoice-demarrage:0.2</code> - France PPF Flux 1 UBL Invoice Démarrage 0.2 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc.flux1:ubl-invoice-demarrage:1.1</code> - France PPF Flux 1 UBL Invoice Démarrage 1.1</li>
 <li><code>fr.ctc.flux10:report:1</code> - France PPF Flux 10 e-reporting 1</li>
 <li><code>hr.gov.porezna.eracun:ubl-creditnote:1</code> - HR eRacun Credit Note 1 <strong>(Deprecated)</strong></li>
 <li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.1</code> - HR eRacun Credit Note 1.0.1 <strong>(Deprecated)</strong></li>
@@ -423,181 +441,21 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-11</code> - NLCIUS-CII 1.0.3.11 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-12</code> - NLCIUS-CII 1.0.3.12</li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-13</code> - NLCIUS-CII 1.0.3.13</li>
-<li><code>dk.oioubl:application-response:1.13</code> - OIOUBL Application Response 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.15-rc</code> - OIOUBL Application Response 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.17-rc</code> - OIOUBL Application Response 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.12.3</code> - OIOUBL Application Response 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.13.2</code> - OIOUBL Application Response 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.14.2</code> - OIOUBL Application Response 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.15.1</code> - OIOUBL Application Response 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.15.2</code> - OIOUBL Application Response 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.16.1</code> - OIOUBL Application Response 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:application-response:1.17.1</code> - OIOUBL Application Response 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:application-response:1.17.2</code> - OIOUBL Application Response 1.17.2</li>
-<li><code>dk.oioubl:catalogue:1.13</code> - OIOUBL Catalogue 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.15-rc</code> - OIOUBL Catalogue 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.17-rc</code> - OIOUBL Catalogue 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.12.3</code> - OIOUBL Catalogue 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.13.2</code> - OIOUBL Catalogue 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.14.2</code> - OIOUBL Catalogue 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.15.1</code> - OIOUBL Catalogue 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.15.2</code> - OIOUBL Catalogue 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.16.1</code> - OIOUBL Catalogue 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue:1.17.1</code> - OIOUBL Catalogue 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue:1.17.2</code> - OIOUBL Catalogue 1.17.2</li>
-<li><code>dk.oioubl:catalogue-deletion:1.13</code> - OIOUBL Catalogue Deletion 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.15-rc</code> - OIOUBL Catalogue Deletion 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.17-rc</code> - OIOUBL Catalogue Deletion 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.12.3</code> - OIOUBL Catalogue Deletion 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.13.2</code> - OIOUBL Catalogue Deletion 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.14.2</code> - OIOUBL Catalogue Deletion 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.15.1</code> - OIOUBL Catalogue Deletion 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.15.2</code> - OIOUBL Catalogue Deletion 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.16.1</code> - OIOUBL Catalogue Deletion 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-deletion:1.17.1</code> - OIOUBL Catalogue Deletion 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-deletion:1.17.2</code> - OIOUBL Catalogue Deletion 1.17.2</li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.13</code> - OIOUBL Catalogue Item Specification Update 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.15-rc</code> - OIOUBL Catalogue Item Specification Update 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.17-rc</code> - OIOUBL Catalogue Item Specification Update 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.12.3</code> - OIOUBL Catalogue Item Specification Update 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.13.2</code> - OIOUBL Catalogue Item Specification Update 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.14.2</code> - OIOUBL Catalogue Item Specification Update 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.15.1</code> - OIOUBL Catalogue Item Specification Update 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.15.2</code> - OIOUBL Catalogue Item Specification Update 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.16.1</code> - OIOUBL Catalogue Item Specification Update 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-item-specification-update:1.17.1</code> - OIOUBL Catalogue Item Specification Update 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-item-specification-update:1.17.2</code> - OIOUBL Catalogue Item Specification Update 1.17.2</li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.13</code> - OIOUBL Catalogue Pricing Update 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.15-rc</code> - OIOUBL Catalogue Pricing Update 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.17-rc</code> - OIOUBL Catalogue Pricing Update 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.12.3</code> - OIOUBL Catalogue Pricing Update 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.13.2</code> - OIOUBL Catalogue Pricing Update 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.14.2</code> - OIOUBL Catalogue Pricing Update 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.15.1</code> - OIOUBL Catalogue Pricing Update 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.15.2</code> - OIOUBL Catalogue Pricing Update 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.16.1</code> - OIOUBL Catalogue Pricing Update 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-pricing-update:1.17.1</code> - OIOUBL Catalogue Pricing Update 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-pricing-update:1.17.2</code> - OIOUBL Catalogue Pricing Update 1.17.2</li>
-<li><code>dk.oioubl:catalogue-request:1.13</code> - OIOUBL Catalogue Request 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.15-rc</code> - OIOUBL Catalogue Request 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.17-rc</code> - OIOUBL Catalogue Request 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.12.3</code> - OIOUBL Catalogue Request 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.13.2</code> - OIOUBL Catalogue Request 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.14.2</code> - OIOUBL Catalogue Request 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.15.1</code> - OIOUBL Catalogue Request 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.15.2</code> - OIOUBL Catalogue Request 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.16.1</code> - OIOUBL Catalogue Request 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:catalogue-request:1.17.1</code> - OIOUBL Catalogue Request 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:catalogue-request:1.17.2</code> - OIOUBL Catalogue Request 1.17.2</li>
-<li><code>dk.oioubl:credit-note:1.13</code> - OIOUBL Credit Note 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.15-rc</code> - OIOUBL Credit Note 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.17-rc</code> - OIOUBL Credit Note 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.12.3</code> - OIOUBL Credit Note 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.13.2</code> - OIOUBL Credit Note 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.14.2</code> - OIOUBL Credit Note 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.15.1</code> - OIOUBL Credit Note 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.15.2</code> - OIOUBL Credit Note 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.16.1</code> - OIOUBL Credit Note 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:credit-note:1.17.1</code> - OIOUBL Credit Note 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:credit-note:1.17.2</code> - OIOUBL Credit Note 1.17.2</li>
-<li><code>dk.oioubl:invoice:1.13</code> - OIOUBL Invoice 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.15-rc</code> - OIOUBL Invoice 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.17-rc</code> - OIOUBL Invoice 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.12.3</code> - OIOUBL Invoice 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.13.2</code> - OIOUBL Invoice 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.14.2</code> - OIOUBL Invoice 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.15.1</code> - OIOUBL Invoice 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.15.2</code> - OIOUBL Invoice 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.16.1</code> - OIOUBL Invoice 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:invoice:1.17.1</code> - OIOUBL Invoice 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:invoice:1.17.2</code> - OIOUBL Invoice 1.17.2</li>
-<li><code>dk.oioubl:order:1.13</code> - OIOUBL Order 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.15-rc</code> - OIOUBL Order 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.17-rc</code> - OIOUBL Order 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.12.3</code> - OIOUBL Order 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.13.2</code> - OIOUBL Order 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.14.2</code> - OIOUBL Order 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.15.1</code> - OIOUBL Order 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.15.2</code> - OIOUBL Order 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.16.1</code> - OIOUBL Order 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order:1.17.1</code> - OIOUBL Order 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order:1.17.2</code> - OIOUBL Order 1.17.2</li>
-<li><code>dk.oioubl:order-cancellation:1.13</code> - OIOUBL Order Cancellation 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.15-rc</code> - OIOUBL Order Cancellation 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.17-rc</code> - OIOUBL Order Cancellation 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.12.3</code> - OIOUBL Order Cancellation 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.13.2</code> - OIOUBL Order Cancellation 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.14.2</code> - OIOUBL Order Cancellation 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.15.1</code> - OIOUBL Order Cancellation 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.15.2</code> - OIOUBL Order Cancellation 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.16.1</code> - OIOUBL Order Cancellation 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-cancellation:1.17.1</code> - OIOUBL Order Cancellation 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-cancellation:1.17.2</code> - OIOUBL Order Cancellation 1.17.2</li>
-<li><code>dk.oioubl:order-change:1.13</code> - OIOUBL Order Change 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.15-rc</code> - OIOUBL Order Change 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.17-rc</code> - OIOUBL Order Change 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.12.3</code> - OIOUBL Order Change 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.13.2</code> - OIOUBL Order Change 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.14.2</code> - OIOUBL Order Change 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.15.1</code> - OIOUBL Order Change 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.15.2</code> - OIOUBL Order Change 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.16.1</code> - OIOUBL Order Change 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-change:1.17.1</code> - OIOUBL Order Change 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-change:1.17.2</code> - OIOUBL Order Change 1.17.2</li>
-<li><code>dk.oioubl:order-response:1.13</code> - OIOUBL Order Response 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.15-rc</code> - OIOUBL Order Response 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.17-rc</code> - OIOUBL Order Response 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.12.3</code> - OIOUBL Order Response 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.13.2</code> - OIOUBL Order Response 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.14.2</code> - OIOUBL Order Response 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.15.1</code> - OIOUBL Order Response 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.15.2</code> - OIOUBL Order Response 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.16.1</code> - OIOUBL Order Response 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response:1.17.1</code> - OIOUBL Order Response 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response:1.17.2</code> - OIOUBL Order Response 1.17.2</li>
-<li><code>dk.oioubl:order-response-simple:1.13</code> - OIOUBL Order Response Simple 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.15-rc</code> - OIOUBL Order Response Simple 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.17-rc</code> - OIOUBL Order Response Simple 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.12.3</code> - OIOUBL Order Response Simple 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.13.2</code> - OIOUBL Order Response Simple 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.14.2</code> - OIOUBL Order Response Simple 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.15.1</code> - OIOUBL Order Response Simple 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.15.2</code> - OIOUBL Order Response Simple 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.16.1</code> - OIOUBL Order Response Simple 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:order-response-simple:1.17.1</code> - OIOUBL Order Response Simple 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:order-response-simple:1.17.2</code> - OIOUBL Order Response Simple 1.17.2</li>
-<li><code>dk.oioubl:reminder:1.13</code> - OIOUBL Reminder 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.15-rc</code> - OIOUBL Reminder 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.17-rc</code> - OIOUBL Reminder 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.12.3</code> - OIOUBL Reminder 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.13.2</code> - OIOUBL Reminder 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.14.2</code> - OIOUBL Reminder 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.15.1</code> - OIOUBL Reminder 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.15.2</code> - OIOUBL Reminder 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.16.1</code> - OIOUBL Reminder 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:reminder:1.17.1</code> - OIOUBL Reminder 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:reminder:1.17.2</code> - OIOUBL Reminder 1.17.2</li>
-<li><code>dk.oioubl:statement:1.13</code> - OIOUBL Statement 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.15-rc</code> - OIOUBL Statement 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.17-rc</code> - OIOUBL Statement 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.12.3</code> - OIOUBL Statement 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.13.2</code> - OIOUBL Statement 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.14.2</code> - OIOUBL Statement 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.15.1</code> - OIOUBL Statement 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.15.2</code> - OIOUBL Statement 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.16.1</code> - OIOUBL Statement 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:statement:1.17.1</code> - OIOUBL Statement 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:statement:1.17.2</code> - OIOUBL Statement 1.17.2</li>
-<li><code>dk.oioubl:utility-statement:1.13</code> - OIOUBL Utility Statement 1.13 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.15-rc</code> - OIOUBL Utility Statement 1.15-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.17-rc</code> - OIOUBL Utility Statement 1.17-rc <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.12.3</code> - OIOUBL Utility Statement 1.12.3 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.13.2</code> - OIOUBL Utility Statement 1.13.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.14.2</code> - OIOUBL Utility Statement 1.14.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.15.1</code> - OIOUBL Utility Statement 1.15.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.15.2</code> - OIOUBL Utility Statement 1.15.2 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.16.1</code> - OIOUBL Utility Statement 1.16.1 <strong>(Deprecated)</strong></li>
-<li><code>dk.oioubl:utility-statement:1.17.1</code> - OIOUBL Utility Statement 1.17.1 <strong>(Deprecated)</strong></li>
 <li><code>dk.oioubl:utility-statement:1.17.2</code> - OIOUBL Utility Statement 1.17.2</li>
 <li><code>hu.gov.nav.osa:invoice-annulment:2</code> - OSA InvoiceAnnulment 2</li>
 <li><code>hu.gov.nav.osa:invoice-annulment:3</code> - OSA InvoiceAnnulment 3</li>
@@ -913,7 +771,8 @@ A very small Java WS client is available for
 <li><code>org.peppol.taxdata:sk:1</code> - Peppol SK Tax Data Document 1.0.0</li>
 <li><code>eu.peppol.reporting:tsr:1.0.4</code> - Peppol Transaction Statistics Report v1.0.4 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.reporting:tsr:1.0.5</code> - Peppol Transaction Statistics Report v1.0.5</li>
-<li><code>org.peppol.taxdata:vida:1</code> - Peppol ViDA Pilot Tax Data Document 1.0.0</li>
+<li><code>org.peppol.taxdata:vida:1</code> - Peppol ViDA Pilot Tax Data Document 1.0.0 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.taxdata:vida:1.1</code> - Peppol ViDA Pilot Tax Data Document 1.1.0</li>
 <li><code>nl.setu:assignment:1.4</code> - SETU Assignment 1.4</li>
 <li><code>nl.setu:human-resource:1.4</code> - SETU Human Resource 1.4</li>
 <li><code>nl.setu:staffing-order:1.4</code> - SETU Staffing Order 1.4</li>
@@ -922,14 +781,16 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.2</code> - SG Peppol BIS3 Credit Note (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.3</code> - SG Peppol BIS3 Credit Note (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:2023.7</code> - SG Peppol BIS3 Credit Note (UBL) 2023.7 (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:2026.6</code> - SG Peppol BIS3 Credit Note (UBL) 2026.6 (aka BIS 3.0.17)</li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:2023.12</code> - SG Peppol BIS3 Credit Note (UBL) 2023.12 (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.sg.ubl:creditnote:2024.12</code> - SG Peppol BIS3 Credit Note (UBL) 2024.12 (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3.sg.ubl:creditnote:2024.12</code> - SG Peppol BIS3 Credit Note (UBL) 2024.12 (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1</code> - SG Peppol BIS3 Invoice (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1.0.2</code> - SG Peppol BIS3 Invoice (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:1.0.3</code> - SG Peppol BIS3 Invoice (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:2023.7</code> - SG Peppol BIS3 Invoice (UBL) 2023.7 (aka BIS 3.0.11) <strong>(Deprecated)</strong></li>
+<li><code>eu.peppol.bis3.sg.ubl:invoice:2026.6</code> - SG Peppol BIS3 Invoice (UBL) 2026.6 (aka BIS 3.0.17)</li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:2023.12</code> - SG Peppol BIS3 Invoice (UBL) 2023.12 (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
-<li><code>eu.peppol.bis3.sg.ubl:invoice:2024.12</code> - SG Peppol BIS3 Invoice (UBL) 2024.12 (aka BIS 3.0.14)</li>
+<li><code>eu.peppol.bis3.sg.ubl:invoice:2024.12</code> - SG Peppol BIS3 Invoice (UBL) 2024.12 (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>org.peppol.sg:order-balance:1</code> - SG Peppol Order Balance 1.0</li>
 <li><code>rs.gov.mfin.logistics:ubl-despatch-advice:1.1</code> - Serbia SEO UBL Despatch Advice 1.1</li>
 <li><code>rs.gov.mfin.logistics:ubl-receipt-advice:1.1</code> - Serbia SEO UBL Receipt Advice 1.1</li>
@@ -1498,8 +1359,8 @@ A very small Java WS client is available for
 <li><code>de.xrechnung.extension:cii:2.3.1</code> - XRechnung CII 2.3.1Extension <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:cii:3.0.1</code> - XRechnung CII 3.0.1</li>
 <li><code>de.xrechnung.extension:cii:3.0.1</code> - XRechnung CII 3.0.1 Extension</li>
-<li><code>de.xrechnung:cii:3.0.2</code> - XRechnung CII 3.0.2 (rules v2.5.0)</li>
-<li><code>de.xrechnung.extension:cii:3.0.2</code> - XRechnung CII 3.0.2 Extension (rules v2.5.0)</li>
+<li><code>de.xrechnung:cii:3.0.2</code> - XRechnung CII 3.0.2 (rules v2.6.0)</li>
+<li><code>de.xrechnung.extension:cii:3.0.2</code> - XRechnung CII 3.0.2 Extension (rules v2.6.0)</li>
 <li><code>de.xrechnung:ubl-creditnote:2</code> - XRechnung UBL Credit Note 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:3</code> - XRechnung UBL Credit Note 3</li>
 <li><code>de.xrechnung:ubl-creditnote:1.2</code> - XRechnung UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
@@ -1510,7 +1371,7 @@ A very small Java WS client is available for
 <li><code>de.xrechnung:ubl-creditnote:2.1.1</code> - XRechnung UBL Credit Note 2.1.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:2.3.1</code> - XRechnung UBL Credit Note 2.3.1 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-creditnote:3.0.1</code> - XRechnung UBL Credit Note 3.0.1</li>
-<li><code>de.xrechnung:ubl-creditnote:3.0.2</code> - XRechnung UBL Credit Note 3.0.2 (rules v2.5.0)</li>
+<li><code>de.xrechnung:ubl-creditnote:3.0.2</code> - XRechnung UBL Credit Note 3.0.2 (rules v2.6.0)</li>
 <li><code>de.xrechnung:ubl-invoice:2</code> - XRechnung UBL Invoice 2 <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:3</code> - XRechnung UBL Invoice 3</li>
 <li><code>de.xrechnung.extension:ubl-invoice:3</code> - XRechnung UBL Invoice 3 Extension</li>
@@ -1527,8 +1388,8 @@ A very small Java WS client is available for
 <li><code>de.xrechnung.extension:ubl-invoice:2.3.1</code> - XRechnung UBL Invoice 2.3.1 Extension <strong>(Deprecated)</strong></li>
 <li><code>de.xrechnung:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1</li>
 <li><code>de.xrechnung.extension:ubl-invoice:3.0.1</code> - XRechnung UBL Invoice 3.0.1 Extension</li>
-<li><code>de.xrechnung:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 (rules v2.5.0)</li>
-<li><code>de.xrechnung.extension:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 Extension (rules v2.5.0)</li>
+<li><code>de.xrechnung:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 (rules v2.6.0)</li>
+<li><code>de.xrechnung.extension:ubl-invoice:3.0.2</code> - XRechnung UBL Invoice 3.0.2 Extension (rules v2.6.0)</li>
 <li><code>sa.zatca:ubl-invoice:2.0.3</code> - ZATCA/FATOORA Invoice (SDK 2.0.3) <strong>(Deprecated)</strong></li>
 <li><code>sa.zatca:ubl-invoice:2.3.8</code> - ZATCA/FATOORA Invoice (SDK 2.3.8) <strong>(Deprecated)</strong></li>
 <li><code>sa.zatca:ubl-invoice:3.4.6</code> - ZATCA/FATOORA Invoice (SDK 3.4.6)</li>
