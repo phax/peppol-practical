@@ -1,0 +1,48 @@
+# Peppol Practical
+
+> Technical information portal for Peppol implementers, run by Philip Helger.
+> It offers documentation on Peppol Access Points, SMPs and the SML, document validation tools, SMP/SML query tools, a small REST API and a SOAP validation web service.
+
+The site is not an official OpenPeppol resource.
+The REST API uses a proprietary JSON format.
+The REST API and the tooling pages are rate limited, so please do not use them for bulk requests.
+
+## Technical documentation
+
+- [Setup Peppol AP](https://peppol.helger.com/public/menuitem-docs-setup-ap): Guide to setting up a Peppol Access Point
+- [Setup phoss SMP](https://peppol.helger.com/public/menuitem-docs-setup-smp-ph): Guide to setting up the phoss SMP
+- [SMP and SML interactions](https://peppol.helger.com/public/menuitem-docs-smp-sml-interplay): How SMP and SML work together
+- [SML support](https://peppol.helger.com/public/menuitem-docs-sml-support): SML support guide
+- [Document exchange explained](https://peppol.helger.com/public/menuitem-docs-doc-exchange): How document exchange really works
+- [Peppol PKI explained](https://peppol.helger.com/public/menuitem-docs-peppol-pki): Peppol public key infrastructure
+- [Peppol Directory](https://peppol.helger.com/public/menuitem-docs-peppol-directory): The Peppol Directory
+- [Peppol Certificate update](https://peppol.helger.com/public/menuitem-docs-peppol-cert-update): The certificate update process
+- [Peppol MLS / MLR](https://peppol.helger.com/public/menuitem-docs-peppol-mlr): Message Level Status / Message Level Response
+- [Peppol Firewall requirements](https://peppol.helger.com/public/menuitem-docs-peppol-firewall): Network and firewall requirements
+- [Peppol Dictionary/Abbreviations](https://peppol.helger.com/public/menuitem-docs-peppol-dict): Commonly used terms and abbreviations
+- [Software Vendors and Solutions](https://peppol.helger.com/public/menuitem-docs-software-vendors): Overview of Peppol software vendors and solutions
+
+## Tools
+
+Note: the tooling pages are rate limited.
+
+- [Tools overview](https://peppol.helger.com/public/menuitem-tools): Peppol participant check, participant information, identifier information and Dynamic Discovery Document (DDD) tools
+- [SMP - SML tools](https://peppol.helger.com/public/menuitem-tools-smp-sml): Query and manage SMP and SML entries
+- [Test endpoints](https://peppol.helger.com/public/menuitem-tools-test-endpoints): Peppol test endpoint functionality
+
+## Document validation
+
+- [Document Validation](https://peppol.helger.com/public/menuitem-validation-upload): Upload a document and validate it against the Peppol and EN 16931 rules
+- [Document Validation (WebService)](https://peppol.helger.com/public/menuitem-validation-ws2): SOAP web service for automatic validation of Peppol UBL documents; WSDL at https://peppol.helger.com/wsdvs?wsdl
+- [EN 16931 - CEN/TC 434](https://peppol.helger.com/public/menuitem-en16931): Information on the European e-invoicing standard
+
+## REST API
+
+- [REST API documentation](https://peppol.helger.com/public/menuitem-tools-rest-api): Base URL is https://peppol.helger.com/api; covers SMP queries for document types and endpoints, SMP Business Cards, Peppol participant existence checks and CII to UBL conversion
+
+## Optional
+
+- [News](https://peppol.helger.com/public/menuitem-news): Collected Peppol technology news
+- [Germany](https://peppol.helger.com/public/menuitem-country-de): Germany-specific information
+- [Open Source Peppol](https://github.com/phax/peppol): Open source Peppol libraries and tools by the same author
+- [Source code of this site](https://github.com/phax/peppol-practical): GitHub repository
