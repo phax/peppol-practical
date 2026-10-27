@@ -78,12 +78,12 @@ Note: the previous codes <code>digitprod</code> and <code>digittest</code> needs
 
 <p class="mt-2">
   <strong>Example URL (without Business Card):</strong>
-  <a href="/api/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest" target="_blank">/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest</a>
+  <a href="/api/smpquery/peppoltest/iso6523-actorid-upis%3a%3a9915%3atest" target="_blank">/smpquery/peppoltest/iso6523-actorid-upis%3a%3a9915%3atest</a>
 </p>
 
 <p>
   <strong>Example URL (with Business Card):</strong>
-  <a href="/api/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest?businessCard=true" target="_blank">/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest?businessCard=true</a>
+  <a href="/api/smpquery/peppoltest/iso6523-actorid-upis%3a%3a9915%3atest?businessCard=true" target="_blank">/smpquery/peppoltest/iso6523-actorid-upis%3a%3a9915%3atest?businessCard=true</a>
 </p>
 
 <p>
@@ -168,7 +168,7 @@ Note: the previous codes <code>digitprod</code> and <code>digittest</code> needs
 
 <p class="mt-2">
   <strong>Example URL:</strong>
-  <a href="/api/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1" target="_blank">/smpquery/digittest/iso6523-actorid-upis%3a%3a9915%3atest/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1</a>
+  <a href="/api/smpquery/peppoltest/iso6523-actorid-upis%3a%3a9915%3atest/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1" target="_blank">/smpquery/peppoltest/iso6523-actorid-upis%3a%3a9915%3atest/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AInvoice-2%3A%3AInvoice%23%23urn%3Acen.eu%3Aen16931%3A2017%23compliant%23urn%3Afdc%3Apeppol.eu%3A2017%3Apoacc%3Abilling%3A3.0%3A%3A2.1</a>
 </p>
 
 <p>
@@ -255,7 +255,7 @@ Note: the previous codes <code>digitprod</code> and <code>digittest</code> needs
 
 <p class="mt-2">
   <strong>Example URL:</strong>
-  <a href="/api/businesscard/digittest/iso6523-actorid-upis%3a%3a9915%3atest" target="_blank">/businesscard/digittest/iso6523-actorid-upis%3a%3a9915%3atest</a>
+  <a href="/api/businesscard/peppoltest/iso6523-actorid-upis%3a%3a9915%3atest" target="_blank">/businesscard/peppoltest/iso6523-actorid-upis%3a%3a9915%3atest</a>
 </p>
 
 <p>
@@ -376,14 +376,14 @@ Note: the previous codes <code>digitprod</code> and <code>digittest</code> needs
 
 <p class="mt-2">
   <strong>Example URL:</strong>
-  <a href="/api/ppidexistence/digittest/iso6523-actorid-upis%3a%3a9915%3ahelger" target="_blank">/ppidexistence/digittest/iso6523-actorid-upis%3a%3a9915%3ahelger</a>
+  <a href="/api/ppidexistence/peppoltest/iso6523-actorid-upis%3a%3a9915%3ahelger" target="_blank">/ppidexistence/peppoltest/iso6523-actorid-upis%3a%3a9915%3ahelger</a>
 </p>
 
 <p><strong>Example Response:</strong></p>
 <pre>
 {
   "participantID":"iso6523-actorid-upis::9915:helger",
-  "sml":"digittest",
+  "sml":"peppoltest",
   "smpHostURI":"http://smp.helger.com",
   "exists":true,
   "queryDateTime":"2025-10-01T14:19:07.763821658Z",
