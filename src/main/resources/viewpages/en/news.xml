@@ -43,6 +43,39 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-10-26 - Initial version of phlox 0.5.0 released</h3>
+
+    <p>
+      phlox is a visualizer for EN 16931 electronic invoices.
+      It reads invoices in UBL or CII syntax, lifts them into a syntax-neutral intermediate model and renders the result to HTML, PDF or plain text in English or German.
+      Both EN 16931:2017 and EN 16931:2026 are supported.
+      Give it a try and grab it from <a href="https://github.com/phax/phlox" target="_blank">https://github.com/phax/phlox</a>.
+    </p>
+
+    <h3>2026-10-23 - phoss SMP 8.7.0 release</h3>
+
+    <p>
+      phoss SMP 8.7.0 was released. It includes the prdefined names of Peppol eDEC Code Lists v9.7.
+      This version fixes several issues in the SQL backend and the Peppol Directory integration, and extends the migration REST APIs.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-8.7.0">Download phoss SMP 8.7.0</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
+    <h3>2026-09-29 - phoss SMP 8.6.0 release</h3>
+
+    <p>
+      phoss SMP 8.6.0 was released.
+      It adds the reconciliation of the local Service Groups with the SML, available on the new page <em>Administration / SML / Reconcile participants</em>.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phoss-smp/releases/tag/phoss-smp-parent-pom-8.6.0">Download phoss SMP 8.6.0</a></li>
+      <li><a href="https://hub.docker.com/r/phelger/">Grab it from Docker Hub</a></li>
+      <li><a href="https://github.com/phax/phoss-smp/wiki/News-and-noteworthy">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2026-09-25 - Document Validation extended</h3>
     
     <p>
