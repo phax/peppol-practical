@@ -70,7 +70,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1373 entries -->
+<!-- 1439 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -131,30 +131,35 @@ A very small Java WS client is available for
 <li><code>org.peppol.taxdata:ae:1.0.4</code> - AE Tax Data Document 1.0.4</li>
 <li><code>it.peppol:creditnote:3.0.2</code> - AGID Peppol Credit Note (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:creditnote:3.1</code> - AGID Peppol Credit Note (3.1.0) (for BIS 3.0.17)</li>
-<li><code>it.peppol:creditnote:3.2.1</code> - AGID Peppol Credit Note (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:creditnote:3.2.1</code> - AGID Peppol Credit Note (3.2.1) (for BIS 3.0.21)</li>
 <li><code>it.peppol:despatch-advice:2.2.9</code> - AGID Peppol Despatch Advice (2.2.9) (for BIS 3.0.6) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:despatch-advice:2.3</code> - AGID Peppol Despatch Advice (2.3.0) (for BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:despatch-advice:3.0.2</code> - AGID Peppol Despatch Advice (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:despatch-advice:3.1</code> - AGID Peppol Despatch Advice (3.1.0) (for BIS 3.0.17)</li>
-<li><code>it.peppol:despatch-advice:3.2.1</code> - AGID Peppol Despatch Advice (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:despatch-advice:3.2.1</code> - AGID Peppol Despatch Advice (3.2.1) (for BIS 3.0.21)</li>
 <li><code>it.peppol:invoice:2.3</code> - AGID Peppol Invoice (2.3.0) (for BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:invoice:3.0.2</code> - AGID Peppol Invoice (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:invoice:3.1</code> - AGID Peppol Invoice (3.1.0) (for BIS 3.0.17)</li>
-<li><code>it.peppol:invoice:3.2.1</code> - AGID Peppol Invoice (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:invoice:3.2.1</code> - AGID Peppol Invoice (3.2.1) (for BIS 3.0.21)</li>
 <li><code>it.peppol:order:2.2.9</code> - AGID Peppol Order (2.2.9) (for BIS 3.0.6) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order:2.3</code> - AGID Peppol Order (2.3.0) (for BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order:3.0.2</code> - AGID Peppol Order (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order:3.1</code> - AGID Peppol Order (3.1.0) (for BIS 3.0.17)</li>
-<li><code>it.peppol:order:3.2.1</code> - AGID Peppol Order (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:order:3.2.1</code> - AGID Peppol Order (3.2.1) (for BIS 3.0.21)</li>
 <li><code>it.peppol:order-agreement:2.3</code> - AGID Peppol Order Agreement (2.3.0) (for BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order-agreement:3.0.2</code> - AGID Peppol Order Agreement (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order-agreement:3.1</code> - AGID Peppol Order Agreement (3.1.0) (for BIS 3.0.17)</li>
-<li><code>it.peppol:order-agreement:3.2.1</code> - AGID Peppol Order Agreement (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:order-agreement:3.2.1</code> - AGID Peppol Order Agreement (3.2.1) (for BIS 3.0.21)</li>
 <li><code>it.peppol:order-response:2.2.9</code> - AGID Peppol Order Response (2.2.9) (for BIS 3.0.6) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order-response:2.3</code> - AGID Peppol Order Response (2.3.0) (for BIS 3.0.11) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order-response:3.0.2</code> - AGID Peppol Order Response (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order-response:3.1</code> - AGID Peppol Order Response (3.1.0) (for BIS 3.0.17)</li>
-<li><code>it.peppol:order-response:3.2.1</code> - AGID Peppol Order Response (3.2.1) (for BIS 3.0.18)</li>
+<li><code>it.peppol:order-response:3.2.1</code> - AGID Peppol Order Response (3.2.1) (for BIS 3.0.21)</li>
+<li><code>br.gov.nfe:bpe:1-nt2026_002_v1_01</code> - BP-e 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:bpe-proc:1-nt2026_002_v1_01</code> - BP-e Proc 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:bpe-ta:1-nt2026_002_v1_01</code> - BP-e TA 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:bpe-tm:1-nt2026_002_v1_01</code> - BP-e TM 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:bpe-tm-proc:1-nt2026_002_v1_01</code> - BP-e TM Proc 1-nt2026_002_v1_01</li>
 <li><code>un.unece.uncefact:cdar:D22B</code> - CDAR D22B</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D22B</code> - CII CrossIndustryInvoice D22B</li>
@@ -173,21 +178,33 @@ A very small Java WS client is available for
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.4</code> - CIUS-RO UBL Invoice 1.0.4 <strong>(Deprecated)</strong></li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.8</code> - CIUS-RO UBL Invoice 1.0.8 <strong>(Deprecated)</strong></li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.9</code> - CIUS-RO UBL Invoice 1.0.9</li>
+<li><code>br.gov.nfe:cte:4-nt2026_002_v1_01_corr2</code> - CT-e 4-nt2026_002_v1_01_corr2</li>
+<li><code>br.gov.nfe:cte-os:4-nt2026_002_v1_01_corr2</code> - CT-e OS 4-nt2026_002_v1_01_corr2</li>
+<li><code>br.gov.nfe:cte-os-proc:4-nt2026_002_v1_01_corr2</code> - CT-e OS Proc 4-nt2026_002_v1_01_corr2</li>
+<li><code>br.gov.nfe:cte-proc:4-nt2026_002_v1_01_corr2</code> - CT-e Proc 4-nt2026_002_v1_01_corr2</li>
+<li><code>br.gov.nfe:cte-simp:4-nt2026_002_v1_01_corr2</code> - CT-e Simplificado 4-nt2026_002_v1_01_corr2</li>
+<li><code>br.gov.nfe:cte-simp-proc:4-nt2026_002_v1_01_corr2</code> - CT-e Simplificado Proc 4-nt2026_002_v1_01_corr2</li>
 <li><code>no.ehf.g3:advanced-order-cancellation:3</code> - EHF Advanced Order Cancellation 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:advanced-order-cancellation:3.0.3</code> - EHF Advanced Order Cancellation 3.0.3</li>
+<li><code>no.ehf.g3:advanced-order-cancellation:3.0.3</code> - EHF Advanced Order Cancellation 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:advanced-order-cancellation:3.0.4</code> - EHF Advanced Order Cancellation 3.0.4</li>
 <li><code>no.ehf.g3:advanced-order-change:3</code> - EHF Advanced Order Change 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:advanced-order-change:3.0.3</code> - EHF Advanced Order Change 3.0.3</li>
+<li><code>no.ehf.g3:advanced-order-change:3.0.3</code> - EHF Advanced Order Change 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:advanced-order-change:3.0.4</code> - EHF Advanced Order Change 3.0.4</li>
 <li><code>no.ehf.g3:advanced-order-initiation:3</code> - EHF Advanced Order Initiation 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:advanced-order-initiation:3.0.3</code> - EHF Advanced Order Initiation 3.0.3</li>
+<li><code>no.ehf.g3:advanced-order-initiation:3.0.3</code> - EHF Advanced Order Initiation 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:advanced-order-initiation:3.0.4</code> - EHF Advanced Order Initiation 3.0.4</li>
 <li><code>no.ehf.g3:advanced-order-response:3</code> - EHF Advanced Order Response 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:advanced-order-response:3.0.3</code> - EHF Advanced Order Response 3.0.3</li>
+<li><code>no.ehf.g3:advanced-order-response:3.0.3</code> - EHF Advanced Order Response 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:advanced-order-response:3.0.4</code> - EHF Advanced Order Response 3.0.4</li>
 <li><code>no.ehf.g3:catalogue:3</code> - EHF Catalogue 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:catalogue:3.0.3</code> - EHF Catalogue 3.0.3</li>
+<li><code>no.ehf.g3:catalogue:3.0.3</code> - EHF Catalogue 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:catalogue:3.0.4</code> - EHF Catalogue 3.0.4</li>
 <li><code>no.ehf:catalogue:1.0.13</code> - EHF Catalogue 1.0.13 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:catalogue:1.0.14</code> - EHF Catalogue 1.0.14 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:catalogue:1.0.15</code> - EHF Catalogue 1.0.15 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:catalogue-response:3</code> - EHF Catalogue Response 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:catalogue-response:3.0.3</code> - EHF Catalogue Response 3.0.3</li>
+<li><code>no.ehf.g3:catalogue-response:3.0.3</code> - EHF Catalogue Response 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:catalogue-response:3.0.4</code> - EHF Catalogue Response 3.0.4</li>
 <li><code>no.ehf:catalogue-response:1.0.13</code> - EHF Catalogue Response 1.0.13 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:catalogue-response:1.0.14</code> - EHF Catalogue Response 1.0.14 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:catalogue-response:1.0.15</code> - EHF Catalogue Response 1.0.15 <strong>(Deprecated)</strong></li>
@@ -195,26 +212,32 @@ A very small Java WS client is available for
 <li><code>no.ehf:creditnote:2.0.16</code> - EHF Creditnote 2.0.16 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:creditnote:2.0.17</code> - EHF Creditnote 2.0.17 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:despatch-advice:3</code> - EHF Despatch Advice 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:despatch-advice:3.0.2</code> - EHF Despatch Advice 3.0.2</li>
+<li><code>no.ehf.g3:despatch-advice:3.0.2</code> - EHF Despatch Advice 3.0.2 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:despatch-advice:3.0.3</code> - EHF Despatch Advice 3.0.3</li>
 <li><code>no.ehf:despatch-advice:1.0.10</code> - EHF Despatch Advice 1.0.10 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:despatch-advice:1.0.11</code> - EHF Despatch Advice 1.0.11 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:despatch-advice:1.0.12</code> - EHF Despatch Advice 1.0.12 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:forward-billing-creditnote:3.0.1</code> - EHF Forward Billing Credit Note 3.0.1 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:forward-billing-creditnote:3.0.3</code> - EHF Forward Billing Credit Note 3.0.3</li>
+<li><code>no.ehf.g3:forward-billing-creditnote:3.0.3</code> - EHF Forward Billing Credit Note 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:forward-billing-creditnote:3.0.4</code> - EHF Forward Billing Credit Note 3.0.4</li>
 <li><code>no.ehf.g3:forward-billing-invoice:3.0.1</code> - EHF Forward Billing Invoice 3.0.1 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:forward-billing-invoice:3.0.3</code> - EHF Forward Billing Invoice 3.0.3</li>
+<li><code>no.ehf.g3:forward-billing-invoice:3.0.3</code> - EHF Forward Billing Invoice 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:forward-billing-invoice:3.0.4</code> - EHF Forward Billing Invoice 3.0.4</li>
 <li><code>no.ehf:invoice:2.0.15</code> - EHF Invoice 2.0.15 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:invoice:2.0.16</code> - EHF Invoice 2.0.16 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:invoice:2.0.17</code> - EHF Invoice 2.0.17 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:order:3</code> - EHF Order 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:order:3.0.3</code> - EHF Order 3.0.3</li>
+<li><code>no.ehf.g3:order:3.0.3</code> - EHF Order 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:order:3.0.4</code> - EHF Order 3.0.4</li>
 <li><code>no.ehf.g3:order-agreement:3</code> - EHF Order Agreement 3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:order-agreement:1.0.2</code> - EHF Order Agreement 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:order-agreement:1.0.3</code> - EHF Order Agreement 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:order-agreement:1.0.4</code> - EHF Order Agreement 1.0.4 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:order-agreement:3.0.3</code> - EHF Order Agreement 3.0.3</li>
+<li><code>no.ehf.g3:order-agreement:3.0.3</code> - EHF Order Agreement 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:order-agreement:3.0.4</code> - EHF Order Agreement 3.0.4</li>
 <li><code>no.ehf.g3:order-response:3</code> - EHF Order Response 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:order-response:3.0.3</code> - EHF Order Response 3.0.3</li>
+<li><code>no.ehf.g3:order-response:3.0.3</code> - EHF Order Response 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:order-response:3.0.4</code> - EHF Order Response 3.0.4</li>
 <li><code>no.ehf:order-response:1.0.11</code> - EHF Order Response 1.0.11 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:order-response:1.0.12</code> - EHF Order Response 1.0.12 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:order-response:1.0.13</code> - EHF Order Response 1.0.13 <strong>(Deprecated)</strong></li>
@@ -222,15 +245,20 @@ A very small Java WS client is available for
 <li><code>no.ehf:order:1.0.12</code> - EHF Ordering 1.0.12 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:order:1.0.13</code> - EHF Ordering 1.0.13 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:payment-request:3</code> - EHF Payment Request 3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:payment-request:3.0.2</code> - EHF Payment Request 3.0.2</li>
+<li><code>no.ehf.g3:payment-request:3.0.2</code> - EHF Payment Request 3.0.2 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:payment-request:3.0.3</code> - EHF Payment Request 3.0.3</li>
 <li><code>no.ehf.g3:punch-out:3</code> - EHF Punch Out 3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:punch-out:1.0.1</code> - EHF Punch Out 1.0.1 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:punch-out:1.0.2</code> - EHF Punch Out 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:punch-out:1.0.3</code> - EHF Punch Out 1.0.3 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:punch-out:3.0.3</code> - EHF Punch Out 3.0.3</li>
+<li><code>no.ehf.g3:punch-out:3.0.3</code> - EHF Punch Out 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:punch-out:3.0.4</code> - EHF Punch Out 3.0.4</li>
 <li><code>no.ehf.g3:reminder:3</code> - EHF Reminder 3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf:reminder:1.1</code> - EHF Reminder 1.1 <strong>(Deprecated)</strong></li>
-<li><code>no.ehf.g3:reminder:3.0.3</code> - EHF Reminder 3.0.3</li>
+<li><code>no.ehf.g3:reminder:3.0.3</code> - EHF Reminder 3.0.3 <strong>(Deprecated)</strong></li>
+<li><code>no.ehf.g3:reminder:3.0.4</code> - EHF Reminder 3.0.4</li>
+<li><code>no.ehf.g3:creditnote-self-billing:3</code> - EHF Self-Billing Credit Note 3</li>
+<li><code>no.ehf.g3:invoice-self-billing:3</code> - EHF Self-Billing Invoice 3</li>
 <li><code>eu.cen.en16931:cii:1</code> - EN 16931 CII 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.1</code> - EN 16931 CII 1.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.2</code> - EN 16931 CII 1.2 <strong>(Deprecated)</strong></li>
@@ -254,7 +282,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:cii:1.3.14-1</code> - EN 16931 CII 1.3.14-1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.14-2</code> - EN 16931 CII 1.3.14-2 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:cii:1.3.15</code> - EN 16931 CII 1.3.15 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:cii:1.3.16</code> - EN 16931 CII 1.3.16</li>
+<li><code>eu.cen.en16931:cii:1.3.16</code> - EN 16931 CII 1.3.16 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:cii:1.3.17</code> - EN 16931 CII 1.3.17</li>
 <li><code>eu.cen.en16931:ubl-creditnote:1</code> - EN 16931 UBL Credit Note 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.1</code> - EN 16931 UBL Credit Note 1.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.2</code> - EN 16931 UBL Credit Note 1.2 <strong>(Deprecated)</strong></li>
@@ -278,7 +307,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.14-1</code> - EN 16931 UBL Credit Note 1.3.14-1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.14-2</code> - EN 16931 UBL Credit Note 1.3.14-2 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl-creditnote:1.3.15</code> - EN 16931 UBL Credit Note 1.3.15 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl-creditnote:1.3.16</code> - EN 16931 UBL Credit Note 1.3.16</li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.16</code> - EN 16931 UBL Credit Note 1.3.16 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl-creditnote:1.3.17</code> - EN 16931 UBL Credit Note 1.3.17</li>
 <li><code>eu.cen.en16931:ubl:1</code> - EN 16931 UBL Invoice 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.1</code> - EN 16931 UBL Invoice 1.1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.2</code> - EN 16931 UBL Invoice 1.2 <strong>(Deprecated)</strong></li>
@@ -302,7 +332,8 @@ A very small Java WS client is available for
 <li><code>eu.cen.en16931:ubl:1.3.14-1</code> - EN 16931 UBL Invoice 1.3.14-1 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.14-2</code> - EN 16931 UBL Invoice 1.3.14-2 <strong>(Deprecated)</strong></li>
 <li><code>eu.cen.en16931:ubl:1.3.15</code> - EN 16931 UBL Invoice 1.3.15 <strong>(Deprecated)</strong></li>
-<li><code>eu.cen.en16931:ubl:1.3.16</code> - EN 16931 UBL Invoice 1.3.16</li>
+<li><code>eu.cen.en16931:ubl:1.3.16</code> - EN 16931 UBL Invoice 1.3.16 <strong>(Deprecated)</strong></li>
+<li><code>eu.cen.en16931:ubl:1.3.17</code> - EN 16931 UBL Invoice 1.3.17</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1</code> - Energie eFactuur 1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:2</code> - Energie eFactuur 2</li>
 <li><code>nl.energie-efactuur:energie-efactuur:3</code> - Energie eFactuur 3</li>
@@ -414,20 +445,40 @@ A very small Java WS client is available for
 <li><code>fr.ctc.flux1:ubl-invoice-cible:1.1</code> - France PPF Flux 1 UBL Invoice Cible 1.1</li>
 <li><code>fr.ctc.flux1:ubl-invoice-demarrage:0.2</code> - France PPF Flux 1 UBL Invoice Démarrage 0.2 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc.flux1:ubl-invoice-demarrage:1.1</code> - France PPF Flux 1 UBL Invoice Démarrage 1.1</li>
-<li><code>fr.ctc.flux10:report:1</code> - France PPF Flux 10 e-reporting 1</li>
+<li><code>fr.ctc.flux10:report:1</code> - France PPF Flux 10 e-reporting 1 <strong>(Deprecated)</strong></li>
+<li><code>fr.ctc.flux10:report:1.1</code> - France PPF Flux 10 e-reporting 1.1</li>
+<li><code>br.gov.nfe:gtve:4-nt2026_002_v1_01_corr2</code> - GTV-e 4-nt2026_002_v1_01_corr2</li>
+<li><code>br.gov.nfe:gtve-proc:4-nt2026_002_v1_01_corr2</code> - GTV-e Proc 4-nt2026_002_v1_01_corr2</li>
+<li><code>hr.gov.porezna.eracun:eizvjestavanje:1</code> - HR eIzvjestavanje 1</li>
 <li><code>hr.gov.porezna.eracun:ubl-creditnote:1</code> - HR eRacun Credit Note 1 <strong>(Deprecated)</strong></li>
 <li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.1</code> - HR eRacun Credit Note 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.2</code> - HR eRacun Credit Note 1.0.2</li>
+<li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.2</code> - HR eRacun Credit Note 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.3</code> - HR eRacun Credit Note 1.0.3</li>
+<li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.4</code> - HR eRacun Credit Note 1.0.4</li>
 <li><code>hr.gov.porezna.eracun:ubl-invoice:1</code> - HR eRacun Invoice 1 <strong>(Deprecated)</strong></li>
 <li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.1</code> - HR eRacun Invoice 1.0.1 <strong>(Deprecated)</strong></li>
-<li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.2</code> - HR eRacun Invoice 1.0.2</li>
+<li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.2</code> - HR eRacun Invoice 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.3</code> - HR eRacun Invoice 1.0.3</li>
+<li><code>hr.gov.porezna.eracun:ubl-invoice:1.0.4</code> - HR eRacun Invoice 1.0.4</li>
 <li><code>cz.isdoc:isdoc:6.0.1</code> - ISDOC 6.0.1 <strong>(Deprecated)</strong></li>
 <li><code>cz.isdoc:isdoc:6.0.2</code> - ISDOC 6.0.2</li>
 <li><code>pl.ksef:ksef:1</code> - KSeF 1 <strong>(Deprecated)</strong></li>
 <li><code>pl.ksef:ksef:2</code> - KSeF 2</li>
 <li><code>pl.ksef:ksef:3</code> - KSeF 3</li>
+<li><code>br.gov.nfe:mdfe:3-nt2025_001_v1_04</code> - MDF-e 3-nt2025_001_v1_04</li>
+<li><code>br.gov.nfe:mdfe-proc:3-nt2025_001_v1_04</code> - MDF-e Proc 3-nt2025_001_v1_04</li>
+<li><code>br.gov.nfe:nfe:4-pl010f_v1_04</code> - NF-e 4-pl010f_v1_04</li>
+<li><code>br.gov.nfe:nfe-proc:4-pl010f_v1_04</code> - NF-e Proc 4-pl010f_v1_04</li>
+<li><code>br.gov.nfe:nf3e:1-nt2026_002_v1_01</code> - NF3e 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:nf3e-proc:1-nt2026_002_v1_01</code> - NF3e Proc 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:nfag:1-nt2026_002_v1_01</code> - NFAg 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:nfag-proc:1-nt2026_002_v1_01</code> - NFAg Proc 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:nfcom:1-nt2026_002_v1_01</code> - NFCom 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:nfcom-proc:1-nt2026_002_v1_01</code> - NFCom Proc 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:nfgas:1-nt2026_002_v1_01</code> - NFGas 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:nfgas-proc:1-nt2026_002_v1_01</code> - NFGas Proc 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:nfse:1.1-v20260727</code> - NFS-e 1.1-v20260727</li>
+<li><code>br.gov.nfe:nfse-dps:1.1-v20260727</code> - NFS-e DPS 1.1-v20260727</li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3</code> - NLCIUS-CII 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-01</code> - NLCIUS-CII 1.0.3.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-02</code> - NLCIUS-CII 1.0.3.2 <strong>(Deprecated)</strong></li>
@@ -441,6 +492,8 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-11</code> - NLCIUS-CII 1.0.3.11 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-12</code> - NLCIUS-CII 1.0.3.12</li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-13</code> - NLCIUS-CII 1.0.3.13</li>
+<li><code>org.oecd.ties:crs:2</code> - OECD CRS 2</li>
+<li><code>org.oecd.ties:crs:3</code> - OECD CRS 3</li>
 <li><code>dk.oioubl:application-response:1.17.2</code> - OIOUBL Application Response 1.17.2</li>
 <li><code>dk.oioubl:catalogue:1.17.2</code> - OIOUBL Catalogue 1.17.2</li>
 <li><code>dk.oioubl:catalogue-deletion:1.17.2</code> - OIOUBL Catalogue Deletion 1.17.2</li>
@@ -670,6 +723,15 @@ A very small Java WS client is available for
 <li><code>eu.peppol.directory:businesscard:3</code> - Peppol Directory BusinessCard v3</li>
 <li><code>eu.peppol.reporting:eusr:1.1.4</code> - Peppol End User Statistics Report v1.1.4 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.reporting:eusr:1.1.5</code> - Peppol End User Statistics Report v1.1.5</li>
+<li><code>org.peppol.logistics:advanced-despatch-advice:1.4</code> - Peppol Logistics Advanced Despatch Advice 1.4 (T120) (aka Peppol Logistics 1.3.1)</li>
+<li><code>org.peppol.logistics:application-response:1</code> - Peppol Logistics Application Response 1.0 (T129) (aka Peppol Logistics 1.3.1)</li>
+<li><code>org.peppol.logistics:receipt-advice:1.1</code> - Peppol Logistics Receipt Advice 1.1 (T128) (aka Peppol Logistics 1.3.1)</li>
+<li><code>org.peppol.logistics:transport-execution-plan:1.2</code> - Peppol Logistics Transport Execution Plan 1.2 (T124) (aka Peppol Logistics 1.3.1)</li>
+<li><code>org.peppol.logistics:transport-execution-plan-request:1.2</code> - Peppol Logistics Transport Execution Plan Request 1.2 (T123) (aka Peppol Logistics 1.3.1)</li>
+<li><code>org.peppol.logistics:transportation-status:1.2</code> - Peppol Logistics Transportation Status 1.2 (T127) (aka Peppol Logistics 1.3.1)</li>
+<li><code>org.peppol.logistics:transportation-status-request:1.2</code> - Peppol Logistics Transportation Status Request 1.2 (T126) (aka Peppol Logistics 1.3.1)</li>
+<li><code>org.peppol.logistics:waybill:1.1</code> - Peppol Logistics Waybill 1.1 (T125) (aka Peppol Logistics 1.3.1)</li>
+<li><code>org.peppol.logistics:weight-statement:1.3</code> - Peppol Logistics Weight Statement 1.3 (T122) (aka Peppol Logistics 1.3.1)</li>
 <li><code>org.peppol:mls:1</code> - Peppol Message Level Status 1 <strong>(Deprecated)</strong></li>
 <li><code>org.peppol:mls:1.0.1</code> - Peppol Message Level Status 1.0.1</li>
 <li><code>org.peppol.taxdata:om:1</code> - Peppol OM Tax Data Document 1.0.0 <strong>(Deprecated)</strong></li>
@@ -776,7 +838,8 @@ A very small Java WS client is available for
 <li><code>nl.setu:assignment:1.4</code> - SETU Assignment 1.4</li>
 <li><code>nl.setu:human-resource:1.4</code> - SETU Human Resource 1.4</li>
 <li><code>nl.setu:staffing-order:1.4</code> - SETU Staffing Order 1.4</li>
-<li><code>nl.setu:timecard:1.4</code> - SETU Timcard 1.4</li>
+<li><code>nl.setu:timecard:1.4</code> - SETU Timcard 1.4 <strong>(Deprecated)</strong></li>
+<li><code>nl.setu:timecard:1.4.2</code> - SETU Timecard 1.4.2</li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1</code> - SG Peppol BIS3 Credit Note (UBL) 1.0.0 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.2</code> - SG Peppol BIS3 Credit Note (UBL) 1.0.2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:creditnote:1.0.3</code> - SG Peppol BIS3 Credit Note (UBL) 1.0.3 <strong>(Deprecated)</strong></li>
@@ -791,7 +854,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3.sg.ubl:invoice:2026.6</code> - SG Peppol BIS3 Invoice (UBL) 2026.6 (aka BIS 3.0.17)</li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:2023.12</code> - SG Peppol BIS3 Invoice (UBL) 2023.12 (aka BIS 3.0.12) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.sg.ubl:invoice:2024.12</code> - SG Peppol BIS3 Invoice (UBL) 2024.12 (aka BIS 3.0.14) <strong>(Deprecated)</strong></li>
-<li><code>org.peppol.sg:order-balance:1</code> - SG Peppol Order Balance 1.0</li>
+<li><code>org.peppol.sg:order-balance:1</code> - SG Peppol Order Balance 1.0 <strong>(Deprecated)</strong></li>
+<li><code>org.peppol.sg:order-balance:1.0.2</code> - SG Peppol Order Balance 1.0.2</li>
 <li><code>rs.gov.mfin.logistics:ubl-despatch-advice:1.1</code> - Serbia SEO UBL Despatch Advice 1.1</li>
 <li><code>rs.gov.mfin.logistics:ubl-receipt-advice:1.1</code> - Serbia SEO UBL Receipt Advice 1.1</li>
 <li><code>rs.gov.mfin.srbdt:ubl-creditnote:1</code> - Serbia SRBDT UBL Credit Note 1</li>
@@ -852,6 +916,7 @@ A very small Java WS client is available for
 <li><code>org.simplerinvoicing:order:1.2</code> - Simplerinvoicing Order 1.2 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:order:1.2.3</code> - Simplerinvoicing Order 1.2.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:order:1.2.4</code> - Simplerinvoicing Order 1.2.4 <strong>(Deprecated)</strong></li>
+<li><code>sg.gov.iras:invoicenow-gst:2026.9.8</code> - Singapore IRAS GST InvoiceNow data submission 2026.9.8</li>
 <li><code>se.sfti:svefaktura:1</code> - SvefakturaXML 1</li>
 <li><code>se.sfti:object-envelope:1</code> - SvefakturaXML ObjectEnvelope 1</li>
 <li><code>com.tieto:teappsxml:3</code> - TEAPPSXML 3</li>
@@ -1444,7 +1509,8 @@ A very small Java WS client is available for
 <li><code>at.ebinterface:invoice:3.0.2</code> - ebInterface 3.0.2 <strong>(Deprecated)</strong></li>
 <li><code>it.fatturapa:invoice:1.2</code> - fatturaPA 1.2 <strong>(Deprecated)</strong></li>
 <li><code>it.fatturapa:invoice:1.2.1</code> - fatturaPA 1.2.1 <strong>(Deprecated)</strong></li>
-<li><code>it.fatturapa:invoice:1.2.2</code> - fatturaPA 1.2.2</li>
+<li><code>it.fatturapa:invoice:1.2.2</code> - fatturaPA 1.2.2 <strong>(Deprecated)</strong></li>
+<li><code>it.fatturapa:invoice:1.2.3</code> - fatturaPA 1.2.3</li>
 </ul>
 <!-- end of MainListVESIDs -->
         </td>
