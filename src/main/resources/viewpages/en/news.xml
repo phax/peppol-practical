@@ -43,6 +43,31 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-11-04 - Initial version of zugferd-to-peppol-bis 1.0.0 released</h3>
+
+    <p>
+      zugferd-to-peppol-bis converts a valid ZUGFeRD / Factur-X hybrid invoice (PDF/A-3 with embedded CII XML) to a Peppol BIS Billing 3 UBL invoice or credit note.
+      The original PDF is embedded into the UBL as an additional supporting document (BG-24), so the XML is the only artefact to send via Peppol.
+      The result is validated against the Peppol BIS Billing 3 rules.
+      The profiles BASIC, EN 16931, EXTENDED and XRECHNUNG are supported.
+      It comes as a library and as a command line client.
+      Give it a try and grab it from <a href="https://github.com/phax/zugferd-to-peppol-bis" target="_blank">https://github.com/phax/zugferd-to-peppol-bis</a>.
+    </p>
+
+    <h3>2026-11-03 - phlox 0.6.0 released</h3>
+
+    <p>
+      phlox 0.6.0 was released.
+      All data of an EN 16931 compliant invoice now appears in the output of the default template, and all BTs are shown.
+      Spanish, Dutch and French labels were added.
+      Templates can now contain QR codes, and the default template shows an EPC QR code ("GiroCode") for invoices in EUR payable by SEPA credit transfer.
+      Amounts and percentages are no longer rounded.
+    </p>
+    <ul>
+      <li><a href="https://github.com/phax/phlox" target="_blank">Get phlox 0.6.0</a></li>
+      <li><a href="https://github.com/phax/phlox/wiki/News-and-noteworthy" target="_blank">Detailed Change Log</a></li>
+    </ul>
+
     <h3>2026-10-26 - Initial version of phlox 0.5.0 released</h3>
 
     <p>
