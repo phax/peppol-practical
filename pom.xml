@@ -113,6 +113,13 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+        <groupId>com.helger.phive.rules</groupId>
+        <artifactId>phive-rules-bom</artifactId>
+        <version>4.7.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>com.helger.peppol.ui</groupId>
         <artifactId>peppol-shared-ui-bom</artifactId>
         <version>0.11.4</version>

@@ -43,19 +43,22 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+
     <h3>2026-11-20 - Document Validation extended</h3>
     
     <p>
+      Added support for Peppol PINT AE 1.0.5 rules.<br />
       Added support for Brazilian eInvoice formats.<br />
       Added explicit EHF Invoice and Creditnote as an alias of OpenPeppol BIS Billing.<br />
       Added special Peppol BIS Billing Envelope check.<br />
-      Added a patch for ZUGFeRD 2.5.2/Factur-X 1.0.9-2 to speedup validation of large invoices
+      Added a patch for ZUGFeRD 2.5.2/Factur-X 1.0.9-2 Extended to speedup validation of large invoices
     </p>
 
     <p>
       Added VESIDs are:
     </p>
 <ul>
+<li><code>org.peppol.taxdata:ae:1.0.5</code> - AE Tax Data Document 1.0.5</li>
 <li><code>br.gov.nfe:bpe:1-nt2026_005_sn_v1_00_corr</code> - BP-e 1-nt2026_005_sn_v1_00_corr</li>
 <li><code>br.gov.nfe:bpe-proc:1-nt2026_005_sn_v1_00_corr</code> - BP-e Proc 1-nt2026_005_sn_v1_00_corr</li>
 <li><code>br.gov.nfe:bpe-ta:1-nt2026_005_sn_v1_00_corr</code> - BP-e TA 1-nt2026_005_sn_v1_00_corr</li>
@@ -90,6 +93,10 @@
 <li><code>org.peppol.bis3.sbdh-envelope:creditnote:2026.5</code> - OpenPeppol UBL Credit Note in SBDH (2026.5)</li>
 <li><code>org.peppol.bis3.sbdh-envelope:invoice-self-billing:2026.5</code> - OpenPeppol UBL Invoice Self-Billing in SBDH (2026.5)</li>
 <li><code>org.peppol.bis3.sbdh-envelope:invoice:2026.5</code> - OpenPeppol UBL Invoice in SBDH (2026.5)</li>
+<li><code>org.peppol.pint.ae:creditnote:2026.11</code> - Peppol PINT AE Credit Note (UBL) 2026-11 (aka 1.0.5)</li>
+<li><code>org.peppol.pint.ae:creditnote-self-billing:2026.11</code> - Peppol PINT AE Credit Note Self-Billing (UBL) 2026-11 (aka 1.0.5)</li>
+<li><code>org.peppol.pint.ae:invoice:2026.11</code> - Peppol PINT AE Invoice (UBL) 2026-11 (aka 1.0.5)</li>
+<li><code>org.peppol.pint.ae:invoice-self-billing:2026.11</code> - Peppol PINT AE Invoice Self-Billing (UBL) 2026-11 (aka 1.0.5)</li>
 <li><code>de.zugferd:extended:2.5.2-ph1</code> - ZUGFeRD 2.5.2-ph1 (EXTENDED)</li>
 </ul>
 
