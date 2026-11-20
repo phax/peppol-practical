@@ -541,7 +541,7 @@
       <td></td>
       <td>
         Test version of the <em>SML</em> ('K' comes before 'L' like testing comes before production).
-        Currently operated by <em>EC</em>.
+        Currently operated by <em>OpenPeppol</em>.
         See <a href="https://docs.peppol.eu/edelivery">https://docs.peppol.eu/edelivery</a> for the specification.
       </td>
     </tr>
@@ -550,7 +550,7 @@
       <td>Service Metadata Locator</td>
       <td>
         Central Peppol service that modifies the <em>DNS</em>.
-        Currently operated by <em>EC</em>.
+        Currently operated by <em>OpenPeppol</em>.
         See <a href="https://docs.peppol.eu/edelivery">https://docs.peppol.eu/edelivery</a> for the specification.
       </td>
     </tr>

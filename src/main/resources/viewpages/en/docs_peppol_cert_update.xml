@@ -186,8 +186,8 @@
   <span class="badge text-bg-warning">Warning:</span> the SML only needs the public certificate of your new SMP certificate - don't provide them with your private key!<br />
 </p>
 <p>
-  If your certificate is already expired, you need to contact <a href="/public/menuitem-docs-sml-support">EC eDelivery support</a>
-    by email and provide the following information:
+  If your certificate is already expired, you need to contact the <strong><a href="https://openpeppol.atlassian.net/servicedesk/customer/portal/1">Peppol Service Desk</a></strong>
+    and provide the following information:
 </p>
 <ul>
   <li>old certificate: subject and certificate serial number</li>
