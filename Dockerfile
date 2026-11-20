@@ -60,6 +60,9 @@ RUN BLOCKED="$JAVA_HOME/lib/security/blocked.certs" && \
 
 ENV CATALINA_OPTS="$CATALINA_OPTS -Djava.security.egd=file:/dev/urandom"
 
+# Disable the HotSpot Base64 intrinsic as mitigation for CVE-2026-114938 ("Java2Shell")
+ENV CATALINA_OPTS="$CATALINA_OPTS -XX:-UseBASE64Intrinsics"
+
 WORKDIR $CATALINA_HOME/webapps
 
 COPY --from=build /app $CATALINA_HOME/webapps/ROOT
