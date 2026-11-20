@@ -70,7 +70,7 @@ A very small Java WS client is available for
             This is a special ID introduced by Peppol practical to clearly identify different validation sets.<br />
             Supported VES IDs are:
 <!-- Created by MainListVESIDs -->
-<!-- 1439 entries -->
+<!-- 1474 entries -->
 <ul>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3.aunz.ubl:creditnote:1.0.1</code> - A-NZ Peppol BIS3 Credit Note (UBL) 1.0.1 <strong>(Deprecated)</strong></li>
@@ -155,11 +155,16 @@ A very small Java WS client is available for
 <li><code>it.peppol:order-response:3.0.2</code> - AGID Peppol Order Response (3.0.2) (for BIS 3.0.14) <strong>(Deprecated)</strong></li>
 <li><code>it.peppol:order-response:3.1</code> - AGID Peppol Order Response (3.1.0) (for BIS 3.0.17)</li>
 <li><code>it.peppol:order-response:3.2.1</code> - AGID Peppol Order Response (3.2.1) (for BIS 3.0.21)</li>
-<li><code>br.gov.nfe:bpe:1-nt2026_002_v1_01</code> - BP-e 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:bpe-proc:1-nt2026_002_v1_01</code> - BP-e Proc 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:bpe-ta:1-nt2026_002_v1_01</code> - BP-e TA 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:bpe-tm:1-nt2026_002_v1_01</code> - BP-e TM 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:bpe-tm-proc:1-nt2026_002_v1_01</code> - BP-e TM Proc 1-nt2026_002_v1_01</li>
+<li><code>br.gov.nfe:bpe:1-nt2026_002_v1_01</code> - BP-e 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:bpe:1-nt2026_005_sn_v1_00_corr</code> - BP-e 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:bpe-proc:1-nt2026_002_v1_01</code> - BP-e Proc 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:bpe-proc:1-nt2026_005_sn_v1_00_corr</code> - BP-e Proc 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:bpe-ta:1-nt2026_002_v1_01</code> - BP-e TA 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:bpe-ta:1-nt2026_005_sn_v1_00_corr</code> - BP-e TA 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:bpe-tm:1-nt2026_002_v1_01</code> - BP-e TM 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:bpe-tm:1-nt2026_005_sn_v1_00_corr</code> - BP-e TM 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:bpe-tm-proc:1-nt2026_002_v1_01</code> - BP-e TM Proc 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:bpe-tm-proc:1-nt2026_005_sn_v1_00_corr</code> - BP-e TM Proc 1-nt2026_005_sn_v1_00_corr</li>
 <li><code>un.unece.uncefact:cdar:D22B</code> - CDAR D22B</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D16B</code> - CII CrossIndustryInvoice D16B</li>
 <li><code>un.unece.uncefact:crossindustryinvoice:D22B</code> - CII CrossIndustryInvoice D22B</li>
@@ -178,12 +183,18 @@ A very small Java WS client is available for
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.4</code> - CIUS-RO UBL Invoice 1.0.4 <strong>(Deprecated)</strong></li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.8</code> - CIUS-RO UBL Invoice 1.0.8 <strong>(Deprecated)</strong></li>
 <li><code>ro.gov.mfinante.cius-ro:ubl-invoice:1.0.9</code> - CIUS-RO UBL Invoice 1.0.9</li>
-<li><code>br.gov.nfe:cte:4-nt2026_002_v1_01_corr2</code> - CT-e 4-nt2026_002_v1_01_corr2</li>
-<li><code>br.gov.nfe:cte-os:4-nt2026_002_v1_01_corr2</code> - CT-e OS 4-nt2026_002_v1_01_corr2</li>
-<li><code>br.gov.nfe:cte-os-proc:4-nt2026_002_v1_01_corr2</code> - CT-e OS Proc 4-nt2026_002_v1_01_corr2</li>
-<li><code>br.gov.nfe:cte-proc:4-nt2026_002_v1_01_corr2</code> - CT-e Proc 4-nt2026_002_v1_01_corr2</li>
-<li><code>br.gov.nfe:cte-simp:4-nt2026_002_v1_01_corr2</code> - CT-e Simplificado 4-nt2026_002_v1_01_corr2</li>
-<li><code>br.gov.nfe:cte-simp-proc:4-nt2026_002_v1_01_corr2</code> - CT-e Simplificado Proc 4-nt2026_002_v1_01_corr2</li>
+<li><code>br.gov.nfe:cte:4-nt2026_002_v1_01_corr2</code> - CT-e 4-nt2026_002_v1_01_corr2 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:cte:4-nt2026_005_sn_v1_00_corr</code> - CT-e 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-os:4-nt2026_002_v1_01_corr2</code> - CT-e OS 4-nt2026_002_v1_01_corr2 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:cte-os:4-nt2026_005_sn_v1_00_corr</code> - CT-e OS 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-os-proc:4-nt2026_002_v1_01_corr2</code> - CT-e OS Proc 4-nt2026_002_v1_01_corr2 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:cte-os-proc:4-nt2026_005_sn_v1_00_corr</code> - CT-e OS Proc 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-proc:4-nt2026_002_v1_01_corr2</code> - CT-e Proc 4-nt2026_002_v1_01_corr2 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:cte-proc:4-nt2026_005_sn_v1_00_corr</code> - CT-e Proc 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-simp:4-nt2026_002_v1_01_corr2</code> - CT-e Simplificado 4-nt2026_002_v1_01_corr2 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:cte-simp:4-nt2026_005_sn_v1_00_corr</code> - CT-e Simplificado 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-simp-proc:4-nt2026_002_v1_01_corr2</code> - CT-e Simplificado Proc 4-nt2026_002_v1_01_corr2 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:cte-simp-proc:4-nt2026_005_sn_v1_00_corr</code> - CT-e Simplificado Proc 4-nt2026_005_sn_v1_00_corr</li>
 <li><code>no.ehf.g3:advanced-order-cancellation:3</code> - EHF Advanced Order Cancellation 3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:advanced-order-cancellation:3.0.3</code> - EHF Advanced Order Cancellation 3.0.3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:advanced-order-cancellation:3.0.4</code> - EHF Advanced Order Cancellation 3.0.4</li>
@@ -196,6 +207,10 @@ A very small Java WS client is available for
 <li><code>no.ehf.g3:advanced-order-response:3</code> - EHF Advanced Order Response 3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:advanced-order-response:3.0.3</code> - EHF Advanced Order Response 3.0.3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:advanced-order-response:3.0.4</code> - EHF Advanced Order Response 3.0.4</li>
+<li><code>no.ehf.g3:creditnote:2026.5</code> - EHF Billing Credit Note - alias of OpenPeppol UBL Credit Note (2026.5) (aka BIS Billing 3.0.21)</li>
+<li><code>no.ehf.g3:creditnote:2025.11</code> - EHF Billing Credit Note - alias of OpenPeppol UBL Credit Note (2025.11) (aka BIS Billing 3.0.20)</li>
+<li><code>no.ehf.g3:invoice:2026.5</code> - EHF Billing Invoice - alias of OpenPeppol UBL Invoice (2026.5) (aka BIS Billing 3.0.21)</li>
+<li><code>no.ehf.g3:invoice:2025.11</code> - EHF Billing Invoice - alias of OpenPeppol UBL Invoice (2025.11) (aka BIS Billing 3.0.20)</li>
 <li><code>no.ehf.g3:catalogue:3</code> - EHF Catalogue 3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:catalogue:3.0.3</code> - EHF Catalogue 3.0.3 <strong>(Deprecated)</strong></li>
 <li><code>no.ehf.g3:catalogue:3.0.4</code> - EHF Catalogue 3.0.4</li>
@@ -339,46 +354,47 @@ A very small Java WS client is available for
 <li><code>nl.energie-efactuur:energie-efactuur:3</code> - Energie eFactuur 3</li>
 <li><code>nl.energie-efactuur:energie-efactuur:3.1</code> - Energie eFactuur 3.1</li>
 <li><code>nl.energie-efactuur:energie-efactuur:1.0.1</code> - Energie eFactuur 1.0.1</li>
-<li><code>fr.factur-x:basic:1.0.3</code> - Factur-X 1.0.3 (BASIC) (alias to <code>de.zugferd:basic:2.0.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basicwl:1.0.3</code> - Factur-X 1.0.3 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.0.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:en16931:1.0.3</code> - Factur-X 1.0.3 (EN 16931) (alias to <code>de.zugferd:en16931:2.0.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:extended:1.0.3</code> - Factur-X 1.0.3 (EXTENDED) (alias to <code>de.zugferd:extended:2.0.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:minimum:1.0.3</code> - Factur-X 1.0.3 (MINIMUM) (alias to <code>de.zugferd:minimum:2.0.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basic:1.0.5</code> - Factur-X 1.0.5 (BASIC) (alias to <code>de.zugferd:basic:2.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basicwl:1.0.5</code> - Factur-X 1.0.5 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:en16931:1.0.5</code> - Factur-X 1.0.5 (EN 16931) (alias to <code>de.zugferd:en16931:2.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:extended:1.0.5</code> - Factur-X 1.0.5 (EXTENDED) (alias to <code>de.zugferd:extended:2.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:minimum:1.0.5</code> - Factur-X 1.0.5 (MINIMUM) (alias to <code>de.zugferd:minimum:2.1</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basic:1.0.6</code> - Factur-X 1.0.6 (BASIC) (alias to <code>de.zugferd:basic:2.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basicwl:1.0.6</code> - Factur-X 1.0.6 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:en16931:1.0.6</code> - Factur-X 1.0.6 (EN 16931) (alias to <code>de.zugferd:en16931:2.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:extended:1.0.6</code> - Factur-X 1.0.6 (EXTENDED) (alias to <code>de.zugferd:extended:2.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:minimum:1.0.6</code> - Factur-X 1.0.6 (MINIMUM) (alias to <code>de.zugferd:minimum:2.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basic:1.0.7-2</code> - Factur-X 1.0.7-2 (BASIC) (alias to <code>de.zugferd:basic:2.3.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basicwl:1.0.7-2</code> - Factur-X 1.0.7-2 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.3.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:en16931:1.0.7-2</code> - Factur-X 1.0.7-2 (EN 16931) (alias to <code>de.zugferd:en16931:2.3.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:extended:1.0.7-2</code> - Factur-X 1.0.7-2 (EXTENDED) (alias to <code>de.zugferd:extended:2.3.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:minimum:1.0.7-2</code> - Factur-X 1.0.7-2 (MINIMUM) (alias to <code>de.zugferd:minimum:2.3.2</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basic:1.0.7-3</code> - Factur-X 1.0.7-3 (BASIC) (alias to <code>de.zugferd:basic:2.3.3</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basicwl:1.0.7-3</code> - Factur-X 1.0.7-3 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.3.3</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:en16931:1.0.7-3</code> - Factur-X 1.0.7-3 (EN 16931) (alias to <code>de.zugferd:en16931:2.3.3</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:extended:1.0.7-3</code> - Factur-X 1.0.7-3 (EXTENDED) (alias to <code>de.zugferd:extended:2.3.3</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:minimum:1.0.7-3</code> - Factur-X 1.0.7-3 (MINIMUM) (alias to <code>de.zugferd:minimum:2.3.3</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basic:1.0.8</code> - Factur-X 1.0.8 (BASIC) (alias to <code>de.zugferd:basic:2.4</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basicwl:1.0.8</code> - Factur-X 1.0.8 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.4</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:en16931:1.0.8</code> - Factur-X 1.0.8 (EN 16931) (alias to <code>de.zugferd:en16931:2.4</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:extended:1.0.8</code> - Factur-X 1.0.8 (EXTENDED) (alias to <code>de.zugferd:extended:2.4</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:minimum:1.0.8</code> - Factur-X 1.0.8 (MINIMUM) (alias to <code>de.zugferd:minimum:2.4</code>) <strong>(Deprecated)</strong></li>
-<li><code>fr.factur-x:basic:1.0.9</code> - Factur-X 1.0.9 (BASIC) (alias to <code>de.zugferd:basic:2.5</code>)</li>
-<li><code>fr.factur-x:basicwl:1.0.9</code> - Factur-X 1.0.9 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.5</code>)</li>
-<li><code>fr.factur-x:en16931:1.0.9</code> - Factur-X 1.0.9 (EN 16931) (alias to <code>de.zugferd:en16931:2.5</code>)</li>
-<li><code>fr.factur-x:extended:1.0.9</code> - Factur-X 1.0.9 (EXTENDED) (alias to <code>de.zugferd:extended:2.5</code>)</li>
-<li><code>fr.factur-x:minimum:1.0.9</code> - Factur-X 1.0.9 (MINIMUM) (alias to <code>de.zugferd:minimum:2.5</code>)</li>
-<li><code>fr.factur-x:basic:1.0.9-2</code> - Factur-X 1.0.9-2 (BASIC) (alias to <code>de.zugferd:basic:2.5.2</code>)</li>
-<li><code>fr.factur-x:basicwl:1.0.9-2</code> - Factur-X 1.0.9-2 (BASIC WL) (alias to <code>de.zugferd:basicwl:2.5.2</code>)</li>
-<li><code>fr.factur-x:en16931:1.0.9-2</code> - Factur-X 1.0.9-2 (EN 16931) (alias to <code>de.zugferd:en16931:2.5.2</code>)</li>
-<li><code>fr.factur-x:extended:1.0.9-2</code> - Factur-X 1.0.9-2 (EXTENDED) (alias to <code>de.zugferd:extended:2.5.2</code>)</li>
-<li><code>fr.factur-x:minimum:1.0.9-2</code> - Factur-X 1.0.9-2 (MINIMUM) (alias to <code>de.zugferd:minimum:2.5.2</code>)</li>
+<li><code>fr.factur-x:basic:1.0.3</code> - Factur-X 1.0.3 (BASIC) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basicwl:1.0.3</code> - Factur-X 1.0.3 (BASIC WL) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:en16931:1.0.3</code> - Factur-X 1.0.3 (EN 16931) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:extended:1.0.3</code> - Factur-X 1.0.3 (EXTENDED) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:minimum:1.0.3</code> - Factur-X 1.0.3 (MINIMUM) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basic:1.0.5</code> - Factur-X 1.0.5 (BASIC) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basicwl:1.0.5</code> - Factur-X 1.0.5 (BASIC WL) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:en16931:1.0.5</code> - Factur-X 1.0.5 (EN 16931) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:extended:1.0.5</code> - Factur-X 1.0.5 (EXTENDED) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:minimum:1.0.5</code> - Factur-X 1.0.5 (MINIMUM) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basic:1.0.6</code> - Factur-X 1.0.6 (BASIC) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basicwl:1.0.6</code> - Factur-X 1.0.6 (BASIC WL) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:en16931:1.0.6</code> - Factur-X 1.0.6 (EN 16931) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:extended:1.0.6</code> - Factur-X 1.0.6 (EXTENDED) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:minimum:1.0.6</code> - Factur-X 1.0.6 (MINIMUM) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basic:1.0.7-2</code> - Factur-X 1.0.7-2 (BASIC) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basicwl:1.0.7-2</code> - Factur-X 1.0.7-2 (BASIC WL) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:en16931:1.0.7-2</code> - Factur-X 1.0.7-2 (EN 16931) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:extended:1.0.7-2</code> - Factur-X 1.0.7-2 (EXTENDED) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:minimum:1.0.7-2</code> - Factur-X 1.0.7-2 (MINIMUM) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basic:1.0.7-3</code> - Factur-X 1.0.7-3 (BASIC) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basicwl:1.0.7-3</code> - Factur-X 1.0.7-3 (BASIC WL) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:en16931:1.0.7-3</code> - Factur-X 1.0.7-3 (EN 16931) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:extended:1.0.7-3</code> - Factur-X 1.0.7-3 (EXTENDED) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:minimum:1.0.7-3</code> - Factur-X 1.0.7-3 (MINIMUM) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basic:1.0.8</code> - Factur-X 1.0.8 (BASIC) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basicwl:1.0.8</code> - Factur-X 1.0.8 (BASIC WL) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:en16931:1.0.8</code> - Factur-X 1.0.8 (EN 16931) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:extended:1.0.8</code> - Factur-X 1.0.8 (EXTENDED) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:minimum:1.0.8</code> - Factur-X 1.0.8 (MINIMUM) <strong>(Deprecated)</strong></li>
+<li><code>fr.factur-x:basic:1.0.9</code> - Factur-X 1.0.9 (BASIC)</li>
+<li><code>fr.factur-x:basicwl:1.0.9</code> - Factur-X 1.0.9 (BASIC WL)</li>
+<li><code>fr.factur-x:en16931:1.0.9</code> - Factur-X 1.0.9 (EN 16931)</li>
+<li><code>fr.factur-x:extended:1.0.9</code> - Factur-X 1.0.9 (EXTENDED)</li>
+<li><code>fr.factur-x:minimum:1.0.9</code> - Factur-X 1.0.9 (MINIMUM)</li>
+<li><code>fr.factur-x:basic:1.0.9-2</code> - Factur-X 1.0.9-2 (BASIC)</li>
+<li><code>fr.factur-x:basicwl:1.0.9-2</code> - Factur-X 1.0.9-2 (BASIC WL)</li>
+<li><code>fr.factur-x:en16931:1.0.9-2</code> - Factur-X 1.0.9-2 (EN 16931)</li>
+<li><code>fr.factur-x:extended:1.0.9-2</code> - Factur-X 1.0.9-2 (EXTENDED)</li>
+<li><code>fr.factur-x:minimum:1.0.9-2</code> - Factur-X 1.0.9-2 (MINIMUM)</li>
+<li><code>fr.factur-x:extended:1.0.9-2-ph1</code> - Factur-X 1.0.9-2-ph1 (EXTENDED)</li>
 <li><code>es.gob:facturae:3</code> - Facturae 3 <strong>(Deprecated)</strong></li>
 <li><code>es.gob:facturae:3.1</code> - Facturae 3.1 <strong>(Deprecated)</strong></li>
 <li><code>es.gob:facturae:3.2</code> - Facturae 3.2</li>
@@ -447,8 +463,10 @@ A very small Java WS client is available for
 <li><code>fr.ctc.flux1:ubl-invoice-demarrage:1.1</code> - France PPF Flux 1 UBL Invoice Démarrage 1.1</li>
 <li><code>fr.ctc.flux10:report:1</code> - France PPF Flux 10 e-reporting 1 <strong>(Deprecated)</strong></li>
 <li><code>fr.ctc.flux10:report:1.1</code> - France PPF Flux 10 e-reporting 1.1</li>
-<li><code>br.gov.nfe:gtve:4-nt2026_002_v1_01_corr2</code> - GTV-e 4-nt2026_002_v1_01_corr2</li>
-<li><code>br.gov.nfe:gtve-proc:4-nt2026_002_v1_01_corr2</code> - GTV-e Proc 4-nt2026_002_v1_01_corr2</li>
+<li><code>br.gov.nfe:gtve:4-nt2026_002_v1_01_corr2</code> - GTV-e 4-nt2026_002_v1_01_corr2 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:gtve:4-nt2026_005_sn_v1_00_corr</code> - GTV-e 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:gtve-proc:4-nt2026_002_v1_01_corr2</code> - GTV-e Proc 4-nt2026_002_v1_01_corr2 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:gtve-proc:4-nt2026_005_sn_v1_00_corr</code> - GTV-e Proc 4-nt2026_005_sn_v1_00_corr</li>
 <li><code>hr.gov.porezna.eracun:eizvjestavanje:1</code> - HR eIzvjestavanje 1</li>
 <li><code>hr.gov.porezna.eracun:ubl-creditnote:1</code> - HR eRacun Credit Note 1 <strong>(Deprecated)</strong></li>
 <li><code>hr.gov.porezna.eracun:ubl-creditnote:1.0.1</code> - HR eRacun Credit Note 1.0.1 <strong>(Deprecated)</strong></li>
@@ -467,18 +485,30 @@ A very small Java WS client is available for
 <li><code>pl.ksef:ksef:3</code> - KSeF 3</li>
 <li><code>br.gov.nfe:mdfe:3-nt2025_001_v1_04</code> - MDF-e 3-nt2025_001_v1_04</li>
 <li><code>br.gov.nfe:mdfe-proc:3-nt2025_001_v1_04</code> - MDF-e Proc 3-nt2025_001_v1_04</li>
-<li><code>br.gov.nfe:nfe:4-pl010f_v1_04</code> - NF-e 4-pl010f_v1_04</li>
-<li><code>br.gov.nfe:nfe-proc:4-pl010f_v1_04</code> - NF-e Proc 4-pl010f_v1_04</li>
-<li><code>br.gov.nfe:nf3e:1-nt2026_002_v1_01</code> - NF3e 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:nf3e-proc:1-nt2026_002_v1_01</code> - NF3e Proc 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:nfag:1-nt2026_002_v1_01</code> - NFAg 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:nfag-proc:1-nt2026_002_v1_01</code> - NFAg Proc 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:nfcom:1-nt2026_002_v1_01</code> - NFCom 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:nfcom-proc:1-nt2026_002_v1_01</code> - NFCom Proc 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:nfgas:1-nt2026_002_v1_01</code> - NFGas 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:nfgas-proc:1-nt2026_002_v1_01</code> - NFGas Proc 1-nt2026_002_v1_01</li>
-<li><code>br.gov.nfe:nfse:1.1-v20260727</code> - NFS-e 1.1-v20260727</li>
-<li><code>br.gov.nfe:nfse-dps:1.1-v20260727</code> - NFS-e DPS 1.1-v20260727</li>
+<li><code>br.gov.nfe:nfe:4-pl010f_v1_04</code> - NF-e 4-pl010f_v1_04 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfe:4-pl010g_v1_03</code> - NF-e 4-pl010g_v1_03</li>
+<li><code>br.gov.nfe:nfe-proc:4-pl010f_v1_04</code> - NF-e Proc 4-pl010f_v1_04 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfe-proc:4-pl010g_v1_03</code> - NF-e Proc 4-pl010g_v1_03</li>
+<li><code>br.gov.nfe:nf3e:1-nt2026_002_v1_01</code> - NF3e 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nf3e:1-nt2026_004_v1_01</code> - NF3e 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nf3e-proc:1-nt2026_002_v1_01</code> - NF3e Proc 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nf3e-proc:1-nt2026_004_v1_01</code> - NF3e Proc 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfag:1-nt2026_002_v1_01</code> - NFAg 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfag:1-nt2026_004_v1_01</code> - NFAg 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfag-proc:1-nt2026_002_v1_01</code> - NFAg Proc 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfag-proc:1-nt2026_004_v1_01</code> - NFAg Proc 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfcom:1-nt2026_002_v1_01</code> - NFCom 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfcom:1-nt2026_005_sn_v1_00</code> - NFCom 1-nt2026_005_sn_v1_00</li>
+<li><code>br.gov.nfe:nfcom-proc:1-nt2026_002_v1_01</code> - NFCom Proc 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfcom-proc:1-nt2026_005_sn_v1_00</code> - NFCom Proc 1-nt2026_005_sn_v1_00</li>
+<li><code>br.gov.nfe:nfgas:1-nt2026_002_v1_01</code> - NFGas 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfgas:1-nt2026_004_v1_01</code> - NFGas 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfgas-proc:1-nt2026_002_v1_01</code> - NFGas Proc 1-nt2026_002_v1_01 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfgas-proc:1-nt2026_004_v1_01</code> - NFGas Proc 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfse:1.1-v20260727</code> - NFS-e 1.1-v20260727 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfse:1.1-v20261020</code> - NFS-e 1.1-v20261020</li>
+<li><code>br.gov.nfe:nfse-dps:1.1-v20260727</code> - NFS-e DPS 1.1-v20260727 <strong>(Deprecated)</strong></li>
+<li><code>br.gov.nfe:nfse-dps:1.1-v20261020</code> - NFS-e DPS 1.1-v20261020</li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3</code> - NLCIUS-CII 1.0.3 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-01</code> - NLCIUS-CII 1.0.3.1 <strong>(Deprecated)</strong></li>
 <li><code>org.simplerinvoicing:nlcius-cii:1.0.3-02</code> - NLCIUS-CII 1.0.3.2 <strong>(Deprecated)</strong></li>
@@ -706,6 +736,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:creditnote-self-billing:2025.3</code> - OpenPeppol UBL Credit Note Self-Billing (2025.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:creditnote-self-billing:2026.3</code> - OpenPeppol UBL Credit Note Self-Billing (2026.3) (aka BIS 3.0.1)</li>
 <li><code>eu.peppol.bis3:creditnote-self-billing:2026.5</code> - OpenPeppol UBL Credit Note Self-Billing (2026.5) (aka BIS Self-Billing 3.0.2)</li>
+<li><code>org.peppol.bis3.sbdh-envelope:creditnote-self-billing:2026.5</code> - OpenPeppol UBL Credit Note Self-Billing in SBDH (2026.5)</li>
+<li><code>org.peppol.bis3.sbdh-envelope:creditnote:2026.5</code> - OpenPeppol UBL Credit Note in SBDH (2026.5)</li>
 <li><code>eu.peppol.bis3:invoice:2023.5</code> - OpenPeppol UBL Invoice (2023.5) (aka BIS Billing 3.0.15) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:2024.5</code> - OpenPeppol UBL Invoice (2024.5) (aka BIS Billing 3.0.17) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice:2025.5</code> - OpenPeppol UBL Invoice (2025.5) (aka BIS Billing 3.0.19) <strong>(Deprecated)</strong></li>
@@ -718,6 +750,8 @@ A very small Java WS client is available for
 <li><code>eu.peppol.bis3:invoice-self-billing:2025.3</code> - OpenPeppol UBL Invoice Self-Billing (2025.3) <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.bis3:invoice-self-billing:2026.3</code> - OpenPeppol UBL Invoice Self-Billing (2026.3) (aka BIS 3.0.1)</li>
 <li><code>eu.peppol.bis3:invoice-self-billing:2026.5</code> - OpenPeppol UBL Invoice Self-Billing (2026.5) (aka BIS Self-Billing 3.0.2)</li>
+<li><code>org.peppol.bis3.sbdh-envelope:invoice-self-billing:2026.5</code> - OpenPeppol UBL Invoice Self-Billing in SBDH (2026.5)</li>
+<li><code>org.peppol.bis3.sbdh-envelope:invoice:2026.5</code> - OpenPeppol UBL Invoice in SBDH (2026.5)</li>
 <li><code>eu.peppol.directory:businesscard:1</code> - Peppol Directory BusinessCard v1 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.directory:businesscard:2</code> - Peppol Directory BusinessCard v2 <strong>(Deprecated)</strong></li>
 <li><code>eu.peppol.directory:businesscard:3</code> - Peppol Directory BusinessCard v3</li>
@@ -1498,6 +1532,7 @@ A very small Java WS client is available for
 <li><code>de.zugferd:en16931:2.5.2</code> - ZUGFeRD 2.5.2 (EN 16931)</li>
 <li><code>de.zugferd:extended:2.5.2</code> - ZUGFeRD 2.5.2 (EXTENDED)</li>
 <li><code>de.zugferd:minimum:2.5.2</code> - ZUGFeRD 2.5.2 (MINIMUM)</li>
+<li><code>de.zugferd:extended:2.5.2-ph1</code> - ZUGFeRD 2.5.2-ph1 (EXTENDED)</li>
 <li><code>at.ebinterface:invoice:3</code> - ebInterface 3.0 <strong>(Deprecated)</strong></li>
 <li><code>at.ebinterface:invoice:4</code> - ebInterface 4.0 <strong>(Deprecated)</strong></li>
 <li><code>at.ebinterface:invoice:4.1</code> - ebInterface 4.1 <strong>(Deprecated)</strong></li>

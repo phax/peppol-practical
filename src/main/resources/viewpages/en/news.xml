@@ -43,6 +43,56 @@
 <div class="tab-content">
   <div id="tabs-news" class="tab-pane active" role="tabpanel">
 
+    <h3>2026-11-20 - Document Validation extended</h3>
+    
+    <p>
+      Added support for Brazilian eInvoice formats.<br />
+      Added explicit EHF Invoice and Creditnote as an alias of OpenPeppol BIS Billing.<br />
+      Added special Peppol BIS Billing Envelope check.<br />
+      Added a patch for ZUGFeRD 2.5.2/Factur-X 1.0.9-2 to speedup validation of large invoices
+    </p>
+
+    <p>
+      Added VESIDs are:
+    </p>
+<ul>
+<li><code>br.gov.nfe:bpe:1-nt2026_005_sn_v1_00_corr</code> - BP-e 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:bpe-proc:1-nt2026_005_sn_v1_00_corr</code> - BP-e Proc 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:bpe-ta:1-nt2026_005_sn_v1_00_corr</code> - BP-e TA 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:bpe-tm:1-nt2026_005_sn_v1_00_corr</code> - BP-e TM 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:bpe-tm-proc:1-nt2026_005_sn_v1_00_corr</code> - BP-e TM Proc 1-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte:4-nt2026_005_sn_v1_00_corr</code> - CT-e 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-os:4-nt2026_005_sn_v1_00_corr</code> - CT-e OS 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-os-proc:4-nt2026_005_sn_v1_00_corr</code> - CT-e OS Proc 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-proc:4-nt2026_005_sn_v1_00_corr</code> - CT-e Proc 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-simp:4-nt2026_005_sn_v1_00_corr</code> - CT-e Simplificado 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:cte-simp-proc:4-nt2026_005_sn_v1_00_corr</code> - CT-e Simplificado Proc 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>no.ehf.g3:creditnote:2026.5</code> - EHF Billing Credit Note - alias of OpenPeppol UBL Credit Note (2026.5) (aka BIS Billing 3.0.21)</li>
+<li><code>no.ehf.g3:creditnote:2025.11</code> - EHF Billing Credit Note - alias of OpenPeppol UBL Credit Note (2025.11) (aka BIS Billing 3.0.20)</li>
+<li><code>no.ehf.g3:invoice:2026.5</code> - EHF Billing Invoice - alias of OpenPeppol UBL Invoice (2026.5) (aka BIS Billing 3.0.21)</li>
+<li><code>no.ehf.g3:invoice:2025.11</code> - EHF Billing Invoice - alias of OpenPeppol UBL Invoice (2025.11) (aka BIS Billing 3.0.20)</li>
+<li><code>fr.factur-x:extended:1.0.9-2-ph1</code> - Factur-X 1.0.9-2-ph1 (EXTENDED)</li>
+<li><code>br.gov.nfe:gtve:4-nt2026_005_sn_v1_00_corr</code> - GTV-e 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:gtve-proc:4-nt2026_005_sn_v1_00_corr</code> - GTV-e Proc 4-nt2026_005_sn_v1_00_corr</li>
+<li><code>br.gov.nfe:nfe:4-pl010g_v1_03</code> - NF-e 4-pl010g_v1_03</li>
+<li><code>br.gov.nfe:nfe-proc:4-pl010g_v1_03</code> - NF-e Proc 4-pl010g_v1_03</li>
+<li><code>br.gov.nfe:nf3e:1-nt2026_004_v1_01</code> - NF3e 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nf3e-proc:1-nt2026_004_v1_01</code> - NF3e Proc 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfag:1-nt2026_004_v1_01</code> - NFAg 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfag-proc:1-nt2026_004_v1_01</code> - NFAg Proc 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfcom:1-nt2026_005_sn_v1_00</code> - NFCom 1-nt2026_005_sn_v1_00</li>
+<li><code>br.gov.nfe:nfcom-proc:1-nt2026_005_sn_v1_00</code> - NFCom Proc 1-nt2026_005_sn_v1_00</li>
+<li><code>br.gov.nfe:nfgas:1-nt2026_004_v1_01</code> - NFGas 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfgas-proc:1-nt2026_004_v1_01</code> - NFGas Proc 1-nt2026_004_v1_01</li>
+<li><code>br.gov.nfe:nfse:1.1-v20261020</code> - NFS-e 1.1-v20261020</li>
+<li><code>br.gov.nfe:nfse-dps:1.1-v20261020</code> - NFS-e DPS 1.1-v20261020</li>
+<li><code>org.peppol.bis3.sbdh-envelope:creditnote-self-billing:2026.5</code> - OpenPeppol UBL Credit Note Self-Billing in SBDH (2026.5)</li>
+<li><code>org.peppol.bis3.sbdh-envelope:creditnote:2026.5</code> - OpenPeppol UBL Credit Note in SBDH (2026.5)</li>
+<li><code>org.peppol.bis3.sbdh-envelope:invoice-self-billing:2026.5</code> - OpenPeppol UBL Invoice Self-Billing in SBDH (2026.5)</li>
+<li><code>org.peppol.bis3.sbdh-envelope:invoice:2026.5</code> - OpenPeppol UBL Invoice in SBDH (2026.5)</li>
+<li><code>de.zugferd:extended:2.5.2-ph1</code> - ZUGFeRD 2.5.2-ph1 (EXTENDED)</li>
+</ul>
+
     <h3>2026-11-04 - Initial version of zugferd-to-peppol-bis 1.0.0 released</h3>
 
     <p>
